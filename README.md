@@ -1,6 +1,6 @@
-## Repo of team DigiDucks.
+# Repo of team DigiDucks.
 
-### Folder structure
+## Folder structure
 ```
 Project/                # ROOT folder containing all project-related files
 ├── DuckEngine/             # Main engine project folder
