@@ -3,6 +3,37 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "GraphicsManager.h"
+#include "glslshader.h"
+
+namespace {
+    GraphicsManager graphicsManager;
+}
+
+void DuckEngine::Initialize() {
+    // need to grab width and height from XML for rubrics in the future
+    graphicsManager.Initialize(1000, 1000, "Test");
+}
+
+void DuckEngine::Update() {
+
+}
+
+void DuckEngine::Draw() {
+    graphicsManager.Render();
+}
+
+void DuckEngine::Exit() {
+    graphicsManager.Shutdown();
+}
+
+bool DuckEngine::Running() {
+    if (!graphicsManager.CloseWindow())
+        return true;
+    else
+        return false;
+}
+
 void DuckEngine::Start()
 {
     std::cout << "DuckEngine Start function called." << std::endl;

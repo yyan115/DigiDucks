@@ -13,6 +13,13 @@ class DUCKENGINE_API DuckEngine
 {
 public:
     void Start();
+
+    void Initialize();
+    void Update();
+    void Draw();
+    void Exit();
+
+    bool Running();
 };
 
 #endif // DUCKENGINE_H

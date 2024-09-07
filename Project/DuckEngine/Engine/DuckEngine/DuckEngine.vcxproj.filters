@@ -12,9 +12,21 @@
     <ClInclude Include="..\include\DuckEngine.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\GraphicsManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\glslshader.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GraphicsManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\glslshader.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

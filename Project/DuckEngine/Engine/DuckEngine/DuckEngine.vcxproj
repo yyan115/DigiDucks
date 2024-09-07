@@ -97,9 +97,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h" />
+    <ClInclude Include="..\include\glslshader.h" />
+    <ClInclude Include="..\include\GraphicsManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp" />
+    <ClCompile Include="..\src\glslshader.cpp" />
+    <ClCompile Include="..\src\GraphicsManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

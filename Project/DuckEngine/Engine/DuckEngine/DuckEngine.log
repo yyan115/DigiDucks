@@ -1,3 +1,9 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  DuckEngine.cpp
+﻿  DuckEngine.cpp
+  GraphicsManager.cpp
+  glslshader.cpp
+  Generating Code...
+glew32s.lib(glew.obj) : warning LNK4099: PDB '' was not found with 'glew32s.lib(glew.obj)' or at ''; linking object as if no debug info
+     Creating library C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Build\Debug\DuckEngine.lib and object C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Build\Debug\DuckEngine.exp
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   DuckEngine.vcxproj -> C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Build\Debug\DuckEngine.dll
