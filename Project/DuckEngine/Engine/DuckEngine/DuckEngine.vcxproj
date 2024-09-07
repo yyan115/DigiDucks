@@ -46,14 +46,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(SolutionDir)/Engine/include/lib/glew/include;$(SolutionDir)/Engine/include/lib/glfw/include;$(ExternalIncludePath)</ExternalIncludePath>
-    <OutDir>$(SolutionDir)Build\$(Configuration)</OutDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>
     </IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(SolutionDir)/Engine/include/lib/glew/include;$(SolutionDir)/Engine/include/lib/glfw/include;$(ExternalIncludePath)</ExternalIncludePath>
-    <OutDir>$(SolutionDir)Build\$(Configuration)</OutDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>
     </IntDir>
   </PropertyGroup>
