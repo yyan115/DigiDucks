@@ -1,4 +1,4 @@
-workspace "Duck"
+workspace "DuckEngine"
 	startproject "Sandbox"
 	architecture "x64"
 
