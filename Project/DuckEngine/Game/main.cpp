@@ -15,11 +15,9 @@ int main(void)
     engine.DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square2.EntityID, 5.0f, 5.0f);
     engine.DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square2.EntityID, true);
 
-    while (engine.Running()) {
-
-
+    while (engine.Running()) 
+    {
         engine.Update();
-
         engine.Draw();
     }
 

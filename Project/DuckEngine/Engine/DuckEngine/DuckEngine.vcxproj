@@ -47,15 +47,13 @@
     <IncludePath>$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(SolutionDir)/Engine/include/lib/glew/include;$(SolutionDir)/Engine/include/lib/glfw/include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
-    <IntDir>
-    </IntDir>
+    <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(SolutionDir)/Engine/include/lib/glew/include;$(SolutionDir)/Engine/include/lib/glfw/include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
-    <IntDir>
-    </IntDir>
+    <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -71,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>$(SolutionDir)Build\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -93,7 +91,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ProgramDatabaseFile>$(SolutionDir)Build\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
