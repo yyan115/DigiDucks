@@ -6,26 +6,36 @@
 #include "GraphicsManager.h"
 #include "glslshader.h"
 
-namespace {
-    GraphicsManager graphicsManager;
-}
+//include systems
+#include "SpriteRendererSystem.h"
+
+
+GraphicsManager graphicsManager;
+ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
+EntityManager DuckEngine::DUCKENGINE_EntityManager;
+SystemManager DuckEngine::DUCKENGINE_SystemManager;
+
 
 void DuckEngine::Initialize() {
+    DUCKENGINE_EntityManager = EntityManager();
+    DUCKENGINE_ComponentManager = DUCKENGINE_EntityManager.GetComponentManager();
     // need to grab width and height from XML for rubrics in the future
     graphicsManager.Initialize(1000, 1000, "Test");
+
+
+    // add the systems
+    std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
+    DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
 }
 
-void DuckEngine::Update() {
-
+void DuckEngine::Update() 
+{
+    DUCKENGINE_SystemManager.UpdateAll();
 }
 
-void DuckEngine::Draw() {
-    graphicsManager.Render();
-}
+void DuckEngine::Draw() { graphicsManager.Render(); }
 
-void DuckEngine::Exit() {
-    graphicsManager.Shutdown();
-}
+void DuckEngine::Exit() { graphicsManager.Shutdown(); }
 
 bool DuckEngine::Running() {
     if (!graphicsManager.CloseWindow())

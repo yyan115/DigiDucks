@@ -1,0 +1,16 @@
+#pragma once
+#include "Component.h"
+
+// Export/Import macro
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
+class DUCKENGINE_API SpriteRendererComponent : public Component
+{
+public:
+	bool sprite;
+	SpriteRendererComponent(bool hasSprite) : sprite(hasSprite) {}
+};

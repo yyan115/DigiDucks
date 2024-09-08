@@ -10,11 +10,29 @@
     <Filter Include="include\rendering">
       <UniqueIdentifier>{558b2546-f36a-42e4-9020-eb6ce3eea10d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\input">
-      <UniqueIdentifier>{abdf3149-8f5f-442a-9f4e-4b5eb3a45339}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\rendering">
       <UniqueIdentifier>{d85c11f3-8707-44dd-89ad-02645b10f65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\entities">
+      <UniqueIdentifier>{924492b3-91d8-408b-beba-204533d82661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\entities">
+      <UniqueIdentifier>{f6feb980-c1c1-45f8-90ff-e12ac2e328eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine">
+      <UniqueIdentifier>{fa8a82a8-c160-4644-9996-fd51017a6488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\engine">
+      <UniqueIdentifier>{2fcf3e3e-d43a-4218-ad9f-228724a469c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\components">
+      <UniqueIdentifier>{a8a6e078-0736-4a91-94e4-465b3082bd83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\systems">
+      <UniqueIdentifier>{b0abd3cd-a962-4aee-8e85-88541196c580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\systems">
+      <UniqueIdentifier>{c8d14722-2426-43d5-896b-68a6c87dd1a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +45,33 @@
     <ClInclude Include="..\include\glslshader.h">
       <Filter>include\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Entity.h">
+      <Filter>include\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TransformComponent.h">
+      <Filter>include\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComponentManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Component.h">
+      <Filter>include\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EntityManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SystemManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SpriteRendererComponent.h">
+      <Filter>include\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\System.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SpriteRendererSystem.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -37,6 +82,15 @@
     </ClCompile>
     <ClCompile Include="..\src\glslshader.cpp">
       <Filter>src\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EntityManager.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SystemManager.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpriteRendererSystem.cpp">
+      <Filter>src\systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

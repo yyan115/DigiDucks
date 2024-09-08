@@ -9,9 +9,18 @@
 
 #include <iostream>
 
+#include "ComponentManager.h"
+#include "EntityManager.h"
+#include "SystemManager.h"
+
 class DUCKENGINE_API DuckEngine
 {
 public:
+    static ComponentManager DUCKENGINE_ComponentManager;
+    static EntityManager DUCKENGINE_EntityManager;
+    static SystemManager DUCKENGINE_SystemManager;
+    
+    
     void Start();
 
     void Initialize();

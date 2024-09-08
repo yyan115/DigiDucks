@@ -1,3 +1,9 @@
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 #include <map>
 #include <vector>
 
@@ -7,7 +13,8 @@
 
 #include "glslshader.h"
 
-class GraphicsManager {
+
+class DUCKENGINE_API GraphicsManager {
 public:
 
     //GraphicsManager() {}
