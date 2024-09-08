@@ -78,6 +78,9 @@
     <ClInclude Include="..\include\SpriteRendererSystem.h">
       <Filter>include\systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\InputManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -98,5 +101,16 @@
     <ClCompile Include="..\src\SpriteRendererSystem.cpp">
       <Filter>src\systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\InputManager.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\fragShader.frag">
+      <Filter>src\rendering</Filter>
+    </None>
+    <None Include="..\src\vertShader.vert">
+      <Filter>src\rendering</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -40,6 +40,9 @@ public:
 
 private:
 
+
+
+
     // Private helper functions
     void LoadResources();            // Load all needed assets
     void SetupShaders();             // Initialize shaders
