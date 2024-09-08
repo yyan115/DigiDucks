@@ -7,16 +7,25 @@
     <Filter Include="src">
       <UniqueIdentifier>{31934cd0-6f3a-42c7-9841-6a2348c7e29e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\rendering">
+      <UniqueIdentifier>{558b2546-f36a-42e4-9020-eb6ce3eea10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\input">
+      <UniqueIdentifier>{abdf3149-8f5f-442a-9f4e-4b5eb3a45339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rendering">
+      <UniqueIdentifier>{d85c11f3-8707-44dd-89ad-02645b10f65f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GraphicsManager.h">
-      <Filter>include</Filter>
+      <Filter>include\rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\include\glslshader.h">
-      <Filter>include</Filter>
+      <Filter>include\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -24,10 +33,10 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GraphicsManager.cpp">
-      <Filter>src</Filter>
+      <Filter>src\rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\glslshader.cpp">
-      <Filter>src</Filter>
+      <Filter>src\rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
