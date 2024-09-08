@@ -82,7 +82,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;DUCKENGINE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>Default</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
