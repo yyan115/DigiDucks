@@ -1,5 +1,11 @@
-workspace "DuckEngine"
-   configurations { "Debug", "Release" }
+workspace "Duck"
+	startproject "Sandbox"
+	architecture "x64"
+
+	configurations {
+		"Debug",
+		"Release"
+	}
 
 project "DuckEngine"
    kind "ConsoleApp"
