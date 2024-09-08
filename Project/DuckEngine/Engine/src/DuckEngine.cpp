@@ -17,8 +17,6 @@ SystemManager DuckEngine::DUCKENGINE_SystemManager;
 
 
 void DuckEngine::Initialize() {
-    DUCKENGINE_EntityManager = EntityManager();
-    DUCKENGINE_ComponentManager = DUCKENGINE_EntityManager.GetComponentManager();
     // need to grab width and height from XML for rubrics in the future
     graphicsManager.Initialize(1000, 1000, "Test");
 

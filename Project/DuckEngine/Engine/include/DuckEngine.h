@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-#include "ComponentManager.h"
 #include "EntityManager.h"
+#include "ComponentManager.h"
 #include "SystemManager.h"
 
 class DUCKENGINE_API DuckEngine

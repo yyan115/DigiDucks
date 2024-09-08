@@ -29,19 +29,18 @@ class DUCKENGINE_API ComponentManager
 
     // Add a component of any type to an entity
     template <typename T, typename... Args>
-    T *AddComponent(int entityID, Args &&...args)
+    T* AddComponent(int entityID, Args &&...args)
     {
-        auto &typeMap = componentStorage[typeid(T)];
-
-        // Create a shared_ptr<T> and insert it into the map as a
-        // shared_ptr<Component>
+        auto& typeMap = componentStorage[typeid(T)];
         std::shared_ptr<Component> component =
             std::make_shared<T>(std::forward<Args>(args)...);
-
-        // Insert into the map (std::shared_ptr allows copying)
         auto result = typeMap.emplace(entityID, component);
 
-        // Return the newly added component as a T*
+        std::cout << "Added component of type " << typeid(T).name()
+            << " to entity " << entityID
+            << " (Insertion " << (result.second ? "successful" : "failed") << ")"
+            << std::endl;
+
         return std::static_pointer_cast<T>(result.first->second).get();
     }
 
@@ -92,9 +91,29 @@ class DUCKENGINE_API ComponentManager
 
     void RemoveAllComponents(int entityID)
     {
-        for (auto &componentTypeMap : componentStorage)
+        if (entityID < 0) entityID = 0;
+        int totalRemoved = 0;
+        int totalRemaining = 0;
+
+        for (auto& [type, componentMap] : componentStorage)
         {
-            componentTypeMap.second.erase(entityID);
+            auto it = componentMap.find(entityID);
+            if (it != componentMap.end())
+            {
+                componentMap.erase(it);
+                totalRemoved++;
+            }
         }
+
+        for (const auto& [type, componentMap] : componentStorage)
+        {
+            if (componentMap.find(entityID) != componentMap.end())
+            {
+                totalRemaining++;
+            }
+        }
+
+        std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
+        std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
     }
 };
