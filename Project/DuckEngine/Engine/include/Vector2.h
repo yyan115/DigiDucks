@@ -27,8 +27,8 @@ typedef union Vector2D {
 	Vector2D(float x, float y) : x(x), y(y) { m[0] = x; m[1] = y; }
 
 	// Copy Constructor
-	Vector2D(const Vector2D& rhs) = default;
-	Vector2D& operator=(const Vector2D& rhs) = default;
+	Vector2D(const Vector2D& rhs);
+	Vector2D& operator=(const Vector2D& rhs);
 
 	// Destructor
 	~Vector2D() = default;
@@ -50,7 +50,6 @@ typedef union Vector2D {
 	* @return A normalized vector
 	****************************************************************/
 	Vector2D normalized() const;
-
 	/****************************************************************
 	* @brief Get the length of the vector
 	* 
@@ -60,7 +59,7 @@ typedef union Vector2D {
 
 } Vector2D, Vec2;
 
-// Binary operators
+// Operators Overloading
 /****************************************************************
 * @brief Overloaded operator + to add two vectors
 * 

@@ -15,6 +15,19 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include <math.h>
 
+// Copy Constructor
+Vector2D::Vector2D(const Vector2D& rhs) {
+	x = rhs.x;
+	y = rhs.y;
+}
+
+Vector2D& Vector2D::operator=(const Vector2D& rhs) {
+	x = rhs.x;
+	y = rhs.y;
+	return *this;
+}
+
+// Assignment Operator
 Vector2D& Vector2D::operator+=(const Vector2D& rhs) {
 	x += rhs.x;
 	y += rhs.y;
@@ -49,6 +62,7 @@ Vector2D Vector2D::operator -() const {
 	return Vector2D(-x, -y);
 }
 
+// Operators Overloading
 Vector2D operator + (const Vector2D& lhs, const Vector2D& rhs) {
 	return Vector2D(lhs.x + rhs.x, lhs.y + rhs.y);
 }
