@@ -13,6 +13,10 @@
 //include systems
 #include "SpriteRendererSystem.h"
 
+#include "imgui.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
+
 
 //GraphicsManager graphicsManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
@@ -30,6 +34,15 @@ void DuckEngine::Initialize() {
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
     DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
+
+    // ImGui initialization
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();  // Optional: configure ImGui settings here
+
+    // Initialize platform/renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
+    ImGui_ImplOpenGL3_Init("#version 130");
 }
 
 void DuckEngine::Update() 
@@ -43,7 +56,33 @@ void DuckEngine::Update()
     DUCKENGINE_SystemManager.UpdateAll();
 }
 
-void DuckEngine::Draw() { GraphicsManager::Render(); }
+void DuckEngine::Draw() 
+{ 
+
+    // Clear the screen
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    GraphicsManager::Render();
+
+    // ---- Start ImGui frame ----
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    // Add ImGui content here (e.g., test window)
+    ImGui::Begin("Test ImGui Window");
+    ImGui::Text("If you see this, ImGui is working!");
+    ImGui::End();
+
+    // Render ImGui
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+
+    // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
+    glfwSwapBuffers(WindowManager::getWindow());
+
+}
 
 void DuckEngine::Exit() { WindowManager::Exit(); }
 

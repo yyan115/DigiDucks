@@ -95,8 +95,6 @@ void GraphicsManager::AddToDrawQueue(const glm::vec3& scale, float rotation, con
 //}
 
 void GraphicsManager::Render() {
-    // Clear the screen
-    glClear(GL_COLOR_BUFFER_BIT);
 
     // Use the shader program and bind the VAO to render the rectangle
     //glUseProgram(shaderProgram);
@@ -112,9 +110,6 @@ void GraphicsManager::Render() {
 
     // Unbind the VAO
     glBindVertexArray(0);
-
-    // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
-    glfwSwapBuffers(WindowManager::getWindow());
 
     shaders["DefaultShader"].UnUse();
 }
