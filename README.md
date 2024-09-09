@@ -24,4 +24,4 @@ Set Game as startup project and press build or run in Visual Studio.
 
 If you want to use Engine features, simply add #include "DuckEngine.h" to your game scripts.
 
-Engine documentation is WIP. Feel free to ask if there are any enquiries or if you would like a feature to be added.
+Engine documentation is WIP. Feel free to ask if there are any enquiries.
