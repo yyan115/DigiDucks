@@ -87,6 +87,9 @@
     <ClInclude Include="..\include\Vector2.h">
       <Filter>include\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ImGuiSystem.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -115,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Vector2.cpp">
       <Filter>src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ImGuiSystem.cpp">
+      <Filter>src\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
