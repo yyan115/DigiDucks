@@ -7,6 +7,7 @@
 #include "GLFW/glfw3.h"
 
 #include "GraphicsManager.h"
+#include "WindowManager.h"
 
 namespace TESTCODE {
     void AddSprite() {
@@ -41,6 +42,12 @@ namespace {
     /// <param name="vaoid">Vertex Array Object (VAO) ID</param>
     /// <param name="idx_vtx">Vector of vertex indices</param>
     void SetUpEBO(GLuint& vaoid, std::vector<GLuint>& idx_vtx);
+
+    /// <summary>
+    /// Sets up GLEW for usage
+    /// </summary>
+    /// <returns></returns>
+    bool SetUpGLEW();
 
     // Creates 1x1 mesh to reuse for all draws
     void InitMesh(GLuint &VAO);
@@ -98,30 +105,12 @@ void GraphicsManager::Render() {
 
 bool GraphicsManager::Initialize() {
 
-    //setup_event_callbacks();
-
-    // this is the default setting ...
-    glfwSetInputMode(WindowManager::getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-    // Part 2: Initialize entry points to OpenGL functions and extensions
-    GLenum err = glewInit();
-    if (GLEW_OK != err) {
-        std::cerr << "Unable to initialize GLEW - error: "
-            << glewGetErrorString(err) << " abort program" << std::endl;
+    // Init GLEW, return false if error
+    if (!SetUpGLEW()) {
         return false;
     }
-    if (GLEW_VERSION_4_5) {
-        std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
-        std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
-    }
-    else {
-        std::cerr << "Warning: The driver may lack full compatibility with OpenGL 4.5, potentially limiting access to advanced features." << std::endl;
-    }
 
-    // Insert your shaders (this function should load the vertex and fragment shaders)
-    InsertShader("DefaultShader", "../../Engine/src/vertShader.vert", "../../Engine/src/fragShader.frag");
-
-    InitMesh(VAO);
+    GraphicsManager::InitializeSingleMeshShaderSystem();
 
     return true;
 }
@@ -159,62 +148,14 @@ void GraphicsManager::InsertShader(std::string shdr_pgm_name,
 }
 
 void GraphicsManager::Exit() {
-    WindowManager::Exit();
+    
 }
 
-bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
-    width = width;
-    height = height;
-    title = title;
+void GraphicsManager::InitializeSingleMeshShaderSystem() {
+    // Insert your shaders (this function should load the vertex and fragment shaders)
+    InsertShader("DefaultShader", "../../Engine/src/vertShader.vert", "../../Engine/src/fragShader.frag");
 
-    // Check if glfw init success
-    if (!glfwInit()) {
-        std::cout << "GLFW init has failed - abort program!!!" << std::endl;
-        return false;
-    }
-
-    // In case a GLFW function fails, an error is reported to callback function
-    //glfwSetErrorCallback(error_cb);
-
-    // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
-    // in that context:
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
-    glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
-
-    // Check if glfw context created successfully
-    ptrWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-    if (!ptrWindow) {
-        std::cerr << "GLFW unable to create OpenGL context - abort program\n";
-        glfwTerminate();
-        return false;
-    }
-
-    glfwMakeContextCurrent(ptrWindow);
-
-    return true;
-}
-
-GLFWwindow* WindowManager::getWindow() {
-    return ptrWindow;
-}
-
-bool WindowManager::CloseWindow() {
-    if (glfwWindowShouldClose(ptrWindow))
-        return true;
-
-    return false;
-}
-
-void WindowManager::Exit() {
-    glfwDestroyWindow(ptrWindow);
-    glfwTerminate();
+    InitMesh(VAO);
 }
 
 /// <summary>
@@ -264,6 +205,25 @@ namespace {
         glNamedBufferStorage(ebo_hdl, sizeof(GLuint) * idx_vtx.size(), idx_vtx.data(), GL_DYNAMIC_STORAGE_BIT);
         glVertexArrayElementBuffer(vaoid, ebo_hdl);
         glBindVertexArray(0);
+    }
+
+    bool SetUpGLEW() {
+        // Part 2: Initialize entry points to OpenGL functions and extensions
+        GLenum err = glewInit();
+        if (GLEW_OK != err) {
+            std::cerr << "Unable to initialize GLEW - error: "
+                << glewGetErrorString(err) << " abort program" << std::endl;
+            return false;
+        }
+        if (GLEW_VERSION_4_5) {
+            std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
+            std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
+        }
+        else {
+            std::cerr << "Warning: The driver may lack full compatibility with OpenGL 4.5, potentially limiting access to advanced features." << std::endl;
+        }
+
+        return true;
     }
 
     // Creates 1x1 mesh to reuse for all draws

@@ -4,6 +4,9 @@
 #include "GLFW/glfw3.h"
 
 #include "GraphicsManager.h"
+#include "WindowManager.h"
+#include "InputManager.h"
+
 #include "glslshader.h"
 
 //include systems
@@ -18,9 +21,10 @@ SystemManager DuckEngine::DUCKENGINE_SystemManager;
 
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
+    // Init Window, then Graphics, then Input
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
-
+    InputManager::Initialize();
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -34,7 +38,7 @@ void DuckEngine::Update()
 
 void DuckEngine::Draw() { GraphicsManager::Render(); }
 
-void DuckEngine::Exit() { GraphicsManager::Exit(); }
+void DuckEngine::Exit() { WindowManager::Exit(); }
 
 bool DuckEngine::Running() {
     if (!WindowManager::CloseWindow())

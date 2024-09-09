@@ -41,7 +41,7 @@ public:
 private:
 
 
-
+    static void InitializeSingleMeshShaderSystem();
 
     // Private helper functions
     void LoadResources();            // Load all needed assets
@@ -70,42 +70,4 @@ private:
     static GLuint shaderProgram;
 
     GLuint CreateShaderProgram(const char* vertexSource, const char* fragmentSource);
-};
-
-class DUCKENGINE_API WindowManager {
-public:
-    static bool Initialize(GLint width, GLint height, std::string title);
-    static void Exit();
-    static void setup_event_callbacks();
-
-    static GLFWwindow* getWindow();
-    
-    static bool CloseWindow();
-
-private:
-    static GLFWwindow* ptrWindow;
-
-    GLint width;
-    GLint height;
-
-    std::string title;
-};
-
-class DUCKENGINE_API InputManager {
-public:
-    static bool Initialize(GLint width, GLint height, std::string title);
-    static void Exit();
-    static void setup_event_callbacks();
-
-    static GLFWwindow* getWindow();
-
-    static bool CloseWindow();
-
-private:
-    static GLFWwindow* ptrWindow;
-
-    GLint width;
-    GLint height;
-
-    std::string title;
 };
