@@ -13,7 +13,3 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "Matrix3x3.h"
-
-Matrix3x3::Matrix3x3() {
-
-}
