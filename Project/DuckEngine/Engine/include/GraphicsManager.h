@@ -21,21 +21,19 @@ public:
     //~GraphicsManager() {}
 
     // Core functions
-    bool Initialize(GLint width, GLint height, std::string title);               // Initialize OpenGL, GLFW, shaders, etc.
-    void Shutdown();                 // Cleanup resources
-    void Render();                   // Render everything for this frame
+    static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
+    static void Exit();                 // Cleanup resources
+    static void Render();                   // Render everything for this frame
 
-    void Draw();
-
-    bool CloseWindow();
+    static void Draw();
 
     // Public API for other components
     //void DrawSprite(Texture& texture, glm::vec2 position, glm::vec2 size, float rotation = 0.0f);    
     //void SetViewMatrix(glm::mat4 viewMatrix); // Allow camera or screen transformations
 
     // Resource management
-    void LoadTexture(const std::string& filePath);    // Load texture from file
-    void LoadShader(const std::string& vertexPath, const std::string& fragmentPath); // Shader loader
+    static void LoadTexture(const std::string& filePath);    // Load texture from file
+    static void LoadShader(const std::string& vertexPath, const std::string& fragmentPath); // Shader loader
 
     //void error_cb(int error, char const* description);
     //void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
@@ -49,19 +47,16 @@ private:
     void LoadResources();            // Load all needed assets
     void SetupShaders();             // Initialize shaders
 
-    void InsertShader(std::string shdr_pgm_name,
+    static void InsertShader(std::string shdr_pgm_name,
         std::string vtx_shdr,
         std::string frg_shdr);
 
-    GLint width, height;
     //static GLdouble fps;
     //static GLdouble delta_time; // time taken to complete most recent game loop
-    std::string title;
-    GLFWwindow* ptr_window;
 
     // Private members
     //std::map<std::string, Texture> textures;   // Stores textures by their names
-    std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
+    static std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
 
     //
     //// GLM matrices for transformations
@@ -69,6 +64,29 @@ private:
     //glm::mat4 viewMatrix;
 
 
-    GLuint VAO, VBO, shaderProgram;  // Buffers and shader program for rendering
+    static GLuint VAO;
+    static GLuint VBO;
+
+    static GLuint shaderProgram;
+
     GLuint CreateShaderProgram(const char* vertexSource, const char* fragmentSource);
+};
+
+class DUCKENGINE_API WindowManager {
+public:
+    static bool Initialize(GLint width, GLint height, std::string title);
+    static void Exit();
+    static void setup_event_callbacks();
+
+    static GLFWwindow* getWindow();
+    
+    static bool CloseWindow();
+
+private:
+    static GLFWwindow* ptrWindow;
+
+    GLint width;
+    GLint height;
+
+    std::string title;
 };

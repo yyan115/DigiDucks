@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include <random>
+#include <filesystem>
+
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
@@ -10,6 +13,11 @@ namespace TESTCODE {
 
     }
 }
+
+std::map<std::string, GLSLShader> GraphicsManager::shaders;
+GLuint GraphicsManager::VAO = 0;
+GLuint GraphicsManager::VBO = 0;
+GLFWwindow* WindowManager::ptrWindow = nullptr;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -46,13 +54,6 @@ namespace {
 
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
-bool GraphicsManager::CloseWindow() {
-    if (glfwWindowShouldClose(ptr_window))
-        return true;
-
-    return false;
-}
-
 void GraphicsManager::Draw() {
 
 }
@@ -65,14 +66,8 @@ void GraphicsManager::Draw() {
 //    // render or something
 //    // }
 //
-//    glfwSwapBuffers(ptr_window);
+//    glfwSwapBuffers(ptrWindow);
 //}
-
-
-void GraphicsManager::Shutdown() {
-    glfwDestroyWindow(ptr_window);
-    glfwTerminate();
-}
 
 void GraphicsManager::Render() {
     // Clear the screen
@@ -94,86 +89,19 @@ void GraphicsManager::Render() {
     glBindVertexArray(0);
 
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
-    glfwSwapBuffers(ptr_window);
+    glfwSwapBuffers(WindowManager::getWindow());
 
     glfwPollEvents();
 
     shaders["DefaultShader"].UnUse();
 }
 
-namespace {
-    bool InitializeGLFW(GLint width, GLint height, std::string title, GLFWwindow* &ptr_window) {
-        width = width;
-        height = height;
-        title = title;
-
-        // Check if glfw init success
-        if (!glfwInit()) {
-            std::cout << "GLFW init has failed - abort program!!!" << std::endl;
-            return false;
-        }
-
-        // In case a GLFW function fails, an error is reported to callback function
-        //glfwSetErrorCallback(error_cb);
-
-        // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
-        // in that context:
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-        glfwWindowHint(GLFW_DEPTH_BITS, 24);
-        glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
-        glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
-
-        // Check if glfw context created successfully
-        ptr_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-        if (!ptr_window) {
-            std::cerr << "GLFW unable to create OpenGL context - abort program\n";
-            glfwTerminate();
-            return false;
-        }
-
-        glfwMakeContextCurrent(ptr_window);
-
-        return true;
-    }
-}
-
-/*  ____________________________________tas_____________________________________ */
-/*! init
-
-@param GLint width
-@param GLint height
-Dimensions of window requested by program
-
-@param std::string title_str
-String printed to window's title bar
-
-@return bool
-true if OpenGL context and GLEW were successfully initialized.
-false otherwise.
-
-Uses GLFW to create OpenGL context. GLFW's initialization follows from here:
-http://www.glfw.org/docs/latest/quick.html
-a window of size width x height pixels
-and its associated OpenGL context that matches a core profile that is
-compatible with OpenGL 4.5 and doesn't support "old" OpenGL, has 32-bit RGBA,
-double-buffered color buffer, 24-bit depth buffer and 8-bit stencil buffer
-with each buffer of size width x height pixels
-*/
-#include <random>
-#include <filesystem>
-bool GraphicsManager::Initialize(GLint width, GLint height, std::string title) {
-
-    InitializeGLFW(width, height, title, ptr_window);
+bool GraphicsManager::Initialize() {
 
     //setup_event_callbacks();
 
     // this is the default setting ...
-    glfwSetInputMode(ptr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(WindowManager::getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     // Part 2: Initialize entry points to OpenGL functions and extensions
     GLenum err = glewInit();
@@ -230,6 +158,64 @@ void GraphicsManager::InsertShader(std::string shdr_pgm_name,
     shaders[shdr_pgm_name] = shdr_pgm;
 }
 
+void GraphicsManager::Exit() {
+    WindowManager::Exit();
+}
+
+bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
+    width = width;
+    height = height;
+    title = title;
+
+    // Check if glfw init success
+    if (!glfwInit()) {
+        std::cout << "GLFW init has failed - abort program!!!" << std::endl;
+        return false;
+    }
+
+    // In case a GLFW function fails, an error is reported to callback function
+    //glfwSetErrorCallback(error_cb);
+
+    // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
+    // in that context:
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
+    glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
+    glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
+
+    // Check if glfw context created successfully
+    ptrWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+    if (!ptrWindow) {
+        std::cerr << "GLFW unable to create OpenGL context - abort program\n";
+        glfwTerminate();
+        return false;
+    }
+
+    glfwMakeContextCurrent(ptrWindow);
+
+    return true;
+}
+
+GLFWwindow* WindowManager::getWindow() {
+    return ptrWindow;
+}
+
+bool WindowManager::CloseWindow() {
+    if (glfwWindowShouldClose(ptrWindow))
+        return true;
+
+    return false;
+}
+
+void WindowManager::Exit() {
+    glfwDestroyWindow(ptrWindow);
+    glfwTerminate();
+}
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO

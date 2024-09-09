@@ -10,7 +10,7 @@
 #include "SpriteRendererSystem.h"
 
 
-GraphicsManager graphicsManager;
+//GraphicsManager graphicsManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
@@ -18,7 +18,8 @@ SystemManager DuckEngine::DUCKENGINE_SystemManager;
 
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
-    graphicsManager.Initialize(1000, 1000, "Test");
+    WindowManager::Initialize(1000, 1000, "Test");
+    GraphicsManager::Initialize();
 
 
     // add the systems
@@ -31,12 +32,12 @@ void DuckEngine::Update()
     DUCKENGINE_SystemManager.UpdateAll();
 }
 
-void DuckEngine::Draw() { graphicsManager.Render(); }
+void DuckEngine::Draw() { GraphicsManager::Render(); }
 
-void DuckEngine::Exit() { graphicsManager.Shutdown(); }
+void DuckEngine::Exit() { GraphicsManager::Exit(); }
 
 bool DuckEngine::Running() {
-    if (!graphicsManager.CloseWindow())
+    if (!WindowManager::CloseWindow())
         return true;
     else
         return false;
