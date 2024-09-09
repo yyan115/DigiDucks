@@ -90,6 +90,9 @@
     <ClInclude Include="..\include\ImGuiSystem.h">
       <Filter>include\systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\WindowManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ImGuiSystem.cpp">
       <Filter>src\systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WindowManager.cpp">
+      <Filter>src\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

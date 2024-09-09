@@ -25,6 +25,8 @@ public:
     void Shutdown();                 // Cleanup resources
     void Render();                   // Render everything for this frame
 
+    void Draw();
+
     bool CloseWindow();
 
     // Public API for other components

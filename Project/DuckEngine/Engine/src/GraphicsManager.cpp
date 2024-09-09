@@ -53,6 +53,10 @@ bool GraphicsManager::CloseWindow() {
     return false;
 }
 
+void GraphicsManager::Draw() {
+
+}
+
 //void GraphicsManager::Render() {
 //
 //    glClear(GL_COLOR_BUFFER_BIT);
@@ -97,6 +101,46 @@ void GraphicsManager::Render() {
     shaders["DefaultShader"].UnUse();
 }
 
+namespace {
+    bool InitializeGLFW(GLint width, GLint height, std::string title, GLFWwindow* &ptr_window) {
+        width = width;
+        height = height;
+        title = title;
+
+        // Check if glfw init success
+        if (!glfwInit()) {
+            std::cout << "GLFW init has failed - abort program!!!" << std::endl;
+            return false;
+        }
+
+        // In case a GLFW function fails, an error is reported to callback function
+        //glfwSetErrorCallback(error_cb);
+
+        // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
+        // in that context:
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+        glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+        glfwWindowHint(GLFW_DEPTH_BITS, 24);
+        glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
+        glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
+
+        // Check if glfw context created successfully
+        ptr_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+        if (!ptr_window) {
+            std::cerr << "GLFW unable to create OpenGL context - abort program\n";
+            glfwTerminate();
+            return false;
+        }
+
+        glfwMakeContextCurrent(ptr_window);
+
+        return true;
+    }
+}
 
 /*  ____________________________________tas_____________________________________ */
 /*! init
@@ -123,40 +167,8 @@ with each buffer of size width x height pixels
 #include <random>
 #include <filesystem>
 bool GraphicsManager::Initialize(GLint width, GLint height, std::string title) {
-    width = width;
-    height = height;
-    title = title;
 
-    // Check if glfw init success
-    if (!glfwInit()) {
-        std::cout << "GLFW init has failed - abort program!!!" << std::endl;
-        return false;
-    }
-
-    // In case a GLFW function fails, an error is reported to callback function
-    //glfwSetErrorCallback(error_cb);
-
-    // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
-    // in that context:
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
-    glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
-
-    // Check if glfw context created successfully
-    ptr_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-    if (!ptr_window) {
-        std::cerr << "GLFW unable to create OpenGL context - abort program\n";
-        glfwTerminate();
-        return false;
-    }
-
-    glfwMakeContextCurrent(ptr_window);
+    InitializeGLFW(width, height, title, ptr_window);
 
     //setup_event_callbacks();
 
