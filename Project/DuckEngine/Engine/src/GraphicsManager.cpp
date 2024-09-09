@@ -9,6 +9,9 @@
 #include "GraphicsManager.h"
 #include "WindowManager.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/glm.hpp>
+
 namespace TESTCODE {
     void AddSprite() {
 
@@ -18,7 +21,7 @@ namespace TESTCODE {
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 GLuint GraphicsManager::VBO = 0;
-GLFWwindow* WindowManager::ptrWindow = nullptr;
+std::vector<TransformData> GraphicsManager::transforms;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -61,19 +64,40 @@ namespace {
 
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
-void GraphicsManager::Draw() {
 
+void GraphicsManager::AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate) {
+    transforms.push_back({ scale, rotation, translate });
 }
 
-//void GraphicsManager::Render() {
+
+//void GraphicsManager::CalculateMatrix() {
+//    // Set up Model matrix with scaling, rotation, and translation (SRT)
+//    glm::mat4 model = glm::mat4(1.0f);
 //
-//    glClear(GL_COLOR_BUFFER_BIT);
+//    // Apply Translation
+//    model = glm::translate(model, translate);
 //
-//    // for ( auto & sprites : spritesList){
-//    // render or something
-//    // }
+//    // Apply Rotation (rotation around the Z-axis for 2D objects)
+//    model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 //
-//    glfwSwapBuffers(ptrWindow);
+//    // Apply Scaling
+//    model = glm::scale(model, scale);
+//
+//    // Assuming you have a View and Projection matrix (for simplicity, using an identity View)
+//    glm::mat4 view = glm::mat4(1.0f);  // No camera movement for now
+//    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);  // 2D orthographic projection
+//
+//    // Combine into Model-View-Projection matrix
+//    glm::mat4 mvp = projection * view * model;
+//
+//    // Pass the MVP matrix to the shader
+//    GLuint mvpLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uMVP");
+//    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, &mvp[0][0]);
+//
+//    // Draw the 1x1 mesh (with VAO and EBO already bound)
+//    glBindVertexArray(VAO);
+//    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+//    glBindVertexArray(0);
 //}
 
 void GraphicsManager::Render() {
@@ -98,8 +122,6 @@ void GraphicsManager::Render() {
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
     glfwSwapBuffers(WindowManager::getWindow());
 
-    glfwPollEvents();
-
     shaders["DefaultShader"].UnUse();
 }
 
@@ -113,6 +135,14 @@ bool GraphicsManager::Initialize() {
     GraphicsManager::InitializeSingleMeshShaderSystem();
 
     return true;
+}
+
+void GraphicsManager::Exit() {
+
+}
+
+void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
+    glClearColor(r, g, b, a);
 }
 
 void GraphicsManager::InsertShader(std::string shdr_pgm_name,
@@ -145,10 +175,6 @@ void GraphicsManager::InsertShader(std::string shdr_pgm_name,
     // add compiled, linked, and validated shader program to
     // std::map container GLApp::shdrpgms
     shaders[shdr_pgm_name] = shdr_pgm;
-}
-
-void GraphicsManager::Exit() {
-    
 }
 
 void GraphicsManager::InitializeSingleMeshShaderSystem() {
@@ -259,281 +285,3 @@ namespace {
         SetUpEBO(VAO, idx_vtx);
     }
 }
-
-
-/// OLD HELPER CODE THAT DEALS WITH I/O. Not sure if should fall under graphicsmanager, copied over as reference for now.
-
-
-
-
-
-
-
-///*  _________________________________________________________________________*/
-///*! key_cb
-//
-//@param GLFWwindow*
-//Handle to window that is receiving event
-//
-//@param int
-//the keyboard key that was pressed or released
-//
-//@parm int
-//Platform-specific scancode of the key
-//
-//@parm int
-//GLFW_PRESS, GLFW_REPEAT or GLFW_RELEASE
-//action will be GLFW_KEY_UNKNOWN if GLFW lacks a key token for it,
-//for example E-mail and Play keys.
-//
-//@parm int
-//bit-field describing which modifier keys (shift, alt, control)
-//were held down
-//
-//@return none
-//
-//This function is called when keyboard buttons are pressed.
-//When the ESC key is pressed, the close flag of the window is set.
-//*/
-//void GLHelper::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod) {
-//    if (GLFW_PRESS == action) {
-//#ifdef _DEBUG
-//        std::cout << "Key pressed" << std::endl;
-//#endif
-//    }
-//    else if (GLFW_REPEAT == action) {
-//#ifdef _DEBUG
-//        std::cout << "Key repeatedly pressed" << std::endl;
-//#endif
-//    }
-//    else if (GLFW_RELEASE == action) {
-//#ifdef _DEBUG
-//        std::cout << "Key released" << std::endl;
-//#endif
-//    }
-//
-//    // key state changes from released to pressed
-//    if (GLFW_PRESS == action) {
-//        if (GLFW_KEY_ESCAPE == key) {
-//            glfwSetWindowShouldClose(pwin, GLFW_TRUE);
-//        }
-//
-//        // less buggy, but doesnt mimic sample as well
-//        //if (key == GLFW_KEY_V)
-//        //    GLApp::camera2d.camtype_flag = GL_TRUE;
-//
-//        //if (key == GLFW_KEY_Z)
-//        //    GLApp::camera2d.zoom_flag = GL_TRUE;
-//
-//        //if (key == GLFW_KEY_H)
-//        //    GLApp::camera2d.left_turn_flag = GL_TRUE;
-//
-//        //if (key == GLFW_KEY_K)
-//        //    GLApp::camera2d.right_turn_flag = GL_TRUE;
-//
-//        //if (key == GLFW_KEY_U)
-//        //    GLApp::camera2d.move_flag = GL_TRUE;
-//
-//        // set accordingly
-//        GLApp::camera2d.camtype_flag = (key == GLFW_KEY_V) ? GL_TRUE : GL_FALSE;
-//        GLApp::camera2d.zoom_flag = (key == GLFW_KEY_Z) ? GL_TRUE : GL_FALSE;
-//        GLApp::camera2d.left_turn_flag = (key == GLFW_KEY_H) ? GL_TRUE : GL_FALSE;
-//        GLApp::camera2d.right_turn_flag = (key == GLFW_KEY_K) ? GL_TRUE : GL_FALSE;
-//        GLApp::camera2d.move_flag = (key == GLFW_KEY_U) ? GL_TRUE : GL_FALSE;
-//    }
-//    else if (GLFW_REPEAT == action) {
-//        // key state was and is being pressed (comment out to allow holding)
-//        //GLApp::camera2d.camtype_flag    = GL_FALSE;
-//        //GLApp::camera2d.zoom_flag       = GL_FALSE;
-//        //GLApp::camera2d.left_turn_flag  = GL_FALSE;
-//        //GLApp::camera2d.right_turn_flag = GL_FALSE;
-//        //GLApp::camera2d.move_flag       = GL_FALSE;
-//    }
-//    else if (GLFW_RELEASE == action) {
-//        // key start changes from pressed to released
-//        GLApp::camera2d.camtype_flag = GL_FALSE;
-//        GLApp::camera2d.zoom_flag = GL_FALSE;
-//        GLApp::camera2d.left_turn_flag = GL_FALSE;
-//        GLApp::camera2d.right_turn_flag = GL_FALSE;
-//        GLApp::camera2d.move_flag = GL_FALSE;
-//    }
-//}
-//
-///*  _________________________________________________________________________*/
-///*! mousebutton_cb
-//
-//@param GLFWwindow*
-//Handle to window that is receiving event
-//
-//@param int
-//the mouse button that was pressed or released
-//GLFW_MOUSE_BUTTON_LEFT and GLFW_MOUSE_BUTTON_RIGHT specifying left and right
-//mouse buttons are most useful
-//
-//@parm int
-//action is either GLFW_PRESS or GLFW_RELEASE
-//
-//@parm int
-//bit-field describing which modifier keys (shift, alt, control)
-//were held down
-//
-//@return none
-//
-//This function is called when mouse buttons are pressed.
-//*/
-//void GLHelper::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod) {
-//    switch (button) {
-//    case GLFW_MOUSE_BUTTON_LEFT:
-//#ifdef _DEBUG
-//        std::cout << "Left mouse button ";
-//#endif
-//        break;
-//    case GLFW_MOUSE_BUTTON_RIGHT:
-//#ifdef _DEBUG
-//        std::cout << "Right mouse button ";
-//#endif
-//        break;
-//    }
-//    switch (action) {
-//    case GLFW_PRESS:
-//#ifdef _DEBUG
-//        std::cout << "pressed!!!" << std::endl;
-//#endif
-//        break;
-//    case GLFW_RELEASE:
-//#ifdef _DEBUG
-//        std::cout << "released!!!" << std::endl;
-//#endif
-//        break;
-//    }
-//}
-//
-///*  _________________________________________________________________________*/
-///*! mousepos_cb
-//
-//@param GLFWwindow*
-//Handle to window that is receiving event
-//
-//@param double
-//new cursor x-coordinate, relative to the left edge of the client area
-//
-//@param double
-//new cursor y-coordinate, relative to the top edge of the client area
-//
-//@return none
-//
-//This functions receives the cursor position, measured in screen coordinates but
-//relative to the top-left corner of the window client area.
-//*/
-//void GLHelper::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
-//#ifdef _DEBUG
-//    std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
-//#endif
-//}
-//
-///*  _________________________________________________________________________*/
-///*! mousescroll_cb
-//
-//@param GLFWwindow*
-//Handle to window that is receiving event
-//
-//@param double
-//Scroll offset along X-axis
-//
-//@param double
-//Scroll offset along Y-axis
-//
-//@return none
-//
-//This function is called when the user scrolls, whether with a mouse wheel or
-//touchpad gesture. Although the function receives 2D scroll offsets, a simple
-//mouse scroll wheel, being vertical, provides offsets only along the Y-axis.
-//*/
-//void GLHelper::mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset) {
-//#ifdef _DEBUG
-//    std::cout << "Mouse scroll wheel offset: ("
-//        << xoffset << ", " << yoffset << ")" << std::endl;
-//#endif
-//}
-//
-///*  _________________________________________________________________________ */
-///*! error_cb
-//
-//@param int
-//GLFW error code
-//
-//@parm char const*
-//Human-readable description of the code
-//
-//@return none
-//
-//The error callback receives a human-readable description of the error and
-//(when possible) its cause.
-//*/
-//void GLHelper::error_cb(int error, char const* description) {
-//#ifdef _DEBUG
-//    std::cerr << "GLFW error: " << description << std::endl;
-//#endif
-//}
-//
-///*  _________________________________________________________________________ */
-///*! fbsize_cb
-//
-//@param GLFWwindow*
-//Handle to window that is being resized
-//
-//@parm int
-//Width in pixels of new window size
-//
-//@parm int
-//Height in pixels of new window size
-//
-//@return none
-//
-//This function is called when the window is resized - it receives the new size
-//of the window in pixels.
-//*/
-//void GLHelper::fbsize_cb(GLFWwindow* ptr_win, int width, int height) {
-//#ifdef _DEBUG
-//    std::cout << "fbsize_cb getting called!!!" << std::endl;
-//#endif
-//    GLHelper::width = width;
-//    GLHelper::height = height;
-//}
-//
-///*  _________________________________________________________________________*/
-///*! update_time
-//
-//@param double
-//fps_calc_interval: the interval (in seconds) at which fps is to be
-//calculated
-//
-//This function must be called once per game loop. It uses GLFW's time functions
-//to compute:
-//1. the interval in seconds between each frame
-//2. the frames per second every "fps_calc_interval" seconds
-//*/
-//void GLHelper::update_time(double fps_calc_interval) {
-//    // get elapsed time (in seconds) between previous and current frames
-//    static double prev_time = glfwGetTime();
-//    double curr_time = glfwGetTime();
-//    delta_time = curr_time - prev_time;
-//    prev_time = curr_time;
-//
-//    // fps calculations
-//    static double count = 0.0; // number of game loop iterations
-//    static double start_time = glfwGetTime();
-//    // get elapsed time since very beginning (in seconds) ...
-//    double elapsed_time = curr_time - start_time;
-//
-//    ++count;
-//
-//    // update fps at least every 10 seconds ...
-//    fps_calc_interval = (fps_calc_interval < 0.0) ? 0.0 : fps_calc_interval;
-//    fps_calc_interval = (fps_calc_interval > 10.0) ? 10.0 : fps_calc_interval;
-//    if (elapsed_time > fps_calc_interval) {
-//        GLHelper::fps = count / elapsed_time;
-//        start_time = curr_time;
-//        count = 0.0;
-//    }
-//}

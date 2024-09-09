@@ -6,6 +6,7 @@
 #include "GraphicsManager.h"
 #include "WindowManager.h"
 #include "InputManager.h"
+#include "TimeManager.h"
 
 #include "glslshader.h"
 
@@ -33,6 +34,12 @@ void DuckEngine::Initialize() {
 
 void DuckEngine::Update() 
 {
+    // Look for inputs first
+    InputManager::Update();
+
+    // Update dt every 1 second
+    TimeManager::UpdateTime(1.0);
+
     DUCKENGINE_SystemManager.UpdateAll();
 }
 

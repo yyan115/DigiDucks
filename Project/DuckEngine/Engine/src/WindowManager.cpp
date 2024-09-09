@@ -2,6 +2,8 @@
 
 #include "WindowManager.h"
 
+GLFWwindow* WindowManager::ptrWindow = nullptr;
+
 bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
     width = width;
     height = height;

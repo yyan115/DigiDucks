@@ -12,6 +12,9 @@
 class DUCKENGINE_API InputManager {
 public:
     static bool Initialize();
+
+    static void Update();
+
     static void Exit();
 
     // I/O callbacks ...

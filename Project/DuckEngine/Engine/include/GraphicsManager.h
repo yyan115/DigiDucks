@@ -13,6 +13,12 @@
 
 #include "glslshader.h"
 
+struct TransformData {
+    glm::vec3 scale;
+    float rotation;
+    glm::vec3 position;
+};
+
 
 class DUCKENGINE_API GraphicsManager {
 public:
@@ -24,8 +30,10 @@ public:
     static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
     static void Exit();                 // Cleanup resources
     static void Render();                   // Render everything for this frame
+    
+    static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate);
 
-    static void Draw();
+    static void SetBackgroundColor(float r, float g, float b, float a);
 
     // Public API for other components
     //void DrawSprite(Texture& texture, glm::vec2 position, glm::vec2 size, float rotation = 0.0f);    
@@ -40,6 +48,9 @@ public:
 
 private:
 
+    static void Draw();
+
+    static std::vector<TransformData> transforms;
 
     static void InitializeSingleMeshShaderSystem();
 

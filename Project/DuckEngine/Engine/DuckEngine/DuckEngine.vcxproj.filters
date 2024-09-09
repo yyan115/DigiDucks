@@ -93,6 +93,12 @@
     <ClInclude Include="..\include\WindowManager.h">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\CameraManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TimeManager.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -126,6 +132,12 @@
       <Filter>src\systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\WindowManager.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CameraManager.cpp">
+      <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TimeManager.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
   </ItemGroup>

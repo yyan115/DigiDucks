@@ -15,6 +15,10 @@ bool InputManager::Initialize() {
     return true;
 }
 
+void InputManager::Update() {
+    glfwPollEvents();
+}
+
 /*  _________________________________________________________________________*/
 /*! key_cb
 
