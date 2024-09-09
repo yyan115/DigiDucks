@@ -12,12 +12,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
 
-namespace TESTCODE {
-    void AddSprite() {
-
-    }
-}
-
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 GLuint GraphicsManager::VBO = 0;
@@ -64,7 +58,7 @@ namespace {
 
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
-
+// AND TEXTURE IF ANY WIP
 void GraphicsManager::AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate) {
     transforms.push_back({ scale, rotation, translate });
 }

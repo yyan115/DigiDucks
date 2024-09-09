@@ -12,7 +12,6 @@ class DUCKENGINE_API WindowManager {
 public:
     static bool Initialize(GLint width, GLint height, std::string title);
     static void Exit();
-    static void setup_event_callbacks();
 
     static GLFWwindow* getWindow();
 

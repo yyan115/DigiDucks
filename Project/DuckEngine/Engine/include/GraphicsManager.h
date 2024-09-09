@@ -19,6 +19,13 @@ struct TransformData {
     glm::vec3 position;
 };
 
+struct Color {
+    float r;
+    float g;
+    float b;
+    float a;
+};
+
 
 class DUCKENGINE_API GraphicsManager {
 public:
@@ -31,7 +38,11 @@ public:
     static void Exit();                 // Cleanup resources
     static void Render();                   // Render everything for this frame
     
+    // FEATURES: DRAW NORMALLY (NO COLORS, NO TEXTURES), OR DRAW WITH COLOR NO TEXT, OR DRAW WITH TEXT NO COLOR, OR DRAW WITH TEXT + COLORR
     static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate);
+    //static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, //TEXTURE DRAW);
+    static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA);
+    // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA, //TEXTURE DRAW);
 
     static void SetBackgroundColor(float r, float g, float b, float a);
 
@@ -41,22 +52,20 @@ public:
 
     // Resource management
     static void LoadTexture(const std::string& filePath);    // Load texture from file
-    static void LoadShader(const std::string& vertexPath, const std::string& fragmentPath); // Shader loader
+
+    //static void LoadShader(const std::string& vertexPath, const std::string& fragmentPath); // Shader loader
 
     //void error_cb(int error, char const* description);
     //void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
 
 private:
-
-    static void Draw();
-
     static std::vector<TransformData> transforms;
 
     static void InitializeSingleMeshShaderSystem();
 
     // Private helper functions
-    void LoadResources();            // Load all needed assets
-    void SetupShaders();             // Initialize shaders
+    //void LoadResources();            // Load all needed assets
+    //void SetupShaders();             // Initialize shaders
 
     static void InsertShader(std::string shdr_pgm_name,
         std::string vtx_shdr,
@@ -79,6 +88,4 @@ private:
     static GLuint VBO;
 
     static GLuint shaderProgram;
-
-    GLuint CreateShaderProgram(const char* vertexSource, const char* fragmentSource);
 };
