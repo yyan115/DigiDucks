@@ -81,6 +81,12 @@
     <ClInclude Include="..\include\InputManager.h">
       <Filter>include\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Matrix3x3.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Vector2.h">
+      <Filter>include\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -103,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="..\src\InputManager.cpp">
       <Filter>src\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Matrix3x3.cpp">
+      <Filter>src\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Vector2.cpp">
+      <Filter>src\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
