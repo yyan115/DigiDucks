@@ -104,7 +104,6 @@
     <ClInclude Include="..\include\EntityManager.h" />
     <ClInclude Include="..\include\glslshader.h" />
     <ClInclude Include="..\include\GraphicsManager.h" />
-    <ClInclude Include="..\include\ImGuiSystem.h" />
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
@@ -113,6 +112,7 @@
     <ClInclude Include="..\include\SystemManager.h" />
     <ClInclude Include="..\include\TimeManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
+    <ClInclude Include="..\include\UIManager.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
@@ -128,12 +128,12 @@
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\glslshader.cpp" />
     <ClCompile Include="..\src\GraphicsManager.cpp" />
-    <ClCompile Include="..\src\ImGuiSystem.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
+    <ClCompile Include="..\src\UIManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>

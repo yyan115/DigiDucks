@@ -43,6 +43,9 @@
     <Filter Include="src\imgui">
       <UniqueIdentifier>{3c13e75f-0e3c-48d9-8eb7-0bb2b6aa16c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\imgui">
+      <UniqueIdentifier>{92b36501-2e06-4160-ae1d-31e29729446b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -90,9 +93,6 @@
     <ClInclude Include="..\include\Vector2.h">
       <Filter>include\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ImGuiSystem.h">
-      <Filter>include\systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\WindowManager.h">
       <Filter>include\engine</Filter>
     </ClInclude>
@@ -101,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="..\include\TimeManager.h">
       <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UIManager.h">
+      <Filter>include\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,9 +134,6 @@
     <ClCompile Include="..\src\Vector2.cpp">
       <Filter>src\math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ImGuiSystem.cpp">
-      <Filter>src\systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\WindowManager.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
@@ -159,6 +159,9 @@
       <Filter>src\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\lib\imgui\imgui_impl_opengl3.cpp">
+      <Filter>src\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UIManager.cpp">
       <Filter>src\imgui</Filter>
     </ClCompile>
   </ItemGroup>
