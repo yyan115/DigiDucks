@@ -22,4 +22,4 @@ Engine gets compiled into a DLL file that the Game files will use. You do not ne
 
 Set Game as startup project and press build or run in Visual Studio.
 
-If you want to use Engine features, simply include #include "DuckEngine.h" in your game files.
+If you want to use Engine features, simply add #include "DuckEngine.h" to your game scripts.
