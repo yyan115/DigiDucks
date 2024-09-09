@@ -164,6 +164,9 @@
     <ClCompile Include="..\src\UIManager.cpp">
       <Filter>src\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\lib\imgui\imgui_demo.cpp">
+      <Filter>src\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\fragShader.frag">

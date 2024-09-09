@@ -10,7 +10,7 @@ void UIManager::Initialize() {
 
     // Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
-    ImGui_ImplOpenGL3_Init("#version 130");
+    ImGui_ImplOpenGL3_Init("#version 330");
 }
 
 void UIManager::Render() {
@@ -19,9 +19,21 @@ void UIManager::Render() {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // Here you can add custom ImGui windows for debugging or settings
-    ImGui::Begin("Example Window");
-    ImGui::Text("Hello, ImGui!");
+    // example window
+    ImGui::ShowDemoWindow();
+
+    // Rendering stats
+    ImGui::Begin("Rendering Stats", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate); // Show FPS
+    ImGui::End();
+
+    ImGui::Begin("Memory Usage", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+    ImGui::End();
+
+
+    ImGui::Begin("Game Objects", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
     ImGui::End();
 
     // Render ImGui on top of the scene
