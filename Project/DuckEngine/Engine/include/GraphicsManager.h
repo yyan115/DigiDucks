@@ -71,9 +71,6 @@ private:
         std::string vtx_shdr,
         std::string frg_shdr);
 
-    //static GLdouble fps;
-    //static GLdouble delta_time; // time taken to complete most recent game loop
-
     // Private members
     //std::map<std::string, Texture> textures;   // Stores textures by their names
     static std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
