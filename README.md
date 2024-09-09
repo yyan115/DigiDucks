@@ -15,3 +15,9 @@ Project/                # ROOT folder containing all project-related files
 │       ├── assets/             # Game assets (images, sounds, etc.)
 └── README.md
 ```
+
+## Build Instructions
+
+Engine gets compiled into a DLL file that the Game files will use. You do not need to rebuild the engine unless changes to engine were made.
+
+Set Game as startup project and press build or run in Visual Studio.
