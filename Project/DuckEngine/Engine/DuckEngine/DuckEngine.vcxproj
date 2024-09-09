@@ -112,6 +112,7 @@
     <ClInclude Include="..\include\SystemManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
     <ClInclude Include="..\include\Vector2.h" />
+    <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
+    <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\fragShader.frag" />

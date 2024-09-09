@@ -90,3 +90,22 @@ private:
 
     std::string title;
 };
+
+class DUCKENGINE_API InputManager {
+public:
+    static bool Initialize(GLint width, GLint height, std::string title);
+    static void Exit();
+    static void setup_event_callbacks();
+
+    static GLFWwindow* getWindow();
+
+    static bool CloseWindow();
+
+private:
+    static GLFWwindow* ptrWindow;
+
+    GLint width;
+    GLint height;
+
+    std::string title;
+};
