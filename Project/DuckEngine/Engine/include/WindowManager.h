@@ -21,11 +21,15 @@ public:
     static void error_cb(int error, char const* description);
     static void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
 
+    static GLint GetWindowWidth();
+    static GLint GetWindowHeight();
+
+
 private:
     static GLFWwindow* ptrWindow;
 
-    GLint width;
-    GLint height;
+    static GLint width;
+    static GLint height;
 
     std::string title;
 };

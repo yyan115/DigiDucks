@@ -51,6 +51,16 @@ void DuckEngine::Draw()
 { 
 
     // Clear the screen
+    //Adapt viewport to resized window
+    GLint w{ WindowManager::GetWindowWidth() }, h{ WindowManager::GetWindowHeight() };
+    static GLint old_w{}, old_h{};
+    if (w != old_w || h != old_h)
+    {
+        old_w = w;
+        old_h = h;
+        glViewport(0, 0, w, h);
+    }
+
     glClear(GL_COLOR_BUFFER_BIT);
 
     GraphicsManager::Render();

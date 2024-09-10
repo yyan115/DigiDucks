@@ -4,6 +4,9 @@
 
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 
+GLint WindowManager::width;
+GLint WindowManager::height;
+
 bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
     width = width;
     height = height;
@@ -73,4 +76,13 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int width, int height) {
 #endif
     width = width;
     height = height;
+}
+
+GLint WindowManager::GetWindowWidth()
+{
+    return width;
+}
+GLint WindowManager::GetWindowHeight()
+{
+    return height;
 }
