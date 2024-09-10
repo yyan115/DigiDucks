@@ -2,6 +2,7 @@
 
 #include "InputManager.h"
 #include "WindowManager.h"
+#include "UIManager.h"
 
 bool InputManager::Initialize() {
 
@@ -177,7 +178,9 @@ relative to the top-left corner of the window client area.
 */
 void InputManager::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
 #ifdef _DEBUG
-    std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
+    std::stringstream ss;
+    ss << "Mouse moved to (" << xpos << ", " << ypos << ")";
+    UIManager::debugConsole.AddLog(ss.str().c_str());
 #endif
 }
 

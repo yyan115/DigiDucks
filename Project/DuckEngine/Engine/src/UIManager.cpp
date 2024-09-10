@@ -1,6 +1,8 @@
 #include "UIManager.h"
 #include "WindowManager.h"
 
+UIDebugConsole UIManager::debugConsole;
+
 void UIManager::Initialize() {
     // ImGui initialization
     IMGUI_CHECKVERSION();
@@ -21,6 +23,9 @@ void UIManager::Render() {
 
     // example window
     ImGui::ShowDemoWindow();
+
+    bool consoleOpen = true;
+    debugConsole.Render(&consoleOpen);
 
     // Rendering stats
     ImGui::Begin("Rendering Stats", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);

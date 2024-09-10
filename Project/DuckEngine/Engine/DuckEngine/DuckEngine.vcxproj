@@ -112,6 +112,7 @@
     <ClInclude Include="..\include\SystemManager.h" />
     <ClInclude Include="..\include\TimeManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
+    <ClInclude Include="..\include\UIDebugConsole.h" />
     <ClInclude Include="..\include\UIManager.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />

@@ -105,6 +105,9 @@
     <ClInclude Include="..\include\UIManager.h">
       <Filter>include\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\UIDebugConsole.h">
+      <Filter>include\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
