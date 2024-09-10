@@ -28,14 +28,11 @@ typedef union Matrix3x3 {
 	// Default Constructor
 	Matrix3x3() : m00(1.f), m01(0.f), m02(0.f), m10(0.f), m11(1.f), m12(0.f), m20(0.f), m21(0.f), m22(1.f) {}
 	// Constructor with an array of 9 floats
-	Matrix3x3(const float* ptArr) {}
+	Matrix3x3(const float* ptArr);
 	// Constructor with 9 floats
-	Matrix3x3(	float _m00, float _m01, float _m02, 
-				float _m10, float _m11, float _m12, 
-				float _m20, float _m21, float _m22) :
-				m00(_m00), m01(_m01), m02(_m02), 
-				m10(_m10), m11(_m11), m12(_m12), 
-				m20(_m20), m21(_m21), m22(_m22) {}
+	Matrix3x3(float _m00, float _m01, float _m02,
+		float _m10, float _m11, float _m12,
+		float _m20, float _m21, float _m22);
 
 	// Copy Constructor
 	Matrix3x3(const Matrix3x3& rhs);
