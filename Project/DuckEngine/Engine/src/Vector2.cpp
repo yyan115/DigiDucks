@@ -21,6 +21,11 @@ Vector2D::Vector2D(const Vector2D& rhs) {
 	y = rhs.y;
 }
 
+Vector2D::Vector2D(Vector2D&& rhs) noexcept {
+	x = rhs.x;
+	y = rhs.y;
+}
+
 Vector2D& Vector2D::operator=(const Vector2D& rhs) {
 	x = rhs.x;
 	y = rhs.y;
@@ -105,7 +110,7 @@ Vector2D Vector2D::normalized() const {
 }
 
 float Vector2D::length() const {
-	float length = sqrt(x * x + y * y);
+	float length = static_cast<float>(sqrt(x * x + y * y));
 	return length;
 }
 

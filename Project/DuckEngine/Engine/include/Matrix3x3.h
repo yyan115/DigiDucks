@@ -15,14 +15,15 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include "Vector2.h"
 
-typedef union Matrix3x3 {
+class Matrix3x3 {
+public:
 	struct {
 		float m00, m01, m02;
 		float m10, m11, m12;
 		float m20, m21, m22;
 	};
-	float m[9];
-	float m2[3][3];
+	float m[9]{};
+	float m2[3][3]{};
 
 	// Constructors
 	// Default Constructor
@@ -91,8 +92,11 @@ typedef union Matrix3x3 {
 	***************************************************************/
 	bool operator==(const Matrix3x3& rhs) const;
 
-}Mat3, Matrix3x3, Mtx3x3;
+};
 
+typedef Matrix3x3 Mtx33;
+typedef Matrix3x3 Matrix3x3;
+typedef Matrix3x3 Mat3;
 
 // Operators Overloading
 /****************************************************************

@@ -15,20 +15,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #define M_PI 3.14159265358979323846
 
-typedef union Vector2D {
-
-	struct {
-		float x, y;
-	};
-
-	float m[2];
+class Vector2D {
+public:
+	float x, y;
 
 	// Constructors
-	Vector2D() : x(0.f), y(0.f) { m[0] = x; m[1] = y; }
-	Vector2D(float x, float y) : x(x), y(y) { m[0] = x; m[1] = y; }
+	Vector2D() : x(0.f), y(0.f) {}
+	Vector2D(float _x, float _y) : x(_x), y(_y) {}
 
 	// Copy Constructor
 	Vector2D(const Vector2D& rhs);
+	Vector2D(Vector2D&& rhs) noexcept;
 	Vector2D& operator=(const Vector2D& rhs);
 
 	// Destructor
@@ -58,7 +55,9 @@ typedef union Vector2D {
 	****************************************************************/
 	float length() const;
 
-} Vector2D, Vec2;
+};
+
+typedef Vector2D Vec2;
 
 // Operators Overloading
 /****************************************************************
