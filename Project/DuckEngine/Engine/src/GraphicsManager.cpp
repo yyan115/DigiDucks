@@ -15,7 +15,7 @@
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 GLuint GraphicsManager::VBO = 0;
-std::vector<TransformData> GraphicsManager::transforms;
+std::vector<glm::mat3x3> GraphicsManager::transforms;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -59,42 +59,33 @@ namespace {
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
 // AND TEXTURE IF ANY WIP
-void GraphicsManager::AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate) {
-    transforms.push_back({ scale, rotation, translate });
+void GraphicsManager::AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate) {
+
+    glm::mat3x3 scaleMatrix{
+    glm::vec3(scale.x, 0, 0),
+    glm::vec3(0, scale.y, 0),
+    glm::vec3(0, 0, 1.f),
+    };
+
+    float radians = glm::radians(rotation);  // Convert degrees to radians
+
+    glm::mat3x3 rotationMatrix{
+    glm::vec3(glm::cos(radians), glm::sin(radians), 0),
+    glm::vec3(-glm::sin(radians), glm::cos(radians), 0),
+    glm::vec3(0, 0, 1.f)
+    };
+
+    glm::mat3x3 translationMatrix{
+        glm::vec3(1, 0, 0),
+        glm::vec3(0, 1, 0),
+        glm::vec3(translate.x, translate.y, 1.f),
+    };
+
+    // Combine the matrices (S * R * T) and add to list
+    transforms.push_back(translationMatrix * rotationMatrix * scaleMatrix);
 }
 
-
-//void GraphicsManager::CalculateMatrix() {
-//    // Set up Model matrix with scaling, rotation, and translation (SRT)
-//    glm::mat4 model = glm::mat4(1.0f);
-//
-//    // Apply Translation
-//    model = glm::translate(model, translate);
-//
-//    // Apply Rotation (rotation around the Z-axis for 2D objects)
-//    model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-//
-//    // Apply Scaling
-//    model = glm::scale(model, scale);
-//
-//    // Assuming you have a View and Projection matrix (for simplicity, using an identity View)
-//    glm::mat4 view = glm::mat4(1.0f);  // No camera movement for now
-//    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);  // 2D orthographic projection
-//
-//    // Combine into Model-View-Projection matrix
-//    glm::mat4 mvp = projection * view * model;
-//
-//    // Pass the MVP matrix to the shader
-//    GLuint mvpLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uMVP");
-//    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, &mvp[0][0]);
-//
-//    // Draw the 1x1 mesh (with VAO and EBO already bound)
-//    glBindVertexArray(VAO);
-//    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-//    glBindVertexArray(0);
-//}
-
-void GraphicsManager::Render() {
+void GraphicsManager::Render(bool isUI) {
 
     // Use the shader program and bind the VAO to render the rectangle
     //glUseProgram(shaderProgram);
@@ -105,6 +96,10 @@ void GraphicsManager::Render() {
 
     // Draw the rectangle (6 vertices = 2 triangles)
     //glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    for (const auto& transform : transforms) {
+
+    }
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 

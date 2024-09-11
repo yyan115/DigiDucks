@@ -12,12 +12,7 @@
 #include <GLFW/glfw3.h>
 
 #include "glslshader.h"
-
-struct TransformData {
-    glm::vec3 scale;
-    float rotation;
-    glm::vec3 position;
-};
+#include "Vector2.h"
 
 struct Color {
     float r;
@@ -36,12 +31,12 @@ public:
     // Core functions
     static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
     static void Exit();                 // Cleanup resources
-    static void Render();                   // Render everything for this frame
+    static void Render(bool isUI = false);                   // Render everything for this frame
     
     // FEATURES: DRAW NORMALLY (NO COLORS, NO TEXTURES), OR DRAW WITH COLOR NO TEXT, OR DRAW WITH TEXT NO COLOR, OR DRAW WITH TEXT + COLORR
-    static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate);
+    static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate);
     //static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, //TEXTURE DRAW);
-    static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA);
+    static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate, Color RGBA);
     // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA, //TEXTURE DRAW);
 
     static void SetBackgroundColor(float r, float g, float b, float a);
@@ -59,7 +54,7 @@ public:
     //void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
 
 private:
-    static std::vector<TransformData> transforms;
+    static std::vector<glm::mat3x3> transforms;
 
     static void InitializeSingleMeshShaderSystem();
 
@@ -83,6 +78,8 @@ private:
 
     static GLuint VAO;
     static GLuint VBO;
+
+    static GLuint indicesCount;
 
     static GLuint shaderProgram;
 };

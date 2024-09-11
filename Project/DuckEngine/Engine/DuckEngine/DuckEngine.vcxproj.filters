@@ -108,6 +108,9 @@
     <ClInclude Include="..\include\UIDebugConsole.h">
       <Filter>include\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\CameraComponent.h">
+      <Filter>include\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -169,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="..\lib\imgui\imgui_demo.cpp">
       <Filter>src\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CameraSystem.cpp">
+      <Filter>src\systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
