@@ -19,7 +19,7 @@ namespace  {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
-    std::uniform_real_distribution<float> randomScale(50.0f, 500.0f);      // Scale between 50 and 500
+    std::uniform_real_distribution<float> randomScale(10.0f, 50.0f);      // Scale between 50 and 500
     std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
     std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
 
@@ -102,7 +102,7 @@ int main(void)
         1000.f / 1000.f
     );
 
-    for (int i = 0; i < 3000; i++) {
+    for (int i = 0; i < 2500; i++) {
         SpawnSquare(engine);
     }
 
