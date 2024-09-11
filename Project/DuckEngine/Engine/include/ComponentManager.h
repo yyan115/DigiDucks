@@ -37,10 +37,10 @@ class DUCKENGINE_API ComponentManager
             std::make_shared<T>(std::forward<Args>(args)...);
         auto result = typeMap.emplace(entityID, component);
 
-        std::cout << "Added component of type " << typeid(T).name()
-            << " to entity " << entityID
-            << " (Insertion " << (result.second ? "successful" : "failed") << ")"
-            << std::endl;
+        //std::cout << "Added component of type " << typeid(T).name()
+        //    << " to entity " << entityID
+        //    << " (Insertion " << (result.second ? "successful" : "failed") << ")"
+        //    << std::endl;
 
         return std::static_pointer_cast<T>(result.first->second).get();
     }
