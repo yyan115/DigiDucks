@@ -12,6 +12,9 @@ public:
     static void Shutdown();
 
     static UIDebugConsole debugConsole;
+private:
+    static void ShowInspector();
+    static void ShowConsole();
 };
 
 
