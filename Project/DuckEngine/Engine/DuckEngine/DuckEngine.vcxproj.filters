@@ -111,6 +111,9 @@
     <ClInclude Include="..\include\CameraComponent.h">
       <Filter>include\components</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\CameraSystem.h">
+      <Filter>include\systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">

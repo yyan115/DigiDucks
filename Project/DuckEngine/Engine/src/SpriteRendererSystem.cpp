@@ -1,7 +1,7 @@
-#include "SpriteRendererSystem.h"
+#include "CameraSystem.h"
 
 
-void SpriteRendererSystem::Update()
+void CameraSystem::Update()
 {
 	for (const auto& [entityId, spriteRenderer] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())
 	{

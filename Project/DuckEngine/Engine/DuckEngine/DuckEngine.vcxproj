@@ -98,6 +98,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
+    <ClInclude Include="..\include\CameraSystem.h" />
     <ClInclude Include="..\include\Component.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
     <ClInclude Include="..\include\DuckEngine.h" />
