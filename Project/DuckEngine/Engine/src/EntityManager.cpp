@@ -2,9 +2,11 @@
 #include "DuckEngine.h"
 
 // Create a new entity and return it
+// Create a new entity and return it
 Entity& EntityManager::CreateEntity()
 {
-    entities.emplace_back(nextEntityID++);
+    int newID = static_cast<int>(entities.size());
+    entities.emplace_back(newID);
     return entities.back();
 }
 

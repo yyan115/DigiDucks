@@ -15,7 +15,6 @@ class DUCKENGINE_API EntityManager
 {
   private:
     std::vector<Entity> entities;
-    int nextEntityID = 0;
 
   public:
     Entity& CreateEntity();
