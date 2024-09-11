@@ -18,7 +18,6 @@ class DUCKENGINE_API TransformComponent : public Component
 
 	//TransformComponent(glm::vec2 pos, float rot, glm::vec2 scl)
  //           : position(pos), rotation(rot), scale(scl) {}
-    float x, y;
 
 	Vector2D scale;
 	float angle;
@@ -26,5 +25,5 @@ class DUCKENGINE_API TransformComponent : public Component
 
     //TransformComponent(float xPos, float yPos) : x(xPos), y(yPos){};
 
-	TransformComponent(float scaleX, float scaleY, float angle, float posX, float posY) : scale(Vector2D(scaleX, scaleY)), angle(angle), position(Vector2D(posX, posY)), x(posX), y(posY) {};
+	TransformComponent(float scaleX, float scaleY, float angle, float posX, float posY) : scale(scaleX, scaleY), angle(angle), position(posX, posY) {};
 };
