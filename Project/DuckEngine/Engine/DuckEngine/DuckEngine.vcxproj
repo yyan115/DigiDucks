@@ -138,6 +138,7 @@
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
+    <ClCompile Include="..\src\UIDebugConsole.cpp" />
     <ClCompile Include="..\src\UIManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
