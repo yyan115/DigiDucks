@@ -19,8 +19,9 @@ std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);   // Rotatio
 namespace TESTCODE {
     void SpawnSquare(DuckEngine& engine) {
         // Generate random position, scale, and rotation
-        float posX = randomPosition(gen);
-        float posY = randomPosition(gen);
+        Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
+        //float posX = randomPosition(gen);
+        //float posY = randomPosition(gen);
         float scaleX = randomScale(gen);
         float scaleY = randomScale(gen);
         float rotation = randomRotation(gen);
@@ -29,13 +30,13 @@ namespace TESTCODE {
         Entity& square = engine.DUCKENGINE_EntityManager.CreateEntity();
 
         // Add transform component with randomized values
-        engine.DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID, scaleX, scaleY, rotation, posX, posY);
+        engine.DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID, scaleX, scaleY, rotation, pos.x, pos.y);
 
         // Add sprite renderer component
         engine.DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, true);
 
         // Print out the randomized values for debugging purposes
-        std::cout << "Spawned square at position (" << posX << ", " << posY << "), scale (" << scaleX << ", " << scaleY << "), rotation " << rotation << std::endl;
+        std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY << "), rotation " << rotation << std::endl;
     }
 
     void CheckAndSpawnSquare(DuckEngine& engine, float spawnInterval) {

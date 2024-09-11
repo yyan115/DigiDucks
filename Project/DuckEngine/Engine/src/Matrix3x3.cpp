@@ -267,12 +267,12 @@ void MtxRotateRad(Matrix3x3& result, float angle) {
 	// cos -sin 0
 	// sin cos  0
 	// 0   0    1
-	result.m00 = result.m[0] = result.m2[0][0] = cos(angle);
-	result.m01 = result.m[1] = result.m2[0][1] = -sin(angle);
+	result.m00 = result.m[0] = result.m2[0][0] = static_cast<float>(cos(angle));
+	result.m01 = result.m[1] = result.m2[0][1] = static_cast<float>(-sin(angle));
 	result.m02 = result.m[2] = result.m2[0][2] = 0.f;
 
-	result.m10 = result.m[3] = result.m2[1][0] = sin(angle);
-	result.m11 = result.m[4] = result.m2[1][1] = cos(angle);
+	result.m10 = result.m[3] = result.m2[1][0] = static_cast<float>(sin(angle));
+	result.m11 = result.m[4] = result.m2[1][1] = static_cast<float>(cos(angle));
 	result.m12 = result.m[5] = result.m2[1][2] = 0.f;
 
 	result.m20 = result.m[6] = result.m2[2][0] = 0.f;
@@ -281,7 +281,7 @@ void MtxRotateRad(Matrix3x3& result, float angle) {
 }
 
 void MtxRotateDeg(Matrix3x3& result, float angle) {
-	MtxRotateRad(result, angle * M_PI / 180.f);
+	MtxRotateRad(result, static_cast<float>(angle * M_PI / 180.f));
 }
 
 void MtxTranspose(Matrix3x3& result, const Matrix3x3& mat) {
