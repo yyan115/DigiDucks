@@ -1,3 +1,5 @@
+#pragma once
+
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else

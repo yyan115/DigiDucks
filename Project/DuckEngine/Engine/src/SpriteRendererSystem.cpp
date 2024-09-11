@@ -1,7 +1,7 @@
-#include "CameraSystem.h"
+#include "SpriteRendererSystem.h"
 
 
-void CameraSystem::Update()
+void SpriteRendererSystem::Update()
 {
 	for (const auto& [entityId, spriteRenderer] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())
 	{
@@ -9,7 +9,7 @@ void CameraSystem::Update()
 		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		if (spriteRenderer->sprite && transform)
 		{
-			std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
+			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
 		}
 	}
 }

@@ -12,5 +12,6 @@ class DUCKENGINE_API SpriteRendererComponent : public Component
 {
 public:
 	bool sprite;
-	SpriteRendererComponent(bool hasSprite) : sprite(hasSprite) {}
+	int layer;
+	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer) {}
 };

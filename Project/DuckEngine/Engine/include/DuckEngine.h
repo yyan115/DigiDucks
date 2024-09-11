@@ -29,6 +29,12 @@ public:
     void Exit();
 
     bool Running();
+    int GetWindowWidth();
+    int GetWindowHeight();
 };
+
+// Expose window dimension getters as global functions - REMOVED FOR NOW, BUT INTERESTING OPTION
+//DUCKENGINE_API int GetWindowWidth();
+//DUCKENGINE_API int GetWindowHeight();
 
 #endif // DUCKENGINE_H

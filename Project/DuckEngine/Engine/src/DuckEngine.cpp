@@ -12,7 +12,7 @@
 
 //include systems
 #include "SpriteRendererSystem.h"
-
+#include "CameraSystem.h"
 
 
 
@@ -34,6 +34,9 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
     DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
 
+    // ADDED BY YY
+    std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
+    DUCKENGINE_SystemManager.AddSystem(cameraSystem);
 }
 
 void DuckEngine::Update() 
@@ -84,6 +87,15 @@ bool DuckEngine::Running() {
     else
         return false;
 }
+
+int DuckEngine::GetWindowWidth() {
+    return WindowManager::GetWindowWidth();
+}
+
+int DuckEngine::GetWindowHeight() {
+    return WindowManager::GetWindowHeight();
+}
+
 
 //void DuckEngine::Start()
 //{

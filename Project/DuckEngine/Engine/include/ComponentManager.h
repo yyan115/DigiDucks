@@ -8,6 +8,7 @@
 #include "Component.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
+#include "CameraComponent.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS

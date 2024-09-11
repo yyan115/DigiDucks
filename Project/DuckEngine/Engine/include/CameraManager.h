@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Matrix3x3.h"
 #include "Vector2.h"
 

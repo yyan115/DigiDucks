@@ -11,6 +11,10 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
+
+#include "DuckEngine.h"
+#include "CameraSystem.h"
 
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
@@ -48,6 +52,18 @@ namespace {
 
     // Creates 1x1 mesh to reuse for all draws
     void InitMesh(GLuint &VAO);
+
+    glm::mat3x3 ViewMatrix(const Vector2D& position);
+
+    glm::mat3x3 ModelToWorldMatrix(const Vector2D& scale, float rotation, const Vector2D& translate);
+
+    glm::mat3x3 CameraToNDCMatrix(const float width, const float height);
+
+    template <typename T>
+    T* GetComponent(const int entityId);
+
+    template <typename T>
+    std::unordered_map<int, std::shared_ptr<T>>& GetComponents();
 }
 
 
@@ -59,51 +75,103 @@ namespace {
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
 // AND TEXTURE IF ANY WIP
-void GraphicsManager::AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate) {
-
-    glm::mat3x3 scaleMatrix{
-    glm::vec3(scale.x, 0, 0),
-    glm::vec3(0, scale.y, 0),
-    glm::vec3(0, 0, 1.f),
-    };
-
-    float radians = glm::radians(rotation);  // Convert degrees to radians
-
-    glm::mat3x3 rotationMatrix{
-    glm::vec3(glm::cos(radians), glm::sin(radians), 0),
-    glm::vec3(-glm::sin(radians), glm::cos(radians), 0),
-    glm::vec3(0, 0, 1.f)
-    };
-
-    glm::mat3x3 translationMatrix{
-        glm::vec3(1, 0, 0),
-        glm::vec3(0, 1, 0),
-        glm::vec3(translate.x, translate.y, 1.f),
-    };
-
-    // Combine the matrices (S * R * T) and add to list
-    transforms.push_back(translationMatrix * rotationMatrix * scaleMatrix);
-}
 
 void GraphicsManager::Render(bool isUI) {
 
-    // Use the shader program and bind the VAO to render the rectangle
-    //glUseProgram(shaderProgram);
+    // std::cout << "Trying\n";
 
     shaders["DefaultShader"].Use();
-
     glBindVertexArray(VAO);
 
-    // Draw the rectangle (6 vertices = 2 triangles)
-    //glDrawArrays(GL_TRIANGLES, 0, 6);
+    // Loop over all active cameras
+    for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
 
-    for (const auto& transform : transforms) {
+        CameraComponent* camera = GetComponent<CameraComponent>(cameraEntityID);
 
+        // std::cout << "Camera received.\n";
+
+        if (!camera) continue;
+
+        // std::cout << "Camera received.\n";
+
+        glm::mat3x3 viewMatrix = ViewMatrix(camera->position);
+
+        for (const auto& [spriteEntityID, spriteRenderer] : GetComponents<SpriteRendererComponent>()) {
+
+            // Check if sprite renderer exists
+            if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
+
+            // std::cout << "Sprite available.\n";
+
+            // Check if camera and sprite are on same layer
+            if (spriteRenderer->layer != camera->layer) continue;
+
+            // std::cout << "Sprite is on same layer.\n";
+
+            // Check if transform exist and render if it does
+            if (TransformComponent* transform = GetComponent<TransformComponent>(spriteEntityID))
+            {
+                // std::cout << "Transform exists. Rendering now\n";
+
+                glm::mat3x3 modelToWorld = ModelToWorldMatrix(transform->scale, transform->angle, transform->position);
+
+                glm::mat3x3 cameraToNDC = CameraToNDCMatrix(camera->windowAspectRatio * camera->cameraHeight, camera->cameraHeight);
+
+                glm::mat3x3 finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+
+                //std::cout << "final Matrix =\n";
+                //for (int row = 0; row < 3; ++row) {
+                //    std::cout << "| ";
+                //    for (int col = 0; col < 3; ++col) {
+                //        std::cout << finalMatrix[row][col] << " ";
+                //    }
+                //    std::cout << "|\n";
+                //}
+
+                //std::cout << "camMatrix =\n";
+                //for (int row = 0; row < 3; ++row) {
+                //    std::cout << "| ";
+                //    for (int col = 0; col < 3; ++col) {
+                //        std::cout << cameraToNDC[row][col] << " ";
+                //    }
+                //    std::cout << "|\n";
+                //}
+
+                //std::cout << "viewMatrix =\n";
+                //for (int row = 0; row < 3; ++row) {
+                //    std::cout << "| ";
+                //    for (int col = 0; col < 3; ++col) {
+                //        std::cout << viewMatrix[row][col] << " ";
+                //    }
+                //    std::cout << "|\n";
+                //}
+
+                //std::cout << "modelToWorld =\n";
+                //for (int row = 0; row < 3; ++row) {
+                //    std::cout << "| ";
+                //    for (int col = 0; col < 3; ++col) {
+                //        std::cout << modelToWorld[row][col] << " ";
+                //    }
+                //    std::cout << "|\n";
+                //}
+
+                // Send matrix to vert shader
+                GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+                if (uniformModelToNDCLocation == -1) {
+                    std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
+                    std::exit(EXIT_FAILURE);
+                }
+
+                glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+                // Render the sprite
+                glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+
+                // std::cout << "drawn\n";
+            }
+        }
     }
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-
-    // Unbind the VAO
     glBindVertexArray(0);
 
     shaders["DefaultShader"].UnUse();
@@ -169,7 +237,7 @@ void GraphicsManager::InitializeSingleMeshShaderSystem() {
 }
 
 /// <summary>
-/// namespace with functions to help setup VBO and EBO
+/// namespace with helper functions
 /// </summary>
 namespace {
 
@@ -267,5 +335,60 @@ namespace {
         SetUpVBO(VAO, static_cast<GLsizei>(sizeof(glm::vec3) * clr_vtx.size()), 1, 3, clr_vtx.data(), 0, sizeof(glm::vec3));
 
         SetUpEBO(VAO, idx_vtx);
+    }
+
+    template <typename T>
+    T* GetComponent(const int entityId) {
+        return DuckEngine::DUCKENGINE_ComponentManager.GetComponent<T>(entityId);
+    }
+
+    template <typename T>
+    std::unordered_map<int, std::shared_ptr<T>>& GetComponents() {
+        // Use dynamic_pointer_cast to cast Component to T for each item in the unordered_map
+        return reinterpret_cast<std::unordered_map<int, std::shared_ptr<T>>&>(
+            DuckEngine::DUCKENGINE_ComponentManager.GetComponents<T>()
+            );
+    }
+
+    glm::mat3x3 ViewMatrix(const Vector2D& position) {
+        return glm::mat3x3{
+                glm::vec3(1.f, 0, 0),
+                glm::vec3(0, 1.f, 0),
+                glm::vec3(position.x, position.y, 1.f)
+        };
+    }
+
+    glm::mat3x3 ModelToWorldMatrix(const Vector2D& scale, float rotation, const Vector2D& translate) {
+
+        glm::mat3x3 scaleMatrix{
+        glm::vec3(scale.x, 0, 0),
+        glm::vec3(0, scale.y, 0),
+        glm::vec3(0, 0, 1.f),
+        };
+
+        float radians = glm::radians(rotation);  // Convert degrees to radians
+
+        glm::mat3x3 rotationMatrix{
+        glm::vec3(glm::cos(radians), glm::sin(radians), 0),
+        glm::vec3(-glm::sin(radians), glm::cos(radians), 0),
+        glm::vec3(0, 0, 1.f)
+        };
+
+        glm::mat3x3 translationMatrix{
+            glm::vec3(1, 0, 0),
+            glm::vec3(0, 1, 0),
+            glm::vec3(translate.x, translate.y, 1.f),
+        };
+
+        // Combine the matrices (S * R * T) and add to list
+        return translationMatrix * rotationMatrix * scaleMatrix;
+    }
+
+    glm::mat3x3 CameraToNDCMatrix(const float width, const float height) {
+        return glm::mat3x3{
+                    glm::vec3(2.f / width, 0, 0),
+                    glm::vec3(0, 2.f / height, 0),
+                    glm::vec3(0, 0, 1.f)
+        };
     }
 }

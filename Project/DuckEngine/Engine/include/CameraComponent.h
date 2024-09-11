@@ -25,6 +25,12 @@ public:
 	// Used to not skew camera (according to window width and height) - THIS IS NEEDED
 	float windowAspectRatio;
 
+	// Used to link up to which sprites uses this camera to draw to screen
+	int layer;
+
+	CameraComponent(float posX, float posY, float zoom, int cameraHeight, float ar, int cameraLayer = 0) :
+		position(posX, posY), zoom(zoom), cameraHeight(cameraHeight), windowAspectRatio(ar), layer(cameraLayer) {}
+
 	// MINIMUM ZOOM IN AND MAXIMUM ZOOM OUT HEIGHT. Removed for now, reimplement feature if necessary
 	//int min_height{ 500 }, max_height{ 2000 };
 
