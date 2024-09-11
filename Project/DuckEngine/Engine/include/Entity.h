@@ -9,9 +9,13 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
+const size_t MAX_COMPONENTS = 100;
+
 class DUCKENGINE_API Entity 
 {
+
 public:
 	int EntityID;
+	std::bitset<MAX_COMPONENTS> ComponentMask;
 	Entity(int id) : EntityID(id) {}
 };
