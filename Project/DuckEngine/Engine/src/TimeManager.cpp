@@ -3,6 +3,9 @@
 // Define static members
 GLdouble TimeManager::fps = 0.0;
 GLdouble TimeManager::delta_time = 0.0;
+double TimeManager::system_start_time = 0.0;
+double TimeManager::total_time_start = 0.0;
+double TimeManager::total_time = 0.0;
 
 double TimeManager::FPS() {
     return fps;
@@ -47,4 +50,28 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
         start_time = curr_time;
         count = 0.0;
     }
+}
+
+// Start timer for system updates
+void TimeManager::StartSystemTimer() {
+    system_start_time = glfwGetTime();
+}
+
+// End timer and calculate time taken by system
+double TimeManager::EndSystemTimer() {
+    double end_time = glfwGetTime();
+    return end_time - system_start_time;
+}
+
+// Total loop time tracking
+void TimeManager::StartTotalTimer() {
+    total_time_start = glfwGetTime();
+}
+
+void TimeManager::EndTotalTimer() {
+    total_time = glfwGetTime() - total_time_start;
+}
+
+double TimeManager::GetTotalTime() {
+    return total_time;
 }

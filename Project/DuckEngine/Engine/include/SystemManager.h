@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 #include "System.h"
 
 
@@ -21,6 +22,11 @@ public:
     // Update all systems
     void UpdateAll();
 
+    const std::vector<std::pair<std::string, double>>& GetSystemData() const { return systemData; }   
+    double GetTotalTime() const { return totalTime; }
+
 private:
     std::vector<std::shared_ptr<System>> systems;
+    std::vector<std::pair<std::string, double>> systemData; // Pair of system name and time taken
+    double totalTime = 0.0;
 };

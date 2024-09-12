@@ -1,5 +1,9 @@
+#include "DuckEngine.h"
 #include "UIManager.h"
 #include "WindowManager.h"
+#include "SystemManager.h"
+#include "TimeManager.h"
+
 
 UIDebugConsole UIManager::debugConsole;
 
@@ -13,6 +17,37 @@ void UIManager::Initialize() {
     // Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
     ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void RenderSystemTimings(const SystemManager& systemManager) {
+
+    const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
+    double totalTime = systemManager.GetTotalTime();
+
+    if (totalTime > 0.0) {
+        std::vector<float> systemPercentages;
+        std::vector<const char*> systemNames;
+
+        for (const auto& system : systemData) {
+            double percentage = (system.second / totalTime) * 100.0;
+            systemPercentages.push_back(static_cast<float>(percentage));
+            systemNames.push_back(system.first.c_str());
+        }
+
+        // Start drawing the histogram
+        ImGui::PlotHistogram("##Systems", systemPercentages.data(), static_cast<int>(systemPercentages.size()), 0, "System Graphs", 0.0f, 100.0f, ImVec2(-25, 150));
+
+            for (size_t i = 0; i < systemPercentages.size(); ++i) {
+                // If the bar is hovered, show a tooltip with the system name
+                if (ImGui::IsItemHovered()) {
+                    ImGui::BeginTooltip();
+                    ImGui::Text("System: %s", systemNames[i]);
+                    ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
+                    ImGui::EndTooltip();
+                }
+            }
+        
+    }
 }
 
 void UIManager::Render() {
@@ -48,7 +83,7 @@ void UIManager::Render() {
     ImGui::End();
 
     ImGui::Begin("Memory Usage", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-
+    RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
     ImGui::End();
 
     
@@ -113,3 +148,4 @@ void UIManager::ShowInspector() {
 
     ImGui::End();
 }
+
