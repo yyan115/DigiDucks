@@ -96,7 +96,7 @@ int main(void)
 
     // POS 0, 0, ZOOM 1K, HEIGHT 1K, AR SET, LAYER DEFAULT 0
     engine.DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(camera.EntityID,
-        5.f, 10.f,
+        0.f, 0.f,
         1000.f,
         1000.f,
         1000.f / 1000.f

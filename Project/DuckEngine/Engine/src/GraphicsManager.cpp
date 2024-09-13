@@ -23,6 +23,12 @@ GLuint GraphicsManager::VBO = 0;
 std::vector<glm::mat3x3> GraphicsManager::transforms;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
+GLuint GraphicsManager::pointVAO;
+GLuint GraphicsManager::lineVAO;
+GLuint GraphicsManager::rectVAO;
+GLuint GraphicsManager::circleVAO;
+int GraphicsManager::circleSegments;
+
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
 /// </summary>
@@ -239,7 +245,9 @@ bool GraphicsManager::Initialize() {
         return false;
     }
 
-    GraphicsManager::InitializeSingleMeshShaderSystem();
+    InitializeSingleMeshShaderSystem();
+
+    InsertDebugShader();
 
     return true;
 }
@@ -290,6 +298,304 @@ void GraphicsManager::InitializeSingleMeshShaderSystem() {
 
     InitMesh(VAO);
 }
+
+//#ifdef DEBUG
+
+void GraphicsManager::InsertDebugShader() {
+    // Name for the debug shader
+    std::string shdr_pgm_name = "DebugShader";
+
+    // Check if the shader program name already exists in the shaders map
+    std::map<std::string, GLSLShader>::iterator it = shaders.find(shdr_pgm_name);
+    if (it != shaders.end()) return;
+
+    // Define the vertex shader source as a const char* string
+    const char* debugVertexShaderSource = R"(
+    #version 330 core
+    layout(location = 0) in vec3 position;
+    uniform mat3 uModelToNDC;
+    void main() {
+        vec3 worldPosition = uModelToNDC * vec3(position.xy, 1.0);
+        gl_Position = vec4(worldPosition.xy, 0.0, 1.0);
+    }
+    )";
+
+    // Define the fragment shader source as a const char* string
+    const char* debugFragmentShaderSource = R"(
+    #version 330 core
+    out vec4 FragColor;
+    uniform vec4 uColor;
+    void main() {
+        FragColor = uColor;
+    }
+    )";
+
+    // Create a vector of shader type and source code, with sources as strings
+    std::vector<std::pair<GLenum, std::string>> shdr_files{
+        std::make_pair(GL_VERTEX_SHADER, std::string(debugVertexShaderSource)),
+        std::make_pair(GL_FRAGMENT_SHADER, std::string(debugFragmentShaderSource))
+    };
+
+    GLSLShader shdr_pgm;
+
+    // Call the CompileLinkValidate method with compile_from_file set to false
+    shdr_pgm.CompileLinkValidate(shdr_files, false);  // false indicates we are compiling from strings
+
+    // Check if the shader was successfully linked
+    if (GL_FALSE == shdr_pgm.IsLinked()) {
+        std::cout << "Unable to compile/link/validate debug shader\n";
+        std::cout << shdr_pgm.GetLog() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    // Add the compiled, linked, and validated shader program to the shaders map
+    shaders[shdr_pgm_name] = shdr_pgm;
+}
+
+
+void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Color& color) {
+    shaders["DebugShader"].Use();
+    glBindVertexArray(pointVAO);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+
+    // Scale down the model matrix to render the point
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(size, size), 0.0f, position);
+    glPointSize(size);  // Increase the point size to make it more visible
+
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
+
+    // Draw the point
+    glDrawArrays(GL_POINTS, 0, 1);
+
+    glBindVertexArray(0);
+    shaders["DebugShader"].UnUse();
+}
+
+void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color) {
+    shaders["DebugShader"].Use();
+    glBindVertexArray(lineVAO);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+
+    // Calculate midpoint and direction
+    Vector2D midPoint = (start + end) * 0.5f;
+    Vector2D direction = end - start;
+    float length = glm::length( glm::vec2{ direction.x, direction.y });
+    float angle = atan2(direction.y, direction.x);
+
+    // Create the model matrix to scale and rotate the line
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(length, size), angle, midPoint);
+    glLineWidth(size);  // Set line width
+
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
+
+    // Draw the line
+    glDrawArrays(GL_LINES, 0, 2);
+
+    glBindVertexArray(0);
+    shaders["DebugShader"].UnUse();
+}
+
+void GraphicsManager::DrawRectangle(const Vector2D& position, const Vector2D& size, const Color& color) {
+    shaders["DebugShader"].Use();
+    glBindVertexArray(rectVAO);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+
+    // Create the model matrix to scale and translate the rectangle
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(size, 0.0f, position);
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
+
+    // Draw the rectangle (quad)
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    glBindVertexArray(0);
+    shaders["DebugShader"].UnUse();
+}
+
+void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color) {
+    shaders["DebugShader"].Use();
+    glBindVertexArray(circleVAO);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+
+    // Create a model matrix to scale the circle to the correct radius and position it
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(radius, radius), 0.0f, position);
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
+
+    // Draw the circle using the triangle fan (6 * number of triangles = 3 * number of segments)
+    glDrawElements(GL_TRIANGLES, 3 * circleSegments, GL_UNSIGNED_INT, 0);
+
+    glBindVertexArray(0);
+    shaders["DebugShader"].UnUse();
+}
+
+void GraphicsManager::SetupPointVAO() {
+    float pointVertex[] = {
+        0.0f, 0.0f, 0.0f  // Single point at the origin
+    };
+
+    unsigned int pointVBO;
+    glGenVertexArrays(1, &pointVAO);
+    glGenBuffers(1, &pointVBO);
+
+    glBindVertexArray(pointVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, pointVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(pointVertex), pointVertex, GL_STATIC_DRAW);
+
+    // Set vertex attribute pointer for position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+void GraphicsManager::SetupLineVAO() {
+    float lineVertices[] = {
+        0.0f, 0.0f, 0.0f,  // Start point of the line (relative position)
+        1.0f, 0.0f, 0.0f   // End point of the line (relative position)
+    };
+
+    unsigned int lineVBO;
+    glGenVertexArrays(1, &lineVAO);
+    glGenBuffers(1, &lineVBO);
+
+    glBindVertexArray(lineVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, lineVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
+
+    // Set vertex attribute pointer for position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+void GraphicsManager::SetupRectangleVAO() {
+    float rectVertices[] = {
+        // positions
+        -0.5f, -0.5f, 0.0f,  // bottom left
+         0.5f, -0.5f, 0.0f,  // bottom right
+         0.5f,  0.5f, 0.0f,  // top right
+        -0.5f,  0.5f, 0.0f   // top left
+    };
+
+    unsigned int rectIndices[] = {
+        0, 1, 2,  // First triangle
+        2, 3, 0   // Second triangle
+    };
+
+    unsigned int rectVBO, rectEBO;
+    glGenVertexArrays(1, &rectVAO);
+    glGenBuffers(1, &rectVBO);
+    glGenBuffers(1, &rectEBO);
+
+    glBindVertexArray(rectVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, rectVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rectVertices), rectVertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rectEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(rectIndices), rectIndices, GL_STATIC_DRAW);
+
+    // Set vertex attribute pointer for position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+void GraphicsManager::SetupCircleVAO(int segments) {
+    std::vector<float> vertices; // Store vertices
+    std::vector<unsigned int> indices; // Store indices
+
+    circleSegments = segments;
+
+    // First vertex is the center of the circle
+    vertices.push_back(0.0f); // x
+    vertices.push_back(0.0f); // y
+    vertices.push_back(0.0f); // z (assuming 2D, this can be set to 0)
+
+    // Generate vertices for the perimeter
+    float angleStep = 2.0f * M_PI / circleSegments;
+
+    for (int i = 0; i <= circleSegments; ++i) {
+        float angle = i * angleStep;
+        float x = 0.5f * cos(angle); // 0.5f to match the 1x1 scale
+        float y = 0.5f * sin(angle);
+        vertices.push_back(x); // x position
+        vertices.push_back(y); // y position
+        vertices.push_back(0.0f); // z position (for 2D)
+    }
+
+    // Generate indices for the triangle fan
+    for (int i = 1; i <= circleSegments; ++i) {
+        indices.push_back(0);  // The center vertex
+        indices.push_back(i);  // Current perimeter vertex
+        indices.push_back(i + 1); // Next perimeter vertex (wraps around)
+    }
+
+    // Last triangle wraps around to the first perimeter vertex
+    indices.push_back(0);
+    indices.push_back(circleSegments);
+    indices.push_back(1);
+
+    // Generate VAO and VBO for the circle
+    unsigned int circleVBO, circleEBO;
+    glGenVertexArrays(1, &circleVAO);
+    glGenBuffers(1, &circleVBO);
+    glGenBuffers(1, &circleEBO);
+
+    glBindVertexArray(circleVAO);
+
+    // Bind and fill VBO with vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, circleVBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
+
+    // Bind and fill EBO with index data
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, circleEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+    // Set up vertex attributes (position in this case)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+//#endif // DEBUG
+
 
 /// <summary>
 /// namespace with helper functions
