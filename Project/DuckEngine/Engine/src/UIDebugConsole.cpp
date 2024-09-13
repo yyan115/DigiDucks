@@ -3,14 +3,28 @@
 #include <iostream>
 #include <sstream>
 
-#include "UIManager.h"
+#include "UIDebugConsole.h"
 #include "imgui.h"
 
+UIDebugConsole UIDebugConsole::debugConsole;
+
 // Add a message to the log
-void UIDebugConsole::AddLog(const char* message) {
+void UIDebugConsole::AddLog(const char* fmt, ...) {
+    
+    const int bufferSize = 1024;
+    char message[bufferSize];
+
+    // Initialize variadic argument list
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf(message, bufferSize, fmt, args);
+    va_end(args);
+
+    // Append the formatted message to the log
     buffer.append(message);
     buffer.append("\n");
 
+    // Clear the buffer if it exceeds 200 lines
     if (std::count(buffer.begin(), buffer.end(), '\n') > 200) {
         Clear();
     }

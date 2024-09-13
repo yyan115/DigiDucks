@@ -70,7 +70,7 @@ void DuckEngine::Draw()
     GraphicsManager::Render();
 
     // ---- Start ImGui frame ----
-    //DUCKENGINE_UIManager.Render();
+    DUCKENGINE_UIManager.Render();
 
 
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)

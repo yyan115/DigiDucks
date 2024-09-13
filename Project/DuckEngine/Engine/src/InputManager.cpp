@@ -2,7 +2,7 @@
 
 #include "InputManager.h"
 #include "WindowManager.h"
-#include "UIManager.h"
+#include "UIDebugConsole.h"
 
 bool InputManager::Initialize() {
 
@@ -178,9 +178,7 @@ relative to the top-left corner of the window client area.
 */
 void InputManager::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
 #ifdef _DEBUG
-    std::stringstream ss;
-    ss << "Mouse moved to (" << xpos << ", " << ypos << ")";
-    UIManager::debugConsole.AddLog(ss.str().c_str());
+    UIDebugConsole::debugConsole.AddLog("Mouse moved to (%.2f, %.2f)", xpos, ypos);
 #endif
 }
 

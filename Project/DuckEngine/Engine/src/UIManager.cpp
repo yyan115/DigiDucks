@@ -3,11 +3,11 @@
 #include "imgui_impl_glfw.h"
 #include "DuckEngine.h"
 #include "UIManager.h"
+#include "UIDebugConsole.h"
 #include "WindowManager.h"
 #include "SystemManager.h"
 #include "TimeManager.h"
 
-UIDebugConsole UIManager::debugConsole;
 
 void UIManager::Initialize() {
     // ImGui initialization
@@ -117,7 +117,7 @@ void UIManager::Shutdown() {
 
 void UIManager::ShowConsole() {
     bool consoleOpen = true;
-    debugConsole.Render(&consoleOpen);
+    UIDebugConsole::debugConsole.Render(&consoleOpen);
 }
 
 void UIManager::ShowInspector() {
