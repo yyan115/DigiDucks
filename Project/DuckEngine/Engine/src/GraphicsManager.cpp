@@ -311,7 +311,7 @@ void GraphicsManager::InsertDebugShader() {
 
     // Define the vertex shader source as a const char* string
     const char* debugVertexShaderSource = R"(
-    #version 330 core
+    #version 450 core
     layout(location = 0) in vec3 position;
     uniform mat3 uModelToNDC;
     void main() {
@@ -322,7 +322,7 @@ void GraphicsManager::InsertDebugShader() {
 
     // Define the fragment shader source as a const char* string
     const char* debugFragmentShaderSource = R"(
-    #version 330 core
+    #version 450 core
     out vec4 FragColor;
     uniform vec4 uColor;
     void main() {
