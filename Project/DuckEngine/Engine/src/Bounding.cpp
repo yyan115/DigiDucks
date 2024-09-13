@@ -74,19 +74,19 @@ void BoundingCircle::setRadius(float _radius) {
 
 // Collision Detection
 // Circle - Box
-bool checkCollision(BoundingCircle& circle, Vec2&& vel1, BoundingBox& box, Vec2&& vel2) {
+bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 vel1, Vec2 vel2) {
 
 	return false;
 }
 
 // Box - Box
-bool checkCollision(BoundingBox& box1, Vec2&& vel1, BoundingBox& box2, Vec2&& vel2) {
+bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1, Vec2 vel2) {
 
 	return false;
 }
 
 // Circle - Circle
-bool checkCollision(BoundingCircle& circle, Vec2&& vel1, BoundingCircle& circle2, Vec2&& vel2) {
+bool checkCollision(BoundingCircle& circle,BoundingCircle& circle2,  Vec2 vel1, Vec2 vel2) {
 
 	return false;
 }

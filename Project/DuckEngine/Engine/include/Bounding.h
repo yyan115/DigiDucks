@@ -136,7 +136,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle, Vec2&& circle_velo = Vec2(0.f, 0.f), BoundingBox& box,  Vec2&& box_velo = Vec2(0.f,0.f));
+bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two boxes
@@ -151,7 +151,7 @@ bool checkCollision(BoundingCircle& circle, Vec2&& circle_velo = Vec2(0.f, 0.f),
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingBox& box1, Vec2&& vel1 = Vec2(0.f, 0.f), BoundingBox& box2,  Vec2&& vel2 = Vec2(0.f, 0.f));
+bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two circles
@@ -166,5 +166,5 @@ bool checkCollision(BoundingBox& box1, Vec2&& vel1 = Vec2(0.f, 0.f), BoundingBox
 *	
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle1, Vec2&& vel1 = Vec2(0.f, 0.f), BoundingCircle& circle2, Vec2&& vel2 = Vec2(0.f, 0.f));
+bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
