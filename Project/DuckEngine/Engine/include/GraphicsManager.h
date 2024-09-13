@@ -23,6 +23,28 @@ struct Color {
     float a;
 };
 
+struct DrawOptions {
+    // NECESSARY
+    Vector2D scale = { 1.0f, 1.0f };
+    float rotation = 0.0f;
+    Vector2D translation = { 0.0f, 0.0f };
+
+    // OPTIONAL
+    bool useColor = false;
+    Color color = { 255, 255, 255, 255 }; // Default white color
+
+    // OPTIONAL
+    bool useTexture = false;
+    int* texture = nullptr;
+
+    // OPTIONAL
+    bool relativeToCamera = false;
+    // GRAB FROM CAMERA MANAGER
+    //Vector2D cameraPosition = { 0.f, 0.f };
+    //Vector2D cameraWidthHeight = { 0.f, 0.f };
+};
+
+
 
 class DUCKENGINE_API GraphicsManager {
 public:
@@ -34,11 +56,13 @@ public:
     static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
     static void Exit();                 // Cleanup resources
     static void Render(bool isUI = false);                   // Render everything for this frame
+    static void Render();
     
     // FEATURES: DRAW NORMALLY (NO COLORS, NO TEXTURES), OR DRAW WITH COLOR NO TEXT, OR DRAW WITH TEXT NO COLOR, OR DRAW WITH TEXT + COLORR
-    static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate);
-    //static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, //TEXTURE DRAW);
-    static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate, Color RGBA);
+    static void AddToDrawQueue(const DrawOptions &drawOptions);
+    // static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate);
+    // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, //TEXTURE DRAW);
+    // static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate, Color RGBA);
     // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA, //TEXTURE DRAW);
 
     static void SetBackgroundColor(float r, float g, float b, float a);
@@ -84,4 +108,6 @@ private:
     static GLuint indicesCount;
 
     static GLuint shaderProgram;
+
+    static std::vector<DrawOptions> drawQueue;
 };

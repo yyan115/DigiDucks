@@ -8,6 +8,7 @@
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
+#include "CameraManager.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
@@ -20,6 +21,7 @@ std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 GLuint GraphicsManager::VBO = 0;
 std::vector<glm::mat3x3> GraphicsManager::transforms;
+std::vector<DrawOptions> GraphicsManager::drawQueue;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -75,6 +77,59 @@ namespace {
 // maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
 
 // AND TEXTURE IF ANY WIP
+
+void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
+    drawQueue.emplace_back(drawOptions);
+}
+
+void GraphicsManager::Render() {
+    shaders["DefaultShader"].Use();
+    glBindVertexArray(VAO);
+
+    Vector2D cameraPosition = CameraManager::GetPosition();
+    float ar = CameraManager::GetAR();
+    int height = CameraManager::GetHeight();
+
+    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
+    glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+
+    for (const auto& drawItem : drawQueue) {
+        glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+
+        glm::mat3x3 finalMatrix;
+
+        if (drawItem.relativeToCamera) {
+            finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+        }
+        else {
+            finalMatrix = modelToWorld;
+        }
+
+        // Send matrix to vert shader
+        GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+        if (uniformModelToNDCLocation == -1) {
+            std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
+            std::exit(EXIT_FAILURE);
+        }
+
+        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+        if (drawItem.useTexture) {
+            // handle color and send to shaders...
+        }
+
+        if (drawItem.useColor) {
+            // handle color and send to shaders...
+        }
+
+        // Render the sprite
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+    }
+
+    glBindVertexArray(0);
+
+    shaders["DefaultShader"].UnUse();
+}
 
 void GraphicsManager::Render(bool isUI) {
 
