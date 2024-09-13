@@ -1,9 +1,10 @@
-#include "UIManager.h"
-
 #include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>
+
+#include "UIManager.h"
+#include "imgui.h"
 
 // Add a message to the log
 void UIDebugConsole::AddLog(const char* message) {

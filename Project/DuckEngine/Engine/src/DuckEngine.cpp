@@ -1,25 +1,26 @@
 #include "DuckEngine.h"
-#include <iostream> // For std::cout
+#include <iostream>
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
+#include "glslshader.h"
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "UIManager.h"
-#include "glslshader.h"
+
 
 //include systems
 #include "SpriteRendererSystem.h"
 #include "CameraSystem.h"
 
 
-
 //GraphicsManager graphicsManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
+UIManager DuckEngine::DUCKENGINE_UIManager;
 
 
 void DuckEngine::Initialize() {
@@ -28,7 +29,7 @@ void DuckEngine::Initialize() {
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
     InputManager::Initialize();
-    UIManager::Initialize();
+    DUCKENGINE_UIManager.Initialize();
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -69,7 +70,7 @@ void DuckEngine::Draw()
     GraphicsManager::Render();
 
     // ---- Start ImGui frame ----
-    UIManager::Render();
+    //DUCKENGINE_UIManager.Render();
 
 
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
@@ -78,7 +79,7 @@ void DuckEngine::Draw()
 }
 
 void DuckEngine::Exit() { 
-    UIManager::Shutdown();
+    DUCKENGINE_UIManager.Shutdown();
     WindowManager::Exit(); }
 
 bool DuckEngine::Running() {

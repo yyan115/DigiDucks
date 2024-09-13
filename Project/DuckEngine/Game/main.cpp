@@ -122,7 +122,7 @@ int main(void)
         //CheckAndSpawnSquare(engine, 1.0f);
 
         UpdateSquares(engine, 1.0F);
-
+        DuckEngine::DUCKENGINE_UIManager.Render();
         engine.Update();
         engine.Draw();
     }

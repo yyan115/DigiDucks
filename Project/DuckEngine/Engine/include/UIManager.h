@@ -1,11 +1,13 @@
 #pragma once
-
-#include "imgui.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_glfw.h"
 #include "UIDebugConsole.h"
 
-class UIManager {
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
+class DUCKENGINE_API UIManager {
 public:
     static void Initialize();
     static void Render();

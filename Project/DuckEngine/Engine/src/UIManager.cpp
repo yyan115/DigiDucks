@@ -1,9 +1,11 @@
+#include "imgui.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_glfw.h"
 #include "DuckEngine.h"
 #include "UIManager.h"
 #include "WindowManager.h"
 #include "SystemManager.h"
 #include "TimeManager.h"
-
 
 UIDebugConsole UIManager::debugConsole;
 

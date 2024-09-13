@@ -8,7 +8,7 @@
 #endif
 
 #include <iostream>
-
+#include "UIManager.h"
 #include "EntityManager.h"
 #include "ComponentManager.h"
 #include "SystemManager.h"
@@ -19,6 +19,7 @@ public:
     static ComponentManager DUCKENGINE_ComponentManager;
     static EntityManager DUCKENGINE_EntityManager;
     static SystemManager DUCKENGINE_SystemManager;
+    static UIManager DUCKENGINE_UIManager;
     
     
     void Start();
