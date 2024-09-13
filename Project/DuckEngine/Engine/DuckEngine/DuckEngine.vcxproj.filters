@@ -46,6 +46,12 @@
     <Filter Include="include\editor">
       <UniqueIdentifier>{92b36501-2e06-4160-ae1d-31e29729446b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\collision">
+      <UniqueIdentifier>{2131a0d8-b43a-420d-9ab8-2e3cfe4e9f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\collision">
+      <UniqueIdentifier>{c17d9352-5e43-4716-bf4c-2bd66fe73cbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -114,6 +120,9 @@
     <ClInclude Include="..\include\CameraSystem.h">
       <Filter>include\systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Bounding.h">
+      <Filter>include\collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -181,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="..\src\UIDebugConsole.cpp">
       <Filter>src\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bounding.cpp">
+      <Filter>src\collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

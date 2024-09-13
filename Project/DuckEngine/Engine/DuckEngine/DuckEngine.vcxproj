@@ -99,6 +99,7 @@
     <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
     <ClInclude Include="..\include\CameraSystem.h" />
+    <ClInclude Include="..\include\Bounding.h" />
     <ClInclude Include="..\include\Component.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
     <ClInclude Include="..\include\DuckEngine.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="..\lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />
     <ClCompile Include="..\src\CameraSystem.cpp" />
+    <ClCompile Include="..\src\Bounding.cpp" />
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\glslshader.cpp" />
