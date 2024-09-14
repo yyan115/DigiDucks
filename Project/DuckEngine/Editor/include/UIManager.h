@@ -10,6 +10,7 @@ public:
 private:
     static void ShowInspector();
     static void ShowConsole();
+    static void ShowEntitySpawn();
 };
 
 

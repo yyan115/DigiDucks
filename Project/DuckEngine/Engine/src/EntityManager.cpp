@@ -21,3 +21,8 @@ void EntityManager::RemoveEntity(int entityID)
         [entityID](const Entity& entity) { return entity.EntityID == entityID; }),
         entities.end());
 }
+
+// Return a reference to the list of entities
+const std::vector<Entity>& EntityManager::GetEntities() const {
+    return entities;
+}
