@@ -19,3 +19,8 @@ void EntityManager::RemoveEntity(int entityID)
         [entityID](const Entity& entity) { return entity.EntityID == entityID; }),
         entities.end());
 }
+
+const std::vector<Entity>& EntityManager::GetEntities() const
+{
+    return entities;
+}
