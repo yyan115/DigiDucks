@@ -1,12 +1,6 @@
 #pragma once
 
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
-class DUCKENGINE_API UIManager {
+class UIManager {
 public:
     static void Initialize();
     static void Render();

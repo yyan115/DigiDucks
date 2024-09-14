@@ -2,13 +2,8 @@
 
 #include <string>
 
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
-class DUCKENGINE_API UIDebugConsole {
+class UIDebugConsole 
+{
 public:
     // Add a message to the log
     void AddLog(const char* fmt, ...);

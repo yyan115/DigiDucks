@@ -8,6 +8,7 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
+#include "UIManager.h"
 
 
 
@@ -38,6 +39,8 @@ void DuckEngine::Initialize() {
     // ADDED BY YY
     std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
     DUCKENGINE_SystemManager.AddSystem(cameraSystem);
+
+    UIManager::Initialize();
 }
 
 void DuckEngine::Update() 
@@ -72,6 +75,8 @@ void DuckEngine::Draw()
 
     GraphicsManager::Render(false);
 
+    UIManager::Render();
+
     GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
     GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
     GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
@@ -87,11 +92,13 @@ void DuckEngine::EndDraw()
 void DuckEngine::Exit() { 
     WindowManager::Exit(); }
 
-bool DuckEngine::Running() {
-    if (!WindowManager::CloseWindow())
-        return true;
-    else
-        return false;
+    bool DuckEngine::Running() {
+        if (!WindowManager::CloseWindow())
+            return true;
+        else
+            return false;
+
+    UIManager::Shutdown();
 }
 
 int DuckEngine::GetWindowWidth() {
