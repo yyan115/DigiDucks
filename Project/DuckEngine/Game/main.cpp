@@ -124,7 +124,12 @@ int main(void)
         
 
         engine.Update();
+        engine.StartDraw();
+
         engine.Draw();
+        
+        
+        engine.EndDraw();
 
     }
 

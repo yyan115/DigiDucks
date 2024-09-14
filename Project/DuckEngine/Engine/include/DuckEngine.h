@@ -19,12 +19,13 @@ public:
     static EntityManager DUCKENGINE_EntityManager;
     static SystemManager DUCKENGINE_SystemManager;
     
-    
     void Start();
 
     void Initialize();
     void Update();
+    void StartDraw();
     void Draw();
+    void EndDraw();
     void Exit();
 
     bool Running();

@@ -51,9 +51,8 @@ void DuckEngine::Update()
     DUCKENGINE_SystemManager.UpdateAll();
 }
 
-void DuckEngine::Draw() 
-{ 
-
+void DuckEngine::StartDraw()
+{
     // Clear the screen
     //Adapt viewport to resized window
     GLint w{ WindowManager::GetWindowWidth() }, h{ WindowManager::GetWindowHeight() };
@@ -66,6 +65,10 @@ void DuckEngine::Draw()
     }
 
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void DuckEngine::Draw() 
+{ 
 
     GraphicsManager::Render(false);
 
@@ -73,11 +76,12 @@ void DuckEngine::Draw()
     GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
     GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
     GraphicsManager::DrawCircle({0,0}, 10000.f);
+}
 
-
+void DuckEngine::EndDraw()
+{
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
     glfwSwapBuffers(WindowManager::getWindow());
-
 }
 
 void DuckEngine::Exit() { 
