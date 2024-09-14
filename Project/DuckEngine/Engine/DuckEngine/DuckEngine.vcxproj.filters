@@ -46,6 +46,12 @@
     <Filter Include="include\collision">
       <UniqueIdentifier>{c17d9352-5e43-4716-bf4c-2bd66fe73cbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\loading">
+      <UniqueIdentifier>{822c8ccf-4075-4c51-8327-d8a4b4ff3102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\loading">
+      <UniqueIdentifier>{d362e1a9-dbd9-4825-92c5-809588a87542}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -111,6 +117,9 @@
     <ClInclude Include="..\include\Bounding.h">
       <Filter>include\collision</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ImageLoader.h">
+      <Filter>include\loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -154,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Bounding.cpp">
       <Filter>src\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ImageLoader.cpp">
+      <Filter>src\loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

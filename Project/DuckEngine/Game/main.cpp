@@ -48,8 +48,8 @@ namespace  {
         engine.DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, true);
 
         // Print for debugging
-        std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY
-            << "), rotation " << rotation << ", velocity (" << velocityX << ", " << velocityY << ")" << std::endl;
+        //std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY
+        //    << "), rotation " << rotation << ", velocity (" << velocityX << ", " << velocityY << ")" << std::endl;
     }
 
     void CheckAndSpawnSquare(DuckEngine& engine, float spawnInterval) {
@@ -79,8 +79,8 @@ namespace  {
                 transform->position.y += velocity.second * deltaTime;  // velocity.second is velocityY
 
                 // Debug print to check the updated position
-                std::cout << "Entity " << entityId << " moved to ("
-                    << transform->position.x << ", " << transform->position.y << ")" << std::endl;
+                //std::cout << "Entity " << entityId << " moved to ("
+                //    << transform->position.x << ", " << transform->position.y << ")" << std::endl;
             }
         }
     }
@@ -102,7 +102,7 @@ int main(void)
         1000.f / 1000.f
     );
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 1; i++) {
         SpawnSquare(engine);
     }
 
