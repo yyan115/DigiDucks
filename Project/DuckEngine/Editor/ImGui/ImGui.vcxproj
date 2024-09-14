@@ -47,10 +47,20 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\UIDebugConsole.cpp" />
+    <ClCompile Include="..\src\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\test\pch.h" />
+    <ClInclude Include="..\include\UIDebugConsole.h" />
+    <ClInclude Include="..\include\UIManager.h" />
     <ClInclude Include="..\lib\imgui\imgui.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\DuckEngine\DuckEngine.vcxproj">
+      <Project>{e79b9515-8a42-4aa1-b5d7-71d599bd5b43}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -107,12 +117,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>$(ProjectName)</TargetName>
     <OutDir>$(SolutionDir)Editor\lib\imgui\</OutDir>
-    <IncludePath>$(SolutionDir)Editor\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)</TargetName>
     <OutDir>$(SolutionDir)Editor\lib\imgui\</OutDir>
-    <IncludePath>$(SolutionDir)Editor\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -154,7 +164,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)Editor\include;$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Editor\lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

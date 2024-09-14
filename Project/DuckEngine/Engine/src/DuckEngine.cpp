@@ -8,7 +8,7 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "TimeManager.h"
-#include "UIManager.h"
+
 
 
 //include systems
@@ -20,7 +20,7 @@
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
-UIManager DuckEngine::DUCKENGINE_UIManager;
+
 
 
 void DuckEngine::Initialize() {
@@ -29,7 +29,7 @@ void DuckEngine::Initialize() {
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
     InputManager::Initialize();
-    DUCKENGINE_UIManager.Initialize();
+ 
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -69,9 +69,6 @@ void DuckEngine::Draw()
 
     GraphicsManager::Render(false);
 
-    // ---- Start ImGui frame ----
-    DUCKENGINE_UIManager.Render();
-
     GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
     GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
     GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
@@ -84,7 +81,6 @@ void DuckEngine::Draw()
 }
 
 void DuckEngine::Exit() { 
-    DUCKENGINE_UIManager.Shutdown();
     WindowManager::Exit(); }
 
 bool DuckEngine::Running() {

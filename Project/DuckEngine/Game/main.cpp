@@ -120,11 +120,12 @@ int main(void)
     while (engine.Running()) 
     {
         //CheckAndSpawnSquare(engine, 1.0f);
-
         UpdateSquares(engine, 1.0F);
-        DuckEngine::DUCKENGINE_UIManager.Render();
+        
+
         engine.Update();
         engine.Draw();
+
     }
 
     std::cout << "Exited!\n";

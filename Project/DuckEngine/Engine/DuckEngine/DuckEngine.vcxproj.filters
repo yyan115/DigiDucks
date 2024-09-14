@@ -40,12 +40,6 @@
     <Filter Include="src\math">
       <UniqueIdentifier>{434438f7-80a9-48cf-b7ea-1ed5726acfce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\editor">
-      <UniqueIdentifier>{3c13e75f-0e3c-48d9-8eb7-0bb2b6aa16c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\editor">
-      <UniqueIdentifier>{92b36501-2e06-4160-ae1d-31e29729446b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\collision">
       <UniqueIdentifier>{2131a0d8-b43a-420d-9ab8-2e3cfe4e9f6d}</UniqueIdentifier>
     </Filter>
@@ -108,12 +102,6 @@
     <ClInclude Include="..\include\TimeManager.h">
       <Filter>include\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\UIManager.h">
-      <Filter>include\editor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\UIDebugConsole.h">
-      <Filter>include\editor</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\CameraComponent.h">
       <Filter>include\components</Filter>
     </ClInclude>
@@ -161,14 +149,8 @@
     <ClCompile Include="..\src\TimeManager.cpp">
       <Filter>src\engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UIManager.cpp">
-      <Filter>src\editor</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\CameraSystem.cpp">
       <Filter>src\systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\UIDebugConsole.cpp">
-      <Filter>src\editor</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Bounding.cpp">
       <Filter>src\collision</Filter>
