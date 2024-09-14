@@ -68,7 +68,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew;$(SolutionDir)/Editor/lib/imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;Debug\ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
       <IgnoreSpecificDefaultLibraries>
@@ -93,7 +93,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew;$(SolutionDir)/Editor/lib/imgui;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;Release\ImGui.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
       <IgnoreSpecificDefaultLibraries>

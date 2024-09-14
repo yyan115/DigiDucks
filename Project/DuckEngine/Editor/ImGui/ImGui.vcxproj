@@ -116,12 +116,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Editor\lib\imgui\</OutDir>
+    <OutDir>$(SolutionDir)Editor\lib\imgui\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Editor\lib\imgui\</OutDir>
+    <OutDir>$(SolutionDir)Editor\lib\imgui\$(Configuration)\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
