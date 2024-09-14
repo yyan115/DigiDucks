@@ -39,16 +39,16 @@ void RenderSystemTimings(const SystemManager& systemManager) {
         // Start drawing the histogram
         ImGui::PlotHistogram("##Systems", systemPercentages.data(), static_cast<int>(systemPercentages.size()), 0, "System Graphs", 0.0f, 100.0f, ImVec2(-25, 150));
 
-            for (size_t i = 0; i < systemPercentages.size(); ++i) {
-                // If the bar is hovered, show a tooltip with the system name
-                if (ImGui::IsItemHovered()) {
-                    ImGui::BeginTooltip();
-                    ImGui::Text("System: %s", systemNames[i]);
-                    ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
-                    ImGui::EndTooltip();
-                }
+        for (size_t i = 0; i < systemPercentages.size(); ++i) {
+            // If the bar is hovered, show a tooltip with the system name
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::Text("System: %s", systemNames[i]);
+                ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
+                ImGui::EndTooltip();
             }
-        
+        }
+
     }
 }
 
@@ -88,20 +88,14 @@ void UIManager::Render() {
     RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
     ImGui::End();
 
-    
-    ImGui::Begin("Game Objects", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-    ImGui::End();
-    
-    ImGui::Begin("Entity Spawn", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    static int spawn[1] = {};
-    ImGui::SliderInt("counter", spawn, 0, 300);
+    ImGui::Begin("Game Objects", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    ImGui::Text("Total Entities: %d", DuckEngine::DUCKENGINE_EntityManager.GetEntities().size());
     ImGui::End();
 
     ShowInspector();
     ShowConsole();
-
-    
+    ShowEntitySpawn();
 
     // Render ImGui on top of the scene
     ImGui::Render();
@@ -147,6 +141,40 @@ void UIManager::ShowInspector() {
     if (ImGui::Button("Reset Scale")) {
         scale[0] = scale[1] = scale[2] = 1.0f;
     }
+
+    ImGui::End();
+}
+
+void UIManager::ShowEntitySpawn() {
+    static int lastSpawnCount = 0;  // Keep track of the last spawn count
+
+    ImGui::Begin("Entity Spawn", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+    static int spawnCount = 0;  // Slider value
+    ImGui::SliderInt("Entity Count", &spawnCount, 0, 300);  // Control entity count
+
+    // If the slider value has increased, spawn new entities
+    if (spawnCount > lastSpawnCount) {
+        UIDebugConsole::debugConsole.AddLog("Spawning entities");
+        int entitiesToSpawn = spawnCount - lastSpawnCount;
+        for (int i = 0; i < entitiesToSpawn; i++) {
+            //SpawnSquare(engine);  // Spawn square using the SpawnSquare
+        }
+    }
+
+    // If the slider value has decreased, remove entities
+    if (spawnCount < lastSpawnCount) {
+        UIDebugConsole::debugConsole.AddLog("Removing entities");
+        int entitiesToRemove = lastSpawnCount - spawnCount;
+        for (int i = 0; i < entitiesToRemove; i++) {
+            // Remove the last spawned entity
+            if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
+                DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().EntityID);
+            }
+        }
+    }
+
+    lastSpawnCount = spawnCount;  // Update the last spawn count
 
     ImGui::End();
 }
