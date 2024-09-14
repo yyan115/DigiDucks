@@ -1,20 +1,26 @@
 #include "CameraManager.h"
 
-Camera::Camera() {
+Vector2D CameraManager::position;  // Camera's position in world space
+
+// window parameters ...
+int CameraManager::cameraHeight;
+float CameraManager::windowAspectRatio;
+
+CameraManager::CameraManager() {
 
 }
 
 // Set and Get camera position
-void Camera::SetPosition(const Vector2D& position) {
+void CameraManager::SetPosition(const Vector2D& position) {
 
 }
 
 // Set and Get zoom level
-void Camera::SetZoom(float zoom) {
+void CameraManager::SetZoom(float zoom) {
 
 }
 
 // Update camera (if you need to do anything like interpolation)
-void Camera::Update() {
+void CameraManager::Update() {
 
 }

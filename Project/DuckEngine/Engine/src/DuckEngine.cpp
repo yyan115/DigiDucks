@@ -67,10 +67,15 @@ void DuckEngine::Draw()
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    GraphicsManager::Render();
+    GraphicsManager::Render(false);
 
     // ---- Start ImGui frame ----
     DUCKENGINE_UIManager.Render();
+
+    GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
+    GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
+    GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
+    GraphicsManager::DrawCircle({0,0}, 10000.f);
 
 
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
