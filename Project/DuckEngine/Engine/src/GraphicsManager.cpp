@@ -139,45 +139,43 @@ void GraphicsManager::Render() {
 
 void GraphicsManager::Render(bool isUI) {
 
-    // std::cout << "Trying\n";
-
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
 
+    // Retrieve all camera components
+    auto cameraComponents = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<CameraComponent>();
+
     // Loop over all active cameras
-    for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
-
-        CameraComponent* camera = GetComponent<CameraComponent>(cameraEntityID);
+    for (CameraComponent* camera : cameraComponents) {
 
         // std::cout << "Camera received.\n";
-
         if (!camera) continue;
-
-        // std::cout << "Camera received.\n";
 
         glm::mat3x3 viewMatrix = ViewMatrix(camera->position);
 
-        for (const auto& [spriteEntityID, spriteRenderer] : GetComponents<SpriteRendererComponent>()) {
+        // Retrieve all sprite renderer components
+        auto spriteComponents = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>();
+
+        for (SpriteRendererComponent* spriteRenderer : spriteComponents) {
 
             // Check if sprite renderer exists
-            if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
+            if (!spriteRenderer) continue;
 
             // std::cout << "Sprite available.\n";
 
-            // Check if camera and sprite are on same layer
+            // Check if camera and sprite are on the same layer
             if (spriteRenderer->layer != camera->layer) continue;
 
             // std::cout << "Sprite is on same layer.\n";
 
-            // Check if transform exist and render if it does
-            if (TransformComponent* transform = GetComponent<TransformComponent>(spriteEntityID))
-            {
+            // Check if transform exists and render if it does
+            TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(DuckEngine::DUCKENGINE_ComponentManager.GetEntityIDByComponent(spriteRenderer));
+
+            if (transform) {
                 // std::cout << "Transform exists. Rendering now\n";
 
                 glm::mat3x3 modelToWorld = ModelToWorldMatrix(transform->scale, transform->angle, transform->position);
-
                 glm::mat3x3 cameraToNDC = CameraToNDCMatrix(camera->windowAspectRatio * camera->cameraHeight, camera->cameraHeight);
-
                 glm::mat3x3 finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
 
                 //std::cout << "final Matrix =\n";
@@ -192,7 +190,7 @@ void GraphicsManager::Render(bool isUI) {
                 //std::cout << "camMatrix =\n";
                 //for (int row = 0; row < 3; ++row) {
                 //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
+                //    for (int col = 0; col << 3; ++col) {
                 //        std::cout << cameraToNDC[row][col] << " ";
                 //    }
                 //    std::cout << "|\n";
@@ -201,7 +199,7 @@ void GraphicsManager::Render(bool isUI) {
                 //std::cout << "viewMatrix =\n";
                 //for (int row = 0; row < 3; ++row) {
                 //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
+                //    for (int col = 0; col << 3; ++col) {
                 //        std::cout << viewMatrix[row][col] << " ";
                 //    }
                 //    std::cout << "|\n";
@@ -234,9 +232,9 @@ void GraphicsManager::Render(bool isUI) {
     }
 
     glBindVertexArray(0);
-
     shaders["DefaultShader"].UnUse();
 }
+
 
 bool GraphicsManager::Initialize() {
 

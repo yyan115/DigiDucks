@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
 #include "CameraComponent.h"
+#include "ComponentPool.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -20,101 +21,107 @@
 class DUCKENGINE_API ComponentManager
 {
   private:
-    std::unordered_map<std::type_index,
-                       std::unordered_map<int, std::shared_ptr<Component>>>
-        componentStorage;
+    std::unordered_map<std::type_index, std::shared_ptr<ComponentPoolBase>> componentPools;
+
+    enum ComponentType
+    {
+        TRANSFORM_COMPONENT = 1 << 0,
+        SPRITE_RENDERER_COMPONENT = 1 << 1,
+        CAMERA_COMPONENT = 1 << 2,
+    };
+
+    template <typename T>
+    ComponentPool<T>* GetOrCreatePool()
+    {
+        const std::type_index& typeIndex = typeid(T);
+        if (componentPools.find(typeIndex) == componentPools.end()) 
+        {
+            componentPools[typeIndex] = std::make_unique<ComponentPool<T>>();
+        }
+        return static_cast<ComponentPool<T>*>(componentPools[typeIndex].get());
+    }
+
 
   public:
     ComponentManager() = default;
     ~ComponentManager() = default;
 
-    // Add a component of any type to an entity
     template <typename T, typename... Args>
-    T* AddComponent(int entityID, Args &&...args)
+    T* AddComponent(int entityID, Args&&... args)
     {
-        auto& typeMap = componentStorage[typeid(T)];
-        std::shared_ptr<Component> component =
-            std::make_shared<T>(std::forward<Args>(args)...);
-        auto result = typeMap.emplace(entityID, component);
-
-        //std::cout << "Added component of type " << typeid(T).name()
-        //    << " to entity " << entityID
-        //    << " (Insertion " << (result.second ? "successful" : "failed") << ")"
-        //    << std::endl;
-
-        return std::static_pointer_cast<T>(result.first->second).get();
+        ComponentPool<T>& pool = *GetOrCreatePool<T>();
+        T component(std::forward<Args>(args)...);
+        std::shared_ptr<T> compPtr = pool.AddComponent(entityID, component);
+        return compPtr.get();
     }
 
-    // Get a component of any type associated with an entity
-    template <typename T> T *GetComponent(int entityID)
-    {
-        auto typeIt = componentStorage.find(typeid(T));
-        if (typeIt != componentStorage.end())
-        {
-            auto componentIt = typeIt->second.find(entityID);
-            if (componentIt != typeIt->second.end())
-            {
-                return std::static_pointer_cast<T>(componentIt->second).get();
-            }
-        }
-        return nullptr;
-    }
-
-    // Get all components of a certain type (returns a map of entityID -> Component)
     template <typename T>
-    std::unordered_map<int, std::shared_ptr<Component>>& GetComponents()
+    T* GetComponent(int entityID)
     {
-        // Find the map for the specific component type
-        return componentStorage[typeid(T)];
+        ComponentPool<T>& pool = *GetOrCreatePool<T>();
+        std::shared_ptr<T> compPtr = pool.GetComponent(entityID);
+        return compPtr ? compPtr.get() : nullptr;
     }
 
+    template <typename T>
+    std::vector<T*> GetComponents()
+    {
+        ComponentPool<T>* pool = GetOrCreatePool<T>();
+        std::vector<T*> components;
+
+        for (auto& component : pool->components)
+        {
+            components.push_back(component.get());
+        }
+        return components;
+    }
 
     // Remove a component of any type from an entity
-    template <typename T> void RemoveComponent(int entityID)
+    template <typename T>
+    void RemoveComponent(int entityID) 
     {
-        auto typeIt = componentStorage.find(typeid(T));
-        if (typeIt != componentStorage.end())
-        {
-            typeIt->second.erase(entityID);
-        }
+        ComponentPool<T>& pool = *GetOrCreatePool<T>();
+        pool.RemoveComponent(entityID);
     }
 
-    // Check if an entity has a component of a certain type
-    template <typename T> bool HasComponent(int entityID)
+    template <typename T>
+    bool HasComponent(int entityID)
     {
-        auto typeIt = componentStorage.find(typeid(T));
-        if (typeIt != componentStorage.end())
-        {
-            return typeIt->second.find(entityID) != typeIt->second.end();
-        }
-        return false;
+        ComponentPool<T>* pool = GetOrCreatePool<T>();
+        return pool->GetComponent(entityID) != nullptr;
     }
+
+    template <typename T>
+    int GetEntityIDByComponent(const T* component)
+    {
+        ComponentPool<T>* pool = GetOrCreatePool<T>();
+
+        for (int entityID = 0; entityID < pool->components.size(); ++entityID)
+        {
+            if (pool->components[entityID].get() == component)
+            {
+                return entityID;
+            }
+        }
+        return -1;
+    }
+
+
 
     void RemoveAllComponents(int entityID)
     {
-        if (entityID < 0) entityID = 0;
         int totalRemoved = 0;
-        int totalRemaining = 0;
 
-        for (auto& [type, componentMap] : componentStorage)
+        for (const auto& [type, poolPtr] : componentPools)
         {
-            auto it = componentMap.find(entityID);
-            if (it != componentMap.end())
-            {
-                componentMap.erase(it);
-                totalRemoved++;
-            }
-        }
-
-        for (const auto& [type, componentMap] : componentStorage)
-        {
-            if (componentMap.find(entityID) != componentMap.end())
-            {
-                totalRemaining++;
-            }
+            auto* pool = static_cast<ComponentPoolBase*>(poolPtr.get());
+            pool->RemoveComponent(entityID);
+            totalRemoved++;
         }
 
         std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
-        std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
     }
+
+
+
 };

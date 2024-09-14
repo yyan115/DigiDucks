@@ -108,6 +108,7 @@
     <ClInclude Include="..\include\Bounding.h" />
     <ClInclude Include="..\include\Component.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
+    <ClInclude Include="..\include\ComponentPool.h" />
     <ClInclude Include="..\include\DuckEngine.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\EntityManager.h" />

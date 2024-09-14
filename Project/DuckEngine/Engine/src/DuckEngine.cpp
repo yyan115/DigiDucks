@@ -33,12 +33,12 @@ void DuckEngine::Initialize() {
  
 
     // add the systems
-    std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
-    DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
+    //std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
+    //DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
 
-    // ADDED BY YY
-    std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
-    DUCKENGINE_SystemManager.AddSystem(cameraSystem);
+    //// ADDED BY YY
+    //std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
+    //DUCKENGINE_SystemManager.AddSystem(cameraSystem);
 
     UIManager::Initialize();
 }

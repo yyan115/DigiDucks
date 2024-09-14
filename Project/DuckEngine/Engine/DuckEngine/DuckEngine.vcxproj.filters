@@ -16,9 +16,6 @@
     <Filter Include="include\entities">
       <UniqueIdentifier>{924492b3-91d8-408b-beba-204533d82661}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\entities">
-      <UniqueIdentifier>{f6feb980-c1c1-45f8-90ff-e12ac2e328eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\engine">
       <UniqueIdentifier>{fa8a82a8-c160-4644-9996-fd51017a6488}</UniqueIdentifier>
     </Filter>
@@ -110,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Bounding.h">
       <Filter>include\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComponentPool.h">
+      <Filter>include\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
