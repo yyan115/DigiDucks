@@ -143,8 +143,8 @@
     <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\fragShader.frag" />
-    <None Include="..\src\vertShader.vert" />
+    <None Include="..\..\Game\Resources\Shaders\fragShader.frag" />
+    <None Include="..\..\Game\Resources\Shaders\vertShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

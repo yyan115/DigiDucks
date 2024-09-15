@@ -169,10 +169,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\fragShader.frag">
+    <None Include="..\..\Game\Resources\Shaders\fragShader.frag">
       <Filter>src\rendering</Filter>
     </None>
-    <None Include="..\src\vertShader.vert">
+    <None Include="..\..\Game\Resources\Shaders\vertShader.vert">
       <Filter>src\rendering</Filter>
     </None>
   </ItemGroup>
