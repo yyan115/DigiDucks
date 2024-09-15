@@ -25,7 +25,7 @@ void SpriteMovementScene::Load()
 	SpriteRendererComponent* playerSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(player->EntityID, true);
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(player->EntityID);
 
-    playerSprite->texture = ImageLoader::LoadTexture("../Resources/Player.png");
+    playerSprite->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
 
 }
