@@ -1,14 +1,14 @@
 #pragma once
 
-
 #include <string>
-#include <GL/glew.h>
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
+
+typedef unsigned int GLuint;
 
 class DUCKENGINE_API ImageLoader
 {

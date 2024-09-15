@@ -1,9 +1,9 @@
 #pragma once
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-
 #include "ImageLoader.h"
 #include <iostream>
+#include "GL/glew.h"
 
 GLuint ImageLoader::LoadTexture(const std::string& filePath)
 {

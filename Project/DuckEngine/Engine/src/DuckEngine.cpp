@@ -18,8 +18,8 @@
 
 
 //GraphicsManager graphicsManager;
-ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
+ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
 
 

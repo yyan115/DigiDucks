@@ -2,9 +2,7 @@
 
 #include <random>
 #include <filesystem>
-
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include "ImageLoader.h"
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
@@ -16,7 +14,6 @@
 
 #include "DuckEngine.h"
 #include "CameraSystem.h"
-#include "ImageLoader.h"
 
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
@@ -188,6 +185,13 @@ void GraphicsManager::Render(bool isUI) {
             if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
 
             // std::cout << "Sprite available.\n";
+
+            if (spriteRenderer->sprite) 
+            {
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_2D, spriteRenderer->texture);
+            }
+
 
             // Check if camera and sprite are on same layer
             if (spriteRenderer->layer != camera->layer) continue;

@@ -81,7 +81,7 @@ void MaxLoadScene::SpawnSquare() {
     entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
 
     // Add sprite renderer component
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, true);
+    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
 
     // Print for debugging
     //std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY
