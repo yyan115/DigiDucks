@@ -5,11 +5,14 @@
 Entity* player;
 Entity* camera;
 
+CameraComponent* cameraComponent;
+TransformComponent* playerTransform;
+
 void SpriteMovementScene::Load()
 {
 	camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
+    cameraComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
         camera->EntityID,
         0.f, 0.f,        // Camera position (centered at the origin)
         1.0f,            // Zoom factor of 1.0 for 1:1 scale
@@ -20,7 +23,7 @@ void SpriteMovementScene::Load()
 
 	player = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 	SpriteRendererComponent* playerSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(player->EntityID, true);
-	TransformComponent* playerTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(player->EntityID);
+	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(player->EntityID);
 
     playerSprite->texture = ImageLoader::LoadTexture("../Resources/Player.png");
 
@@ -29,12 +32,30 @@ void SpriteMovementScene::Load()
 
 void SpriteMovementScene::Start()
 {
-	
+
 }
 
 void SpriteMovementScene::Update()
 {
+    if (DuckEngine::WKeyDown)
+    {
+        playerTransform->position.y -= 0.01f;
+    }
 
+    if (DuckEngine::SKeyDown)
+    {
+        playerTransform->position.y += 0.01f;
+    }
+
+    if (DuckEngine::AKeyDown)
+    {
+        playerTransform->position.x += 0.01f;
+    }
+
+    if (DuckEngine::DKeyDown)
+    {
+        playerTransform->position.x -= 0.01f;
+    }
 
 }
 

@@ -8,8 +8,8 @@ GLint WindowManager::width;
 GLint WindowManager::height;
 
 bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
-    width = width;
-    height = height;
+    WindowManager::width = width;
+    WindowManager::height = height;
     title = title;
 
     // Check if glfw init success

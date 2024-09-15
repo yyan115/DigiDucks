@@ -27,8 +27,16 @@ public:
     void Exit();
 
     bool Running();
-    int GetWindowWidth();
-    int GetWindowHeight();
+
+    static bool WKeyDown;
+    static bool AKeyDown;
+    static bool SKeyDown;
+    static bool DKeyDown;
+
+    static int GetWindowWidth();
+    static int GetWindowHeight();
+
+
 };
 
 // Expose window dimension getters as global functions - REMOVED FOR NOW, BUT INTERESTING OPTION

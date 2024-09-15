@@ -10,8 +10,6 @@
 #include "TimeManager.h"
 #include "UIManager.h"
 
-
-
 //include systems
 #include "SpriteRendererSystem.h"
 #include "CameraSystem.h"
@@ -22,7 +20,10 @@ EntityManager DuckEngine::DUCKENGINE_EntityManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
 
-
+bool DuckEngine::WKeyDown = false;
+bool DuckEngine::AKeyDown = false;
+bool DuckEngine::SKeyDown = false;
+bool DuckEngine::DKeyDown = false;
 
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
@@ -103,10 +104,12 @@ void DuckEngine::Exit() {
     
 }
 
-int DuckEngine::GetWindowWidth() {
+int DuckEngine::GetWindowWidth() 
+{
     return WindowManager::GetWindowWidth();
 }
 
-int DuckEngine::GetWindowHeight() {
+int DuckEngine::GetWindowHeight() 
+{
     return WindowManager::GetWindowHeight();
 }

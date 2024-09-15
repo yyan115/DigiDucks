@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "DuckEngine.h"
 #include "InputManager.h"
 #include "WindowManager.h"
 #include "UIDebugConsole.h"
@@ -68,6 +69,25 @@ void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, i
         if (GLFW_KEY_ESCAPE == key) {
             glfwSetWindowShouldClose(pwin, GLFW_TRUE);
         }
+        if (key == GLFW_KEY_W)
+        {
+            DuckEngine::WKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_A)
+        {
+            DuckEngine::AKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_S)
+        {
+            DuckEngine::SKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_D)
+        {
+            DuckEngine::DKeyDown = true;
+        }
 
         // less buggy, but doesnt mimic sample as well
         //if (key == GLFW_KEY_V)
@@ -99,6 +119,26 @@ void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, i
         //GLApp::camera2d.left_turn_flag  = GL_FALSE;
         //GLApp::camera2d.right_turn_flag = GL_FALSE;
         //GLApp::camera2d.move_flag       = GL_FALSE;
+
+        if (key == GLFW_KEY_W)
+        {
+            DuckEngine::WKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_A)
+        {
+            DuckEngine::AKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_S)
+        {
+            DuckEngine::SKeyDown = true;
+        }
+
+        if (key == GLFW_KEY_D)
+        {
+            DuckEngine::DKeyDown = true;
+        }
     }
     else if (GLFW_RELEASE == action) {
         // key start changes from pressed to released
@@ -107,6 +147,27 @@ void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, i
         //GLApp::camera2d.left_turn_flag = GL_FALSE;
         //GLApp::camera2d.right_turn_flag = GL_FALSE;
         //GLApp::camera2d.move_flag = GL_FALSE;
+
+
+        if (key == GLFW_KEY_W)
+        {
+            DuckEngine::WKeyDown = false;
+        }
+
+        if (key == GLFW_KEY_A)
+        {
+            DuckEngine::AKeyDown = false;
+        }
+
+        if (key == GLFW_KEY_S)
+        {
+            DuckEngine::SKeyDown = false;
+        }
+
+        if (key == GLFW_KEY_D)
+        {
+            DuckEngine::DKeyDown = false;
+        }
     }
 }
 
