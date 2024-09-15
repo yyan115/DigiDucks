@@ -54,6 +54,12 @@ public:
 	* @return The length of the vector
 	****************************************************************/
 	float length() const;
+	/****************************************************************
+	* @brief Get the squared length of the vector
+	* 
+	* @return The squared length of the vector
+	* ***************************************************************/
+	float lengthSquared() const;
 
 };
 

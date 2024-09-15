@@ -114,6 +114,11 @@ float Vector2D::length() const {
 	return length;
 }
 
+float Vector2D::lengthSquared() const {
+	float lengthSquared = x * x + y * y;
+	return lengthSquared;
+}
+
 // Public Functions
 float Vec2Dot(const Vector2D& lhs, const Vector2D& rhs) {
 	float _x = lhs.x * rhs.x;

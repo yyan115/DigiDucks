@@ -17,9 +17,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 
 class BoundingCollider {
+private:
 	Vec2 centerPos{};
 
-public:	
+public:
 
 	// Constructor
 	BoundingCollider() : centerPos(0.f, 0.f){}
@@ -59,6 +60,8 @@ public:
 class BoundingBox : public BoundingCollider {
 private:
 	Vec2 size{};
+	Vec2 max{};
+	Vec2 min{};
 
 public:
 
@@ -66,8 +69,11 @@ public:
 	BoundingBox() = delete;
 
 	// Constructor
-	BoundingBox(const Vec2& center,const Vec2& size) : BoundingCollider(center), size(size) {};
-	BoundingBox(float _x, float _y, float sizeX, float sizeY) : BoundingCollider(_x, _y), size(sizeX, sizeY) {}
+	BoundingBox(const Vec2& _center, const Vec2& _size) : BoundingCollider(_center), size(_size), max(_center + _size), min(_center - _size) {}
+	BoundingBox(float _x, float _y, float sizeX, float sizeY) : BoundingCollider(_x, _y), size(sizeX, sizeY), max(_x + sizeX, _y + sizeY), min(_x - sizeX, _y - sizeY) {}
+
+	// Copy Constructor
+	BoundingBox(BoundingBox& box) : BoundingCollider(box.getCenterPos()), size(box.getSize()), max(box.getMax()), min(box.getMin()) {}
 
 	// Destructor
 	~BoundingBox() = default;
@@ -86,6 +92,20 @@ public:
 	* @return The size of the box
 	* ***************************************************************/
 	Vec2 getSize() const;
+	
+	/****************************************************************
+	* @brief Get the maximum point of the box
+	* 
+	* @return The maximum point of the box
+	* ***************************************************************/
+	Vec2 getMax() const;
+
+	/****************************************************************
+	* @brief Get the minimum point of the box
+	* 
+	* @return The minimum point of the box
+	* ***************************************************************/
+	Vec2 getMin() const;
 
 	// Setters
 
@@ -117,6 +137,9 @@ public:
 	// Constructor
 	BoundingCircle(const Vec2& center, float _radius) : BoundingCollider(center), radius(_radius) {};
 	BoundingCircle(float x, float y, float _radius) : BoundingCollider(x, y), radius(_radius) {}
+
+	// Copy Constructor
+	BoundingCircle(BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
 
 	// Destructor
 	~BoundingCircle() = default;
@@ -167,7 +190,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f));
+bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f), float deltaTime = 0.3f);
 
 /****************************************************************
 * @brief Check collision between two boxes
@@ -182,7 +205,7 @@ bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 circle_velo =
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f), float deltaTime = 0.3f);
 
 /****************************************************************
 * @brief Check collision between two circles
@@ -197,5 +220,5 @@ bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 
 *	
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f), float deltaTime = 0.3f);
 
