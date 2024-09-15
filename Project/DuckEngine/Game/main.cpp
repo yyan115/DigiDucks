@@ -1,5 +1,6 @@
 #include "DuckEngine.h"
 #include "MaxLoadScene.h"
+#include "SpriteMovementScene.h"
 
 static DuckEngine engine;
 
@@ -14,6 +15,7 @@ int main(void)
 
     // Possible Scenes
     MaxLoadScene maxLoadScene;
+    SpriteMovementScene spriteMovementScene;
     
     // Set Active Scene
     activeScene = &maxLoadScene;
