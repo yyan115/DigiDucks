@@ -2,11 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\src\MaxLoadScene.cpp">
-      <Filter>src\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Scene.cpp">
       <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MaxLoadScene.cpp">
+      <Filter>src\Scenes\TestingScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpriteMovementScene.cpp">
+      <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -22,13 +25,22 @@
     <Filter Include="src\Scenes">
       <UniqueIdentifier>{c8b17bd0-e028-4998-8146-e5960c0ba1e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Scenes\TestingScenes">
+      <UniqueIdentifier>{bcc7c01d-21b7-4ce6-b0ae-bbda61c96d45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scenes\TestingScenes">
+      <UniqueIdentifier>{5d4e1433-c924-48e1-b2b2-7a555d588421}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\MaxLoadScene.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Scene.h">
       <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MaxLoadScene.h">
+      <Filter>include\Scenes\TestingScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SpriteMovementScene.h">
+      <Filter>include\Scenes\TestingScenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
