@@ -7,50 +7,50 @@
     <Filter Include="src">
       <UniqueIdentifier>{31934cd0-6f3a-42c7-9841-6a2348c7e29e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\rendering">
-      <UniqueIdentifier>{558b2546-f36a-42e4-9020-eb6ce3eea10d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\rendering">
-      <UniqueIdentifier>{d85c11f3-8707-44dd-89ad-02645b10f65f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\entities">
-      <UniqueIdentifier>{924492b3-91d8-408b-beba-204533d82661}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\entities">
-      <UniqueIdentifier>{f6feb980-c1c1-45f8-90ff-e12ac2e328eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\engine">
-      <UniqueIdentifier>{fa8a82a8-c160-4644-9996-fd51017a6488}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\engine">
-      <UniqueIdentifier>{2fcf3e3e-d43a-4218-ad9f-228724a469c6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\components">
-      <UniqueIdentifier>{a8a6e078-0736-4a91-94e4-465b3082bd83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\systems">
-      <UniqueIdentifier>{b0abd3cd-a962-4aee-8e85-88541196c580}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\systems">
-      <UniqueIdentifier>{c8d14722-2426-43d5-896b-68a6c87dd1a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\math">
-      <UniqueIdentifier>{d9530a2f-c12b-440b-a9a4-4ddb1a23a653}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\math">
-      <UniqueIdentifier>{434438f7-80a9-48cf-b7ea-1ed5726acfce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\collision">
-      <UniqueIdentifier>{2131a0d8-b43a-420d-9ab8-2e3cfe4e9f6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\collision">
+    <Filter Include="include\Collision">
       <UniqueIdentifier>{c17d9352-5e43-4716-bf4c-2bd66fe73cbe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\loading">
+    <Filter Include="include\Components">
+      <UniqueIdentifier>{a8a6e078-0736-4a91-94e4-465b3082bd83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Engine">
+      <UniqueIdentifier>{fa8a82a8-c160-4644-9996-fd51017a6488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Entities">
+      <UniqueIdentifier>{924492b3-91d8-408b-beba-204533d82661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Loading">
       <UniqueIdentifier>{822c8ccf-4075-4c51-8327-d8a4b4ff3102}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\loading">
+    <Filter Include="include\Math">
+      <UniqueIdentifier>{d9530a2f-c12b-440b-a9a4-4ddb1a23a653}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Rendering">
+      <UniqueIdentifier>{558b2546-f36a-42e4-9020-eb6ce3eea10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Systems">
+      <UniqueIdentifier>{b0abd3cd-a962-4aee-8e85-88541196c580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Collision">
+      <UniqueIdentifier>{2131a0d8-b43a-420d-9ab8-2e3cfe4e9f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine">
+      <UniqueIdentifier>{2fcf3e3e-d43a-4218-ad9f-228724a469c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Entities">
+      <UniqueIdentifier>{f6feb980-c1c1-45f8-90ff-e12ac2e328eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Loading">
       <UniqueIdentifier>{d362e1a9-dbd9-4825-92c5-809588a87542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Math">
+      <UniqueIdentifier>{434438f7-80a9-48cf-b7ea-1ed5726acfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Rendering">
+      <UniqueIdentifier>{d85c11f3-8707-44dd-89ad-02645b10f65f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Systems">
+      <UniqueIdentifier>{c8d14722-2426-43d5-896b-68a6c87dd1a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,67 +58,67 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GraphicsManager.h">
-      <Filter>include\rendering</Filter>
+      <Filter>include\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\include\glslshader.h">
-      <Filter>include\rendering</Filter>
+      <Filter>include\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Entity.h">
-      <Filter>include\entities</Filter>
+      <Filter>include\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TransformComponent.h">
-      <Filter>include\components</Filter>
+      <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ComponentManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Component.h">
-      <Filter>include\components</Filter>
+      <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\EntityManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\SystemManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\SpriteRendererComponent.h">
-      <Filter>include\components</Filter>
+      <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\System.h">
-      <Filter>include\systems</Filter>
+      <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\SpriteRendererSystem.h">
-      <Filter>include\systems</Filter>
+      <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\InputManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Matrix3x3.h">
-      <Filter>include\math</Filter>
+      <Filter>include\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Vector2.h">
-      <Filter>include\math</Filter>
+      <Filter>include\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\include\WindowManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CameraManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TimeManager.h">
-      <Filter>include\engine</Filter>
+      <Filter>include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CameraComponent.h">
-      <Filter>include\components</Filter>
+      <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CameraSystem.h">
-      <Filter>include\systems</Filter>
+      <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Bounding.h">
-      <Filter>include\collision</Filter>
+      <Filter>include\Collision</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ImageLoader.h">
-      <Filter>include\loading</Filter>
+      <Filter>include\Loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -126,54 +126,54 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GraphicsManager.cpp">
-      <Filter>src\rendering</Filter>
+      <Filter>src\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\glslshader.cpp">
-      <Filter>src\rendering</Filter>
+      <Filter>src\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EntityManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SystemManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SpriteRendererSystem.cpp">
-      <Filter>src\systems</Filter>
+      <Filter>src\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\InputManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Matrix3x3.cpp">
-      <Filter>src\math</Filter>
+      <Filter>src\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Vector2.cpp">
-      <Filter>src\math</Filter>
+      <Filter>src\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\src\WindowManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CameraManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TimeManager.cpp">
-      <Filter>src\engine</Filter>
+      <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CameraSystem.cpp">
-      <Filter>src\systems</Filter>
+      <Filter>src\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Bounding.cpp">
-      <Filter>src\collision</Filter>
+      <Filter>src\Collision</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ImageLoader.cpp">
-      <Filter>src\loading</Filter>
+      <Filter>src\Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fragShader.frag">
-      <Filter>src\rendering</Filter>
+      <Filter>src\Rendering</Filter>
     </None>
     <None Include="..\..\Game\Resources\Shaders\vertShader.vert">
-      <Filter>src\rendering</Filter>
+      <Filter>src\Rendering</Filter>
     </None>
   </ItemGroup>
 </Project>
