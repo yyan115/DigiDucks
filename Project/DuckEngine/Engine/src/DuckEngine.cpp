@@ -90,7 +90,7 @@ void DuckEngine::EndDraw()
 }
 
 void DuckEngine::Exit() { 
-    UIManager::Shutdown();
+    UIManager::Exit();
     WindowManager::Exit();
 }
 

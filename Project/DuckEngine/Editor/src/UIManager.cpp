@@ -102,7 +102,7 @@ void UIManager::Render() {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void UIManager::Shutdown() {
+void UIManager::Exit() {
     // Clean up ImGui resources
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

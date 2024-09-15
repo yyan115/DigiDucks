@@ -20,7 +20,7 @@ int main(void)
     }
 
     std::cout << "Exited!\n";
-    uiManager.Shutdown();
+    uiManager.Exit();
 
     //cleanup();
 

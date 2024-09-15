@@ -4,7 +4,7 @@ class UIManager {
 public:
     static void Initialize();
     static void Render();
-    static void Shutdown();
+    static void Exit();
 
     
 private:
