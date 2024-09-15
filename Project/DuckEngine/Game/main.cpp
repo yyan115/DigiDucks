@@ -102,7 +102,7 @@ int main(void)
         1000.f / 1000.f
     );
 
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 100; i++) {
         SpawnSquare(engine);
     }
 
@@ -117,18 +117,17 @@ int main(void)
     //engine.DUCKENGINE_EntityManager.RemoveEntity(square.EntityID);
     //engine.DUCKENGINE_EntityManager.RemoveEntity(square2.EntityID);
 
-    while (engine.Running()) 
+    while (engine.Running())
     {
         //CheckAndSpawnSquare(engine, 1.0f);
         UpdateSquares(engine, 1.0F);
-        
+
 
         engine.Update();
         engine.StartDraw();
 
         engine.Draw();
-        
-        
+
         engine.EndDraw();
 
     }

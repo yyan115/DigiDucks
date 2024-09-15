@@ -16,6 +16,7 @@
 
 #include "DuckEngine.h"
 #include "CameraSystem.h"
+#include "ImageLoader.h"
 
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
@@ -28,6 +29,8 @@ GLuint GraphicsManager::lineVAO;
 GLuint GraphicsManager::rectVAO;
 GLuint GraphicsManager::circleVAO;
 int GraphicsManager::circleSegments;
+
+GLuint TEST_TEXTURE = 0;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -144,6 +147,28 @@ void GraphicsManager::Render(bool isUI) {
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
 
+    // Set the texture uniform
+    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+    if (uTex2dLocation != -1) {
+        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
+    }
+
+    // Set other uniforms
+    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+
+    // Example values - adjust as needed
+    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
+    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
+    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
+
+    // Bind the texture if it exists
+    if (TEST_TEXTURE != 0) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
+    }
+
     // Loop over all active cameras
     for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
 
@@ -234,7 +259,7 @@ void GraphicsManager::Render(bool isUI) {
     }
 
     glBindVertexArray(0);
-
+    glBindTexture(GL_TEXTURE_2D, 0);
     shaders["DefaultShader"].UnUse();
 }
 
@@ -244,6 +269,14 @@ bool GraphicsManager::Initialize() {
     if (!SetUpGLEW()) {
         return false;
     }
+
+    TEST_TEXTURE = ImageLoader::LoadTexture("../Resources/monkey.png");
+    if (TEST_TEXTURE == 0) {
+        std::cerr << "Failed to load test texture" << std::endl;
+        return false;
+    }
+    std::cout << "Test texture loaded successfully. Texture ID: " << TEST_TEXTURE << std::endl;
+
 
     InitializeSingleMeshShaderSystem();
 
@@ -666,10 +699,20 @@ namespace {
     }
 
     // Creates 1x1 mesh to reuse for all draws
-    void InitMesh(GLuint &VAO) {
+    void InitMesh(GLuint& VAO) {
         std::vector<glm::vec2> pos_vtx{
             glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.5f),
-            glm::vec2(-0.5, 0.5f), glm::vec2(-0.5f, -0.5f)
+            glm::vec2(-0.5f, 0.5f), glm::vec2(-0.5f, -0.5f)
+        };
+
+        std::vector<glm::vec3> clr_vtx{
+            glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),
+            glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f)
+        };
+
+        std::vector<glm::vec2> tex_coords{
+            glm::vec2(1.0f, 0.0f), glm::vec2(1.0f, 1.0f),
+            glm::vec2(0.0f, 1.0f), glm::vec2(0.0f, 0.0f)
         };
 
         std::vector<GLuint> idx_vtx{
@@ -677,25 +720,24 @@ namespace {
             0, 2, 3
         };
 
-        std::vector<glm::vec3> clr_vtx;
-
-        std::random_device randomDevice;
-        std::default_random_engine randomEngine(randomDevice());
-        std::uniform_real_distribution<GLfloat> urdfloats(0.0f, 1.0f);
-
-        for (int i = 0; i < pos_vtx.size(); i++) {
-            clr_vtx.push_back({ urdfloats(randomEngine), urdfloats(randomEngine) , urdfloats(randomEngine) });
-        }
-
         glCreateVertexArrays(1, &VAO);
 
-        // setup position
+        // Setup position (layout location = 0)
         SetUpVBO(VAO, static_cast<GLsizei>(sizeof(glm::vec2) * pos_vtx.size()), 0, 2, pos_vtx.data(), 0, sizeof(glm::vec2));
 
-        // setup color
+        // Setup color (layout location = 1)
         SetUpVBO(VAO, static_cast<GLsizei>(sizeof(glm::vec3) * clr_vtx.size()), 1, 3, clr_vtx.data(), 0, sizeof(glm::vec3));
 
+        // Setup texture coordinates (layout location = 2)
+        SetUpVBO(VAO, static_cast<GLsizei>(sizeof(glm::vec2) * tex_coords.size()), 2, 2, tex_coords.data(), 0, sizeof(glm::vec2));
+
         SetUpEBO(VAO, idx_vtx);
+
+        // Error checking
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR) {
+            std::cerr << "OpenGL error in InitMesh: " << error << std::endl;
+        }
     }
 
     template <typename T>
