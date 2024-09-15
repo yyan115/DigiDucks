@@ -90,7 +90,9 @@ void DuckEngine::EndDraw()
 }
 
 void DuckEngine::Exit() { 
-    WindowManager::Exit(); }
+    UIManager::Shutdown();
+    WindowManager::Exit();
+}
 
     bool DuckEngine::Running() {
         if (!WindowManager::CloseWindow())
@@ -98,7 +100,7 @@ void DuckEngine::Exit() {
         else
             return false;
 
-    UIManager::Shutdown();
+    
 }
 
 int DuckEngine::GetWindowWidth() {
