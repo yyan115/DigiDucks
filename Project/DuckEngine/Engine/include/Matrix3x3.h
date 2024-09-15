@@ -40,7 +40,7 @@ public:
 	Matrix3x3& operator=(const Matrix3x3& rhs);
 
 	// Destructor
-	~Matrix3x3() = default;
+	~Matrix3x3();
 
 	// Assignment Operator
 	/****************************************************************

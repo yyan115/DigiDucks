@@ -26,6 +26,9 @@ public:
 	BoundingCollider(const Vec2& pos) : centerPos(pos){}
 	BoundingCollider(float x, float y) : centerPos(x, y){}
 
+	// Destructor
+	virtual ~BoundingCollider() = default;
+
 	// Getters
 	/****************************************************************
 	* @brief Get the center position of the collider
@@ -66,12 +69,38 @@ public:
 	BoundingBox(const Vec2& center,const Vec2& size) : BoundingCollider(center), size(size) {};
 	BoundingBox(float _x, float _y, float sizeX, float sizeY) : BoundingCollider(_x, _y), size(sizeX, sizeY) {}
 
+	// Destructor
+	~BoundingBox() = default;
+
 	// Getters
+	/****************************************************************
+	* @brief Get the center of the box
+	* 
+	* @return The center of the box
+	* ***************************************************************/
 	Vec2 getCenter() const;
+
+	/****************************************************************
+	* @brief Get the size of the box
+	* 
+	* @return The size of the box
+	* ***************************************************************/
 	Vec2 getSize() const;
 
 	// Setters
+
+	/****************************************************************
+	* @brief Set the center of the box
+	* 
+	* @param pos - The center of the box
+	* ***************************************************************/
 	void setCenter(Vec2 pos);
+
+	/****************************************************************
+	* @brief Set the size of the box
+	* 
+	* @param _size - The size of the box
+	* ***************************************************************/
 	void setSize(Vec2 _size);
 };
 
@@ -89,8 +118,10 @@ public:
 	BoundingCircle(const Vec2& center, float _radius) : BoundingCollider(center), radius(_radius) {};
 	BoundingCircle(float x, float y, float _radius) : BoundingCollider(x, y), radius(_radius) {}
 
-	// Getters
+	// Destructor
+	~BoundingCircle() = default;
 
+	// Getters
 	/****************************************************************
 	* @brief Get the center of the circle
 	* 

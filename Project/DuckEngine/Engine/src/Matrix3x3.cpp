@@ -47,8 +47,16 @@ Matrix3x3::Matrix3x3(	float _m00, float _m01, float _m02,
 
 }
 
-// Copy Constructor
+// Destructor
+Matrix3x3::~Matrix3x3() {
+	delete[] m;
+	for(int i = 0; i < 3; ++i) {
+		delete[] m2[i];
+	}
+	delete[] m2;
+}
 
+// Copy Constructor
 Matrix3x3::Matrix3x3(const Matrix3x3& rhs) {
 	m2[0][0] = m[0] = m00 = rhs.m00;
 	m2[0][1] = m[1] = m01 = rhs.m01;
