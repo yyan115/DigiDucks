@@ -7,10 +7,15 @@ Scene* activeScene;
 
 int main(void)
 {
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
     engine.Initialize();
 
-    // Set Active Scene
+
+    // Possible Scenes
     MaxLoadScene maxLoadScene;
+    
+    // Set Active Scene
     activeScene = &maxLoadScene;
     
     // Load and Start Active Scene
