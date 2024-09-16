@@ -91,7 +91,6 @@ void DuckEngine::EndDraw()
 {
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
     glfwSwapBuffers(WindowManager::getWindow());
-    std::cout << "Swapped\n";
 }
 
 void DuckEngine::Exit() { 
