@@ -8,6 +8,7 @@
 GLuint ImageLoader::LoadTexture(const std::string& filePath)
 {
     // Flip the image vertically before loading
+    stbi_set_flip_vertically_on_load(true); // Add this line
 
     // Load the image
     int width, height, nrChannels;

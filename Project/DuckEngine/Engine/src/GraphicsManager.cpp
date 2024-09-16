@@ -18,7 +18,6 @@
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 GLuint GraphicsManager::VBO = 0;
-std::vector<glm::mat3x3> GraphicsManager::transforms;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
 GLuint GraphicsManager::pointVAO;
@@ -91,36 +90,17 @@ void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
 
 void GraphicsManager::Render() {
 
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     // Set the clear color (e.g., black in this case)
     glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
 
     // Clear the color buffer (and depth buffer, if used)
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
-
-    // Set the texture uniform
-    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
-    if (uTex2dLocation != -1) {
-        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
-    }
-
-    // Set other uniforms
-    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
-    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
-
-    // Example values - adjust as needed
-    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
-    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
-    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
-
-    // Bind the texture if it exists
-    if (TEST_TEXTURE != 0) {
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
-    }
 
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
@@ -154,6 +134,21 @@ void GraphicsManager::Render() {
         {
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
+
+            // Set the texture uniform
+            GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+            if (uTex2dLocation != -1) {
+                glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
+            }
+
+            // Set other uniforms
+            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+
+            glUniform1i(uUseTextureLocation, 1);  // We are using texture
+            glUniform1i(uBlendColorsLocation, 0); // Not blending colors
+            glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f); // White (no blending)
         }
 
         if (drawItem.useColor) {
@@ -167,6 +162,8 @@ void GraphicsManager::Render() {
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shaders["DefaultShader"].UnUse();
+
+    drawQueue.clear();
 }
 
 void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {

@@ -83,8 +83,6 @@ public:
     static void SetupCircleVAO(int segments);
 
 private:
-    static std::vector<glm::mat3x3> transforms;
-
     static void InitializeSingleMeshShaderSystem();
 
     static void InsertShader(std::string shdr_pgm_name,
