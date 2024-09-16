@@ -1,6 +1,7 @@
 #include "DuckEngine.h"
 #include "MaxLoadScene.h"
 #include "SpriteMovementScene.h"
+#include "LoggerManager.h"
 
 static DuckEngine engine;
 
@@ -11,7 +12,8 @@ int main(void)
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     engine.Initialize();
-
+    LoggerManager& logger = LoggerManager::GetInstance();
+    logger.LogInfo("Game initialized.");
 
     // Possible Scenes
     MaxLoadScene maxLoadScene;
@@ -24,7 +26,8 @@ int main(void)
     activeScene->Load();
     activeScene->Start();
 
-
+    try {
+        logger.LogInfo("Game started.");
     while (engine.Running())
     {
         // Update Active Scene
@@ -38,7 +41,10 @@ int main(void)
         engine.EndDraw();
 
     }
-
+    }
+    catch (const std::exception& ex) {
+        logger.LogException(ex);
+    }
     std::cout << "Exited!\n";
 
     engine.Exit();

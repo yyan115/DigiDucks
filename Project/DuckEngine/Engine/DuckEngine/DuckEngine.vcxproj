@@ -119,6 +119,7 @@
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
@@ -139,6 +140,7 @@
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />

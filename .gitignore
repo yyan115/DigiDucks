@@ -3,3 +3,6 @@
 **/Release/
 **/Build/
 /Project/DuckEngine/Build/Debug
+
+# Ignore the game log file
+game_log.txt

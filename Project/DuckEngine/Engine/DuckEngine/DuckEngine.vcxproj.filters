@@ -120,6 +120,9 @@
     <ClInclude Include="..\include\ImageLoader.h">
       <Filter>include\Loading</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\LoggerManager.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -166,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ImageLoader.cpp">
       <Filter>src\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LoggerManager.cpp">
+      <Filter>src\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
