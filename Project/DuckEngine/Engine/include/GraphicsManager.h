@@ -106,6 +106,8 @@ private:
 
     static std::vector<DrawOptions> drawQueue;
 
+    static Color backgroundColor;
+
 //#ifdef DEBUG
     static GLuint pointVAO;
     static GLuint lineVAO;

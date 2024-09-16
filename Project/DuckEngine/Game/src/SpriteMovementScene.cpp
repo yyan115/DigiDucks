@@ -57,6 +57,7 @@ void SpriteMovementScene::Update()
         playerTransform->position.x -= 0.01f;
     }
 
+    DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 }
 
 void SpriteMovementScene::PostUpdate()

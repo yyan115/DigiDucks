@@ -36,7 +36,7 @@ public:
     static int GetWindowWidth();
     static int GetWindowHeight();
 
-
+    static void SetBackgroundColor(const float r, const float g, const float b, const float a);
 };
 
 // Expose window dimension getters as global functions - REMOVED FOR NOW, BUT INTERESTING OPTION

@@ -9,6 +9,7 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "UIManager.h"
+#include "CameraManager.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -31,7 +32,7 @@ void DuckEngine::Initialize() {
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
     InputManager::Initialize();
- 
+    CameraManager::Initialize(0.f, 0.f, 10.f, 10.f);
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -97,13 +98,16 @@ void DuckEngine::Exit() {
     WindowManager::Exit();
 }
 
-    bool DuckEngine::Running() {
-        if (!WindowManager::CloseWindow())
-            return true;
-        else
-            return false;
+bool DuckEngine::Running() {
+    if (!WindowManager::CloseWindow())
+        return true;
+    else
+        return false;
+}
 
-    
+// DO NOT PARSE NORMALIZED!!!!!!!!!!!!!!!!!!!!! MUST BE 0 TO 255!!!!
+void DuckEngine::SetBackgroundColor(const float r, const float g, const float b, const float a) {
+    GraphicsManager::SetBackgroundColor(r, g, b, a);
 }
 
 int DuckEngine::GetWindowWidth() 

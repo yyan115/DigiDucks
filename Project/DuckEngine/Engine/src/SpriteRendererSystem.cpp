@@ -18,6 +18,8 @@ void SpriteRendererSystem::Update()
 			whatToDraw.useTexture = true;
 			whatToDraw.texture = &spriteRenderer->texture;
 
+			whatToDraw.relativeToCamera = true;
+
 			GraphicsManager::AddToDrawQueue(whatToDraw);
 		}
 	}

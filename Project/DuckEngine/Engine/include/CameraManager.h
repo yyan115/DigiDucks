@@ -1,44 +1,48 @@
 #pragma once
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 #include "Matrix3x3.h"
 #include "Vector2.h"
 
-class CameraManager {
+class DUCKENGINE_API CameraManager {
 public:
-	CameraManager();
+	static void Initialize(const float posX, const float posY, const float zoom, const int height);
 
 	// Set and Get camera position
-	void SetPosition(const Vector2D& position);
+	static void SetPosition(const float posX, const float posY);
+	static void SetZoom(const float zoom);
+	static void SetHeight(const int height);
+
 	static inline Vector2D GetPosition() { return position; };
 	static inline float GetAR() { return windowAspectRatio; };
 	static inline float GetHeight() { return cameraHeight; };
+	static inline float GetZoom() { return zoom; };
 
-	// Set and Get zoom level
-	void SetZoom(float zoom);
-	inline float GetZoom() const { return zoom; };
-
-	// Get view matrix (camera translation and zoom)
-	inline static Matrix3x3 GetCameraToNDCMatrix() { return CameraToNDCTransform; };
-
-	inline CameraManager* GetCamera() const { return cameraPtr; };
-
-	// Update camera (if you need to do anything like interpolation)
 	void Update();
+
+	//static inline Matrix3x3 GetCameraToNDCMatrix() { return CameraToNDCTransform; };
+
+	//inline CameraManager* GetCamera() const { return cameraPtr; };
 private:
 	static Vector2D position;  // Camera's position in world space
-	float zoom;          // Zoom level (default: 1.0 = no zoom)
-
-	CameraManager* cameraPtr; // pointer to game object that embeds camera
-
-	Vector2D right, up;
-
-	static Matrix3x3 viewTransform;
-	static Matrix3x3 CameraToNDCTransform;
-	Matrix3x3 WorldToNDCTransform;
+	static float zoom;          // Zoom level (default: 1.0 = no zoom)
 
 	// window parameters ...
 	static int cameraHeight;
 	static float windowAspectRatio;
+
+	//CameraManager* cameraPtr; // pointer to game object that embeds camera
+
+	//Vector2D right, up;
+
+	//static Matrix3x3 viewTransform;
+	//static Matrix3x3 CameraToNDCTransform;
+	//Matrix3x3 WorldToNDCTransform;
 
 	// MINIMUM ZOOM IN AND MAXIMUM ZOOM OUT HEIGHT. COMMENTED OUT FOR NOW.
 	//int min_height{ 500 }, max_height{ 2000 };

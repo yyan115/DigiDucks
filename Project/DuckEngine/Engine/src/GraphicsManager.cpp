@@ -26,6 +26,7 @@ GLuint GraphicsManager::lineVAO;
 GLuint GraphicsManager::rectVAO;
 GLuint GraphicsManager::circleVAO;
 int GraphicsManager::circleSegments;
+Color GraphicsManager::backgroundColor;
 
 GLuint TEST_TEXTURE = 0;
 
@@ -89,6 +90,13 @@ void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
 }
 
 void GraphicsManager::Render() {
+
+    // Set the clear color (e.g., black in this case)
+    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+
+    // Clear the color buffer (and depth buffer, if used)
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
 
@@ -159,6 +167,10 @@ void GraphicsManager::Render() {
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shaders["DefaultShader"].UnUse();
+}
+
+void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
+    backgroundColor = { r, g, b, a };
 }
 
 void GraphicsManager::OldRender(bool isUI) {
@@ -305,7 +317,6 @@ bool GraphicsManager::Initialize() {
     }
     std::cout << "Test texture loaded successfully. Texture ID: " << TEST_TEXTURE << std::endl;
 
-
     InitializeSingleMeshShaderSystem();
 
     InsertDebugShader();
@@ -315,10 +326,6 @@ bool GraphicsManager::Initialize() {
 
 void GraphicsManager::Exit() {
 
-}
-
-void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
-    glClearColor(r, g, b, a);
 }
 
 void GraphicsManager::InsertShader(std::string shdr_pgm_name,
