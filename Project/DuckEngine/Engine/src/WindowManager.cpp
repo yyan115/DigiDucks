@@ -74,8 +74,8 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int width, int height) {
 #ifdef _DEBUG
     std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif
-    width = width;
-    height = height;
+    WindowManager::width = width;
+    WindowManager::height = height;
 }
 
 GLint WindowManager::GetWindowWidth()

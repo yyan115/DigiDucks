@@ -68,8 +68,6 @@ void DuckEngine::StartDraw()
         old_h = h;
         glViewport(0, 0, w, h);
     }
-
-    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void DuckEngine::Draw() 
