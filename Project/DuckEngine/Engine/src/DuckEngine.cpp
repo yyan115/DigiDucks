@@ -74,7 +74,9 @@ void DuckEngine::StartDraw()
 void DuckEngine::Draw() 
 { 
 
-    GraphicsManager::Render(false);
+    //GraphicsManager::OldRender(false);
+
+    GraphicsManager::Render();
 
     UIManager::Render();
 

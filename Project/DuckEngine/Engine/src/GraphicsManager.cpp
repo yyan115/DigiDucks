@@ -92,6 +92,28 @@ void GraphicsManager::Render() {
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
 
+    // Set the texture uniform
+    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+    if (uTex2dLocation != -1) {
+        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
+    }
+
+    // Set other uniforms
+    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+
+    // Example values - adjust as needed
+    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
+    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
+    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
+
+    // Bind the texture if it exists
+    if (TEST_TEXTURE != 0) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
+    }
+
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
     int height = CameraManager::GetHeight();
@@ -120,8 +142,10 @@ void GraphicsManager::Render() {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-        if (drawItem.useTexture) {
-            // handle color and send to shaders...
+        if (drawItem.useTexture) 
+        {
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
         }
 
         if (drawItem.useColor) {
@@ -133,11 +157,11 @@ void GraphicsManager::Render() {
     }
 
     glBindVertexArray(0);
-
+    glBindTexture(GL_TEXTURE_2D, 0);
     shaders["DefaultShader"].UnUse();
 }
 
-void GraphicsManager::Render(bool isUI) {
+void GraphicsManager::OldRender(bool isUI) {
 
     // std::cout << "Trying\n";
 

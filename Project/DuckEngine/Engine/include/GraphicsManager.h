@@ -35,7 +35,7 @@ struct DrawOptions {
 
     // OPTIONAL
     bool useTexture = false;
-    int* texture = nullptr;
+    GLuint* texture;
 
     // OPTIONAL
     bool relativeToCamera = false;
@@ -55,7 +55,7 @@ public:
     // Core functions
     static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
     static void Exit();                 // Cleanup resources
-    static void Render(bool isUI = false);                   // Render everything for this frame
+    static void OldRender(bool isUI = false);                   // Render everything for this frame
     static void Render();
     
     // FEATURES: DRAW NORMALLY (NO COLORS, NO TEXTURES), OR DRAW WITH COLOR NO TEXT, OR DRAW WITH TEXT NO COLOR, OR DRAW WITH TEXT + COLORR

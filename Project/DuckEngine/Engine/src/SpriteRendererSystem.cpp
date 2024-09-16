@@ -1,5 +1,5 @@
 #include "SpriteRendererSystem.h"
-
+#include "GraphicsManager.h"
 
 void SpriteRendererSystem::Update()
 {
@@ -10,6 +10,15 @@ void SpriteRendererSystem::Update()
 		if (spriteRenderer->sprite && transform)
 		{
 			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
+			DrawOptions whatToDraw;
+			whatToDraw.translation = transform->position;
+			whatToDraw.scale = transform->scale;
+			whatToDraw.rotation = transform->angle;
+
+			whatToDraw.useTexture = true;
+			whatToDraw.texture = &spriteRenderer->texture;
+
+			GraphicsManager::AddToDrawQueue(whatToDraw);
 		}
 	}
 }
