@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "string"
+#include "Sprite.h"
 
 
 // Export/Import macro
@@ -10,13 +11,11 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-typedef unsigned int GLuint;
-
 class DUCKENGINE_API SpriteRendererComponent : public Component
 {
 public:
 	bool sprite;
 	int layer;
-	GLuint texture;
-	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer) {}
+	Sprite texture;
+	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer), texture() {}
 };

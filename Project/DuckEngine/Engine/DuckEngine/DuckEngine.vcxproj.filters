@@ -52,6 +52,9 @@
     <Filter Include="src\Systems">
       <UniqueIdentifier>{c8d14722-2426-43d5-896b-68a6c87dd1a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Data">
+      <UniqueIdentifier>{6aeeddf6-5e9a-4e95-9fce-f08cbdef3da9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="..\include\LoggerManager.h">
       <Filter>include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sprite.h">
+      <Filter>include\Data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

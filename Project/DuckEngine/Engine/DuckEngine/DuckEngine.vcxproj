@@ -121,6 +121,7 @@
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
     <ClInclude Include="..\include\System.h" />

@@ -321,8 +321,9 @@ bool GraphicsManager::Initialize() {
     return true;
 }
 
-void GraphicsManager::Exit() {
-
+void GraphicsManager::Exit() 
+{
+    //drawQueue.clear();
 }
 
 void GraphicsManager::InsertShader(std::string shdr_pgm_name,

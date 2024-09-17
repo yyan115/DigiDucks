@@ -18,7 +18,7 @@ public:
     static ComponentManager DUCKENGINE_ComponentManager;
     static EntityManager DUCKENGINE_EntityManager;
     static SystemManager DUCKENGINE_SystemManager;
-    
+
     void Initialize();
     void Update();
     void StartDraw();

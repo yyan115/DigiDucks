@@ -91,9 +91,11 @@ void DuckEngine::EndDraw()
     glfwSwapBuffers(WindowManager::getWindow());
 }
 
-void DuckEngine::Exit() { 
+void DuckEngine::Exit() 
+{ 
     UIManager::Exit();
     WindowManager::Exit();
+    GraphicsManager::Exit();
 }
 
 bool DuckEngine::Running() {
@@ -104,7 +106,8 @@ bool DuckEngine::Running() {
 }
 
 // DO NOT PARSE NORMALIZED!!!!!!!!!!!!!!!!!!!!! MUST BE 0 TO 255!!!!
-void DuckEngine::SetBackgroundColor(const float r, const float g, const float b, const float a) {
+void DuckEngine::SetBackgroundColor(const float r, const float g, const float b, const float a) 
+{
     GraphicsManager::SetBackgroundColor(r, g, b, a);
 }
 
