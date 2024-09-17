@@ -120,3 +120,8 @@ int DuckEngine::GetWindowHeight()
 {
     return WindowManager::GetWindowHeight();
 }
+
+float DuckEngine::DeltaTime()
+{
+    return static_cast<float>(TimeManager::DT());
+}

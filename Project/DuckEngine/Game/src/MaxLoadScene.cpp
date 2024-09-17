@@ -3,6 +3,7 @@
 #include <random>
 #include <chrono>
 #include <map>
+#include "ImageLoader.h"
 
 // Global variables for timing
 std::chrono::time_point<std::chrono::steady_clock> lastSpawnTime = std::chrono::steady_clock::now();
@@ -19,16 +20,18 @@ std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity 
 // Map to store entity velocities (entityID -> (velocityX, velocityY))
 std::map<int, std::pair<float, float>> entityVelocities;
 
+
 void MaxLoadScene::Load()
 {
-    Entity& camera = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+    Entity* camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 
-    // POS 0, 0, ZOOM 1K, HEIGHT 1K, AR SET, LAYER DEFAULT 0
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(camera.EntityID,
-        5.f, 10.f,
-        1000.f,
-        1000.f,
-        1000.f / 1000.f
+    CameraComponent* cameraComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
+        camera->EntityID,
+        0.f, 0.f,        // Camera position (centered at the origin)
+        1.0f,            // Zoom factor of 1.0 for 1:1 scale
+        -10.0f,            // Camera height (adjust based on the size of your world)
+        1.0f,            // Aspect ratio (if the window is square, otherwise adjust)
+        0                // Layer (default)
     );
 
     for (int i = 0; i < 100; i++)
@@ -75,13 +78,15 @@ void MaxLoadScene::SpawnSquare() {
     Entity& square = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 
     // Add transform component with randomized values
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID, scaleX, scaleY, rotation, pos.x, pos.y);
+    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID);
 
     // Store the velocity in the map
     entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
 
     // Add sprite renderer component
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
+    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
+    sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
+
 
     // Print for debugging
     //std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY

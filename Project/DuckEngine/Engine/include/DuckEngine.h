@@ -35,6 +35,7 @@ public:
 
     static int GetWindowWidth();
     static int GetWindowHeight();
+    static float DeltaTime();
 
     static void SetBackgroundColor(const float r, const float g, const float b, const float a);
 };
