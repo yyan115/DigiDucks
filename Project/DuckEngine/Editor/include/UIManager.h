@@ -8,9 +8,14 @@ public:
 
     
 private:
+    static void ShowDebugInfo();
     static void ShowInspector();
     static void ShowConsole();
     static void ShowEntitySpawn();
+    static void RenderWindows();
+    static void ShowPerformance();
 };
+
+
 
 

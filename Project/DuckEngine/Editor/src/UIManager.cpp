@@ -7,7 +7,18 @@
 #include "WindowManager.h"
 #include "SystemManager.h"
 #include "TimeManager.h"
+#include <Windows.h>
 
+enum class WindowType {
+    DebugInfo,
+    Performance,
+    Count
+};
+
+std::unordered_map<WindowType, bool> windowStates = {
+    {WindowType::DebugInfo, false},
+    {WindowType::Performance, false},
+};
 
 void UIManager::Initialize() {
     // ImGui initialization
@@ -77,26 +88,20 @@ void UIManager::Render() {
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Debug")) {
-            if (ImGui::MenuItem("Show Debug Info")) {}
+            if (ImGui::MenuItem("Show Debug Info", NULL, windowStates[WindowType::DebugInfo])) {
+                windowStates[WindowType::DebugInfo] = !windowStates[WindowType::DebugInfo];
+            }
+            if (ImGui::MenuItem("Show Performance", NULL, windowStates[WindowType::Performance])) {
+                windowStates[WindowType::Performance] = !windowStates[WindowType::Performance];
+            }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
 
     // Rendering stats
-    ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate); // Show FPS
-    ImGui::End();
+    RenderWindows();
 
-    ImGui::Begin("Memory Usage", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
-    ImGui::End();
-
-    
-    ImGui::Begin("Game Objects", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
-    ImGui::Text("Total Entities: %d", DuckEngine::DUCKENGINE_EntityManager.GetEntities().size());
-    ImGui::End();
-      
     ShowInspector();
     ShowConsole();
     ShowEntitySpawn();
@@ -112,6 +117,66 @@ void UIManager::Exit() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
+
+void UIManager::ShowDebugInfo() {
+	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+
+    // Create the tab bar
+    if (ImGui::BeginTabBar("MyTabBar")) {
+
+        // First tab: Debugger
+        if (ImGui::BeginTabItem("Debugger")) {
+            // Display the frame stats
+            ImGui::Text("Frame Rate: %.1f FPS", ImGui::GetIO().Framerate);
+            ImGui::Text("Frame Time: %.3f ms", 1000.0f / ImGui::GetIO().Framerate);
+
+            // OpenGL Version Information
+            const GLubyte* renderer = glGetString(GL_RENDERER); // Get GPU vendor
+            const GLubyte* version = glGetString(GL_VERSION);   // Get OpenGL version
+            ImGui::Text("GPU Renderer: %s", renderer);
+            ImGui::Text("OpenGL Version: %s", version);
+
+            // CPU Information
+            ImGui::Text("\n\nCPU Information");
+            SYSTEM_INFO sysInfo;
+            GetSystemInfo(&sysInfo);
+            ImGui::Text("Page Size: %u", sysInfo.wProcessorArchitecture);
+            ImGui::Text("Number of Cores: %u", sysInfo.dwNumberOfProcessors);
+            ImGui::Text("Processor Type: %u", sysInfo.dwProcessorType);
+
+            // Memory Information
+            ImGui::Text("\n\nMemory Information");
+            MEMORYSTATUSEX memoryStatus;
+            memoryStatus.dwLength = sizeof(MEMORYSTATUSEX);
+            if (GlobalMemoryStatusEx(&memoryStatus)) {
+                ImGui::Text("Memory Status: %u MB", memoryStatus.dwMemoryLoad / (1024 * 1024));
+                ImGui::Text("Total Physical Memory: %u MB", memoryStatus.ullTotalPhys / (1024 * 1024));
+                ImGui::Text("Free Physical Memory: %u MB", memoryStatus.ullAvailPhys / (1024 * 1024));
+                ImGui::Text("Total Virtual Memory: %u MB", memoryStatus.ullTotalVirtual / (1024 * 1024));
+                ImGui::Text("Free Virtual Memory: %u MB", memoryStatus.ullAvailVirtual / (1024 * 1024));
+            }
+            else {
+                std::cerr << "Failed to retrieve memory information." << std::endl;
+            }
+            ImGui::EndTabItem();
+        }
+
+        // Second tab: Game Info
+        if (ImGui::BeginTabItem("Game Info")) {
+            ImGui::Text("Total Entities: %d", DuckEngine::DUCKENGINE_EntityManager.GetEntities().size());
+            ImGui::EndTabItem();
+        }
+
+        ImGui::EndTabBar();
+    }
+	ImGui::End();
+}
+
+void UIManager::ShowPerformance() {
+    ImGui::Begin("Performance", nullptr);
+    RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
+    ImGui::End();
+}   
 
 void UIManager::ShowConsole() {
     bool consoleOpen = true;
@@ -183,3 +248,19 @@ void UIManager::ShowEntitySpawn() {
     ImGui::End();
 }
 
+void UIManager::RenderWindows() {
+    for (const auto& [window, isVisible] : windowStates) {
+        if (isVisible) {
+            switch (window) {
+            case WindowType::DebugInfo:
+                ShowDebugInfo();
+                break;
+            case WindowType::Performance:
+                ShowPerformance();
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}

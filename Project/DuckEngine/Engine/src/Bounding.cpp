@@ -83,6 +83,7 @@ void BoundingCircle::setRadius(float _radius) {
 
 // Collision Detection
 namespace {
+    bool CheckMovingCircleToLineEdge(bool withinBothLines, BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd);
     // Circle - Line
     bool checkCircleLine(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStr, Vec2 lineEnd, Vec2 relVel) {
         // Circle Velocity
