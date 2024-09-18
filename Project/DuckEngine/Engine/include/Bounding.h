@@ -23,9 +23,9 @@ private:
 public:
 
 	// Constructor
-	BoundingCollider() : centerPos(0.f, 0.f){}
-	BoundingCollider(const Vec2& pos) : centerPos(pos){}
-	BoundingCollider(float x, float y) : centerPos(x, y){}
+	BoundingCollider() : centerPos(0.f, 0.f) {}
+	BoundingCollider(const Vec2& pos) : centerPos(pos) {}
+	BoundingCollider(float x, float y) : centerPos(x, y) {}
 
 	// Destructor
 	virtual ~BoundingCollider() = default;
@@ -37,6 +37,12 @@ public:
 	* @return The center position of the collider
 	* ***************************************************************/
 	Vec2 getCenterPos() const;
+	/****************************************************************
+	* @brief Get the center position of the collider
+	* 
+	* @return The center position of the collider
+	* ***************************************************************/
+	Vec2& getCenterPos();
 
 	// Setters
 	/****************************************************************
@@ -64,7 +70,6 @@ private:
 	Vec2 min{};
 
 public:
-
 	// No default constructor
 	BoundingBox() = delete;
 
@@ -79,13 +84,6 @@ public:
 	~BoundingBox() = default;
 
 	// Getters
-	/****************************************************************
-	* @brief Get the center of the box
-	* 
-	* @return The center of the box
-	* ***************************************************************/
-	Vec2 getCenter() const;
-
 	/****************************************************************
 	* @brief Get the size of the box
 	* 
@@ -106,9 +104,8 @@ public:
 	* @return The minimum point of the box
 	* ***************************************************************/
 	Vec2 getMin() const;
-
+	
 	// Setters
-
 	/****************************************************************
 	* @brief Set the center of the box
 	* 
@@ -130,7 +127,6 @@ private:
 	float radius{};
 
 public:
-
 	// No default constructor
 	BoundingCircle() = delete;
 
@@ -145,13 +141,6 @@ public:
 	~BoundingCircle() = default;
 
 	// Getters
-	/****************************************************************
-	* @brief Get the center of the circle
-	* 
-	* @return The center of the circle
-	* ***************************************************************/
-	Vec2 getCenter() const;
-
 	/****************************************************************
 	* @brief Get the radius of the circle
 	* 
@@ -190,7 +179,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f), float deltaTime = 0.3f);
+bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f), float deltaTime = 0.3f);
 
 /****************************************************************
 * @brief Check collision between two boxes
