@@ -76,6 +76,10 @@ void UIManager::Render() {
             if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
             ImGui::EndMenu();
         }
+        if (ImGui::BeginMenu("Debug")) {
+            if (ImGui::MenuItem("Show Debug Info")) {}
+            ImGui::EndMenu();
+        }
         ImGui::EndMainMenuBar();
     }
 
