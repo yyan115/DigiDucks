@@ -5,6 +5,7 @@
 #include <typeindex>
 #include <unordered_map>
 
+#include "AnimationComponent.h"
 #include "Component.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
