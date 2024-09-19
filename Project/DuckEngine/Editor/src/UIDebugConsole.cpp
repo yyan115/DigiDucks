@@ -6,33 +6,58 @@
 #include "UIDebugConsole.h"
 #include "imgui.h"
 
+// GLOBALS
 UIDebugConsole UIDebugConsole::debugConsole;
+std::vector<std::tuple<std::string, ImVec4>> logEntries;  // Store message and color
+
 
 // Add a message to the log
-void UIDebugConsole::AddLog(const char* fmt, ...) {
+void UIDebugConsole::AddLog(const char* fmt, const char* level, ...) {
     
     const int bufferSize = 1024;
     char message[bufferSize];
 
     // Initialize variadic argument list
     va_list args;
+    va_start(args, level);
+    vsnprintf(message, bufferSize, fmt, args);
+    va_end(args);
+
+    // provide color for each log level
+    ImVec4 color;  
+    color = GetColorByLevel(level);
+
+
+    // Append the formatted message and color to the log entries
+    logEntries.emplace_back(std::string(message), color);
+
+    // Clear the log if it exceeds 200 entries
+    if(logEntries.size() > 200) {
+        Clear();
+    }
+}
+
+void UIDebugConsole::AddDebugLog(const char* fmt, ...) {
+    const int bufferSize = 1024;
+    char message[bufferSize];
+
+    va_list args;
     va_start(args, fmt);
     vsnprintf(message, bufferSize, fmt, args);
     va_end(args);
 
-    // Append the formatted message to the log
-    buffer.append(message);
-    buffer.append("\n");
+    // Add as regular text (white color by default)
+    logEntries.emplace_back(std::string(message), ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-    // Clear the buffer if it exceeds 200 lines
-    if (std::count(buffer.begin(), buffer.end(), '\n') > 200) {
+    // Clear the log if it exceeds 200 entries
+    if (logEntries.size() > 200) {
         Clear();
     }
 }
 
 // Clear the log
 void UIDebugConsole::Clear() {
-    buffer.clear();
+    logEntries.clear();
 }
 
 // Render the console in ImGui
@@ -46,14 +71,14 @@ void UIDebugConsole::Render(bool* p_open) {
     static char inputBuf[256] = "";
     if (ImGui::InputText("Command", inputBuf, IM_ARRAYSIZE(inputBuf), ImGuiInputTextFlags_EnterReturnsTrue)) {
         // Add input text to the log
-        AddLog(inputBuf);
+        AddDebugLog(inputBuf);
 
         // Execute command
         if (strcmp(inputBuf, "clear") == 0) {
             Clear();  // Clear the log if the command is "clear"
         }
         else {
-            AddLog("Unknown command");
+            AddLog("Unknown command","WARNING");
         }
 
         // Clear input buffer after each command
@@ -64,7 +89,13 @@ void UIDebugConsole::Render(bool* p_open) {
 
     // Display log area
     ImGui::BeginChild("LogRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    ImGui::TextUnformatted(buffer.c_str());
+
+    // Render all log entries with their respective colors
+    for (const auto& [message, color] : logEntries) {
+        ImGui::PushStyleColor(ImGuiCol_Text, color);  
+        ImGui::TextUnformatted(message.c_str());      
+        ImGui::PopStyleColor();                       
+    }
 
     // Scroll to the bottom if needed
     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
@@ -74,4 +105,19 @@ void UIDebugConsole::Render(bool* p_open) {
     ImGui::EndChild();
 
     ImGui::End();
+}
+
+ImVec4 UIDebugConsole::GetColorByLevel(const std::string& level) {
+    if (level == "INFO") {
+        return ImVec4(0.0f, 1.0f, 0.0f, 1.0f);  // Green for info
+    }
+    else if (level == "WARNING") {
+        return ImVec4(1.0f, 1.0f, 0.0f, 1.0f);  // Yellow for warning
+    }
+    else if (level == "ERROR") {
+        return ImVec4(1.0f, 0.0f, 0.0f, 1.0f);  // Red for error
+    }
+
+    // Default white
+    return ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 }

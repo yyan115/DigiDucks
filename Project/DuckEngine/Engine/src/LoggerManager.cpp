@@ -27,27 +27,7 @@ LoggerManager::~LoggerManager() {
     }
 }
 
-// Log info-level messages
-void LoggerManager::LogInfo(const std::string& message) {
-    WriteLog("INFO", message);
-}
 
-// Log warning-level messages
-void LoggerManager::LogWarning(const std::string& message) {
-    WriteLog("WARNING", message);
-}
-
-// Log error-level messages
-void LoggerManager::LogError(const std::string& message) {
-    WriteLog("ERROR", message);
-}
-
-// Log exceptions with their message
-void LoggerManager::LogException(const std::exception& ex) {
-    std::stringstream ss;
-    ss << "Exception: " << ex.what();
-    WriteLog("EXCEPTION", ss.str());
-}
 
 // Log crash with stack trace (if available)
 void LoggerManager::LogCrash(const std::string& crashMessage, const std::string& stackTrace) {
@@ -74,7 +54,7 @@ void LoggerManager::WriteLog(const std::string& level, const std::string& messag
     WriteToFile(logEntry.str());
 
     // Write log to the debug console
-    UIDebugConsole::debugConsole.AddLog(logEntry.str().c_str());
+   UIDebugConsole::debugConsole.AddLog(logEntry.str().c_str(),level.c_str());
 }
 
 // Write the log entry to the file

@@ -1,12 +1,15 @@
 #pragma once
 
-#include <string>
+#include <imgui.h>
 
 class UIDebugConsole 
 {
 public:
-    // Add a message to the log
-    void AddLog(const char* fmt, ...);
+    // For regular logging with severity levels
+    void AddLog(const char* fmt, const char* level = nullptr, ...);
+
+    // For normal debug text
+    void AddDebugLog(const char* fmt, ...);
 
     // Clear the log
     void Clear();
@@ -17,5 +20,8 @@ public:
     static UIDebugConsole debugConsole;
 
 private:
-    std::string buffer;  // Buffer to hold the log
+
+    
+
+    ImVec4 GetColorByLevel(const std::string& level);  // Helper to determine color
 };

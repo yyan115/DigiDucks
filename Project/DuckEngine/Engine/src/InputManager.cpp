@@ -239,7 +239,7 @@ relative to the top-left corner of the window client area.
 */
 void InputManager::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
 #ifdef _DEBUG
-    UIDebugConsole::debugConsole.AddLog("Mouse moved to (%.2f, %.2f)", xpos, ypos);
+    UIDebugConsole::debugConsole.AddDebugLog("Mouse moved to (%.2f, %.2f)", xpos, ypos);
 #endif
 }
 
