@@ -1,3 +1,86 @@
+#include "InputManager.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <unordered_map>
+
+// Define static variables here (without DUCKENGINE_API)
+std::unordered_map<int, bool> InputManager::keyStates;
+std::unordered_map<int, bool> InputManager::mouseButtonStates;
+double InputManager::mouseX = 0.0;
+double InputManager::mouseY = 0.0;
+double InputManager::scrollX = 0.0;
+double InputManager::scrollY = 0.0;
+double InputManager::lastMouseX = 0.0;
+double InputManager::lastMouseY = 0.0;
+
+bool InputManager::Initialize(GLFWwindow* window) {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+    glfwSetKeyCallback(window, InputManager::key_cb);
+    glfwSetMouseButtonCallback(window, InputManager::mousebutton_cb);
+    glfwSetCursorPosCallback(window, InputManager::mousepos_cb);
+    glfwSetScrollCallback(window, InputManager::mousescroll_cb);
+
+    return true;
+}
+
+void InputManager::Update() {
+    // Reset scroll offsets, track mouse deltas if needed
+    scrollX = 0.0;
+    scrollY = 0.0;
+
+    glfwPollEvents();
+}
+
+void InputManager::Exit() {
+    // Clean up resources if necessary
+}
+
+bool InputManager::IsKeyPressed(int key) {
+    return keyStates[key];
+}
+
+bool InputManager::IsKeyReleased(int key) {
+    return !keyStates[key];
+}
+
+bool InputManager::IsMouseButtonPressed(int button) {
+    return mouseButtonStates[button];
+}
+
+bool InputManager::IsMouseButtonReleased(int button) {
+    return !mouseButtonStates[button];
+}
+
+void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod) {
+    if (action == GLFW_PRESS) {
+        keyStates[key] = true;
+    }
+    else if (action == GLFW_RELEASE) {
+        keyStates[key] = false;
+    }
+}
+
+void InputManager::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod) {
+    if (action == GLFW_PRESS) {
+        mouseButtonStates[button] = true;
+    }
+    else if (action == GLFW_RELEASE) {
+        mouseButtonStates[button] = false;
+    }
+}
+
+void InputManager::mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset) {
+    scrollX = xoffset;
+    scrollY = yoffset;
+}
+
+void InputManager::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
+    mouseX = xpos;
+    mouseY = ypos;
+}
+
+// old copied from assignment
 //#include <iostream>
 //
 //#include "DuckEngine.h"
@@ -267,85 +350,3 @@
 //        << xoffset << ", " << yoffset << ")" << std::endl;
 //#endif
 //}
-
-#include "InputManager.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <unordered_map>
-
-// Define static variables here (without DUCKENGINE_API)
-std::unordered_map<int, bool> InputManager::keyStates;
-std::unordered_map<int, bool> InputManager::mouseButtonStates;
-double InputManager::mouseX = 0.0;
-double InputManager::mouseY = 0.0;
-double InputManager::scrollX = 0.0;
-double InputManager::scrollY = 0.0;
-double InputManager::lastMouseX = 0.0;
-double InputManager::lastMouseY = 0.0;
-
-bool InputManager::Initialize(GLFWwindow* window) {
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-
-    glfwSetKeyCallback(window, InputManager::key_cb);
-    glfwSetMouseButtonCallback(window, InputManager::mousebutton_cb);
-    glfwSetCursorPosCallback(window, InputManager::mousepos_cb);
-    glfwSetScrollCallback(window, InputManager::mousescroll_cb);
-
-    return true;
-}
-
-void InputManager::Update() {
-    // Reset scroll offsets, track mouse deltas if needed
-    scrollX = 0.0;
-    scrollY = 0.0;
-
-    glfwPollEvents();
-}
-
-void InputManager::Exit() {
-    // Clean up resources if necessary
-}
-
-bool InputManager::IsKeyPressed(int key) {
-    return keyStates[key];
-}
-
-bool InputManager::IsKeyReleased(int key) {
-    return !keyStates[key];
-}
-
-bool InputManager::IsMouseButtonPressed(int button) {
-    return mouseButtonStates[button];
-}
-
-bool InputManager::IsMouseButtonReleased(int button) {
-    return !mouseButtonStates[button];
-}
-
-void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod) {
-    if (action == GLFW_PRESS) {
-        keyStates[key] = true;
-    }
-    else if (action == GLFW_RELEASE) {
-        keyStates[key] = false;
-    }
-}
-
-void InputManager::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod) {
-    if (action == GLFW_PRESS) {
-        mouseButtonStates[button] = true;
-    }
-    else if (action == GLFW_RELEASE) {
-        mouseButtonStates[button] = false;
-    }
-}
-
-void InputManager::mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset) {
-    scrollX = xoffset;
-    scrollY = yoffset;
-}
-
-void InputManager::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos) {
-    mouseX = xpos;
-    mouseY = ypos;
-}

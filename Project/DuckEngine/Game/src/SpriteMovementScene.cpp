@@ -38,44 +38,24 @@ void SpriteMovementScene::Start()
 void SpriteMovementScene::Update()
 {
 	float moveSpeed = 5.0f;
-	if (DuckEngine::WKeyDown)
-	{
+	// Handle movement based on key input
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) {
 		playerTransform->position.y += moveSpeed * DuckEngine::DeltaTime();
 	}
 
-	if (DuckEngine::SKeyDown)
-	{
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) {
 		playerTransform->position.y -= moveSpeed * DuckEngine::DeltaTime();
 	}
 
-	if (DuckEngine::AKeyDown)
-	{
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) {
 		playerTransform->position.x -= moveSpeed * DuckEngine::DeltaTime();
 	}
 
-	if (DuckEngine::DKeyDown)
-	{
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) {
 		playerTransform->position.x += moveSpeed * DuckEngine::DeltaTime();
 	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
-
-	//// Handle movement based on key input
-	//if (DuckEngine::IsKeyPressed(GLFW_KEY_W)) {
-	//	playerTransform->position.y += moveSpeed * DuckEngine::DeltaTime();
-	//}
-
-	//if (DuckEngine::IsKeyPressed(GLFW_KEY_A)) {
-	//	playerTransform->position.y -= moveSpeed * DuckEngine::DeltaTime();
-	//}
-
-	//if (DuckEngine::IsKeyPressed(GLFW_KEY_S)) {
-	//	playerTransform->position.x -= moveSpeed * DuckEngine::DeltaTime();
-	//}
-
-	//if (DuckEngine::IsKeyPressed(GLFW_KEY_D)) {
-	//	playerTransform->position.x += moveSpeed * DuckEngine::DeltaTime();
-	//}
 }
 
 void SpriteMovementScene::PostUpdate()

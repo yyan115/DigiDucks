@@ -123,3 +123,55 @@ float DuckEngine::DeltaTime()
 {
     return static_cast<float>(TimeManager::DT());
 }
+
+// Define key constants for letters (A-Z)
+const int DuckEngine::KEY_A = GLFW_KEY_A;
+const int DuckEngine::KEY_B = GLFW_KEY_B;
+const int DuckEngine::KEY_C = GLFW_KEY_C;
+const int DuckEngine::KEY_D = GLFW_KEY_D;
+const int DuckEngine::KEY_E = GLFW_KEY_E;
+const int DuckEngine::KEY_F = GLFW_KEY_F;
+const int DuckEngine::KEY_G = GLFW_KEY_G;
+const int DuckEngine::KEY_H = GLFW_KEY_H;
+const int DuckEngine::KEY_I = GLFW_KEY_I;
+const int DuckEngine::KEY_J = GLFW_KEY_J;
+const int DuckEngine::KEY_K = GLFW_KEY_K;
+const int DuckEngine::KEY_L = GLFW_KEY_L;
+const int DuckEngine::KEY_M = GLFW_KEY_M;
+const int DuckEngine::KEY_N = GLFW_KEY_N;
+const int DuckEngine::KEY_O = GLFW_KEY_O;
+const int DuckEngine::KEY_P = GLFW_KEY_P;
+const int DuckEngine::KEY_Q = GLFW_KEY_Q;
+const int DuckEngine::KEY_R = GLFW_KEY_R;
+const int DuckEngine::KEY_S = GLFW_KEY_S;
+const int DuckEngine::KEY_T = GLFW_KEY_T;
+const int DuckEngine::KEY_U = GLFW_KEY_U;
+const int DuckEngine::KEY_V = GLFW_KEY_V;
+const int DuckEngine::KEY_W = GLFW_KEY_W;
+const int DuckEngine::KEY_X = GLFW_KEY_X;
+const int DuckEngine::KEY_Y = GLFW_KEY_Y;
+const int DuckEngine::KEY_Z = GLFW_KEY_Z;
+
+// Define key constants for numbers (0-9)
+const int DuckEngine::KEY_0 = GLFW_KEY_0;
+const int DuckEngine::KEY_1 = GLFW_KEY_1;
+const int DuckEngine::KEY_2 = GLFW_KEY_2;
+const int DuckEngine::KEY_3 = GLFW_KEY_3;
+const int DuckEngine::KEY_4 = GLFW_KEY_4;
+const int DuckEngine::KEY_5 = GLFW_KEY_5;
+const int DuckEngine::KEY_6 = GLFW_KEY_6;
+const int DuckEngine::KEY_7 = GLFW_KEY_7;
+const int DuckEngine::KEY_8 = GLFW_KEY_8;
+const int DuckEngine::KEY_9 = GLFW_KEY_9;
+
+// Define key constants for common keys
+const int DuckEngine::KEY_SPACE = GLFW_KEY_SPACE;
+const int DuckEngine::KEY_ENTER = GLFW_KEY_ENTER;
+const int DuckEngine::KEY_ESCAPE = GLFW_KEY_ESCAPE;
+const int DuckEngine::KEY_LEFT = GLFW_KEY_LEFT;
+const int DuckEngine::KEY_RIGHT = GLFW_KEY_RIGHT;
+const int DuckEngine::KEY_UP = GLFW_KEY_UP;
+const int DuckEngine::KEY_DOWN = GLFW_KEY_DOWN;
+const int DuckEngine::KEY_LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT;
+const int DuckEngine::KEY_RIGHT_SHIFT = GLFW_KEY_RIGHT_SHIFT;
+const int DuckEngine::KEY_BACKSPACE = GLFW_KEY_BACKSPACE;
