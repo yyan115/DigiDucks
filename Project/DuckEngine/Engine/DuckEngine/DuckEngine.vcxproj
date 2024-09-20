@@ -62,6 +62,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/nlohmannjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -87,6 +88,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;DUCKENGINE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/nlohmannjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
