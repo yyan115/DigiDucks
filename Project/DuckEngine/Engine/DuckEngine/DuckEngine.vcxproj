@@ -131,6 +131,8 @@
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
     <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="File.h" />
+    <ClInclude Include="Serialization.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\CameraManager.cpp" />
@@ -149,6 +151,8 @@
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="Serialization.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fragShader.frag" />

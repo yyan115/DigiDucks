@@ -55,6 +55,18 @@
     <Filter Include="include\Data">
       <UniqueIdentifier>{6aeeddf6-5e9a-4e95-9fce-f08cbdef3da9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\File">
+      <UniqueIdentifier>{1eef5d92-fa78-49eb-b92c-41c746414ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\File">
+      <UniqueIdentifier>{35f33efa-1874-4951-8641-aaae859d1892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Serialization">
+      <UniqueIdentifier>{e66731b5-6018-45c1-83fe-047e5cb4f301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Serialization">
+      <UniqueIdentifier>{5e1a27d5-33a8-40c0-aba1-1a59a58833f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -132,6 +144,12 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>include\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Serialization.h">
+      <Filter>include\Serialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -181,6 +199,12 @@
     </ClCompile>
     <ClCompile Include="..\src\LoggerManager.cpp">
       <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>src\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Serialization.cpp">
+      <Filter>src\Serialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
