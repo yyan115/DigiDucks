@@ -85,6 +85,7 @@ void BoundingCircle::setRadius(float _radius) {
 // Collision Detection
 namespace {
     bool CheckMovingCircleToLineEdge(bool withinBothLines, BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd);
+
     // Circle - Line
     bool checkCircleLine(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStr, Vec2 lineEnd, Vec2 relVel) {
         // Circle Velocity
@@ -339,23 +340,14 @@ bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, flo
     Vec2 btmLeft = box.getMin();
     Vec2 btmRight(box.getMax().x, box.getMin().y);
 
-    bool collision = false;
     // Check collision with each line segment
     // Btm Line
-    collision = checkCircleLine(circle, nextPos, btmLeft, btmRight, relVel);
-    if(collision) return true;
-    
-    // Right Line
-    collision = checkCircleLine(circle, nextPos, btmRight, topRight, relVel);
-    if(collision) return true;
-
-    // Top Line
-    collision = checkCircleLine(circle, nextPos, topRight, topLeft, relVel);
-    if(collision) return true;
-
-    // Left Line
-    collision = checkCircleLine(circle, nextPos, topLeft, btmLeft, relVel);
-    if(collision) return true;
+    if (checkCircleLine(circle, nextPos, btmLeft, btmRight, relVel) &&
+        checkCircleLine(circle, nextPos, btmRight, topRight, relVel) &&
+        checkCircleLine(circle, nextPos, topRight, topLeft, relVel) &&
+        checkCircleLine(circle, nextPos, topLeft, btmLeft, relVel)) {
+        return true;
+    }
 
     return false;
 }
