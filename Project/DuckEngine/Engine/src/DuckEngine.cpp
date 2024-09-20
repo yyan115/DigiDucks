@@ -31,7 +31,7 @@ void DuckEngine::Initialize() {
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
-    CameraManager::Initialize(0.f, 0.f, 10.f, 10.f);
+    CameraManager::Initialize(0.f, 0.f, 10.f);
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -122,6 +122,14 @@ int DuckEngine::GetWindowHeight()
 float DuckEngine::DeltaTime()
 {
     return static_cast<float>(TimeManager::DT());
+}
+
+void DuckEngine::SetCameraPosition(const float x, const float y) {
+    CameraManager::SetPosition(x, y);
+}
+
+void DuckEngine::SetCameraHeight(const int height) {
+    CameraManager::SetHeight(height);
 }
 
 // Define key constants for letters (A-Z)

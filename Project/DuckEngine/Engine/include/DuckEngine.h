@@ -38,6 +38,9 @@ public:
     static int GetWindowHeight();
     static float DeltaTime();
 
+    static void SetCameraPosition(const float x, const float y);
+    static void SetCameraHeight(const int height);
+
     static void SetBackgroundColor(const float r, const float g, const float b, const float a);
 
     static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }

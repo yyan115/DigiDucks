@@ -13,7 +13,7 @@ float spawnInterval = 0.3f; // 1 second
 std::random_device rd;
 std::mt19937 gen(rd());
 std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
-std::uniform_real_distribution<float> randomScale(50.0f, 500.0f);      // Scale between 50 and 500
+std::uniform_real_distribution<float> randomScale(10.0f, 100.0f);      // Scale between 50 and 500
 std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
 std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
 
@@ -23,18 +23,20 @@ std::map<int, std::pair<float, float>> entityVelocities;
 
 void MaxLoadScene::Load()
 {
-    Entity* camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+    //Entity* camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 
-    CameraComponent* cameraComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
-        camera->EntityID,
-        0.f, 0.f,        // Camera position (centered at the origin)
-        1.0f,            // Zoom factor of 1.0 for 1:1 scale
-        -10.0f,            // Camera height (adjust based on the size of your world)
-        1.0f,            // Aspect ratio (if the window is square, otherwise adjust)
-        0                // Layer (default)
-    );
+    //CameraComponent* cameraComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
+    //    camera->EntityID,
+    //    0.f, 0.f,        // Camera position (centered at the origin)
+    //    1000.f,            // Zoom factor of 1.0 for 1:1 scale
+    //    1000.0f,            // Camera height (adjust based on the size of your world)
+    //    1.0f,            // Aspect ratio (if the window is square, otherwise adjust)
+    //    0                // Layer (default)
+    //);
 
-    for (int i = 0; i < 100; i++)
+    DuckEngine::SetCameraHeight(1000.f);
+
+    for (int i = 0; i < 25000; i++)
     {
         SpawnSquare();
     }
@@ -80,12 +82,18 @@ void MaxLoadScene::SpawnSquare() {
     // Add transform component with randomized values
     DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID);
 
+    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square.EntityID);
+
+    transform->position = pos;
+    transform->angle = rotation;
+    transform->scale = { scaleX, scaleY };
+
     // Store the velocity in the map
     entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
 
     // Add sprite renderer component
-    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
-    sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
+    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, true, 0, true, Color(0, 255.f, 255.f, 255.f));
+    //sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
 
     // Print for debugging
@@ -116,8 +124,8 @@ void MaxLoadScene::UpdateSquares(float deltaTime) {
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
         if (transform) {
             // Update position based on velocity and deltaTime
-            //transform->position.x += velocity.first * deltaTime;   // velocity.first is velocityX
-            //transform->position.y += velocity.second * deltaTime;  // velocity.second is velocityY
+            transform->position.x += velocity.first * deltaTime;   // velocity.first is velocityX
+            transform->position.y += velocity.second * deltaTime;  // velocity.second is velocityY
 
             // Debug print to check the updated position
             //std::cout << "Entity " << entityId << " moved to ("

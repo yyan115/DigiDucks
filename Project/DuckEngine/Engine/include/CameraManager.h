@@ -11,17 +11,17 @@
 
 class DUCKENGINE_API CameraManager {
 public:
-	static void Initialize(const float posX, const float posY, const float zoom, const int height);
+	static void Initialize(const float posX, const float posY, const int height);
 
 	// Set and Get camera position
 	static void SetPosition(const float posX, const float posY);
-	static void SetZoom(const float zoom);
+	//static void SetZoom(const float zoom);
 	static void SetHeight(const int height);
 
 	static inline Vector2D GetPosition() { return position; };
 	static inline float GetAR() { return windowAspectRatio; };
 	static inline float GetHeight() { return cameraHeight; };
-	static inline float GetZoom() { return zoom; };
+	//static inline float GetZoom() { return zoom; };
 
 	void Update();
 
@@ -30,7 +30,7 @@ public:
 	//inline CameraManager* GetCamera() const { return cameraPtr; };
 private:
 	static Vector2D position;  // Camera's position in world space
-	static float zoom;          // Zoom level (default: 1.0 = no zoom)
+	//static float zoom;          // Zoom level (default: 1.0 = no zoom)
 
 	// window parameters ...
 	static int cameraHeight;

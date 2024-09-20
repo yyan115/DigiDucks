@@ -1,5 +1,6 @@
 #include "SpriteRendererSystem.h"
 #include "GraphicsManager.h"
+#include "Color.h"
 
 void SpriteRendererSystem::Update()
 {
@@ -15,14 +16,23 @@ void SpriteRendererSystem::Update()
 			whatToDraw.scale = transform->scale;
 			whatToDraw.rotation = transform->angle;
 
-			whatToDraw.useTexture = true;
-			whatToDraw.texture = &spriteRenderer->texture;
+			if (spriteRenderer->texture) {
+				//std::cout << "use texture\n";
+				whatToDraw.useTexture = true;
+				whatToDraw.texture = &spriteRenderer->texture;
+			}
 
+			// PLS ADD THIS TO SOMEWHERE, PROBABLY SPRITE OR TRANSFORM, THEN CHECK IF TRUE/FALSE
 			whatToDraw.relativeToCamera = true;
 
 			// USE THIS TO USE AND SET COLORS
-			whatToDraw.useColor = true;
-			whatToDraw.color = { 255.f, 0.f, 255.f, 255.f };
+
+			// FKING WEIRD PLS FIX, SOMETIMES GET RANDOM BUG WHERE OVER 1K ERRORS, AND WHEN I CALL USECOLOR IN GAME THIS DOESNT WORK IDK WHY
+			if (spriteRenderer->useColor) {
+				//std::cout << "use color\n";
+				whatToDraw.useColor = true;
+				whatToDraw.color = spriteRenderer->color;
+			}
 
 			GraphicsManager::AddToDrawQueue(whatToDraw);
 		}

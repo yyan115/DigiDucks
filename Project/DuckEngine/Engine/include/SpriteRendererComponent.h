@@ -17,6 +17,7 @@ public:
 	bool sprite;
 	int layer;
 	Sprite texture;
+	bool useColor;
 	Color color;
-	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer), texture(), color() {}
+	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0, bool useColor = false, Color color = Color()) : sprite(hasSprite), layer(spriteLayer), texture(), useColor(useColor), color(color) {}
 };
