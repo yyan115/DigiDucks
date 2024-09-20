@@ -13,10 +13,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
+
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 #pragma once
 #include "Vector2.h"
 
-class BoundingCollider {
+class DUCKENGINE_API BoundingCollider {
 private:
 	Vec2 centerPos{};
 
@@ -60,10 +67,12 @@ public:
 	* @param y - The y position of the collider
 	* ***************************************************************/
 	void setCenterPos(float x, float y);
+
+
 };
 
 
-class BoundingBox : public BoundingCollider {
+class DUCKENGINE_API BoundingBox : public BoundingCollider {
 private:
 	Vec2 size{};
 	Vec2 max{};
@@ -122,7 +131,7 @@ public:
 };
 
 
-class BoundingCircle : public BoundingCollider {
+class DUCKENGINE_API BoundingCircle : public BoundingCollider {
 private:
 	float radius{};
 
@@ -179,7 +188,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f), float deltaTime = 0.3f);
+DUCKENGINE_API bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, float deltaTime, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two boxes
@@ -194,7 +203,7 @@ bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, Vec
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f), float deltaTime = 0.3f);
+DUCKENGINE_API bool checkCollision(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two circles
@@ -209,5 +218,5 @@ bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1 = Vec2(0.f, 
 *	
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f), float deltaTime = 0.3f);
+DUCKENGINE_API bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
