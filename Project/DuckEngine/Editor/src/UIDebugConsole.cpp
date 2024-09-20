@@ -12,14 +12,14 @@ std::vector<std::tuple<std::string, ImVec4>> logEntries;  // Store message and c
 
 
 // Add a message to the log
-void UIDebugConsole::AddLog(const char* fmt, const char* level, ...) {
+void UIDebugConsole::AddLog(const char* level, const char* fmt, ...) {
     
-    const int bufferSize = 1024;
+    const int bufferSize = 4096;
     char message[bufferSize];
 
     // Initialize variadic argument list
     va_list args;
-    va_start(args, level);
+    va_start(args, fmt);
     vsnprintf(message, bufferSize, fmt, args);
     va_end(args);
 
@@ -78,7 +78,7 @@ void UIDebugConsole::Render(bool* p_open) {
             Clear();  // Clear the log if the command is "clear"
         }
         else {
-            AddLog("Unknown command","WARNING");
+            AddLog("WARNING","Unknown command");
         }
 
         // Clear input buffer after each command

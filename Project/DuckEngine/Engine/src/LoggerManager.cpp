@@ -27,15 +27,6 @@ LoggerManager::~LoggerManager() {
     }
 }
 
-
-
-// Log crash with stack trace (if available)
-void LoggerManager::LogCrash(const std::string& crashMessage, const std::string& stackTrace) {
-    std::stringstream ss;
-    ss << crashMessage << "\nStack Trace:\n" << stackTrace;
-    WriteLog("CRASH", ss.str());
-}
-
 // Write log to file and console
 void LoggerManager::WriteLog(const std::string& level, const std::string& message) {
 
@@ -53,8 +44,12 @@ void LoggerManager::WriteLog(const std::string& level, const std::string& messag
     // Write log entry to file
     WriteToFile(logEntry.str());
 
-    // Write log to the debug console
-   UIDebugConsole::debugConsole.AddLog(logEntry.str().c_str(),level.c_str());
+    if (level != "CRASH")
+    {
+        // Write log to the debug console
+        UIDebugConsole::debugConsole.AddLog(level.c_str(), logEntry.str().c_str());
+    }
+    
 }
 
 // Write the log entry to the file

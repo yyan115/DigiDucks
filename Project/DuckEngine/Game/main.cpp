@@ -12,8 +12,7 @@ int main(void)
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     engine.Initialize();
-    LoggerManager& logger = LoggerManager::GetInstance();
-    logger.LogInfo("Game initialized.");
+    DUCKLOG_INFO("Engine initialized.");
 
     // Possible Scenes
     MaxLoadScene maxLoadScene;
@@ -27,23 +26,25 @@ int main(void)
     activeScene->Start();
 
     try {
-        logger.LogInfo("Game started.");
+        DUCKLOG_INFO("Game Started.");
     while (engine.Running())
     {
         // Update Active Scene
         activeScene->Update();
 
         engine.Update();
+        
         engine.StartDraw();
 
         engine.Draw();
 
         engine.EndDraw();
 
+       //throw std::runtime_error("Test Error");
     }
     }
     catch (const std::exception& ex) {
-        //logger.LogException(ex);
+        DUCKLOG_CRASH(ex.what());
     }
     std::cout << "Exited!\n";
 

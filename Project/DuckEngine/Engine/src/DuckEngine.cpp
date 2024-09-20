@@ -15,7 +15,6 @@
 #include "SpriteRendererSystem.h"
 #include "CameraSystem.h"
 
-
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
@@ -49,7 +48,6 @@ void DuckEngine::Update()
 {
     // Look for inputs first
     InputManager::Update();
-
     // Update dt every 1 second
     TimeManager::UpdateTime(1.0);
 

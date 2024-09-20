@@ -9,10 +9,12 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #define DUCKLOG_INFO(message, ...) LoggerManager::GetInstance().LogInfo(message, __VA_ARGS__);
 #define DUCKLOG_WARNING(message, ...) LoggerManager::GetInstance().LogWarning(message, __VA_ARGS__);
-#define DUCKLOG_ERROR(ex, message, ...) LoggerManager::GetInstance().LogError(ex, message, __VA_ARGS__);
+#define DUCKLOG_ERROR(message, ...) LoggerManager::GetInstance().LogError(message, __VA_ARGS__);
+#define DUCKLOG_CRASH(ex) LoggerManager::GetInstance().LogCrash(ex, __FILE__, __func__, __LINE__);
 
 class DUCKENGINE_API LoggerManager {
 public:
@@ -26,10 +28,10 @@ public:
     void LogWarning(const std::string& message, Args&&... args);
 
     template <typename... Args>
-    void LogError(const std::exception& ex,const std::string& message, Args&&... args);
+    void LogError(const std::string& message, Args&&... args);
 
     // Log crash
-    void LogCrash(const std::string& crashMessage, const std::string& stackTrace);
+    void LogCrash(const char* ex, const char* file, const char* func, int line);
 
     
 
@@ -75,9 +77,16 @@ void LoggerManager::LogWarning(const std::string& message, Args&&... args) {
 
 // Log error-level messages
 template <typename... Args>
-void LoggerManager::LogError(const std::exception& ex, const std::string& message, Args&&... args) {
-    std::string fMessage = FormatString(message, std::forward<Args>(args)...);
+void LoggerManager::LogError(const std::string& message, Args&&... args) {
+    std::string ss = FormatString(message, std::forward<Args>(args)...);
+    // Write the log with the additional information
+    WriteLog("ERROR", ss);
+}
+
+// Log crash 
+void LoggerManager::LogCrash(const char* ex, const char* file, const char* func, int line) {
     std::stringstream ss;
-    ss << "Exception: " << ex.what() << " - " << fMessage;
-    WriteLog("ERROR", ss.str());
+    ss << "Exception thrown: " << ex << "\n[FILE " << file << "]" << "\nFunction: " << func << "\nLine : " << line;
+    std::cerr << "GAME CRASHED. CHECK GAME_LOG FILE FOR MORE INFO\n" << std::endl;
+    WriteLog("CRASH", ss.str());
 }
