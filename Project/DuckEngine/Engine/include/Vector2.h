@@ -12,10 +12,16 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 #pragma once
 #define M_PI 3.14159265358979323846
 
-class Vector2D {
+class DUCKENGINE_API Vector2D {
 public:
 	float x, y;
 

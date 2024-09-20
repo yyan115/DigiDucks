@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Bounding.h"
 #include <algorithm>
 #include <math.h>
+#include <iostream>
 
 // Getters
 Vec2 BoundingCollider::getCenterPos() const {
@@ -329,14 +330,14 @@ namespace {
 
 
 // Circle - Box
-bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, Vec2 circle_velo, Vec2 box_velo, float deltaTime) {
+bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, float deltaTime, Vec2 circle_velo, Vec2 box_velo) {
     // Calculate relative velocity
     Vec2 relVel = circle_velo - box_velo;
 
-    Vec2 topLeft(box.getMax().x, box.getMin().y);
+    Vec2 topLeft(box.getMin().x, box.getMax().y);
     Vec2 topRight = box.getMax();
     Vec2 btmLeft = box.getMin();
-    Vec2 btmRight(box.getMin().x, box.getMax().y);
+    Vec2 btmRight(box.getMax().x, box.getMin().y);
 
     bool collision = false;
     // Check collision with each line segment
@@ -360,7 +361,7 @@ bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, Vec
 }
 
 // Box - Box
-bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1, Vec2 vel2, float deltaTime) {
+bool checkCollision(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
     if (box1.getMax().x < box2.getMin().x || box1.getMax().y < box2.getMin().y ||
         box1.getMin().x > box2.getMax().x || box1.getMin().y > box2.getMax().y) {
 
@@ -430,7 +431,7 @@ bool checkCollision(BoundingBox& box1, BoundingBox& box2, Vec2 vel1, Vec2 vel2, 
 }
 
 // Circle - Circle
-bool checkCollision(BoundingCircle& circle,BoundingCircle& circle2,  Vec2 vel1, Vec2 vel2, float deltaTime) {
+bool checkCollision(BoundingCircle& circle,BoundingCircle& circle2, float deltaTime, Vec2 vel1, Vec2 vel2) {
     // Calculate relative velocity
 	Vec2 relVel = vel1 - vel2;
 
