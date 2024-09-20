@@ -17,7 +17,6 @@
 
 std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
-GLuint GraphicsManager::VBO = 0;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
 GLuint GraphicsManager::pointVAO;
@@ -76,16 +75,6 @@ namespace {
     void InitializeDebugVAO();
 }
 
-
-// a way to set bg color, then maybe i can check if bg is set then change clr
-// set render mode to lines, triangles, textures, etc
-
-// maybe add a color mode and u can blend color + texture
-
-// maybe just render 1x1 square, that gets scaled, rotated and transformed accordingly?
-
-// AND TEXTURE IF ANY WIP
-
 void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
     drawQueue.emplace_back(drawOptions);
 }
@@ -140,21 +129,20 @@ void GraphicsManager::Render() {
             // Set the texture uniform
             GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
             if (uTex2dLocation != -1) {
-                glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
+                glUniform1i(uTex2dLocation, 0);
             }
 
-            // Set other uniforms
             GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
-            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
 
-            glUniform1i(uUseTextureLocation, 1);  // We are using texture
-            glUniform1i(uBlendColorsLocation, 0); // Not blending colors
-            glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f); // White (no blending)
+            glUniform1i(uUseTextureLocation, 1);
         }
 
         if (drawItem.useColor) {
-            // handle color and send to shaders...
+            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+
+            glUniform1i(uBlendColorsLocation, 1);
+            glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
         }
 
         // Render the sprite
@@ -170,136 +158,6 @@ void GraphicsManager::Render() {
 
 void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
     backgroundColor = { r, g, b, a };
-}
-
-void GraphicsManager::OldRender(bool isUI) {
-
-    // std::cout << "Trying\n";
-
-    shaders["DefaultShader"].Use();
-    glBindVertexArray(VAO);
-
-    // Set the texture uniform
-    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
-    if (uTex2dLocation != -1) {
-        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
-    }
-
-    // Set other uniforms
-    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
-    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
-
-    // Example values - adjust as needed
-    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
-    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
-    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
-
-    // Bind the texture if it exists
-    if (TEST_TEXTURE != 0) {
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
-    }
-
-    // Loop over all active cameras
-    for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
-
-        CameraComponent* camera = GetComponent<CameraComponent>(cameraEntityID);
-
-        // std::cout << "Camera received.\n";
-
-        if (!camera) continue;
-
-        // std::cout << "Camera received.\n";
-
-        glm::mat3x3 viewMatrix = ViewMatrix(camera->position);
-
-        for (const auto& [spriteEntityID, spriteRenderer] : GetComponents<SpriteRendererComponent>()) {
-
-            // Check if sprite renderer exists
-            if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
-
-            // std::cout << "Sprite available.\n";
-
-            if (spriteRenderer->sprite) 
-            {
-                glActiveTexture(GL_TEXTURE0);
-                glBindTexture(GL_TEXTURE_2D, spriteRenderer->texture);
-            }
-
-
-            // Check if camera and sprite are on same layer
-            if (spriteRenderer->layer != camera->layer) continue;
-
-            // std::cout << "Sprite is on same layer.\n";
-
-            // Check if transform exist and render if it does
-            if (TransformComponent* transform = GetComponent<TransformComponent>(spriteEntityID))
-            {
-                // std::cout << "Transform exists. Rendering now\n";
-
-                glm::mat3x3 modelToWorld = ModelToWorldMatrix(transform->scale, transform->angle, transform->position);
-
-                glm::mat3x3 cameraToNDC = CameraToNDCMatrix(camera->windowAspectRatio * camera->cameraHeight, camera->cameraHeight);
-
-                glm::mat3x3 finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
-
-                //std::cout << "final Matrix =\n";
-                //for (int row = 0; row < 3; ++row) {
-                //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
-                //        std::cout << finalMatrix[row][col] << " ";
-                //    }
-                //    std::cout << "|\n";
-                //}
-
-                //std::cout << "camMatrix =\n";
-                //for (int row = 0; row < 3; ++row) {
-                //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
-                //        std::cout << cameraToNDC[row][col] << " ";
-                //    }
-                //    std::cout << "|\n";
-                //}
-
-                //std::cout << "viewMatrix =\n";
-                //for (int row = 0; row < 3; ++row) {
-                //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
-                //        std::cout << viewMatrix[row][col] << " ";
-                //    }
-                //    std::cout << "|\n";
-                //}
-
-                //std::cout << "modelToWorld =\n";
-                //for (int row = 0; row < 3; ++row) {
-                //    std::cout << "| ";
-                //    for (int col = 0; col < 3; ++col) {
-                //        std::cout << modelToWorld[row][col] << " ";
-                //    }
-                //    std::cout << "|\n";
-                //}
-
-                // Send matrix to vert shader
-                GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
-                if (uniformModelToNDCLocation == -1) {
-                    std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
-                    std::exit(EXIT_FAILURE);
-                }
-
-                glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-
-                // Render the sprite
-                glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-
-                // std::cout << "drawn\n";
-            }
-        }
-    }
-
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    shaders["DefaultShader"].UnUse();
 }
 
 bool GraphicsManager::Initialize() {
@@ -463,7 +321,7 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     // Calculate midpoint and direction
     Vector2D midPoint = (start + end) * 0.5f;
     Vector2D direction = end - start;
-    float length = glm::length( glm::vec2{ direction.x, direction.y });
+    float length = glm::length(glm::vec2{ direction.x, direction.y });
     float angle = atan2(direction.y, direction.x);
 
     // Create the model matrix to scale and rotate the line
@@ -723,7 +581,6 @@ void GraphicsManager::SetupCircleVAO(int segments) {
     glBindVertexArray(0);
 }
 
-
 //#endif // DEBUG
 
 
@@ -899,3 +756,135 @@ namespace {
         GraphicsManager::SetupRectangleVAO();
     }
 }
+
+// old render
+
+    //void GraphicsManager::OldRender(bool isUI) {
+    //
+    //    // std::cout << "Trying\n";
+    //
+    //    shaders["DefaultShader"].Use();
+    //    glBindVertexArray(VAO);
+    //
+    //    // Set the texture uniform
+    //    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+    //    if (uTex2dLocation != -1) {
+    //        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
+    //    }
+    //
+    //    // Set other uniforms
+    //    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+    //    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+    //    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+    //
+    //    // Example values - adjust as needed
+    //    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
+    //    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
+    //    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
+    //
+    //    // Bind the texture if it exists
+    //    if (TEST_TEXTURE != 0) {
+    //        glActiveTexture(GL_TEXTURE0);
+    //        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
+    //    }
+    //
+    //    // Loop over all active cameras
+    //    for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
+    //
+    //        CameraComponent* camera = GetComponent<CameraComponent>(cameraEntityID);
+    //
+    //        // std::cout << "Camera received.\n";
+    //
+    //        if (!camera) continue;
+    //
+    //        // std::cout << "Camera received.\n";
+    //
+    //        glm::mat3x3 viewMatrix = ViewMatrix(camera->position);
+    //
+    //        for (const auto& [spriteEntityID, spriteRenderer] : GetComponents<SpriteRendererComponent>()) {
+    //
+    //            // Check if sprite renderer exists
+    //            if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
+    //
+    //            // std::cout << "Sprite available.\n";
+    //
+    //            if (spriteRenderer->sprite) 
+    //            {
+    //                glActiveTexture(GL_TEXTURE0);
+    //                glBindTexture(GL_TEXTURE_2D, spriteRenderer->texture);
+    //            }
+    //
+    //
+    //            // Check if camera and sprite are on same layer
+    //            if (spriteRenderer->layer != camera->layer) continue;
+    //
+    //            // std::cout << "Sprite is on same layer.\n";
+    //
+    //            // Check if transform exist and render if it does
+    //            if (TransformComponent* transform = GetComponent<TransformComponent>(spriteEntityID))
+    //            {
+    //                // std::cout << "Transform exists. Rendering now\n";
+    //
+    //                glm::mat3x3 modelToWorld = ModelToWorldMatrix(transform->scale, transform->angle, transform->position);
+    //
+    //                glm::mat3x3 cameraToNDC = CameraToNDCMatrix(camera->windowAspectRatio * camera->cameraHeight, camera->cameraHeight);
+    //
+    //                glm::mat3x3 finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+    //
+    //                //std::cout << "final Matrix =\n";
+    //                //for (int row = 0; row < 3; ++row) {
+    //                //    std::cout << "| ";
+    //                //    for (int col = 0; col < 3; ++col) {
+    //                //        std::cout << finalMatrix[row][col] << " ";
+    //                //    }
+    //                //    std::cout << "|\n";
+    //                //}
+    //
+    //                //std::cout << "camMatrix =\n";
+    //                //for (int row = 0; row < 3; ++row) {
+    //                //    std::cout << "| ";
+    //                //    for (int col = 0; col < 3; ++col) {
+    //                //        std::cout << cameraToNDC[row][col] << " ";
+    //                //    }
+    //                //    std::cout << "|\n";
+    //                //}
+    //
+    //                //std::cout << "viewMatrix =\n";
+    //                //for (int row = 0; row < 3; ++row) {
+    //                //    std::cout << "| ";
+    //                //    for (int col = 0; col < 3; ++col) {
+    //                //        std::cout << viewMatrix[row][col] << " ";
+    //                //    }
+    //                //    std::cout << "|\n";
+    //                //}
+    //
+    //                //std::cout << "modelToWorld =\n";
+    //                //for (int row = 0; row < 3; ++row) {
+    //                //    std::cout << "| ";
+    //                //    for (int col = 0; col < 3; ++col) {
+    //                //        std::cout << modelToWorld[row][col] << " ";
+    //                //    }
+    //                //    std::cout << "|\n";
+    //                //}
+    //
+    //                // Send matrix to vert shader
+    //                GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+    //                if (uniformModelToNDCLocation == -1) {
+    //                    std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
+    //                    std::exit(EXIT_FAILURE);
+    //                }
+    //
+    //                glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+    //
+    //                // Render the sprite
+    //                glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+    //
+    //                // std::cout << "drawn\n";
+    //            }
+    //        }
+    //    }
+    //
+    //    glBindVertexArray(0);
+    //    glBindTexture(GL_TEXTURE_2D, 0);
+    //    shaders["DefaultShader"].UnUse();
+    //}

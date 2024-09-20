@@ -20,6 +20,10 @@ void SpriteRendererSystem::Update()
 
 			whatToDraw.relativeToCamera = true;
 
+			// USE THIS TO USE AND SET COLORS
+			whatToDraw.useColor = true;
+			whatToDraw.color = { 255.f, 0.f, 255.f, 255.f };
+
 			GraphicsManager::AddToDrawQueue(whatToDraw);
 		}
 	}

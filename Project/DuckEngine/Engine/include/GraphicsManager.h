@@ -48,29 +48,14 @@ struct DrawOptions {
 
 class DUCKENGINE_API GraphicsManager {
 public:
-
-    //GraphicsManager() {}
-    //~GraphicsManager() {}
-
     // Core functions
-    static bool Initialize();               // Initialize OpenGL, GLFW, shaders, etc.
-    static void Exit();                 // Cleanup resources
-    static void OldRender(bool isUI = false);                   // Render everything for this frame
+    static bool Initialize();
+    static void Exit();
     static void Render();
-    
-    // FEATURES: DRAW NORMALLY (NO COLORS, NO TEXTURES), OR DRAW WITH COLOR NO TEXT, OR DRAW WITH TEXT NO COLOR, OR DRAW WITH TEXT + COLORR
+
     static void AddToDrawQueue(const DrawOptions &drawOptions);
-    // static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate);
-    // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, //TEXTURE DRAW);
-    // static void AddToDrawQueue(const Vector2D& scale, float rotation, const Vector2D& translate, Color RGBA);
-    // static void AddToDrawQueue(const glm::vec3& scale, float rotation, const glm::vec3& translate, Color RGBA, //TEXTURE DRAW);
 
     static void SetBackgroundColor(float r, float g, float b, float a);
-
-    // Resource management
-    static void LoadTexture(const std::string& filePath);    // Load texture from file
-
-    //static void LoadShader(const std::string& vertexPath, const std::string& fragmentPath); // Shader loader
 
     static void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f });
     static void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f });
@@ -96,11 +81,6 @@ private:
     static std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
 
     static GLuint VAO;
-    static GLuint VBO;
-
-    static GLuint indicesCount;
-
-    static GLuint shaderProgram;
 
     static std::vector<DrawOptions> drawQueue;
 
