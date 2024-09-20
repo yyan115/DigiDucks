@@ -115,12 +115,14 @@
     <ClInclude Include="..\include\DuckEngine.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\EntityManager.h" />
+    <ClInclude Include="..\include\File.h" />
     <ClInclude Include="..\include\glslshader.h" />
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\Sprite.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
@@ -131,8 +133,6 @@
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
     <ClInclude Include="AnimationComponent.h" />
-    <ClInclude Include="File.h" />
-    <ClInclude Include="Serialization.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\CameraManager.cpp" />
@@ -140,19 +140,19 @@
     <ClCompile Include="..\src\Bounding.cpp" />
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
+    <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\glslshader.cpp" />
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
+    <ClCompile Include="..\src\Serialization.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
-    <ClCompile Include="File.cpp" />
-    <ClCompile Include="Serialization.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fragShader.frag" />

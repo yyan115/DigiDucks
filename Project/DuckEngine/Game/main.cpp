@@ -12,21 +12,22 @@ int main(void)
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     engine.Initialize();
-    DUCKLOG_INFO("Engine initialized.");
+    LoggerManager& logger = LoggerManager::GetInstance();
+    logger.LogInfo("Game initialized.");
 
     // Possible Scenes
     MaxLoadScene maxLoadScene;
     SpriteMovementScene spriteMovementScene;
     
     // Set Active Scene
-    activeScene = &maxLoadScene;
+    activeScene = &spriteMovementScene;
     
     // Load and Start Active Scene
     activeScene->Load();
     activeScene->Start();
 
     try {
-        DUCKLOG_INFO("Game Started.");
+        logger.LogInfo("Game started.");
     while (engine.Running())
     {
         // Update Active Scene
@@ -38,10 +39,11 @@ int main(void)
         engine.Draw();
 
         engine.EndDraw();
+
     }
     }
     catch (const std::exception& ex) {
-        DUCKLOG_ERROR(ex,"test");
+        //logger.LogException(ex);
     }
     std::cout << "Exited!\n";
 

@@ -144,10 +144,10 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
-    <ClInclude Include="File.h">
+    <ClInclude Include="..\include\File.h">
       <Filter>include\File</Filter>
     </ClInclude>
-    <ClInclude Include="Serialization.h">
+    <ClInclude Include="..\include\Serialization.h">
       <Filter>include\Serialization</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,10 +200,10 @@
     <ClCompile Include="..\src\LoggerManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="File.cpp">
+    <ClCompile Include="..\src\File.cpp">
       <Filter>src\File</Filter>
     </ClCompile>
-    <ClCompile Include="Serialization.cpp">
+    <ClCompile Include="..\src\Serialization.cpp">
       <Filter>src\Serialization</Filter>
     </ClCompile>
   </ItemGroup>
