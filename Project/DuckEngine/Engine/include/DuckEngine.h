@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "ComponentManager.h"
 #include "SystemManager.h"
+#include "InputManager.h"
 
 class DUCKENGINE_API DuckEngine
 {
@@ -38,6 +39,15 @@ public:
     static float DeltaTime();
 
     static void SetBackgroundColor(const float r, const float g, const float b, const float a);
+
+    static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }
+    static inline bool IsKeyReleased(int key) { return InputManager::IsKeyReleased(key); }
+    static inline bool IsMouseButtonPressed(int button) { return InputManager::IsMouseButtonPressed(button); }
+    static inline bool IsMouseButtonReleased(int button) { return InputManager::IsMouseButtonReleased(button); }
+    static inline double GetMouseX() { return InputManager::GetMouseX(); }
+    static inline double GetMouseY() { return InputManager::GetMouseY(); }
+    static inline double GetScrollOffsetX() { return InputManager::GetScrollOffsetX(); }
+    static inline double GetScrollOffsetY() { return InputManager::GetScrollOffsetY(); }
 };
 
 // Expose window dimension getters as global functions - REMOVED FOR NOW, BUT INTERESTING OPTION

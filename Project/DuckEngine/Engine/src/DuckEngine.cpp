@@ -6,7 +6,7 @@
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
-#include "InputManager.h"
+//#include "InputManager.h"
 #include "TimeManager.h"
 #include "UIManager.h"
 #include "CameraManager.h"
@@ -30,7 +30,7 @@ void DuckEngine::Initialize() {
     // Init Window, then Graphics, then Input
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
-    InputManager::Initialize();
+    InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10.f, 10.f);
 
     // add the systems

@@ -59,6 +59,23 @@ void SpriteMovementScene::Update()
 	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
+
+	//// Handle movement based on key input
+	//if (DuckEngine::IsKeyPressed(GLFW_KEY_W)) {
+	//	playerTransform->position.y += moveSpeed * DuckEngine::DeltaTime();
+	//}
+
+	//if (DuckEngine::IsKeyPressed(GLFW_KEY_A)) {
+	//	playerTransform->position.y -= moveSpeed * DuckEngine::DeltaTime();
+	//}
+
+	//if (DuckEngine::IsKeyPressed(GLFW_KEY_S)) {
+	//	playerTransform->position.x -= moveSpeed * DuckEngine::DeltaTime();
+	//}
+
+	//if (DuckEngine::IsKeyPressed(GLFW_KEY_D)) {
+	//	playerTransform->position.x += moveSpeed * DuckEngine::DeltaTime();
+	//}
 }
 
 void SpriteMovementScene::PostUpdate()
