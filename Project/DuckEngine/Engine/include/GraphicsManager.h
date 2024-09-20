@@ -16,12 +16,7 @@
 #include "glslshader.h"
 #include "Vector2.h"
 
-struct Color {
-    float r;
-    float g;
-    float b;
-    float a;
-};
+#include "Color.h"
 
 struct DrawOptions {
     // NECESSARY

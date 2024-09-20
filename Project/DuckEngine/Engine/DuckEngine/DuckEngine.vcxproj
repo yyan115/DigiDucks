@@ -113,6 +113,7 @@
     <ClInclude Include="..\include\CameraManager.h" />
     <ClInclude Include="..\include\CameraSystem.h" />
     <ClInclude Include="..\include\Bounding.h" />
+    <ClInclude Include="..\include\Color.h" />
     <ClInclude Include="..\include\Component.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
     <ClInclude Include="..\include\DuckEngine.h" />

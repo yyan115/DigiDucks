@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "string"
 #include "Sprite.h"
-
+#include "Color.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -17,5 +17,6 @@ public:
 	bool sprite;
 	int layer;
 	Sprite texture;
-	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer), texture() {}
+	Color color;
+	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0) : sprite(hasSprite), layer(spriteLayer), texture(), color() {}
 };
