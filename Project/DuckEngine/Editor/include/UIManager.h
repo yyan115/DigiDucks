@@ -14,6 +14,7 @@ private:
     static void ShowEntitySpawn();
     static void RenderWindows();
     static void ShowPerformance();
+    static void SpawnSquare();
 };
 
 
