@@ -12,10 +12,16 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 #pragma once
 #include "Vector2.h"
 
-class Matrix3x3 {
+class DUCKENGINE_API Matrix3x3 {
 public:
 	struct {
 		float m00, m01, m02;

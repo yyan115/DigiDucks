@@ -72,6 +72,8 @@ namespace {
 
     template <typename T>
     std::unordered_map<int, std::shared_ptr<T>>& GetComponents();
+
+    void InitializeDebugVAO();
 }
 
 
@@ -318,6 +320,8 @@ bool GraphicsManager::Initialize() {
 
     InsertDebugShader();
 
+    InitializeDebugVAO();
+
     return true;
 }
 
@@ -494,11 +498,35 @@ void GraphicsManager::DrawRectangle(const Vector2D& position, const Vector2D& si
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
 
     // Draw the rectangle (quad)
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
     shaders["DebugShader"].UnUse();
 }
+
+//void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color) {
+//    shaders["DebugShader"].Use();
+//    glBindVertexArray(circleVAO);
+//
+//    // Set the color
+//    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+//    glUniform4f(uniformColorLocation,
+//        color.r / 255.0f,
+//        color.g / 255.0f,
+//        color.b / 255.0f,
+//        color.a / 255.0f);
+//
+//    // Create a model matrix to scale the circle to the correct radius and position it
+//    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(radius, radius), 0.0f, position);
+//    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+//    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
+//
+//    // Draw the circle using the triangle fan (6 * number of triangles = 3 * number of segments)
+//    glDrawElements(GL_TRIANGLES, 3 * circleSegments, GL_UNSIGNED_INT, 0);
+//
+//    glBindVertexArray(0);
+//    shaders["DebugShader"].UnUse();
+//}
 
 void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color) {
     shaders["DebugShader"].Use();
@@ -517,12 +545,13 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(modelToWorld));
 
-    // Draw the circle using the triangle fan (6 * number of triangles = 3 * number of segments)
-    glDrawElements(GL_TRIANGLES, 3 * circleSegments, GL_UNSIGNED_INT, 0);
+    // Draw the outline of the circle
+    glDrawArrays(GL_LINE_LOOP, 0, static_cast<GLsizei>(circleSegments));
 
     glBindVertexArray(0);
     shaders["DebugShader"].UnUse();
 }
+
 
 void GraphicsManager::SetupPointVAO() {
     float pointVertex[] = {
@@ -601,16 +630,68 @@ void GraphicsManager::SetupRectangleVAO() {
     glBindVertexArray(0);
 }
 
+//void GraphicsManager::SetupCircleVAO(int segments) {
+//    std::vector<float> vertices; // Store vertices
+//    std::vector<unsigned int> indices; // Store indices
+//
+//    circleSegments = segments;
+//
+//    // First vertex is the center of the circle
+//    vertices.push_back(0.0f); // x
+//    vertices.push_back(0.0f); // y
+//    vertices.push_back(0.0f); // z (assuming 2D, this can be set to 0)
+//
+//    // Generate vertices for the perimeter
+//    float angleStep = 2.0f * M_PI / circleSegments;
+//
+//    for (int i = 0; i <= circleSegments; ++i) {
+//        float angle = i * angleStep;
+//        float x = 0.5f * cos(angle); // 0.5f to match the 1x1 scale
+//        float y = 0.5f * sin(angle);
+//        vertices.push_back(x); // x position
+//        vertices.push_back(y); // y position
+//        vertices.push_back(0.0f); // z position (for 2D)
+//    }
+//
+//    // Generate indices for the triangle fan
+//    for (int i = 1; i <= circleSegments; ++i) {
+//        indices.push_back(0);  // The center vertex
+//        indices.push_back(i);  // Current perimeter vertex
+//        indices.push_back(i + 1); // Next perimeter vertex (wraps around)
+//    }
+//
+//    // Last triangle wraps around to the first perimeter vertex
+//    indices.push_back(0);
+//    indices.push_back(circleSegments);
+//    indices.push_back(1);
+//
+//    // Generate VAO and VBO for the circle
+//    unsigned int circleVBO, circleEBO;
+//    glGenVertexArrays(1, &circleVAO);
+//    glGenBuffers(1, &circleVBO);
+//    glGenBuffers(1, &circleEBO);
+//
+//    glBindVertexArray(circleVAO);
+//
+//    // Bind and fill VBO with vertex data
+//    glBindBuffer(GL_ARRAY_BUFFER, circleVBO);
+//    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
+//
+//    // Bind and fill EBO with index data
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, circleEBO);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+//
+//    // Set up vertex attributes (position in this case)
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+//    glEnableVertexAttribArray(0);
+//
+//    glBindVertexArray(0);
+//}
+
 void GraphicsManager::SetupCircleVAO(int segments) {
     std::vector<float> vertices; // Store vertices
-    std::vector<unsigned int> indices; // Store indices
 
     circleSegments = segments;
-
-    // First vertex is the center of the circle
-    vertices.push_back(0.0f); // x
-    vertices.push_back(0.0f); // y
-    vertices.push_back(0.0f); // z (assuming 2D, this can be set to 0)
 
     // Generate vertices for the perimeter
     float angleStep = 2.0f * M_PI / circleSegments;
@@ -624,33 +705,16 @@ void GraphicsManager::SetupCircleVAO(int segments) {
         vertices.push_back(0.0f); // z position (for 2D)
     }
 
-    // Generate indices for the triangle fan
-    for (int i = 1; i <= circleSegments; ++i) {
-        indices.push_back(0);  // The center vertex
-        indices.push_back(i);  // Current perimeter vertex
-        indices.push_back(i + 1); // Next perimeter vertex (wraps around)
-    }
-
-    // Last triangle wraps around to the first perimeter vertex
-    indices.push_back(0);
-    indices.push_back(circleSegments);
-    indices.push_back(1);
-
     // Generate VAO and VBO for the circle
-    unsigned int circleVBO, circleEBO;
+    unsigned int circleVBO;
     glGenVertexArrays(1, &circleVAO);
     glGenBuffers(1, &circleVBO);
-    glGenBuffers(1, &circleEBO);
 
     glBindVertexArray(circleVAO);
 
     // Bind and fill VBO with vertex data
     glBindBuffer(GL_ARRAY_BUFFER, circleVBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices[0], GL_STATIC_DRAW);
-
-    // Bind and fill EBO with index data
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, circleEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
     // Set up vertex attributes (position in this case)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
@@ -658,6 +722,7 @@ void GraphicsManager::SetupCircleVAO(int segments) {
 
     glBindVertexArray(0);
 }
+
 
 //#endif // DEBUG
 
@@ -825,5 +890,12 @@ namespace {
                     glm::vec3(0, 2.f / height, 0),
                     glm::vec3(0, 0, 1.f)
         };
+    }
+
+    void InitializeDebugVAO() {
+        GraphicsManager::SetupCircleVAO(100);
+        GraphicsManager::SetupLineVAO();
+        GraphicsManager::SetupPointVAO();
+        GraphicsManager::SetupRectangleVAO();
     }
 }
