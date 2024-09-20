@@ -106,6 +106,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AnimationComponent.h" />
     <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
     <ClInclude Include="..\include\CameraSystem.h" />
@@ -132,7 +133,6 @@
     <ClInclude Include="..\include\TransformComponent.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
-    <ClInclude Include="AnimationComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\CameraManager.cpp" />
