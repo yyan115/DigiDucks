@@ -10,11 +10,30 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <exception>
+#include <string>
 
 #define DUCKLOG_INFO(message, ...) LoggerManager::GetInstance().LogInfo(message, __VA_ARGS__);
 #define DUCKLOG_WARNING(message, ...) LoggerManager::GetInstance().LogWarning(message, __VA_ARGS__);
 #define DUCKLOG_ERROR(message, ...) LoggerManager::GetInstance().LogError(message, __VA_ARGS__);
-#define DUCKLOG_CRASH(ex) LoggerManager::GetInstance().LogCrash(ex, __FILE__, __func__, __LINE__);
+#define DUCKLOG_CRASH(ex) LoggerManager::GetInstance().LogCrash(ex);
+#define THROW_EXCEPTION(message) throw DetailedException(message, __FILE__, __func__, __LINE__)
+
+class DUCKENGINE_API DetailedException : public std::exception {
+public:
+    DetailedException(const std::string& message, const char* file, const char* func, int line);
+
+    const char* what() const noexcept override;
+    const char* GetFile() const;
+    const char* GetFunction() const;
+    int GetLine() const;
+
+private:
+    std::string message_;
+    const char* file_;
+    const char* func_;
+    int line_;
+};
 
 class DUCKENGINE_API LoggerManager {
 public:
@@ -31,7 +50,7 @@ public:
     void LogError(const std::string& message, Args&&... args);
 
     // Log crash
-    void LogCrash(const char* ex, const char* file, const char* func, int line);
+    void LogCrash(const DetailedException& ex);
 
     
 
@@ -49,7 +68,6 @@ private:
 
     void WriteToFile(const std::string& message);  // Helper to write to the log file
 };
-
 
 
 // Helper function to format the message
@@ -81,12 +99,4 @@ void LoggerManager::LogError(const std::string& message, Args&&... args) {
     std::string ss = FormatString(message, std::forward<Args>(args)...);
     // Write the log with the additional information
     WriteLog("ERROR", ss);
-}
-
-// Log crash 
-void LoggerManager::LogCrash(const char* ex, const char* file, const char* func, int line) {
-    std::stringstream ss;
-    ss << "Exception thrown: " << ex << "\n[FILE " << file << "]" << "\nFunction: " << func << "\nLine : " << line;
-    std::cerr << "GAME CRASHED. CHECK GAME_LOG FILE FOR MORE INFO\n" << std::endl;
-    WriteLog("CRASH", ss.str());
 }

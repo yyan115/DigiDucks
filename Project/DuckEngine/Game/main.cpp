@@ -40,11 +40,11 @@ int main(void)
 
         engine.EndDraw();
 
-       //throw std::runtime_error("Test Error");
+        //THROW_EXCEPTION("Test Error");
     }
     }
-    catch (const std::exception& ex) {
-        DUCKLOG_CRASH(ex.what());
+    catch (const DetailedException& ex) {
+        DUCKLOG_CRASH(ex);
     }
     std::cout << "Exited!\n";
 

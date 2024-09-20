@@ -27,6 +27,15 @@ LoggerManager::~LoggerManager() {
     }
 }
 
+// Log crash 
+void LoggerManager::LogCrash(const DetailedException& ex) {
+    std::stringstream ss;
+    ss << "Exception thrown: " << ex.what() << "\n[FILE: " << ex.GetFile() << "]"
+        << "\nFunction: " << ex.GetFunction() << "\nLine: " << ex.GetLine();
+    std::cerr << "GAME CRASHED. CHECK GAME_LOG FILE FOR MORE INFO\n" << std::endl;
+    WriteLog("CRASH", ss.str());
+}
+
 // Write log to file and console
 void LoggerManager::WriteLog(const std::string& level, const std::string& message) {
 
@@ -58,3 +67,14 @@ void LoggerManager::WriteToFile(const std::string& message) {
         logFile << message;
     }
 }
+
+DetailedException::DetailedException(const std::string& message, const char* file, const char* func, int line)
+    : std::exception(), message_(message), file_(file), func_(func), line_(line) {}
+
+const char* DetailedException::what() const noexcept {
+    return message_.c_str();
+}
+
+const char* DetailedException::GetFile() const { return file_; }
+const char* DetailedException::GetFunction() const { return func_; }
+int DetailedException::GetLine() const { return line_; }
