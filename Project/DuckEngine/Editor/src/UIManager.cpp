@@ -9,6 +9,7 @@
 #include "TimeManager.h"
 #include "ImageLoader.h"
 #include <Windows.h>
+#include "Color.h"
 
 enum class WindowType {
     DebugInfo,

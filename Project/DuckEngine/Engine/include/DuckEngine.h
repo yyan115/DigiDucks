@@ -52,6 +52,11 @@ public:
     static inline double GetScrollOffsetX() { return InputManager::GetScrollOffsetX(); }
     static inline double GetScrollOffsetY() { return InputManager::GetScrollOffsetY(); }
 
+    static void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f });
+    static void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f });
+    static void DrawRectangle(const Vector2D& position, const Vector2D& size, const Color& color = { 255.f, 0.f, 0.f, 255.f });
+    static void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f });
+
     // Declare key constants for letters (A-Z)
     static const int KEY_A;
     static const int KEY_B;

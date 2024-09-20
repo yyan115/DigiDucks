@@ -19,7 +19,7 @@ int main(void)
     SpriteMovementScene spriteMovementScene;
     
     // Set Active Scene
-    activeScene = &maxLoadScene;
+    activeScene = &spriteMovementScene;
     
     // Load and Start Active Scene
     activeScene->Load();

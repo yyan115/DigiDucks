@@ -70,16 +70,17 @@ void DuckEngine::StartDraw()
 
 void DuckEngine::Draw() 
 { 
-
     //GraphicsManager::OldRender(false);
 
     GraphicsManager::Render();
+
+    GraphicsManager::RenderDebug();
 
     UIManager::Render();
 
     //GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
     //GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
-    //GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
+    //GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f }, { 255.f, 255.f, 0.f, 255.f }, true, {});
     //GraphicsManager::DrawCircle({0,0}, 10000.f);
 }
 
@@ -130,6 +131,30 @@ void DuckEngine::SetCameraPosition(const float x, const float y) {
 
 void DuckEngine::SetCameraHeight(const int height) {
     CameraManager::SetHeight(height);
+}
+
+void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color) {
+    // Create a DebugDrawCommand for a point and add it to the debug draw queue
+    DebugDrawCommand drawCommand(DebugDrawCommand::POINT, position, {}, size, color); // position2 is unused
+    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+}
+
+void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color) {
+    // Create a DebugDrawCommand for a line and add it to the debug draw queue
+    DebugDrawCommand drawCommand(DebugDrawCommand::LINE, start, end, size, color);
+    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+}
+
+void DuckEngine::DrawRectangle(const Vector2D& position, const Vector2D& size, const Color& color) {
+    // Create a DebugDrawCommand for a rectangle and add it to the debug draw queue
+    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, position, size, 0.f, color); // sizeOrRadius is 0 for rectangles
+    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+}
+
+void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color) {
+    // Create a DebugDrawCommand for a circle and add it to the debug draw queue
+    DebugDrawCommand drawCommand(DebugDrawCommand::CIRCLE, position, {}, radius, color); // position2 is unused
+    GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
 // Define key constants for letters (A-Z)
