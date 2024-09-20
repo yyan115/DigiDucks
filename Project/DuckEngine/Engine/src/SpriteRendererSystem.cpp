@@ -26,7 +26,6 @@ void SpriteRendererSystem::Update()
 			whatToDraw.relativeToCamera = true;
 
 			// USE THIS TO USE AND SET COLORS
-
 			// FKING WEIRD PLS FIX, SOMETIMES GET RANDOM BUG WHERE OVER 1K ERRORS, AND WHEN I CALL USECOLOR IN GAME THIS DOESNT WORK IDK WHY
 			if (spriteRenderer->useColor) {
 				//std::cout << "use color\n";
