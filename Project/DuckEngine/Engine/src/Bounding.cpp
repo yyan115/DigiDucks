@@ -168,7 +168,7 @@ namespace {
             }
         }
         else {
-            bool checkLineEdges = true;
+            bool checkLineEdges = false;
             return CheckMovingCircleToLineEdge(checkLineEdges, circle, nextPos, lineStr, lineEnd);
         }
 
@@ -293,7 +293,7 @@ namespace {
                 // Magnitude from P0
                 float mag = Vec2Dot(circle_p0, N_velocity);
                 if (mag < 0) {
-                    return 0;
+                    return false;
                 }
                 else {
                     float leng = sqrt(circle.getRadius() * circle.getRadius() - dist0 * dist0);
@@ -310,7 +310,7 @@ namespace {
                 // Magnitude from P1
                 float mag = Vec2Dot(circle_p1, N_velocity);
                 if (mag < 0) {
-                    return 0;
+                    return false;
                 }
                 else {
                     float leng = sqrt(circle.getRadius() * circle.getRadius() - dist1 * dist1);
@@ -339,6 +339,15 @@ bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, flo
     Vec2 topRight = box.getMax();
     Vec2 btmLeft = box.getMin();
     Vec2 btmRight(box.getMax().x, box.getMin().y);
+
+    float dist = circle.getRadius() + std::max(box.getSize().x, box.getSize().y);
+
+    // Distance between both center
+    Vec2 centerDiff = box.getCenterPos() - circle.getCenterPos();
+
+    if (centerDiff.lengthSquared() > dist * dist) {
+        return false;
+    }
 
     // Check collision with each line segment
     // Btm Line

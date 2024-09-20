@@ -32,9 +32,9 @@ void SpriteMovementScene::Load()
 	playerSprite->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
 
-	circle = new BoundingCircle(playerTransform->position, 1.f);
+	circle = new BoundingCircle(playerTransform->position, 2.f);
 
-	box = new BoundingBox(playerTransform->position.x, playerTransform->position.y+10.f, 1.f, 1.f);
+	box = new BoundingBox(playerTransform->position.x, playerTransform->position.y, 1.f, 1.f);
 
 }
 
