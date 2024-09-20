@@ -79,10 +79,10 @@ void DuckEngine::Draw()
 
     UIManager::Render();
 
-    GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
-    GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
-    GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
-    GraphicsManager::DrawCircle({0,0}, 10000.f);
+    //GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
+    //GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
+    //GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f });
+    //GraphicsManager::DrawCircle({0,0}, 10000.f);
 }
 
 void DuckEngine::EndDraw()
