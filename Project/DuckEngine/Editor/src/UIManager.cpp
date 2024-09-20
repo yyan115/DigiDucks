@@ -7,6 +7,7 @@
 #include "WindowManager.h"
 #include "SystemManager.h"
 #include "TimeManager.h"
+#include "ImageLoader.h"
 #include <Windows.h>
 
 enum class WindowType {
@@ -224,16 +225,16 @@ void UIManager::ShowEntitySpawn() {
 
     // If the slider value has increased, spawn new entities
     if (spawnCount > lastSpawnCount) {
-        UIDebugConsole::debugConsole.AddLog("Spawning entities");
+        UIDebugConsole::debugConsole.AddDebugLog("Spawning entities");
         int entitiesToSpawn = spawnCount - lastSpawnCount;
         for (int i = 0; i < entitiesToSpawn; i++) {
-            //SpawnSquare(engine);  // Spawn square using the SpawnSquare
+            SpawnSquare();  // Spawn square using the SpawnSquare
         }
     }
 
     // If the slider value has decreased, remove entities
     if (spawnCount < lastSpawnCount) {
-        UIDebugConsole::debugConsole.AddLog("Removing entities");
+        UIDebugConsole::debugConsole.AddDebugLog("Removing entities");
         int entitiesToRemove = lastSpawnCount - spawnCount;
         for (int i = 0; i < entitiesToRemove; i++) {
             // Remove the last spawned entity
@@ -263,4 +264,48 @@ void UIManager::RenderWindows() {
             }
         }
     }
+}
+
+#include <random>
+#include <map>
+// Random number generator for position, scale, rotation, and velocity
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
+std::uniform_real_distribution<float> randomScale(50.0f, 500.0f);      // Scale between 50 and 500
+std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
+std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
+
+
+// Map to store entity velocities (entityID -> (velocityX, velocityY))
+std::map<int, std::pair<float, float>> entityVelocities;
+
+void UIManager::SpawnSquare() {
+    // Generate random position, scale, rotation, and velocity
+    Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
+    float scaleX = randomScale(gen);
+    float scaleY = randomScale(gen);
+    float rotation = randomRotation(gen);
+    float velocityX = randomVelocity(gen);
+    float velocityY = randomVelocity(gen);
+
+    // Create a new square entity
+    Entity& square = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+
+    // Add transform component with randomized values
+    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID);
+
+    // Store the velocity in the map
+    entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
+
+    UIDebugConsole::debugConsole.AddDebugLog("Spawned square at position (%.2f", pos.x);
+
+    // Add sprite renderer component
+    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
+    sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
+
+
+    // Print for debugging
+    //std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY
+    //    << "), rotation " << rotation << ", velocity (" << velocityX << ", " << velocityY << ")" << std::endl;
 }

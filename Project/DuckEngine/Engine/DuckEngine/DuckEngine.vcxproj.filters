@@ -141,14 +141,14 @@
     <ClInclude Include="..\include\Sprite.h">
       <Filter>include\Data</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationComponent.h">
-      <Filter>include\Components</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\File.h">
       <Filter>include\File</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Serialization.h">
       <Filter>include\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AnimationComponent.h">
+      <Filter>include\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
