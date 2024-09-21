@@ -220,3 +220,34 @@ DUCKENGINE_API bool checkCollision(BoundingBox& box1, BoundingBox& box2, float d
 * ***************************************************************/
 DUCKENGINE_API bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
+/****************************************************************
+* @brief Check collision between a circle and a line
+* 
+* @param circle - The circle collider
+* 
+* @param nextPos - The next position of the circle
+* 
+* @param lineStr - The starting point of the line
+*	
+* @param lineEnd - The ending point of the line
+* 
+* @param relVel - The relative velocity of the circle
+* 
+* @return True if there is a collision, false otherwise
+* ***************************************************************/
+DUCKENGINE_API bool checkCircleLine(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStr, Vec2 lineEnd, Vec2 relVel);
+
+/****************************************************************
+* @brief Check collision between a circle and a line
+* 
+* @param circle - The circle collider
+* 
+* @param nextPos - The next position of the circle
+* 
+* @param lineStr - The starting point of the line
+* 
+* @param lineEnd - The ending point of the line
+* 
+* @return True if there is a collision, false otherwise
+* ***************************************************************/
+DUCKENGINE_API bool CheckMovingCircleToLineEdge(BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd)
