@@ -83,6 +83,253 @@ void BoundingCircle::setRadius(float _radius) {
 
 
 // Collision Detection
+namespace {
+    bool CheckMovingCircleToLineEdge(bool withinBothLines, BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd);
+
+    // Circle - Line
+    bool checkCircleLine(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStr, Vec2 lineEnd, Vec2 relVel) {
+        // Circle Velocity
+        Vec2 velocity = (nextPos - circle.getCenterPos());
+        // Velocity's Normal
+        Vec2 v_N(velocity.y, -velocity.x);
+
+        // Line Segment
+        Vec2 lineNml(lineEnd.y - lineStr.y, -(lineEnd.x - lineStr.x));
+        Vec2 n_lineNml = lineNml.normalized();
+
+        // Get Normal.Bs
+        float circle_dot_Normal = Vec2Dot(circle.getCenterPos(), n_lineNml);
+        // Get Normal.P0
+        float p0_dot_Normal = Vec2Dot(lineStr, n_lineNml);
+
+        float distance = circle_dot_Normal - p0_dot_Normal;
+
+        if (distance <= -circle.getRadius()) {
+
+            // Make P0' and P1' -Radius
+            Vec2 P0_Prime = (lineStr - (circle.getRadius() * n_lineNml));
+            Vec2 P1_Prime = (lineEnd - (circle.getRadius() * n_lineNml));
+
+            // Get Circle to P0', P1'
+            Vec2 Circle_P0_Prime = (P0_Prime - circle.getCenterPos());
+            Vec2 Circle_P1_Prime = (P1_Prime - circle.getCenterPos());
+
+            //Magnitude of circle velocity vector
+            float M_dot_p0_prime = Vec2Dot(v_N, Circle_P0_Prime);
+            float M_dot_p1_prime = Vec2Dot(v_N, Circle_P1_Prime);
+
+            if (M_dot_p0_prime * M_dot_p1_prime < 0) {
+                // Check if Velocity is parellel to Line
+                float v_dot_Normal = Vec2Dot(velocity, n_lineNml);
+                if (v_dot_Normal != 0) {
+                    // Get time of intercept
+                    float interTime = (p0_dot_Normal - circle_dot_Normal - circle.getRadius()) / v_dot_Normal;
+
+                    if (0 <= interTime && interTime <= 1) {
+                        return true;    // Collision
+                    }
+                }
+            }
+            else {
+                bool checkLineEdges = false;
+                return CheckMovingCircleToLineEdge(checkLineEdges, circle, nextPos, lineStr, lineEnd);
+            }
+
+        }
+        else if (distance >= circle.getRadius()) {
+
+            // Make P0' and P1' +Radius
+            Vec2 P0_Prime = (lineStr - (circle.getRadius() * n_lineNml));
+            Vec2 P1_Prime = (lineEnd - (circle.getRadius() * n_lineNml));
+
+            // Get Circle to p0' p1'
+            Vec2 Circle_P0_Prime = (P0_Prime - circle.getCenterPos());
+            Vec2 Circle_P1_Prime = (P1_Prime - circle.getCenterPos());
+
+            //Magnitude of circle velocity vector
+            float M_dot_p0_prime = Vec2Dot(v_N, Circle_P0_Prime);
+            float M_dot_p1_prime = Vec2Dot(v_N, Circle_P1_Prime);
+
+            if (M_dot_p0_prime * M_dot_p1_prime < 0) {
+                // Check if Velocity is parellel to Line
+                float v_dot_Normal = Vec2Dot(velocity, n_lineNml);
+                if (v_dot_Normal != 0) {
+                    // Get time of intercept
+                    float interTime = (p0_dot_Normal - circle_dot_Normal + circle.getRadius()) / v_dot_Normal;
+
+                    if (0 <= interTime && interTime <= 1) {
+                        return true;	// Collision
+                    }
+                }
+            }
+            else {
+                bool checkLineEdges = false;
+                return CheckMovingCircleToLineEdge(checkLineEdges, circle, nextPos, lineStr, lineEnd);
+            }
+        }
+        else {
+            bool checkLineEdges = false;
+            return CheckMovingCircleToLineEdge(checkLineEdges, circle, nextPos, lineStr, lineEnd);
+        }
+
+        return false;   // No Collision
+    }
+
+    // Circle - Line Edge
+    bool CheckMovingCircleToLineEdge(bool withinBothLines, BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd) {
+        // Circle Velocity
+        Vec2 velocity = (nextPos - circle.getCenterPos());
+        // Velocity's Normal
+        Vec2 v_N(velocity.y, -velocity.x);
+
+        // Normalize Velocity
+        Vec2 N_velocity = velocity.normalized();
+
+        // Magnitude of Velocity vector
+        Vec2 M = v_N.normalized();
+
+        Vec2 p0_p1(lineEnd - lineStr);
+        Vec2 circle_p0(lineStr - circle.getCenterPos());
+        Vec2 circle_p1(lineEnd - circle.getCenterPos());
+
+        if (withinBothLines) {
+            // Check if circle is closer to p0 or p1
+            float dist_p0 = Vec2Dot(circle_p0, p0_p1);
+            float dist_p1 = Vec2Dot(circle_p1, p0_p1);
+
+            // Closer to P0
+            if (dist_p0 > 0) {
+                // Magnitude from P0
+                float mag = Vec2Dot(circle_p0, N_velocity);
+                if (mag > 0) {
+                    // Get Distance from P0
+                    float distance_0 = Vec2Dot(circle_p0, M);
+
+                    // If distanec is more than circle radius, No collision.
+                    if (abs(distance_0) > circle.getRadius()) {
+                        return false;
+                    }
+
+                    float leng = sqrt(circle.getRadius() * circle.getRadius() - distance_0 * distance_0);
+
+                    // Time of intercept.
+                    float interTime = (mag - leng) / velocity.length();
+
+                    if (interTime <= 1) {
+                        return true;	// Got Collision
+                    }
+                }
+            }
+            // Closer to P1
+            else if (dist_p1 < 0) {
+                // Magnitude from P1
+                float mag = Vec2Dot(circle_p1, N_velocity);
+                if (mag > 0) {
+                    // Get Distance from P0
+                    float distance_1 = Vec2Dot(circle_p1, M);
+
+                    // If distanec is more than circle radius, No collision.
+                    if (abs(distance_1) > circle.getRadius()) {
+                        return false;
+                    }
+
+                    float leng = sqrt(circle.getRadius() * circle.getRadius() - distance_1 * distance_1);
+
+                    // Time of intercept.
+                    float interTime = (mag - leng) / velocity.length();
+
+                    if (interTime <= 1) {
+                        return true;	// Got Collision
+                    }
+                }
+            }
+        }
+        else {
+            // Bool to check if on P0 or P1 side
+            bool P0Side = false;	// False = P1 side, Ture = P0 side.
+
+            // Distance between P0 and P1
+            float dist0 = Vec2Dot(circle_p0, M);
+            float dist1 = Vec2Dot(circle_p1, M);
+
+            // Get copy of Absolute value of distance
+            float abs_dist0 = abs(dist0);
+            float abs_dist1 = abs(dist1);
+
+            // If distance from both Points is more than radius, no collision.
+            if ((abs_dist0 > circle.getRadius()) && (abs_dist1 > circle.getRadius())) {
+                return 0;
+            }
+            // If Absolute distance is both less or equal to radius, find which point circle is closer to.
+            else if ((abs_dist0 <= circle.getRadius()) && (abs_dist1 <= circle.getRadius())) {
+
+                // Magnitude from both Points
+                float m0 = Vec2Dot(circle_p0, velocity);
+                float m1 = Vec2Dot(circle_p1, velocity);
+
+                // Copy of Absolute value.
+                float abs_m0 = abs(m0);
+                float abs_m1 = abs(m1);
+
+                // Find which Point is closer
+                if (abs_m0 < abs_m1) {
+                    // Closer to P0
+                    P0Side = true;
+                }
+                else {
+                    // Closer to P1
+                    P0Side = false;
+                }
+            }
+            else if (abs_dist0 <= circle.getRadius()) {
+                P0Side = true;
+            }
+            else { // abs_dist1 <= Radius.
+                P0Side = false;
+            }
+
+
+            if (P0Side) { // Closer to P0
+                // Magnitude from P0
+                float mag = Vec2Dot(circle_p0, N_velocity);
+                if (mag < 0) {
+                    return false;
+                }
+                else {
+                    float leng = sqrt(circle.getRadius() * circle.getRadius() - dist0 * dist0);
+
+                    // Time of intercept.
+                    float interTime = (mag - leng) / velocity.length();
+
+                    if (interTime <= 1) {
+                        return true;	// Got Collision
+                    }
+                }
+            }
+            else { // Closer to P1
+                // Magnitude from P1
+                float mag = Vec2Dot(circle_p1, N_velocity);
+                if (mag < 0) {
+                    return false;
+                }
+                else {
+                    float leng = sqrt(circle.getRadius() * circle.getRadius() - dist1 * dist1);
+
+                    // Time of intercept.
+                    float interTime = (mag - leng) / velocity.length();
+
+                    if (interTime <= 1) {
+                        return true;	// Got Collision
+                    }
+                }
+            }
+        }
+        return false;   //no collision
+    }
+
+}
+
+
 // Circle - Box
 bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, float deltaTime, Vec2 circle_velo, Vec2 box_velo) {
     // Calculate relative velocity
@@ -223,190 +470,4 @@ bool checkCollision(BoundingCircle& circle,BoundingCircle& circle2, float deltaT
     }
 
 	return false;
-}
-
-// Circle - Line
-bool checkCircleLine(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStr, Vec2 lineEnd, Vec2 relVel) {
-    // Circle Velocity
-    Vec2 velocity = (nextPos - circle.getCenterPos());
-    // Velocity's Normal
-    Vec2 v_N(velocity.y, -velocity.x);
-
-    // Line Segment
-    Vec2 lineNml(lineEnd.y - lineStr.y, -(lineEnd.x - lineStr.x));
-    Vec2 n_lineNml = lineNml.normalized();
-
-    // Get Normal.Bs
-    float circle_dot_Normal = Vec2Dot(circle.getCenterPos(), n_lineNml);
-    // Get Normal.P0
-    float p0_dot_Normal = Vec2Dot(lineStr, n_lineNml);
-
-    float distance = circle_dot_Normal - p0_dot_Normal;
-
-    if (distance <= -circle.getRadius()) {
-
-        // Make P0' and P1' -Radius
-        Vec2 P0_Prime = (lineStr - (circle.getRadius() * n_lineNml));
-        Vec2 P1_Prime = (lineEnd - (circle.getRadius() * n_lineNml));
-
-        // Get Circle to P0', P1'
-        Vec2 Circle_P0_Prime = (P0_Prime - circle.getCenterPos());
-        Vec2 Circle_P1_Prime = (P1_Prime - circle.getCenterPos());
-
-        //Magnitude of circle velocity vector
-        float M_dot_p0_prime = Vec2Dot(v_N, Circle_P0_Prime);
-        float M_dot_p1_prime = Vec2Dot(v_N, Circle_P1_Prime);
-
-        if (M_dot_p0_prime * M_dot_p1_prime < 0) {
-            // Check if Velocity is parellel to Line
-            float v_dot_Normal = Vec2Dot(velocity, n_lineNml);
-            if (v_dot_Normal != 0) {
-                // Get time of intercept
-                float interTime = (p0_dot_Normal - circle_dot_Normal - circle.getRadius()) / v_dot_Normal;
-
-                if (0 <= interTime && interTime <= 1) {
-                    return true;    // Collision
-                }
-            }
-        }
-        else {
-            return CheckMovingCircleToLineEdge(circle, nextPos, lineStr, lineEnd);
-        }
-
-    }
-    else if (distance >= circle.getRadius()) {
-
-        // Make P0' and P1' +Radius
-        Vec2 P0_Prime = (lineStr - (circle.getRadius() * n_lineNml));
-        Vec2 P1_Prime = (lineEnd - (circle.getRadius() * n_lineNml));
-
-        // Get Circle to p0' p1'
-        Vec2 Circle_P0_Prime = (P0_Prime - circle.getCenterPos());
-        Vec2 Circle_P1_Prime = (P1_Prime - circle.getCenterPos());
-
-        //Magnitude of circle velocity vector
-        float M_dot_p0_prime = Vec2Dot(v_N, Circle_P0_Prime);
-        float M_dot_p1_prime = Vec2Dot(v_N, Circle_P1_Prime);
-
-        if (M_dot_p0_prime * M_dot_p1_prime < 0) {
-            // Check if Velocity is parellel to Line
-            float v_dot_Normal = Vec2Dot(velocity, n_lineNml);
-            if (v_dot_Normal != 0) {
-                // Get time of intercept
-                float interTime = (p0_dot_Normal - circle_dot_Normal + circle.getRadius()) / v_dot_Normal;
-
-                if (0 <= interTime && interTime <= 1) {
-                    return true;	// Collision
-                }
-            }
-        }
-        else {
-            return CheckMovingCircleToLineEdge(circle, nextPos, lineStr, lineEnd);
-        }
-    }
-    else {
-        return CheckMovingCircleToLineEdge(circle, nextPos, lineStr, lineEnd);
-    }
-
-    return false;   // No Collision
-}
-
-// Circle - Line Edge
-bool CheckMovingCircleToLineEdge(BoundingCircle& circle, Vec2& nextPos, Vec2& lineStr, Vec2& lineEnd) {
-    // Circle Velocity
-    Vec2 velocity = (nextPos - circle.getCenterPos());
-    // Velocity's Normal
-    Vec2 v_N(velocity.y, -velocity.x);
-
-    // Normalize Velocity
-    Vec2 N_velocity = velocity.normalized();
-
-    // Magnitude of Velocity vector
-    Vec2 M = v_N.normalized();
-
-    Vec2 p0_p1(lineEnd - lineStr);
-    Vec2 circle_p0(lineStr - circle.getCenterPos());
-    Vec2 circle_p1(lineEnd - circle.getCenterPos());
-
-
-    // Bool to check if on P0 or P1 side
-    bool P0Side = false;	// False = P1 side, Ture = P0 side.
-
-    // Distance between P0 and P1
-    float dist0 = Vec2Dot(circle_p0, M);
-    float dist1 = Vec2Dot(circle_p1, M);
-
-    // Get copy of Absolute value of distance
-    float abs_dist0 = abs(dist0);
-    float abs_dist1 = abs(dist1);
-
-    // If distance from both Points is more than radius, no collision.
-    if ((abs_dist0 > circle.getRadius()) && (abs_dist1 > circle.getRadius())) {
-        return 0;
-    }
-    // If Absolute distance is both less or equal to radius, find which point circle is closer to.
-    else if ((abs_dist0 <= circle.getRadius()) && (abs_dist1 <= circle.getRadius())) {
-
-        // Magnitude from both Points
-        float m0 = Vec2Dot(circle_p0, velocity);
-        float m1 = Vec2Dot(circle_p1, velocity);
-
-        // Copy of Absolute value.
-        float abs_m0 = abs(m0);
-        float abs_m1 = abs(m1);
-
-        // Find which Point is closer
-        if (abs_m0 < abs_m1) {
-            // Closer to P0
-            P0Side = true;
-        }
-        else {
-            // Closer to P1
-            P0Side = false;
-        }
-    }
-    else if (abs_dist0 <= circle.getRadius()) {
-        P0Side = true;
-    }
-    else { // abs_dist1 <= Radius.
-        P0Side = false;
-    }
-
-
-    if (P0Side) { // Closer to P0
-        // Magnitude from P0
-        float mag = Vec2Dot(circle_p0, N_velocity);
-        if (mag < 0) {
-            return false;
-        }
-        else {
-            float leng = sqrt(circle.getRadius() * circle.getRadius() - dist0 * dist0);
-
-            // Time of intercept.
-            float interTime = (mag - leng) / velocity.length();
-
-            if (interTime <= 1) {
-                return true;	// Got Collision
-            }
-        }
-    }
-    else { // Closer to P1
-        // Magnitude from P1
-        float mag = Vec2Dot(circle_p1, N_velocity);
-        if (mag < 0) {
-            return false;
-        }
-        else {
-            float leng = sqrt(circle.getRadius() * circle.getRadius() - dist1 * dist1);
-
-            // Time of intercept.
-            float interTime = (mag - leng) / velocity.length();
-
-            if (interTime <= 1) {
-                return true;	// Got Collision
-            }
-        }
-    }
-
-    return false;   //no collision
 }
