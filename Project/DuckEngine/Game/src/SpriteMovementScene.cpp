@@ -33,9 +33,10 @@ void SpriteMovementScene::Load()
 
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
+	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
 
-	circle = new BoundingCircle(playerTransform->position, 2.f);
-	box = new BoundingBox(playerTransform->position.x+5.f, playerTransform->position.y, 2.f, 1.f);
+	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(player->EntityID, playerTransform->position, Vec2{1.f,2.f});
+	box->setCenter({ playerTransform->position.x + 5.f, playerTransform->position.y });
 		
 }
 
@@ -46,47 +47,31 @@ void SpriteMovementScene::Start()
 
 void SpriteMovementScene::Update()
 {
-	float moveSpeed = 5.0f;
+	float moveSpeed = 10.0f;
 
 	// Reset the player's velocity at the start of each frame
-	playerRb->velocity = Vec2(0.0f, 0.0f);
 
 	// Handle movement based on key input by setting velocity
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W))
 	{
-		playerRb->velocity.y = moveSpeed; // Move up
+		playerRb->acceleration.y = moveSpeed; // Move up
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S))
 	{
-		playerRb->velocity.y = -moveSpeed; // Move down
+		playerRb->acceleration.y = -moveSpeed; // Move down
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A))
 	{
-		playerRb->velocity.x = -moveSpeed; // Move left
+		playerRb->acceleration.x = -moveSpeed; // Move left
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D))
 	{
-		playerRb->velocity.x = moveSpeed; // Move right
+		playerRb->acceleration.x = moveSpeed; // Move right
 	}
 
-	// Calculate the new position based on Rigidbody velocity and deltaTime
-	Vec2 newPos = playerTransform->position + playerRb->velocity * DuckEngine::DeltaTime();
-
-	circle->setCenter(newPos);
-	if (!checkCollisionCB(*circle, newPos, *box)) {
-		playerTransform->position = newPos;
-	}
-	else {
-		std::cout << "Collision detected" << std::endl;
-		circle->setCenter(playerTransform->position);
-	}
-
-	if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
-		std::cout << "Collision Line" << std::endl;
-	}
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());

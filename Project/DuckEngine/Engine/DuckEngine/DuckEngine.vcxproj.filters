@@ -165,6 +165,12 @@
     <ClInclude Include="..\include\RigidbodySystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\CircleColliderSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BoxColliderSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -225,6 +231,12 @@
       <Filter>src\Engine</Filter>
     </ClCompile>
     <ClCompile Include="..\src\RigidbodySystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CircleColliderSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BoxColliderSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
   </ItemGroup>

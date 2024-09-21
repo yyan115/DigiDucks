@@ -113,10 +113,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AnimationComponent.h" />
+    <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
     <ClInclude Include="..\include\CameraSystem.h" />
     <ClInclude Include="..\include\Bounding.h" />
+    <ClInclude Include="..\include\CircleColliderSystem.h" />
     <ClInclude Include="..\include\Color.h" />
     <ClInclude Include="..\include\Component.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
@@ -146,9 +148,11 @@
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />
     <ClCompile Include="..\src\CameraSystem.cpp" />
     <ClCompile Include="..\src\Bounding.cpp" />
+    <ClCompile Include="..\src\CircleColliderSystem.cpp" />
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\File.cpp" />

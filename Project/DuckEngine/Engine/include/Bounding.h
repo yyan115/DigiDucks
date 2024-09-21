@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #include "Vector2.h"
+#include "Component.h"
 
 class DUCKENGINE_API BoundingCollider {
 private:
@@ -67,6 +68,7 @@ public:
 
 
 class DUCKENGINE_API BoundingBox : private BoundingCollider {
+class DUCKENGINE_API BoundingBox : private BoundingCollider, public Component {
 private:
 	Vec2 size{};
 	Vec2 max{};
@@ -75,6 +77,7 @@ private:
 public:
 	// No default constructor
 	BoundingBox() = delete;
+	BoundingBox() :BoundingCollider() {}
 
 	// Constructor
 	BoundingBox(const Vec2& _center, const Vec2& _size) : BoundingCollider(_center), size(_size), max(_center + _size), min(_center - _size) {}
@@ -133,12 +136,14 @@ public:
 
 
 class DUCKENGINE_API BoundingCircle : private BoundingCollider {
+class DUCKENGINE_API BoundingCircle : private BoundingCollider, public Component {
 private:
 	float radius{};
 
 public:
 	// No default constructor
 	BoundingCircle() = delete;
+	BoundingCircle() :BoundingCollider(), radius(2.f) {}
 
 	// Constructor
 	BoundingCircle(const Vec2& center, float _radius) : BoundingCollider(center), radius(_radius) {};
