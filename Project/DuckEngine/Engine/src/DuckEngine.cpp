@@ -45,6 +45,7 @@ void DuckEngine::Initialize() {
     UIManager::Initialize();
     SoundManager::GetInstance().Initialize();
     SoundManager::GetInstance().LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
+    SoundManager::GetInstance().LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
 }
 
 void DuckEngine::Update() 
@@ -56,7 +57,8 @@ void DuckEngine::Update()
 
     DUCKENGINE_SystemManager.UpdateAll();
 
-    SoundManager::GetInstance().PlaySound("TestSound");
+    SoundManager::GetInstance().Update();
+    
 }
 
 void DuckEngine::StartDraw()
