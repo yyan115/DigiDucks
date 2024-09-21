@@ -1,5 +1,5 @@
 #include "EntityFactory.h"
-#include "ImageLoader.h"
+#include "AssetManager.h"
 #include "Bounding.h"
 
 Entity* EntityFactory::CreatePlayer(const std::string& texturePath, const Vec2& position, const Vec2& scale, float moveSpeed)
@@ -16,7 +16,7 @@ Entity* EntityFactory::CreatePlayer(const std::string& texturePath, const Vec2& 
     transform->position = position;
     transform->scale = scale;
     rigidbody->velocity = Vec2(0.0f, 0.0f);  // No initial movement
-    spriteRenderer->texture = ImageLoader::LoadTexture(texturePath.c_str());
+    spriteRenderer->texture = *AssetManager::LoadSprite(texturePath);
 
     BoundingCircle* circle = new BoundingCircle(transform->position, 2.f);
 

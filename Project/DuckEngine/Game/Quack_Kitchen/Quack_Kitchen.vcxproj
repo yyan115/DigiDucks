@@ -159,12 +159,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\EntityFactory.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\EntityFactory.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\Scene.h" />

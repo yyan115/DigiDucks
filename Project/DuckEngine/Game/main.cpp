@@ -2,6 +2,7 @@
 #include "MaxLoadScene.h"
 #include "SpriteMovementScene.h"
 #include "LoggerManager.h"
+#include "AssetManager.h"
 
 static DuckEngine engine;
 
@@ -24,6 +25,9 @@ int main(void)
     // Load and Start Active Scene
     activeScene->Load();
     activeScene->Start();
+
+    // load all assets before game loop starts
+    AssetManager::LoadAll();
 
     try {
         DUCKLOG_INFO("Game Started.");

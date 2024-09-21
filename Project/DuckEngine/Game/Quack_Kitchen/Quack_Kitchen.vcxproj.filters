@@ -14,6 +14,9 @@
     <ClCompile Include="..\src\EntityFactory.cpp">
       <Filter>src\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\AssetManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -40,6 +43,12 @@
     <Filter Include="src\Factory">
       <UniqueIdentifier>{0b66eb13-4a5c-4cc6-a93c-d5fcc223e243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Managers">
+      <UniqueIdentifier>{da528be2-84c4-48d6-82c1-f679929a0bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Managers">
+      <UniqueIdentifier>{106e0aec-992c-4a3c-8b4d-8524e63ed477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Scene.h">
@@ -53,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="..\include\EntityFactory.h">
       <Filter>include\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\AssetManager.h">
+      <Filter>include\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
