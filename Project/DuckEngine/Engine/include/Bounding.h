@@ -44,12 +44,6 @@ public:
 	* @return The center position of the collider
 	* ***************************************************************/
 	Vec2 getCenterPos() const;
-	/****************************************************************
-	* @brief Get the center position of the collider
-	* 
-	* @return The center position of the collider
-	* ***************************************************************/
-	Vec2& getCenterPos();
 
 	// Setters
 	/****************************************************************
@@ -72,7 +66,7 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingBox : public BoundingCollider {
+class DUCKENGINE_API BoundingBox : private BoundingCollider {
 private:
 	Vec2 size{};
 	Vec2 max{};
@@ -93,6 +87,13 @@ public:
 	~BoundingBox() = default;
 
 	// Getters
+	/****************************************************************
+	* @brief Get the center of the box
+	* 
+	* @return The center of the box
+	* ***************************************************************/
+	Vec2 getCenter() const;
+
 	/****************************************************************
 	* @brief Get the size of the box
 	* 
@@ -131,7 +132,7 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingCircle : public BoundingCollider {
+class DUCKENGINE_API BoundingCircle : private BoundingCollider {
 private:
 	float radius{};
 
@@ -150,6 +151,13 @@ public:
 	~BoundingCircle() = default;
 
 	// Getters
+	/****************************************************************
+	* @brief Get the center of the box
+	*
+	* @return The center of the box
+	* ***************************************************************/
+	Vec2 getCenter() const;
+
 	/****************************************************************
 	* @brief Get the radius of the circle
 	* 
@@ -220,4 +228,17 @@ DUCKENGINE_API bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float
 * ***************************************************************/
 DUCKENGINE_API bool checkCollisionCC(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
+/****************************************************************
+* @brief Check collision between a circle and a line
+* 
+* @param circle - The circle collider
+* 
+* @param nextPos - The next position of the circle
+* 
+* @param lineStart - The start point of the line
+* 
+* @param lineEnd - The end point of the line
+* 
+* @return True if there is a collision, false otherwise
+* ***************************************************************/
 DUCKENGINE_API bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd);

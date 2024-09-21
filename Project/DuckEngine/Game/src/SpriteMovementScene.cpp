@@ -34,9 +34,9 @@ void SpriteMovementScene::Load()
 	playerSprite->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
 
-	circle = new BoundingCircle(playerTransform->position, 1.f);
+	circle = new BoundingCircle(playerTransform->position, 2.f);
 
-	box = new BoundingBox(playerTransform->position.x+5.f, playerTransform->position.y, 1.f, 0.5f);
+	box = new BoundingBox(playerTransform->position.x+5.f, playerTransform->position.y, 2.f, 1.f);
 		
 }
 
@@ -53,13 +53,13 @@ void SpriteMovementScene::Update()
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) {
 		newPos.y += moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenterPos(newPos);
+		circle->setCenter(newPos);
 		if (!checkCollisionCB(*circle, newPos, *box)) {
 			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
-			circle->setCenterPos(playerTransform->position);
+			circle->setCenter(playerTransform->position);
 		}
 
 		if(checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
@@ -69,13 +69,13 @@ void SpriteMovementScene::Update()
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) {
 		newPos.y -= moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenterPos(newPos);
+		circle->setCenter(newPos);
 		if (!checkCollisionCB(*circle, newPos, *box)) {
 			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
-			circle->setCenterPos(playerTransform->position);
+			circle->setCenter(playerTransform->position);
 		}
 
 		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
@@ -85,13 +85,13 @@ void SpriteMovementScene::Update()
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) {
 		newPos.x -= moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenterPos(newPos);
+		circle->setCenter(newPos);
 		if (!checkCollisionCB(*circle, newPos, *box)) {
 			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
-			circle->setCenterPos(playerTransform->position);
+			circle->setCenter(playerTransform->position);
 		}
 
 		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
@@ -101,13 +101,13 @@ void SpriteMovementScene::Update()
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) {
 		newPos.x += moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenterPos(newPos);
+		circle->setCenter(newPos);
 		if (!checkCollisionCB(*circle, newPos, *box)) {
 			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
-			circle->setCenterPos(playerTransform->position);
+			circle->setCenter(playerTransform->position);
 		}
 
 		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
@@ -115,11 +115,7 @@ void SpriteMovementScene::Update()
 		}
 	}
 
-	//if (checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime())) {
-	//	std::cout << "Collision detected" << std::endl;
-	//}
-
-	DuckEngine::DrawCircle(circle->getCenterPos(), circle->getRadius()*2);
+	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());
 	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 

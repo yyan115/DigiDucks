@@ -22,10 +22,6 @@ Vec2 BoundingCollider::getCenterPos() const {
 	return centerPos;
 }
 
-Vec2& BoundingCollider::getCenterPos() {
-	return centerPos;
-}
-
 // Setters
 void BoundingCollider::setCenterPos(const Vec2& pos) {
 	centerPos = pos;
@@ -40,6 +36,10 @@ void BoundingCollider::setCenterPos(float x, float y) {
 ///// Box Collider /////
 
 // Getters
+Vec2 BoundingBox::getCenter() const {
+	return getCenterPos();
+}
+
 Vec2 BoundingBox::getSize() const {
 	return size;
 }
@@ -68,6 +68,10 @@ void BoundingBox::setSize(Vec2 _size) {
 //// Circle Collider ////
 
 // Getters
+Vec2 BoundingCircle::getCenter() const {
+	return getCenterPos();
+}
+
 float BoundingCircle::getRadius() const {
 	return radius;
 }
@@ -96,7 +100,7 @@ namespace {
         t = std::max(0.0f, std::min(1.0f, t));
 
         // Return the closest point
-        return lineStart + t * line;
+        return lerp(lineStart, lineEnd, t);
     }
 }
 
@@ -105,8 +109,8 @@ namespace {
 bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
 
     // Check if the circle is completely within the box
-    if (circle.getCenterPos().x >= box.getMin().x && circle.getCenterPos().x <= box.getMax().x &&
-        circle.getCenterPos().y >= box.getMin().y && circle.getCenterPos().y <= box.getMax().y) {
+    if (circle.getCenter().x >= box.getMin().x && circle.getCenter().x <= box.getMax().x &&
+        circle.getCenter().y >= box.getMin().y && circle.getCenter().y <= box.getMax().y) {
         return true;  // Circle is inside the box
     }
 
@@ -122,20 +126,6 @@ bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
         checkCollisionCL(circle, nextPos, topLeft, btmLeft)) {
         return true;
     }
-
-    //// Closest points on each rectangle side to the circle's center
-    //Vec2 closestOnBottom = closestPointOnLineSegment(nextPos, btmLeft, btmRight);
-    //Vec2 closestOnRight = closestPointOnLineSegment(nextPos, btmRight, topRight);
-    //Vec2 closestOnTop = closestPointOnLineSegment(nextPos, topRight, topLeft);
-    //Vec2 closestOnLeft = closestPointOnLineSegment(nextPos, topLeft, btmLeft);
-
-    //// Check if any of the closest points is within the circle's radius
-    //if ((closestOnBottom - nextPos).lengthSquared() <= circle.getRadius() ||
-    //    (closestOnRight - nextPos).lengthSquared() <= circle.getRadius() ||
-    //    (closestOnTop - nextPos).lengthSquared() <= circle.getRadius() ||
-    //    (closestOnLeft - nextPos).lengthSquared() <= circle.getRadius()) {
-    //    return true;  // Collision detected
-    //}
     
     return false;  // No collision
 }
@@ -216,7 +206,7 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 	Vec2 relVel = vel1 - vel2;
 
 	// Calculate distance between the two circles
-    Vec2 centerDiff = circle.getCenterPos() - circle2.getCenterPos();
+    Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
 
     float combineRadii = circle.getRadius() + circle2.getRadius();
 
@@ -257,7 +247,7 @@ bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec
     // Check closest Point to line from Next Position
     Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);
 
-    if ((closestPt - nextPos).lengthSquared() <= circle.getRadius()) {
+    if ((closestPt - nextPos).length() <= circle.getRadius()) {
         return true;
     }
 
