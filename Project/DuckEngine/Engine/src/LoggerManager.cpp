@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    LoggerManager.cpp
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the definition that is used to log information, warning, error and crash
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <chrono>
 #include <iomanip>
 #include <sstream>
@@ -13,10 +24,11 @@ LoggerManager::LoggerManager() {
 
     logFile.open("game_log.txt", std::ios::out | std::ios::trunc); // Open in truncate mode
     if (!logFile.is_open()) {
-        throw std::runtime_error("Failed to open log file.");
+        THROW_EXCEPTION("Failed to open log file");
     }
 
-    logFile.close();  // Close the file after truncation
+    // Close the file
+    logFile.close();  
     logFile.open("game_log.txt", std::ios::out | std::ios::app);  // Re-open in append mode
 }
 
@@ -68,9 +80,11 @@ void LoggerManager::WriteToFile(const std::string& message) {
     }
 }
 
+// New Exception
 DetailedException::DetailedException(const std::string& message, const char* file, const char* func, int line)
     : std::exception(), message_(message), file_(file), func_(func), line_(line) {}
 
+// What function
 const char* DetailedException::what() const noexcept {
     return message_.c_str();
 }

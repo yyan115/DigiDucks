@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    UIDebugConsole.cpp
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the definition that is used to manage the debug console in the editor
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -28,7 +39,7 @@ void UIDebugConsole::AddLog(const char* level, const char* fmt, ...) {
     color = GetColorByLevel(level);
 
 
-    // Append the formatted message and color to the log entries
+    // Append to the log entries
     logEntries.emplace_back(std::string(message), color);
 
     // Clear the log if it exceeds 200 entries
@@ -46,7 +57,7 @@ void UIDebugConsole::AddDebugLog(const char* fmt, ...) {
     vsnprintf(message, bufferSize, fmt, args);
     va_end(args);
 
-    // Add as regular text (white color by default)
+    // Add as regular text
     logEntries.emplace_back(std::string(message), ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
     // Clear the log if it exceeds 200 entries
@@ -75,13 +86,12 @@ void UIDebugConsole::Render(bool* p_open) {
 
         // Execute command
         if (strcmp(inputBuf, "clear") == 0) {
-            Clear();  // Clear the log if the command is "clear"
+            Clear();  // Clear the log
         }
         else {
             AddLog("WARNING","Unknown command");
         }
 
-        // Clear input buffer after each command
         inputBuf[0] = '\0';
     }
 
@@ -90,7 +100,7 @@ void UIDebugConsole::Render(bool* p_open) {
     // Display log area
     ImGui::BeginChild("LogRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
 
-    // Render all log entries with their respective colors
+    // Render all log entries with their colors
     for (const auto& [message, color] : logEntries) {
         ImGui::PushStyleColor(ImGuiCol_Text, color);  
         ImGui::TextUnformatted(message.c_str());      
@@ -118,6 +128,6 @@ ImVec4 UIDebugConsole::GetColorByLevel(const std::string& level) {
         return ImVec4(1.0f, 0.0f, 0.0f, 1.0f);  // Red for error
     }
 
-    // Default white
+    // white for default
     return ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 }

@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    UIManager.cpp
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the definition that is used to manage the UI in the editor
+// 
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"

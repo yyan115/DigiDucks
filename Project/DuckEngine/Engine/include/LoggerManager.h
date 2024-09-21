@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    LoggerManager.h
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the declaration that is used to log information, warning, error and crash
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #pragma once
 
 #ifdef DUCKENGINE_EXPORTS
@@ -66,7 +77,8 @@ private:
 
     std::ofstream logFile;  // Log file for logging
 
-    void WriteToFile(const std::string& message);  // Helper to write to the log file
+    // Helper to write to the log file
+    void WriteToFile(const std::string& message);  
 };
 
 
@@ -97,6 +109,5 @@ void LoggerManager::LogWarning(const std::string& message, Args&&... args) {
 template <typename... Args>
 void LoggerManager::LogError(const std::string& message, Args&&... args) {
     std::string ss = FormatString(message, std::forward<Args>(args)...);
-    // Write the log with the additional information
     WriteLog("ERROR", ss);
 }

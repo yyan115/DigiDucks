@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    SoundManager.cpp
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the definition that is used to manage sound in the game
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #include "SoundManager.h"
 #include "InputManager.h"
 #include <iostream>

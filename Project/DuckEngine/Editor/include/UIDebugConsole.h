@@ -1,3 +1,14 @@
+//---------------------------------------------------------
+// File:    UIDebugConsole.h
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the declaration that is used to manage the debug console in the editor
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+
 #pragma once
 
 #include <imgui.h>
@@ -20,8 +31,6 @@ public:
     static UIDebugConsole debugConsole;
 
 private:
-
-    
-
-    ImVec4 GetColorByLevel(const std::string& level);  // Helper to determine color
+    // Helper to determine color
+    ImVec4 GetColorByLevel(const std::string& level);  
 };

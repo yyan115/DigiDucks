@@ -1,3 +1,15 @@
+//---------------------------------------------------------
+// File:    SoundManager.h
+//authors:	Muhammad Zikry Bin Zakaria
+// email:	muhammadzikry.b\@digipen.edu
+// 
+//
+// Brief:     Contains the declaration that is used to manage sound in the game
+//
+// Copyright © 2024 DigiPen, All rights reserved.
+//---------------------------------------------------------
+#pragma once
+
 #ifndef SOUNDMANAGER_H
 #define SOUNDMANAGER_H
 
