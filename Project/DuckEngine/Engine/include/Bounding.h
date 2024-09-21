@@ -188,7 +188,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, float deltaTime, Vec2 circle_velo = Vec2(0.f, 0.f), Vec2 box_velo = Vec2(0.f, 0.f));
+DUCKENGINE_API bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, float deltaTime, Vec2 circle_velo = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two boxes
