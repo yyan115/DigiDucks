@@ -156,6 +156,9 @@
     <ClInclude Include="..\include\Color.h">
       <Filter>include\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\SoundManager.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Serialization.cpp">
       <Filter>src\Serialization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SoundManager.cpp">
+      <Filter>src\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
