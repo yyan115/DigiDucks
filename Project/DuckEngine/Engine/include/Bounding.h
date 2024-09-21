@@ -29,7 +29,6 @@ private:
 	Vec2 centerPos{};
 
 public:
-
 	// Constructor
 	BoundingCollider() : centerPos(0.f, 0.f) {}
 	BoundingCollider(const Vec2& pos) : centerPos(pos) {}
@@ -67,7 +66,6 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingBox : private BoundingCollider {
 class DUCKENGINE_API BoundingBox : private BoundingCollider, public Component {
 private:
 	Vec2 size{};
@@ -76,7 +74,6 @@ private:
 
 public:
 	// No default constructor
-	BoundingBox() = delete;
 	BoundingBox() :BoundingCollider() {}
 
 	// Constructor
@@ -135,14 +132,12 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingCircle : private BoundingCollider {
 class DUCKENGINE_API BoundingCircle : private BoundingCollider, public Component {
 private:
 	float radius{};
 
 public:
 	// No default constructor
-	BoundingCircle() = delete;
 	BoundingCircle() :BoundingCollider(), radius(2.f) {}
 
 	// Constructor
