@@ -52,11 +52,10 @@ void SpriteMovementScene::Update()
 	Vec2 newPos = playerTransform->position;
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) {
-		float vel = moveSpeed * DuckEngine::DeltaTime();
-		newPos.y += vel;
+		newPos.y += moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenterPos(newPos);
-		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime(), Vec2(0,vel))) {
-			playerTransform->position.y += moveSpeed * DuckEngine::DeltaTime();
+		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime())) {
+			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
@@ -65,11 +64,10 @@ void SpriteMovementScene::Update()
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) {
-		float vel = -moveSpeed * DuckEngine::DeltaTime();
-		newPos.y += vel;
+		newPos.y -= moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenterPos(newPos);
-		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime(), Vec2(0,-vel))) {
-			playerTransform->position.y -= moveSpeed * DuckEngine::DeltaTime();
+		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime())) {
+			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
@@ -78,11 +76,10 @@ void SpriteMovementScene::Update()
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) {
-		float vel = -moveSpeed * DuckEngine::DeltaTime();
-		newPos.x += vel;
+		newPos.x -= moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenterPos(newPos);
-		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime(), Vec2(-vel,0))) {
-			playerTransform->position.x -= moveSpeed * DuckEngine::DeltaTime();
+		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime())) {
+			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;
@@ -91,11 +88,10 @@ void SpriteMovementScene::Update()
 	}
 
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) {
-		float vel = moveSpeed * DuckEngine::DeltaTime();
-		newPos.x += vel;
+		newPos.x += moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenterPos(newPos);
-		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime(), Vec2(vel,0))) {
-			playerTransform->position.x += moveSpeed * DuckEngine::DeltaTime();
+		if (!checkCollision(*circle, newPos, *box, DuckEngine::DeltaTime())) {
+			playerTransform->position = newPos;
 		}
 		else {
 			std::cout << "Collision detected" << std::endl;

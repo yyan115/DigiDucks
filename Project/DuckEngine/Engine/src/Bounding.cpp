@@ -102,7 +102,14 @@ namespace {
 
 
 // Circle - Box
-bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, float deltaTime, Vec2 circle_velo) {
+bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, float deltaTime) {
+
+    // Check if the circle is completely within the box
+    if (circle.getCenterPos().x >= box.getMin().x && circle.getCenterPos().x <= box.getMax().x &&
+        circle.getCenterPos().y >= box.getMin().y && circle.getCenterPos().y <= box.getMax().y) {
+        return true;  // Circle is inside the box
+    }
+
     // Box corners
     Vec2 topLeft(box.getMin().x, box.getMax().y);
     Vec2 topRight = box.getMax();
@@ -121,12 +128,6 @@ bool checkCollision(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box, flo
         (closestOnTop - circle.getCenterPos()).length() <= circle.getRadius() ||
         (closestOnLeft - circle.getCenterPos()).length() <= circle.getRadius()) {
         return true;  // Collision detected
-    }
-
-    // Also check if the circle is completely within the box
-    if (circle.getCenterPos().x >= box.getMin().x && circle.getCenterPos().x <= box.getMax().x &&
-        circle.getCenterPos().y >= box.getMin().y && circle.getCenterPos().y <= box.getMax().y) {
-        return true;  // Circle is inside the box
     }
     
     return false;  // No collision
