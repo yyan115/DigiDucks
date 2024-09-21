@@ -67,7 +67,6 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingBox : private BoundingCollider {
 class DUCKENGINE_API BoundingBox : private BoundingCollider, public Component {
 private:
 	Vec2 size{};
@@ -135,7 +134,6 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingCircle : private BoundingCollider {
 class DUCKENGINE_API BoundingCircle : private BoundingCollider, public Component {
 private:
 	float radius{};
