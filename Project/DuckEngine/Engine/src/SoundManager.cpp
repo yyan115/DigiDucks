@@ -45,43 +45,39 @@ void SoundManager::PlaySound(const std::string& soundName) {
     FMOD::Sound* sound = soundMap[soundName];
     FMOD::Channel* channel = nullptr;
 
+    // Check if the sound is already playing
+    if (channelMap.find(soundName) != channelMap.end()) {
+        // Stop the currently playing before starting a new one
+        channelMap[soundName]->stop();
+    }
+
     // Play the sound and store the channel
     fmodSystem->playSound(sound, 0, false, &channel);
 
-    // Add the channel to the map so it can be stopped later
+    // Add the channel to the map
     channelMap[soundName] = channel;
 }
-
-
 
 void SoundManager::StopSound(const std::string& soundName) {
     if (soundName.empty()) {
         // Stop all sounds if no soundName is provided
         for (auto& pair : channelMap) {
             if (pair.second) {
-                bool isPlaying = false;
-                pair.second->isPlaying(&isPlaying);
-
-                if (isPlaying) {
-                    pair.second->stop();
-                    std::cout << "Stopped sound: " << pair.first << std::endl;
-                }
+                pair.second->stop();
+                std::cout << "Stopped sound: " << pair.first << std::endl;
             }
         }
         std::cout << "All sounds stopped." << std::endl;
     }
     else {
-        // Stop all channels playing the specific sound
-        for (auto& pair : channelMap) {
-            if (pair.first == soundName && pair.second) {
-                bool isPlaying = false;
-                pair.second->isPlaying(&isPlaying);
-
-                if (isPlaying) {
-                    pair.second->stop();
-                    std::cout << "Stopped sound: " << soundName << std::endl;
-                }
-            }
+        // Stop the specific sound if it's playing
+        auto it = channelMap.find(soundName);
+        if (it != channelMap.end() && it->second) {
+            it->second->stop();
+            std::cout << "Stopped sound: " << soundName << std::endl;
+        }
+        else {
+            std::cerr << "No active channel for sound: " << soundName << std::endl;
         }
     }
 }
@@ -89,29 +85,30 @@ void SoundManager::StopSound(const std::string& soundName) {
 
 
 
-void SoundManager::Update() {
-    static bool isKeyPressedH = false;  // Track state of 'H' key
-    static bool isKeyPressedK = false;  // Track state of 'K' key
 
-    // Handle 'H' key to play "TestSound"
+void SoundManager::Update() {
+    static bool isKeyPressedJ = false;
+    static bool isKeyPressedK = false;  
+
+    // Handle 'J' key to play "TestSound"
     if (InputManager::IsKeyPressed(74)) {
-        std::cout << "Key H is pressed" << std::endl;
-        if (!isKeyPressedH) {
+        if (!isKeyPressedJ) {
             // Play the sound only once when the key is initially pressed
+            SoundManager::GetInstance().PlaySound("TestSound");
             SoundManager::GetInstance().PlaySound("TestSound2");
-            isKeyPressedH = true;  // Set flag to indicate key is pressed
+            isKeyPressedJ = true;
         }
     }
     else {
-        isKeyPressedH = false;  // Reset flag when key is released
+        isKeyPressedJ = false;  // Reset flag when key is released
     }
 
-    // Handle 'K' key to stop "TestSound2"
+    // Handle 'K' key to stop all sound
     if (InputManager::IsKeyReleased(75)) {
         if (!isKeyPressedK) {
             // Stop the sound only once when the key is initially pressed
             SoundManager::GetInstance().StopSound();
-            isKeyPressedK = true;  // Set flag to indicate key is pressed
+            isKeyPressedK = true;
         }
     }
     else {
@@ -123,18 +120,20 @@ void SoundManager::Update() {
 }
 
 void SoundManager::Exit() {
-    for (auto& pair : soundMap) {
-        pair.second->release();  // Release all sounds
-    }
-
-    // Release all channels by stopping them first
+    // Stop all channels and release sounds
     for (auto& pair : channelMap) {
         if (pair.second) {
             pair.second->stop();
         }
     }
 
+    // Release all sounds
+    for (auto& pair : soundMap) {
+        pair.second->release();  
+    }
+
     fmodSystem->close();  // Close FMOD system
     fmodSystem->release();  // Release FMOD system
 }
+
 
