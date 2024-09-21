@@ -134,7 +134,7 @@
     <ClInclude Include="..\include\RigidbodySystem.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
-    <ClInclude Include="..\include\Sprite.h" />
+    <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
     <ClInclude Include="..\include\System.h" />

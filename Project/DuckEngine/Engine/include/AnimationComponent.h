@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <string>
-#include "Sprite.h"
+#include "Texture.h"
 #include <vector>
 
 // Export/Import macro

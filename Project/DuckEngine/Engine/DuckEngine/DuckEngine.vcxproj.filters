@@ -138,7 +138,7 @@
     <ClInclude Include="..\include\LoggerManager.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Sprite.h">
+    <ClInclude Include="..\include\Texture.h">
       <Filter>include\Data</Filter>
     </ClInclude>
     <ClInclude Include="..\include\File.h">

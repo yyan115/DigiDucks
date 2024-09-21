@@ -1,38 +1,38 @@
 #include "AssetManager.h"
 #include "ImageLoader.h"
-#include "Sprite.h"
+#include "Texture.h"
 
-std::unordered_map<std::string, std::shared_ptr<Sprite>> AssetManager::spriteMap;
+std::unordered_map<std::string, std::shared_ptr<Texture>> AssetManager::textureMap;
 
 
 void AssetManager::LoadAll()
 {
 	// load all assets here
-	LoadSprite("../Resources/oldman.png");
+	LoadTexture("../Resources/oldman.png");
 
 }
 
-std::shared_ptr<Sprite> AssetManager::LoadSprite(const std::string& filePath)
+std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& filePath)
 {
-	if (spriteMap.find(filePath) != spriteMap.end())
+	if (textureMap.find(filePath) != textureMap.end())
 	{
-		return spriteMap[filePath];
+		return textureMap[filePath];
 	}
 	
-	std::shared_ptr<Sprite> newSprite = LoadSpriteFromFile(filePath);
-	spriteMap[filePath] = newSprite;
+	std::shared_ptr<Texture> newSprite = LoadTextureFromFile(filePath);
+	textureMap[filePath] = newSprite;
 	return newSprite;
 }
 
 
-std::shared_ptr<Sprite> AssetManager::LoadSpriteFromFile(const std::string& filePath)
+std::shared_ptr<Texture> AssetManager::LoadTextureFromFile(const std::string& filePath)
 {
-	Sprite sprite = ImageLoader::LoadTexture(filePath);
-	return std::make_shared<Sprite>(sprite);
+	Texture sprite = ImageLoader::LoadTexture(filePath);
+	return std::make_shared<Texture>(sprite);
 
 }
 
 void AssetManager::UnloadAll()
 {
-	spriteMap.clear();
+	textureMap.clear();
 }
