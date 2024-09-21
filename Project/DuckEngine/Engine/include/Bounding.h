@@ -188,7 +188,7 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollision(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box, float deltaTime);
+DUCKENGINE_API bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box);
 
 /****************************************************************
 * @brief Check collision between two boxes
@@ -203,7 +203,7 @@ DUCKENGINE_API bool checkCollision(BoundingCircle& circle, Vec2& nextPos, Boundi
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollision(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+DUCKENGINE_API bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Check collision between two circles
@@ -218,5 +218,6 @@ DUCKENGINE_API bool checkCollision(BoundingBox& box1, BoundingBox& box2, float d
 *	
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollision(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+DUCKENGINE_API bool checkCollisionCC(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
 
+DUCKENGINE_API bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd);
