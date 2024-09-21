@@ -52,103 +52,41 @@ void SpriteMovementScene::Start()
 void SpriteMovementScene::Update()
 {
 	float moveSpeed = 5.0f;
-	// Handle movement based on key input
-	//Vec2 newPos = playerTransform->position;
 
-<<<<<<< Updated upstream
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) {
-		newPos.y += moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenter(newPos);
-		if (!checkCollisionCB(*circle, newPos, *box)) {
-			playerTransform->position = newPos;
-		}
-		else {
-			std::cout << "Collision detected" << std::endl;
-			circle->setCenter(playerTransform->position);
-		}
-=======
+	// Reset the player's velocity at the start of each frame
 	playerRb->velocity = Vec2(0.0f, 0.0f);
->>>>>>> Stashed changes
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) 
+	// Handle movement based on key input by setting velocity
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W))
 	{
-		//newPos.y += moveSpeed * DuckEngine::DeltaTime();
-		playerRb->velocity.y = moveSpeed;
+		playerRb->velocity.y = moveSpeed; // Move up
 	}
 
-<<<<<<< Updated upstream
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) {
-		newPos.y -= moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenter(newPos);
-		if (!checkCollisionCB(*circle, newPos, *box)) {
-			playerTransform->position = newPos;
-		}
-		else {
-			std::cout << "Collision detected" << std::endl;
-			circle->setCenter(playerTransform->position);
-		}
-
-		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
-			std::cout << "Collision Line" << std::endl;
-		}
-	}
-
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) {
-		newPos.x -= moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenter(newPos);
-		if (!checkCollisionCB(*circle, newPos, *box)) {
-			playerTransform->position = newPos;
-		}
-		else {
-			std::cout << "Collision detected" << std::endl;
-			circle->setCenter(playerTransform->position);
-		}
-
-		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
-			std::cout << "Collision Line" << std::endl;
-		}
-	}
-
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) {
-		newPos.x += moveSpeed * DuckEngine::DeltaTime();
-		circle->setCenter(newPos);
-		if (!checkCollisionCB(*circle, newPos, *box)) {
-			playerTransform->position = newPos;
-		}
-		else {
-			std::cout << "Collision detected" << std::endl;
-			circle->setCenter(playerTransform->position);
-		}
-=======
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) 
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S))
 	{
-		//newPos.y -= moveSpeed * DuckEngine::DeltaTime();
-		playerRb->velocity.y = -moveSpeed;
+		playerRb->velocity.y = -moveSpeed; // Move down
 	}
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) 
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A))
 	{
-		//newPos.x -= moveSpeed * DuckEngine::DeltaTime();
-		playerRb->velocity.x = -moveSpeed;
+		playerRb->velocity.x = -moveSpeed; // Move left
 	}
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) 
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D))
 	{
-		//newPos.x += moveSpeed * DuckEngine::DeltaTime();
-		playerRb->velocity.x = moveSpeed;
+		playerRb->velocity.x = moveSpeed; // Move right
 	}
->>>>>>> Stashed changes
 
-	// Calculate new position based on Rigidbody velocity and deltaTime
+	// Calculate the new position based on Rigidbody velocity and deltaTime
 	Vec2 newPos = playerTransform->position + playerRb->velocity * DuckEngine::DeltaTime();
 
-	circle->setCenterPos(newPos);
+	circle->setCenter(newPos);
 	if (!checkCollisionCB(*circle, newPos, *box)) {
 		playerTransform->position = newPos;
 	}
 	else {
 		std::cout << "Collision detected" << std::endl;
-		circle->setCenterPos(playerTransform->position);
+		circle->setCenter(playerTransform->position);
 	}
 
 	if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
