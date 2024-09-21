@@ -1,26 +1,38 @@
 #include "DuckEngine.h"
-#include "UIManager.h"
+#include "LoggerManager.h"
 
 static DuckEngine engine;
 
 
-
 int main(void)
 {
-    //engine.Start();
-    std::cout << "testing\n";
-    engine.Initialize();  
-    UIManager uiManager;
-    uiManager.Initialize();
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    while (engine.Running()) 
-    {
-        std::cout << "testing\n";
-        uiManager.Render();
+    engine.Initialize();
+    DUCKLOG_INFO("Engine initialized.");
+
+    try {
+        DUCKLOG_INFO("Game Started.");
+        while (engine.Running())
+        {
+
+            engine.Update();
+
+            engine.StartDraw();
+
+            engine.Draw();
+
+            engine.EndDraw();
+
+            //THROW_EXCEPTION("Test Error");
+        }
     }
-
+    catch (const DetailedException& ex) {
+        DUCKLOG_CRASH(ex);
+    }
     std::cout << "Exited!\n";
-    uiManager.Exit();
+
+    engine.Exit();
 
     //cleanup();
 
