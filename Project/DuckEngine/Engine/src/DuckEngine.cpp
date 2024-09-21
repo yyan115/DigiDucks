@@ -15,6 +15,7 @@
 //include systems
 #include "SpriteRendererSystem.h"
 #include "CameraSystem.h"
+#include "RigidbodySystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -41,6 +42,9 @@ void DuckEngine::Initialize() {
     // ADDED BY YY
     std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
     DUCKENGINE_SystemManager.AddSystem(cameraSystem);
+
+    std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
+    DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
     UIManager::Initialize();
     SoundManager::GetInstance().Initialize();

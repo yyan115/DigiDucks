@@ -1,0 +1,18 @@
+#pragma once
+
+#include "System.h"
+#include "DuckEngine.h"
+
+// Export/Import macro
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
+class DUCKENGINE_API RigidbodySystem : public System
+{
+public:
+	void Update() override;
+
+};

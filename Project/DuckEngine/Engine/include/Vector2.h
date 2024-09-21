@@ -81,7 +81,7 @@ typedef Vector2D Vec2;
 * 
 * @return The sum of the two vectors
 ****************************************************************/
-Vector2D operator + (const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API Vector2D operator + (const Vector2D& lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Overloaded operator - to subtract two vectors
@@ -92,7 +92,7 @@ Vector2D operator + (const Vector2D& lhs, const Vector2D& rhs);
 * 
 * @return The difference of the two vectors
 ****************************************************************/
-Vector2D operator - (const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API Vector2D operator - (const Vector2D& lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Overloaded operator * to multiply a vector by a scalar
@@ -103,7 +103,7 @@ Vector2D operator - (const Vector2D& lhs, const Vector2D& rhs);
 * 
 * @return The product of the vector and the scalar
 ****************************************************************/
-Vector2D operator * (const Vector2D& lhs, float rhs);
+DUCKENGINE_API Vector2D operator * (const Vector2D& lhs, float rhs);
 
 /****************************************************************
 * @brief Overloaded operator * to multiply a scalar by a vector
@@ -114,7 +114,7 @@ Vector2D operator * (const Vector2D& lhs, float rhs);
 * 
 * @return The product of the scalar and the vector
 ****************************************************************/
-Vector2D operator * (float lhs, const Vector2D& rhs);
+DUCKENGINE_API Vector2D operator * (float lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Overloaded operator / to divide a vector by a scalar
@@ -125,7 +125,7 @@ Vector2D operator * (float lhs, const Vector2D& rhs);
 * 
 * @return The quotient of the vector and the scalar
 ****************************************************************/
-Vector2D operator / (const Vector2D& lhs, float rhs);
+DUCKENGINE_API Vector2D operator / (const Vector2D& lhs, float rhs);
 
 // Functions
 /****************************************************************
@@ -137,7 +137,7 @@ Vector2D operator / (const Vector2D& lhs, float rhs);
 * 
 * @return The dot product of the two vectors
 ****************************************************************/
-float Vec2Dot(const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API float Vec2Dot(const Vector2D& lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Get the cross product of two vectors
@@ -148,7 +148,7 @@ float Vec2Dot(const Vector2D& lhs, const Vector2D& rhs);
 * 
 * @return The cross product of the two vectors
 ****************************************************************/
-float Vec2Cross(const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API float Vec2Cross(const Vector2D& lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Get the distance between two vectors
@@ -159,7 +159,7 @@ float Vec2Cross(const Vector2D& lhs, const Vector2D& rhs);
 * 
 * @return The distance between the two vectors
 ****************************************************************/
-float Vec2Dist(const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API float Vec2Dist(const Vector2D& lhs, const Vector2D& rhs);
 
 /****************************************************************
 * @brief Lerp between two vectors
@@ -172,4 +172,4 @@ float Vec2Dist(const Vector2D& lhs, const Vector2D& rhs);
 * 
 * @return The lerped vector
 ****************************************************************/
-Vector2D lerp(const Vector2D& start, const Vector2D& end, float percent);
+DUCKENGINE_API Vector2D lerp(const Vector2D& start, const Vector2D& end, float percent);

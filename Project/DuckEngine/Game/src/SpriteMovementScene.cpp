@@ -8,6 +8,8 @@ Entity* camera;
 
 CameraComponent* cameraComponent;
 TransformComponent* playerTransform;
+RigidbodyComponent* playerRb;
+
 
 BoundingBox* box;
 BoundingCircle* circle;
@@ -30,6 +32,8 @@ void SpriteMovementScene::Load()
 	player = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 	SpriteRendererComponent* playerSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(player->EntityID, true);
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(player->EntityID);
+	playerRb = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(player->EntityID);
+
 
 	playerSprite->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
@@ -49,8 +53,9 @@ void SpriteMovementScene::Update()
 {
 	float moveSpeed = 5.0f;
 	// Handle movement based on key input
-	Vec2 newPos = playerTransform->position;
+	//Vec2 newPos = playerTransform->position;
 
+<<<<<<< Updated upstream
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) {
 		newPos.y += moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenter(newPos);
@@ -61,12 +66,17 @@ void SpriteMovementScene::Update()
 			std::cout << "Collision detected" << std::endl;
 			circle->setCenter(playerTransform->position);
 		}
+=======
+	playerRb->velocity = Vec2(0.0f, 0.0f);
+>>>>>>> Stashed changes
 
-		if(checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
-			std::cout << "Collision Line" << std::endl;
-		}
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W)) 
+	{
+		//newPos.y += moveSpeed * DuckEngine::DeltaTime();
+		playerRb->velocity.y = moveSpeed;
 	}
 
+<<<<<<< Updated upstream
 	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) {
 		newPos.y -= moveSpeed * DuckEngine::DeltaTime();
 		circle->setCenter(newPos);
@@ -109,10 +119,40 @@ void SpriteMovementScene::Update()
 			std::cout << "Collision detected" << std::endl;
 			circle->setCenter(playerTransform->position);
 		}
+=======
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S)) 
+	{
+		//newPos.y -= moveSpeed * DuckEngine::DeltaTime();
+		playerRb->velocity.y = -moveSpeed;
+	}
 
-		if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
-			std::cout << "Collision Line" << std::endl;
-		}
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A)) 
+	{
+		//newPos.x -= moveSpeed * DuckEngine::DeltaTime();
+		playerRb->velocity.x = -moveSpeed;
+	}
+
+	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D)) 
+	{
+		//newPos.x += moveSpeed * DuckEngine::DeltaTime();
+		playerRb->velocity.x = moveSpeed;
+	}
+>>>>>>> Stashed changes
+
+	// Calculate new position based on Rigidbody velocity and deltaTime
+	Vec2 newPos = playerTransform->position + playerRb->velocity * DuckEngine::DeltaTime();
+
+	circle->setCenterPos(newPos);
+	if (!checkCollisionCB(*circle, newPos, *box)) {
+		playerTransform->position = newPos;
+	}
+	else {
+		std::cout << "Collision detected" << std::endl;
+		circle->setCenterPos(playerTransform->position);
+	}
+
+	if (checkCollisionCL(*circle, newPos, { 7.f, 5.f }, { -10.f, 10.f })) {
+		std::cout << "Collision Line" << std::endl;
 	}
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);

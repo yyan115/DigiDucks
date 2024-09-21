@@ -159,6 +159,12 @@
     <ClInclude Include="..\include\SoundManager.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\RigidbodyComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RigidbodySystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="..\src\SoundManager.cpp">
       <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RigidbodySystem.cpp">
+      <Filter>src\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

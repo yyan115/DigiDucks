@@ -130,6 +130,8 @@
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\RigidbodyComponent.h" />
+    <ClInclude Include="..\include\RigidbodySystem.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\Sprite.h" />
@@ -156,6 +158,7 @@
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
+    <ClCompile Include="..\src\RigidbodySystem.cpp" />
     <ClCompile Include="..\src\Serialization.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />

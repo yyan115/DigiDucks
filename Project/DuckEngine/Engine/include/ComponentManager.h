@@ -10,6 +10,7 @@
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
 #include "CameraComponent.h"
+#include "RigidbodyComponent.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
