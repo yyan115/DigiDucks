@@ -1,4 +1,4 @@
-#include "DuckEngine.h"
+#include "EntityFactory.h"
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "Bounding.h"
@@ -29,17 +29,12 @@ void SpriteMovementScene::Load()
 
 	DuckEngine::SetCameraHeight(20.f);
 
-	player = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-	SpriteRendererComponent* playerSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(player->EntityID, true);
-	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(player->EntityID);
-	playerRb = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(player->EntityID);
+	player = EntityFactory::CreatePlayer("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, 5.0f);
 
-
-	playerSprite->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
-
+	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
+	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 
 	circle = new BoundingCircle(playerTransform->position, 2.f);
-
 	box = new BoundingBox(playerTransform->position.x+5.f, playerTransform->position.y, 2.f, 1.f);
 		
 }
