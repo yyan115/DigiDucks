@@ -67,6 +67,12 @@
     <Filter Include="src\Serialization">
       <UniqueIdentifier>{5e1a27d5-33a8-40c0-aba1-1a59a58833f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{975a4f2a-9be9-4519-a539-fb940eddf462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Scene">
+      <UniqueIdentifier>{74b0c69f-530c-4c8b-8264-2aaae49b06bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -177,6 +183,12 @@
     <ClInclude Include="..\include\DuckEngine_Input.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Scene.h">
+      <Filter>include\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SceneManager.h">
+      <Filter>include\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -250,6 +262,12 @@
     </ClCompile>
     <ClCompile Include="..\src\DuckEngine_Input.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SceneManager.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
