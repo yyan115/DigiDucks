@@ -1,11 +1,4 @@
-#ifndef DUCKENGINE_H
-#define DUCKENGINE_H
-
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
+#pragma once
 
 #include <iostream>
 #include "EntityManager.h"
@@ -15,6 +8,13 @@
 #include "SceneManager.h"
 #include "AssetManager.h"
 #include "EntityFactory.h"
+#include "PrefabManager.h"
+
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
 
 class DUCKENGINE_API DuckEngine
 {
@@ -25,6 +25,7 @@ public:
     static SceneManager DUCKENGINE_SceneManager;
     static AssetManager DUCKENGINE_AssetManager;
     static EntityFactory DUCKENGINE_EntityFactory;
+    static PrefabManager DUCKENGINE_PrefabManager;
 
     void Initialize();
     void Update();
@@ -57,5 +58,3 @@ public:
     static void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f });
 
 };
-
-#endif // DUCKENGINE_H

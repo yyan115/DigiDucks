@@ -43,4 +43,8 @@ public:
 	// THESE TWO ARE USED FOR IF YOU WANT TO TAKE CAMERA'S ROTATION INTO CONSIDERATION WHEN RENDERING, removed as feature isn't necessary for now
 	//Vector2D right, up;
 	//Matrix3x3 WorldToNDCTransform;
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<CameraComponent>(*this);
+	}
 };

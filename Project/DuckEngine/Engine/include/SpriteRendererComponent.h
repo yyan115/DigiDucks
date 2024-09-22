@@ -20,4 +20,11 @@ public:
 	bool useColor;
 	Color color;
 	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0, bool useColor = false, Color color = Color()) : sprite(hasSprite), layer(spriteLayer), texture(), useColor(useColor), color(color) {}
+
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<SpriteRendererComponent>(*this);
+	}
+
+
 };

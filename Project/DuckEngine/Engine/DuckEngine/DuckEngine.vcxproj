@@ -136,6 +136,7 @@
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\Prefab.h" />
     <ClInclude Include="..\include\PrefabManager.h" />
     <ClInclude Include="..\include\RigidbodyComponent.h" />
     <ClInclude Include="..\include\RigidbodySystem.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
+    <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\PrefabManager.cpp" />
     <ClCompile Include="..\src\RigidbodySystem.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />

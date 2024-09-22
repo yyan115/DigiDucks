@@ -82,9 +82,15 @@ public:
 
 	// Copy Constructor
 	BoundingBox(BoundingBox& box) : BoundingCollider(box.getCenterPos()), size(box.getSize()), max(box.getMax()), min(box.getMin()) {}
+	BoundingBox(const BoundingBox& box) : BoundingCollider(box.getCenterPos()), size(box.getSize()), max(box.getMax()), min(box.getMin()) {}
 
 	// Destructor
 	~BoundingBox() = default;
+
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<BoundingBox>(*this); 
+	}
 
 	// Getters
 	/****************************************************************
@@ -146,9 +152,15 @@ public:
 
 	// Copy Constructor
 	BoundingCircle(BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
+	BoundingCircle(const BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
 
 	// Destructor
 	~BoundingCircle() = default;
+
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<BoundingCircle>(*this);
+	}
 
 	// Getters
 	/****************************************************************

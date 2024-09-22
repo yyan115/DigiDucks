@@ -35,30 +35,43 @@ void SpriteMovementScene::Load()
 
 	DuckEngine::SetCameraHeight(20.f);
 
-
+	// Load necessary assets (textures, sounds, etc.)
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/oldman.png");
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
 
 
-	obstacle = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
-	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
-	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
-	obstacleRb->isStatic = false;
-	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(obstacle->EntityID, obstacleTransform->position, Vec2{1.f,2.f});
-	
+	// setup prefabs
+	auto playerPrefab = std::make_shared<Prefab>("Player", "../Resources/oldman.png", Vec2(1.0f, 1.0f));
+	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.0f));
 
-	player = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f });
+	auto obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
+	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2(1.0f, 2.0f)));
+
+	// load prefabs
+
+	PrefabManager::LoadPrefab("Player", playerPrefab);
+	PrefabManager::LoadPrefab("Obstacle", obstaclePrefab);
+	
+	// instantiate prefabs
+	player = PrefabManager::InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
-	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
+	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->EntityID);
+	playerRb->velocity = Vec2(0.0f, 0.0f);
+	playerRb->isStatic = false;
+
+	obstacle = PrefabManager::InstantiatePrefab("Obstacle", { 5.0f, 0.0f });
+	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
+	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
+	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->EntityID);
 
 	
 }
 
 void SpriteMovementScene::Start()
 {
-	DuckEngine_Sound::PlaySound("TestSound");
+	//DuckEngine_Sound::PlaySound("TestSound");
 
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "string"
-#include "Sprite.h"
+#include "Texture.h"
 #include "ft2build.h"
 
 // Export/Import macro
@@ -23,5 +23,10 @@ public:
 
     TextRendererComponent(const std::string& text, const std::string& fontPath, int fontSize = 48) // for eg
         : text(text), fontPath(fontPath), fontSize(fontSize) {}
+
+    std::shared_ptr<Component> Clone() const override
+    {
+        return std::make_shared<TextRendererComponent>(*this);
+    }
 
 };

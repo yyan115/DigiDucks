@@ -35,8 +35,7 @@ class DUCKENGINE_API ComponentManager
     T* AddComponent(int entityID, Args &&...args)
     {
         auto& typeMap = componentStorage[typeid(T)];
-        std::shared_ptr<Component> component =
-            std::make_shared<T>(std::forward<Args>(args)...);
+        std::shared_ptr<Component> component = std::make_shared<T>(std::forward<Args>(args)...);
         auto result = typeMap.emplace(entityID, component);
 
         std::cout << "Added component of type " << typeid(T).name()
@@ -45,6 +44,12 @@ class DUCKENGINE_API ComponentManager
             << std::endl;
 
         return std::static_pointer_cast<T>(result.first->second).get();
+    }
+
+    void AddComponent(int entityID, const std::shared_ptr<Component>& component)
+    {
+        auto& typeMap = componentStorage[typeid(*component)];
+        typeMap[entityID] = component;
     }
 
     // Get a component of any type associated with an entity

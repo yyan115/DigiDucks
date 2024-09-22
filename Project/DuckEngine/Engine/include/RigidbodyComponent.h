@@ -19,4 +19,9 @@ public:
 
 	RigidbodyComponent() : velocity(0.0f, 0.0f), acceleration(0.0f, 0.0f), mass(1.0f), isStatic(false)
 	{}
+
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<RigidbodyComponent>(*this);
+	}
 };

@@ -189,7 +189,7 @@
     <ClInclude Include="..\include\SceneManager.h">
       <Filter>include\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\PrefabManager.h">
+    <ClInclude Include="..\include\Prefab.h">
       <Filter>include\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\include\EntityFactory.h">
@@ -197,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="..\include\AssetManager.h">
       <Filter>include\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PrefabManager.h">
+      <Filter>include\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,7 +281,7 @@
     <ClCompile Include="..\src\SceneManager.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PrefabManager.cpp">
+    <ClCompile Include="..\src\Prefab.cpp">
       <Filter>src\Entities</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EntityFactory.cpp">
@@ -286,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="..\src\AssetManager.cpp">
       <Filter>src\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PrefabManager.cpp">
+      <Filter>src\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

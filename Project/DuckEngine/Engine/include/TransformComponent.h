@@ -20,6 +20,9 @@ class DUCKENGINE_API TransformComponent : public Component
 	TransformComponent(float scaleX, float scaleY, float angle, float posX, float posY) : scale(scaleX, scaleY), angle(angle), position(posX, posY) {};
 	TransformComponent(Vec2& scale, float angle, Vec2& position) : scale(scale), angle(angle), position(position) {};
 	TransformComponent(Vec2&& scale, float angle, Vec2&& position) : scale(scale), angle(angle), position(position) {};
-
+	std::shared_ptr<Component> Clone() const override
+	{
+		return std::make_shared<TransformComponent>(*this);
+	}
 
 };

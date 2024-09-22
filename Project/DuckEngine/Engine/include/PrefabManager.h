@@ -1,21 +1,34 @@
 #pragma once
+
+#include <unordered_map>
 #include <string>
-#include <vector>
-#include "Vector2.h"
-#include "Component.h"
-#include "Entity.h"
+#include <memory>
+#include "Prefab.h"
+#include "Vector2.h"   
+#include "Entity.h"  
 
-class Prefab
+
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
+class DUCKENGINE_API PrefabManager
 {
+private:
+	static std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
+
 public:
-	std::string name;
-	std::string texturePath;
-	Vec2 position;
-	Vec2 scale;
-	std::vector<std::shared_ptr<Component>> components;
 
-	Prefab(const std::string& name, const std::string& texturePath, Vec2 scale)
-		: name(name), texturePath(texturePath), scale(scale) {}
+	// load prefab into the manager
+	static void LoadPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab);
 
-	Entity* Instantiate(Vec2 newPosition);
+	// retrieve prefab by name
+	static std::shared_ptr<Prefab> GetPrefab(const std::string& name);
+
+	// instantiate prefab by name
+	static Entity* InstantiatePrefab(const std::string& name, Vec2 newPosition);
+
+
 };

@@ -39,5 +39,9 @@ private:
 
 public:
     AnimationComponent() : currentAnimation(nullptr) {}
+    std::shared_ptr<Component> Clone() const override
+    {
+        return std::make_shared<AnimationComponent>(*this);
+    }
 };
 
