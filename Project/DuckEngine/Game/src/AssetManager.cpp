@@ -10,6 +10,10 @@ void AssetManager::LoadAll()
 	// load all assets here
 	LoadTexture("../Resources/oldman.png");
 
+	// load sound
+	LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
+	LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
+
 }
 
 std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& filePath)
@@ -22,6 +26,11 @@ std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& filePath)
 	std::shared_ptr<Texture> newSprite = LoadTextureFromFile(filePath);
 	textureMap[filePath] = newSprite;
 	return newSprite;
+}
+
+void AssetManager::LoadSound(const std::string& soundName, const std::string& filePath)
+{
+	DuckEngine_Sound::LoadSound(soundName, filePath);
 }
 
 

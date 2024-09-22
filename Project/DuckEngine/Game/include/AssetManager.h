@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include "DuckEngine_Sound.h"
+
 
 typedef unsigned int Texture;
 
@@ -11,6 +13,7 @@ public:
 	static void LoadAll();
 
 	static std::shared_ptr<Texture> LoadTexture(const std::string& filePath);
+	static void LoadSound(const std::string& soundName, const std::string& filePath);
 	
 	// unload all textures
 	static void UnloadAll();

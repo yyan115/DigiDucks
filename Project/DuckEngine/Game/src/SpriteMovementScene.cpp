@@ -2,6 +2,7 @@
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "Bounding.h"
+#include "DuckEngine_Sound.h"
 
 Entity* player;
 Entity* camera;
@@ -42,6 +43,7 @@ void SpriteMovementScene::Load()
 
 void SpriteMovementScene::Start()
 {
+	DuckEngine_Sound::PlaySound("TestSound");
 
 }
 

@@ -171,6 +171,9 @@
     <ClInclude Include="..\include\BoxColliderSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\DuckEngine_Sound.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -238,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="..\src\BoxColliderSystem.cpp">
       <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DuckEngine_Sound.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

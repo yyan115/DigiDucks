@@ -12,6 +12,7 @@
 #include "CameraManager.h"
 #include "SoundManager.h"
 
+
 //include systems
 #include "SpriteRendererSystem.h"
 #include "CameraSystem.h"
@@ -52,8 +53,6 @@ void DuckEngine::Initialize() {
 
     UIManager::Initialize();
     SoundManager::GetInstance().Initialize();
-    SoundManager::GetInstance().LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
-    SoundManager::GetInstance().LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
 }
 
 void DuckEngine::Update() 
@@ -65,7 +64,7 @@ void DuckEngine::Update()
 
     DUCKENGINE_SystemManager.UpdateAll();
 
-    SoundManager::GetInstance().Update();
+    //SoundManager::GetInstance().Update();
     
 }
 
@@ -110,7 +109,7 @@ void DuckEngine::Exit()
     UIManager::Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
-    SoundManager::GetInstance().Exit();
+    //SoundManager::GetInstance().Exit();
 }
 
 bool DuckEngine::Running() {
