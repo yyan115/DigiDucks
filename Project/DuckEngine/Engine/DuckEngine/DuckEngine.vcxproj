@@ -135,6 +135,8 @@
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\RigidbodyComponent.h" />
     <ClInclude Include="..\include\RigidbodySystem.h" />
+    <ClInclude Include="..\include\Scene.h" />
+    <ClInclude Include="..\include\SceneManager.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\Texture.h" />
@@ -165,6 +167,8 @@
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\RigidbodySystem.cpp" />
+    <ClCompile Include="..\src\Scene.cpp" />
+    <ClCompile Include="..\src\SceneManager.cpp" />
     <ClCompile Include="..\src\Serialization.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />

@@ -12,6 +12,7 @@
 #include "ComponentManager.h"
 #include "SystemManager.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 
 class DUCKENGINE_API DuckEngine
 {
@@ -19,6 +20,7 @@ public:
     static ComponentManager DUCKENGINE_ComponentManager;
     static EntityManager DUCKENGINE_EntityManager;
     static SystemManager DUCKENGINE_SystemManager;
+    static SceneManager DUCKENGINE_SceneManager;
 
     void Initialize();
     void Update();

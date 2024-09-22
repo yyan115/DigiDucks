@@ -342,12 +342,12 @@ void UIManager::RenderWindows() {
 void UIManager::RenderSceneAssets() {
     if (ImGui::Button("Max Load Scene")) {
         // Access SceneManager from DuckEngine and switch scene
-        //DuckEngine::GetInstance().sceneManager.SetActiveScene(0); // Switch to MaxLoadScene
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene("MaxLoadScene"); // Switch to MaxLoadScene
     }
     ImGui::SameLine();
     if (ImGui::Button("Main Scene")) {
         // Access SceneManager from DuckEngine and switch scene
-        //DuckEngine::GetInstance().sceneManager.SetActiveScene(1); // Switch to MainScene
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene("SpriteMovementScene"); // Switch to MainScene
     }
 }
 

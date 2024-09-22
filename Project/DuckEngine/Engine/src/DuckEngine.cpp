@@ -23,6 +23,7 @@
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
+SceneManager DuckEngine::DUCKENGINE_SceneManager;
 
 bool DuckEngine::WKeyDown = false;
 bool DuckEngine::AKeyDown = false;
@@ -63,7 +64,7 @@ void DuckEngine::Update()
     TimeManager::UpdateTime(1.0);
 
     DUCKENGINE_SystemManager.UpdateAll();
-
+    DUCKENGINE_SceneManager.Update();
     //SoundManager::GetInstance().Update();
     
 }
@@ -109,6 +110,7 @@ void DuckEngine::Exit()
     UIManager::Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
+    DUCKENGINE_SceneManager.Shutdown();
     //SoundManager::GetInstance().Exit();
 }
 

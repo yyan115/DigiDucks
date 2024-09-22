@@ -36,7 +36,7 @@ void MaxLoadScene::Load()
 
     DuckEngine::SetCameraHeight(1000.f);
 
-    for (int i = 0; i < 25000; i++)
+    for (int i = 0; i < 2500; i++)
     {
         SpawnSquare();
     }

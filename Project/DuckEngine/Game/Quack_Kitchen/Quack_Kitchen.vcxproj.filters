@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
-    <ClCompile Include="..\src\Scene.cpp">
-      <Filter>src\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MaxLoadScene.cpp">
       <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
@@ -51,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Scene.h">
-      <Filter>include\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\MaxLoadScene.h">
       <Filter>include\Scenes\TestingScenes</Filter>
     </ClInclude>

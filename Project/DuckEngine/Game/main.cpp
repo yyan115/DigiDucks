@@ -6,8 +6,6 @@
 
 static DuckEngine engine;
 
-Scene* activeScene;
-
 int main(void)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -15,16 +13,10 @@ int main(void)
     engine.Initialize();
     DUCKLOG_INFO("Engine initialized.");
 
-    // Possible Scenes
-    MaxLoadScene maxLoadScene;
-    SpriteMovementScene spriteMovementScene;
-    
-    // Set Active Scene
-    activeScene = &spriteMovementScene;
-    
-    // Load and Start Active Scene
-    activeScene->Load();
-    activeScene->Start();
+    engine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
+    engine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
+
+    engine.DUCKENGINE_SceneManager.SetActiveScene("SpriteMovementScene");
 
     // load all assets before game loop starts
     AssetManager::LoadAll();
@@ -33,8 +25,6 @@ int main(void)
         DUCKLOG_INFO("Game Started.");
     while (engine.Running())
     {
-        // Update Active Scene
-        activeScene->Update();
 
         engine.Update();
         
