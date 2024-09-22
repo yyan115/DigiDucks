@@ -3,6 +3,7 @@
 #include "ImageLoader.h"
 #include "Bounding.h"
 #include "DuckEngine_Sound.h"
+#include "DuckEngine_Input.h"
 
 Entity* player;
 Entity* camera;
@@ -54,26 +55,25 @@ void SpriteMovementScene::Update()
 	// Reset the player's velocity at the start of each frame
 
 	// Handle movement based on key input by setting velocity
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_W))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_W))
 	{
 		playerRb->acceleration.y = moveSpeed; // Move up
 	}
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_S))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_S))
 	{
 		playerRb->acceleration.y = -moveSpeed; // Move down
 	}
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_A))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_A))
 	{
 		playerRb->acceleration.x = -moveSpeed; // Move left
 	}
 
-	if (DuckEngine::IsKeyPressed(DuckEngine::KEY_D))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_D))
 	{
 		playerRb->acceleration.x = moveSpeed; // Move right
 	}
-
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());

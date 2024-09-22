@@ -174,11 +174,8 @@
     <ClInclude Include="..\include\DuckEngine_Sound.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\SceneManager.h">
-      <Filter>include\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Scene.h">
-      <Filter>include\Engine</Filter>
+    <ClInclude Include="..\include\DuckEngine_Input.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,11 +248,8 @@
     <ClCompile Include="..\src\DuckEngine_Sound.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SceneManager.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Scene.cpp">
-      <Filter>src\Engine</Filter>
+    <ClCompile Include="..\src\DuckEngine_Input.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
