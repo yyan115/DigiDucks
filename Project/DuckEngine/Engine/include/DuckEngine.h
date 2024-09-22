@@ -23,6 +23,8 @@ public:
     static EntityManager DUCKENGINE_EntityManager;
     static SystemManager DUCKENGINE_SystemManager;
     static SceneManager DUCKENGINE_SceneManager;
+    static AssetManager DUCKENGINE_AssetManager;
+    static EntityFactory DUCKENGINE_EntityFactory;
 
     void Initialize();
     void Update();

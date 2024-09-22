@@ -24,7 +24,8 @@ EntityManager DuckEngine::DUCKENGINE_EntityManager;
 ComponentManager DuckEngine::DUCKENGINE_ComponentManager;
 SystemManager DuckEngine::DUCKENGINE_SystemManager;
 SceneManager DuckEngine::DUCKENGINE_SceneManager;
-
+AssetManager DuckEngine::DUCKENGINE_AssetManager;
+EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 
 
 void DuckEngine::Initialize() {

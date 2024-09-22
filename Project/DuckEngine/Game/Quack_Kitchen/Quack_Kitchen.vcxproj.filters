@@ -8,9 +8,6 @@
     <ClCompile Include="..\src\SpriteMovementScene.cpp">
       <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\EntityFactoryTwo.cpp">
-      <Filter>src\Factory</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -31,12 +28,6 @@
     <Filter Include="src\Scenes\TestingScenes">
       <UniqueIdentifier>{5d4e1433-c924-48e1-b2b2-7a555d588421}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\Factory">
-      <UniqueIdentifier>{b95f2ada-db36-451f-92bb-a594d599c48e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Factory">
-      <UniqueIdentifier>{0b66eb13-4a5c-4cc6-a93c-d5fcc223e243}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Managers">
       <UniqueIdentifier>{da528be2-84c4-48d6-82c1-f679929a0bb3}</UniqueIdentifier>
     </Filter>
@@ -50,9 +41,6 @@
     </ClInclude>
     <ClInclude Include="..\include\SpriteMovementScene.h">
       <Filter>include\Scenes\TestingScenes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\EntityFactoryTwo.h">
-      <Filter>include\Factory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,21 +5,17 @@
 #include "Component.h"
 #include "Entity.h"
 
-struct Prefab
+class Prefab
 {
+public:
 	std::string name;
 	std::string texturePath;
 	Vec2 position;
 	Vec2 scale;
-	std::vector<Component*> components;
+	std::vector<std::shared_ptr<Component>> components;
 
-	Entity* Instantiate(Vec2 newPosition)
-	{
+	Prefab(const std::string& name, const std::string& texturePath, Vec2 scale)
+		: name(name), texturePath(texturePath), scale(scale) {}
 
-
-
-
-	}
-
-
+	Entity* Instantiate(Vec2 newPosition);
 };

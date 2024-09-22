@@ -36,24 +36,19 @@ void SpriteMovementScene::Load()
 	DuckEngine::SetCameraHeight(20.f);
 
 
-	AssetManager::LoadTexture("../Resources/oldman.png");
-	AssetManager::LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
-	AssetManager::LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/oldman.png");
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
 
-	//player = EntityFactory::CreatePlayer("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, 5.0f);
 
-	//playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
-	//playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
-	//circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
-
-	obstacle = EntityFactory::CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
+	obstacle = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
 	obstacleRb->isStatic = false;
 	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(obstacle->EntityID, obstacleTransform->position, Vec2{1.f,2.f});
 	
 
-	player = EntityFactory::CreateEntity("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f });
+	player = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f });
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
