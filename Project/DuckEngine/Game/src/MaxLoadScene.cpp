@@ -64,7 +64,7 @@ void MaxLoadScene::Exit()
 
 void MaxLoadScene::Unload()
 {
-
+    Scene::Unload();
 }
 
 void MaxLoadScene::SpawnSquare() {

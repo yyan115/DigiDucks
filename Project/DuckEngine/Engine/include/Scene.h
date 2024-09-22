@@ -1,6 +1,13 @@
 #pragma once
 
-class Scene {
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
+class DUCKENGINE_API Scene
+{
 public:
 	virtual void Load() = 0;
 	virtual void Start() = 0;

@@ -96,5 +96,7 @@ void SpriteMovementScene::Exit()
 
 void SpriteMovementScene::Unload()
 {
+	// base unload
+	Scene::Unload();
 
 }

@@ -13,7 +13,8 @@ void SceneManager::SetActiveScene(const std::string& name) {
     }
 
     // Unload the current scene if it's different
-    if (activeScene) {
+    if (activeScene) 
+    {
         activeScene->Unload();
     }
 
