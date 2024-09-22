@@ -260,33 +260,45 @@ void UIManager::ShowExplorer() {
 void UIManager::ShowInspector() {
     ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-    // Simulate a selected object placeholder still
-    static float position[3] = { 0.0f, 0.0f, 0.0f };
-    static float scale[3] = { 1.0f, 1.0f, 1.0f };
-    static float rotation[3] = { 0.0f, 0.0f, 0.0f };
+    // Get first box entity
+    int entityID = DuckEngine::DUCKENGINE_EntityManager.GetEntities().front().EntityID;
 
-    // Display sliders for position, scale, and rotation
-    ImGui::Text("Transform");
+    // Access TransformComponent
+    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
 
-    ImGui::SliderFloat3("Position", position, -10.0f, 10.0f);
-    ImGui::SliderFloat3("Rotation", rotation, -180.0f, 180.0f);
-    ImGui::SliderFloat3("Scale", scale, 0.1f, 10.0f);
+    if (transform) {
+        // Display sliders for position, scale, and rotation (angle)
+        ImGui::Text("Transform");
 
-    // Buttons for actions
-    if (ImGui::Button("Reset Position")) {
-        position[0] = position[1] = position[2] = 0.0f;
+        // Position
+        ImGui::SliderFloat2("Position", &transform->position.x, -10.0f, 10.0f);
+
+        // Rotation
+        ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
+
+        // Scale
+        ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
+
+        // Buttons for reset actions
+        if (ImGui::Button("Reset Position")) {
+            transform->position = Vec2(0.0f, 0.0f);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Reset Rotation")) {
+            transform->angle = 0.0f;
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Reset Scale")) {
+            transform->scale = Vec2(1.0f, 1.0f);
+        }
     }
-    ImGui::SameLine();
-    if (ImGui::Button("Reset Rotation")) {
-        rotation[0] = rotation[1] = rotation[2] = 0.0f;
-    }
-    ImGui::SameLine();
-    if (ImGui::Button("Reset Scale")) {
-        scale[0] = scale[1] = scale[2] = 1.0f;
+    else {
+        ImGui::Text("No TransformComponent found for this entity.");
     }
 
     ImGui::End();
 }
+
 
 void UIManager::ShowEntitySpawn() {
     static int lastSpawnCount = 0;  // Keep track of the last spawn count
@@ -301,7 +313,7 @@ void UIManager::ShowEntitySpawn() {
         UIDebugConsole::debugConsole.AddDebugLog("Spawning entities");
         int entitiesToSpawn = spawnCount - lastSpawnCount;
         for (int i = 0; i < entitiesToSpawn; i++) {
-            SpawnSquare();  // Spawn square using the SpawnSquare
+            DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
         }
     }
 
