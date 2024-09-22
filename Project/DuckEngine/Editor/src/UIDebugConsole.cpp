@@ -73,10 +73,6 @@ void UIDebugConsole::Clear() {
 
 // Render the console in ImGui
 void UIDebugConsole::Render(bool* p_open) {
-    if (!ImGui::Begin("Debug Console", p_open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
-        ImGui::End();
-        return;
-    }
 
     // Input field for commands
     static char inputBuf[256] = "";
@@ -113,8 +109,6 @@ void UIDebugConsole::Render(bool* p_open) {
     }
 
     ImGui::EndChild();
-
-    ImGui::End();
 }
 
 ImVec4 UIDebugConsole::GetColorByLevel(const std::string& level) {

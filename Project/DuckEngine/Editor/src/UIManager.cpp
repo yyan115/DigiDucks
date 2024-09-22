@@ -8,7 +8,7 @@
 // 
 // Copyright © 2024 DigiPen, All rights reserved.
 //---------------------------------------------------------
-
+#pragma once
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
@@ -21,6 +21,8 @@
 #include "ImageLoader.h"
 #include <Windows.h>
 #include "Color.h"
+#include <random>
+#include <map>
 
 enum class WindowType {
     DebugInfo,
@@ -28,9 +30,16 @@ enum class WindowType {
     Count
 };
 
+
 std::unordered_map<WindowType, bool> windowStates = {
     {WindowType::DebugInfo, false},
     {WindowType::Performance, false},
+};
+
+enum class AssetCategory {
+    Scene,
+    GameObject,
+    Texture
 };
 
 void UIManager::Initialize() {
@@ -63,15 +72,15 @@ void RenderSystemTimings(const SystemManager& systemManager) {
         // Start drawing the histogram
         ImGui::PlotHistogram("##Systems", systemPercentages.data(), static_cast<int>(systemPercentages.size()), 0, "System Graphs", 0.0f, 100.0f, ImVec2(-25, 150));
 
-            for (size_t i = 0; i < systemPercentages.size(); ++i) {
-                // If the bar is hovered, show a tooltip with the system name
-                if (ImGui::IsItemHovered()) {
-                    ImGui::BeginTooltip();
-                    ImGui::Text("System: %s", systemNames[i]);
-                    ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
-                    ImGui::EndTooltip();
-                }
+        for (size_t i = 0; i < systemPercentages.size(); ++i) {
+            // If the bar is hovered, show a tooltip with the system name
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::Text("System: %s", systemNames[i]);
+                ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
+                ImGui::EndTooltip();
             }
+        }
         
     }
 }
@@ -116,7 +125,7 @@ void UIManager::Render() {
     RenderWindows();
 
     ShowInspector();
-    ShowConsole();
+    ShowExplorer();
     ShowEntitySpawn();
 
     // Render ImGui on top of the scene
@@ -191,9 +200,61 @@ void UIManager::ShowPerformance() {
     ImGui::End();
 }   
 
-void UIManager::ShowConsole() {
+void UIManager::ShowExplorer() {
     bool consoleOpen = true;
-    UIDebugConsole::debugConsole.Render(&consoleOpen);
+    ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    // Create the tab bar
+    if (ImGui::BeginTabBar("MyTabBar")) {
+
+        // First tab: Console
+        if (ImGui::BeginTabItem("Console")) {
+            UIDebugConsole::debugConsole.Render(&consoleOpen);
+            ImGui::EndTabItem();
+        }
+
+        // Second tab: Assets
+        if (ImGui::BeginTabItem("Assets")) {
+
+            static AssetCategory currentCategory = AssetCategory::Scene;
+            const char* items[] = { "Scene", "GameObject", "Texture" };
+
+            ImGui::Text("Category:   ");
+            ImGui::SameLine();
+
+            if (ImGui::BeginCombo("##Category", items[static_cast<int>(currentCategory)])) {
+                for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
+                    bool is_selected = (static_cast<int>(currentCategory) == n);
+                    if (ImGui::Selectable(items[n], is_selected)) {
+                        currentCategory = static_cast<AssetCategory>(n);
+                    }
+
+                    if (is_selected) {
+                        ImGui::SetItemDefaultFocus();
+                    }
+                }
+				ImGui::EndCombo();
+			}
+
+            // Handle the selected category
+            switch (currentCategory) {
+            case AssetCategory::Scene:
+                RenderSceneAssets();
+                break;
+            case AssetCategory::GameObject:
+                RenderGameObjectAssets();
+                break;
+            case AssetCategory::Texture:
+                RenderTextureAssets();
+                break;
+            }
+            
+            ImGui::EndTabItem();
+        }
+
+        ImGui::EndTabBar();
+    }
+
+    ImGui::End();
 }
 
 void UIManager::ShowInspector() {
@@ -278,8 +339,32 @@ void UIManager::RenderWindows() {
     }
 }
 
-#include <random>
-#include <map>
+void UIManager::RenderSceneAssets() {
+    if (ImGui::Button("Max Load Scene")) {
+        // Access SceneManager from DuckEngine and switch scene
+        //DuckEngine::GetInstance().sceneManager.SetActiveScene(0); // Switch to MaxLoadScene
+    }
+    ImGui::SameLine();
+    if (ImGui::Button("Main Scene")) {
+        // Access SceneManager from DuckEngine and switch scene
+        //DuckEngine::GetInstance().sceneManager.SetActiveScene(1); // Switch to MainScene
+    }
+}
+
+void UIManager::RenderGameObjectAssets() {
+	// Placeholder for GameObject assets
+	ImGui::Text("No GameObjects to display.");
+}
+
+void UIManager::RenderTextureAssets() {
+	// Placeholder for Texture assets
+	ImGui::Text("No Textures to display.");
+}
+
+
+
+
+
 // Random number generator for position, scale, rotation, and velocity
 std::random_device rd;
 std::mt19937 gen(rd());

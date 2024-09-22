@@ -31,7 +31,7 @@ private:
     static void ShowInspector();
 
     // Show the console window
-    static void ShowConsole();
+    static void ShowExplorer();
 
     // Show the entity spawn window
     static void ShowEntitySpawn();
@@ -42,6 +42,10 @@ private:
     // Show the performance window
     static void ShowPerformance();
     static void SpawnSquare();
+
+    static void RenderSceneAssets();
+    static void RenderGameObjectAssets();
+    static void RenderTextureAssets();
 };
 
 
