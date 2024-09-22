@@ -7,10 +7,10 @@ void CircleColliderSystem::Update() {
 	{
 		// Only 1 circle collider in this scene
 		BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
-		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
-		RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+		TransformComponent* c_transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		RigidbodyComponent* c_rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
-		circle->setCenter(transform->position);
+		circle->setCenter(c_transform->position);
 		Vec2 nextPos;
 
 		// Check collision with box collider
@@ -18,17 +18,17 @@ void CircleColliderSystem::Update() {
 		{
 			BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
 
-			nextPos = circle->getCenter() + rigidbody->velocity * deltaTime;
+			nextPos = circle->getCenter() + c_rigidbody->velocity * deltaTime;
 			// Check collision
 			if(checkCollisionCB(*circle, nextPos, *box)) {
 				// If there is a collision, reset the player's velocity
-				rigidbody->velocity = Vec2(0.0f, 0.0f);
+				c_rigidbody->velocity = Vec2(0.0f, 0.0f);
 			}
 		}
 
 		// Update player's position based on velocity
 		//transform->position = transform->position + rigidbody->velocity * deltaTime;
-		circle->setCenter(transform->position);
+		circle->setCenter(c_transform->position);
 
 	}
 }

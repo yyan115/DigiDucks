@@ -53,26 +53,27 @@ void SpriteMovementScene::Update()
 	float moveSpeed = 10.0f;
 
 	// Reset the player's velocity at the start of each frame
+	playerRb->velocity = Vec2(0.f, 0.f);
 
 	// Handle movement based on key input by setting velocity
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_W))
 	{
-		playerRb->acceleration.y = moveSpeed; // Move up
+		playerRb->velocity.y = moveSpeed; // Move up
 	}
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_S))
 	{
-		playerRb->acceleration.y = -moveSpeed; // Move down
+		playerRb->velocity.y = -moveSpeed; // Move down
 	}
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_A))
 	{
-		playerRb->acceleration.x = -moveSpeed; // Move left
+		playerRb->velocity.x = -moveSpeed; // Move left
 	}
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_D))
 	{
-		playerRb->acceleration.x = moveSpeed; // Move right
+		playerRb->velocity.x = moveSpeed; // Move right
 	}
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
