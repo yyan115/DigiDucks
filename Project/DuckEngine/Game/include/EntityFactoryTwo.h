@@ -2,7 +2,7 @@
 
 #include "DuckEngine.h"
 
-class EntityFactory
+class EntityFactoryTwo
 {
 public:
 	static Entity* CreatePlayer(const std::string& texturePath,

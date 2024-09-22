@@ -1,9 +1,9 @@
-#include "EntityFactory.h"
+#include "DuckEngine.h"
+#include "DuckEngine_Sound.h"
+#include "DuckEngine_Input.h"
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "Bounding.h"
-#include "DuckEngine_Sound.h"
-#include "DuckEngine_Input.h"
 
 Entity* player;
 Entity* camera;
@@ -35,19 +35,30 @@ void SpriteMovementScene::Load()
 
 	DuckEngine::SetCameraHeight(20.f);
 
-	player = EntityFactory::CreatePlayer("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, 5.0f);
 
+	AssetManager::LoadTexture("../Resources/oldman.png");
+	AssetManager::LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
+	AssetManager::LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
 
-	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
-	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
-	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
+	//player = EntityFactory::CreatePlayer("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, 5.0f);
 
-	obstacle = EntityFactory::CreatePlayer("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f }, 5.0f);
+	//playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
+	//playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
+	//circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
+
+	obstacle = EntityFactory::CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
 	obstacleRb->isStatic = false;
 	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(obstacle->EntityID, obstacleTransform->position, Vec2{1.f,2.f});
-		
+	
+
+	player = EntityFactory::CreateEntity("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f });
+	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
+	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
+	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
+
+	
 }
 
 void SpriteMovementScene::Start()

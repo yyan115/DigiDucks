@@ -1,8 +1,8 @@
-#include "EntityFactory.h"
+#include "EntityFactoryTwo.h"
 #include "AssetManager.h"
 #include "Bounding.h"
 
-Entity* EntityFactory::CreatePlayer(const std::string& texturePath, const Vec2& position, const Vec2& scale, float moveSpeed)
+Entity* EntityFactoryTwo::CreatePlayer(const std::string& texturePath, const Vec2& position, const Vec2& scale, float moveSpeed)
 {
     // Create the Player entity
     Entity* player = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();

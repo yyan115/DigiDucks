@@ -113,6 +113,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AnimationComponent.h" />
+    <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\include\DuckEngine_Input.h" />
     <ClInclude Include="..\include\DuckEngine_Sound.h" />
     <ClInclude Include="..\include\Entity.h" />
+    <ClInclude Include="..\include\EntityFactory.h" />
     <ClInclude Include="..\include\EntityManager.h" />
     <ClInclude Include="..\include\File.h" />
     <ClInclude Include="..\include\glslshader.h" />
@@ -134,6 +136,7 @@
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\PrefabManager.h" />
     <ClInclude Include="..\include\RigidbodyComponent.h" />
     <ClInclude Include="..\include\RigidbodySystem.h" />
     <ClInclude Include="..\include\Scene.h" />
@@ -152,6 +155,7 @@
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />
     <ClCompile Include="..\src\CameraSystem.cpp" />
@@ -160,6 +164,7 @@
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\DuckEngine_Input.cpp" />
     <ClCompile Include="..\src\DuckEngine_Sound.cpp" />
+    <ClCompile Include="..\src\EntityFactory.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\glslshader.cpp" />
@@ -168,6 +173,7 @@
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
+    <ClCompile Include="..\src\PrefabManager.cpp" />
     <ClCompile Include="..\src\RigidbodySystem.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\SceneManager.cpp" />

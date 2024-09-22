@@ -8,11 +8,8 @@
     <ClCompile Include="..\src\SpriteMovementScene.cpp">
       <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\EntityFactory.cpp">
+    <ClCompile Include="..\src\EntityFactoryTwo.cpp">
       <Filter>src\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AssetManager.cpp">
-      <Filter>src\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,11 +51,8 @@
     <ClInclude Include="..\include\SpriteMovementScene.h">
       <Filter>include\Scenes\TestingScenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\EntityFactory.h">
+    <ClInclude Include="..\include\EntityFactoryTwo.h">
       <Filter>include\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\AssetManager.h">
-      <Filter>include\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

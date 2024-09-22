@@ -1,13 +1,19 @@
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"
+#include "DuckEngine_Sound.h"
 
 std::unordered_map<std::string, std::shared_ptr<Texture>> AssetManager::textureMap;
 
 
 void AssetManager::LoadAll()
 {
+	//// load all assets here
+	//LoadTexture("../Resources/oldman.png");
 
+	//// load sound
+	//LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
+	//LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
 
 }
 

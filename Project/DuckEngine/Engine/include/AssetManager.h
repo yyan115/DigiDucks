@@ -2,12 +2,17 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
-#include "DuckEngine_Sound.h"
 
+
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
 
 typedef unsigned int Texture;
 
-class AssetManager
+class DUCKENGINE_API AssetManager
 {
 public:
 	static void LoadAll();

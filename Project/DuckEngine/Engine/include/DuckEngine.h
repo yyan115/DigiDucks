@@ -13,6 +13,8 @@
 #include "SystemManager.h"
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "AssetManager.h"
+#include "EntityFactory.h"
 
 class DUCKENGINE_API DuckEngine
 {
