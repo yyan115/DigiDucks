@@ -17,7 +17,6 @@ Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 positio
     transform->scale = scale;
     rigidbody->velocity = Vec2(0.0f, 0.0f);  // No initial movement
     spriteRenderer->texture = *AssetManager::LoadTexture(texturePath);
-    BoundingCircle* circle = new BoundingCircle(transform->position, 2.f);
 
     return entity;
 
