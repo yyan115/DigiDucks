@@ -4,7 +4,7 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 13 2024
-\brief  	This file includes System class for Circle Collider
+\brief  	This file includes System class for Box Collider
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior

@@ -17,6 +17,7 @@
 #include "CameraSystem.h"
 #include "RigidbodySystem.h"
 #include "CircleColliderSystem.h"
+#include "BoxColliderSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -42,8 +43,14 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
     DUCKENGINE_SystemManager.AddSystem(cameraSystem);
 
+    // Update Collision System
+    // Circle Collider System
     std::shared_ptr<System> circleColliderSystem = std::make_shared<CircleColliderSystem>();
     DUCKENGINE_SystemManager.AddSystem(circleColliderSystem);
+    // Box Collider System
+    std::shared_ptr<System> boxColliderSystem = std::make_shared<BoxColliderSystem>();
+    DUCKENGINE_SystemManager.AddSystem(boxColliderSystem);
+
 
     std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
     DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);

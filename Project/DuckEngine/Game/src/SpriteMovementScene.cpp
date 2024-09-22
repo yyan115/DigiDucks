@@ -12,9 +12,13 @@ CameraComponent* cameraComponent;
 TransformComponent* playerTransform;
 RigidbodyComponent* playerRb;
 
-
-BoundingBox* box;
 BoundingCircle* circle;
+
+// Testing Obstacle
+Entity* obstacle;
+TransformComponent* obstacleTransform;
+RigidbodyComponent* obstacleRb;
+BoundingBox* box;
 
 void SpriteMovementScene::Load()
 {
@@ -33,12 +37,16 @@ void SpriteMovementScene::Load()
 
 	player = EntityFactory::CreatePlayer("../Resources/oldman.png", { 0.0f, 0.0f }, { 1.0f, 1.0f }, 5.0f);
 
+
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(player->EntityID, playerTransform->position, 1.f);
 
-	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(player->EntityID, playerTransform->position, Vec2{1.f,2.f});
-	box->setCenter({ playerTransform->position.x + 5.f, playerTransform->position.y });
+	obstacle = EntityFactory::CreatePlayer("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f }, 5.0f);
+	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
+	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
+	obstacleRb->isStatic = false;
+	box = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(obstacle->EntityID, obstacleTransform->position, Vec2{1.f,2.f});
 		
 }
 
