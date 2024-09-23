@@ -10,12 +10,10 @@ Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 positio
     Entity* entity = &(DuckEngine::DUCKENGINE_EntityManager.CreateEntity());
 
     TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->EntityID);
-    RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(entity->EntityID);
     SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->EntityID, true);
 
     transform->position = position;
     transform->scale = scale;
-    rigidbody->velocity = Vec2(0.0f, 0.0f);  // No initial movement
     spriteRenderer->texture = *AssetManager::LoadTexture(texturePath);
 
     return entity;
