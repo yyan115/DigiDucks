@@ -43,7 +43,7 @@ void SpriteMovementScene::Load()
 
 	// setup prefabs
 	std::shared_ptr<Prefab> playerPrefab = std::make_shared<Prefab>("Player", "../Resources/oldman.png", Vec2(1.0f, 1.0f));
-	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.0f));
+	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.f));
 	playerPrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
 	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
@@ -107,6 +107,7 @@ void SpriteMovementScene::Update()
 	}
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
+	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
 	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius()*2);
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());

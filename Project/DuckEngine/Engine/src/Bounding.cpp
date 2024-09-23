@@ -132,76 +132,79 @@ bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
 
 // Box - Box
 bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
-    if (box1.getMax().x < box2.getMin().x || box1.getMax().y < box2.getMin().y ||
-        box1.getMin().x > box2.getMax().x || box1.getMin().y > box2.getMax().y) {
+    // Calculate next positions after applying velocity
+    Vec2 nextPos1Min = box1.getMin() + vel1 * deltaTime;
+    Vec2 nextPos1Max = box1.getMax() + vel1 * deltaTime;
+    Vec2 nextPos2Min = box2.getMin() + vel2 * deltaTime;
+    Vec2 nextPos2Max = box2.getMax() + vel2 * deltaTime;
+
+    // Static collision check based on the next positions
+    if (nextPos1Max.x < nextPos2Min.x || nextPos1Max.y < nextPos2Min.y ||
+        nextPos1Min.x > nextPos2Max.x || nextPos1Min.y > nextPos2Max.y) {
 
         // No static collision, proceed with dynamic collision test
-
-        // Calculate relative velocity
         Vec2 relVel = vel1 - vel2;
-
-        // Initialize time variables
         float tFirst = 0.0f;
         float tLast = deltaTime;
 
         // Check collision along x-axis
         if (relVel.x != 0) {
             if (relVel.x < 0) {
-                if (box1.getMin().x > box2.getMax().x) 
-                    return false;
-                if (box1.getMax().x < box2.getMin().x) 
-                    tFirst = (box1.getMax().x - box2.getMin().x) / relVel.x;
-                if (box1.getMin().x < box2.getMax().x) 
-                    tLast = (box1.getMin().x - box2.getMax().x) / relVel.x;
+                if (nextPos1Min.x > nextPos2Max.x) return false;
+                tFirst = std::max(tFirst, (nextPos1Max.x - nextPos2Min.x) / relVel.x);
+                tLast = std::min(tLast, (nextPos1Min.x - nextPos2Max.x) / relVel.x);
             }
             else {
-                if (box1.getMin().x > box2.getMax().x) 
-                    tFirst = (box1.getMin().x - box2.getMax().x) / relVel.x;
-                if (box1.getMax().x > box2.getMin().x) 
-                    tLast = (box1.getMax().x - box2.getMin().x) / relVel.x;
-                if (box1.getMax().x < box2.getMin().x) 
-                    return false;
+                if (nextPos1Max.x < nextPos2Min.x) return false;
+                tFirst = std::max(tFirst, (nextPos1Min.x - nextPos2Max.x) / relVel.x);
+                tLast = std::min(tLast, (nextPos1Max.x - nextPos2Min.x) / relVel.x);
             }
         }
-        else if (box1.getMax().x < box2.getMin().x || box1.getMin().x > box2.getMax().x) {
+        else if (nextPos1Max.x < nextPos2Min.x || nextPos1Min.x > nextPos2Max.x) {
             return false;  // No collision along x-axis if velocities are parallel and outside bounds
         }
 
         // Check collision along y-axis
         if (relVel.y != 0) {
             if (relVel.y < 0) {
-                if (box1.getMin().y > box2.getMax().y) 
-                    return false;
-                if (box1.getMax().y < box2.getMin().y) 
-                    tFirst = (box1.getMax().y - box2.getMin().y) / relVel.y;
-                if (box1.getMin().y < box2.getMax().y) 
-                    tLast = (box1.getMin().y - box2.getMax().y) / relVel.y;
+                if (nextPos1Min.y > nextPos2Max.y) return false;
+                tFirst = std::max(tFirst, (nextPos1Max.y - nextPos2Min.y) / relVel.y);
+                tLast = std::min(tLast, (nextPos1Min.y - nextPos2Max.y) / relVel.y);
             }
             else {
-                if (box1.getMin().y > box2.getMax().y) 
-                    tFirst = (box1.getMin().y - box2.getMax().y) / relVel.y;
-                if (box1.getMax().y > box2.getMin().y) 
-                    tLast = (box1.getMax().y - box2.getMin().y) / relVel.y;
-                if (box1.getMax().y < box2.getMin().y) 
-                    return false;
+                if (nextPos1Max.y < nextPos2Min.y) return false;
+                tFirst = std::max(tFirst, (nextPos1Min.y - nextPos2Max.y) / relVel.y);
+                tLast = std::min(tLast, (nextPos1Max.y - nextPos2Min.y) / relVel.y);
             }
         }
-        else if (box1.getMax().y < box2.getMin().y || box1.getMin().y > box2.getMax().y) {
+        else if (nextPos1Max.y < nextPos2Min.y || nextPos1Min.y > nextPos2Max.y) {
             return false;  // No collision along y-axis if velocities are parallel and outside bounds
         }
 
-        // If first collision time is greater than the last, no collision
-        if (tFirst > tLast) 
-            return false;
+        // If the first time of collision is greater than the last, no collision
+        if (tFirst > tLast) return false;
 
         return true;  // Collision detected during dynamic movement
     }
 
-    return true;  // Collision detected for static case
+    return true;  // Collision detected for static case (if it happens now)
 }
 
 // Circle - Circle
 bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float deltaTime, Vec2 vel1, Vec2 vel2) {
+    //// Calculate Next Position
+    //Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
+    //Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
+
+    //// Get the distance between the two circles
+    //Vec2 centerDiff = nextPos1 - nextPos2;
+    //float combineRadii = circle.getRadius() + circle2.getRadius();
+
+    //if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+    //    return true;  // Collision detected
+    //}
+
+
     // Calculate relative velocity
 	Vec2 relVel = vel1 - vel2;
 
