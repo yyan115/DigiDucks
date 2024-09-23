@@ -30,8 +30,13 @@ void CircleColliderSystem::Update() {
 		// Check collision with box collider
 		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
+			if(entityId == entity2Id) continue;
 			BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
+			TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
 			RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+			
+			// Ensure the entity has both BoundingBox and RigidbodyComponent
+			if(!boxTrans || !boxRb) continue;
 
 			nextPos = circle->getCenter() + circleRb->velocity * deltaTime;
 			// Check collision
@@ -43,10 +48,43 @@ void CircleColliderSystem::Update() {
 				else { // If the box is not static
 					// Give half of the velocity to the box
 					boxRb->velocity = circleRb->velocity / 2;
+					// So that the obstacle does not stick to the player
+					boxTrans->position += boxRb->velocity * deltaTime;
+					
 					// Give half of the velocity to the circle
 					circleRb->velocity = circleRb->velocity / 2;
 				}
 			}
+		}
+
+		// Check collision with circle collider
+		for (const auto& [entity2Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+		{
+			if(entityId == entity2Id) continue;
+			BoundingCircle* circle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2Id);
+			TransformComponent* circle2Trans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
+			RigidbodyComponent* circle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+
+			// Ensure the entity has both BoundingCircle and RigidbodyComponent
+			if(!circle2Trans || !circle2Rb) continue;
+
+			// Check collision
+			if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity, circle2Rb->velocity)) {
+				// If there is a collision
+				if (circle2Rb->isStatic) {	// If the circle is static
+					circleRb->velocity = Vec2(0.0f, 0.0f);
+				}
+				else { // If the circle is not static
+					// Give half of the velocity to the circle
+					circle2Rb->velocity = circleRb->velocity / 2;
+					// So that the obstacle does not stick to the player
+					circle2Trans->position += circle2Rb->velocity * deltaTime;
+
+					// Give half of the velocity to the circle
+					circleRb->velocity = circleRb->velocity /2;
+				}
+			}
+
 		}
 
 		// Update Collider's position based on velocity

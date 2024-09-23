@@ -217,7 +217,7 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
     else {  // Check dynamic Collision
 
         float a = relVel.lengthSquared(); // Coefficient of t^2
-        float b = -2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
+        float b = 2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
         float c = centerDiff.lengthSquared() - (combineRadii * combineRadii); // Constant term
 
         // Quadratic formula : b^2 - 4ac

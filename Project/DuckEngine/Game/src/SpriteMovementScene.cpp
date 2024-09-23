@@ -47,7 +47,7 @@ void SpriteMovementScene::Load()
 	playerPrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
 	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
-	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2(1.0f, 2.0f)));
+	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2{ 1.f, 1.5f }));
 	obstaclePrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
 	// load prefabs
@@ -67,6 +67,7 @@ void SpriteMovementScene::Load()
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
 	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->EntityID);
+	obstacleRb->isStatic = false;
 
 	
 }
@@ -106,6 +107,8 @@ void SpriteMovementScene::Update()
 	}
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
+
+	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius()*2);
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());
 	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 
