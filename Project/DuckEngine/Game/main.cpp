@@ -16,7 +16,7 @@ int main(void)
     engine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
     engine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
 
-    engine.DUCKENGINE_SceneManager.SetActiveScene("SpriteMovementScene");
+    engine.DUCKENGINE_SceneManager.SetActiveScene("MaxLoadScene");
 
     // load all assets before game loop starts
     AssetManager::LoadAll();

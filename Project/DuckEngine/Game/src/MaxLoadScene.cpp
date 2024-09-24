@@ -18,7 +18,7 @@ std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotati
 std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
 
 // Map to store entity velocities (entityID -> (velocityX, velocityY))
-std::map<int, std::pair<float, float>> entityVelocities;
+//std::map<int, std::pair<float, float>> entityVelocities;
 
 
 void MaxLoadScene::Load()
@@ -33,6 +33,13 @@ void MaxLoadScene::Load()
     //    1.0f,            // Aspect ratio (if the window is square, otherwise adjust)
     //    0                // Layer (default)
     //);
+
+    DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/Crate.png");
+
+    std::shared_ptr<Prefab> crate = std::make_shared<Prefab>("Crate", "../Resources/Crate.png", Vec2(1.0f, 1.0f));
+
+    PrefabManager::LoadPrefab("Crate", crate);
+
 
     DuckEngine::SetCameraHeight(1000.f);
 
@@ -67,7 +74,8 @@ void MaxLoadScene::Unload()
     Scene::Unload();
 }
 
-void MaxLoadScene::SpawnSquare() {
+void MaxLoadScene::SpawnSquare() 
+{
     // Generate random position, scale, rotation, and velocity
     Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
     float scaleX = randomScale(gen);
@@ -76,23 +84,21 @@ void MaxLoadScene::SpawnSquare() {
     float velocityX = randomVelocity(gen);
     float velocityY = randomVelocity(gen);
 
+
     // Create a new square entity
-    Entity& square = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+    Entity* square = PrefabManager::InstantiatePrefab("Crate", Vec2(1.0f, 1.0f));
 
     // Add transform component with randomized values
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID);
 
-    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square.EntityID);
+    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->EntityID);
 
     transform->position = pos;
     transform->angle = rotation;
     transform->scale = { scaleX, scaleY };
 
     // Store the velocity in the map
-    entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
 
     // Add sprite renderer component
-    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, true, 0, true, Color(0, 255.f, 255.f, 255.f));
     //sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
 
 
@@ -118,14 +124,17 @@ void MaxLoadScene::CheckAndSpawnSquare(float spawnInterval) {
     }
 }
 
-void MaxLoadScene::UpdateSquares(float deltaTime) {
-    for (const auto& [entityId, velocity] : entityVelocities) {
+void MaxLoadScene::UpdateSquares(float deltaTime) 
+{
+    for (const auto& [entityId, transformComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TransformComponent>()) {
         // Get the TransformComponent for the entity
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
         if (transform) {
             // Update position based on velocity and deltaTime
-            transform->position.x += velocity.first * deltaTime;   // velocity.first is velocityX
-            transform->position.y += velocity.second * deltaTime;  // velocity.second is velocityY
+            float velocityX = randomVelocity(gen);
+            float velocityY = randomVelocity(gen);
+            transform->position.x += velocityX * deltaTime;   // velocity.first is velocityX
+            transform->position.y += velocityY * deltaTime;  // velocity.second is velocityY
 
             // Debug print to check the updated position
             //std::cout << "Entity " << entityId << " moved to ("
