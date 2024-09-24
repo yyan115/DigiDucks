@@ -14,7 +14,11 @@ Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 positio
 
     transform->position = position;
     transform->scale = scale;
-    spriteRenderer->texture = *AssetManager::LoadTexture(texturePath);
+
+    if (!texturePath.empty())
+    {
+        spriteRenderer->texture = *AssetManager::LoadTexture(texturePath);
+    }
 
     return entity;
 

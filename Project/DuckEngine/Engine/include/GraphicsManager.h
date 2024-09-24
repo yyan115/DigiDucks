@@ -30,7 +30,7 @@ struct DrawOptions {
 
     // OPTIONAL
     bool useTexture = false;
-    GLuint* texture;
+    GLuint* texture = 0;
 
     // OPTIONAL
     bool relativeToCamera = false;
