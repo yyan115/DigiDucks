@@ -114,12 +114,22 @@ bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
         return true;  // Circle is inside the box
     }
 
+
     // Box corners
     Vec2 topLeft(box.getMin().x, box.getMax().y);
     Vec2 topRight = box.getMax();
     Vec2 btmLeft = box.getMin();
     Vec2 btmRight(box.getMax().x, box.getMin().y);
 
+    // Static collision check
+    if (checkCollisionCL(circle, circle.getCenter(), btmLeft, btmRight) ||
+        checkCollisionCL(circle, circle.getCenter(), btmRight, topRight) ||
+        checkCollisionCL(circle, circle.getCenter(), topRight, topLeft) ||
+        checkCollisionCL(circle, circle.getCenter(), topLeft, btmLeft)) {
+        return true;
+    }
+
+    // Dynamic collision check
     if (checkCollisionCL(circle, nextPos, btmLeft, btmRight) ||
         checkCollisionCL(circle, nextPos, btmRight, topRight) ||
         checkCollisionCL(circle, nextPos, topRight, topLeft) ||
@@ -245,7 +255,7 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 }
 
 // Cirlce - Line
-bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd) {
+bool checkCollisionCL(BoundingCircle& circle,const Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd) {
 
     // Check closest Point to line from Next Position
     Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);

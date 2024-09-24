@@ -253,4 +253,4 @@ DUCKENGINE_API bool checkCollisionCC(BoundingCircle& circle1, BoundingCircle& ci
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd);
+DUCKENGINE_API bool checkCollisionCL(BoundingCircle& circle,const Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd);
