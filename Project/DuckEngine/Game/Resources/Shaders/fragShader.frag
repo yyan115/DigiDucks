@@ -14,7 +14,7 @@ uniform int uBlendColors;      // Whether to blend colors (1 = true, 0 = false)
 uniform vec4 uBlendColor;      // The color to blend with the texture or vertex color
 
 void main() {
-    vec4 baseColor;
+    vec4 baseColor = vec4(1.0, 1.0, 1.0, 1.0);
 
     // If using texture, sample the texture
     if (uUseTexture == 1) {
