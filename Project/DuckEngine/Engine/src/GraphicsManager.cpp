@@ -658,8 +658,8 @@ void GraphicsManager::SetupCircleVAO(int segments) {
 
     for (int i = 0; i < circleSegments; ++i) {
         float angle = i * angleStep;
-        float x = 0.5f * cos(angle); // 0.5f to match the 1x1 scale
-        float y = 0.5f * sin(angle);
+        float x = cos(angle);
+        float y = sin(angle);
         vertices.push_back(x); // x position
         vertices.push_back(y); // y position
         vertices.push_back(0.0f); // z position (for 2D)
