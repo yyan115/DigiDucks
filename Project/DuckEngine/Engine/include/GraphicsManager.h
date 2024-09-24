@@ -34,9 +34,6 @@ struct DrawOptions {
 
     // OPTIONAL
     bool relativeToCamera = false;
-    // GRAB FROM CAMERA MANAGER
-    //Vector2D cameraPosition = { 0.f, 0.f };
-    //Vector2D cameraWidthHeight = { 0.f, 0.f };
 };
 
 struct DebugDrawCommand {

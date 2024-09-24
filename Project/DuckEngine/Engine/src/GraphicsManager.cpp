@@ -86,7 +86,6 @@ void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
 }
 
 void GraphicsManager::Render() {
-
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -99,6 +98,7 @@ void GraphicsManager::Render() {
     shaders["DefaultShader"].Use();
     glBindVertexArray(VAO);
 
+    // Get the camera properties
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
     int height = CameraManager::GetHeight();
@@ -106,69 +106,194 @@ void GraphicsManager::Render() {
     glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
 
+    // Group drawQueue by texture
+    std::unordered_map<GLuint*, std::vector<DrawOptions>> groupedDrawQueue;
+
+    // Group all draw calls by texture
     for (const auto& drawItem : drawQueue) {
-        glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+        groupedDrawQueue[drawItem.texture].push_back(drawItem);
+    }
 
-        glm::mat3x3 finalMatrix;
+    // Now render each group of objects that share the same texture
+    for (const auto& group : groupedDrawQueue) {
+        // Check if the group has a texture and handle accordingly
+        bool hasTexture = group.first != nullptr;
 
-        if (drawItem.relativeToCamera) {
-            finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
-        }
-        else {
-            finalMatrix = modelToWorld;
-        }
-
-        // Send matrix to vert shader
-        GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
-        if (uniformModelToNDCLocation == -1) {
-            std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
-            std::exit(EXIT_FAILURE);
-        }
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-
-        if (drawItem.useTexture) 
-        {
+        // Bind the texture once for this group if available
+        if (hasTexture) {
             glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
+            glBindTexture(GL_TEXTURE_2D, *group.first);
 
             // Set the texture uniform
             GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
             if (uTex2dLocation != -1) {
-                glUniform1i(uTex2dLocation, 0);
+                glUniform1i(uTex2dLocation, 0);  // Bind texture to texture unit 0
             }
 
             GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
-
-            glUniform1i(uUseTextureLocation, 1);
+            glUniform1i(uUseTextureLocation, 1);  // Use texture
+        }
+        else {
+            // No texture, set the uniform to indicate no texture usage
+            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+            glUniform1i(uUseTextureLocation, 0);  // No texture
         }
 
-        if (drawItem.useColor) {
-            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+        // Collect instance data
+        std::vector<glm::mat3x3> modelMatrices;
+        std::vector<glm::vec4> colors;
 
-            glUniform1i(uBlendColorsLocation, 1);
-            glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
+        for (const auto& drawItem : group.second) {
+            glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+            glm::mat3x3 finalMatrix;
+
+            if (drawItem.relativeToCamera) {
+                finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+            }
+            else {
+                finalMatrix = modelToWorld;
+            }
+
+            modelMatrices.push_back(finalMatrix);  // Store the matrix for instancing
+
+            // Handle color setup, default to pink if no color is provided
+            glm::vec4 colorVec;
+            if (drawItem.useColor) {
+                colorVec = glm::vec4(drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
+            }
+            else {
+                colorVec = glm::vec4(1.0f, 0.0f, 1.0f, 1.0f);  // Default pink color
+            }
+            colors.push_back(colorVec);
         }
-        //// Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
-        //else if (!drawItem.useColor && drawItem.useTexture) {
-        //    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-        //    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
 
-        //    glUniform1i(uBlendColorsLocation, 1);
-        //    glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
-        //}
+        // Create and bind instance data buffers for matrices and colors
+        GLuint instanceMatrixBuffer, instanceColorBuffer;
+        glGenBuffers(1, &instanceMatrixBuffer);
+        glGenBuffers(1, &instanceColorBuffer);
 
-        // Render the sprite
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+        // Upload model matrices to the instance buffer
+        glBindBuffer(GL_ARRAY_BUFFER, instanceMatrixBuffer);
+        glBufferData(GL_ARRAY_BUFFER, modelMatrices.size() * sizeof(glm::mat3x3), modelMatrices.data(), GL_DYNAMIC_DRAW);
+
+        // Setup the instanced model matrix attribute (using locations 3, 4, and 5 for matrix columns)
+        for (int i = 0; i < 3; i++) {
+            glEnableVertexAttribArray(3 + i);  // Locations 3, 4, 5
+            glVertexAttribPointer(3 + i, 3, GL_FLOAT, GL_FALSE, sizeof(glm::mat3x3), (void*)(sizeof(glm::vec3) * i));
+            glVertexAttribDivisor(3 + i, 1); // Update every instance
+        }
+
+        // Upload colors to the instance buffer
+        glBindBuffer(GL_ARRAY_BUFFER, instanceColorBuffer);
+        glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(glm::vec4), colors.data(), GL_DYNAMIC_DRAW);
+
+        // Setup the instanced color attribute (location 6)
+        glEnableVertexAttribArray(6);
+        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), (void*)0);
+        glVertexAttribDivisor(6, 1);  // Update every instance
+
+        // Render using instancing (one call for all instances with the same texture)
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr, group.second.size());
+
+        // Clean up
+        glDeleteBuffers(1, &instanceMatrixBuffer);
+        glDeleteBuffers(1, &instanceColorBuffer);
     }
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     shaders["DefaultShader"].UnUse();
 
-    drawQueue.clear();
+    drawQueue.clear();  // Clear the queue after rendering
 }
+
+
+//void GraphicsManager::Render() {
+//
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//
+//    // Set the clear color (e.g., black in this case)
+//    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+//
+//    // Clear the color buffer (and depth buffer, if used)
+//    glClear(GL_COLOR_BUFFER_BIT);
+//
+//    shaders["DefaultShader"].Use();
+//    glBindVertexArray(VAO);
+//
+//    Vector2D cameraPosition = CameraManager::GetPosition();
+//    float ar = CameraManager::GetAR();
+//    int height = CameraManager::GetHeight();
+//
+//    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
+//    glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+//
+//    for (const auto& drawItem : drawQueue) {
+//        glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+//
+//        glm::mat3x3 finalMatrix;
+//
+//        if (drawItem.relativeToCamera) {
+//            finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+//        }
+//        else {
+//            finalMatrix = modelToWorld;
+//        }
+//
+//        // Send matrix to vert shader
+//        GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+//        if (uniformModelToNDCLocation == -1) {
+//            std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
+//            std::exit(EXIT_FAILURE);
+//        }
+//
+//        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+//
+//        if (drawItem.useTexture) 
+//        {
+//            glActiveTexture(GL_TEXTURE0);
+//            glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
+//
+//            // Set the texture uniform
+//            GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+//            if (uTex2dLocation != -1) {
+//                glUniform1i(uTex2dLocation, 0);
+//            }
+//
+//            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+//
+//            glUniform1i(uUseTextureLocation, 1);
+//        }
+//
+//        if (drawItem.useColor) {
+//            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+//            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+//
+//            glUniform1i(uBlendColorsLocation, 1);
+//            glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
+//
+//            std::cout << "sent\n";
+//        }
+//        //// Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
+//        //else if (!drawItem.useColor && drawItem.useTexture) {
+//        //    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+//        //    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+//
+//        //    glUniform1i(uBlendColorsLocation, 1);
+//        //    glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
+//        //}
+//
+//        // Render the sprite
+//        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+//    }
+//
+//    glBindVertexArray(0);
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//    shaders["DefaultShader"].UnUse();
+//
+//    drawQueue.clear();
+//}
 
 void GraphicsManager::RenderDebug()
 {
@@ -763,8 +888,8 @@ namespace {
         };
 
         std::vector<glm::vec3> clr_vtx{
-            glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f),
-            glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f)
+            glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f),
+            glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f)
         };
 
         std::vector<glm::vec2> tex_coords{

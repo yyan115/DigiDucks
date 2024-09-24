@@ -36,7 +36,7 @@ void MaxLoadScene::Load()
 
     DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/Crate.png");
 
-    std::shared_ptr<Prefab> crate = std::make_shared<Prefab>("Crate", "../Resources/Crate.png", Vec2(1.0f, 1.0f));
+    std::shared_ptr<Prefab> crate = std::make_shared<Prefab>("Crate", "", Vec2(1.0f, 1.0f));
     PrefabManager::LoadPrefab("Crate", crate);
 
 
