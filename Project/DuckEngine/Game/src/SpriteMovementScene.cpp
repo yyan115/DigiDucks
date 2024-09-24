@@ -86,22 +86,22 @@ void SpriteMovementScene::Update()
 	playerRb->velocity = Vec2(0.f, 0.f);
 
 	// Handle movement based on key input by setting velocity
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_W))
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		playerRb->velocity.y = moveSpeed; // Move up
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_S))
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		playerRb->velocity.y = -moveSpeed; // Move down
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_A))
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
 		playerRb->velocity.x = -moveSpeed; // Move left
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_D))
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		playerRb->velocity.x = moveSpeed; // Move right
 	}

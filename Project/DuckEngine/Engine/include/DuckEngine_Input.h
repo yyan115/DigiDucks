@@ -12,12 +12,17 @@
 class DUCKENGINE_API DuckEngine_Input
 {
 public:
+    static inline bool IsKeyDown(int key) { return InputManager::IsKeyDown(key); }
     static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }
     static inline bool IsKeyReleased(int key) { return InputManager::IsKeyReleased(key); }
+
+    static inline bool IsMouseButtonDown(int button) { return InputManager::IsMouseButtonDown(button); }
     static inline bool IsMouseButtonPressed(int button) { return InputManager::IsMouseButtonPressed(button); }
     static inline bool IsMouseButtonReleased(int button) { return InputManager::IsMouseButtonReleased(button); }
+
     static inline double GetMouseX() { return InputManager::GetMouseX(); }
     static inline double GetMouseY() { return InputManager::GetMouseY(); }
+
     static inline double GetScrollOffsetX() { return InputManager::GetScrollOffsetX(); }
     static inline double GetScrollOffsetY() { return InputManager::GetScrollOffsetY(); }
 

@@ -23,8 +23,12 @@ public:
     static void Exit();
 
     // Key input query functions
-    static bool IsKeyPressed(int key);
-    static bool IsKeyReleased(int key);
+    static bool IsKeyDown(int key);        // Returns true while the key is held down
+    static bool IsKeyPressed(int key);     // Returns true only in the frame the key was pressed
+    static bool IsKeyReleased(int key);    // Returns true only in the frame the key was released
+
+    // Similarly for mouse buttons
+    static bool IsMouseButtonDown(int button);
     static bool IsMouseButtonPressed(int button);
     static bool IsMouseButtonReleased(int button);
 
@@ -44,6 +48,9 @@ private:
     // Track input states
     static std::unordered_map<int, bool> keyStates;  // Key states: true if pressed, false if released
     static std::unordered_map<int, bool> mouseButtonStates;
+
+    static std::unordered_map<int, bool> previousKeyStates;
+    static std::unordered_map<int, bool> previousMouseButtonStates;
 
     // Mouse position and scroll offsets
     static double mouseX;
