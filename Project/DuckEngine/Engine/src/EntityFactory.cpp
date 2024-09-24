@@ -19,6 +19,11 @@ Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 positio
     {
         spriteRenderer->texture = *AssetManager::LoadTexture(texturePath);
     }
+    else
+    {
+        spriteRenderer->useColor = true;
+        spriteRenderer->color = { 255.0f, 0.0f, 255.0f, 255.0f };
+    }
 
     return entity;
 
