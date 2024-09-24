@@ -113,6 +113,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AnimationComponent.h" />
+    <ClInclude Include="..\include\AnimationSystem.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\CameraComponent.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />

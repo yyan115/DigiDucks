@@ -201,6 +201,9 @@
     <ClInclude Include="..\include\PrefabManager.h">
       <Filter>include\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\AnimationSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -292,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="..\src\PrefabManager.cpp">
       <Filter>src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AnimationSystem.cpp">
+      <Filter>src\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
