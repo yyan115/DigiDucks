@@ -150,14 +150,14 @@ void GraphicsManager::Render() {
             glUniform1i(uBlendColorsLocation, 1);
             glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
         }
-        //// Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
-        //else if (!drawItem.useColor && drawItem.useTexture) {
-        //    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-        //    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+        // Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
+        else {
+            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
 
-        //    glUniform1i(uBlendColorsLocation, 1);
-        //    glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
-        //}
+            glUniform1i(uBlendColorsLocation, 1);
+            glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
+        }
 
         // Render the sprite
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);

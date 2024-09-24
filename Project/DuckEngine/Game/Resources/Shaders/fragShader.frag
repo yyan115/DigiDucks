@@ -19,10 +19,10 @@ void main() {
     // If using texture, sample the texture
     if (uUseTexture == 1) {
         baseColor = texture(uTex2d, fTexCoord);
-    } else {
+    } //else {
         // Otherwise, use the vertex color
-        baseColor = vec4(fColor, 1.0);
-    }
+    //    baseColor = vec4(fColor, 1.0);
+    //}
 
     // Apply blending if enabled
     if (uBlendColors == 1) {
