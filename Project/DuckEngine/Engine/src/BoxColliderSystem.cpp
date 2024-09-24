@@ -32,20 +32,28 @@ void BoxColliderSystem::Update() {
 			TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
 			RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
 
-			if(!boxTrans2 || !boxRb2) continue;
-			if(checkCollisionBB(*box,*box2, deltaTime,boxRb->velocity,boxRb2->velocity)) {
-				// If there is a collision
-				if (boxRb->isStatic) {	// If the box is static
-					boxRb2->velocity = Vec2(0.0f, 0.0f);
+			if (!boxTrans2 || !boxRb) continue;
+
+			if (!boxRb2) {	// One of the box is moving
+				if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity)) {
+					boxRb->velocity = Vec2(0.0f, 0.0f);
 				}
-				else { // If the box is not static
-					// Give half of the velocity to the box
-					boxRb2->velocity = boxRb->velocity / 2;
-					// So that the obstacle does not stick to the player
-					boxTrans2->position += boxRb2->velocity * deltaTime;
-					
-					// Give half of the velocity to the circle
-					boxRb->velocity = boxRb->velocity / 2;
+			}
+			else{
+				if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity, boxRb2->velocity)) {
+					// If there is a collision
+					if (boxRb2->isStatic) {	// If the box is static
+						boxRb->velocity = Vec2(0.0f, 0.0f);
+					}
+					else { // If the box is not static
+						// Give half of the velocity to the box
+						boxRb2->velocity = boxRb->velocity / 2;
+						// So that the obstacle does not stick to the player
+						boxTrans2->position += boxRb2->velocity * deltaTime;
+
+						// Give half of the velocity to the circle
+						boxRb->velocity = boxRb->velocity / 2;
+					}
 				}
 			}
 		}

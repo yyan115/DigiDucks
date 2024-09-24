@@ -250,7 +250,7 @@ bool checkCollisionCL(BoundingCircle& circle, Vec2& nextPos, Vec2 lineStart, Vec
     // Check closest Point to line from Next Position
     Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);
 
-    if ((closestPt - nextPos).length() <= circle.getRadius()) {
+    if ((closestPt - nextPos).lengthSquared() <= circle.getRadius() * circle.getRadius()) {
         return true;
     }
 

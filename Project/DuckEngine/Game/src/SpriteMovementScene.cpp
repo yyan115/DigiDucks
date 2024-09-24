@@ -106,7 +106,7 @@ void SpriteMovementScene::Update()
 		playerRb->velocity.x = moveSpeed; // Move right
 	}
 
-	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius()*2);
+	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
 	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius()*2);

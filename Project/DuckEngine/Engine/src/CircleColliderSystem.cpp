@@ -24,9 +24,13 @@ void CircleColliderSystem::Update() {
 		TransformComponent* circleTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		RigidbodyComponent* circleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
+		if(!circleRb) continue;	// No rb = not moving
+
 		circle->setCenter(circleTrans->position);
 		Vec2 nextPos;
 
+
+		nextPos = circle->getCenter() + circleRb->velocity * deltaTime;
 		// Check collision with box collider
 		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
@@ -36,13 +40,12 @@ void CircleColliderSystem::Update() {
 			RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
 			
 			// Ensure the entity has both BoundingBox and RigidbodyComponent
-			if(!boxTrans || !boxRb) continue;
+			if(!boxTrans) continue;
 
-			nextPos = circle->getCenter() + circleRb->velocity * deltaTime;
 			// Check collision
 			if (checkCollisionCB(*circle, nextPos, *box)) {
 				// If there is a collision
-				if (boxRb->isStatic) {	// If the box is static
+				if (!boxRb || boxRb->isStatic) {	// If the box is static
 					circleRb->velocity = Vec2(0.0f, 0.0f);
 				}
 				else { // If the box is not static
@@ -66,25 +69,32 @@ void CircleColliderSystem::Update() {
 			RigidbodyComponent* circle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
 
 			// Ensure the entity has both BoundingCircle and RigidbodyComponent
-			if(!circle2Trans || !circle2Rb) continue;
+			if(!circle2Trans) continue;
 
-			// Check collision
-			if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity, circle2Rb->velocity)) {
-				// If there is a collision
-				if (circle2Rb->isStatic) {	// If the circle is static
+			Vec2 c2_velo;
+			if (!circle2Rb) { // Consider static
+				if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity)) {
 					circleRb->velocity = Vec2(0.0f, 0.0f);
 				}
-				else { // If the circle is not static
-					// Give half of the velocity to the circle
-					circle2Rb->velocity = circleRb->velocity / 2;
-					// So that the obstacle does not stick to the player
-					circle2Trans->position += circle2Rb->velocity * deltaTime;
+			}
+			else {
+				// Check collision
+				if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity, circle2Rb->velocity)) {
+					// If there is a collision
+					if (!circle2Rb || circle2Rb->isStatic) {	// If the circle is static
+						circleRb->velocity = Vec2(0.0f, 0.0f);
+					}
+					else { // If the circle is not static
+						// Give half of the velocity to the circle
+						circle2Rb->velocity = circleRb->velocity / 2;
+						// So that the obstacle does not stick to the player
+						circle2Trans->position += circle2Rb->velocity * deltaTime;
 
-					// Give half of the velocity to the circle
-					circleRb->velocity = circleRb->velocity /2;
+						// Give half of the velocity to the circle
+						circleRb->velocity = circleRb->velocity / 2;
+					}
 				}
 			}
-
 		}
 
 		// Update Collider's position based on velocity
