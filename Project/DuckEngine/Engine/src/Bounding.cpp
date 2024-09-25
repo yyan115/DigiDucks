@@ -106,7 +106,7 @@ namespace {
 
 
 // Circle - Box
-bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
+bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel, Vec2 box_vel) {
 
     // Check if the circle is completely within the box
     if (circle.getCenter().x >= box.getMin().x && circle.getCenter().x <= box.getMax().x &&
@@ -114,20 +114,14 @@ bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
         return true;  // Circle is inside the box
     }
 
+    // Calculate next position of box
+    Vec2 topRight = box.getMax() + box_vel * deltaTime;
+    Vec2 btmLeft = box.getMin() + box_vel * deltaTime;
+    Vec2 topLeft(btmLeft.x, topRight.y);
+    Vec2 btmRight(topRight.x, btmLeft.y);
 
-    // Box corners
-    Vec2 topLeft(box.getMin().x, box.getMax().y);
-    Vec2 topRight = box.getMax();
-    Vec2 btmLeft = box.getMin();
-    Vec2 btmRight(box.getMax().x, box.getMin().y);
-
-    // Static collision check
-    if (checkCollisionCL(circle, circle.getCenter(), btmLeft, btmRight) ||
-        checkCollisionCL(circle, circle.getCenter(), btmRight, topRight) ||
-        checkCollisionCL(circle, circle.getCenter(), topRight, topLeft) ||
-        checkCollisionCL(circle, circle.getCenter(), topLeft, btmLeft)) {
-        return true;
-    }
+    // Calculate next position of circle
+    Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
 
     // Dynamic collision check
     if (checkCollisionCL(circle, nextPos, btmLeft, btmRight) ||
@@ -140,6 +134,35 @@ bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos ,BoundingBox& box) {
     return false;  // No collision
 }
 
+// Box - Circle
+bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel, Vec2 cir_vel) {
+    // Check if the circle is completely within the box
+    if (circle.getCenter().x >= box.getMin().x && circle.getCenter().x <= box.getMax().x &&
+        circle.getCenter().y >= box.getMin().y && circle.getCenter().y <= box.getMax().y) {
+        return true;  // Circle is inside the box
+    }
+
+    // Calculate next position of box
+    Vec2 topRight = box.getMax() + box_vel * deltaTime;
+    Vec2 btmLeft = box.getMin() + box_vel * deltaTime;
+    Vec2 topLeft(btmLeft.x, topRight.y);
+    Vec2 btmRight(topRight.x, btmLeft.y);
+
+    // Calculate next position of circle
+    Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
+
+    // Dynamic collision check
+    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight) ||
+		checkCollisionCL(circle, nextPos, btmRight, topRight) ||
+		checkCollisionCL(circle, nextPos, topRight, topLeft) ||
+		checkCollisionCL(circle, nextPos, topLeft, btmLeft)) {
+		return true;
+	}
+
+    return false;  // No collision
+}
+
+
 // Box - Box
 bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
     // Calculate next positions after applying velocity
@@ -147,7 +170,7 @@ bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec
     Vec2 nextPos1Max = box1.getMax() + vel1 * deltaTime;
     Vec2 nextPos2Min = box2.getMin() + vel2 * deltaTime;
     Vec2 nextPos2Max = box2.getMax() + vel2 * deltaTime;
-
+    
     // Static collision check based on the next positions
     if (nextPos1Max.x < nextPos2Min.x || nextPos1Max.y < nextPos2Min.y ||
         nextPos1Min.x > nextPos2Max.x || nextPos1Min.y > nextPos2Max.y) {

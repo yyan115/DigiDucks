@@ -208,7 +208,24 @@ public:
 * 
 * @return True if there is a collision, false otherwise
 * ***************************************************************/
-DUCKENGINE_API bool checkCollisionCB(BoundingCircle& circle, Vec2& nextPos, BoundingBox& box);
+DUCKENGINE_API bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel = Vec2{ 0,0 }, Vec2 box_vel = Vec2{ 0,0 });
+
+/****************************************************************
+* @brief Check collision between a box and a circle
+* 
+* @param box - The box collider
+* 
+* @param circle - The circle collider
+* 
+* @param deltaTime - The time between frames
+* 
+* @param box_vel - The velocity of the box
+* 
+* @param cir_vel - The velocity of the circle
+* 
+* @return True if there is a collision, false otherwise
+* ***************************************************************/
+DUCKENGINE_API bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel = Vec2{ 0,0 }, Vec2 cir_vel = Vec2{ 0,0 });
 
 /****************************************************************
 * @brief Check collision between two boxes

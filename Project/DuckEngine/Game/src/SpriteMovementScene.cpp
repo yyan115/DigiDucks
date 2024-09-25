@@ -20,6 +20,12 @@ TransformComponent* obstacleTransform;
 RigidbodyComponent* obstacleRb;
 BoundingBox* box;
 
+// 2nd Obstacle
+Entity* obstacle2;
+TransformComponent* obstacle2Transform;
+RigidbodyComponent* obstacle2Rb;
+BoundingCircle* box2;
+
 void SpriteMovementScene::Load()
 {
 	//camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
@@ -50,10 +56,16 @@ void SpriteMovementScene::Load()
 	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2{ 1.f, 1.5f }));
 	obstaclePrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
+
+	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
+	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
+	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
+
 	// load prefabs
 
 	PrefabManager::LoadPrefab("Player", playerPrefab);
 	PrefabManager::LoadPrefab("Obstacle", obstaclePrefab);
+	PrefabManager::LoadPrefab("Obstacle2", obstacle2Prefab);
 	
 	// instantiate prefabs
 	player = PrefabManager::InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
@@ -67,9 +79,13 @@ void SpriteMovementScene::Load()
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
 	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->EntityID);
-	obstacleRb->isStatic = false;
+	obstacleRb->isStatic = true;
 
-	
+	obstacle2 = PrefabManager::InstantiatePrefab("Obstacle2", { -3.0f, 0.0f });
+	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->EntityID);
+	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->EntityID);
+	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->EntityID);
+	obstacle2Rb->isStatic = false;
 }
 
 void SpriteMovementScene::Start()
@@ -109,8 +125,12 @@ void SpriteMovementScene::Update()
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
-	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius()*2);
+	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
 	DuckEngine::DrawRectangle(box->getMin(), box->getMax());
+
+	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
+	//DuckEngine::DrawRectangle(box2->getMin(), box2->getMax());
+
 	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 
 	DuckEngine::DrawPoint({ -3.f, -3.f }, 10.f);

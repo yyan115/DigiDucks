@@ -29,8 +29,6 @@ void CircleColliderSystem::Update() {
 		circle->setCenter(circleTrans->position);
 		Vec2 nextPos;
 
-
-		nextPos = circle->getCenter() + circleRb->velocity * deltaTime;
 		// Check collision with box collider
 		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
@@ -42,20 +40,64 @@ void CircleColliderSystem::Update() {
 			// Ensure the entity has both BoundingBox and RigidbodyComponent
 			if(!boxTrans) continue;
 
+			nextPos = circleTrans->position + (circleRb->velocity + boxRb->velocity) * deltaTime;
 			// Check collision
-			if (checkCollisionCB(*circle, nextPos, *box)) {
+			if (!boxRb) {
+				if (checkCollisionCB(*circle, *box, deltaTime, circleRb->velocity)) {
+					circleRb->velocity = Vec2(0.0f, 0.0f);
+				}
+			}
+			if (checkCollisionCB(*circle, *box, deltaTime, circleRb->velocity, boxRb->velocity)) {
 				// If there is a collision
 				if (!boxRb || boxRb->isStatic) {	// If the box is static
 					circleRb->velocity = Vec2(0.0f, 0.0f);
 				}
 				else { // If the box is not static
-					// Give half of the velocity to the box
-					boxRb->velocity = circleRb->velocity / 2;
-					// So that the obstacle does not stick to the player
-					boxTrans->position += boxRb->velocity * deltaTime;
-					
-					// Give half of the velocity to the circle
-					circleRb->velocity = circleRb->velocity / 2;
+					if (circleRb->velocity.lengthSquared() < boxRb->velocity.lengthSquared()) {
+						// If box velocity is greater, circle will gain more velocity
+						boxRb->velocity = (boxRb->velocity / 4);
+						circleRb->velocity = (boxRb->velocity);
+					}
+					else {
+						// If circle velocity is greater, box will gain more velocity
+						boxRb->velocity = (circleRb->velocity);
+						circleRb->velocity = (circleRb->velocity / 4);
+					}
+
+					// Check if Box next position is colliding with a static object
+					Vec2 boxNextPos = boxTrans->position + boxRb->velocity * deltaTime;
+					for (const auto& [entity3Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+					{
+						if(entity2Id == entity3Id) continue;
+						BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
+						TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
+						RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
+
+						if (!boxRb2) {	// One of the box is moving
+							if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity)) {
+								boxRb->velocity = Vec2(0.0f, 0.0f);
+								circleRb->velocity = Vec2(0.0f, 0.0f);
+							}
+						}
+						else {
+							if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity, boxRb2->velocity)) {
+								// If there is a collision
+								if (boxRb2->isStatic) {	// If the box is static
+									boxRb->velocity = Vec2(0.0f, 0.0f);
+									circleRb->velocity = Vec2(0.0f, 0.0f);
+								}
+								else { // If the box is not static
+									// Give half of the velocity to the box
+									boxRb2->velocity = (boxRb->velocity / 4) * 3;
+
+									// Give half of the velocity to the circle
+									boxRb->velocity = boxRb->velocity / 4;
+
+									circleRb->velocity = Vec2(0.0f, 0.0f);
+								}
+							}
+						}
+					}					
 				}
 			}
 		}
@@ -85,13 +127,8 @@ void CircleColliderSystem::Update() {
 						circleRb->velocity = Vec2(0.0f, 0.0f);
 					}
 					else { // If the circle is not static
-						// Give half of the velocity to the circle
-						circle2Rb->velocity = circleRb->velocity / 2;
-						// So that the obstacle does not stick to the player
-						circle2Trans->position += circle2Rb->velocity * deltaTime;
-
-						// Give half of the velocity to the circle
-						circleRb->velocity = circleRb->velocity / 2;
+						circle2Rb->velocity = (circleRb->velocity);
+						circleRb->velocity = (circleRb->velocity / 4);
 					}
 				}
 			}

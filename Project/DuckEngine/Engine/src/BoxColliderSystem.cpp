@@ -23,6 +23,8 @@ void BoxColliderSystem::Update() {
 		TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
+		box->setCenter(boxTrans->position);
+
 		// Check collision with box collider
 		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
@@ -32,7 +34,7 @@ void BoxColliderSystem::Update() {
 			TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
 			RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
 
-			if (!boxTrans2 || !boxRb) continue;
+			if (!boxTrans2) continue;
 
 			if (!boxRb2) {	// One of the box is moving
 				if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity)) {
@@ -46,16 +48,41 @@ void BoxColliderSystem::Update() {
 						boxRb->velocity = Vec2(0.0f, 0.0f);
 					}
 					else { // If the box is not static
-						// Give half of the velocity to the box
-						boxRb2->velocity = boxRb->velocity / 2;
-						// So that the obstacle does not stick to the player
-						boxTrans2->position += boxRb2->velocity * deltaTime;
-
-						// Give half of the velocity to the circle
-						boxRb->velocity = boxRb->velocity / 2;
+						boxRb2->velocity = (boxRb->velocity);
+						boxRb->velocity = (boxRb->velocity / 4);
 					}
 				}
 			}
+		}
+
+		// Check collision with circle
+		for (const auto& [entity2Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+		{
+			if(entity2Id == entityId) continue;
+
+			BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2Id);
+			TransformComponent* circleTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
+			RigidbodyComponent* circleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+
+			if(!circleTrans) continue;
+
+			if (!circleRb) {
+				if (checkCollisionBC(*box, *circle, deltaTime, boxRb->velocity)) {
+					boxRb->velocity = Vec2(0.0f, 0.0f);
+				}
+			}
+			else {
+				if (checkCollisionBC(*box, *circle, deltaTime, boxRb->velocity, circleRb->velocity)) {
+					if (circleRb->isStatic) {
+						boxRb->velocity = Vec2(0.0f, 0.0f);
+					}
+					else {
+						boxRb->velocity = (boxRb->velocity / 4);
+						circleRb->velocity = (boxRb->velocity);
+					}
+				}
+			}
+
 		}
 
 		box->setCenter(boxTrans->position);
