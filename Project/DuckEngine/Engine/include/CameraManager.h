@@ -20,7 +20,7 @@ public:
 
 	static inline Vector2D GetPosition() { return position; };
 	static inline float GetAR() { return windowAspectRatio; };
-	static inline float GetHeight() { return cameraHeight; };
+	static inline float GetHeight() { return static_cast<float>(cameraHeight); };
 	//static inline float GetZoom() { return zoom; };
 
 	void Update();

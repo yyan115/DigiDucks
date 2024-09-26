@@ -46,7 +46,6 @@ void UIManager::Initialize() {
     // ImGui initialization
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
     ImGui::StyleColorsDark();
 
     //Initialize platform/renderer bindings
@@ -307,13 +306,15 @@ void UIManager::ShowEntitySpawn() {
 
     static int spawnCount = 0;  // Slider value
     ImGui::SliderInt("Entity Count", &spawnCount, 0, 300);  // Control entity count
-
+    
     // If the slider value has increased, spawn new entities
     if (spawnCount > lastSpawnCount) {
-        UIDebugConsole::debugConsole.AddDebugLog("Spawning entities");
+        
         int entitiesToSpawn = spawnCount - lastSpawnCount;
-        for (int i = 0; i < entitiesToSpawn; i++) {
-            DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/oldman.png", { 5.0f, 0.0f }, { 2.0f, 2.0f });
+        UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn: %d", entitiesToSpawn);
+        for (int i = 0; i < entitiesToSpawn; i++) {         
+            // Create a new square entity
+            PrefabManager::InstantiatePrefab("Obstacle", Vec2(1.0f, 1.0f));
         }
     }
 
@@ -364,57 +365,43 @@ void UIManager::RenderSceneAssets() {
 }
 
 void UIManager::RenderGameObjectAssets() {
-	// Placeholder for GameObject assets
-	ImGui::Text("No GameObjects to display.");
+    if (ImGui::Button("Spawn Square")) {
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
+        std::uniform_real_distribution<float> randomScale(10.0f, 100.0f);      // Scale between 50 and 500
+        std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
+        std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
+
+
+        UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn");
+        Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
+        float scaleX = randomScale(gen);
+        float scaleY = randomScale(gen);
+        float rotation = randomRotation(gen);
+
+        // Create a new square entity
+        Entity* square = PrefabManager::InstantiatePrefab("Obstacle2", Vec2(1.0f, 1.0f));
+
+        // Add transform component with randomized values
+
+        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->EntityID);
+
+        transform->position = pos;
+        transform->angle = rotation;
+        transform->scale = { scaleX, scaleY };
+	}
+    ImGui::SameLine();
+
+    if (ImGui::Button("Remove Square")) {
+        if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
+            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().EntityID);
+        }
+	}
 }
 
 void UIManager::RenderTextureAssets() {
 	// Placeholder for Texture assets
 	ImGui::Text("No Textures to display.");
-}
-
-
-
-
-
-// Random number generator for position, scale, rotation, and velocity
-std::random_device rd;
-std::mt19937 gen(rd());
-std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
-std::uniform_real_distribution<float> randomScale(50.0f, 500.0f);      // Scale between 50 and 500
-std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
-std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
-
-
-// Map to store entity velocities (entityID -> (velocityX, velocityY))
-std::map<int, std::pair<float, float>> entityVelocities;
-
-void UIManager::SpawnSquare() {
-    // Generate random position, scale, rotation, and velocity
-    Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
-    float scaleX = randomScale(gen);
-    float scaleY = randomScale(gen);
-    float rotation = randomRotation(gen);
-    float velocityX = randomVelocity(gen);
-    float velocityY = randomVelocity(gen);
-
-    // Create a new square entity
-    Entity& square = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-
-    // Add transform component with randomized values
-    DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(square.EntityID);
-
-    // Store the velocity in the map
-    entityVelocities[square.EntityID] = std::make_pair(velocityX, velocityY);
-
-    UIDebugConsole::debugConsole.AddDebugLog("Spawned square at position (%.2f", pos.x);
-
-    // Add sprite renderer component
-    SpriteRendererComponent* sr = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(square.EntityID, false);
-    sr->texture = ImageLoader::LoadTexture("../Resources/oldman.png");
-
-
-    // Print for debugging
-    //std::cout << "Spawned square at position (" << pos.x << ", " << pos.y << "), scale (" << scaleX << ", " << scaleY
-    //    << "), rotation " << rotation << ", velocity (" << velocityX << ", " << velocityY << ")" << std::endl;
 }
