@@ -49,19 +49,19 @@ void CircleColliderSystem::Update() {
 			}
 			if (checkCollisionCB(*circle, *box, deltaTime, circleRb->velocity, boxRb->velocity)) {
 				// If there is a collision
-				if (!boxRb || boxRb->isStatic) {	// If the box is static
+				if (boxRb->isStatic) {	// If the box is static
 					circleRb->velocity = Vec2(0.0f, 0.0f);
 				}
 				else { // If the box is not static
+					Vec2 combinedVelocity = circleRb->velocity + boxRb->velocity;
 					if (circleRb->velocity.lengthSquared() < boxRb->velocity.lengthSquared()) {
-						// If box velocity is greater, circle will gain more velocity
-						boxRb->velocity = (boxRb->velocity / 4);
-						circleRb->velocity = (boxRb->velocity);
+						boxRb->velocity = Vec2(0.f, 0.f);
+						circleRb->velocity = 3 * combinedVelocity / 4;
 					}
 					else {
 						// If circle velocity is greater, box will gain more velocity
-						boxRb->velocity = (circleRb->velocity);
-						circleRb->velocity = (circleRb->velocity / 4);
+						boxRb->velocity = 3 * combinedVelocity / 4;
+						circleRb->velocity = Vec2(0.f, 0.f);
 					}
 
 					// Check if Box next position is colliding with a static object
@@ -127,8 +127,16 @@ void CircleColliderSystem::Update() {
 						circleRb->velocity = Vec2(0.0f, 0.0f);
 					}
 					else { // If the circle is not static
-						circle2Rb->velocity = (circleRb->velocity);
-						circleRb->velocity = (circleRb->velocity / 4);
+						Vec2 combinedVelocity = circleRb->velocity + circle2Rb->velocity;
+						if (circleRb->velocity.lengthSquared() < circle2Rb->velocity.lengthSquared()) {
+							circle2Rb->velocity = Vec2(0.f, 0.f);
+							circleRb->velocity = 3 * combinedVelocity / 4;
+						}
+						else {
+							// If circle velocity is greater, box will gain more velocity
+							circle2Rb->velocity = 3 * combinedVelocity / 4;
+							circleRb->velocity = Vec2(0.f, 0.f);
+						}
 					}
 				}
 			}

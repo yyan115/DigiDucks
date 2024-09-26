@@ -48,8 +48,15 @@ void BoxColliderSystem::Update() {
 						boxRb->velocity = Vec2(0.0f, 0.0f);
 					}
 					else { // If the box is not static
-						boxRb2->velocity = (boxRb->velocity);
-						boxRb->velocity = (boxRb->velocity / 4);
+						Vec2 combinedVelocity = boxRb->velocity + boxRb2->velocity;
+						if (boxRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
+							boxRb2->velocity = Vec2(0.f, 0.f);
+							boxRb->velocity = combinedVelocity;
+						}
+						else {
+							boxRb2->velocity = combinedVelocity;
+							boxRb->velocity = Vec2(0.f, 0.f);
+						}
 					}
 				}
 			}
@@ -77,8 +84,16 @@ void BoxColliderSystem::Update() {
 						boxRb->velocity = Vec2(0.0f, 0.0f);
 					}
 					else {
-						boxRb->velocity = (boxRb->velocity / 4);
-						circleRb->velocity = (boxRb->velocity);
+						Vec2 combinedVelocity = circleRb->velocity + boxRb->velocity;
+						if (circleRb->velocity.lengthSquared() < boxRb->velocity.lengthSquared()) {
+							boxRb->velocity = Vec2(0.f, 0.f);
+							circleRb->velocity = 3 * combinedVelocity / 4;
+						}
+						else {
+							// If circle velocity is greater, box will gain more velocity
+							boxRb->velocity = 3 * combinedVelocity / 4;
+							circleRb->velocity = Vec2(0.f, 0.f);
+						}
 					}
 				}
 			}

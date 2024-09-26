@@ -61,28 +61,32 @@ public:
 	* @param y - The y position of the collider
 	* ***************************************************************/
 	void setCenterPos(float x, float y);
-
-
 };
 
 
 class DUCKENGINE_API BoundingBox : private BoundingCollider, public Component {
 private:
 	Vec2 size{};
-	Vec2 max{};
-	Vec2 min{};
+	Vec2 topR{};
+	Vec2 topL{};
+	Vec2 btmR{};
+	Vec2 btmL{};
 
 public:
+	float rotation{};
+
 	// No default constructor
 	BoundingBox() :BoundingCollider() {}
 
 	// Constructor
-	BoundingBox(const Vec2& _center, const Vec2& _size) : BoundingCollider(_center), size(_size), max(_center + _size), min(_center - _size) {}
-	BoundingBox(float _x, float _y, float sizeX, float sizeY) : BoundingCollider(_x, _y), size(sizeX, sizeY), max(_x + sizeX, _y + sizeY), min(_x - sizeX, _y - sizeY) {}
+	BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation = 0.f);
+	BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation = 0.f);
 
 	// Copy Constructor
-	BoundingBox(BoundingBox& box) : BoundingCollider(box.getCenterPos()), size(box.getSize()), max(box.getMax()), min(box.getMin()) {}
-	BoundingBox(const BoundingBox& box) : BoundingCollider(box.getCenterPos()), size(box.getSize()), max(box.getMax()), min(box.getMin()) {}
+	BoundingBox(BoundingBox& box) : 
+		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
+	BoundingBox(const BoundingBox& box):
+		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
 
 	// Destructor
 	~BoundingBox() = default;
@@ -98,28 +102,42 @@ public:
 	* 
 	* @return The center of the box
 	* ***************************************************************/
-	Vec2 getCenter() const;
+	Vec2 getCenter() const { return getCenterPos(); }
 
 	/****************************************************************
 	* @brief Get the size of the box
 	* 
 	* @return The size of the box
 	* ***************************************************************/
-	Vec2 getSize() const;
+	Vec2 getSize() const { return size; }
 	
 	/****************************************************************
-	* @brief Get the maximum point of the box
+	* @brief Get the top right corner of the box
 	* 
-	* @return The maximum point of the box
+	* @return The top right corner of the box
 	* ***************************************************************/
-	Vec2 getMax() const;
+	Vec2 getTopR() const { return topR; }
 
 	/****************************************************************
-	* @brief Get the minimum point of the box
+	* @brief Get the top left corner of the box
 	* 
-	* @return The minimum point of the box
+	* @return The top left corner of the box
 	* ***************************************************************/
-	Vec2 getMin() const;
+	Vec2 getTopL() const { return topL; }
+
+	/****************************************************************
+	* @brief Get the bottom right corner of the box
+	* 
+	* @return The bottom right corner of the box
+	* ***************************************************************/
+	Vec2 getBtmR() const { return btmR; }
+
+	/****************************************************************
+	* @brief Get the bottom left corner of the box
+	* 
+	* @return The bottom left corner of the box
+	* ***************************************************************/
+	Vec2 getBtmL() const { return btmL; }
 	
 	// Setters
 	/****************************************************************
@@ -135,6 +153,13 @@ public:
 	* @param _size - The size of the box
 	* ***************************************************************/
 	void setSize(Vec2 _size);
+
+	/****************************************************************
+	* @brief Set the top right corner of the box
+	* 
+	* @param _topR - The top right corner of the box
+	* ***************************************************************/
+	void rotate(float angle);
 };
 
 

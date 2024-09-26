@@ -13,9 +13,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "Bounding.h"
-#include <algorithm>
+//#include <algorithm>
 #include <math.h>
 #include <iostream>
+#include <vector>
 
 // Getters
 Vec2 BoundingCollider::getCenterPos() const {
@@ -32,37 +33,77 @@ void BoundingCollider::setCenterPos(float x, float y) {
 }
 
 
+namespace {
+    // Rotate along the z-axis
+    Vec2 rotateVector(const Vec2& vec, float angle) {
+        float s = sin(angle);
+        float c = cos(angle);
+
+        return Vec2(vec.x * c - vec.y * s, vec.x * s + vec.y * c);
+    }
+}
 
 ///// Box Collider /////
+// Constructor
+BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation):BoundingCollider() {
+    setCenterPos(_center);
+    size = _size;
+    rotation = _rotation;
 
-// Getters
-Vec2 BoundingBox::getCenter() const {
-	return getCenterPos();
+    // Get 4 corners of box using size and rotation
+    topR = rotateVector(Vec2(_center.x + size.x, _center.y + size.y), rotation);
+    topL = rotateVector(Vec2(_center.x - size.x, _center.y + size.y), rotation);
+    btmR = rotateVector(Vec2(_center.x + size.x, _center.y - size.y), rotation);
+    btmL = rotateVector(Vec2(_center.x - size.x, _center.y - size.y), rotation);
 }
 
-Vec2 BoundingBox::getSize() const {
-	return size;
-}
+BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation) :BoundingCollider() {
+    setCenterPos(_x, _y);
+    size.x = sizeX;
+    size.y = sizeY;
+    rotation = _rotation;
 
-Vec2 BoundingBox::getMax() const {
-	return max;
-}
-
-Vec2 BoundingBox::getMin() const {
-	return min;
+    // Get 4 corners of box using size and rotation
+    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
+    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
+    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
+    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
 }
 
 // Setters
 void BoundingBox::setCenter(Vec2 center) {
+    Vec2 prevCenter = getCenterPos();
 	setCenterPos(center);
-    max = getCenterPos() + size;
-    min = getCenterPos() - size;
+
+    // get the difference between the new center and the previous center
+    Vec2 diff = center - prevCenter;
+
+    // Update the 4 corners of the box
+    topR += diff;
+    topL += diff;
+    btmR += diff;
+    btmL += diff;
 }
 
 void BoundingBox::setSize(Vec2 _size) {
 	size = _size;
-    max = getCenterPos() + size;
-    min = getCenterPos() - size;
+
+    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
+    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
+    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
+    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+}
+
+void BoundingBox::rotate(float angle) {
+	rotation += angle;
+    // Keep angle within 360 degrees
+    if (angle > 360.f)
+        angle -= 360.f;
+
+	topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
+	topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
+	btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
+	btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
 }
 
 //// Circle Collider ////
@@ -88,7 +129,7 @@ void BoundingCircle::setRadius(float _radius) {
 
 // Collision Detection
 namespace {
-    // Helper function to compute the closest point on a line segment to a point
+
     Vec2 closestPointOnLineSegment(const Vec2& point, const Vec2& lineStart, const Vec2& lineEnd) {
         Vec2 line = lineEnd - lineStart;
         float lineLengthSquared = line.lengthSquared();
@@ -102,23 +143,30 @@ namespace {
         // Return the closest point
         return lerp(lineStart, lineEnd, t);
     }
+
+    // Project point onto axis
+    void projectOnAxis(const Vec2& point,const  Vec2& axis, float& min, float& max ) {
+        // Dot product of point and axis
+        float projection = Vec2Dot(axis, point);
+
+        if (projection < min) {
+            min = projection;
+        }
+        if (projection > max) {
+            max = projection;
+        }
+    }
 }
 
 
 // Circle - Box
 bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel, Vec2 box_vel) {
 
-    // Check if the circle is completely within the box
-    if (circle.getCenter().x >= box.getMin().x && circle.getCenter().x <= box.getMax().x &&
-        circle.getCenter().y >= box.getMin().y && circle.getCenter().y <= box.getMax().y) {
-        return true;  // Circle is inside the box
-    }
-
     // Calculate next position of box
-    Vec2 topRight = box.getMax() + box_vel * deltaTime;
-    Vec2 btmLeft = box.getMin() + box_vel * deltaTime;
-    Vec2 topLeft(btmLeft.x, topRight.y);
-    Vec2 btmRight(topRight.x, btmLeft.y);
+    Vec2 topRight = box.getTopR() + box_vel * deltaTime;
+    Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
+    Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
+    Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
 
     // Calculate next position of circle
     Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
@@ -136,17 +184,12 @@ bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime,
 
 // Box - Circle
 bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel, Vec2 cir_vel) {
-    // Check if the circle is completely within the box
-    if (circle.getCenter().x >= box.getMin().x && circle.getCenter().x <= box.getMax().x &&
-        circle.getCenter().y >= box.getMin().y && circle.getCenter().y <= box.getMax().y) {
-        return true;  // Circle is inside the box
-    }
 
     // Calculate next position of box
-    Vec2 topRight = box.getMax() + box_vel * deltaTime;
-    Vec2 btmLeft = box.getMin() + box_vel * deltaTime;
-    Vec2 topLeft(btmLeft.x, topRight.y);
-    Vec2 btmRight(topRight.x, btmLeft.y);
+    Vec2 topRight = box.getTopR() + box_vel * deltaTime;
+    Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
+    Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
+    Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
 
     // Calculate next position of circle
     Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
@@ -162,65 +205,63 @@ bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime,
     return false;  // No collision
 }
 
-
 // Box - Box
 bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
-    // Calculate next positions after applying velocity
-    Vec2 nextPos1Min = box1.getMin() + vel1 * deltaTime;
-    Vec2 nextPos1Max = box1.getMax() + vel1 * deltaTime;
-    Vec2 nextPos2Min = box2.getMin() + vel2 * deltaTime;
-    Vec2 nextPos2Max = box2.getMax() + vel2 * deltaTime;
-    
-    // Static collision check based on the next positions
-    if (nextPos1Max.x < nextPos2Min.x || nextPos1Max.y < nextPos2Min.y ||
-        nextPos1Min.x > nextPos2Max.x || nextPos1Min.y > nextPos2Max.y) {
+    // Calculate Next Position
+    Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
+    Vec2 nextTR1 = box1.getTopR() + vel1 * deltaTime;
+    Vec2 nextBR1 = box1.getBtmR() + vel1 * deltaTime;
+    Vec2 nextBL1 = box1.getBtmL() + vel1 * deltaTime;
 
-        // No static collision, proceed with dynamic collision test
-        Vec2 relVel = vel1 - vel2;
-        float tFirst = 0.0f;
-        float tLast = deltaTime;
+    Vec2 nextTL2 = box2.getTopL() + vel2 * deltaTime;
+    Vec2 nextTR2 = box2.getTopR() + vel2 * deltaTime;
+    Vec2 nextBR2 = box2.getBtmR() + vel2 * deltaTime;
+    Vec2 nextBL2 = box2.getBtmL() + vel2 * deltaTime;
 
-        // Check collision along x-axis
-        if (relVel.x != 0) {
-            if (relVel.x < 0) {
-                if (nextPos1Min.x > nextPos2Max.x) return false;
-                tFirst = std::max(tFirst, (nextPos1Max.x - nextPos2Min.x) / relVel.x);
-                tLast = std::min(tLast, (nextPos1Min.x - nextPos2Max.x) / relVel.x);
-            }
-            else {
-                if (nextPos1Max.x < nextPos2Min.x) return false;
-                tFirst = std::max(tFirst, (nextPos1Min.x - nextPos2Max.x) / relVel.x);
-                tLast = std::min(tLast, (nextPos1Max.x - nextPos2Min.x) / relVel.x);
-            }
-        }
-        else if (nextPos1Max.x < nextPos2Min.x || nextPos1Min.x > nextPos2Max.x) {
-            return false;  // No collision along x-axis if velocities are parallel and outside bounds
-        }
+    std::vector<Vec2> axes;
 
-        // Check collision along y-axis
-        if (relVel.y != 0) {
-            if (relVel.y < 0) {
-                if (nextPos1Min.y > nextPos2Max.y) return false;
-                tFirst = std::max(tFirst, (nextPos1Max.y - nextPos2Min.y) / relVel.y);
-                tLast = std::min(tLast, (nextPos1Min.y - nextPos2Max.y) / relVel.y);
-            }
-            else {
-                if (nextPos1Max.y < nextPos2Min.y) return false;
-                tFirst = std::max(tFirst, (nextPos1Min.y - nextPos2Max.y) / relVel.y);
-                tLast = std::min(tLast, (nextPos1Max.y - nextPos2Min.y) / relVel.y);
-            }
-        }
-        else if (nextPos1Max.y < nextPos2Min.y || nextPos1Min.y > nextPos2Max.y) {
-            return false;  // No collision along y-axis if velocities are parallel and outside bounds
-        }
+    // Box 1
+    // Top Axis - Top Right to Top Left
+    axes.push_back((nextTL1 - nextTR1).normalized());
+    // Right Axis - Btm Right to Top Right
+    axes.push_back((nextTR1 - nextBR1).normalized());
 
-        // If the first time of collision is greater than the last, no collision
-        if (tFirst > tLast) return false;
-
-        return true;  // Collision detected during dynamic movement
+    // Calculate Next Position
+    if (box1.rotation != box2.rotation) {   // If angle not equal, calculate box2 axes
+        // Top Axis - Top Right to Top Left
+        axes.push_back((nextTL2 - nextTR2).normalized());
+        // Right Axis - Btm Right to Top Right
+        axes.push_back((nextTR2 - nextBR2).normalized());
     }
 
-    return true;  // Collision detected for static case (if it happens now)
+    // Check for overlap
+    for (size_t i{}; i < axes.size(); ++i) {
+
+        float min1 = std::numeric_limits<float>::max();
+        float max1 = -std::numeric_limits<float>::max();
+        float min2 = std::numeric_limits<float>::max();
+        float max2 = -std::numeric_limits<float>::max();
+
+        // Project box 1
+        projectOnAxis(nextTL1, axes[i], min1, max1);
+        projectOnAxis(nextTR1, axes[i], min1, max1);
+        projectOnAxis(nextBR1, axes[i], min1, max1);
+        projectOnAxis(nextBL1, axes[i], min1, max1);
+
+        // Project box 2
+        projectOnAxis(nextTL2, axes[i], min2, max2);
+        projectOnAxis(nextTR2, axes[i], min2, max2);
+        projectOnAxis(nextBR2, axes[i], min2, max2);
+        projectOnAxis(nextBL2, axes[i], min2, max2);
+
+
+        if (max1 < min2 || max2 < min1) {
+            return false;  // No collision
+        }
+    }
+
+    // No separating axis found, collision detected
+    return true;
 }
 
 // Circle - Circle

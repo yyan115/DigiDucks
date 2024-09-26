@@ -1,5 +1,6 @@
 #include "RigidbodySystem.h"
 #include "RigidbodyComponent.h"
+#include <algorithm>
 
 
 void RigidbodySystem::Update()
