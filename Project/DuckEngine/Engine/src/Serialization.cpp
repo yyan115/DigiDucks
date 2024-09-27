@@ -8,7 +8,7 @@ Window_init W_init;
 
 void Serialization::Init_json() {
     // Open the JSON file
-    std::ifstream file("C:/Users/yolod/Documents/GitHub/DigiDucks/Project/DuckEngine/Game/Resources/windows init.json");
+    std::ifstream file("../Resources/windows init.json");
 
     // Check if the file was opened successfully
     if (!file.is_open()) {
