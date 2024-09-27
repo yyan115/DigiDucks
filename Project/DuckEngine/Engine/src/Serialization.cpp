@@ -130,3 +130,38 @@
 //        serializer.ReadString("");
 //    }
 //};
+
+#include <iostream>
+#include <fstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
+
+int main() {
+    // Open the JSON file
+    std::ifstream file("data.json");
+
+    // Check if the file was opened successfully
+    if (!file.is_open()) {
+        std::cerr << "Could not open the file!" << std::endl;
+        return 1;
+    }
+
+    // Parse the JSON data
+    json jsonData;
+    file >> jsonData;
+
+    // Close the file
+    file.close();
+
+    // Access and print some values from the JSON object
+    std::cout << "Parsed JSON data: " << jsonData.dump(4) << std::endl;
+
+    // Example: Access specific fields in the JSON file
+    if (jsonData.contains("name")) {
+        std::string name = jsonData["name"];
+        std::cout << "Name: " << name << std::endl;
+    }
+
+    return 0;
+}
