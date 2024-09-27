@@ -63,25 +63,25 @@ void SpriteMovementScene::Load()
 
 	// load prefabs
 
-	PrefabManager::LoadPrefab("Player", playerPrefab);
-	PrefabManager::LoadPrefab("Obstacle", obstaclePrefab);
-	PrefabManager::LoadPrefab("Obstacle2", obstacle2Prefab);
+	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Player", playerPrefab);
+	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle", obstaclePrefab);
+	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle2", obstacle2Prefab);
 	
 	// instantiate prefabs
-	player = PrefabManager::InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
+	player = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->EntityID);
 	playerRb->velocity = Vec2(0.0f, 0.0f);
 	playerRb->isStatic = false;
 
-	obstacle = PrefabManager::InstantiatePrefab("Obstacle", { 5.0f, 0.0f });
+	obstacle = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle", { 5.0f, 0.0f });
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
 	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->EntityID);
 	obstacleRb->isStatic = true;
 
-	obstacle2 = PrefabManager::InstantiatePrefab("Obstacle2", { -5.0f, 0.0f });
+	obstacle2 = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle2", { -5.0f, 0.0f });
 	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->EntityID);
 	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->EntityID);
 	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->EntityID);
@@ -126,7 +126,7 @@ void SpriteMovementScene::Update()
 	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
 	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
-	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
+	//DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
 
 	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
 	//DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
