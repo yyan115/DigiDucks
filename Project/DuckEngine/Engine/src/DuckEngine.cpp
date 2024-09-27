@@ -11,6 +11,7 @@
 #include "CameraManager.h"
 #include "SoundManager.h"
 #include "InputManager.h"
+#include "Serialization.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -32,7 +33,8 @@ PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
     // Init Window, then Graphics, then Input
-    WindowManager::Initialize(1000, 1000, "Test");
+    Serialization::Init_json();
+    WindowManager::Initialize(W_init.width, W_init.height, W_init.title);
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
