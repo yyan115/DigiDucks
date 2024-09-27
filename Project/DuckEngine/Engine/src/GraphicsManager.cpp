@@ -101,7 +101,7 @@ void GraphicsManager::Render() {
 
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
-    int height = CameraManager::GetHeight();
+    float height = CameraManager::GetHeight();
 
     glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
@@ -175,7 +175,7 @@ void GraphicsManager::RenderDebug()
     // Get camera matrices
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
-    int height = CameraManager::GetHeight();
+    float height = CameraManager::GetHeight();
 
     // Combine camera-to-NDC and view matrix into one
     glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
@@ -654,7 +654,7 @@ void GraphicsManager::SetupCircleVAO(int segments) {
     circleSegments = segments;
 
     // Generate vertices for the perimeter
-    float angleStep = 2.0f * M_PI / circleSegments;
+    float angleStep = static_cast<float>(2.0f * M_PI / circleSegments);
 
     for (int i = 0; i < circleSegments; ++i) {
         float angle = i * angleStep;

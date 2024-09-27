@@ -73,6 +73,9 @@ void UIDebugConsole::Clear() {
 
 // Render the console in ImGui
 void UIDebugConsole::Render(bool* p_open) {
+    if (p_open == nullptr) {
+		return;
+	}
 
     // Input field for commands
     static char inputBuf[256] = "";

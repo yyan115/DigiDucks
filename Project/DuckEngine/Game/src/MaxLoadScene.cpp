@@ -40,7 +40,7 @@ void MaxLoadScene::Load()
     PrefabManager::LoadPrefab("Crate", crate);
 
 
-    DuckEngine::SetCameraHeight(1000.f);
+    DuckEngine::SetCameraHeight(1000);
 
     for (int i = 0; i < 2500; i++)
     {

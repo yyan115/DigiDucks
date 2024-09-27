@@ -12,7 +12,7 @@ void CameraManager::Initialize(const float posX, const float posY, const int hei
 	CameraManager::position = { posX, posY };
 	//CameraManager::zoom = zoom;
 	CameraManager::cameraHeight = height;
-	CameraManager::windowAspectRatio = WindowManager::GetWindowWidth() / WindowManager::GetWindowHeight();
+	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth() / WindowManager::GetWindowHeight());
 }
 
 // Set and Get camera position

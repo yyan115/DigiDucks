@@ -39,7 +39,7 @@ void SpriteMovementScene::Load()
 	//	0                // Layer (default)
 	//);
 
-	DuckEngine::SetCameraHeight(20.f);
+	DuckEngine::SetCameraHeight(20);
 
 	// Load necessary assets (textures, sounds, etc.)
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/oldman.png");

@@ -167,14 +167,14 @@ void UIManager::ShowDebugInfo() {
 
             // Memory Information
             ImGui::Text("\n\nMemory Information");
-            MEMORYSTATUSEX memoryStatus;
+            MEMORYSTATUSEX memoryStatus = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             memoryStatus.dwLength = sizeof(MEMORYSTATUSEX);
             if (GlobalMemoryStatusEx(&memoryStatus)) {
                 ImGui::Text("Memory Status: %u MB", memoryStatus.dwMemoryLoad / (1024 * 1024));
-                ImGui::Text("Total Physical Memory: %u MB", memoryStatus.ullTotalPhys / (1024 * 1024));
-                ImGui::Text("Free Physical Memory: %u MB", memoryStatus.ullAvailPhys / (1024 * 1024));
-                ImGui::Text("Total Virtual Memory: %u MB", memoryStatus.ullTotalVirtual / (1024 * 1024));
-                ImGui::Text("Free Virtual Memory: %u MB", memoryStatus.ullAvailVirtual / (1024 * 1024));
+                ImGui::Text("Total Physical Memory: %u MB", memoryStatus.ullTotalPhys / static_cast<size_t>(1024 * 1024));
+                ImGui::Text("Free Physical Memory: %u MB", memoryStatus.ullAvailPhys / static_cast<size_t>(1024 * 1024));
+                ImGui::Text("Total Virtual Memory: %u MB", memoryStatus.ullTotalVirtual / static_cast<size_t>(1024 * 1024));
+                ImGui::Text("Free Virtual Memory: %u MB", memoryStatus.ullAvailVirtual / static_cast<size_t>(1024 * 1024));
             }
             else {
                 std::cerr << "Failed to retrieve memory information." << std::endl;

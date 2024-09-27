@@ -35,7 +35,7 @@ void DuckEngine::Initialize() {
     WindowManager::Initialize(1000, 1000, "Test");
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
-    CameraManager::Initialize(0.f, 0.f, 10.f);
+    CameraManager::Initialize(0.f, 0.f, 10);
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
