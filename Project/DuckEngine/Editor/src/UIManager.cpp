@@ -370,16 +370,10 @@ void UIManager::RenderGameObjectAssets() {
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_real_distribution<float> randomPosition(0.0f, 5.0f);  // Position between -500 and 500
-        std::uniform_real_distribution<float> randomScale(1.0f, 5.0f);      // Scale between 50 and 500
-        std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
-        std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
 
 
         UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn");
         Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
-        float scaleX = randomScale(gen);
-        float scaleY = randomScale(gen);
-        float rotation = randomRotation(gen);
 
         // Create a new square entity
         Entity* square = PrefabManager::InstantiatePrefab("Obstacle2", Vec2(1.0f, 1.0f));
@@ -389,8 +383,6 @@ void UIManager::RenderGameObjectAssets() {
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->EntityID);
 
         transform->position = pos;
-        transform->angle = rotation;
-        transform->scale = { scaleX, scaleY };
 	}
     ImGui::SameLine();
 
