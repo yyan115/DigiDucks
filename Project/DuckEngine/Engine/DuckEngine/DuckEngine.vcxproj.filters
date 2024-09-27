@@ -73,6 +73,9 @@
     <Filter Include="include\Scene">
       <UniqueIdentifier>{74b0c69f-530c-4c8b-8264-2aaae49b06bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Rendering\Shaders">
+      <UniqueIdentifier>{644254a9-6e26-4d47-b806-cafbb1f00092}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -204,6 +207,9 @@
     <ClInclude Include="..\include\AnimationSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\TextRenderingSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -299,13 +305,22 @@
     <ClCompile Include="..\src\AnimationSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TextRenderingSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Game\Resources\Shaders\fragShader.frag">
-      <Filter>src\Rendering</Filter>
+    <None Include="..\..\Game\Resources\Shaders\fontVertShader.vert">
+      <Filter>src\Rendering\Shaders</Filter>
     </None>
-    <None Include="..\..\Game\Resources\Shaders\vertShader.vert">
-      <Filter>src\Rendering</Filter>
+    <None Include="..\..\Game\Resources\Shaders\gameFragShader.frag">
+      <Filter>src\Rendering\Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Resources\Shaders\gameVertShader.vert">
+      <Filter>src\Rendering\Shaders</Filter>
+    </None>
+    <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag">
+      <Filter>src\Rendering\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

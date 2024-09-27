@@ -274,7 +274,7 @@ void GraphicsManager::InsertShader(std::string shdr_pgm_name,
 
 void GraphicsManager::InitializeSingleMeshShaderSystem() {
     // Insert your shaders (this function should load the vertex and fragment shaders)
-    InsertShader("DefaultShader", "../Resources/Shaders/vertShader.vert", "../Resources/Shaders/fragShader.frag");
+    InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
     InitMesh(VAO);
 }
 

@@ -19,6 +19,7 @@
 #include "RigidbodySystem.h"
 #include "CircleColliderSystem.h"
 #include "BoxColliderSystem.h"
+#include "TextRenderingSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -59,9 +60,22 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
     DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
+    std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
+    DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+
 
     UIManager::Initialize();
     SoundManager::GetInstance().Initialize();
+
+    //// Later, when you need to call TextRenderingSystem-specific methods (like Init), use dynamic_pointer_cast
+    //std::shared_ptr<TextRenderingSystem> textRenderingSystem = std::dynamic_pointer_cast<TextRenderingSystem>(system);
+
+    //if (textRenderingSystem) {
+    //    textRenderingSystem->Init();  // Safely call Init() on TextRenderingSystem
+    //}
+    //else {
+    //    std::cerr << "Failed to cast system to TextRenderingSystem!" << std::endl;
+    //}
 }
 
 void DuckEngine::Update() 
@@ -75,6 +89,7 @@ void DuckEngine::Update()
     DUCKENGINE_SceneManager.Update();
     //SoundManager::GetInstance().Update();
     
+
 }
 
 void DuckEngine::StartDraw()

@@ -71,7 +71,8 @@ struct DebugDrawCommand {
             break;
 
         default:
-            throw std::invalid_argument("Invalid type for DebugDrawCommand");
+            position2 = { 0.f, 0.f };
+            //throw std::invalid_argument("Invalid type for DebugDrawCommand");
         }
     }
 };
@@ -103,12 +104,12 @@ public:
     static void SetupRectangleVAO();
     static void SetupCircleVAO(int segments);
 
-private:
-    static void InitializeSingleMeshShaderSystem();
-
     static void InsertShader(std::string shdr_pgm_name,
         std::string vtx_shdr,
         std::string frg_shdr);
+
+private:
+    static void InitializeSingleMeshShaderSystem();
 
     static void InsertDebugShader();
 
