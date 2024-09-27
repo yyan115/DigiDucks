@@ -43,6 +43,7 @@ void SpriteMovementScene::Load()
 
 	// Load necessary assets (textures, sounds, etc.)
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/oldman.png");
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/Crate.png");
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
 
@@ -52,12 +53,12 @@ void SpriteMovementScene::Load()
 	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.f));
 	playerPrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
-	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
+	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/Crate.png", Vec2(2.0f, 2.0f));
 	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2{ 1.f, 1.5f }));
 	obstaclePrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
 
-	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", "../Resources/oldman.png", Vec2(2.0f, 2.0f));
+	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", "../Resources/Crate.png", Vec2(2.0f, 2.0f));
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
