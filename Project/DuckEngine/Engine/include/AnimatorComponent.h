@@ -32,14 +32,14 @@ public:
     Animation() : currentFrame(0), frameTimer(0.0f), totalDuration(0.0f) {}
 };
 
-class DUCKENGINE_API AnimationComponent : public Component
+class DUCKENGINE_API AnimatorComponent : public Component
 {
 public:
     Animation* currentAnimation;
-    AnimationComponent() : currentAnimation(nullptr) {}
+    AnimatorComponent() : currentAnimation(nullptr) {}
     std::shared_ptr<Component> Clone() const override
     {
-        return std::make_shared<AnimationComponent>(*this);
+        return std::make_shared<AnimatorComponent>(*this);
     }
 };
 

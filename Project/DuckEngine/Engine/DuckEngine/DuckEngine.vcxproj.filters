@@ -156,7 +156,7 @@
     <ClInclude Include="..\include\Serialization.h">
       <Filter>include\Serialization</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AnimationComponent.h">
+    <ClInclude Include="..\include\AnimatorComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TextRendererComponent.h">
@@ -204,7 +204,7 @@
     <ClInclude Include="..\include\PrefabManager.h">
       <Filter>include\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\AnimationSystem.h">
+    <ClInclude Include="..\include\AnimatorSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\TextRenderingSystem.h">
@@ -302,7 +302,7 @@
     <ClCompile Include="..\src\PrefabManager.cpp">
       <Filter>src\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\AnimationSystem.cpp">
+    <ClCompile Include="..\src\AnimatorSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TextRenderingSystem.cpp">

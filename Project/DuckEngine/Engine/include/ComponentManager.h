@@ -5,8 +5,8 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "AnimationComponent.h"
 #include "Component.h"
+#include "AnimatorComponent.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
 #include "CameraComponent.h"
