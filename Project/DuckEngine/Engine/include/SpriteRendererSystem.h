@@ -13,6 +13,7 @@
 class DUCKENGINE_API SpriteRendererSystem : public System
 {
 public:
+	void Start() override;
 	void Update() override;
 
 };

@@ -14,6 +14,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "CircleColliderSystem.h"
 
+void CircleColliderSystem::Start()
+{
+
+}
+
 void CircleColliderSystem::Update() {
 	float deltaTime = DuckEngine::DeltaTime();
 	// Find player's circle collider

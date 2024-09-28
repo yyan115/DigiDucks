@@ -2,6 +2,10 @@
 #include "RigidbodyComponent.h"
 #include <algorithm>
 
+void RigidbodySystem::Start()
+{
+
+}
 
 void RigidbodySystem::Update()
 {

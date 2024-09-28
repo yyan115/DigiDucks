@@ -10,10 +10,18 @@ void SystemManager::AddSystem(std::shared_ptr<System> system)
     systemData.emplace_back(typeid(*system).name(), 0.0);
 }
 
+void SystemManager::StartAll()
+{
+    for (std::shared_ptr<System>& system : systems)
+    {
+        system->Start();
+    }
+}
+
 // Update all systems by iterating through each one and calling their Update method
 void SystemManager::UpdateAll() 
 {
-    for (auto& system : systems) 
+    for (std::shared_ptr<System>& system : systems) 
     {
         TimeManager::StartSystemTimer();
         system->Update();

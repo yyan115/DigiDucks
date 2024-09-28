@@ -14,6 +14,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "BoxColliderSystem.h"
 
+void BoxColliderSystem::Start()
+{
+
+}
+
 void BoxColliderSystem::Update() {
 	float deltaTime = DuckEngine::DeltaTime();
 	// Find player's box collider

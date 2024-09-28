@@ -52,16 +52,21 @@ void DuckEngine::Initialize() {
     // Circle Collider System
     std::shared_ptr<System> circleColliderSystem = std::make_shared<CircleColliderSystem>();
     DUCKENGINE_SystemManager.AddSystem(circleColliderSystem);
+
     // Box Collider System
     std::shared_ptr<System> boxColliderSystem = std::make_shared<BoxColliderSystem>();
     DUCKENGINE_SystemManager.AddSystem(boxColliderSystem);
 
-
     std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
     DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
+
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+
+
+    // start all systems
+    DUCKENGINE_SystemManager.StartAll();
 
 
     UIManager::Initialize();

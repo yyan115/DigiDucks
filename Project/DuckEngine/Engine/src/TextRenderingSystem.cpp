@@ -118,6 +118,11 @@ TextRenderingSystem::~TextRenderingSystem() {
     }
 }
 
+void TextRenderingSystem::Start()
+{
+
+}
+
 // Initialize FreeType and set up necessary OpenGL objects
 bool TextRenderingSystem::Init() {
     if (FT_Init_FreeType(&ft)) {

@@ -2,6 +2,11 @@
 #include "GraphicsManager.h"
 #include "Color.h"
 
+void SpriteRendererSystem::Start()
+{
+
+}
+
 void SpriteRendererSystem::Update()
 {
 	for (const auto& [entityId, spriteRenderer] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())

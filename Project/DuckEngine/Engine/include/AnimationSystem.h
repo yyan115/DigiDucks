@@ -1,11 +1,16 @@
 #pragma once
-#include "AnimationComponent.h"
 #include <unordered_map>
+#include "AnimationComponent.h"
+#include "System.h"
 
-class DUCKENGINE_API AnimationSystem {
+class DUCKENGINE_API AnimationSystem : public System
+{
 public:
+
+    void Start() override;
+
     // Function to update animations based on time
-    void Update(float deltaTime);
+    void Update() override;
 
     // Function to play a specific animation on a component
     void PlayAnimation(AnimationComponent* component, Animation* animation);

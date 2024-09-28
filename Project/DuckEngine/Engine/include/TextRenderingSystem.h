@@ -66,8 +66,10 @@ public:
     // Initializes the system and FreeType
     bool Init();
 
+    void Start() override;
+
     // Updates the system (renders all TextRendererComponents)
-    void Update();
+    void Update() override;
 
     // Loads and generates a font atlas from the specified font
     bool GenerateFontAtlas(TextRendererComponent& textRenderer);

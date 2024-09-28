@@ -1,5 +1,9 @@
 #include "CameraSystem.h"
 
+void CameraSystem::Start()
+{
+
+}
 
 void CameraSystem::Update()
 {

@@ -19,6 +19,9 @@ public:
     // Add a system to the manager
     void AddSystem(std::shared_ptr<System> system);
 
+    // Start all systems
+    void StartAll();
+
     // Update all systems
     void UpdateAll();
 

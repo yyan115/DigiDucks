@@ -27,6 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 class DUCKENGINE_API BoxColliderSystem : public System
 {
 public:
+	void Start() override;
 	void Update() override;
 
 }; 

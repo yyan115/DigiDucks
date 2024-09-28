@@ -13,6 +13,7 @@
 class DUCKENGINE_API CameraSystem : public System
 {
 public:
+	void Start() override;
 	void Update() override;
 
 	//static inline std::vector<Entity*> GetActiveCameras() { return activeCameras; };
