@@ -18,6 +18,7 @@ public:
 	static void LoadAll();
 
 	static std::shared_ptr<Texture> LoadTexture(const std::string& filePath);
+	static std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath, int textureWidth, int textureHeight);
 	static void LoadSound(const std::string& soundName, const std::string& filePath);
 	
 	// unload all textures
@@ -29,5 +30,6 @@ private:
 
 	// Helper function to load a texture from the file
 	static std::shared_ptr<Texture> LoadTextureFromFile(const std::string& filePath);
+	static std::vector<std::shared_ptr<Texture>> LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight);
 
 };

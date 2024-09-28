@@ -3,6 +3,12 @@
 #include "AnimatorComponent.h"
 #include "System.h"
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 class DUCKENGINE_API AnimatorSystem : public System
 {
 public:

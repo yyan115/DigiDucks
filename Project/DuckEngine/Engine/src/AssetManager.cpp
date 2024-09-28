@@ -17,6 +17,37 @@ void AssetManager::LoadAll()
 
 }
 
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath, int textureWidth, int textureHeight)
+{
+	std::vector<std::shared_ptr<Texture>> textures;
+
+	if (textureMap.find(filePath + "_0") != textureMap.end())
+	{
+		int i = 0;
+		std::string key = filePath + "_" + std::to_string(i);
+
+		while (textureMap.find(key) != textureMap.end())
+		{
+			textures.push_back(textureMap[key]);
+			++i;
+			key = filePath + "_" + std::to_string(i);
+		}
+
+		return textures;
+	}
+
+	textures = LoadTextureFromFile(filePath, textureWidth, textureHeight);
+
+	for (int i = 0; i < textures.size(); ++i)
+	{
+		std::string key = filePath + "_" + std::to_string(i);
+		textureMap[key] = textures[i];
+	}
+
+	return textures;
+
+}
+
 std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& filePath)
 {
 	if (textureMap.find(filePath) != textureMap.end())
@@ -37,9 +68,23 @@ void AssetManager::LoadSound(const std::string& soundName, const std::string& fi
 
 std::shared_ptr<Texture> AssetManager::LoadTextureFromFile(const std::string& filePath)
 {
-	Texture sprite = ImageLoader::LoadTexture(filePath);
-	return std::make_shared<Texture>(sprite);
+	Texture texture = ImageLoader::LoadTexture(filePath);
+	return std::make_shared<Texture>(texture);
 
+}
+
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight)
+{
+	std::vector<Texture> textures = ImageLoader::LoadSpriteSheet(filePath, textureWidth, textureHeight);
+	std::vector<std::shared_ptr<Texture>> texturePtrs;
+	texturePtrs.reserve(textures.size());
+
+	for (Texture& texture : textures)
+	{
+		texturePtrs.push_back(std::make_shared<Texture>(texture));
+	}
+
+	return texturePtrs;
 }
 
 void AssetManager::UnloadAll()

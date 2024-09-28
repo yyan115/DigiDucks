@@ -20,6 +20,7 @@
 #include "CircleColliderSystem.h"
 #include "BoxColliderSystem.h"
 #include "TextRenderingSystem.h"
+#include "AnimatorSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -60,10 +61,12 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
     DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
+    std::shared_ptr<System> animatorSystem = std::make_shared<AnimatorSystem>();
+    DUCKENGINE_SystemManager.AddSystem(animatorSystem);
+
 
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
-
 
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
