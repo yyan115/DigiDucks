@@ -60,8 +60,8 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
     DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
-    std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
-    DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+    //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
+    //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
 
 
     UIManager::Initialize();
