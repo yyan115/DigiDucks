@@ -4,6 +4,7 @@
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "Bounding.h"
+#include "ResourcePath.h"
 
 Entity* player;
 Entity* camera;
@@ -11,6 +12,7 @@ Entity* camera;
 CameraComponent* cameraComponent;
 TransformComponent* playerTransform;
 RigidbodyComponent* playerRb;
+AnimatorComponent* playerAnimator;
 
 BoundingCircle* circle;
 
@@ -42,24 +44,28 @@ void SpriteMovementScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	// Load necessary assets (textures, sounds, etc.)
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/oldman.png");
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/Crate.png");
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/character.png", 19, 24);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_OLDMAN);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE, 19, 24);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK, 19, 24);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/characteridle.png", 19, 24);
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
 
 
 	// setup prefabs
-	std::shared_ptr<Prefab> playerPrefab = std::make_shared<Prefab>("Player", "../Resources/character.png_1", Vec2(1.0f, 2.0f));
+	std::shared_ptr<Prefab> playerPrefab = std::make_shared<Prefab>("Player", Resources::TEXTURE_CHARACTERIDLE, Vec2(1.0f, 2.0f));
 	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.f));
 	playerPrefab->AddComponent(std::make_shared<RigidbodyComponent>());
+	playerPrefab->AddComponent(std::make_shared<AnimatorComponent>());
 
-	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", "../Resources/Crate.png", Vec2(2.0f, 2.8f));
+
+	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
 	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2{ 1.f, 1.5f }));
 	obstaclePrefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
 
-	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", "../Resources/Crate.png", Vec2(2.0f, 2.8f));
+	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
@@ -74,6 +80,14 @@ void SpriteMovementScene::Load()
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->EntityID);
+
+	// get animator component
+	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->EntityID);
+	// add animations
+	playerAnimator->AddAnimation("WalkAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK), 0.2f);
+	playerAnimator->AddAnimation("IdleAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE), 0.6f);
+
+
 	playerRb->velocity = Vec2(0.0f, 0.0f);
 	playerRb->isStatic = false;
 
@@ -107,22 +121,32 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		playerRb->velocity.y = moveSpeed; // Move up
+				playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		playerRb->velocity.y = -moveSpeed; // Move down
+		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
 		playerRb->velocity.x = -moveSpeed; // Move left
+		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		playerRb->velocity.x = moveSpeed; // Move right
+		playerAnimator->PlayAnimation("WalkAnimation");
 	}
+
+	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
+	{
+		playerAnimator->PlayAnimation("IdleAnimation");
+	}
+
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());

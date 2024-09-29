@@ -1,8 +1,10 @@
 #pragma once
-#include "Component.h"
 #include <string>
-#include "Texture.h"
 #include <vector>
+#include "unordered_map"
+#include "Component.h"
+#include "Texture.h"
+
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -21,25 +23,60 @@
 //        : x(x), y(y), width(width), height(height), duration(duration) {}
 //};
 
-class Animation {
+class Animation 
+{
 private:
-    int currentFrame;      // Keeps track of the current frame
-    float frameTimer;
-    float totalDuration;        // animation cycle
 
 public:
+    int currentFrame;        // Keeps track of the current frame
+    float frameTimer;        // Timer to track how long the current frame has been displayed
+    float frameDuration;     // Duration for each frame in seconds
     std::vector<Texture> Frames;  // List of frames for the animation
-    Animation() : currentFrame(0), frameTimer(0.0f), totalDuration(0.0f) {}
+    Animation(float durationPerFrame = 0.2f)
+        : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
 };
 
 class DUCKENGINE_API AnimatorComponent : public Component
 {
 public:
     Animation* currentAnimation;
+    std::unordered_map<std::string, Animation> animations;
     AnimatorComponent() : currentAnimation(nullptr) {}
     std::shared_ptr<Component> Clone() const override
     {
         return std::make_shared<AnimatorComponent>(*this);
     }
+
+    // add 1 texture animation
+    void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
+    {
+        Animation animationToAdd(frameDuration);
+
+        animationToAdd.Frames.push_back(*animation);
+
+        animations[name] = animationToAdd;
+    }
+
+    // add multiple textures animation
+    void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, float frameDuration = 0.2f)
+    {
+        Animation animationToAdd(frameDuration);
+        
+        for (std::shared_ptr<Texture> texturePtr : animation)
+        {
+            animationToAdd.Frames.push_back(*texturePtr);
+        }
+
+        animations[animationName] = animationToAdd;
+    }
+
+    void PlayAnimation(std::string animationName)
+    {
+        if (animations.find(animationName) != animations.end())
+        {
+            currentAnimation = &animations[animationName];
+        }
+    }
+
 };
 

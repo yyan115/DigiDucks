@@ -3,7 +3,7 @@
 #include "Texture.h"
 #include "DuckEngine_Sound.h"
 
-std::unordered_map<std::string, std::shared_ptr<Texture>> AssetManager::textureMap;
+std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
 
 
 void AssetManager::LoadAll()
@@ -17,48 +17,35 @@ void AssetManager::LoadAll()
 
 }
 
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath)
+{
+    if (textureMap.find(filePath) != textureMap.end())
+    {
+        return textureMap[filePath];
+    }
+
+    std::vector<std::shared_ptr<Texture>> textures;
+    textures.push_back(LoadTextureFromFile(filePath));
+
+    textureMap[filePath] = textures;
+
+    return textures;
+}
+
 std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath, int textureWidth, int textureHeight)
 {
-	std::vector<std::shared_ptr<Texture>> textures;
+    if (textureMap.find(filePath) != textureMap.end())
+    {
+        return textureMap[filePath];
+    }
 
-	if (textureMap.find(filePath + "_0") != textureMap.end())
-	{
-		int i = 0;
-		std::string key = filePath + "_" + std::to_string(i);
+    std::vector<std::shared_ptr<Texture>> textures = LoadTextureFromFile(filePath, textureWidth, textureHeight);
 
-		while (textureMap.find(key) != textureMap.end())
-		{
-			textures.push_back(textureMap[key]);
-			++i;
-			key = filePath + "_" + std::to_string(i);
-		}
+    textureMap[filePath] = textures;
 
-		return textures;
-	}
-
-	textures = LoadTextureFromFile(filePath, textureWidth, textureHeight);
-
-	for (int i = 0; i < textures.size(); ++i)
-	{
-		std::string key = filePath + "_" + std::to_string(i);
-		textureMap[key] = textures[i];
-	}
-
-	return textures;
-
+    return textures;
 }
 
-std::shared_ptr<Texture> AssetManager::LoadTexture(const std::string& filePath)
-{
-	if (textureMap.find(filePath) != textureMap.end())
-	{
-		return textureMap[filePath];
-	}
-	
-	std::shared_ptr<Texture> newSprite = LoadTextureFromFile(filePath);
-	textureMap[filePath] = newSprite;
-	return newSprite;
-}
 
 void AssetManager::LoadSound(const std::string& soundName, const std::string& filePath)
 {
