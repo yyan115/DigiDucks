@@ -181,26 +181,48 @@ void DuckEngine::SetCameraHeight(const int height) {
     CameraManager::SetHeight(height);
 }
 
-void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color) {
+void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a point and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::POINT, position, {}, size, color); // position2 is unused
+    DebugDrawCommand drawCommand(DebugDrawCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color) {
+void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a line and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::LINE, start, end, size, color);
+    DebugDrawCommand drawCommand(DebugDrawCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-void DuckEngine::DrawRectangle(const Vector2D& position, const Vector2D& size, const Color& color) {
-    // Create a DebugDrawCommand for a rectangle and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, position, size, 0.f, color); // sizeOrRadius is 0 for rectangles
+//void DuckEngine::DrawRectangle(const Vector2D& position, const Vector2D& size, float rotation, const Color& color) {
+//    // Create a DebugDrawCommand for a rectangle with rotation and add it to the debug draw queue
+//    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, position, size, 0.f, rotation, color); // sizeOrRadius is 0 for rectangles
+//    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+//}
+
+void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera) {
+    // Calculate the center of the rectangle
+    Vector2D center = (minCorner + maxCorner) * 0.5f;
+
+    // Calculate the size (width and height) of the rectangle
+    Vector2D size = maxCorner - minCorner;
+
+    // Create a DebugDrawCommand for a rectangle with rotation and add it to the debug draw queue
+    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, center, size, 0.f, rotation, color, relativeToCamera); // sizeOrRadius is 0 for rectangles
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color) {
+
+void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a circle and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::CIRCLE, position, {}, radius, color); // position2 is unused
+    DebugDrawCommand drawCommand(DebugDrawCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
+}
+
+
+void DuckEngine::SetWindowTitle(std::string title) {
+    WindowManager::SetWindowTitle(title);
+}
+
+float DuckEngine::FPS() {
+    return TimeManager::FPS();
 }

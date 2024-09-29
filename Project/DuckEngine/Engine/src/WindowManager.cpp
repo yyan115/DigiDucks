@@ -86,3 +86,7 @@ GLint WindowManager::GetWindowHeight()
 {
     return height;
 }
+
+void WindowManager::SetWindowTitle(std::string title) {
+    glfwSetWindowTitle(ptrWindow, title.c_str());
+}

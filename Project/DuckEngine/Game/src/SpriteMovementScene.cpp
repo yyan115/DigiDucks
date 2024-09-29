@@ -28,6 +28,8 @@ TransformComponent* obstacle2Transform;
 RigidbodyComponent* obstacle2Rb;
 BoundingCircle* box2;
 
+Entity* testUI;
+
 void SpriteMovementScene::Load()
 {
 	//camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
@@ -67,6 +69,9 @@ void SpriteMovementScene::Load()
 	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
+
+	testUI = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+	//test
 
 	// load prefabs
 
@@ -155,7 +160,7 @@ void SpriteMovementScene::Update()
 	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
 	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
-	//DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
+	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
 
 	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
 	//DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
@@ -165,6 +170,16 @@ void SpriteMovementScene::Update()
 	DuckEngine::DrawPoint({ -3.f, -3.f }, 10.f);
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
+
+	DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
+
+	// TEST DRAWING TO UI (LOOKS LIKE IT WORKS)
+	DuckEngine::DrawRectangle({ 0.f, 0.f }, { 460.f, 460.f }, 0.f, { 255.f, 0.f, 0.f, 255.f }, false);
+
+	// SET CAMERA TO MOVE ALONG TO PLAYER
+	DuckEngine::SetCameraPosition(-playerTransform->position.x, -playerTransform->position.y);
+
+	//std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
 }
 
 void SpriteMovementScene::PostUpdate()

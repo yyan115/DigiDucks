@@ -115,7 +115,8 @@ void GraphicsManager::Render() {
             finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
         }
         else {
-            finalMatrix = modelToWorld;
+            glm::mat3x3 uiProjection = CameraToNDCMatrix(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+            finalMatrix = uiProjection * modelToWorld;
         }
 
         // Send matrix to vert shader
@@ -194,7 +195,7 @@ void GraphicsManager::RenderDebug()
             DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
             break;
         case DebugDrawCommand::RECTANGLE:
-            DrawRectangle(command.position1, command.position2, command.color, useCamera, cameraViewMatrix);
+            DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
             break;
         case DebugDrawCommand::CIRCLE:
             DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
@@ -344,7 +345,17 @@ void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Colo
     glPointSize(size);
 
     // Use camera-view matrix if useCamera is true, otherwise use the model matrix directly
-    glm::mat3x3 finalMatrix = useCamera ? (cameraViewMatrix * modelToWorld) : modelToWorld;
+    glm::mat3x3 finalMatrix;
+
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+        finalMatrix = uiProjection * modelToWorld;
+    };
 
     GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
@@ -355,68 +366,6 @@ void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Colo
     glBindVertexArray(0);
     shaders["DebugShader"].UnUse();
 }
-
-//void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
-//    const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-//    shaders["DebugShader"].Use();
-//    glBindVertexArray(lineVAO);
-//
-//    // Set the color
-//    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
-//    glUniform4f(uniformColorLocation,
-//        color.r / 255.0f,
-//        color.g / 255.0f,
-//        color.b / 255.0f,
-//        color.a / 255.0f);
-//
-//    // Calculate the direction vector and length
-//    Vector2D direction = end - start;
-//    float length = glm::length(glm::vec2{ direction.x, direction.y });
-//
-//    // Normalize the direction
-//    Vector2D unitDirection = direction / length;
-//
-//    // Compute angle of rotation
-//    float angle = atan2(unitDirection.y, unitDirection.x);
-//    float cosTheta = cos(angle);
-//    float sinTheta = sin(angle);
-//
-//    // Construct scaling matrix
-//    glm::mat3x3 scaleMatrix = glm::mat3x3(1.0f);
-//    scaleMatrix[0][0] = length; // Scale X to match the length of the line
-//    scaleMatrix[1][1] = size;   // Scale Y to adjust line thickness
-//
-//    // Construct rotation matrix
-//    glm::mat3x3 rotationMatrix = glm::mat3x3(1.0f);
-//    rotationMatrix[0][0] = cosTheta;
-//    rotationMatrix[0][1] = sinTheta;
-//    rotationMatrix[1][0] = -sinTheta;
-//    rotationMatrix[1][1] = cosTheta;
-//
-//    // Construct translation matrix
-//    glm::mat3x3 translationMatrix = glm::mat3x3(1.0f);
-//    translationMatrix[2][0] = start.x; // Translate to start position
-//    translationMatrix[2][1] = start.y;
-//
-//    // Combine the transformations: modelToWorld = Translation * Rotation * Scale
-//    glm::mat3x3 modelToWorld = translationMatrix * rotationMatrix * scaleMatrix;
-//
-//    // Apply camera transformation if useCamera is true
-//    glm::mat3x3 finalMatrix = useCamera ? (cameraViewMatrix * modelToWorld) : modelToWorld;
-//
-//    // Pass the final matrix to the shader
-//    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
-//    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-//
-//    // Set line width (Note: This may not have an effect in modern OpenGL)
-//    glLineWidth(size);
-//
-//    // Draw the line
-//    glDrawArrays(GL_LINES, 0, 2);
-//
-//    glBindVertexArray(0);
-//    shaders["DebugShader"].UnUse();
-//}
 
 void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
     const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
@@ -464,7 +413,17 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     glm::mat3x3 modelToWorld = translationMatrix * rotationMatrix * scaleMatrix;
 
     // Apply camera transformation if useCamera is true
-    glm::mat3x3 finalMatrix = useCamera ? (cameraViewMatrix * modelToWorld) : modelToWorld;
+    glm::mat3x3 finalMatrix;
+
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+        finalMatrix = uiProjection * modelToWorld;
+    }
 
     // Pass the final matrix to the shader
     GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
@@ -477,8 +436,7 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     shaders["DebugShader"].UnUse();
 }
 
-
-void GraphicsManager::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, const Color& color,
+void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color,
     bool useCamera, const glm::mat3x3& cameraViewMatrix) {
     shaders["DebugShader"].Use();
     glBindVertexArray(rectVAO);
@@ -491,17 +449,21 @@ void GraphicsManager::DrawRectangle(const Vector2D& minCorner, const Vector2D& m
         color.b / 255.0f,
         color.a / 255.0f);
 
-    // Compute the size (width and height) from minCorner and maxCorner
-    Vector2D size = maxCorner - minCorner;
-
-    // Compute the center position
-    Vector2D center = (minCorner + maxCorner) * 0.5f;
-
-    // Create the model-to-world matrix using the center position
-    glm::mat3x3 modelToWorld = ModelToWorldMatrix(size, 0.0f, center);
+    // Create the model-to-world matrix using the center position and rotation
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(size, rotation, center);
 
     // Apply camera transformation if useCamera is true
-    glm::mat3x3 finalMatrix = useCamera ? (cameraViewMatrix * modelToWorld) : modelToWorld;
+    glm::mat3x3 finalMatrix;
+
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+        finalMatrix = uiProjection * modelToWorld;
+    }
 
     // Pass the final transformation matrix to the shader
     GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
@@ -530,7 +492,18 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(radius, radius), 0.0f, position);
 
     // Use camera-view matrix if useCamera is true
-    glm::mat3x3 finalMatrix = useCamera ? (cameraViewMatrix * modelToWorld) : modelToWorld;
+    glm::mat3x3 finalMatrix;
+
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+        finalMatrix = uiProjection * modelToWorld;
+    }
+
 
     GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));

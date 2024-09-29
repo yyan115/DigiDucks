@@ -25,6 +25,7 @@ public:
     static GLint GetWindowWidth();
     static GLint GetWindowHeight();
 
+    static void SetWindowTitle(std::string title);
 
 private:
     static GLFWwindow* ptrWindow;
