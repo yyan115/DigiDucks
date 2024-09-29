@@ -73,12 +73,16 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Player", playerPrefab);
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle", obstaclePrefab);
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle2", obstacle2Prefab);
-	
+
 	// instantiate prefabs
 	player = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->EntityID);
+	circle->SetCollisionCallback([](Entity* otherEntity) 
+	{
+		std::cout << "Player collided with another entity!" << std::endl;
+	});
 
 	// get animator component
 	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->EntityID);

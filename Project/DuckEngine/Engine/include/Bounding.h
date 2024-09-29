@@ -21,8 +21,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 #endif
 
 #pragma once
+#include <functional>
 #include "Vector2.h"
 #include "Component.h"
+#include "Entity.h"
 
 class DUCKENGINE_API BoundingCollider {
 private:
@@ -33,6 +35,10 @@ public:
 	BoundingCollider() : centerPos(0.f, 0.f) {}
 	BoundingCollider(const Vec2& pos) : centerPos(pos) {}
 	BoundingCollider(float x, float y) : centerPos(x, y) {}
+
+	typedef std::function<void(Entity*)> OnCollisionCallback;
+
+	OnCollisionCallback onCollisionCallback = nullptr;
 
 	// Destructor
 	virtual ~BoundingCollider() = default;
@@ -61,10 +67,15 @@ public:
 	* @param y - The y position of the collider
 	* ***************************************************************/
 	void setCenterPos(float x, float y);
+
+	void SetCollisionCallback(OnCollisionCallback callback)
+	{
+		onCollisionCallback = callback;
+	}
 };
 
 
-class DUCKENGINE_API BoundingBox : private BoundingCollider, public Component {
+class DUCKENGINE_API BoundingBox : public BoundingCollider, public Component {
 private:
 	Vec2 size{};
 	Vec2 topR{};
@@ -163,7 +174,7 @@ public:
 };
 
 
-class DUCKENGINE_API BoundingCircle : private BoundingCollider, public Component {
+class DUCKENGINE_API BoundingCircle : public BoundingCollider, public Component {
 private:
 	float radius{};
 

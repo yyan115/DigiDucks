@@ -176,6 +176,17 @@ bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime,
         checkCollisionCL(circle, nextPos, btmRight, topRight) ||
         checkCollisionCL(circle, nextPos, topRight, topLeft) ||
         checkCollisionCL(circle, nextPos, topLeft, btmLeft)) {
+
+        // Pass the colliding entities to the callbacks
+        if (circle.onCollisionCallback) 
+        {
+            circle.onCollisionCallback(nullptr);
+        }
+        if (box.onCollisionCallback) 
+        {
+            box.onCollisionCallback(nullptr);
+        }
+
         return true;
     }
     
@@ -261,6 +272,14 @@ bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec
     }
 
     // No separating axis found, collision detected
+    if (box1.onCollisionCallback) 
+    {
+        box1.onCollisionCallback(nullptr);
+    }
+    if (box2.onCollisionCallback) 
+    {
+        box2.onCollisionCallback(nullptr); 
+    }
     return true;
 }
 
@@ -310,7 +329,16 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 
         float t = t0 < t1 ? t0 : t1;
 
-        if (t >= 0.f && t <= deltaTime) {
+        if (t >= 0.f && t <= deltaTime) 
+        {
+            if (circle.onCollisionCallback) 
+            {
+                circle.onCollisionCallback(nullptr);  
+            }
+            if (circle2.onCollisionCallback) 
+            {
+                circle2.onCollisionCallback(nullptr);
+            }
             return true;  // Collision detected
         }
     }
