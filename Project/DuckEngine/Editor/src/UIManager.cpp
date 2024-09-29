@@ -54,34 +54,50 @@ void UIManager::Initialize() {
 }
 
 void RenderSystemTimings(const SystemManager& systemManager) {
-
     const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
     double totalTime = systemManager.GetTotalTime();
 
     if (totalTime > 0.0) {
-        std::vector<float> systemPercentages;
-        std::vector<const char*> systemNames;
-
         for (const auto& system : systemData) {
-            double percentage = (system.second / totalTime) * 100.0;
-            systemPercentages.push_back(static_cast<float>(percentage));
-            systemNames.push_back(system.first.c_str());
-        }
+            double percentage = (system.second / totalTime) * 100.0f;
+            float systemPercentage = static_cast<float>(percentage);
 
-        // Start drawing the histogram
-        ImGui::PlotHistogram("##Systems", systemPercentages.data(), static_cast<int>(systemPercentages.size()), 0, "System Graphs", 0.0f, 100.0f, ImVec2(-25, 150));
+            auto spacePos = system.first.find(" ");
+            std::string rawName = system.first.c_str();
+            if (spacePos != std::string::npos) {
+                // Extract the part after the space
+                rawName = system.first.c_str() + spacePos + 1;
+            }
 
-        for (size_t i = 0; i < systemPercentages.size(); ++i) {
+            // Display the name of the system as a label
+            ImGui::Text("%s", rawName.c_str());
+
+            // Draw the individual progress bar for the system
+            ImGui::ProgressBar(systemPercentage, ImVec2(-1, 0), (std::to_string(systemPercentage) + "%").c_str());
+
             // If the bar is hovered, show a tooltip with the system name
             if (ImGui::IsItemHovered()) {
                 ImGui::BeginTooltip();
-                ImGui::Text("System: %s", systemNames[i]);
-                ImGui::Text("Percentage: %.2f%%", systemPercentages[i]);
+                ImGui::Text("System: %s", rawName.c_str());
+                ImGui::Text("Percentage: %.2f%%", systemPercentage);
                 ImGui::EndTooltip();
             }
+
+            // Optionally, add some spacing between the graphs
+            ImGui::Spacing();
         }
-        
     }
+}
+
+// Render the ImGui windows with a specific size and position to make it adaptive
+void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) {
+    // Get the current window size from the WindowManager or directly from the GLFW window
+    int windowWidth = WindowManager::GetWindowWidth();
+    int windowHeight = WindowManager::GetWindowHeight();
+
+    // Set the ImGui window to automatically adapt to the window size
+    ImGui::SetNextWindowSize(ImVec2(static_cast<float>(windowWidth * WidthOffset), static_cast<float>(windowHeight * HeightOffset))); // Set size relative to window size
+    ImGui::SetNextWindowPos(ImVec2(windowWidth * PosX, windowHeight * PosY)); // Set position
 }
 
 void UIManager::Render() {
@@ -91,8 +107,9 @@ void UIManager::Render() {
     ImGui::NewFrame();
 
     // example window
-    //ImGui::ShowDemoWindow();
+    //ImGui::ShowDemoWindow();    
 
+    RenderImGuiWindows(0.25f, 0.25f, 0.0f, 20.0f);
     // Main menu bar
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
@@ -123,8 +140,13 @@ void UIManager::Render() {
     // Rendering stats
     RenderWindows();
 
+    RenderImGuiWindows(0.21f, 0.16f, 0.0f, 0.6f);
     ShowInspector();
+
+    RenderImGuiWindows(1.f, 0.25f, 0.0f, 0.75f);
     ShowExplorer();
+
+    RenderImGuiWindows(0.17f, 0.06f, 0.0f, 0.54f);
     ShowEntitySpawn();
 
     // Render ImGui on top of the scene
@@ -140,7 +162,8 @@ void UIManager::Exit() {
 }
 
 void UIManager::ShowDebugInfo() {
-	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.0f);
+	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Create the tab bar
     if (ImGui::BeginTabBar("MyTabBar")) {
@@ -194,7 +217,8 @@ void UIManager::ShowDebugInfo() {
 }
 
 void UIManager::ShowPerformance() {
-    ImGui::Begin("Performance", nullptr);
+    RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.3f);
+    ImGui::Begin("Performance", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
     ImGui::End();
 }   
@@ -365,7 +389,7 @@ void UIManager::RenderSceneAssets() {
 }
 
 void UIManager::RenderGameObjectAssets() {
-    if (ImGui::Button("Spawn Square")) {
+    if (ImGui::Button("Spawn Crate")) {
 
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -386,7 +410,7 @@ void UIManager::RenderGameObjectAssets() {
 	}
     ImGui::SameLine();
 
-    if (ImGui::Button("Remove Square")) {
+    if (ImGui::Button("Remove Crate")) {
         if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
             DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().EntityID);
         }

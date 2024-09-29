@@ -39,6 +39,9 @@ private:
     // Show the different window ( for debug info )
     static void RenderWindows();
 
+    // Render the ImGui adaptive windows
+    static void RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX = 0, float PosY = 0);
+
     // Show the performance window
     static void ShowPerformance();
     static void SpawnSquare();
