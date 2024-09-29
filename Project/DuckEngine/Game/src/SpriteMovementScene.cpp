@@ -48,9 +48,8 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE, 19, 24);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK, 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/characteridle.png", 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", "../Resources/Sounds/magnetic.mp3");
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", "../Resources/Sounds/twitchAlert.wav");
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", Resources::SOUND_MAGNETIC);
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_TWITCH_ALERT);
 
 
 	// setup prefabs
