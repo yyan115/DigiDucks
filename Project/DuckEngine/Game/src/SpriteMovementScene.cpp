@@ -75,9 +75,6 @@ void SpriteMovementScene::Load()
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
-	// background
-	Entity* background = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_BACKGROUND, { 0.0f, 0.0f }, { 100.0f, 100.0f });
-
 	// test UI
 	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_OLDMAN, { 5.0f, 5.0f }, {10.0f, 10.0f});
 	TransformComponent* testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
@@ -123,6 +120,13 @@ void SpriteMovementScene::Load()
 	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
 	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
 	obstacle2Rb->isStatic = false;
+
+
+	// background
+	Entity* background = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_BACKGROUND, { 0.0f, 0.0f }, { 100.0f, 100.0f });
+	SpriteRendererComponent* backgroundSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(background->entityID);
+	backgroundSpriteRenderer->layer = -1;
+
 }
 
 void SpriteMovementScene::Start()

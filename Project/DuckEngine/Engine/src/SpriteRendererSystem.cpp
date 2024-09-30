@@ -1,6 +1,14 @@
 #include "SpriteRendererSystem.h"
 #include "GraphicsManager.h"
 #include "Color.h"
+#include "algorithm"
+
+struct RenderData
+{
+	TransformComponent* transform;
+	SpriteRendererComponent* spriteRenderer;
+	int layer;
+};
 
 void SpriteRendererSystem::Start()
 {
@@ -9,10 +17,34 @@ void SpriteRendererSystem::Start()
 
 void SpriteRendererSystem::Update()
 {
-	for (const auto& [entityId, spriteRenderer] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())
+	std::vector<RenderData> renderQueue;
+
+	// add to render queue
+	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())
 	{
-		SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId);
+		SpriteRendererComponent* spriteRenderer = static_cast<SpriteRendererComponent*>(component.get());
 		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+
+		if (spriteRenderer && transform)
+		{
+			RenderData data;
+			data.transform = transform;
+			data.spriteRenderer = spriteRenderer;
+			data.layer = spriteRenderer->layer;
+			renderQueue.push_back(data);
+		}
+
+	}
+
+	// sort according to layer
+	std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
+		return a.layer < b.layer;
+		});
+
+	for (const RenderData& data : renderQueue)
+	{
+		SpriteRendererComponent* spriteRenderer = data.spriteRenderer;
+		TransformComponent* transform = data.transform;
 		if (spriteRenderer->sprite && transform)
 		{
 			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
