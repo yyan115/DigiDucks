@@ -11,8 +11,8 @@ namespace Resources
 	const std::string TEXTURE_BACKGROUND = "../Resources/background.png";
 
 	// Sounds
-	const std::string SOUND_TWITCH_ALERT = "../Resources/Sounds/twitchAlert.wav";
-	const std::string SOUND_MAGNETIC = "../Resources/Sounds/magnetic.mp3";
+	const std::string SOUND_DUCKSOUND = "../Resources/Sounds/AnimalDuck.wav";
+	const std::string SOUND_THEME = "../Resources/Sounds/COMEDYACCENT.wav";
 
 	// Fonts
 	const std::string FONT_ARIAL = "../Resources/Fonts/arial.ttf";
