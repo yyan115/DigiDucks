@@ -4,6 +4,7 @@
 #include <chrono>
 #include <map>
 #include "ImageLoader.h"
+#include "ResourcePath.h"
 
 // Global variables for timing
 std::chrono::time_point<std::chrono::steady_clock> lastSpawnTime = std::chrono::steady_clock::now();
@@ -12,10 +13,10 @@ float spawnInterval = 0.3f; // 1 second
 // Random number generator for position, scale, rotation, and velocity
 std::random_device rd;
 std::mt19937 gen(rd());
-std::uniform_real_distribution<float> randomPosition(-500.0f, 500.0f);  // Position between -500 and 500
-std::uniform_real_distribution<float> randomScale(10.0f, 100.0f);      // Scale between 50 and 500
-std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    // Rotation between 0 and 360 degrees
-std::uniform_real_distribution<float> randomVelocity(-1.0f, 1.0f);  // Velocity between -100 and 100
+std::uniform_real_distribution<float> randomPosition(-10.0, 10.0f);  
+std::uniform_real_distribution<float> randomScale(0.6f, 1.0f);    
+std::uniform_real_distribution<float> randomRotation(0.0f, 360.0f);    
+std::uniform_real_distribution<float> randomVelocity(-0.01f, 0.01f); 
 
 // Map to store entity velocities (entityID -> (velocityX, velocityY))
 //std::map<int, std::pair<float, float>> entityVelocities;
@@ -34,13 +35,13 @@ void MaxLoadScene::Load()
     //    0                // Layer (default)
     //);
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadTexture("../Resources/Crate.png");
+    //std::shared_ptr<Prefab> crate = std::make_shared<Prefab>("Crate", "../Resources/Crate.png", Vec2(1.0f, 1.0f));
+    //PrefabManager::AddPrefab("Crate", crate);
 
-    std::shared_ptr<Prefab> crate = std::make_shared<Prefab>("Crate", "../Resources/Crate.png", Vec2(1.0f, 1.0f));
-    PrefabManager::LoadPrefab("Crate", crate);
+    DuckEngine::SetCameraHeight(20);
 
+    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
 
-    DuckEngine::SetCameraHeight(1000);
 
     for (int i = 0; i < 2500; i++)
     {
@@ -85,12 +86,12 @@ void MaxLoadScene::SpawnSquare()
 
 
     // Create a new square entity
-    Entity* square = PrefabManager::InstantiatePrefab("Crate", Vec2(1.0f, 1.0f));
+    Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_CRATE, pos, {1.0f, 1.0f});
 
     // Add transform component with randomized values
 
     TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
-
+    
     transform->position = pos;
     transform->angle = rotation;
     transform->scale = { scaleX, scaleY };

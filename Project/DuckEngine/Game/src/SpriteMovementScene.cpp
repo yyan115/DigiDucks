@@ -3,7 +3,6 @@
 #include "DuckEngine_Input.h"
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
-#include "Bounding.h"
 #include "ResourcePath.h"
 
 Entity* player;
@@ -36,17 +35,6 @@ Entity* noTextureEntity;
 
 void SpriteMovementScene::Load()
 {
-	//camera = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-
-	//cameraComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<CameraComponent>(
-	//	camera->EntityID,
-	//	0.f, 0.f,        // Camera position (centered at the origin)
-	//	1.0f,            // Zoom factor of 1.0 for 1:1 scale
-	//	-10.0f,            // Camera height (adjust based on the size of your world)
-	//	1.0f,            // Aspect ratio (if the window is square, otherwise adjust)
-	//	0                // Layer (default)
-	//);
-
 	DuckEngine::SetCameraHeight(20);
 
 	// Load necessary assets (textures, sounds, etc.)
@@ -58,82 +46,36 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", Resources::SOUND_MAGNETIC);
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_TWITCH_ALERT);
 
-
-	// setup prefabs
-	std::shared_ptr<Prefab> playerPrefab = std::make_shared<Prefab>("Player", Resources::TEXTURE_CHARACTERIDLE, Vec2(1.0f, 2.0f));
-	playerPrefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(0.0f, 0.0f), 1.f));
-	playerPrefab->AddComponent(std::make_shared<RigidbodyComponent>());
-	playerPrefab->AddComponent(std::make_shared<AnimatorComponent>());
-
-
-	std::shared_ptr<Prefab> obstaclePrefab = std::make_shared<Prefab>("Obstacle", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
-	obstaclePrefab->AddComponent(std::make_shared<BoundingBox>(Vec2(5.0f, 0.0f), Vec2{ 1.f, 1.5f }));
-	obstaclePrefab->AddComponent(std::make_shared<RigidbodyComponent>());
-
-
-	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
-	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
-	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
-
-	// background
-	Entity* background = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_BACKGROUND, { 0.0f, 0.0f }, { 100.0f, 100.0f });
-	SpriteRendererComponent* backgroundSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(background->entityID);
-	backgroundSpriteRenderer->layer = -1;
-
-	// test UI
-	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_OLDMAN, { 5.0f, 5.0f }, {10.0f, 10.0f});
-	TransformComponent* testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
-	testUITransfrom->relativeToCamera = false;
-
-	// test draw no texture
-	noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({1.0f, 1.0f}, {2.0f, 2.0f});
-	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, false);
-
-	// load prefabs
-	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Player", playerPrefab);
-	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle", obstaclePrefab);
-	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle2", obstacle2Prefab);
+	PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
+	LevelManager::LoadLevel("../Resources/SpriteRendererScene.json");
 
 	// instantiate prefabs
-	player = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
+	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->entityID);
+	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 	circle->SetCollisionCallback([](Entity* otherEntity) 
 	{
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
 
-	// get animator component
-	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
-	// add animations
-	playerAnimator->AddAnimation("WalkAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK), 0.2f);
-	playerAnimator->AddAnimation("IdleAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE), 0.6f);
 
-
-	playerRb->velocity = Vec2(0.0f, 0.0f);
-	playerRb->isStatic = false;
-
-	obstacle = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle", { 5.0f, 0.0f });
+	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->entityID);
 	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->entityID);
 	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->entityID);
-	obstacleRb->isStatic = true;
 
-	obstacle2 = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle2", { -5.0f, 0.0f });
+	obstacle2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle2");
 	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->entityID);
 	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
 	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
-	obstacle2Rb->isStatic = false;
-
-
 
 }
 
 void SpriteMovementScene::Start()
 {
 	//DuckEngine_Sound::PlaySound("TestSound");
-
 }
 
 void SpriteMovementScene::Update()
@@ -147,7 +89,7 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		playerRb->velocity.y = moveSpeed; // Move up
-				playerAnimator->PlayAnimation("WalkAnimation");
+		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
@@ -175,13 +117,13 @@ void SpriteMovementScene::Update()
 
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
-	//DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
+	////DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
-	//DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
+	////DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
 	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
 
 	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
-	//DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
+	////DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
 
 	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 
@@ -189,15 +131,14 @@ void SpriteMovementScene::Update()
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
-	DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 
-	// TEST DRAWING TO UI (LOOKS LIKE IT WORKS)
-	DuckEngine::DrawRectangle({ 0.f, 0.f }, { 460.f, 460.f }, 0.f, { 255.f, 0.f, 0.f, 255.f }, false);
+	//// TEST DRAWING TO UI (LOOKS LIKE IT WORKS)
+	//DuckEngine::DrawRectangle({ 0.f, 0.f }, { 460.f, 460.f }, 0.f, { 255.f, 0.f, 0.f, 255.f }, false);
 
-	// SET CAMERA TO MOVE ALONG TO PLAYER
+	//// SET CAMERA TO MOVE ALONG TO PLAYER
 	DuckEngine::SetCameraPosition(-playerTransform->position.x, -playerTransform->position.y);
 
-	//std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
+	////std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
 }
 
 void SpriteMovementScene::PostUpdate()
@@ -207,7 +148,6 @@ void SpriteMovementScene::PostUpdate()
 
 void SpriteMovementScene::Exit()
 {
-
 }
 
 void SpriteMovementScene::Unload()

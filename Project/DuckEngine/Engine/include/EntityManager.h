@@ -22,4 +22,6 @@ class DUCKENGINE_API EntityManager
     void RemoveEntity(int entityID);
 
     const std::vector<Entity>& GetEntities() const;
+
+    Entity* GetEntityByName(const std::string& name);
 };

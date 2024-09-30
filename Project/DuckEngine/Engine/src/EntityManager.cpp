@@ -25,3 +25,15 @@ void EntityManager::RemoveEntity(int entityID)
 const std::vector<Entity>& EntityManager::GetEntities() const {
     return entities;
 }
+
+Entity* EntityManager::GetEntityByName(const std::string& name)
+{
+    for (auto& entity : entities)
+    {
+        if (entity.IsName(name))
+        {
+            return &entity;
+        }
+    }
+    return nullptr;
+}

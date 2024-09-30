@@ -21,14 +21,16 @@ private:
 
 public:
 
-	// load prefab into the manager
-	static void LoadPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab);
+	// Add a single prefab to the manager
+	static void AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab);
 
 	// retrieve prefab by name
 	static std::shared_ptr<Prefab> GetPrefab(const std::string& name);
 
 	// instantiate prefab by name
 	static Entity* InstantiatePrefab(const std::string& name, Vec2 newPosition);
+
+	static void LoadPrefabsFromFile(const std::string& filePath);
 
 
 };

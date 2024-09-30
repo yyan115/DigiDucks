@@ -11,7 +11,6 @@
 #include "CameraManager.h"
 #include "SoundManager.h"
 #include "InputManager.h"
-#include "Serialization.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -35,11 +34,15 @@ PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
     // Init Window, then Graphics, then Input
-    Serialization::Init_json();
-    WindowManager::Initialize(W_init.width, W_init.height, W_init.title);
+    Serialization::InitJson("../Resources/windows_init.json");
+    WindowInit window = Serialization::GetWindowInit();
+    WindowManager::Initialize(window.width, window.height, window.title);
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
+
+    // load prefabs
+    PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -96,7 +99,8 @@ void DuckEngine::Update()
     DUCKENGINE_SystemManager.UpdateAll();
     DUCKENGINE_SceneManager.Update();
     //SoundManager::GetInstance().Update();
-    
+
+    DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 
 }
 

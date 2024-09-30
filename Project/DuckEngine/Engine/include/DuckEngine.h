@@ -9,6 +9,8 @@
 #include "AssetManager.h"
 #include "EntityFactory.h"
 #include "PrefabManager.h"
+#include "Serialization.h"
+#include "LevelManager.h"
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)

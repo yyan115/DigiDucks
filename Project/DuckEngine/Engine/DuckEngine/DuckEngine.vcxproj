@@ -123,6 +123,7 @@
     <ClInclude Include="..\include\CircleColliderSystem.h" />
     <ClInclude Include="..\include\Color.h" />
     <ClInclude Include="..\include\Component.h" />
+    <ClInclude Include="..\include\ComponentFactory.h" />
     <ClInclude Include="..\include\ComponentManager.h" />
     <ClInclude Include="..\include\DuckEngine.h" />
     <ClInclude Include="..\include\DuckEngine_Input.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\LevelManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Prefab.h" />
@@ -165,6 +167,7 @@
     <ClCompile Include="..\src\CameraSystem.cpp" />
     <ClCompile Include="..\src\Bounding.cpp" />
     <ClCompile Include="..\src\CircleColliderSystem.cpp" />
+    <ClCompile Include="..\src\ComponentFactory.cpp" />
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\DuckEngine_Input.cpp" />
     <ClCompile Include="..\src\DuckEngine_Sound.cpp" />
@@ -175,6 +178,7 @@
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\LevelManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />

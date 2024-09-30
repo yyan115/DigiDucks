@@ -10,32 +10,44 @@
 #define SERIALIZATION_H
 
 #include "json.hpp"
-#include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <windows.h>
+#include "Vector2.h"
 
+typedef int GLint; 
 using json = nlohmann::json;
-
-struct Window_init {
+struct WindowInit
+{
 	std::string title = "";
 	GLint width = 0 ;
 	GLint height = 0 ;
 
 }; 
 
-extern Window_init W_init;
+struct GameObjectData 
+{
+	Vec2 position;
+	Vec2 velocity;
+	Vec2 scale;
+	bool isStatic;
+};
+
+
+extern WindowInit W_init;
 
 class DUCKENGINE_API Serialization {
 
 	public:
-
-		static void Init_json();
+		static void InitJson(const std::string& filePath);
+		static json LoadJsonFile(const std::string& filePath);
+		static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
+		static WindowInit GetWindowInit();
 
 	private:
-
 		static json jsonData;
+		static WindowInit windowInit;
 		
 };
 
