@@ -3,7 +3,7 @@
 \file		Bounding.cpp
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
-\date   	Sep 13 2024
+\date   	Sep 26 2024
 \brief  	This file includes the definition of the Vector2D structure
 
 Copyright (C) 2024 DigiPen Institute of Technology.
