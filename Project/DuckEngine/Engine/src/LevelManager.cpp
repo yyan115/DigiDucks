@@ -5,6 +5,9 @@
 #include "LevelManager.h"
 #include "PrefabManager.h"
 #include "ComponentFactory.h"
+#include <windows.h>
+#include <commdlg.h>
+#include <string>
 
 
 void LevelManager::LoadLevel(const std::string& levelFile)
@@ -67,4 +70,36 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             }
         }
     }
+}
+
+std::string OpenFileDialog() {
+    wchar_t fileName[260] = L"";
+
+    OPENFILENAME ofn;
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFilter = L"JSON Files\0*.json\0All Files\0*.*\0";
+    ofn.lpstrFile = fileName;
+    ofn.nMaxFile = 260;
+    ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+    ofn.lpstrDefExt = L"json";
+
+    if (GetOpenFileName(&ofn)) {
+        // Convert wide char to narrow char string
+        char narrowFileName[260];
+        size_t convertedChars = 0;
+        wcstombs_s(&convertedChars, narrowFileName, sizeof(narrowFileName), fileName, _TRUNCATE);
+        return std::string(narrowFileName);
+    }
+    return "";
+}
+
+void LevelManager::OpenLevelDialog()
+{
+    std::string levelFile = OpenFileDialog();
+
+    // Load the selected level file
+    LoadLevel(levelFile);
+
 }

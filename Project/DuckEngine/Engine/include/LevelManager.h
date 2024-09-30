@@ -13,4 +13,5 @@ class DUCKENGINE_API LevelManager
 {
 public:
     static void LoadLevel(const std::string& levelFile);
+    static void OpenLevelDialog();
 };
