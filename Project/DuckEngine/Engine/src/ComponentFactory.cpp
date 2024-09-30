@@ -37,7 +37,7 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
             }
 
             // Load the texture
-            Texture texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(texturePath)[0];
+            Texture texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(texturePath.c_str())[0];
 
             // Create and add the SpriteRendererComponent
             auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
@@ -86,7 +86,9 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
                     float frameDuration = animData["frameDuration"];
 
                     // Load the texture and add the animation to the AnimatorComponent
-                    std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource);
+                    std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str());
+                    
+                    std::cout << "Retrieved textures from File Path: " << textureResource.c_str() << " Has " << textures.size() << " Sprites!";
                     animator->AddAnimation(animName, textures, frameDuration);
                 }
             }

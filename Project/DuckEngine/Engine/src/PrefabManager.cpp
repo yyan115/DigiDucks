@@ -6,20 +6,18 @@ struct PrefabManager::Impl
 {
 	std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
 
+	~Impl()
+	{
+		prefabs.clear();
+	}
 };
 
-PrefabManager::Impl* PrefabManager::impl = new Impl();
+PrefabManager::Impl* PrefabManager::impl = nullptr;
 
 PrefabManager::PrefabManager()
 {
 	impl = new Impl();
 }
-
-PrefabManager::~PrefabManager()
-{
-	delete impl;
-}
-
 
 void PrefabManager::AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab)
 {
@@ -66,10 +64,15 @@ void PrefabManager::LoadPrefabsFromFile(const char* filePath)
 
 			if (prefabInfo.contains("components"))
 			{
-				prefab->SetComponentsData(prefabInfo["components"]);
+				prefab->componentsData = prefabInfo["components"];
 			}
 
 			AddPrefab(prefabName.c_str(), prefab);
 		}
 	}
+}
+
+void PrefabManager::Exit() 
+{
+	delete impl;
 }

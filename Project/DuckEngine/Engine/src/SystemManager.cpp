@@ -6,7 +6,6 @@
 void SystemManager::AddSystem(std::shared_ptr<System> system) 
 {
     systems.push_back(system);
-    // Initialize the systemData pair with the system name and 0.0 time
     systemData.emplace_back(typeid(*system).name(), 0.0);
 }
 
@@ -32,3 +31,4 @@ void SystemManager::UpdateAll()
         
     }
 }
+

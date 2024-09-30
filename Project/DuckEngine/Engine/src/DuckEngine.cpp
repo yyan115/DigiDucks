@@ -145,6 +145,10 @@ void DuckEngine::Exit()
     UIManager::Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
+    PrefabManager::Exit();
+    InputManager::Exit();
+    AssetManager::Exit();
+
     DUCKENGINE_SceneManager.Shutdown();
     //SoundManager::GetInstance().Exit();
 }

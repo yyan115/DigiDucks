@@ -27,19 +27,12 @@ program object.
 ----------------------------------------------------------------------------- */
 
 
-// Export/Import macro
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
 #include <GL/glew.h> // for access to OpenGL API declarations 
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
 /*  _________________________________________________________________________ */
-class DUCKENGINE_API GLSLShader {
+class GLSLShader {
     /*! GLSLShader class.
     */
 public:

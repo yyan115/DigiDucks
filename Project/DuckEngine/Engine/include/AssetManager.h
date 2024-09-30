@@ -1,8 +1,8 @@
 #pragma once
-#include <unordered_map>
-#include <string>
+#include <vector>
 #include <memory>
 
+typedef unsigned int Texture;
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
@@ -10,26 +10,20 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-typedef unsigned int Texture;
-
 class DUCKENGINE_API AssetManager
 {
 public:
-	static void LoadAll();
+    AssetManager();
 
-	static std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath);
-	static std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath, int textureWidth, int textureHeight);
-	static void LoadSound(const std::string& soundName, const std::string& filePath);
-	
-	// unload all textures
-	static void UnloadAll();
+    static void LoadAll();
+
+    static std::vector<std::shared_ptr<Texture>> LoadTexture(const char* filePath);
+    static std::vector<std::shared_ptr<Texture>> LoadTexture(const char* filePath, int textureWidth, int textureHeight);
+    static void LoadSound(const char* soundName, const char* filePath);
+
+    static void Exit();
 
 private:
-	// Stores all loaded textures with their file paths as keys
-	static std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> textureMap;
-
-	// Helper function to load a texture from the file
-	static std::shared_ptr<Texture> LoadTextureFromFile(const std::string& filePath);
-	static std::vector<std::shared_ptr<Texture>> LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight);
-
+    struct Impl;
+    static Impl* impl;
 };

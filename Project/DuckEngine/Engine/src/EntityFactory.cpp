@@ -31,7 +31,7 @@ Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 positio
 
     if (!texturePath.empty())
     {
-        spriteRenderer->texture = *AssetManager::LoadTexture(texturePath)[0];
+        spriteRenderer->texture = *AssetManager::LoadTexture(texturePath.c_str())[0];
     }
     else
     {

@@ -11,18 +11,18 @@ void Scene::PostUpdate() {}
 void Scene::Exit() {}
 void Scene::Unload() 
 {
-    const std::vector<Entity>& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    std::vector<Entity>& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
     std::vector<int> entityIDs;
-    for (const Entity& entity : entities)
+    for (Entity& entity : entities)
     {
         entityIDs.push_back(entity.entityID);
+        entity.Release();
     }
 
     for (int entityID : entityIDs)
     {
         DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
-
         DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(entityID);
     }
 

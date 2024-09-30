@@ -46,3 +46,10 @@ bool Entity::IsName(const char* compareName) const
     return std::strcmp(impl->name.c_str(), compareName) == 0;
 }
 
+void Entity::Release()
+{
+    if (impl)
+    {
+        delete impl;
+    }
+}

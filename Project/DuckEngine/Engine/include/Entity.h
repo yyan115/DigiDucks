@@ -18,6 +18,7 @@ public:
     const char* GetName() const;
     void SetName(const char* name);
     bool IsName(const char* compareName) const;
+    void Release();
 
     int entityID;
 

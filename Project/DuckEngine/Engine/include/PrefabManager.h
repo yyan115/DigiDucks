@@ -19,7 +19,6 @@ class DUCKENGINE_API PrefabManager
 
 public:
     PrefabManager();
-    ~PrefabManager();
 
     // Add a single prefab to the manager
     static void AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab);
@@ -32,6 +31,8 @@ public:
 
     // Load prefabs from a file
     static void LoadPrefabsFromFile(const char* filePath);
+
+    static void Exit();
 
 private:
     struct Impl;  // Forward declare Impl

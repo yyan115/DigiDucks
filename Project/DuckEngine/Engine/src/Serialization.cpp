@@ -1,50 +1,34 @@
 #include "Serialization.h"
 
-struct Serialization::Impl 
-{
-    json jsonData;
-    WindowInit windowInit;
-};
+json Serialization::jsonData;
+WindowInit Serialization::windowInit;
 
-// Initialize the static pointer to Impl
-Serialization::Impl* Serialization::impl = new Impl();
-
-Serialization::Serialization()
-{
-    if (impl == nullptr) impl = new Impl();
-}
-
-Serialization::~Serialization()
-{
-    delete impl;
-}
-
-void Serialization::InitJson(const char* filePath)
+void Serialization::InitJson(const std::string& filePath)
 {
     std::ifstream file(filePath);
-    if (!file.is_open()) 
+    if (!file.is_open())
     {
         std::cerr << "Could not open the file!" << std::endl;
         return;
     }
-    file >> impl->jsonData;
+    file >> jsonData;
     file.close();
 
     // Extract window initialization data
-    impl->windowInit.title = impl->jsonData.value("title", "Untitled Game");
-    impl->windowInit.width = impl->jsonData.value("width", 800);
-    impl->windowInit.height = impl->jsonData.value("height", 600);
+    windowInit.title = jsonData.value("title", "Untitled Game");
+    windowInit.width = jsonData.value("width", 800);
+    windowInit.height = jsonData.value("height", 600);
 }
 
-json Serialization::LoadJsonFile(const char* filePath)
+json Serialization::LoadJsonFile(const std::string& filePath)
 {
     json data;
     std::ifstream file(filePath);
-    if (!file.is_open()) 
+    if (!file.is_open())
     {
         std::cerr << "Could not open the file: " << filePath << std::endl;
     }
-    else 
+    else
     {
         file >> data;
         file.close();
@@ -52,9 +36,9 @@ json Serialization::LoadJsonFile(const char* filePath)
     return data;
 }
 
-Vec2 Serialization::GetVec2(const json& j, const char* key, const Vec2& defaultValue)
+Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& defaultValue)
 {
-    if (j.contains(key)) 
+    if (j.contains(key))
     {
         float x = j[key]["x"].get<float>();
         float y = j[key]["y"].get<float>();
@@ -63,7 +47,7 @@ Vec2 Serialization::GetVec2(const json& j, const char* key, const Vec2& defaultV
     return defaultValue;
 }
 
-WindowInit Serialization::GetWindowInit() 
+WindowInit Serialization::GetWindowInit()
 {
-    return impl->windowInit;
+    return windowInit;
 }

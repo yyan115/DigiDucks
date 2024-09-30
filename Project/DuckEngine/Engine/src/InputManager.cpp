@@ -6,11 +6,20 @@
 #define UNREFERENCED_PARAMETER(P) (P)
 
 
-struct InputManager::Impl {
+struct InputManager::Impl 
+{
     std::unordered_map<int, bool> keyStates;
     std::unordered_map<int, bool> mouseButtonStates;
     std::unordered_map<int, bool> previousKeyStates;
     std::unordered_map<int, bool> previousMouseButtonStates;
+
+    ~Impl() 
+    {
+        keyStates.clear();
+        mouseButtonStates.clear();
+        previousKeyStates.clear();
+        previousMouseButtonStates.clear();
+    }
 };
 
 InputManager::Impl* InputManager::impl = new Impl();
@@ -59,6 +68,7 @@ void InputManager::Update() {
 
 void InputManager::Exit() {
     // Clean up resources if necessary
+    delete impl;
 }
 
 bool InputManager::IsKeyDown(int key) {

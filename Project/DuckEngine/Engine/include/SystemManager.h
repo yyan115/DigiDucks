@@ -6,14 +6,7 @@
 #include "System.h"
 
 
-// Export/Import macro
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
-class DUCKENGINE_API SystemManager 
+class SystemManager 
 {
 public:
     // Add a system to the manager
@@ -25,11 +18,13 @@ public:
     // Update all systems
     void UpdateAll();
 
+    void Exit();
+
     const std::vector<std::pair<std::string, double>>& GetSystemData() const { return systemData; }   
     double GetTotalTime() const { return totalTime; }
 
 private:
     std::vector<std::shared_ptr<System>> systems;
-    std::vector<std::pair<std::string, double>> systemData; // Pair of system name and time taken
+    std::vector<std::pair<std::string, double>> systemData;
     double totalTime = 0.0;
 };

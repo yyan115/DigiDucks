@@ -1,18 +1,12 @@
 #pragma once
 
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
 #include <unordered_map>  // For storing input states
 #include <memory>
 
 // Forward declaration to avoid circular dependencies
 struct GLFWwindow;
 
-class DUCKENGINE_API InputManager {
+class InputManager {
 public:
     InputManager();  // Constructor
     ~InputManager(); // Destructor

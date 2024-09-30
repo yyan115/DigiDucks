@@ -76,7 +76,7 @@ void CircleColliderSystem::Update() {
 							if (entity3Id == entity2Id || entity3Id == entityId) continue;
 
 							BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
-							TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
+							//TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 							RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 							if (!boxRb) {	// One of the box is moving
@@ -151,11 +151,11 @@ void CircleColliderSystem::Update() {
 						}
 
 						// Check if Box next position is colliding with a static object
-						for (const auto& [entity3Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+						for (const auto& [entity3Id, _boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
 							BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
-							TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
+							//TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 							RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 							if (!boxRb2) {	// One of the box is moving

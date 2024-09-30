@@ -15,39 +15,20 @@
 #include "DuckEngine.h"
 #include "CameraSystem.h"
 
-struct GraphicsManager::Impl 
-{
-    std::map<std::string, GLSLShader> shaders;  // Stores shaders by their names
-    std::vector<DrawOptions> drawQueue;  // Stores draw commands
-    std::vector<DebugDrawCommand> debugDrawQueue;  // Stores debug draw commands
-    Color backgroundColor = { 0, 0, 0, 255 };  // Default background color
+std::map<std::string, GLSLShader> GraphicsManager::shaders;
+GLuint GraphicsManager::VAO = 0;
+std::vector<DrawOptions> GraphicsManager::drawQueue;
 
-    GLuint VAO = 0;
-    GLuint pointVAO = 0;
-    GLuint lineVAO = 0;
-    GLuint rectVAO = 0;
-    GLuint circleVAO = 0;
-    int circleSegments = 20;
-
-
-};
-
-GraphicsManager::Impl* GraphicsManager::impl = new Impl();
-
-//std::map<std::string, GLSLShader> GraphicsManager::shaders;
-//GLuint GraphicsManager::VAO = 0;
-//std::vector<DrawOptions> GraphicsManager::drawQueue;
-//
-//GLuint GraphicsManager::pointVAO;
-//GLuint GraphicsManager::lineVAO;
-//GLuint GraphicsManager::rectVAO;
-//GLuint GraphicsManager::circleVAO;
-//int GraphicsManager::circleSegments;
-//Color GraphicsManager::backgroundColor;
+GLuint GraphicsManager::pointVAO;
+GLuint GraphicsManager::lineVAO;
+GLuint GraphicsManager::rectVAO;
+GLuint GraphicsManager::circleVAO;
+int GraphicsManager::circleSegments;
+Color GraphicsManager::backgroundColor;
 
 GLuint TEST_TEXTURE = 0;
 
-//std::vector<DebugDrawCommand> GraphicsManager::debugDrawQueue;
+std::vector<DebugDrawCommand> GraphicsManager::debugDrawQueue;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -79,7 +60,7 @@ namespace {
     bool SetUpGLEW();
 
     // Creates 1x1 mesh to reuse for all draws
-    void InitMesh(GLuint &VAO);
+    void InitMesh(GLuint& VAO);
 
     glm::mat3x3 ViewMatrix(const Vector2D& position);
 
@@ -96,23 +77,12 @@ namespace {
     void InitializeDebugVAO();
 }
 
-GraphicsManager::GraphicsManager()
-{
-    if (impl == nullptr) impl = new Impl();
-}
-
-GraphicsManager::~GraphicsManager()
-{
-    // Free Impl 
-    delete impl;
-}
-
 void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
-    impl->drawQueue.emplace_back(drawOptions);
+    drawQueue.emplace_back(drawOptions);
 }
 
 void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
-    impl->debugDrawQueue.emplace_back(drawCommand);
+    debugDrawQueue.emplace_back(drawCommand);
 }
 
 void GraphicsManager::Render() {
@@ -121,13 +91,13 @@ void GraphicsManager::Render() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Set the clear color (e.g., black in this case)
-    glClearColor(impl->backgroundColor.r / 255.f, impl->backgroundColor.g / 255.f, impl->backgroundColor.b / 255.f, impl->backgroundColor.a / 255.f);
+    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
 
     // Clear the color buffer (and depth buffer, if used)
     glClear(GL_COLOR_BUFFER_BIT);
 
-    impl->shaders["DefaultShader"].Use();
-    glBindVertexArray(impl->VAO);
+    shaders["DefaultShader"].Use();
+    glBindVertexArray(VAO);
 
     Vector2D cameraPosition = CameraManager::GetPosition();
     float ar = CameraManager::GetAR();
@@ -136,7 +106,7 @@ void GraphicsManager::Render() {
     glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
 
-    for (const auto& drawItem : impl->drawQueue) {
+    for (const auto& drawItem : drawQueue) {
         glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
 
         glm::mat3x3 finalMatrix;
@@ -150,7 +120,7 @@ void GraphicsManager::Render() {
         }
 
         // Send matrix to vert shader
-        GLint uniformModelToNDCLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+        GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
         if (uniformModelToNDCLocation == -1) {
             std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
             std::exit(EXIT_FAILURE);
@@ -158,33 +128,33 @@ void GraphicsManager::Render() {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-        if (drawItem.useTexture) 
+        if (drawItem.useTexture)
         {
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
 
             // Set the texture uniform
-            GLint uTex2dLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uTex2d");
+            GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
             if (uTex2dLocation != -1) {
                 glUniform1i(uTex2dLocation, 0);
             }
 
-            GLint uUseTextureLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uUseTexture");
+            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
 
             glUniform1i(uUseTextureLocation, 1);
         }
 
         if (drawItem.useColor) {
-            GLint uBlendColorsLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uBlendColor");
+            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
 
             glUniform1i(uBlendColorsLocation, 1);
             glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
         }
         // Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
         else {
-            GLint uBlendColorsLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(impl->shaders["DefaultShader"].GetHandle(), "uBlendColor");
+            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
 
             glUniform1i(uBlendColorsLocation, 1);
             glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
@@ -196,9 +166,9 @@ void GraphicsManager::Render() {
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    impl->shaders["DefaultShader"].UnUse();
+    shaders["DefaultShader"].UnUse();
 
-    impl->drawQueue.clear();
+    drawQueue.clear();
 }
 
 void GraphicsManager::RenderDebug()
@@ -214,7 +184,7 @@ void GraphicsManager::RenderDebug()
     glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
 
     // Iterate through the queue and process each draw command
-    for (const DebugDrawCommand& command : impl->debugDrawQueue) {
+    for (const DebugDrawCommand& command : debugDrawQueue) {
         bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
 
         switch (command.type) {
@@ -234,74 +204,13 @@ void GraphicsManager::RenderDebug()
     }
 
     // Clear the debug draw queue after rendering
-    impl->debugDrawQueue.clear();
+    debugDrawQueue.clear();
 }
 
 
 
 void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
-    impl->backgroundColor = { r, g, b, a };
-}
-
-
-void GraphicsManager::InitializeSingleMeshShaderSystem()
-{
-    // Insert your shaders (this function should load the vertex and fragment shaders)
-    InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
-    InitMesh(impl->VAO);
-}
-
-//#ifdef DEBUG
-
-void GraphicsManager::InsertDebugShader() {
-    // Name for the debug shader
-    std::string shdr_pgm_name = "DebugShader";
-
-    // Check if the shader program name already exists in the shaders map
-    std::map<std::string, GLSLShader>::iterator it = impl->shaders.find(shdr_pgm_name);
-    if (it != impl->shaders.end()) return;
-
-    // Define the vertex shader source as a const char* string
-    const char* debugVertexShaderSource = R"(
-        #version 450 core
-        layout(location = 0) in vec3 position;
-        uniform mat3 uModelToNDC;
-        void main() {
-            vec3 worldPosition = uModelToNDC * vec3(position.xy, 1.0);
-            gl_Position = vec4(worldPosition.xy, 0.0, 1.0);
-        }
-        )";
-
-    // Define the fragment shader source as a const char* string
-    const char* debugFragmentShaderSource = R"(
-        #version 450 core
-        out vec4 FragColor;
-        uniform vec4 uColor;
-        void main() {
-            FragColor = uColor;
-        }
-        )";
-
-    // Create a vector of shader type and source code, with sources as strings
-    std::vector<std::pair<GLenum, std::string>> shdr_files{
-        std::make_pair(GL_VERTEX_SHADER, std::string(debugVertexShaderSource)),
-        std::make_pair(GL_FRAGMENT_SHADER, std::string(debugFragmentShaderSource))
-    };
-
-    GLSLShader shdr_pgm;
-
-    // Call the CompileLinkValidate method with compile_from_file set to false
-    shdr_pgm.CompileLinkValidate(shdr_files, false);  // false indicates we are compiling from strings
-
-    // Check if the shader was successfully linked
-    if (GL_FALSE == shdr_pgm.IsLinked()) {
-        std::cout << "Unable to compile/link/validate debug shader\n";
-        std::cout << shdr_pgm.GetLog() << "\n";
-        std::exit(EXIT_FAILURE);
-    }
-
-    // Add the compiled, linked, and validated shader program to the shaders map
-    impl->shaders[shdr_pgm_name] = shdr_pgm;
+    backgroundColor = { r, g, b, a };
 }
 
 bool GraphicsManager::Initialize() {
@@ -327,19 +236,19 @@ bool GraphicsManager::Initialize() {
     return true;
 }
 
-void GraphicsManager::Exit() 
+void GraphicsManager::Exit()
 {
     //drawQueue.clear();
 }
 
-void GraphicsManager::InsertShader(const char* shdr_pgm_name,
-    const char* vtx_shdr,
-    const char* frg_shdr) {
+void GraphicsManager::InsertShader(std::string shdr_pgm_name,
+    std::string vtx_shdr,
+    std::string frg_shdr) {
 
     std::map<std::string, GLSLShader>::iterator it =
-        impl->shaders.find(shdr_pgm_name);
+        shaders.find(shdr_pgm_name);
 
-    if (it != impl->shaders.end()) return;
+    if (it != shaders.end()) return;
 
     std::vector<std::pair<GLenum, std::string>> shdr_files{
     std::make_pair(GL_VERTEX_SHADER, vtx_shdr),
@@ -361,16 +270,74 @@ void GraphicsManager::InsertShader(const char* shdr_pgm_name,
 
     // add compiled, linked, and validated shader program to
     // std::map container GLApp::shdrpgms
-    impl->shaders[shdr_pgm_name] = shdr_pgm;
+    shaders[shdr_pgm_name] = shdr_pgm;
 }
 
+void GraphicsManager::InitializeSingleMeshShaderSystem() {
+    // Insert your shaders (this function should load the vertex and fragment shaders)
+    InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
+    InitMesh(VAO);
+}
+
+//#ifdef DEBUG
+
+void GraphicsManager::InsertDebugShader() {
+    // Name for the debug shader
+    std::string shdr_pgm_name = "DebugShader";
+
+    // Check if the shader program name already exists in the shaders map
+    std::map<std::string, GLSLShader>::iterator it = shaders.find(shdr_pgm_name);
+    if (it != shaders.end()) return;
+
+    // Define the vertex shader source as a const char* string
+    const char* debugVertexShaderSource = R"(
+    #version 450 core
+    layout(location = 0) in vec3 position;
+    uniform mat3 uModelToNDC;
+    void main() {
+        vec3 worldPosition = uModelToNDC * vec3(position.xy, 1.0);
+        gl_Position = vec4(worldPosition.xy, 0.0, 1.0);
+    }
+    )";
+
+    // Define the fragment shader source as a const char* string
+    const char* debugFragmentShaderSource = R"(
+    #version 450 core
+    out vec4 FragColor;
+    uniform vec4 uColor;
+    void main() {
+        FragColor = uColor;
+    }
+    )";
+
+    // Create a vector of shader type and source code, with sources as strings
+    std::vector<std::pair<GLenum, std::string>> shdr_files{
+        std::make_pair(GL_VERTEX_SHADER, std::string(debugVertexShaderSource)),
+        std::make_pair(GL_FRAGMENT_SHADER, std::string(debugFragmentShaderSource))
+    };
+
+    GLSLShader shdr_pgm;
+
+    // Call the CompileLinkValidate method with compile_from_file set to false
+    shdr_pgm.CompileLinkValidate(shdr_files, false);  // false indicates we are compiling from strings
+
+    // Check if the shader was successfully linked
+    if (GL_FALSE == shdr_pgm.IsLinked()) {
+        std::cout << "Unable to compile/link/validate debug shader\n";
+        std::cout << shdr_pgm.GetLog() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    // Add the compiled, linked, and validated shader program to the shaders map
+    shaders[shdr_pgm_name] = shdr_pgm;
+}
 
 void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    impl->shaders["DebugShader"].Use();
-    glBindVertexArray(impl->pointVAO);
+    shaders["DebugShader"].Use();
+    glBindVertexArray(pointVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
     glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
     // Model matrix for the point
@@ -390,23 +357,23 @@ void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Colo
         finalMatrix = uiProjection * modelToWorld;
     };
 
-    GLint uniformModelToNDCLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Draw the point
     glDrawArrays(GL_POINTS, 0, 1);
 
     glBindVertexArray(0);
-    impl->shaders["DebugShader"].UnUse();
+    shaders["DebugShader"].UnUse();
 }
 
 void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
     const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    impl->shaders["DebugShader"].Use();
-    glBindVertexArray(impl->lineVAO);
+    shaders["DebugShader"].Use();
+    glBindVertexArray(lineVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
     glUniform4f(uniformColorLocation,
         color.r / 255.0f,
         color.g / 255.0f,
@@ -459,23 +426,23 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     }
 
     // Pass the final matrix to the shader
-    GLint uniformModelToNDCLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Draw the line rectangle
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
-    impl->shaders["DebugShader"].UnUse();
+    shaders["DebugShader"].UnUse();
 }
 
 void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color,
     bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    impl->shaders["DebugShader"].Use();
-    glBindVertexArray(impl->rectVAO);
+    shaders["DebugShader"].Use();
+    glBindVertexArray(rectVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
     glUniform4f(uniformColorLocation,
         color.r / 255.0f,
         color.g / 255.0f,
@@ -499,7 +466,7 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     }
 
     // Pass the final transformation matrix to the shader
-    GLint uniformModelToNDCLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set line width if desired (optional)
@@ -509,16 +476,16 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     glDrawArrays(GL_LINE_LOOP, 0, 4);
 
     glBindVertexArray(0);
-    impl->shaders["DebugShader"].UnUse();
+    shaders["DebugShader"].UnUse();
 }
 
 
 void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    impl->shaders["DebugShader"].Use();
-    glBindVertexArray(impl->circleVAO);
+    shaders["DebugShader"].Use();
+    glBindVertexArray(circleVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
     glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
     // Model matrix for the circle
@@ -538,17 +505,17 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     }
 
 
-    GLint uniformModelToNDCLocation = glGetUniformLocation(impl->shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set line width (optional)
     glLineWidth(1.0f);  // Adjust the line width as needed
 
     // Draw the circle outline using GL_LINE_LOOP
-    glDrawArrays(GL_LINE_LOOP, 0, impl->circleSegments);
+    glDrawArrays(GL_LINE_LOOP, 0, circleSegments);
 
     glBindVertexArray(0);
-    impl->shaders["DebugShader"].UnUse();
+    shaders["DebugShader"].UnUse();
 }
 
 void GraphicsManager::SetupPointVAO() {
@@ -557,10 +524,10 @@ void GraphicsManager::SetupPointVAO() {
     };
 
     unsigned int pointVBO;
-    glGenVertexArrays(1, &impl->pointVAO);
+    glGenVertexArrays(1, &pointVAO);
     glGenBuffers(1, &pointVBO);
 
-    glBindVertexArray(impl->pointVAO);
+    glBindVertexArray(pointVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, pointVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(pointVertex), pointVertex, GL_STATIC_DRAW);
@@ -609,11 +576,11 @@ void GraphicsManager::SetupLineVAO() {
     };
 
     unsigned int lineVBO, lineEBO;
-    glGenVertexArrays(1, &impl->lineVAO);
+    glGenVertexArrays(1, &lineVAO);
     glGenBuffers(1, &lineVBO);
     glGenBuffers(1, &lineEBO);
 
-    glBindVertexArray(impl->lineVAO);
+    glBindVertexArray(lineVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, lineVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
@@ -639,10 +606,10 @@ void GraphicsManager::SetupRectangleVAO() {
     };
 
     unsigned int rectVBO;
-    glGenVertexArrays(1, &impl->rectVAO);
+    glGenVertexArrays(1, &rectVAO);
     glGenBuffers(1, &rectVBO);
 
-    glBindVertexArray(impl->rectVAO);
+    glBindVertexArray(rectVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, rectVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(rectVertices), rectVertices, GL_STATIC_DRAW);
@@ -657,12 +624,12 @@ void GraphicsManager::SetupRectangleVAO() {
 void GraphicsManager::SetupCircleVAO(int segments) {
     std::vector<float> vertices; // Store vertices
 
-    impl->circleSegments = segments;
+    circleSegments = segments;
 
     // Generate vertices for the perimeter
-    float angleStep = static_cast<float>(2.0f * M_PI / impl->circleSegments);
+    float angleStep = static_cast<float>(2.0f * M_PI / circleSegments);
 
-    for (int i = 0; i < impl->circleSegments; ++i) {
+    for (int i = 0; i < circleSegments; ++i) {
         float angle = i * angleStep;
         float x = cos(angle);
         float y = sin(angle);
@@ -673,10 +640,10 @@ void GraphicsManager::SetupCircleVAO(int segments) {
 
     // Generate VAO and VBO for the circle
     unsigned int circleVBO;
-    glGenVertexArrays(1, &impl->circleVAO);
+    glGenVertexArrays(1, &circleVAO);
     glGenBuffers(1, &circleVBO);
 
-    glBindVertexArray(impl->circleVAO);
+    glBindVertexArray(circleVAO);
 
     // Bind and fill VBO with vertex data
     glBindBuffer(GL_ARRAY_BUFFER, circleVBO);

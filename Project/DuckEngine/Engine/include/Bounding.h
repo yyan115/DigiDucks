@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "Component.h"
 #include "Entity.h"
+template class __declspec(dllexport) std::function<void(Entity*)>;
 
 class DUCKENGINE_API BoundingCollider {
 private:

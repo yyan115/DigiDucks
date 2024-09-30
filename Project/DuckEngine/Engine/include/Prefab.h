@@ -1,30 +1,25 @@
 #pragma once
 
+#include <string>
 #include <vector>
 #include "Vector2.h"
 #include "Component.h"
 #include "Entity.h"
 #include "Serialization.h"
 
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
-class DUCKENGINE_API Prefab
+class  Prefab
 {
 public:
-    Prefab();
-    Prefab(const char* name, const char* texturePath = "", Vec2 scale = { 1.0f, 1.0f });
-    ~Prefab();
+	std::string name;
+	std::string texturePath;
+	Vec2 position;
+	Vec2 scale;
+	std::vector<std::shared_ptr<Component>> components;
+	nlohmann::json componentsData;
 
-    void AddComponent(const std::shared_ptr<Component>& component);
-    Entity* Instantiate(Vec2 newPosition);
-    nlohmann::json& GetComponentsData();
-    void SetComponentsData(nlohmann::json& components);
+	Prefab(const std::string& name, const std::string& texturePath = "", Vec2 scale = { 1.0f, 1.0f })
+		: name(name), texturePath(texturePath), scale(scale) {}
 
-private:
-    struct Impl;
-    Impl* impl;
+	void AddComponent(const std::shared_ptr<Component>& component);
+	Entity* Instantiate(Vec2 newPosition);
 };

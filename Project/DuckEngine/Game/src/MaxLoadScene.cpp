@@ -40,7 +40,7 @@ void MaxLoadScene::Load()
 
     DuckEngine::SetCameraHeight(20);
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
+    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 
 
     for (int i = 0; i < 2500; i++)
@@ -84,7 +84,7 @@ void MaxLoadScene::SpawnSquare()
 
 
     // Create a new square entity
-    Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_CRATE, pos, {1.0f, 1.0f});
+    Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_CRATE.c_str(), pos, {1.0f, 1.0f});
 
     // Add transform component with randomized values
 

@@ -36,7 +36,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
                     entity->SetName(gameObjectName.c_str());
 
                     // Apply components from the prefab
-                    ComponentFactory::AddComponentsToEntity(entity, prefab->GetComponentsData());
+                    ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
 
                     // set position
                     if (gameObjectData.contains("position"))
@@ -66,7 +66,6 @@ void LevelManager::LoadLevel(const std::string& levelFile)
                 // Add components directly to the entity using ComponentLoader
                 ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
 
-                std::cout << "Created entity '" << gameObjectName << "' with custom components." << std::endl;
             }
         }
     }

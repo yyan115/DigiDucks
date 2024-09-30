@@ -38,13 +38,13 @@ void SpriteMovementScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	// Load necessary assets (textures, sounds, etc.)
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_OLDMAN);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_BACKGROUND);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE, 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK, 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", Resources::SOUND_THEME);
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_DUCKSOUND);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_OLDMAN.c_str());
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_BACKGROUND.c_str());
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE.c_str(), 19, 24);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK.c_str(), 19, 24);
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", Resources::SOUND_THEME.c_str());
+	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_DUCKSOUND.c_str());
 
 	PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
 	LevelManager::LoadLevel("../Resources/SpriteRendererScene.json");
