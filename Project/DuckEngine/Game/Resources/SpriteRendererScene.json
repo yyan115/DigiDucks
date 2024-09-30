@@ -1,27 +1,22 @@
 {
   "gameObjects": {
-    "playerObject": {
-      "name": "Player",
+    "Player": {
       "prefab": "PlayerPrefab",
       "position": { "x": 0, "y": 0 }
     },
-    "obstacleObject1": {
-      "name": "Obstacle1",
+    "Obstacle1": {
       "prefab": "Obstacle1Prefab",
       "position": { "x": 5, "y": 0 }
     },
-    "obstacleObject2": {
-      "name": "Obstacle2",
+    "Obstacle2": {
       "prefab": "Obstacle2Prefab",
       "position": { "x": -5, "y": 0 }
     },
-    "obstacleObject3": {
-      "name": "Obstacle3",
+    "Obstacle3": {
       "prefab": "Obstacle2Prefab",
       "position": { "x": 0, "y": -5 }
     },
     "obstacleObject4": {
-      "name": "Obstacle4",
       "components": [
         {
           "type": "TransformComponent",

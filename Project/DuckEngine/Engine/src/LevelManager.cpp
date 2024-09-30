@@ -18,9 +18,6 @@ void LevelManager::LoadLevel(const std::string& levelFile)
         auto gameObjects = levelData["gameObjects"];
         for (auto& [gameObjectName, gameObjectData] : gameObjects.items())
         {
-            // Extract the custom name of the entity
-            std::string entityName = gameObjectData.value("name", "");
-
             // Check if the game object is a prefab or a custom entity
             std::string prefabName = gameObjectData.value("prefab", "");
 
@@ -33,7 +30,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
                 {
                     // Create the entity
                     Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                    entity->name = entityName;
+                    entity->name = gameObjectName;
 
                     // Apply components from the prefab
                     ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
@@ -61,12 +58,12 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             {
                 // If the game object doesn't use a prefab, create the entity manually
                 Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                entity->name = entityName;
+                entity->name = gameObjectName;
 
                 // Add components directly to the entity using ComponentLoader
                 ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
 
-                std::cout << "Created entity '" << entityName << "' with custom components." << std::endl;
+                std::cout << "Created entity '" << gameObjectName << "' with custom components." << std::endl;
             }
         }
     }
