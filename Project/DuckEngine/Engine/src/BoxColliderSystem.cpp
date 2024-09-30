@@ -28,12 +28,13 @@ void BoxColliderSystem::Update() {
 		TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
+		// Update Collider to current position
 		box->setCenter(boxTrans->position);
 
 		// Check collision with box collider
 		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
-			if(entityId == entity2Id) continue;
+			if(entity2Id == entityId) continue;
 
 			BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
 			TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
@@ -98,6 +99,43 @@ void BoxColliderSystem::Update() {
 							// If circle velocity is greater, box will gain more velocity
 							boxRb->velocity = 3 * combinedVelocity / 4;
 							circleRb->velocity = Vec2(0.f, 0.f);
+						}
+
+						for (const auto& [entity3Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+						{
+							if (entity2Id == entity3Id || entity3Id == entityId) continue;
+
+							BoundingCircle* circle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity3Id);
+							TransformComponent* circleTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
+							RigidbodyComponent* circleRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
+
+							if (!circleTrans2) continue;
+
+							if(!circleRb2) {
+								if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity)) {
+									circleRb->velocity = Vec2(0.0f, 0.0f);
+								}
+							}
+							else {
+								if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity, circleRb2->velocity)) {
+									// If there is a collision
+									if (circleRb2->isStatic) {	// If the circle is static
+										circleRb->velocity = Vec2(0.0f, 0.0f);
+									}
+									else { // If the circle is not static
+										Vec2 combinedVelocity = circleRb->velocity + circleRb2->velocity;
+										if (circleRb->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) {
+											circleRb2->velocity = Vec2(0.f, 0.f);
+											circleRb->velocity = 3 * combinedVelocity / 4;
+										}
+										else {
+											// If circle velocity is greater, box will gain more velocity
+											circleRb2->velocity = 3 * combinedVelocity / 4;
+											circleRb->velocity = Vec2(0.f, 0.f);
+										}
+									}
+								}
+							}
 						}
 					}
 				}
