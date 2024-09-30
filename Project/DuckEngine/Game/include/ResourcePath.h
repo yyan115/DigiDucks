@@ -8,6 +8,7 @@ namespace Resources
 	const std::string TEXTURE_CHARACTERWALK = "../Resources/characterwalk.png";
 	const std::string TEXTURE_CRATE = "../Resources/Crate.png";
 	const std::string TEXTURE_OLDMAN = "../Resources/oldman.png";
+	const std::string TEXTURE_BACKGROUND = "../Resources/background.png";
 
 	// Sounds
 	const std::string SOUND_TWITCH_ALERT = "../Resources/Sounds/twitchAlert.wav";

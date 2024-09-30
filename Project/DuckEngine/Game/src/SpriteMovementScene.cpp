@@ -51,6 +51,7 @@ void SpriteMovementScene::Load()
 
 	// Load necessary assets (textures, sounds, etc.)
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_OLDMAN);
+	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_BACKGROUND);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE, 19, 24);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK, 19, 24);
@@ -73,6 +74,9 @@ void SpriteMovementScene::Load()
 	std::shared_ptr<Prefab> obstacle2Prefab = std::make_shared<Prefab>("Obstacle2", Resources::TEXTURE_CRATE, Vec2(2.0f, 2.8f));
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
+
+	// background
+	Entity* background = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_BACKGROUND, { 0.0f, 0.0f }, { 100.0f, 100.0f });
 
 	// test UI
 	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_OLDMAN, { 5.0f, 5.0f }, {10.0f, 10.0f});
