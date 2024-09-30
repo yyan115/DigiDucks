@@ -210,6 +210,12 @@
     <ClInclude Include="..\include\TextRenderingSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\LevelManager.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ComponentFactory.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -307,6 +313,12 @@
     </ClCompile>
     <ClCompile Include="..\src\TextRenderingSystem.cpp">
       <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LevelManager.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ComponentFactory.cpp">
+      <Filter>src\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

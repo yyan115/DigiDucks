@@ -1,0 +1,65 @@
+{
+  "gameObjects": {
+    "playerObject": {
+      "name": "Player",
+      "prefab": "PlayerPrefab",
+      "position": { "x": 0, "y": 0 }
+    },
+    "obstacleObject1": {
+      "name": "Obstacle1",
+      "prefab": "Obstacle1Prefab",
+      "position": { "x": 5, "y": 0 }
+    },
+    "obstacleObject2": {
+      "name": "Obstacle2",
+      "prefab": "Obstacle2Prefab",
+      "position": { "x": -5, "y": 0 }
+    },
+    "obstacleObject3": {
+      "name": "Obstacle3",
+      "prefab": "Obstacle2Prefab",
+      "position": { "x": 0, "y": -5 }
+    },
+    "obstacleObject4": {
+      "name": "Obstacle4",
+      "components": [
+        {
+          "type": "TransformComponent",
+          "properties": {
+            "position": { "x": 0, "y": 5 },
+            "scale": { "x": 2.0, "y": 2.8 },
+            "relativeToCamera": true
+          }
+        },
+        {
+          "type": "SpriteRendererComponent",
+          "properties": {
+            "sprite": true,
+            "layer": 1,
+            "texture": "../Resources/Crate.png",
+            "useColor": false,
+            "color": {
+              "r": 255,
+              "g": 255,
+              "b": 255,
+              "a": 255
+            }
+          }
+        },
+        {
+          "type": "BoundingBox",
+          "properties": {
+            "center": { "x": 5.0, "y": 0.0 },
+            "size": { "x": 1.0, "y": 1.5 }
+          }
+        },
+        {
+          "type": "RigidbodyComponent",
+          "properties": {
+            "isStatic": true
+          }
+        }
+      ]
+    }
+  }
+}

@@ -9,29 +9,23 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-enum class EntityTag
-{
-    Undefined = 0,
-    Player = 1,
-    Wall = 2
-};
 
 class DUCKENGINE_API Entity
 {
 public:
     int entityID;
-    EntityTag tag;
+    std::string name;
 
-    Entity(int id, EntityTag toTag = EntityTag::Undefined) : entityID(id), tag(toTag){}
+    Entity(int id, std::string toName = "") : entityID(id), name(toName) {}
     
-    EntityTag GetTag()
+    std::string GetName()
     {
-        return tag;
+        return name;
     }
 
-    bool IsTag(EntityTag compareTag)
+    bool IsName(const std::string& compareName) const
     {
-        return tag == compareTag;
+        return name == compareName;
     }
 
 

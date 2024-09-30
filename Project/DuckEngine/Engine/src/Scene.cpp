@@ -26,4 +26,6 @@ void Scene::Unload()
         DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(entityID);
     }
 
+    DuckEngine::SetCameraPosition(0.0f, 0.0f);
+
 }

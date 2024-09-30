@@ -1,8 +1,10 @@
 #include "PrefabManager.h"
+#include "DuckEngine.h"
+#include "ComponentFactory.h"
 
 std::unordered_map<std::string, std::shared_ptr<Prefab>> PrefabManager::prefabs;
 
-void PrefabManager::LoadPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab)
+void PrefabManager::AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab)
 {
 	prefabs[name] = prefab;
 }
@@ -31,4 +33,26 @@ Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPositi
 
 	std::cerr << "Error: Prefab " << name << " not found!" << std::endl;
 	return nullptr;
+}
+
+void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
+{
+	json prefabData = Serialization::LoadJsonFile(filePath);
+
+	if (prefabData.contains("prefabs"))
+	{
+		auto prefabsJson = prefabData["prefabs"];
+
+		for (auto& [prefabName, prefabInfo] : prefabsJson.items())
+		{
+			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+
+			if (prefabInfo.contains("components"))
+			{
+				prefab->componentsData = prefabInfo["components"];
+			}
+
+			AddPrefab(prefabName, prefab);
+		}
+	}
 }

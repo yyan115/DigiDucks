@@ -11,6 +11,8 @@
 #include "SpriteRendererComponent.h"
 #include "CameraComponent.h"
 #include "RigidbodyComponent.h"
+#include "Bounding.h"
+#include "Serialization.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -124,4 +126,5 @@ class DUCKENGINE_API ComponentManager
         std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
         std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
     }
+
 };
