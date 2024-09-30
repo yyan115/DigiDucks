@@ -284,7 +284,7 @@ void UIManager::ShowInspector() {
     ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
     // Get first box entity
-    int entityID = DuckEngine::DUCKENGINE_EntityManager.GetEntities().front().EntityID;
+    int entityID = DuckEngine::DUCKENGINE_EntityManager.GetEntities().front().entityID;
 
     // Access TransformComponent
     TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
@@ -349,7 +349,7 @@ void UIManager::ShowEntitySpawn() {
         for (int i = 0; i < entitiesToRemove; i++) {
             // Remove the last spawned entity
             if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
-                DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().EntityID);
+                DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().entityID);
             }
         }
     }
@@ -404,7 +404,7 @@ void UIManager::RenderGameObjectAssets() {
 
         // Add transform component with randomized values
 
-        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->EntityID);
+        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
 
         transform->position = pos;
 	}
@@ -412,7 +412,7 @@ void UIManager::RenderGameObjectAssets() {
 
     if (ImGui::Button("Remove Crate")) {
         if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
-            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().EntityID);
+            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().entityID);
         }
 	}
 }

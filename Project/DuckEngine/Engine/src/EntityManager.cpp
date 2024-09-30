@@ -17,7 +17,7 @@ void EntityManager::RemoveEntity(int entityID)
     
     // Remove the entity itself
     entities.erase(std::remove_if(entities.begin(), entities.end(),
-        [entityID](const Entity& entity) { return entity.EntityID == entityID; }),
+        [entityID](const Entity& entity) { return entity.entityID == entityID; }),
         entities.end());
 }
 

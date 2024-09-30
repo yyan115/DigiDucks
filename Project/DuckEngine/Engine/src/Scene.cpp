@@ -16,7 +16,7 @@ void Scene::Unload()
     std::vector<int> entityIDs;
     for (const Entity& entity : entities)
     {
-        entityIDs.push_back(entity.EntityID);
+        entityIDs.push_back(entity.entityID);
     }
 
     for (int entityID : entityIDs)

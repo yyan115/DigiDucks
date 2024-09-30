@@ -14,6 +14,8 @@
 class DUCKENGINE_API EntityFactory
 {
 public:
+	static Entity* CreateEntity();
+	static Entity* CreateEntity(Vec2 position, Vec2 scale);
 	static Entity* CreateEntity(const std::string& texturePath, Vec2 position, Vec2 scale);
 	//static Entity* CreateEntityWithCustomComponents(const std::vector<Component*>& customComponents);
 };

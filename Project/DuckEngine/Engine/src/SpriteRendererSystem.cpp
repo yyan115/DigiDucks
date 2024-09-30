@@ -21,18 +21,18 @@ void SpriteRendererSystem::Update()
 			drawOptions.scale = transform->scale;
 			drawOptions.rotation = transform->angle;
 
-			if (spriteRenderer->texture) {
-				//std::cout << "use texture\n";
+			if (spriteRenderer->texture) 
+			{
 				drawOptions.useTexture = true;
 				drawOptions.texture = &spriteRenderer->texture;
 			}
 
-			// PLS ADD THIS TO SOMEWHERE, PROBABLY SPRITE OR TRANSFORM, THEN CHECK IF TRUE/FALSE
-			drawOptions.relativeToCamera = true;
+			drawOptions.relativeToCamera = transform->relativeToCamera;
 
 			// USE THIS TO USE AND SET COLORS
 			// FKING WEIRD PLS FIX, SOMETIMES GET RANDOM BUG WHERE OVER 1K ERRORS, AND WHEN I CALL USECOLOR IN GAME THIS DOESNT WORK IDK WHY
-			if (spriteRenderer->useColor) {
+			if (spriteRenderer->useColor) 
+			{
 				//std::cout << "use color\n";
 				drawOptions.useColor = true;
 				drawOptions.color = spriteRenderer->color;

@@ -28,7 +28,11 @@ TransformComponent* obstacle2Transform;
 RigidbodyComponent* obstacle2Rb;
 BoundingCircle* box2;
 
+// test UI
 Entity* testUI;
+
+// no texture sprite
+Entity* noTextureEntity;
 
 void SpriteMovementScene::Load()
 {
@@ -70,27 +74,32 @@ void SpriteMovementScene::Load()
 	obstacle2Prefab->AddComponent(std::make_shared<BoundingCircle>(Vec2(-5.0f, 0.0f), 1.f));
 	obstacle2Prefab->AddComponent(std::make_shared<RigidbodyComponent>());
 
-	testUI = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-	//test
+	// test UI
+	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_OLDMAN, { 5.0f, 5.0f }, {10.0f, 10.0f});
+	TransformComponent* testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
+	testUITransfrom->relativeToCamera = false;
+
+	// test draw no texture
+	noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({1.0f, 1.0f}, {2.0f, 2.0f});
+	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, false);
 
 	// load prefabs
-
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Player", playerPrefab);
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle", obstaclePrefab);
 	DuckEngine::DUCKENGINE_PrefabManager.LoadPrefab("Obstacle2", obstacle2Prefab);
 
 	// instantiate prefabs
 	player = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Player", Vec2(0.0f, 0.0f));
-	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->EntityID);
-	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->EntityID);
-	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->EntityID);
+	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
+	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->entityID);
+	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 	circle->SetCollisionCallback([](Entity* otherEntity) 
 	{
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
 
 	// get animator component
-	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->EntityID);
+	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
 	// add animations
 	playerAnimator->AddAnimation("WalkAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK), 0.2f);
 	playerAnimator->AddAnimation("IdleAnimation", DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE), 0.6f);
@@ -100,15 +109,15 @@ void SpriteMovementScene::Load()
 	playerRb->isStatic = false;
 
 	obstacle = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle", { 5.0f, 0.0f });
-	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->EntityID);
-	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->EntityID);
-	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->EntityID);
+	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->entityID);
+	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->entityID);
+	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->entityID);
 	obstacleRb->isStatic = true;
 
 	obstacle2 = DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab("Obstacle2", { -5.0f, 0.0f });
-	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->EntityID);
-	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->EntityID);
-	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->EntityID);
+	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->entityID);
+	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
+	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
 	obstacle2Rb->isStatic = false;
 }
 

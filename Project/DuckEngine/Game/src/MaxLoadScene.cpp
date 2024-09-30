@@ -89,7 +89,7 @@ void MaxLoadScene::SpawnSquare()
 
     // Add transform component with randomized values
 
-    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->EntityID);
+    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
 
     transform->position = pos;
     transform->angle = rotation;

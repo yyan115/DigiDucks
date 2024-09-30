@@ -9,10 +9,30 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
+enum class EntityTag
+{
+    Undefined = 0,
+    Player = 1,
+    Wall = 2
+};
+
 class DUCKENGINE_API Entity
 {
 public:
-    int EntityID;
+    int entityID;
+    EntityTag tag;
 
-    Entity(int id) : EntityID(id) {}
+    Entity(int id, EntityTag toTag = EntityTag::Undefined) : entityID(id), tag(toTag){}
+    
+    EntityTag GetTag()
+    {
+        return tag;
+    }
+
+    bool IsTag(EntityTag compareTag)
+    {
+        return tag == compareTag;
+    }
+
+
 };
