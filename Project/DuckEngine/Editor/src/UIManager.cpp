@@ -339,7 +339,7 @@ void UIManager::ShowEntitySpawn() {
         UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn: %d", entitiesToSpawn);
         for (int i = 0; i < entitiesToSpawn; i++) {         
             // Create a new square entity
-            PrefabManager::InstantiatePrefab("Obstacle", Vec2(1.0f, 1.0f));
+            DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", Vec2(1.0f, 1.0f), { 1.0f, 1.0f });
         }
     }
 
@@ -401,7 +401,7 @@ void UIManager::RenderGameObjectAssets() {
         Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
 
         // Create a new square entity
-        Entity* square = PrefabManager::InstantiatePrefab("Obstacle2", Vec2(1.0f, 1.0f));
+        Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", pos, {1.0f, 1.0f});
 
         // Add transform component with randomized values
 
