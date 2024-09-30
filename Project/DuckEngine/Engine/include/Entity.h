@@ -13,20 +13,15 @@
 class DUCKENGINE_API Entity
 {
 public:
+    Entity(int id, const char* name = "");
+
+    const char* GetName() const;
+    void SetName(const char* name);
+    bool IsName(const char* compareName) const;
+
     int entityID;
-    std::string name;
 
-    Entity(int id, std::string toName = "") : entityID(id), name(toName) {}
-    
-    std::string GetName()
-    {
-        return name;
-    }
-
-    bool IsName(const std::string& compareName) const
-    {
-        return name == compareName;
-    }
-
-
+private:
+    struct Impl;
+    Impl* impl;
 };

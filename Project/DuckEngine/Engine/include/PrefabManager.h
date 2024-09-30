@@ -16,21 +16,24 @@
 
 class DUCKENGINE_API PrefabManager
 {
-private:
-	static std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
 
 public:
+    PrefabManager();
+    ~PrefabManager();
 
-	// Add a single prefab to the manager
-	static void AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab);
+    // Add a single prefab to the manager
+    static void AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab);
 
-	// retrieve prefab by name
-	static std::shared_ptr<Prefab> GetPrefab(const std::string& name);
+    // Retrieve prefab by name
+    static std::shared_ptr<Prefab> GetPrefab(const char* name);
 
-	// instantiate prefab by name
-	static Entity* InstantiatePrefab(const std::string& name, Vec2 newPosition);
+    // Instantiate prefab by name
+    static Entity* InstantiatePrefab(const char* name, Vec2 newPosition);
 
-	static void LoadPrefabsFromFile(const std::string& filePath);
+    // Load prefabs from a file
+    static void LoadPrefabsFromFile(const char* filePath);
 
-
+private:
+    struct Impl;  // Forward declare Impl
+    static Impl* impl;  // Pointer to Impl
 };

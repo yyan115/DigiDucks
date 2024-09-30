@@ -76,6 +76,9 @@
     <Filter Include="src\Rendering\Shaders">
       <UniqueIdentifier>{644254a9-6e26-4d47-b806-cafbb1f00092}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Component">
+      <UniqueIdentifier>{1990c128-bc28-4537-aa60-7f634f7fc250}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="..\include\ComponentFactory.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Editor\include\UIManager.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -319,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="..\src\ComponentFactory.cpp">
       <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Editor\src\UIManager.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entity.cpp">
+      <Filter>src\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

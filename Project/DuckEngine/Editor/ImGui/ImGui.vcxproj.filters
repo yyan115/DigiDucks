@@ -45,9 +45,6 @@
     <ClCompile Include="..\src\UIDebugConsole.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UIManager.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\UIDebugConsole.h">
-      <Filter>Header Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\UIManager.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>

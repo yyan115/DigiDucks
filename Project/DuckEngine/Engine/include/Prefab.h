@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include <vector>
 #include "Vector2.h"
 #include "Component.h"
@@ -16,16 +15,16 @@
 class DUCKENGINE_API Prefab
 {
 public:
-	std::string name;
-	std::string texturePath;
-	Vec2 position;
-	Vec2 scale;
-	std::vector<std::shared_ptr<Component>> components;
-	nlohmann::json componentsData;
+    Prefab();
+    Prefab(const char* name, const char* texturePath = "", Vec2 scale = { 1.0f, 1.0f });
+    ~Prefab();
 
-	Prefab(const std::string& name, const std::string& texturePath = "", Vec2 scale = {1.0f, 1.0f})
-		: name(name), texturePath(texturePath), scale(scale) {}
+    void AddComponent(const std::shared_ptr<Component>& component);
+    Entity* Instantiate(Vec2 newPosition);
+    nlohmann::json& GetComponentsData();
+    void SetComponentsData(nlohmann::json& components);
 
-	void AddComponent(const std::shared_ptr<Component>& component);
-	Entity* Instantiate(Vec2 newPosition);
+private:
+    struct Impl;
+    Impl* impl;
 };

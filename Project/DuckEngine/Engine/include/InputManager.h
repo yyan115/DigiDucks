@@ -7,12 +7,16 @@
 #endif
 
 #include <unordered_map>  // For storing input states
+#include <memory>
 
 // Forward declaration to avoid circular dependencies
 struct GLFWwindow;
 
 class DUCKENGINE_API InputManager {
 public:
+    InputManager();  // Constructor
+    ~InputManager(); // Destructor
+
     // Initialize the input manager (returning success status)
     static bool Initialize(GLFWwindow* window);
 
@@ -39,18 +43,21 @@ public:
     inline static double GetScrollOffsetY() { return scrollY; }
 
     // I/O callback functions
-    static void key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod);
-    static void mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod);
+    static void key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod = 0);
+    static void mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod = 0);
     static void mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset);
     static void mousepos_cb(GLFWwindow* pwin, double xpos, double ypos);
 
 private:
-    // Track input states
-    static std::unordered_map<int, bool> keyStates;  // Key states: true if pressed, false if released
-    static std::unordered_map<int, bool> mouseButtonStates;
+    struct Impl;
+    static Impl* impl;
 
-    static std::unordered_map<int, bool> previousKeyStates;
-    static std::unordered_map<int, bool> previousMouseButtonStates;
+    // Track input states
+    //static std::unordered_map<int, bool> keyStates;  // Key states: true if pressed, false if released
+    //static std::unordered_map<int, bool> mouseButtonStates;
+
+    //static std::unordered_map<int, bool> previousKeyStates;
+    //static std::unordered_map<int, bool> previousMouseButtonStates;
 
     // Mouse position and scroll offsets
     static double mouseX;

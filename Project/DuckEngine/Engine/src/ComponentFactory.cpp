@@ -30,10 +30,10 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
             // Extract color with default values
             Color color = { 255, 255, 255, 255 };
             if (componentData["properties"].contains("color")) {
-                color.r = componentData["properties"]["color"].value("r", 255);
-                color.g = componentData["properties"]["color"].value("g", 255);
-                color.b = componentData["properties"]["color"].value("b", 255);
-                color.a = componentData["properties"]["color"].value("a", 255);
+                color.r = static_cast<float>(componentData["properties"]["color"].value("r", 255));
+                color.g = static_cast<float>(componentData["properties"]["color"].value("g", 255));
+                color.b = static_cast<float>(componentData["properties"]["color"].value("b", 255));
+                color.a = static_cast<float>(componentData["properties"]["color"].value("a", 255));
             }
 
             // Load the texture

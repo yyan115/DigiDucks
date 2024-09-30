@@ -7,7 +7,7 @@ void CameraSystem::Start()
 
 void CameraSystem::Update()
 {
-	for (const auto& [entityId, camera] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<CameraComponent>())
+	for (const auto& [entityId, cameraComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<CameraComponent>())
 	{
 		CameraComponent* camera = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<CameraComponent>(entityId);
 		//TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);

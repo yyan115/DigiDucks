@@ -2,18 +2,35 @@
 #include "DuckEngine.h"
 #include "ComponentFactory.h"
 
-std::unordered_map<std::string, std::shared_ptr<Prefab>> PrefabManager::prefabs;
-
-void PrefabManager::AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab)
+struct PrefabManager::Impl
 {
-	prefabs[name] = prefab;
+	std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
+
+};
+
+PrefabManager::Impl* PrefabManager::impl = new Impl();
+
+PrefabManager::PrefabManager()
+{
+	impl = new Impl();
 }
 
-std::shared_ptr<Prefab> PrefabManager::GetPrefab(const std::string& name)
+PrefabManager::~PrefabManager()
 {
-	auto it = prefabs.find(name);
-	
-	if (it != prefabs.end())
+	delete impl;
+}
+
+
+void PrefabManager::AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab)
+{
+	impl->prefabs[std::string(name)] = prefab;
+}
+
+std::shared_ptr<Prefab> PrefabManager::GetPrefab(const char* name)
+{
+	auto it = impl->prefabs.find(std::string(name));
+
+	if (it != impl->prefabs.end())
 	{
 		return it->second;
 	}
@@ -22,7 +39,7 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefab(const std::string& name)
 	return nullptr;
 }
 
-Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
+Entity* PrefabManager::InstantiatePrefab(const char* name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
 
@@ -35,7 +52,7 @@ Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPositi
 	return nullptr;
 }
 
-void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
+void PrefabManager::LoadPrefabsFromFile(const char* filePath)
 {
 	json prefabData = Serialization::LoadJsonFile(filePath);
 
@@ -45,14 +62,14 @@ void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
 
 		for (auto& [prefabName, prefabInfo] : prefabsJson.items())
 		{
-			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName.c_str());
 
 			if (prefabInfo.contains("components"))
 			{
-				prefab->componentsData = prefabInfo["components"];
+				prefab->SetComponentsData(prefabInfo["components"]);
 			}
 
-			AddPrefab(prefabName, prefab);
+			AddPrefab(prefabName.c_str(), prefab);
 		}
 	}
 }

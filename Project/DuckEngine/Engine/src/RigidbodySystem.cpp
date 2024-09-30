@@ -13,7 +13,7 @@ void RigidbodySystem::Update()
     float deltaTime = DuckEngine::DeltaTime();
 
     // Loop through all entities that have RigidbodyComponent
-    for (const auto& [entityId, rigidbody] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
+    for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
     {
         RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);

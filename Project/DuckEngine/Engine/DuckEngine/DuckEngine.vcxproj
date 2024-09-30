@@ -112,6 +112,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Editor\include\UIManager.h" />
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />
     <ClInclude Include="..\include\AssetManager.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Editor\src\UIManager.cpp" />
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="..\src\DuckEngine.cpp" />
     <ClCompile Include="..\src\DuckEngine_Input.cpp" />
     <ClCompile Include="..\src\DuckEngine_Sound.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\EntityFactory.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\File.cpp" />

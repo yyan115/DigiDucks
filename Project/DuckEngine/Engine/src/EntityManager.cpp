@@ -15,10 +15,13 @@ void EntityManager::RemoveEntity(int entityID)
     // Automatically remove all components associated with the entity
     DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
     
-    // Remove the entity itself
-    entities.erase(std::remove_if(entities.begin(), entities.end(),
-        [entityID](const Entity& entity) { return entity.entityID == entityID; }),
-        entities.end());
+    entities.erase(
+        std::remove_if(entities.begin(), entities.end(),
+            [entityID](const Entity& entity) { return entity.entityID == entityID; }
+        ),
+        entities.end()
+    );
+
 }
 
 // Return a reference to the list of entities
@@ -30,10 +33,11 @@ Entity* EntityManager::GetEntityByName(const std::string& name)
 {
     for (auto& entity : entities)
     {
-        if (entity.IsName(name))
+        if (entity.IsName(name.c_str()))
         {
             return &entity;
         }
     }
     return nullptr;
 }
+

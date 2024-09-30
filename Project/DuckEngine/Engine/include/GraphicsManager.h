@@ -83,6 +83,8 @@ struct DebugDrawCommand {
 
 class DUCKENGINE_API GraphicsManager {
 public:
+    GraphicsManager();  // Constructor
+    ~GraphicsManager(); // Destructor
     // Core functions
     static bool Initialize();
     static void Exit();
@@ -107,34 +109,42 @@ public:
     static void SetupRectangleVAO();
     static void SetupCircleVAO(int segments);
 
-    static void InsertShader(std::string shdr_pgm_name,
-        std::string vtx_shdr,
-        std::string frg_shdr);
-
-private:
     static void InitializeSingleMeshShaderSystem();
-
     static void InsertDebugShader();
 
-    // Private members
-    //std::map<std::string, Texture> textures;   // Stores textures by their names
-    static std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
+    static void InsertShader(const char* shdr_pgm_name,
+        const char* vtx_shdr,
+        const char* frg_shdr);
 
-    static GLuint VAO;
+private:
+    // Use Impl directly as a member instead of a pointer
+    struct Impl;
+    static Impl* impl;  // Direct instance of Impl instead of unique_ptr
 
-    static std::vector<DrawOptions> drawQueue;
-
-    static std::vector<DebugDrawCommand> debugDrawQueue;
-
-    static Color backgroundColor;
-
-//#ifdef DEBUG
-    static GLuint pointVAO;
-    static GLuint lineVAO;
-    static GLuint rectVAO;
-    static GLuint circleVAO;
-
-    static int circleSegments;
+//private:
+//    static void InitializeSingleMeshShaderSystem();
+//
+//    static void InsertDebugShader();
+//
+//    // Private members
+//    //std::map<std::string, Texture> textures;   // Stores textures by their names
+//    static std::map<std::string, GLSLShader> shaders;     // Stores shaders by their names
+//
+//    static GLuint VAO;
+//
+//    static std::vector<DrawOptions> drawQueue;
+//
+//    static std::vector<DebugDrawCommand> debugDrawQueue;
+//
+//    static Color backgroundColor;
+//
+////#ifdef DEBUG
+//    static GLuint pointVAO;
+//    static GLuint lineVAO;
+//    static GLuint rectVAO;
+//    static GLuint circleVAO;
+//
+//    static int circleSegments;
 //#endif // DEBUG
 
 };

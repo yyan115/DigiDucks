@@ -35,7 +35,7 @@ void CircleColliderSystem::Update() {
 		circle->setCenter(circleTrans->position);
 
 		// Circle - Circle
-		for (const auto& [entity2Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+		for (const auto& [entity2Id, circleColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 		{
 			if (entityId == entity2Id) continue;
 			BoundingCircle* circle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2Id);
@@ -111,11 +111,11 @@ void CircleColliderSystem::Update() {
 					}
 
 					// Check if Box next position is colliding with a static object
-					for (const auto& [entity3Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+					for (const auto& [entity3Id, boxColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 					{
 						if(entity2Id == entity3Id || entity3Id == entityId) continue;
 						BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
-						TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
+						//TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 						RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 						if (!boxRb2) {	// One of the box is moving
@@ -132,13 +132,13 @@ void CircleColliderSystem::Update() {
 									circleRb->velocity = Vec2(0.0f, 0.0f);
 								}
 								else { // If the box is not static
-									Vec2 combinedVelocity = boxRb->velocity + boxRb2->velocity;
+									Vec2 _combinedVelocity = boxRb->velocity + boxRb2->velocity;
 									if(boxRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
 										boxRb2->velocity = Vec2(0.f, 0.f);
-										boxRb->velocity = combinedVelocity;
+										boxRb->velocity = _combinedVelocity;
 									}
 									else {
-										boxRb2->velocity = combinedVelocity;
+										boxRb2->velocity = _combinedVelocity;
 										boxRb->velocity = Vec2(0.f, 0.f);
 									}
 

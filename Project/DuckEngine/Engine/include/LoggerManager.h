@@ -30,7 +30,7 @@
 #define DUCKLOG_CRASH(ex) LoggerManager::GetInstance().LogCrash(ex);
 #define THROW_EXCEPTION(message) throw DetailedException(message, __FILE__, __func__, __LINE__)
 
-class DUCKENGINE_API DetailedException : public std::exception {
+class DetailedException : public std::exception {
 public:
     DetailedException(const std::string& message, const char* file, const char* func, int line);
 

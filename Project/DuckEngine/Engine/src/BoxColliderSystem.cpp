@@ -32,7 +32,7 @@ void BoxColliderSystem::Update() {
 		box->setCenter(boxTrans->position);
 
 		// Check collision with box collider
-		for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+		for (const auto& [entity2Id, boxColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
 			if(entity2Id == entityId) continue;
 
@@ -101,7 +101,7 @@ void BoxColliderSystem::Update() {
 							circleRb->velocity = Vec2(0.f, 0.f);
 						}
 
-						for (const auto& [entity3Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+						for (const auto& [entity3Id, circleColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
 
@@ -123,14 +123,14 @@ void BoxColliderSystem::Update() {
 										circleRb->velocity = Vec2(0.0f, 0.0f);
 									}
 									else { // If the circle is not static
-										Vec2 combinedVelocity = circleRb->velocity + circleRb2->velocity;
+										Vec2 _combinedVelocity = circleRb->velocity + circleRb2->velocity;
 										if (circleRb->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) {
 											circleRb2->velocity = Vec2(0.f, 0.f);
-											circleRb->velocity = 3 * combinedVelocity / 4;
+											circleRb->velocity = 3 * _combinedVelocity / 4;
 										}
 										else {
 											// If circle velocity is greater, box will gain more velocity
-											circleRb2->velocity = 3 * combinedVelocity / 4;
+											circleRb2->velocity = 3 * _combinedVelocity / 4;
 											circleRb->velocity = Vec2(0.f, 0.f);
 										}
 									}

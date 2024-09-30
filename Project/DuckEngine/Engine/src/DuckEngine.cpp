@@ -36,7 +36,7 @@ void DuckEngine::Initialize() {
     // Init Window, then Graphics, then Input
     Serialization::InitJson("../Resources/windows_init.json");
     WindowInit window = Serialization::GetWindowInit();
-    WindowManager::Initialize(window.width, window.height, window.title);
+    WindowManager::Initialize(window.width, window.height, window.title.c_str());
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
@@ -224,9 +224,9 @@ void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color&
 
 
 void DuckEngine::SetWindowTitle(std::string title) {
-    WindowManager::SetWindowTitle(title);
+    WindowManager::SetWindowTitle(title.c_str());
 }
 
 float DuckEngine::FPS() {
-    return TimeManager::FPS();
+    return static_cast<float>(TimeManager::FPS());
 }

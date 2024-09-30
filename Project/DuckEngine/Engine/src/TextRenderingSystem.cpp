@@ -109,7 +109,7 @@
 TextRendererComponent textRenderer;
 
 // Constructor
-TextRenderingSystem::TextRenderingSystem() : ft(nullptr), VAO(0), VBO(0) {}
+TextRenderingSystem::TextRenderingSystem() : ft(nullptr), VAO(0), VBO(0), uniformTextColor(0), uniformProjectionMatrix(0), shaderProgram(0) {}
 
 // Destructor
 TextRenderingSystem::~TextRenderingSystem() {
@@ -139,11 +139,12 @@ bool TextRenderingSystem::Init() {
 }
 
 // Loads and generates a font atlas for a specific TextRendererComponent
-bool TextRenderingSystem::GenerateFontAtlas(TextRendererComponent& textRenderer) {
+bool TextRenderingSystem::GenerateFontAtlas(TextRendererComponent& _textRenderer) {
+    UNREFERENCED_PARAMETER(_textRenderer);
     // Load the font face
     FT_Face face;
     textRenderer.fontPath = "../Resources/Roboto-Black.ttf";
-    if (FT_New_Face(ft, textRenderer.fontPath.c_str(), 0, &face)) {
+    if (FT_New_Face(ft, textRenderer.fontPath, 0, &face)) {
         std::cerr << "Failed to load font: " << textRenderer.fontPath << std::endl;
         return false;
     }

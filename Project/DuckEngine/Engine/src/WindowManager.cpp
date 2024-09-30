@@ -2,15 +2,18 @@
 
 #include "WindowManager.h"
 
+#define UNREFERENCED_PARAMETER(P) (P)
+
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 
 GLint WindowManager::width;
 GLint WindowManager::height;
+const char* WindowManager::title;
 
-bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
-    WindowManager::width = width;
-    WindowManager::height = height;
-    title = title;
+bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) {
+    WindowManager::width = _width;
+    WindowManager::height = _height;
+    title = _title;
 
     // Check if glfw init success
     if (!glfwInit()) {
@@ -33,7 +36,7 @@ bool WindowManager::Initialize(GLint width, GLint height, std::string title) {
     glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
 
     // Create window and check if success
-    ptrWindow = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+    ptrWindow = glfwCreateWindow(width, height, title, NULL, NULL);
     if (!ptrWindow) {
         std::cerr << "GLFW unable to create OpenGL context - abort program\n";
         glfwTerminate();
@@ -65,17 +68,19 @@ void WindowManager::Exit() {
 }
 
 void WindowManager::error_cb(int error, char const* description) {
+    UNREFERENCED_PARAMETER(error);
 #ifdef _DEBUG
     std::cerr << "GLFW error: " << description << std::endl;
 #endif
 }
 
-void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int width, int height) {
+void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
+    UNREFERENCED_PARAMETER(ptr_win);
 #ifdef _DEBUG
     std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif
-    WindowManager::width = width;
-    WindowManager::height = height;
+    WindowManager::width = _width;
+    WindowManager::height = _height;
 }
 
 GLint WindowManager::GetWindowWidth()
@@ -87,6 +92,6 @@ GLint WindowManager::GetWindowHeight()
     return height;
 }
 
-void WindowManager::SetWindowTitle(std::string title) {
-    glfwSetWindowTitle(ptrWindow, title.c_str());
+void WindowManager::SetWindowTitle(const char* _title) {
+    glfwSetWindowTitle(ptrWindow, _title);
 }

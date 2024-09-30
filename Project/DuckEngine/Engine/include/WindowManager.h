@@ -11,7 +11,7 @@
 
 class DUCKENGINE_API WindowManager {
 public:
-    static bool Initialize(GLint width, GLint height, std::string title);
+    static bool Initialize(GLint width, GLint height, const char* title);
     static void Exit();
 
     static GLFWwindow* getWindow();
@@ -25,7 +25,7 @@ public:
     static GLint GetWindowWidth();
     static GLint GetWindowHeight();
 
-    static void SetWindowTitle(std::string title);
+    static void SetWindowTitle(const char* title);
 
 private:
     static GLFWwindow* ptrWindow;
@@ -33,5 +33,5 @@ private:
     static GLint width;
     static GLint height;
 
-    std::string title;
+    static const char* title;
 };

@@ -1,9 +1,25 @@
 #include "Serialization.h"
 
-json Serialization::jsonData;
-WindowInit Serialization::windowInit;
+struct Serialization::Impl 
+{
+    json jsonData;
+    WindowInit windowInit;
+};
 
-void Serialization::InitJson(const std::string& filePath) 
+// Initialize the static pointer to Impl
+Serialization::Impl* Serialization::impl = new Impl();
+
+Serialization::Serialization()
+{
+    if (impl == nullptr) impl = new Impl();
+}
+
+Serialization::~Serialization()
+{
+    delete impl;
+}
+
+void Serialization::InitJson(const char* filePath)
 {
     std::ifstream file(filePath);
     if (!file.is_open()) 
@@ -11,16 +27,16 @@ void Serialization::InitJson(const std::string& filePath)
         std::cerr << "Could not open the file!" << std::endl;
         return;
     }
-    file >> jsonData;
+    file >> impl->jsonData;
     file.close();
 
     // Extract window initialization data
-    windowInit.title = jsonData.value("title", "Untitled Game");
-    windowInit.width = jsonData.value("width", 800);
-    windowInit.height = jsonData.value("height", 600);
+    impl->windowInit.title = impl->jsonData.value("title", "Untitled Game");
+    impl->windowInit.width = impl->jsonData.value("width", 800);
+    impl->windowInit.height = impl->jsonData.value("height", 600);
 }
 
-json Serialization::LoadJsonFile(const std::string& filePath) 
+json Serialization::LoadJsonFile(const char* filePath)
 {
     json data;
     std::ifstream file(filePath);
@@ -36,7 +52,7 @@ json Serialization::LoadJsonFile(const std::string& filePath)
     return data;
 }
 
-Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& defaultValue) 
+Vec2 Serialization::GetVec2(const json& j, const char* key, const Vec2& defaultValue)
 {
     if (j.contains(key)) 
     {
@@ -49,5 +65,5 @@ Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& d
 
 WindowInit Serialization::GetWindowInit() 
 {
-    return windowInit;
+    return impl->windowInit;
 }

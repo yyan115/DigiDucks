@@ -57,6 +57,7 @@ void SpriteMovementScene::Load()
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 	circle->SetCollisionCallback([](Entity* otherEntity) 
 	{
+		UNREFERENCED_PARAMETER(otherEntity);
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
 

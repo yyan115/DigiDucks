@@ -8,7 +8,7 @@ static DuckEngine engine;
 
 int main(void)
 {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     engine.Initialize();
     DUCKLOG_INFO("Engine initialized.");

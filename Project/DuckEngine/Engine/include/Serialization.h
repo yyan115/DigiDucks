@@ -40,14 +40,19 @@ extern WindowInit W_init;
 class DUCKENGINE_API Serialization {
 
 	public:
-		static void InitJson(const std::string& filePath);
-		static json LoadJsonFile(const std::string& filePath);
-		static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
+		Serialization();
+		~Serialization();
+		static void InitJson(const char* filePath);
+		static json LoadJsonFile(const char* filePath);
+		static Vec2 GetVec2(const json& j, const char* key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
 		static WindowInit GetWindowInit();
 
 	private:
-		static json jsonData;
-		static WindowInit windowInit;
+		struct Impl;           // Forward declaration of the Impl struct
+		static Impl* impl;      // Raw pointer to the implementation struct
+	//private:
+	//	static json jsonData;
+	//	static WindowInit windowInit;
 		
 };
 

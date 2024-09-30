@@ -81,8 +81,6 @@ void MaxLoadScene::SpawnSquare()
     float scaleX = randomScale(gen);
     float scaleY = randomScale(gen);
     float rotation = randomRotation(gen);
-    float velocityX = randomVelocity(gen);
-    float velocityY = randomVelocity(gen);
 
 
     // Create a new square entity
@@ -107,7 +105,7 @@ void MaxLoadScene::SpawnSquare()
     //    << "), rotation " << rotation << ", velocity (" << velocityX << ", " << velocityY << ")" << std::endl;
 }
 
-void MaxLoadScene::CheckAndSpawnSquare(float spawnInterval) {
+void MaxLoadScene::CheckAndSpawnSquare(float _spawnInterval) {
     // Get the current time
     auto currentTime = std::chrono::steady_clock::now();
 
@@ -115,7 +113,7 @@ void MaxLoadScene::CheckAndSpawnSquare(float spawnInterval) {
     std::chrono::duration<float> elapsedTime = currentTime - lastSpawnTime;
 
     // Check if it's time to spawn a new square
-    if (elapsedTime.count() >= spawnInterval) {
+    if (elapsedTime.count() >= _spawnInterval) {
         // Spawn a new square
         SpawnSquare();
 

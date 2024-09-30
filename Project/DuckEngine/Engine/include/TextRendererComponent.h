@@ -16,12 +16,12 @@
 class DUCKENGINE_API TextRendererComponent : public Component
 {
 public:
-    std::string text = "test";
-    std::string fontPath = "../Resources/Roboto-Black.ttf";
+    const char* text = "test";
+    const char* fontPath = "../Resources/Roboto-Black.ttf";
     int fontSize = 50;
-    std::string texture = "";  // store rendered glyphs as textures
+    const char* texture = "";  // store rendered glyphs as textures
     TextRendererComponent() {};
-    TextRendererComponent( std::string& text, std::string& fontPath, int fontSize = 100) // for eg
+    TextRendererComponent(const char*& text, const char*& fontPath, int fontSize = 100) // for eg
         : text(text), fontPath(fontPath), fontSize(fontSize) {}
 
     std::shared_ptr<Component> Clone() const override

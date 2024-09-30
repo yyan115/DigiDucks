@@ -13,7 +13,7 @@
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
     // Load the level data from the JSON file
-    json levelData = Serialization::LoadJsonFile(levelFile);
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
     // Iterate over the game objects
     if (levelData.contains("gameObjects"))
@@ -27,16 +27,16 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             if (!prefabName.empty())
             {
                 // If the game object uses a prefab, retrieve the prefab from the manager
-                std::shared_ptr<Prefab> prefab = PrefabManager::GetPrefab(prefabName);
+                std::shared_ptr<Prefab> prefab = std::shared_ptr<Prefab>(PrefabManager::GetPrefab(prefabName.c_str()));
 
                 if (prefab)
                 {
                     // Create the entity
                     Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                    entity->name = gameObjectName;
+                    entity->SetName(gameObjectName.c_str());
 
                     // Apply components from the prefab
-                    ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
+                    ComponentFactory::AddComponentsToEntity(entity, prefab->GetComponentsData());
 
                     // set position
                     if (gameObjectData.contains("position"))
@@ -61,7 +61,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             {
                 // If the game object doesn't use a prefab, create the entity manually
                 Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                entity->name = gameObjectName;
+                entity->SetName(gameObjectName.c_str());
 
                 // Add components directly to the entity using ComponentLoader
                 ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
