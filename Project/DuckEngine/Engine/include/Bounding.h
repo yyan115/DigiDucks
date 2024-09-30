@@ -3,7 +3,7 @@
 \file		Bounding.h
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
-\date   	Sep 13 2024
+\date   	Sep 26 2024
 \brief  	This file includes BoundingCollider, BoundingCircle, and 
 			BoundingBox classes
 

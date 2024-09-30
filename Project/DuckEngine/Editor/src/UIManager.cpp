@@ -20,6 +20,7 @@
 #include "TimeManager.h"
 #include "ImageLoader.h"
 #include "LevelManager.h"
+#include "File.h"
 #include <Windows.h>
 #include "Color.h"
 #include <random>
@@ -114,7 +115,7 @@ void UIManager::Render() {
     // Main menu bar
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("New Scene", "Ctrl+N")) {}
+            if (ImGui::MenuItem("New Scene", "Ctrl+N")) { FilePath::PrintPath(); }
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
             if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {}
             ImGui::EndMenu();

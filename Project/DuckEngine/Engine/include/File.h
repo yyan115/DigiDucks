@@ -1,30 +1,30 @@
 #pragma once
-#include <string>
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
 
-namespace Framework
-{
+#ifndef FILE_H
+#define FILE_H
+
+#include <iostream>
+#include <string.h>
+#include <filesystem>
+#include <algorithm>
+
+
 	///	Simple wrapper for dealing with file paths, extensions, root name, etc.
-	class FilePath
+	class DUCKENGINE_API FilePath
 	{
 	public:
-		FilePath();
-		FilePath(std::string file);
-		FilePath& operator=(std::string file);
-		void SetFilePath(std::string file);
-		std::string GetFilePathWithNewExtension(const std::string& newExtension);
+		
+		static std::string GetFilePath();
+		static void PrintPath();
+		static void SetPath();
 
-		//Extension of file which may be empty includes the period
-		//such as ".png", ".txt"
-		std::string Extension;
-		//The root filename of the file without the extension or path
-		//and in lower case For "C:\Data\FileName.txt" "filename"
-		std::string FileName;
-		//The path the file is locate at
-		//For"C:\Data\FileName.txt" "C:\data\"
-		std::string FullDirectory;
-		//The full path including the filename
-		//For "C:\Data\FileName.txt" "c:\data\filename.txt"
-		std::string FullPath;
 
 	};
-}
+
+
+#endif // FILE_H
