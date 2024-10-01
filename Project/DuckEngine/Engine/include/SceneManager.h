@@ -11,15 +11,15 @@
 #include <memory>
 
 
-class DUCKENGINE_API SceneManager {
+class SceneManager {
     public:
         // Initialize the scene manager with available scenes
         void Initialize();
 
-        void AddScene(const std::string& name, std::shared_ptr<Scene> scene);
+        DUCKENGINE_API void AddScene(const std::string& name, std::shared_ptr<Scene> scene);
 
         // Switch scenes
-        void SetActiveScene(const std::string& name);
+        DUCKENGINE_API void SetActiveScene(const std::string& name);
 
         // Update current active scene
         void Update();

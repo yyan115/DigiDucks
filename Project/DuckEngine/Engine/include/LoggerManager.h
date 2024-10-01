@@ -46,9 +46,9 @@ private:
     int line_;
 };
 
-class DUCKENGINE_API LoggerManager {
+class LoggerManager {
 public:
-    static LoggerManager& GetInstance();
+    DUCKENGINE_API static LoggerManager& GetInstance();
 
     // Log messages of different levels
     template <typename... Args>
@@ -61,7 +61,7 @@ public:
     void LogError(const std::string& message, Args&&... args);
 
     // Log crash
-    void LogCrash(const DetailedException& ex);
+    DUCKENGINE_API void LogCrash(const DetailedException& ex);
 
     
 
@@ -73,7 +73,7 @@ private:
     std::string FormatString(const std::string& format, Args&&... args);
 
     // Write a log entry
-    void WriteLog(const std::string& level, const std::string& message);
+    DUCKENGINE_API void WriteLog(const std::string& level, const std::string& message);
 
     std::ofstream logFile;  // Log file for logging
 
