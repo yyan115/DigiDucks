@@ -100,61 +100,8 @@ public:
     // return the handle to the shader program object
     GLuint GetHandle() const;
 
-    // have the different object code linked into a shader program?
-    GLboolean IsLinked() const;
-
-    // return logged information from the GLSL compiler and linker and
-    // validation information obtained after calling Validate() ...
-    std::string GetLog() const;
-
-    // Use an OpenGL API function to dynamically associate a generic vertex 
-    // attribute index with a named in attribute variable.
-    // Note that labs and assignment sample code did not use the OpenGL API to
-    // provide a connection between an input value to a shader and the slot in
-    // which these values are fetched from buffer object to shaders. Instead, 
-    // the layout qualifier was used in our vertex shaders to statically
-    // provide indices to attribute values 
-    // But, if users decide to forego the use of the layout qualifier, they'll
-    // instead use this function to provide the association between a generic
-    // vertex attribute index with a named attribute variable.
-    void BindAttribLocation(GLuint index, GLchar const* name);
-
-    // Use an OpenGL API function to dynamically associate a fragment shader 
-    // index location that a user-defined out variable will write to.
-    // As with vertex shaders, we did not use the OpenGL API to provide this
-    // association in sample code. Instead, we statically assigned a location
-    // for an out variable using the layout qualifier. However, this function
-    // will be called by users if they forego the use of the layour qualifier.
-    void BindFragDataLocation(GLuint color_number, GLchar const* name);
-
     // as the name implies, this function deletes a program object
     void DeleteShaderProgram();
-
-    // OpenGL is C-based API and therefore doesn't understand function
-    // overloading or templates
-    // Therefore, we need a family of functions to specify values of uniform
-    // variables of different types for the current program object
-    void SetUniform(GLchar const* name, GLboolean val);
-    void SetUniform(GLchar const* name, GLint val);
-    void SetUniform(GLchar const* name, GLfloat val);
-    void SetUniform(GLchar const* name, GLfloat x, GLfloat y);
-    void SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z);
-    void SetUniform(GLchar const* name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void SetUniform(GLchar const* name, glm::vec2 const& val);
-    void SetUniform(GLchar const* name, glm::vec3 const& val);
-    void SetUniform(GLchar const* name, glm::vec4 const& val);
-    void SetUniform(GLchar const* name, glm::mat3 const& val);
-    void SetUniform(GLchar const* name, glm::mat4 const& val);
-
-    // display the list of active vertex attributes used by vertex shader
-    void PrintActiveAttribs() const;
-
-    // display the list of active uniform variables
-    void PrintActiveUniforms() const;
-
-    // use OpenGL API to return the location of an uniform variable with
-    // name "name" using program handle encapsulated by object of this class type
-    GLint GetUniformLocation(GLchar const* name, bool exit_on_error = false);
 
     // return true if file (given in relative path) exists, false otherwise
     GLboolean FileExists(std::string const& file_name);

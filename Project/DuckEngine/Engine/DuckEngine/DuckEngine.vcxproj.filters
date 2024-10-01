@@ -87,9 +87,6 @@
     <ClInclude Include="..\include\GraphicsManager.h">
       <Filter>include\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\glslshader.h">
-      <Filter>include\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Entity.h">
       <Filter>include\Entities</Filter>
     </ClInclude>
@@ -222,15 +219,21 @@
     <ClInclude Include="..\..\Editor\include\UIManager.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\FontManager.h">
+      <Filter>include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ShaderManager.h">
+      <Filter>include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RenderData.h">
+      <Filter>include\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GraphicsManager.cpp">
-      <Filter>src\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\glslshader.cpp">
       <Filter>src\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EntityManager.cpp">
@@ -331,6 +334,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Entity.cpp">
       <Filter>src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FontManager.cpp">
+      <Filter>src\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ShaderManager.cpp">
+      <Filter>src\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

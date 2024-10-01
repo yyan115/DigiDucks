@@ -15,7 +15,9 @@
 #include "DuckEngine.h"
 #include "CameraSystem.h"
 
-std::map<std::string, GLSLShader> GraphicsManager::shaders;
+#include "ShaderManager.h"
+
+//std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
@@ -67,14 +69,6 @@ namespace {
     glm::mat3x3 ModelToWorldMatrix(const Vector2D& scale, float rotation, const Vector2D& translate);
 
     glm::mat3x3 CameraToNDCMatrix(const float width, const float height);
-
-    template <typename T>
-    T* GetComponent(const int entityId);
-
-    template <typename T>
-    std::unordered_map<int, std::shared_ptr<T>>& GetComponents();
-
-    void InitializeDebugVAO();
 }
 
 void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
@@ -96,7 +90,8 @@ void GraphicsManager::Render() {
     // Clear the color buffer (and depth buffer, if used)
     glClear(GL_COLOR_BUFFER_BIT);
 
-    shaders["DefaultShader"].Use();
+    ShaderManager::GetShader("DefaultShader")->Use();
+
     glBindVertexArray(VAO);
 
     Vector2D cameraPosition = CameraManager::GetPosition();
@@ -120,7 +115,7 @@ void GraphicsManager::Render() {
         }
 
         // Send matrix to vert shader
-        GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
+        GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uModelToNDC");
         if (uniformModelToNDCLocation == -1) {
             std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
             std::exit(EXIT_FAILURE);
@@ -134,32 +129,32 @@ void GraphicsManager::Render() {
             glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
 
             // Set the texture uniform
-            GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
+            GLint uTex2dLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uTex2d");
             if (uTex2dLocation != -1) {
                 glUniform1i(uTex2dLocation, 0);
             }
 
-            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+            GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
 
             glUniform1i(uUseTextureLocation, 1);
         }
         else {
-            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+            GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
 
             glUniform1i(uUseTextureLocation, 0);
         }
 
         if (drawItem.useColor) {
-            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+            GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
 
             glUniform1i(uBlendColorsLocation, 1);
             glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
         }
         // Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
         else {
-            GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
+            GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
+            GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
 
             glUniform1i(uBlendColorsLocation, 1);
             glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
@@ -171,7 +166,8 @@ void GraphicsManager::Render() {
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-    shaders["DefaultShader"].UnUse();
+
+    glUseProgram(0);
 
     drawQueue.clear();
 }
@@ -234,115 +230,54 @@ bool GraphicsManager::Initialize() {
 
     InitializeSingleMeshShaderSystem();
 
-    InsertDebugShader();
-
-    InitializeDebugVAO();
+    InitializeDebugShaderSystem();
 
     return true;
 }
 
-void GraphicsManager::Exit()
-{
-    //drawQueue.clear();
-}
-
-void GraphicsManager::InsertShader(std::string shdr_pgm_name,
-    std::string vtx_shdr,
-    std::string frg_shdr) {
-
-    std::map<std::string, GLSLShader>::iterator it =
-        shaders.find(shdr_pgm_name);
-
-    if (it != shaders.end()) return;
-
-    std::vector<std::pair<GLenum, std::string>> shdr_files{
-    std::make_pair(GL_VERTEX_SHADER, vtx_shdr),
-    std::make_pair(GL_FRAGMENT_SHADER, frg_shdr)
-    };
-
-    GLSLShader shdr_pgm;
-
-    // Automation hook. [!WARNING!] Do not alter/remove this!
-    //AUTOMATION_HOOK_SHADER(shdr_pgm, shdr_files);
-
-    shdr_pgm.CompileLinkValidate(shdr_files);
-
-    if (GL_FALSE == shdr_pgm.IsLinked()) {
-        std::cout << "Unable to compile/link/validate shader programs\n";
-        std::cout << shdr_pgm.GetLog() << "\n";
-        std::exit(EXIT_FAILURE);
+void GraphicsManager::Exit() {
+    // Clean up any OpenGL resources
+    if (VAO != 0) {
+        glDeleteVertexArrays(1, &VAO);
     }
 
-    // add compiled, linked, and validated shader program to
-    // std::map container GLApp::shdrpgms
-    shaders[shdr_pgm_name] = shdr_pgm;
+    // Clean up shader programs
+    //for (auto& shaderPair : shaders) {
+    //    shaderPair.second.DeleteShaderProgram(); // Assuming `GLSLShader` has a method to delete the program
+    //}
+    //shaders.clear();
+
+    // Delete VAOs for debug shapes
+    if (pointVAO != 0) glDeleteVertexArrays(1, &pointVAO);
+    if (lineVAO != 0) glDeleteVertexArrays(1, &lineVAO);
+    if (rectVAO != 0) glDeleteVertexArrays(1, &rectVAO);
+    if (circleVAO != 0) glDeleteVertexArrays(1, &circleVAO);
 }
 
 void GraphicsManager::InitializeSingleMeshShaderSystem() {
-    // Insert your shaders (this function should load the vertex and fragment shaders)
-    InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
+
+    ShaderManager::InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
+
     InitMesh(VAO);
+}
+
+void GraphicsManager::InitializeDebugShaderSystem() {
+    ShaderManager::InsertShader("DebugShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+
+    GraphicsManager::SetupCircleVAO(100);
+    GraphicsManager::SetupLineVAO();
+    GraphicsManager::SetupPointVAO();
+    GraphicsManager::SetupRectangleVAO();
 }
 
 //#ifdef DEBUG
 
-void GraphicsManager::InsertDebugShader() {
-    // Name for the debug shader
-    std::string shdr_pgm_name = "DebugShader";
-
-    // Check if the shader program name already exists in the shaders map
-    std::map<std::string, GLSLShader>::iterator it = shaders.find(shdr_pgm_name);
-    if (it != shaders.end()) return;
-
-    // Define the vertex shader source as a const char* string
-    const char* debugVertexShaderSource = R"(
-    #version 450 core
-    layout(location = 0) in vec3 position;
-    uniform mat3 uModelToNDC;
-    void main() {
-        vec3 worldPosition = uModelToNDC * vec3(position.xy, 1.0);
-        gl_Position = vec4(worldPosition.xy, 0.0, 1.0);
-    }
-    )";
-
-    // Define the fragment shader source as a const char* string
-    const char* debugFragmentShaderSource = R"(
-    #version 450 core
-    out vec4 FragColor;
-    uniform vec4 uColor;
-    void main() {
-        FragColor = uColor;
-    }
-    )";
-
-    // Create a vector of shader type and source code, with sources as strings
-    std::vector<std::pair<GLenum, std::string>> shdr_files{
-        std::make_pair(GL_VERTEX_SHADER, std::string(debugVertexShaderSource)),
-        std::make_pair(GL_FRAGMENT_SHADER, std::string(debugFragmentShaderSource))
-    };
-
-    GLSLShader shdr_pgm;
-
-    // Call the CompileLinkValidate method with compile_from_file set to false
-    shdr_pgm.CompileLinkValidate(shdr_files, false);  // false indicates we are compiling from strings
-
-    // Check if the shader was successfully linked
-    if (GL_FALSE == shdr_pgm.IsLinked()) {
-        std::cout << "Unable to compile/link/validate debug shader\n";
-        std::cout << shdr_pgm.GetLog() << "\n";
-        std::exit(EXIT_FAILURE);
-    }
-
-    // Add the compiled, linked, and validated shader program to the shaders map
-    shaders[shdr_pgm_name] = shdr_pgm;
-}
-
 void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    shaders["DebugShader"].Use();
+    ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(pointVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
     glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
     // Model matrix for the point
@@ -362,23 +297,23 @@ void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Colo
         finalMatrix = uiProjection * modelToWorld;
     };
 
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Draw the point
     glDrawArrays(GL_POINTS, 0, 1);
 
     glBindVertexArray(0);
-    shaders["DebugShader"].UnUse();
+    glUseProgram(0);
 }
 
 void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
     const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    shaders["DebugShader"].Use();
+    ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(lineVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
     glUniform4f(uniformColorLocation,
         color.r / 255.0f,
         color.g / 255.0f,
@@ -431,23 +366,23 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     }
 
     // Pass the final matrix to the shader
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Draw the line rectangle
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
-    shaders["DebugShader"].UnUse();
+    glUseProgram(0);
 }
 
 void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color,
     bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    shaders["DebugShader"].Use();
+    ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(rectVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
     glUniform4f(uniformColorLocation,
         color.r / 255.0f,
         color.g / 255.0f,
@@ -471,7 +406,7 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     }
 
     // Pass the final transformation matrix to the shader
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set line width if desired (optional)
@@ -481,16 +416,16 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     glDrawArrays(GL_LINE_LOOP, 0, 4);
 
     glBindVertexArray(0);
-    shaders["DebugShader"].UnUse();
+    glUseProgram(0);
 }
 
 
 void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
-    shaders["DebugShader"].Use();
+    ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(circleVAO);
 
     // Set the color
-    GLint uniformColorLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uColor");
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
     glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
     // Model matrix for the circle
@@ -510,7 +445,7 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     }
 
 
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DebugShader"].GetHandle(), "uModelToNDC");
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set line width (optional)
@@ -520,7 +455,7 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     glDrawArrays(GL_LINE_LOOP, 0, circleSegments);
 
     glBindVertexArray(0);
-    shaders["DebugShader"].UnUse();
+    glUseProgram(0);
 }
 
 void GraphicsManager::SetupPointVAO() {
@@ -543,28 +478,6 @@ void GraphicsManager::SetupPointVAO() {
 
     glBindVertexArray(0);
 }
-
-//void GraphicsManager::SetupLineVAO() {
-//    float lineVertices[] = {
-//        0.0f, 0.0f, 0.0f,  // Start point of the line (relative position)
-//        1.0f, 0.0f, 0.0f   // End point of the line (relative position)
-//    };
-//
-//    unsigned int lineVBO;
-//    glGenVertexArrays(1, &lineVAO);
-//    glGenBuffers(1, &lineVBO);
-//
-//    glBindVertexArray(lineVAO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, lineVBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
-//
-//    // Set vertex attribute pointer for position
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-//    glEnableVertexAttribArray(0);
-//
-//    glBindVertexArray(0);
-//}
 
 void GraphicsManager::SetupLineVAO() {
     float lineVertices[] = {
@@ -775,19 +688,6 @@ namespace {
         }
     }
 
-    template <typename T>
-    T* GetComponent(const int entityId) {
-        return DuckEngine::DUCKENGINE_ComponentManager.GetComponent<T>(entityId);
-    }
-
-    template <typename T>
-    std::unordered_map<int, std::shared_ptr<T>>& GetComponents() {
-        // Use dynamic_pointer_cast to cast Component to T for each item in the unordered_map
-        return reinterpret_cast<std::unordered_map<int, std::shared_ptr<T>>&>(
-            DuckEngine::DUCKENGINE_ComponentManager.GetComponents<T>()
-            );
-    }
-
     glm::mat3x3 ViewMatrix(const Vector2D& position) {
         return glm::mat3x3{
                 glm::vec3(1.f, 0, 0),
@@ -829,143 +729,4 @@ namespace {
                     glm::vec3(0, 0, 1.f)
         };
     }
-
-    void InitializeDebugVAO() {
-        GraphicsManager::SetupCircleVAO(100);
-        GraphicsManager::SetupLineVAO();
-        GraphicsManager::SetupPointVAO();
-        GraphicsManager::SetupRectangleVAO();
-    }
 }
-
-// old render
-
-    //void GraphicsManager::OldRender(bool isUI) {
-    //
-    //    // std::cout << "Trying\n";
-    //
-    //    shaders["DefaultShader"].Use();
-    //    glBindVertexArray(VAO);
-    //
-    //    // Set the texture uniform
-    //    GLint uTex2dLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uTex2d");
-    //    if (uTex2dLocation != -1) {
-    //        glUniform1i(uTex2dLocation, 0);  // Use texture unit 0
-    //    }
-    //
-    //    // Set other uniforms
-    //    GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
-    //    GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");
-    //    GLint uBlendColorLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColor");
-    //
-    //    // Example values - adjust as needed
-    //    glUniform1i(uUseTextureLocation, TEST_TEXTURE != 0 ? 1 : 0);
-    //    glUniform1i(uBlendColorsLocation, 0);  // Not blending colors
-    //    glUniform4f(uBlendColorLocation, 1.0f, 1.0f, 1.0f, 1.0f);  // White (no blending)
-    //
-    //    // Bind the texture if it exists
-    //    if (TEST_TEXTURE != 0) {
-    //        glActiveTexture(GL_TEXTURE0);
-    //        glBindTexture(GL_TEXTURE_2D, TEST_TEXTURE);
-    //    }
-    //
-    //    // Loop over all active cameras
-    //    for (const auto& [cameraEntityID, camera] : GetComponents<CameraComponent>()) {
-    //
-    //        CameraComponent* camera = GetComponent<CameraComponent>(cameraEntityID);
-    //
-    //        // std::cout << "Camera received.\n";
-    //
-    //        if (!camera) continue;
-    //
-    //        // std::cout << "Camera received.\n";
-    //
-    //        glm::mat3x3 viewMatrix = ViewMatrix(camera->position);
-    //
-    //        for (const auto& [spriteEntityID, spriteRenderer] : GetComponents<SpriteRendererComponent>()) {
-    //
-    //            // Check if sprite renderer exists
-    //            if (SpriteRendererComponent* spriteRenderer = GetComponent<SpriteRendererComponent>(spriteEntityID); !spriteRenderer) continue;
-    //
-    //            // std::cout << "Sprite available.\n";
-    //
-    //            if (spriteRenderer->sprite) 
-    //            {
-    //                glActiveTexture(GL_TEXTURE0);
-    //                glBindTexture(GL_TEXTURE_2D, spriteRenderer->texture);
-    //            }
-    //
-    //
-    //            // Check if camera and sprite are on same layer
-    //            if (spriteRenderer->layer != camera->layer) continue;
-    //
-    //            // std::cout << "Sprite is on same layer.\n";
-    //
-    //            // Check if transform exist and render if it does
-    //            if (TransformComponent* transform = GetComponent<TransformComponent>(spriteEntityID))
-    //            {
-    //                // std::cout << "Transform exists. Rendering now\n";
-    //
-    //                glm::mat3x3 modelToWorld = ModelToWorldMatrix(transform->scale, transform->angle, transform->position);
-    //
-    //                glm::mat3x3 cameraToNDC = CameraToNDCMatrix(camera->windowAspectRatio * camera->cameraHeight, camera->cameraHeight);
-    //
-    //                glm::mat3x3 finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
-    //
-    //                //std::cout << "final Matrix =\n";
-    //                //for (int row = 0; row < 3; ++row) {
-    //                //    std::cout << "| ";
-    //                //    for (int col = 0; col < 3; ++col) {
-    //                //        std::cout << finalMatrix[row][col] << " ";
-    //                //    }
-    //                //    std::cout << "|\n";
-    //                //}
-    //
-    //                //std::cout << "camMatrix =\n";
-    //                //for (int row = 0; row < 3; ++row) {
-    //                //    std::cout << "| ";
-    //                //    for (int col = 0; col < 3; ++col) {
-    //                //        std::cout << cameraToNDC[row][col] << " ";
-    //                //    }
-    //                //    std::cout << "|\n";
-    //                //}
-    //
-    //                //std::cout << "viewMatrix =\n";
-    //                //for (int row = 0; row < 3; ++row) {
-    //                //    std::cout << "| ";
-    //                //    for (int col = 0; col < 3; ++col) {
-    //                //        std::cout << viewMatrix[row][col] << " ";
-    //                //    }
-    //                //    std::cout << "|\n";
-    //                //}
-    //
-    //                //std::cout << "modelToWorld =\n";
-    //                //for (int row = 0; row < 3; ++row) {
-    //                //    std::cout << "| ";
-    //                //    for (int col = 0; col < 3; ++col) {
-    //                //        std::cout << modelToWorld[row][col] << " ";
-    //                //    }
-    //                //    std::cout << "|\n";
-    //                //}
-    //
-    //                // Send matrix to vert shader
-    //                GLint uniformModelToNDCLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uModelToNDC");
-    //                if (uniformModelToNDCLocation == -1) {
-    //                    std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
-    //                    std::exit(EXIT_FAILURE);
-    //                }
-    //
-    //                glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-    //
-    //                // Render the sprite
-    //                glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-    //
-    //                // std::cout << "drawn\n";
-    //            }
-    //        }
-    //    }
-    //
-    //    glBindVertexArray(0);
-    //    glBindTexture(GL_TEXTURE_2D, 0);
-    //    shaders["DefaultShader"].UnUse();
-    //}

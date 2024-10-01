@@ -8,7 +8,6 @@
 Entity* player;
 Entity* camera;
 
-CameraComponent* cameraComponent;
 TransformComponent* playerTransform;
 RigidbodyComponent* playerRb;
 AnimatorComponent* playerAnimator;
@@ -79,8 +78,8 @@ void SpriteMovementScene::Load()
 	testUITransfrom->relativeToCamera = false;
 
 	// test draw no texture
-	noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 2000.0f, 2000.0f });
-	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, true);
+	//noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 2000.0f, 2000.0f });
+	//DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, true);
 }
 
 void SpriteMovementScene::Start()

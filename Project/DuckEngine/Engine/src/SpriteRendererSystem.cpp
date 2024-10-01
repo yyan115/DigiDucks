@@ -73,5 +73,19 @@ void SpriteRendererSystem::Update()
 
 			GraphicsManager::AddToDrawQueue(drawOptions);
 		}
+		else if (spriteRenderer && transform) {
+			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
+			DrawOptions drawOptions;
+			drawOptions.translation = transform->position;
+			drawOptions.scale = transform->scale;
+			drawOptions.rotation = transform->angle;
+
+			drawOptions.useColor = true;
+			drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+
+			drawOptions.relativeToCamera = transform->relativeToCamera;
+
+			GraphicsManager::AddToDrawQueue(drawOptions);
+		}
 	}
 }

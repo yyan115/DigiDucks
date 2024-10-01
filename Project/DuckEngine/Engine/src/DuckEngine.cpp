@@ -11,6 +11,8 @@
 #include "CameraManager.h"
 #include "SoundManager.h"
 #include "InputManager.h"
+#include "ShaderManager.h"
+#include "FontManager.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -30,6 +32,7 @@ AssetManager DuckEngine::DUCKENGINE_AssetManager;
 EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 
+//TextRenderingSystem textRenderingSystem;
 
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
@@ -40,6 +43,7 @@ void DuckEngine::Initialize() {
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
+    FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
 
     // load prefabs
     PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
@@ -48,9 +52,9 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
     DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
 
-    // ADDED BY YY
-    std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
-    DUCKENGINE_SystemManager.AddSystem(cameraSystem);
+    //// ADDED BY YY
+    //std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
+    //DUCKENGINE_SystemManager.AddSystem(cameraSystem);
 
     // Update Collision System
     // Circle Collider System
@@ -67,6 +71,8 @@ void DuckEngine::Initialize() {
     std::shared_ptr<System> animatorSystem = std::make_shared<AnimatorSystem>();
     DUCKENGINE_SystemManager.AddSystem(animatorSystem);
 
+    //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
+    //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
 
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
@@ -74,19 +80,8 @@ void DuckEngine::Initialize() {
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-
     UIManager::Initialize();
     SoundManager::GetInstance().Initialize();
-
-    //// Later, when you need to call TextRenderingSystem-specific methods (like Init), use dynamic_pointer_cast
-    //std::shared_ptr<TextRenderingSystem> textRenderingSystem = std::dynamic_pointer_cast<TextRenderingSystem>(system);
-
-    //if (textRenderingSystem) {
-    //    textRenderingSystem->Init();  // Safely call Init() on TextRenderingSystem
-    //}
-    //else {
-    //    std::cerr << "Failed to cast system to TextRenderingSystem!" << std::endl;
-    //}
 }
 
 void DuckEngine::Update() 
@@ -100,8 +95,18 @@ void DuckEngine::Update()
     DUCKENGINE_SceneManager.Update();
     //SoundManager::GetInstance().Update();
 
+    FontManager::Update();
+
     DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 
+    TextRenderCommand titleText{
+    "Wassup world and lucas!",       // Text
+    {500.f, 500.0f },         // Position (X, Y)
+    1.0f,                  // Scale
+    10.f, 50.f, 100.0f, 5.0f       // Color (R, G, B)
+    };
+
+    FontManager::AddToDrawQueue(titleText);
 }
 
 void DuckEngine::StartDraw()
@@ -128,10 +133,7 @@ void DuckEngine::Draw()
 
     UIManager::Render();
 
-    //GraphicsManager::DrawPoint({ 0,0 }, 50000.f);
-    //GraphicsManager::DrawLine({ 0,0 }, { 10000.f ,10000.f }, 50000.f);
-    //GraphicsManager::DrawRectangle({ 0,0 }, { 10000.f, 10000.f }, { 255.f, 255.f, 0.f, 255.f }, true, {});
-    //GraphicsManager::DrawCircle({0,0}, 10000.f);
+    FontManager::Render();
 }
 
 void DuckEngine::EndDraw()
@@ -147,6 +149,7 @@ void DuckEngine::Exit()
     GraphicsManager::Exit();
     //PrefabManager::Exit();
     InputManager::Exit();
+    ShaderManager::Exit();
 
     DUCKENGINE_SceneManager.Shutdown();
     //SoundManager::GetInstance().Exit();

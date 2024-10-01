@@ -133,7 +133,7 @@
     <ClInclude Include="..\include\EntityFactory.h" />
     <ClInclude Include="..\include\EntityManager.h" />
     <ClInclude Include="..\include\File.h" />
-    <ClInclude Include="..\include\glslshader.h" />
+    <ClInclude Include="..\include\FontManager.h" />
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\InputManager.h" />
@@ -142,10 +142,12 @@
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Prefab.h" />
     <ClInclude Include="..\include\PrefabManager.h" />
+    <ClInclude Include="..\include\RenderData.h" />
     <ClInclude Include="..\include\RigidbodyComponent.h" />
     <ClInclude Include="..\include\RigidbodySystem.h" />
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SceneManager.h" />
+    <ClInclude Include="..\include\ShaderManager.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\TextRenderingSystem.h" />
@@ -177,7 +179,7 @@
     <ClCompile Include="..\src\EntityFactory.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\File.cpp" />
-    <ClCompile Include="..\src\glslshader.cpp" />
+    <ClCompile Include="..\src\FontManager.cpp" />
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
@@ -190,6 +192,7 @@
     <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\SceneManager.cpp" />
     <ClCompile Include="..\src\Serialization.cpp" />
+    <ClCompile Include="..\src\ShaderManager.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
