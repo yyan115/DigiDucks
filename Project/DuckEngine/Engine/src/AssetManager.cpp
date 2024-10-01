@@ -1,83 +1,80 @@
 #include "AssetManager.h"
-#include <unordered_map>
-#include <iostream> 
 #include "ImageLoader.h"
+#include "Texture.h"
+#include "DuckEngine_Sound.h"
 
-struct AssetManager::Impl
-{
-    std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> textureMap; 
+std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
 
-    // Simple texture loading without size specifications
-    std::vector<std::shared_ptr<Texture>> LoadTextureFromFile(const std::string& filePath)
-    {
-        if (textureMap.find(filePath) != textureMap.end())
-        {
-            return textureMap[filePath];
-        }
-
-        Texture texture = ImageLoader::LoadTexture(filePath);
-        std::vector<std::shared_ptr<Texture>> textures;
-        textures.push_back(std::make_shared<Texture>(texture));
-
-        textureMap[filePath] = textures;
-
-        return textures;
-    }
-
-    std::vector<std::shared_ptr<Texture>> LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight)
-    {
-        if (textureMap.find(filePath) != textureMap.end())
-        {
-            return textureMap[filePath];
-        }
-
-        std::vector<Texture> textures = ImageLoader::LoadSpriteSheet(filePath, textureWidth, textureHeight);
-        std::vector<std::shared_ptr<Texture>> texturePtrs;
-        texturePtrs.reserve(textures.size());
-
-        for (Texture& texture : textures)
-        {
-            texturePtrs.push_back(std::make_shared<Texture>(texture));
-        }
-
-        textureMap[filePath] = texturePtrs;
-
-        return texturePtrs;
-    }
-
-    void UnloadAllTextures()
-    {
-        textureMap.clear();
-    }
-};
-
-AssetManager::Impl* AssetManager::impl = new Impl();
-
-AssetManager::AssetManager()
-{
-}
 
 void AssetManager::LoadAll()
 {
-    std::cout << "All assets loaded." << std::endl;
+	//// load all assets here
+	//LoadTexture("../Resources/oldman.png");
+
+	//// load sound
+	//LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
+	//LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
+
 }
 
-std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const char* filePath)
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath)
 {
-    return impl->LoadTextureFromFile(filePath); 
+	if (textureMap.find(filePath) != textureMap.end())
+	{
+		return textureMap[filePath];
+	}
+
+	std::vector<std::shared_ptr<Texture>> textures;
+	textures.push_back(LoadTextureFromFile(filePath));
+
+	textureMap[filePath] = textures;
+
+	return textures;
 }
 
-std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const char* filePath, int textureWidth, int textureHeight)
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath, int textureWidth, int textureHeight)
 {
-    return impl->LoadTextureFromFile(filePath, textureWidth, textureHeight); 
+	if (textureMap.find(filePath) != textureMap.end())
+	{
+		return textureMap[filePath];
+	}
+
+	std::vector<std::shared_ptr<Texture>> textures = LoadTextureFromFile(filePath, textureWidth, textureHeight);
+
+	textureMap[filePath] = textures;
+
+	return textures;
 }
 
-void AssetManager::LoadSound(const char* soundName, const char* filePath)
+
+void AssetManager::LoadSound(const std::string& soundName, const std::string& filePath)
 {
-    std::cout << "Loading sound: " << soundName << " from file: " << filePath << std::endl;
+	DuckEngine_Sound::LoadSound(soundName, filePath);
 }
 
-void AssetManager::Exit()
+
+std::shared_ptr<Texture> AssetManager::LoadTextureFromFile(const std::string& filePath)
 {
-    delete impl;
+	Texture texture = ImageLoader::LoadTexture(filePath);
+	return std::make_shared<Texture>(texture);
+
+}
+
+std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight)
+{
+	std::vector<Texture> textures = ImageLoader::LoadSpriteSheet(filePath, textureWidth, textureHeight);
+	std::vector<std::shared_ptr<Texture>> texturePtrs;
+	texturePtrs.reserve(textures.size());
+
+	for (Texture& texture : textures)
+	{
+		texturePtrs.push_back(std::make_shared<Texture>(texture));
+	}
+
+	return texturePtrs;
+}
+
+void AssetManager::UnloadAll()
+{
+	textureMap.clear();
 }

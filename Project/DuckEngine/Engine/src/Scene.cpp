@@ -17,7 +17,7 @@ void Scene::Unload()
     for (Entity& entity : entities)
     {
         entityIDs.push_back(entity.entityID);
-        entity.Release();
+        //entity.Release();
     }
 
     for (int entityID : entityIDs)

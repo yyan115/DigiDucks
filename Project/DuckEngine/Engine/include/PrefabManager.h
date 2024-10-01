@@ -14,27 +14,23 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class DUCKENGINE_API PrefabManager
+class PrefabManager
 {
+private:
+	static std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
 
 public:
-    PrefabManager();
 
-    // Add a single prefab to the manager
-    static void AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab);
+	// Add a single prefab to the manager
+	static DUCKENGINE_API void AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab);
 
-    // Retrieve prefab by name
-    static std::shared_ptr<Prefab> GetPrefab(const char* name);
+	// retrieve prefab by name
+	static DUCKENGINE_API std::shared_ptr<Prefab> GetPrefab(const std::string& name);
 
-    // Instantiate prefab by name
-    static Entity* InstantiatePrefab(const char* name, Vec2 newPosition);
+	// instantiate prefab by name
+	static DUCKENGINE_API Entity* InstantiatePrefab(const std::string& name, Vec2 newPosition);
 
-    // Load prefabs from a file
-    static void LoadPrefabsFromFile(const char* filePath);
+	static DUCKENGINE_API void LoadPrefabsFromFile(const std::string& filePath);
 
-    static void Exit();
 
-private:
-    struct Impl;  // Forward declare Impl
-    static Impl* impl;  // Pointer to Impl
 };

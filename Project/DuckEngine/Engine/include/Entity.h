@@ -10,19 +10,23 @@
 #endif
 
 
-class DUCKENGINE_API Entity
+class Entity
 {
 public:
-    Entity(int id, const char* name = "");
-
-    const char* GetName() const;
-    void SetName(const char* name);
-    bool IsName(const char* compareName) const;
-    void Release();
-
     int entityID;
+    std::string name;
 
-private:
-    struct Impl;
-    Impl* impl;
+    DUCKENGINE_API Entity(int id, std::string toName = "") : entityID(id), name(toName) {}
+
+    DUCKENGINE_API std::string GetName()
+    {
+        return name;
+    }
+
+    DUCKENGINE_API bool IsName(const std::string& compareName) const
+    {
+        return name == compareName;
+    }
+
+
 };

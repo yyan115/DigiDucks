@@ -5,24 +5,11 @@
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
-
-struct InputManager::Impl 
-{
-    std::unordered_map<int, bool> keyStates;
-    std::unordered_map<int, bool> mouseButtonStates;
-    std::unordered_map<int, bool> previousKeyStates;
-    std::unordered_map<int, bool> previousMouseButtonStates;
-
-    ~Impl() 
-    {
-        keyStates.clear();
-        mouseButtonStates.clear();
-        previousKeyStates.clear();
-        previousMouseButtonStates.clear();
-    }
-};
-
-InputManager::Impl* InputManager::impl = new Impl();
+// Define static variables here (without DUCKENGINE_API)
+std::unordered_map<int, bool> InputManager::keyStates;
+std::unordered_map<int, bool> InputManager::mouseButtonStates;
+std::unordered_map<int, bool> InputManager::previousKeyStates;
+std::unordered_map<int, bool> InputManager::previousMouseButtonStates;
 
 double InputManager::mouseX = 0.0;
 double InputManager::mouseY = 0.0;
@@ -31,16 +18,6 @@ double InputManager::scrollY = 0.0;
 double InputManager::lastMouseX = 0.0;
 double InputManager::lastMouseY = 0.0;
 
-InputManager::InputManager() 
-{
-    if(impl == nullptr) impl = new Impl();
-}
-
-InputManager::~InputManager() 
-{
-    // Free Impl 
-    delete impl;
-}
 
 bool InputManager::Initialize(GLFWwindow* window) {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -55,8 +32,8 @@ bool InputManager::Initialize(GLFWwindow* window) {
 
 void InputManager::Update() {
     // Save previous states
-    impl->previousKeyStates = impl->keyStates;
-    impl->previousMouseButtonStates = impl->mouseButtonStates;
+    previousKeyStates = keyStates;
+    previousMouseButtonStates = mouseButtonStates;
 
     // Reset scroll offsets
     scrollX = 0.0;
@@ -68,54 +45,54 @@ void InputManager::Update() {
 
 void InputManager::Exit() {
     // Clean up resources if necessary
-    delete impl;
 }
 
 bool InputManager::IsKeyDown(int key) {
-    return impl->keyStates[key];
+    return keyStates[key];
 }
 
 bool InputManager::IsKeyPressed(int key) {
-    return impl->keyStates[key] && !impl->previousKeyStates[key];
+    return keyStates[key] && !previousKeyStates[key];
 }
 
 bool InputManager::IsKeyReleased(int key) {
-    return !impl->keyStates[key] && impl->previousKeyStates[key];
+    return !keyStates[key] && previousKeyStates[key];
 }
 
 bool InputManager::IsMouseButtonDown(int button) {
-    return impl->mouseButtonStates[button];
+    return mouseButtonStates[button];
 }
 
 bool InputManager::IsMouseButtonPressed(int button) {
-    return impl->mouseButtonStates[button] && !impl->previousMouseButtonStates[button];
+    return mouseButtonStates[button] && !previousMouseButtonStates[button];
 }
 
 bool InputManager::IsMouseButtonReleased(int button) {
-    return !impl->mouseButtonStates[button] && impl->previousMouseButtonStates[button];
+    return !mouseButtonStates[button] && previousMouseButtonStates[button];
 }
 
 
 void InputManager::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod) {
+    UNREFERENCED_PARAMETER(scancode);
     UNREFERENCED_PARAMETER(mod);
     UNREFERENCED_PARAMETER(pwin);
-    UNREFERENCED_PARAMETER(scancode);
     if (action == GLFW_PRESS) {
-        impl->keyStates[key] = true;
+        keyStates[key] = true;
     }
     else if (action == GLFW_RELEASE) {
-        impl->keyStates[key] = false;
+        keyStates[key] = false;
     }
 }
 
 void InputManager::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod) {
-    UNREFERENCED_PARAMETER(pwin);
     UNREFERENCED_PARAMETER(mod);
+    UNREFERENCED_PARAMETER(pwin);
+
     if (action == GLFW_PRESS) {
-        impl->mouseButtonStates[button] = true;
+        mouseButtonStates[button] = true;
     }
     else if (action == GLFW_RELEASE) {
-        impl->mouseButtonStates[button] = false;
+        mouseButtonStates[button] = false;
     }
 }
 

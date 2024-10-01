@@ -2,33 +2,18 @@
 #include "DuckEngine.h"
 #include "ComponentFactory.h"
 
-struct PrefabManager::Impl
+std::unordered_map<std::string, std::shared_ptr<Prefab>> PrefabManager::prefabs;
+
+void PrefabManager::AddPrefab(const std::string& name, const std::shared_ptr<Prefab>& prefab)
 {
-	std::unordered_map<std::string, std::shared_ptr<Prefab>> prefabs;
-
-	~Impl()
-	{
-		prefabs.clear();
-	}
-};
-
-PrefabManager::Impl* PrefabManager::impl = nullptr;
-
-PrefabManager::PrefabManager()
-{
-	impl = new Impl();
+	prefabs[name] = prefab;
 }
 
-void PrefabManager::AddPrefab(const char* name, const std::shared_ptr<Prefab>& prefab)
+std::shared_ptr<Prefab> PrefabManager::GetPrefab(const std::string& name)
 {
-	impl->prefabs[std::string(name)] = prefab;
-}
+	auto it = prefabs.find(name);
 
-std::shared_ptr<Prefab> PrefabManager::GetPrefab(const char* name)
-{
-	auto it = impl->prefabs.find(std::string(name));
-
-	if (it != impl->prefabs.end())
+	if (it != prefabs.end())
 	{
 		return it->second;
 	}
@@ -37,7 +22,7 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefab(const char* name)
 	return nullptr;
 }
 
-Entity* PrefabManager::InstantiatePrefab(const char* name, Vec2 newPosition)
+Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
 
@@ -50,7 +35,7 @@ Entity* PrefabManager::InstantiatePrefab(const char* name, Vec2 newPosition)
 	return nullptr;
 }
 
-void PrefabManager::LoadPrefabsFromFile(const char* filePath)
+void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
 {
 	json prefabData = Serialization::LoadJsonFile(filePath);
 
@@ -60,19 +45,14 @@ void PrefabManager::LoadPrefabsFromFile(const char* filePath)
 
 		for (auto& [prefabName, prefabInfo] : prefabsJson.items())
 		{
-			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName.c_str());
+			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
 
 			if (prefabInfo.contains("components"))
 			{
 				prefab->componentsData = prefabInfo["components"];
 			}
 
-			AddPrefab(prefabName.c_str(), prefab);
+			AddPrefab(prefabName, prefab);
 		}
 	}
-}
-
-void PrefabManager::Exit() 
-{
-	delete impl;
 }
