@@ -18,7 +18,7 @@ FT_Face FontManager::face;
 unsigned int FontManager::VAO;
 unsigned int FontManager::VBO;
 
-bool FontManager::Initialize(std::string fontPath, int fontSize) {
+void FontManager::Initialize(std::string fontPath, int fontSize) {
     // Initialize FreeType library
     if (FT_Init_FreeType(&ft)) {
         std::cerr << "ERROR::FREETYPE: Could not init FreeType Library\n";
@@ -35,7 +35,7 @@ bool FontManager::Initialize(std::string fontPath, int fontSize) {
     // Load font face
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
         std::cerr << "ERROR::FREETYPE: Failed to load font: " << fontPath << "\n";
-        return false;
+        return;
     }
     // Set font size
     FT_Set_Pixel_Sizes(face, 0, fontSize);

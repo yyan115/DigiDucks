@@ -99,14 +99,24 @@ void DuckEngine::Update()
 
     DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 
-    TextRenderCommand titleText{
-    "Wassup world and lucas!",       // Text
-    {500.f, 500.0f },         // Position (X, Y)
-    1.0f,                  // Scale
-    10.f, 50.f, 100.0f, 5.0f       // Color (R, G, B)
-    };
+    //// FIRST INSTANCE
+    //TextRenderCommand titleText{
+    //"TEST SCENE",       // Text
+    //{ 20.f , WindowManager::GetWindowHeight() - 70.f },         // Position (X, Y)
+    //1.0f,                  // Scale
+    //255.f, 50.f, 100.0f, 250.0f       // Color (R, G, B)
+    //};
 
-    FontManager::AddToDrawQueue(titleText);
+    //FontManager::AddToDrawQueue(titleText);
+
+    //TextRenderCommand testText {
+    //"TEST TEXT",       // Text
+    //{ WindowManager::GetWindowWidth() - 300.f  , 250.f },         // Position (X, Y)
+    //1.0f,                  // Scale
+    //0.f, 255.f, 150.f, 250.0f       // Color (R, G, B)
+    //};
+
+    //FontManager::AddToDrawQueue(testText);
 }
 
 void DuckEngine::StartDraw()
@@ -189,6 +199,16 @@ void DuckEngine::SetCameraPosition(const float x, const float y) {
 
 void DuckEngine::SetCameraHeight(const int height) {
     CameraManager::SetHeight(height);
+}
+
+void DuckEngine::RenderText(const std::string& text, const Vector2D& position, float scale, const Color& color) {
+    TextRenderCommand command{
+        text,
+        position,
+        scale,
+        color
+    };
+    FontManager::AddToDrawQueue(command);
 }
 
 void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera) {

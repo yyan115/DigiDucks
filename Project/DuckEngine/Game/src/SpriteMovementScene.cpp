@@ -158,6 +158,10 @@ void SpriteMovementScene::Update()
 	DuckEngine::SetCameraPosition(-playerTransform->position.x, -playerTransform->position.y);
 
 	////std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
+
+	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 70.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
+
+	DuckEngine::RenderText("TEST TEXT", { DuckEngine::GetWindowWidth() - 300.f  , 250.f }, 1.f, { 0.f, 255.f, 150.f, 250.0f });
 }
 
 void SpriteMovementScene::PostUpdate()

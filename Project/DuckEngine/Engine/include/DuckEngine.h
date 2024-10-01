@@ -54,7 +54,7 @@ public:
 
     static void SetBackgroundColor(const float r, const float g, const float b, const float a);
 
-
+    static void RenderText(const std::string& text, const Vector2D& position, float scale, const Color& color);
 
     static void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true);
     static void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true);

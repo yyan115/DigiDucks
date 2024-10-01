@@ -26,7 +26,7 @@
 class FontManager {
 public:
     // Core functions
-    static bool Initialize(std::string fontPath, int fontSize);
+    static void Initialize(std::string fontPath, int fontSize);
     static void Exit();
     static void Update();
     static void Render();
