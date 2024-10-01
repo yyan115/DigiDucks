@@ -25,10 +25,18 @@
 #include "Color.h"
 #include <random>
 #include <map>
+#include <set>
+
+// GLOBALS For Spawning of Entities
+int selectedEntityID = -1;
+std::vector<std::pair<int, std::string>> spawnedEntities;
+int entityCounter = 0;  // A counter to track entity numbering
+std::set<int> availableNumbers;  // A set to store the recycled entity numbers
 
 enum class WindowType {
     DebugInfo,
     Performance,
+    Inspector,
     Count
 };
 
@@ -36,6 +44,7 @@ enum class WindowType {
 std::unordered_map<WindowType, bool> windowStates = {
     {WindowType::DebugInfo, false},
     {WindowType::Performance, false},
+    {WindowType::Inspector, false},
 };
 
 enum class AssetCategory {
@@ -142,9 +151,6 @@ void UIManager::Render() {
     // Rendering stats
     RenderWindows();
 
-    RenderImGuiWindows(0.21f, 0.16f, 0.0f, 0.6f);
-    ShowInspector();
-
     RenderImGuiWindows(1.f, 0.25f, 0.0f, 0.75f);
     ShowExplorer();
 
@@ -195,7 +201,6 @@ void UIManager::ShowDebugInfo() {
             MEMORYSTATUSEX memoryStatus = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             memoryStatus.dwLength = sizeof(MEMORYSTATUSEX);
             if (GlobalMemoryStatusEx(&memoryStatus)) {
-                ImGui::Text("Memory Status: %u MB", memoryStatus.dwMemoryLoad / (1024 * 1024));
                 ImGui::Text("Total Physical Memory: %u MB", memoryStatus.ullTotalPhys / static_cast<size_t>(1024 * 1024));
                 ImGui::Text("Free Physical Memory: %u MB", memoryStatus.ullAvailPhys / static_cast<size_t>(1024 * 1024));
                 ImGui::Text("Total Virtual Memory: %u MB", memoryStatus.ullTotalVirtual / static_cast<size_t>(1024 * 1024));
@@ -283,45 +288,45 @@ void UIManager::ShowExplorer() {
 }
 
 void UIManager::ShowInspector() {
-    ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    if (windowStates[WindowType::Inspector] && selectedEntityID != -1) {
+        RenderImGuiWindows(0.21f, 0.16f, 0.0f, 0.6f);
+        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-    // Get first box entity
-    int entityID = DuckEngine::DUCKENGINE_EntityManager.GetEntities().front().entityID;
+        // Access TransformComponent
+        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
 
-    // Access TransformComponent
-    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
+        if (transform) {
+            // Display sliders for position, scale, and rotation (angle)
+            ImGui::Text("Transform");
 
-    if (transform) {
-        // Display sliders for position, scale, and rotation (angle)
-        ImGui::Text("Transform");
+            // Position
+            ImGui::SliderFloat2("Position", &transform->position.x, -10.0f, 10.0f);
 
-        // Position
-        ImGui::SliderFloat2("Position", &transform->position.x, -10.0f, 10.0f);
+            // Rotation
+            ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
 
-        // Rotation
-        ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
+            // Scale
+            ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
 
-        // Scale
-        ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
-
-        // Buttons for reset actions
-        if (ImGui::Button("Reset Position")) {
-            transform->position = Vec2(0.0f, 0.0f);
+            // Buttons for reset actions
+            if (ImGui::Button("Reset Position")) {
+                transform->position = Vec2(0.0f, 0.0f);
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Reset Rotation")) {
+                transform->angle = 0.0f;
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Reset Scale")) {
+                transform->scale = Vec2(1.0f, 1.0f);
+            }
         }
-        ImGui::SameLine();
-        if (ImGui::Button("Reset Rotation")) {
-            transform->angle = 0.0f;
+        else {
+            ImGui::Text("No TransformComponent found for this entity.");
         }
-        ImGui::SameLine();
-        if (ImGui::Button("Reset Scale")) {
-            transform->scale = Vec2(1.0f, 1.0f);
-        }
+
+        ImGui::End();
     }
-    else {
-        ImGui::Text("No TransformComponent found for this entity.");
-    }
-
-    ImGui::End();
 }
 
 
@@ -371,6 +376,9 @@ void UIManager::RenderWindows() {
             case WindowType::Performance:
                 ShowPerformance();
                 break;
+            case WindowType::Inspector:
+				ShowInspector();
+				break;
             default:
                 break;
             }
@@ -395,28 +403,57 @@ void UIManager::RenderGameObjectAssets() {
 
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<float> randomPosition(0.0f, 5.0f);  // Position between -500 and 500
+        std::uniform_real_distribution<float> randomPosition(0.0f, 5.0f);
 
 
         UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn");
         Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
 
+        int newEntityNumber;
+        if (!availableNumbers.empty()) {
+            newEntityNumber = *availableNumbers.begin();  // Get the smallest available number
+            availableNumbers.erase(availableNumbers.begin());
+        }
+        else {
+            newEntityNumber = ++entityCounter;  // If no recycled number, increment the counter
+        }
+
         // Create a new square entity
         Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", pos, {1.0f, 1.0f});
 
-        // Add transform component with randomized values
+        // Add the entity to the vector
+        std::string entityName = "GameObject " + std::to_string(newEntityNumber);
+        spawnedEntities.emplace_back(square->entityID, entityName);
 
-        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
-
-        transform->position = pos;
+        
 	}
-    ImGui::SameLine();
 
-    if (ImGui::Button("Remove Crate")) {
-        if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
-            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().entityID);
+    // Loop through the spawned entities and render buttons for each
+    for (size_t i = 0; i < spawnedEntities.size(); ++i) {
+        // Display button for the entity
+        if (ImGui::Button(spawnedEntities[i].second.c_str())) {
+            selectedEntityID = spawnedEntities[i].first;
+            windowStates[WindowType::Inspector] = !windowStates[WindowType::Inspector];
         }
-	}
+
+        ImGui::SameLine();
+
+        // Button to remove the entity
+        std::string removeButtonLabel = "Remove " + spawnedEntities[i].second;
+        if (ImGui::Button(removeButtonLabel.c_str())) {
+            // Remove the entity from the entity manager
+            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(spawnedEntities[i].first);
+
+            // Recycle the removed number
+            std::string entityLabel = spawnedEntities[i].second;
+            int removedNumber = std::stoi(entityLabel.substr(entityLabel.find(" ") + 1));
+            availableNumbers.insert(removedNumber);
+
+            // Remove the entity from the list
+            spawnedEntities.erase(spawnedEntities.begin() + i);
+            --i;
+        }
+    }
 }
 
 void UIManager::RenderTextureAssets() {

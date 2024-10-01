@@ -44,7 +44,6 @@ private:
 
     // Show the performance window
     static void ShowPerformance();
-    static void SpawnSquare();
 
     static void RenderSceneAssets();
     static void RenderGameObjectAssets();
