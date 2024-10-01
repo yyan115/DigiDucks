@@ -42,6 +42,7 @@ public:
     static bool AKeyDown;
     static bool SKeyDown;
     static bool DKeyDown;
+    static bool ToggleEditor;
 
     static int GetWindowWidth();
     static int GetWindowHeight();

@@ -94,7 +94,6 @@ void RenderSystemTimings(const SystemManager& systemManager) {
                 ImGui::EndTooltip();
             }
 
-            // Optionally, add some spacing between the graphs
             ImGui::Spacing();
         }
     }
@@ -102,7 +101,7 @@ void RenderSystemTimings(const SystemManager& systemManager) {
 
 // Render the ImGui windows with a specific size and position to make it adaptive
 void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) {
-    // Get the current window size from the WindowManager or directly from the GLFW window
+    // Get the current window size
     int windowWidth = WindowManager::GetWindowWidth();
     int windowHeight = WindowManager::GetWindowHeight();
 

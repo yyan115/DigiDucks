@@ -32,6 +32,7 @@ AssetManager DuckEngine::DUCKENGINE_AssetManager;
 EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 
+bool DuckEngine::ToggleEditor = false;
 //TextRenderingSystem textRenderingSystem;
 
 void DuckEngine::Initialize() {
@@ -80,7 +81,7 @@ void DuckEngine::Initialize() {
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-    UIManager::Initialize();
+    if (!ToggleEditor) { UIManager::Initialize(); ToggleEditor = true; }    
     SoundManager::GetInstance().Initialize();
 }
 
@@ -141,7 +142,7 @@ void DuckEngine::Draw()
 
     GraphicsManager::RenderDebug();
 
-    UIManager::Render();
+    if (ToggleEditor) UIManager::Render();
 
     FontManager::Render();
 }
@@ -154,7 +155,7 @@ void DuckEngine::EndDraw()
 
 void DuckEngine::Exit() 
 { 
-    UIManager::Exit();
+    if (ToggleEditor) UIManager::Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
     //PrefabManager::Exit();
