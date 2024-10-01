@@ -143,6 +143,11 @@ void GraphicsManager::Render() {
 
             glUniform1i(uUseTextureLocation, 1);
         }
+        else {
+            GLint uUseTextureLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uUseTexture");
+
+            glUniform1i(uUseTextureLocation, 0);
+        }
 
         if (drawItem.useColor) {
             GLint uBlendColorsLocation = glGetUniformLocation(shaders["DefaultShader"].GetHandle(), "uBlendColors");

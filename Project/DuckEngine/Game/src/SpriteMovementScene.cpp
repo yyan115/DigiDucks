@@ -72,6 +72,15 @@ void SpriteMovementScene::Load()
 	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
 	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
 
+
+	// test UI
+	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
+	TransformComponent* testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
+	testUITransfrom->relativeToCamera = false;
+
+	// test draw no texture
+	noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 2000.0f, 2000.0f });
+	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, true);
 }
 
 void SpriteMovementScene::Start()

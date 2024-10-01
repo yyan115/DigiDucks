@@ -58,17 +58,18 @@ void SpriteRendererSystem::Update()
 				drawOptions.useTexture = true;
 				drawOptions.texture = &spriteRenderer->texture;
 			}
-
-			drawOptions.relativeToCamera = transform->relativeToCamera;
-
-			// USE THIS TO USE AND SET COLORS
-			// FKING WEIRD PLS FIX, SOMETIMES GET RANDOM BUG WHERE OVER 1K ERRORS, AND WHEN I CALL USECOLOR IN GAME THIS DOESNT WORK IDK WHY
-			if (spriteRenderer->useColor) 
+			else if (spriteRenderer->useColor)
 			{
 				//std::cout << "use color\n";
 				drawOptions.useColor = true;
 				drawOptions.color = spriteRenderer->color;
 			}
+			else {
+				drawOptions.useColor = true;
+				drawOptions.color = {255.f, 0.f, 255.f, 255.f};
+			}
+
+			drawOptions.relativeToCamera = transform->relativeToCamera;
 
 			GraphicsManager::AddToDrawQueue(drawOptions);
 		}
