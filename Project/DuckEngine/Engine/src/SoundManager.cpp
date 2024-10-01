@@ -46,7 +46,7 @@ void SoundManager::LoadSound(const std::string& soundName, const std::string& fi
 }
 
 
-void SoundManager::PlaySound(const std::string& soundName) {
+void SoundManager::PlaySounds(const std::string& soundName) {
     // Check if the sound exists
     if (soundMap.find(soundName) == soundMap.end()) {
         std::cerr << "Sound not found: " << soundName << std::endl;
@@ -105,8 +105,8 @@ void SoundManager::Update() {
     if (InputManager::IsKeyPressed(74)) {
         if (!isKeyPressedJ) {
             // Play the sound only once when the key is initially pressed
-            SoundManager::GetInstance().PlaySound("TestSound");
-            SoundManager::GetInstance().PlaySound("TestSound2");
+            SoundManager::GetInstance().PlaySounds("TestSound");
+            SoundManager::GetInstance().PlaySounds("TestSound2");
             isKeyPressedJ = true;
         }
     }

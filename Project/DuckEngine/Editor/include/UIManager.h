@@ -47,7 +47,7 @@ private:
 
     static void RenderSceneAssets();
     static void RenderGameObjectAssets();
-    static void RenderTextureAssets();
+    static void RenderAudioAssets();
 };
 
 

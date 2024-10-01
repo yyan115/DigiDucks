@@ -84,7 +84,7 @@ void SpriteMovementScene::Load()
 
 void SpriteMovementScene::Start()
 {
-	//DuckEngine_Sound::PlaySound("TestSound");
+	//DuckEngine_Sound::PlaySounds("TestSound");
 }
 
 void SpriteMovementScene::Update()

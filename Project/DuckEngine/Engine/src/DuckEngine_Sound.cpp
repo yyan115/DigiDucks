@@ -7,9 +7,9 @@ void DuckEngine_Sound::LoadSound(const std::string& soundName, const std::string
 	SoundManager::GetInstance().LoadSound(soundName, filePath);
 }
 
-void DuckEngine_Sound::PlaySound(const std::string& soundName)
+void DuckEngine_Sound::PlaySounds(const std::string& soundName)
 {
-	SoundManager::GetInstance().PlaySound(soundName);
+	SoundManager::GetInstance().PlaySounds(soundName);
 }
 
 void DuckEngine_Sound::StopSound(const std::string& soundName)

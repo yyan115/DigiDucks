@@ -12,6 +12,6 @@ class DUCKENGINE_API DuckEngine_Sound
 {
 public:
 	static void LoadSound(const std::string& soundName, const std::string& filePath);
-	static void PlaySound(const std::string& soundName);
+	static void PlaySounds(const std::string& soundName);
 	static void StopSound(const std::string& soundName = "");
 };

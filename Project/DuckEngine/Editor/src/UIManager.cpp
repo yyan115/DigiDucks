@@ -13,6 +13,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
 #include "DuckEngine.h"
+#include "DuckEngine_Sound.h"
 #include "UIManager.h"
 #include "UIDebugConsole.h"
 #include "WindowManager.h"
@@ -50,7 +51,7 @@ std::unordered_map<WindowType, bool> windowStates = {
 enum class AssetCategory {
     Scene,
     GameObject,
-    Texture
+    Audio
 };
 
 void UIManager::Initialize() {
@@ -245,7 +246,7 @@ void UIManager::ShowExplorer() {
         if (ImGui::BeginTabItem("Assets")) {
 
             static AssetCategory currentCategory = AssetCategory::Scene;
-            const char* items[] = { "Scene", "GameObject", "Texture" };
+            const char* items[] = { "Scene", "GameObject", "Audio" };
 
             ImGui::Text("Category:   ");
             ImGui::SameLine();
@@ -272,8 +273,8 @@ void UIManager::ShowExplorer() {
             case AssetCategory::GameObject:
                 RenderGameObjectAssets();
                 break;
-            case AssetCategory::Texture:
-                RenderTextureAssets();
+            case AssetCategory::Audio:
+                RenderAudioAssets();
                 break;
             }
             
@@ -455,7 +456,18 @@ void UIManager::RenderGameObjectAssets() {
     }
 }
 
-void UIManager::RenderTextureAssets() {
-	// Placeholder for Texture assets
-	ImGui::Text("No Textures to display.");
+void UIManager::RenderAudioAssets() {
+	// Placeholder for Audio assets
+    if (ImGui::Button("Play Sound")) {
+		DuckEngine_Sound::PlaySounds("TestSound");
+	}
+
+    ImGui::SameLine();
+    if (ImGui::Button("Stop Sound")) {
+		DuckEngine_Sound::StopSound();
+	}
+
+    if (ImGui::Button("Play Sound 2")) {
+        DuckEngine_Sound::PlaySounds("TestSound2");
+    }
 }

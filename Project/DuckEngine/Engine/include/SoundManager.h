@@ -24,7 +24,7 @@ public:
     void Initialize();
     void Update();
     void LoadSound(const std::string& soundName, const std::string& filePath);
-    void PlaySound(const std::string& soundName);
+    void PlaySounds(const std::string& soundName);
     void StopSound(const std::string& soundName = "");  // Stop a specific sound or all sounds
     void Exit();
 
