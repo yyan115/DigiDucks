@@ -120,6 +120,16 @@ void SpriteMovementScene::Update()
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y))
+	{
+		std::cout << "Y is pressed!\n";
+	}
+
+	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
+	{
+		std::cout << "Y is released!\n";
+	}
+
 	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
 	{
 		playerAnimator->PlayAnimation("IdleAnimation");
