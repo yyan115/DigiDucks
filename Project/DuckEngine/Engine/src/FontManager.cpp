@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       FontManager.cpp
+\author     Jovan
+\par        email
+\date       October 3 2024
+\brief      Implements the FontManager class, initializing FreeType and
+            OpenGL buffers for text rendering, generating character textures
+            for fonts, and managing the rendering of text commands using
+            shaders.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "FontManager.h"
 #include <iostream>
 #include "ShaderManager.h"
@@ -18,6 +36,12 @@ FT_Face FontManager::face;
 unsigned int FontManager::VAO;
 unsigned int FontManager::VBO;
 
+/// <summary>
+/// Initializes the FontManager by setting up FreeType, loading the font,
+/// generating character textures, and setting up OpenGL buffers for rendering text.
+/// </summary>
+/// <param name="fontPath">The path to the font file (e.g., .ttf)</param>
+/// <param name="fontSize">The size of the font in pixels</param>
 void FontManager::Initialize(std::string fontPath, int fontSize) {
     // Initialize FreeType library
     if (FT_Init_FreeType(&ft)) {
@@ -116,6 +140,10 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     glUniform1i(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "text"), 0);
 }
 
+/// <summary>
+/// Cleans up resources used by the FontManager, including textures, VAO, VBO, 
+/// and FreeType objects.
+/// </summary>
 void FontManager::Exit() {
     // Clean up textures
     for (auto& pair : Characters) {
@@ -130,14 +158,27 @@ void FontManager::Exit() {
     FT_Done_FreeType(ft);
 }
 
+/// <summary>
+/// Adds a text render command to the draw queue for rendering in the next frame.
+/// </summary>
+/// <param name="drawOptions">The TextRenderCommand object containing text, position, scale, and color.</param>
 void FontManager::AddToDrawQueue(TextRenderCommand& drawOptions) {
     drawQueue.emplace_back(drawOptions);
 }
 
+/// <summary>
+/// Placeholder for updating any internal state of the FontManager.
+/// Currently does nothing but can be extended for future use.
+/// </summary>
 void FontManager::Update() {
 
 }
 
+/// <summary>
+/// Renders all text in the draw queue to the screen.
+/// Iterates through all the characters in each text render command, calculates 
+/// their positions, updates the VBO, and renders them as quads.
+/// </summary>
 void FontManager::Render() {
 
     for (auto& text : drawQueue) {

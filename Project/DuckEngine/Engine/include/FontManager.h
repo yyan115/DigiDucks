@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       FontManager.h
+\author     Jovan
+\par        email
+\date       October 3 2024
+\brief      Declares the FontManager class, responsible for managing font
+            rendering using FreeType and OpenGL. This class handles the loading
+            of fonts, generating character textures, and rendering text to the
+            screen.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 
 #include "GL/glew.h"
