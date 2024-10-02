@@ -10,14 +10,11 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
+#include <glm/gtc/type_ptr.hpp>
 
 #include "DuckEngine.h"
-#include "CameraSystem.h"
-
 #include "ShaderManager.h"
 
-//std::map<std::string, GLSLShader> GraphicsManager::shaders;
 GLuint GraphicsManager::VAO = 0;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
@@ -69,14 +66,26 @@ namespace {
     glm::mat3x3 CameraToNDCMatrix(const float width, const float height);
 }
 
+/// <summary>
+/// Adds a new drawing command to the queue that will be rendered on the next call to Render().
+/// </summary>
+/// <param name="drawOptions">The options for rendering the object, including position, rotation, and other properties.</param>
 void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
     drawQueue.emplace_back(drawOptions);
 }
 
+/// <summary>
+/// Adds a new debug draw command to the debug queue that will be rendered on the next call to RenderDebug().
+/// </summary>
+/// <param name="drawCommand">The options for rendering the debug object, such as its position, type, and color.</param>
 void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
     debugDrawQueue.emplace_back(drawCommand);
 }
 
+/// <summary>
+/// Renders all objects in the draw queue using the default shader and configured matrices. 
+/// Handles both textured and color-based rendering, setting up necessary OpenGL states.
+/// </summary>
 void GraphicsManager::Render() {
 
     glEnable(GL_BLEND);
@@ -170,6 +179,10 @@ void GraphicsManager::Render() {
     drawQueue.clear();
 }
 
+/// <summary>
+/// Renders all objects in the debug draw queue using the debug shader. 
+/// Handles rendering of shapes like points, lines, rectangles, and circles for debugging purposes.
+/// </summary>
 void GraphicsManager::RenderDebug()
 {
     // Get camera matrices
@@ -206,12 +219,22 @@ void GraphicsManager::RenderDebug()
     debugDrawQueue.clear();
 }
 
-
-
+/// <summary>
+/// Sets the background color for the rendering window.
+/// </summary>
+/// <param name="r">Red component of the background color (0-255).</param>
+/// <param name="g">Green component of the background color (0-255).</param>
+/// <param name="b">Blue component of the background color (0-255).</param>
+/// <param name="a">Alpha component of the background color (0-255).</param>
 void GraphicsManager::SetBackgroundColor(float r, float g, float b, float a) {
     backgroundColor = { r, g, b, a };
 }
 
+/// <summary>
+/// Initializes the graphics system, setting up necessary resources and shader programs. 
+/// Returns false if initialization fails.
+/// </summary>
+/// <returns>True if initialization is successful, false otherwise.</returns>
 bool GraphicsManager::Initialize() {
 
     // Init GLEW, return false if error
@@ -226,17 +249,12 @@ bool GraphicsManager::Initialize() {
     return true;
 }
 
+/// <summary>
+/// Cleans up the graphics system, releasing resources such as VAOs.
+/// </summary>
 void GraphicsManager::Exit() {
-    // Clean up any OpenGL resources
-    if (VAO != 0) {
-        glDeleteVertexArrays(1, &VAO);
-    }
-
-    // Clean up shader programs
-    //for (auto& shaderPair : shaders) {
-    //    shaderPair.second.DeleteShaderProgram(); // Assuming `GLSLShader` has a method to delete the program
-    //}
-    //shaders.clear();
+    // Clean up OpenGL resources
+    if (VAO != 0) glDeleteVertexArrays(1, &VAO);
 
     // Delete VAOs for debug shapes
     if (pointVAO != 0) glDeleteVertexArrays(1, &pointVAO);
@@ -245,6 +263,10 @@ void GraphicsManager::Exit() {
     if (circleVAO != 0) glDeleteVertexArrays(1, &circleVAO);
 }
 
+/// <summary>
+/// Initializes the shader system used for rendering single mesh objects.
+/// Loads the default shaders and prepares the mesh for rendering.
+/// </summary>
 void GraphicsManager::InitializeSingleMeshShaderSystem() {
 
     ShaderManager::InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
@@ -252,6 +274,10 @@ void GraphicsManager::InitializeSingleMeshShaderSystem() {
     InitMesh(VAO);
 }
 
+/// <summary>
+/// Initializes the shader system used for rendering debug elements. 
+/// Sets up VAOs for rendering debug shapes such as points, lines, rectangles, and circles.
+/// </summary>
 void GraphicsManager::InitializeDebugShaderSystem() {
     ShaderManager::InsertShader("DebugShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
@@ -261,8 +287,15 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     GraphicsManager::SetupRectangleVAO();
 }
 
-//#ifdef DEBUG
-
+/// <summary>
+/// Draws a point at the specified position with the given size and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="position">The 2D position of the point.</param>
+/// <param name="size">The size of the point.</param>
+/// <param name="color">The color of the point (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
 void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
     ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(pointVAO);
@@ -298,6 +331,16 @@ void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Colo
     glUseProgram(0);
 }
 
+/// <summary>
+/// Draws a line between two points with the specified thickness and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="start">The starting position of the line.</param>
+/// <param name="end">The ending position of the line.</param>
+/// <param name="size">The thickness of the line.</param>
+/// <param name="color">The color of the line (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
 void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
     const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
     ShaderManager::GetShader("DebugShader")->Use();
@@ -367,6 +410,16 @@ void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float
     glUseProgram(0);
 }
 
+/// <summary>
+/// Draws a rectangle at the specified center position with the given size, rotation, and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="center">The center position of the rectangle.</param>
+/// <param name="size">The width and height of the rectangle.</param>
+/// <param name="rotation">The rotation angle of the rectangle (in degrees).</param>
+/// <param name="color">The color of the rectangle.</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
 void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color,
     bool useCamera, const glm::mat3x3& cameraViewMatrix) {
     ShaderManager::GetShader("DebugShader")->Use();
@@ -400,8 +453,8 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-    // Set line width if desired (optional)
-    glLineWidth(1.0f);  // Adjust the line width as needed
+    // Set line width
+    glLineWidth(1.0f);
 
     // Draw the rectangle outline using GL_LINE_LOOP
     glDrawArrays(GL_LINE_LOOP, 0, 4);
@@ -410,7 +463,15 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     glUseProgram(0);
 }
 
-
+/// <summary>
+/// Draws a circle at the specified position with the given radius and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="position">The center position of the circle.</param>
+/// <param name="radius">The radius of the circle.</param>
+/// <param name="color">The color of the circle (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
 void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
     ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(circleVAO);
@@ -435,12 +496,11 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
         finalMatrix = uiProjection * modelToWorld;
     }
 
-
     GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-    // Set line width (optional)
-    glLineWidth(1.0f);  // Adjust the line width as needed
+    // Set width of line
+    glLineWidth(1.0f);
 
     // Draw the circle outline using GL_LINE_LOOP
     glDrawArrays(GL_LINE_LOOP, 0, circleSegments);
@@ -449,6 +509,9 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     glUseProgram(0);
 }
 
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering points.
+/// </summary>
 void GraphicsManager::SetupPointVAO() {
     float pointVertex[] = {
         0.0f, 0.0f, 0.0f  // Single point at the origin
@@ -470,6 +533,9 @@ void GraphicsManager::SetupPointVAO() {
     glBindVertexArray(0);
 }
 
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering lines.
+/// </summary>
 void GraphicsManager::SetupLineVAO() {
     float lineVertices[] = {
         // positions (x, y, z)
@@ -504,7 +570,9 @@ void GraphicsManager::SetupLineVAO() {
     glBindVertexArray(0);
 }
 
-
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering rectangles.
+/// </summary>
 void GraphicsManager::SetupRectangleVAO() {
     float rectVertices[] = {
         // positions in counter-clockwise order
@@ -530,6 +598,10 @@ void GraphicsManager::SetupRectangleVAO() {
     glBindVertexArray(0);
 }
 
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering circles with the specified number of segments.
+/// </summary>
+/// <param name="segments">The number of segments to approximate the circle shape.</param>
 void GraphicsManager::SetupCircleVAO(int segments) {
     std::vector<float> vertices; // Store vertices
 
@@ -564,10 +636,6 @@ void GraphicsManager::SetupCircleVAO(int segments) {
 
     glBindVertexArray(0);
 }
-
-
-//#endif // DEBUG
-
 
 /// <summary>
 /// namespace with helper functions
@@ -618,8 +686,11 @@ namespace {
         glBindVertexArray(0);
     }
 
+    /// <summary>
+    /// Initializes GLEW and checks for OpenGL 4.5 support.
+    /// </summary>
+    /// <returns>True if GLEW is successfully initialized and OpenGL 4.5 is supported, false otherwise.</returns>
     bool SetUpGLEW() {
-        // Part 2: Initialize entry points to OpenGL functions and extensions
         GLenum err = glewInit();
         if (GLEW_OK != err) {
             std::cerr << "Unable to initialize GLEW - error: "
@@ -637,7 +708,10 @@ namespace {
         return true;
     }
 
-    // Creates 1x1 mesh to reuse for all draws
+    /// <summary>
+    /// Creates and initializes a reusable 1x1 mesh for rendering.
+    /// </summary>
+    /// <param name="VAO">The Vertex Array Object (VAO) to associate with this mesh.</param>
     void InitMesh(GLuint& VAO) {
         std::vector<glm::vec2> pos_vtx{
             glm::vec2(0.5f, -0.5f), glm::vec2(0.5f, 0.5f),
@@ -679,6 +753,11 @@ namespace {
         }
     }
 
+    /// <summary>
+    /// Generates a 3x3 view matrix from the specified camera position.
+    /// </summary>
+    /// <param name="position">The position of the camera.</param>
+    /// <returns>A 3x3 view matrix.</returns>
     glm::mat3x3 ViewMatrix(const Vector2D& position) {
         return glm::mat3x3{
                 glm::vec3(1.f, 0, 0),
@@ -687,6 +766,13 @@ namespace {
         };
     }
 
+    /// <summary>
+    /// Generates a 3x3 model-to-world matrix from the given scale, rotation, and translation parameters.
+    /// </summary>
+    /// <param name="scale">The scale of the object.</param>
+    /// <param name="rotation">The rotation of the object (in degrees).</param>
+    /// <param name="translate">The translation (position) of the object.</param>
+    /// <returns>A 3x3 model-to-world matrix.</returns>
     glm::mat3x3 ModelToWorldMatrix(const Vector2D& scale, float rotation, const Vector2D& translate) {
 
         glm::mat3x3 scaleMatrix{
@@ -713,6 +799,12 @@ namespace {
         return translationMatrix * rotationMatrix * scaleMatrix;
     }
 
+    /// <summary>
+    /// Generates a 3x3 camera-to-NDC (Normalized Device Coordinates) matrix using the given width and height.
+    /// </summary>
+    /// <param name="width">The width of the viewport or screen.</param>
+    /// <param name="height">The height of the viewport or screen.</param>
+    /// <returns>A 3x3 camera-to-NDC matrix.</returns>
     glm::mat3x3 CameraToNDCMatrix(const float width, const float height) {
         return glm::mat3x3{
                     glm::vec3(2.f / width, 0, 0),

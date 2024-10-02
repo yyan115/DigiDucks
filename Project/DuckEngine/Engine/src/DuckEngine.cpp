@@ -2,7 +2,6 @@
 #include <iostream>
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "glslshader.h"
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
@@ -16,11 +15,9 @@
 
 //include systems
 #include "SpriteRendererSystem.h"
-#include "CameraSystem.h"
 #include "RigidbodySystem.h"
 #include "CircleColliderSystem.h"
 #include "BoxColliderSystem.h"
-#include "TextRenderingSystem.h"
 #include "AnimatorSystem.h"
 
 //GraphicsManager graphicsManager;

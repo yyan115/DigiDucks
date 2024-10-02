@@ -8,7 +8,6 @@
 #include "AnimatorComponent.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
-#include "CameraComponent.h"
 #include "RigidbodyComponent.h"
 #include "Bounding.h"
 #include "Serialization.h"
@@ -39,10 +38,10 @@ class ComponentManager
         std::shared_ptr<Component> component = std::make_shared<T>(std::forward<Args>(args)...);
         auto result = typeMap.emplace(entityID, component);
 
-        std::cout << "Added component of type " << typeid(T).name()
-            << " to entity " << entityID
-            << " (Insertion " << (result.second ? "successful" : "failed") << ")"
-            << std::endl;
+        //std::cout << "Added component of type " << typeid(T).name()
+        //    << " to entity " << entityID
+        //    << " (Insertion " << (result.second ? "successful" : "failed") << ")"
+        //    << std::endl;
 
         return std::static_pointer_cast<T>(result.first->second).get();
     }
@@ -125,8 +124,8 @@ class ComponentManager
             }
         }
 
-        std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
-        std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
+        //std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
+        //std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
     }
 
 };

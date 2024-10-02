@@ -68,14 +68,12 @@ void WindowManager::Exit() {
 }
 
 void WindowManager::error_cb(int error, char const* description) {
-    UNREFERENCED_PARAMETER(error);
 #ifdef _DEBUG
     std::cerr << "GLFW error: " << description << std::endl;
 #endif
 }
 
 void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
-    UNREFERENCED_PARAMETER(ptr_win);
 #ifdef _DEBUG
     std::cout << "fbsize_cb getting called!!!" << std::endl;
 #endif

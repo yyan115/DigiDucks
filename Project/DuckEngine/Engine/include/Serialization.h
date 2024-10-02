@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*
+\file:		Serialization.h
+\authors:	Tan Yan Kai
+\par:		yankai.tan@digipen.edu
+
+
+\brief:     Contains the declarations that are used to read json files for initialization
+
+ Copyright (C) 2024 DigiPen Institute of Technology.
+ Reproduction or disclosure of this file or its contents without the prior
+ written consent of DigiPen Institute of Technology is prohibited.
+* /
+/******************************************************************************/
 #pragma once
 
 #ifndef SERIALIZATION_H
@@ -34,10 +48,45 @@ extern WindowInit W_init;
 class Serialization {
 
 public:
-	static void InitJson(const std::string& filePath);
-	static json LoadJsonFile(const std::string& filePath);
-	static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
-	static WindowInit GetWindowInit();
+
+/****************************************************************
+* @brief Open and read json file data for windows initialization
+*
+* @param filepath - path to json file
+*
+***************************************************************/
+static void InitJson(const std::string& filePath);
+
+/****************************************************************
+* @brief Load json file and read data in json file
+*
+* @param filePath - path to json file
+*
+* @return data in json file
+***************************************************************/
+static json LoadJsonFile(const std::string& filePath);
+
+/****************************************************************
+* @brief Overloaded operator + to add two matrices
+*
+* @param j - json library
+*
+* @param key - keyword from json file
+*
+* @param defaultValue - default value if json file does not contain any value
+*
+* @return Vec2(x,y)
+*
+* @return defaultValue
+***************************************************************/
+static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
+
+/****************************************************************
+* @brief Get windows initialization data
+*
+* @return windowInit
+***************************************************************/
+static WindowInit GetWindowInit();
 
 private:
 	static json jsonData;

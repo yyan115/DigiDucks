@@ -132,12 +132,6 @@
     <ClInclude Include="..\include\TimeManager.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\CameraComponent.h">
-      <Filter>include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CameraSystem.h">
-      <Filter>include\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Bounding.h">
       <Filter>include\Collision</Filter>
     </ClInclude>
@@ -157,9 +151,6 @@
       <Filter>include\Serialization</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AnimatorComponent.h">
-      <Filter>include\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TextRendererComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Color.h">
@@ -205,9 +196,6 @@
       <Filter>include\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AnimatorSystem.h">
-      <Filter>include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TextRenderingSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\LevelManager.h">
@@ -266,9 +254,6 @@
     <ClCompile Include="..\src\TimeManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CameraSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Bounding.cpp">
       <Filter>src\Collision</Filter>
     </ClCompile>
@@ -321,9 +306,6 @@
       <Filter>src\Entities</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AnimatorSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\TextRenderingSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
     <ClCompile Include="..\src\LevelManager.cpp">

@@ -26,7 +26,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     }
 
     // Compile and setup the shader
-    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/testV.vert", "../Resources/Shaders/testF.frag");
+    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/fontVertShader.vert", "../Resources/Shaders/fontFragShader.frag");
 
     // Enable blending for transparency
     glEnable(GL_BLEND);
@@ -80,9 +80,9 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
         };
         Characters.insert(std::pair<GLchar, Character>(c, character));
 
-        if (face->glyph->bitmap.width == 0 || face->glyph->bitmap.rows == 0) {
-            std::cerr << "WARNING: Glyph for character " << c << " has zero width or height.\n";
-        }
+        //if (face->glyph->bitmap.width == 0 || face->glyph->bitmap.rows == 0) {
+        //    std::cerr << "WARNING: Glyph for character " << c << " has zero width or height.\n";
+        //}
 
     }
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -112,7 +112,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     ShaderManager::GetShader("TextShader")->Use();
     glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    // **Set the 'text' sampler uniform to texture unit 0**
+    // Set the 'text' sampler uniform to texture unit 0
     glUniform1i(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "text"), 0);
 }
 
@@ -136,19 +136,6 @@ void FontManager::AddToDrawQueue(TextRenderCommand& drawOptions) {
 
 void FontManager::Update() {
 
-
-
-    //for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TextRendererComponent>()) {
-    //    auto textRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextRendererComponent>(entityId);
-
-    //    std::cout << "1 TEXT RENDERER FOUND\n";
-
-    //    if (textRenderer) {
-    //        RenderText(*textRenderer);
-    //    }
-    //}
-
-    //std::cout << "UPDATE\n";
 }
 
 void FontManager::Render() {
