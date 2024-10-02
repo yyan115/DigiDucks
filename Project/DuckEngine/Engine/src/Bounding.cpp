@@ -13,10 +13,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "Bounding.h"
-//#include <algorithm>
 #include <math.h>
-#include <iostream>
-#include <vector>
+//#include <algorithm>
+//#include <iostream>
+//#include <vector>
 
 // Getters
 Vec2 BoundingCollider::getCenterPos() const {

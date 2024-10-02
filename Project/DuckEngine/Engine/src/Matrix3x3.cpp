@@ -13,7 +13,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "Matrix3x3.h"
-#include <cmath>
+#include <math.h>
 
 // Constructors
 Matrix3x3::Matrix3x3() {

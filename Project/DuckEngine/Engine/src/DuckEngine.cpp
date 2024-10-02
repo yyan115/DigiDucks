@@ -81,6 +81,7 @@ void DuckEngine::Initialize() {
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
+    assert(!ToggleEditor && "Editor has already been initialized!");
     if (!ToggleEditor) { UIManager::Initialize(); ToggleEditor = true; }    
     SoundManager::GetInstance().Initialize();
 }
@@ -163,7 +164,7 @@ void DuckEngine::Exit()
     ShaderManager::Exit();
 
     DUCKENGINE_SceneManager.Shutdown();
-    //SoundManager::GetInstance().Exit();
+    SoundManager::GetInstance().Exit();
 }
 
 bool DuckEngine::Running() {
