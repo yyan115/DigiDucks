@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       GraphicsManager.h
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Defines the GraphicsManager class responsible for managing
+            graphics rendering in the game engine, including rendering
+            objects, setting background colors, and handling debug rendering.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 
 #include <map>

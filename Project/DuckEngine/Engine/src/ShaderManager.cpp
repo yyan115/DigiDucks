@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       ShaderManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Implements the ShaderManager class, which manages the compilation
+            of vertex and fragment shaders, as well as handling shader program
+            linking and resource cleanup.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "ShaderManager.h"
 #include "iostream"
 #include <iostream>

@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       MaxLoadScene.h
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Declares the MaxLoadScene class, responsible for managing a
+            scene that handles the loading, updating, and unloading of objects,
+            specifically focusing on spawning and managing square objects.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "Scene.h"

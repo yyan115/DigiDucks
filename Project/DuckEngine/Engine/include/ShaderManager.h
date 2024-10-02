@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       ShaderManager.h
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Declares the ShaderManager class, responsible for managing the
+            loading, compiling, and usage of shader programs within the game
+            engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include <map>

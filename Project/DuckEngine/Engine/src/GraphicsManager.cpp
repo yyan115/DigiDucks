@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       GraphicsManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Implements the GraphicsManager class, which handles all aspects
+            of rendering, including the main render loop, debug rendering, and
+            managing the draw queue for rendering objects in the game engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include <iostream>
 
 #include <random>

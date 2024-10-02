@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       TimeManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Implements the TimeManager class, which handles frame timing,
+            calculating delta time, tracking FPS, and managing timers for
+            various systems within the game engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "TimeManager.h"
 
 // Define static members

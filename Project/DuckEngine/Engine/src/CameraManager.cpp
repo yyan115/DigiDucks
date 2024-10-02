@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       CameraManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Implements the CameraManager class, handling the initialization
+			and updating of the camera's position and height for rendering
+			scenes in the game engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "CameraManager.h"
 #include "WindowManager.h"
 

@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       DuckEngine_Input.h
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       October 3 2024
+\brief      Provides simplified access to input management functions,
+            allowing users to check the state of keys and mouse buttons,
+            and retrieve mouse positions and scroll offsets.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "InputManager.h"
