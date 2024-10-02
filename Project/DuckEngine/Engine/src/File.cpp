@@ -1,10 +1,22 @@
+/******************************************************************************/
+/*
+\file:		File.cpp
+\authors:	Tan Yan Kai
+\par:		yankai.tan@digipen.edu
+
+
+\brief:     Contains the definitions that are used to get file path and print file path
+
+ Copyright (C) 2024 DigiPen Institute of Technology.
+ Reproduction or disclosure of this file or its contents without the prior
+ written consent of DigiPen Institute of Technology is prohibited.
+* /
+/******************************************************************************/
+
 #include "File.h"
 #include <iostream>
 #include <string.h>
 #include <filesystem>
-
-
-
 
 std::string FilePath::GetFilePath()
 {
