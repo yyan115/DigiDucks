@@ -137,6 +137,7 @@
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\InputManager.h" />
+    <ClInclude Include="..\include\json.hpp" />
     <ClInclude Include="..\include\LevelManager.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
