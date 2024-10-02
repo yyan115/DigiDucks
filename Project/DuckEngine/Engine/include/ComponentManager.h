@@ -8,7 +8,6 @@
 #include "AnimatorComponent.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
-#include "CameraComponent.h"
 #include "RigidbodyComponent.h"
 #include "Bounding.h"
 #include "Serialization.h"

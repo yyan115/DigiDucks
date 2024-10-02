@@ -254,9 +254,6 @@
     <ClCompile Include="..\src\TimeManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CameraSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Bounding.cpp">
       <Filter>src\Collision</Filter>
     </ClCompile>

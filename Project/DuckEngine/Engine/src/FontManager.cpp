@@ -26,7 +26,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     }
 
     // Compile and setup the shader
-    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/testV.vert", "../Resources/Shaders/testF.frag");
+    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
     // Enable blending for transparency
     glEnable(GL_BLEND);
@@ -80,9 +80,9 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
         };
         Characters.insert(std::pair<GLchar, Character>(c, character));
 
-        if (face->glyph->bitmap.width == 0 || face->glyph->bitmap.rows == 0) {
-            std::cerr << "WARNING: Glyph for character " << c << " has zero width or height.\n";
-        }
+        //if (face->glyph->bitmap.width == 0 || face->glyph->bitmap.rows == 0) {
+        //    std::cerr << "WARNING: Glyph for character " << c << " has zero width or height.\n";
+        //}
 
     }
     glBindTexture(GL_TEXTURE_2D, 0);

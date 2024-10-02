@@ -165,7 +165,6 @@
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />
-    <ClCompile Include="..\src\CameraSystem.cpp" />
     <ClCompile Include="..\src\Bounding.cpp" />
     <ClCompile Include="..\src\CircleColliderSystem.cpp" />
     <ClCompile Include="..\src\ComponentFactory.cpp" />

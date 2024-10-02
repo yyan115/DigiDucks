@@ -1,6 +1,11 @@
 #version 450 core
-out vec4 FragColor;
-uniform vec4 uColor;
-void main() {
-    FragColor = uColor;
+in vec2 TexCoords;
+out vec4 color;
+
+uniform sampler2D text;
+uniform vec4 textColor;
+
+void main() {    
+    float alpha = texture(text, TexCoords).r;
+    color = vec4(textColor.rgb, textColor.a * alpha);
 }

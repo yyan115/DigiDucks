@@ -13,8 +13,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "DuckEngine.h"
-#include "CameraSystem.h"
-
 #include "ShaderManager.h"
 
 GLuint GraphicsManager::VAO = 0;
