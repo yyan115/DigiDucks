@@ -1,4 +1,20 @@
+/******************************************************************************/
+/*
+\file:		File.h
+\authors:	Tan Yan Kai
+\par:		yankai.tan@digipen.edu
+
+
+\brief:     Contains the declarations that are used to get file path and print file path
+
+ Copyright (C) 2024 DigiPen Institute of Technology.
+ Reproduction or disclosure of this file or its contents without the prior
+ written consent of DigiPen Institute of Technology is prohibited.
+* /
+/******************************************************************************/
+
 #pragma once
+
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else
@@ -14,14 +30,22 @@
 #include <algorithm>
 
 
-	///	Simple wrapper for dealing with file paths, extensions, root name, etc.
-	class DUCKENGINE_API FilePath
-	{
-	public:
+///	Simple wrapper for dealing with file paths, extensions, root name, etc.
+class DUCKENGINE_API FilePath
+{
+public:
 		
-		static std::string GetFilePath();
-		static void PrintPath();
-		static void SetPath();
+/****************************************************************
+* @brief Gets current file path
+* 
+***************************************************************/
+static std::string GetFilePath();
+
+/****************************************************************
+* @brief Prints current file path
+*
+***************************************************************/
+static void PrintPath();
 
 
 	};
