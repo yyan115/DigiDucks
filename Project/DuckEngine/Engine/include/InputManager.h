@@ -6,91 +6,183 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-#include <unordered_map>  // For storing input states
+#include <unordered_map>
 
 // Forward declaration to avoid circular dependencies
 struct GLFWwindow;
 
+/// <summary>
+/// Manages all input handling for the game, including keyboard and mouse input.
+/// Tracks the state of keys and mouse buttons and provides utility functions to query them.
+/// </summary>
 class InputManager {
 public:
-    // Initialize the input manager (returning success status)
+    /// <summary>
+    /// Initializes the input manager by setting up the necessary callbacks and resources.
+    /// </summary>
+    /// <param name="window">The GLFW window associated with the input manager.</param>
+    /// <returns>Returns true if initialization was successful, false otherwise.</returns>
     static bool Initialize(GLFWwindow* window);
 
-    // Update the state of the input manager (called each frame)
+    /// <summary>
+    /// Updates the input manager's state. This should be called every frame to process input changes.
+    /// </summary>
     static void Update();
 
-    // Clean up the input manager resources
+    /// <summary>
+    /// Cleans up any resources used by the input manager.
+    /// </summary>
     static void Exit();
 
-    // Key input query functions
-    static DUCKENGINE_API bool IsKeyDown(int key);        // Returns true while the key is held down
-    static DUCKENGINE_API bool IsKeyPressed(int key);     // Returns true only in the frame the key was pressed
-    static DUCKENGINE_API bool IsKeyReleased(int key);    // Returns true only in the frame the key was released
+    /// <summary>
+    /// Returns true while the specified key is held down.
+    /// </summary>
+    /// <param name="key">The key code to query.</param>
+    /// <returns>True if the key is currently held down, false otherwise.</returns>
+    static DUCKENGINE_API bool IsKeyDown(int key);
 
-    // Similarly for mouse buttons
+    /// <summary>
+    /// Returns true only in the frame when the specified key was pressed.
+    /// </summary>
+    /// <param name="key">The key code to query.</param>
+    /// <returns>True if the key was pressed this frame, false otherwise.</returns>
+    static DUCKENGINE_API bool IsKeyPressed(int key);
+
+    /// <summary>
+    /// Returns true only in the frame when the specified key was released.
+    /// </summary>
+    /// <param name="key">The key code to query.</param>
+    /// <returns>True if the key was released this frame, false otherwise.</returns>
+    static DUCKENGINE_API bool IsKeyReleased(int key);
+
+    /// <summary>
+    /// Returns true while the specified mouse button is held down.
+    /// </summary>
+    /// <param name="button">The mouse button to query.</param>
+    /// <returns>True if the mouse button is currently held down, false otherwise.</returns>
     static DUCKENGINE_API bool IsMouseButtonDown(int button);
+
+    /// <summary>
+    /// Returns true only in the frame when the specified mouse button was pressed.
+    /// </summary>
+    /// <param name="button">The mouse button to query.</param>
+    /// <returns>True if the mouse button was pressed this frame, false otherwise.</returns>
     static DUCKENGINE_API bool IsMouseButtonPressed(int button);
+
+    /// <summary>
+    /// Returns true only in the frame when the specified mouse button was released.
+    /// </summary>
+    /// <param name="button">The mouse button to query.</param>
+    /// <returns>True if the mouse button was released this frame, false otherwise.</returns>
     static DUCKENGINE_API bool IsMouseButtonReleased(int button);
 
-    // Mouse position and scroll queries
+    /// <summary>
+    /// Returns the current x-coordinate of the mouse in the window.
+    /// </summary>
+    /// <returns>The mouse's x-coordinate in window space.</returns>
     inline static DUCKENGINE_API double GetMouseX() { return mouseX; }
-    inline  static DUCKENGINE_API double GetMouseY() { return mouseY; }
+
+    /// <summary>
+    /// Returns the current y-coordinate of the mouse in the window.
+    /// </summary>
+    /// <returns>The mouse's y-coordinate in window space.</returns>
+    inline static DUCKENGINE_API double GetMouseY() { return mouseY; }
+
+    /// <summary>
+    /// Returns the x offset of the mouse scroll wheel.
+    /// </summary>
+    /// <returns>The horizontal scroll offset.</returns>
     inline static DUCKENGINE_API double GetScrollOffsetX() { return scrollX; }
+
+    /// <summary>
+    /// Returns the y offset of the mouse scroll wheel.
+    /// </summary>
+    /// <returns>The vertical scroll offset.</returns>
     inline static DUCKENGINE_API double GetScrollOffsetY() { return scrollY; }
 
-    // I/O callback functions
-    static void key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod);
-    static void mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod);
-    static void mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset);
-    static void mousepos_cb(GLFWwindow* pwin, double xpos, double ypos);
+    /// <summary>
+    /// Handles keyboard input events. This function is called when a key is pressed, released, or repeated.
+    /// </summary>
+    /// <param name="pwin">Pointer to the GLFW window receiving the input event.</param>
+    /// <param name="key">The key that was pressed or released.</param>
+    /// <param name="scancode">The scancode of the key.</param>
+    /// <param name="action">The type of action (press, release, or repeat).</param>
+    /// <param name="mod">Modifier keys (e.g., Shift, Ctrl) held down at the time of the event.</param>
+    static void keyCB(GLFWwindow* pwin, int key, int scancode, int action, int mod);
+
+    /// <summary>
+    /// Handles mouse button input events. This function is called when a mouse button is pressed or released.
+    /// </summary>
+    /// <param name="pwin">Pointer to the GLFW window receiving the input event.</param>
+    /// <param name="button">The mouse button that was pressed or released.</param>
+    /// <param name="action">The type of action (press or release).</param>
+    /// <param name="mod">Modifier keys (e.g., Shift, Ctrl) held down at the time of the event.</param>
+    static void mouseButtonCB(GLFWwindow* pwin, int button, int action, int mod);
+
+    /// <summary>
+    /// Handles mouse scroll events. This function is called when the mouse scroll wheel is used.
+    /// </summary>
+    /// <param name="pwin">Pointer to the GLFW window receiving the input event.</param>
+    /// <param name="xoffset">The horizontal scroll offset.</param>
+    /// <param name="yoffset">The vertical scroll offset.</param>
+    static void mouseScrollCB(GLFWwindow* pwin, double xoffset, double yoffset);
+
+    /// <summary>
+    /// Handles mouse position events. This function is called when the mouse is moved within the window.
+    /// </summary>
+    /// <param name="pwin">Pointer to the GLFW window receiving the input event.</param>
+    /// <param name="xpos">The new x-coordinate of the mouse in window space.</param>
+    /// <param name="ypos">The new y-coordinate of the mouse in window space.</param>
+    static void mousePosCB(GLFWwindow* pwin, double xpos, double ypos);
 
 private:
-    // Track input states
-    static std::unordered_map<int, bool> keyStates;  // Key states: true if pressed, false if released
+    /// <summary>
+    /// Stores the current state of keys, where true represents a key being pressed and false represents a key being released.
+    /// </summary>
+    static std::unordered_map<int, bool> keyStates;
+
+    /// <summary>
+    /// Stores the current state of mouse buttons, where true represents a button being pressed and false represents a button being released.
+    /// </summary>
     static std::unordered_map<int, bool> mouseButtonStates;
 
+    /// <summary>
+    /// Stores the previous state of keys to detect key presses and releases between frames.
+    /// </summary>
     static std::unordered_map<int, bool> previousKeyStates;
+
+    /// <summary>
+    /// Stores the previous state of mouse buttons to detect button presses and releases between frames.
+    /// </summary>
     static std::unordered_map<int, bool> previousMouseButtonStates;
 
-    // Mouse position and scroll offsets
+    /// <summary>
+    /// The current x-coordinate of the mouse in window space.
+    /// </summary>
     static double mouseX;
+
+    /// <summary>
+    /// The current y-coordinate of the mouse in window space.
+    /// </summary>
     static double mouseY;
+
+    /// <summary>
+    /// The horizontal scroll offset.
+    /// </summary>
     static double scrollX;
+
+    /// <summary>
+    /// The vertical scroll offset.
+    /// </summary>
     static double scrollY;
 
-    // Previous mouse position (optional if you want to track movement deltas)
+    /// <summary>
+    /// The previous x-coordinate of the mouse (used for calculating movement deltas if necessary).
+    /// </summary>
     static double lastMouseX;
+
+    /// <summary>
+    /// The previous y-coordinate of the mouse (used for calculating movement deltas if necessary).
+    /// </summary>
     static double lastMouseY;
 };
-
-// old
-//#pragma once
-//
-//#ifdef DUCKENGINE_EXPORTS
-//#define DUCKENGINE_API __declspec(dllexport)
-//#else
-//#define DUCKENGINE_API __declspec(dllimport)
-//#endif
-//
-//#include <GL/glew.h>
-//#include <GLFW/glfw3.h>
-//#include <string>
-//
-//
-//class DUCKENGINE_API InputManager {
-//public:
-//    static bool Initialize();
-//
-//    static void Update();
-//
-//    static void Exit();
-//
-//    // I/O callbacks ...
-//    static void key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod);
-//    static void mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod);
-//    static void mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset);
-//    static void mousepos_cb(GLFWwindow* pwin, double xpos, double ypos);
-//
-//private:
-//
-//};

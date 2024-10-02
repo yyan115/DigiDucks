@@ -1,33 +1,45 @@
 #include "CameraManager.h"
 #include "WindowManager.h"
 
-Vector2D CameraManager::position;  // Camera's position in world space
-
-// window parameters ...
+// Initialize static member variables for camera position, height, and window aspect ratio
+Vector2D CameraManager::position;
 int CameraManager::cameraHeight;
 float CameraManager::windowAspectRatio;
-//float CameraManager::zoom;
 
+/// <summary>
+/// Initializes the camera with a specified position and height. 
+/// Also calculates the window's aspect ratio based on the current window dimensions.
+/// </summary>
+/// <param name="posX">The initial x-coordinate of the camera in world space.</param>
+/// <param name="posY">The initial y-coordinate of the camera in world space.</param>
+/// <param name="height">The initial height of the camera's view.</param>
 void CameraManager::Initialize(const float posX, const float posY, const int height) {
 	CameraManager::position = { posX, posY };
-	//CameraManager::zoom = zoom;
 	CameraManager::cameraHeight = height;
 	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth() / WindowManager::GetWindowHeight());
 }
 
-// Set and Get camera position
+/// <summary>
+/// Sets the camera's position to the specified x and y coordinates in world space.
+/// </summary>
+/// <param name="x">The new x-coordinate of the camera in world space.</param>
+/// <param name="y">The new y-coordinate of the camera in world space.</param>
 void CameraManager::SetPosition(const float x, const float y) {
 	CameraManager::position = { x, y };
 }
 
-//void CameraManager::SetZoom(const float zoom) {
-//	CameraManager::zoom = zoom;
-//}
-
+/// <summary>
+/// Sets the camera's height to the specified value, determining the vertical size of the camera's view.
+/// </summary>
+/// <param name="height">The new height of the camera's view.</param>
 void CameraManager::SetHeight(const int height) {
 	CameraManager::cameraHeight = height;
 }
 
+/// <summary>
+/// Updates the camera's internal state. This function may be used to perform any calculations 
+/// or adjustments necessary as the camera's position or height changes over time.
+/// </summary>
 void CameraManager::Update() {
-
+	// Empty for now.
 }

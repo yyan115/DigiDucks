@@ -9,41 +9,68 @@
 #include "Matrix3x3.h"
 #include "Vector2.h"
 
+/// <summary>
+/// Manages the camera's position and height in world space, as well as the window's aspect ratio.
+/// Provides functions for initializing and updating the camera's properties.
+/// </summary>
 class DUCKENGINE_API CameraManager {
 public:
-	static void Initialize(const float posX, const float posY, const int height);
+    /// <summary>
+    /// Initializes the camera's position and height.
+    /// </summary>
+    /// <param name="posX">The initial x-coordinate of the camera in world space.</param>
+    /// <param name="posY">The initial y-coordinate of the camera in world space.</param>
+    /// <param name="height">The initial height of the camera's view in the world.</param>
+    static void Initialize(const float posX, const float posY, const int height);
 
-	// Set and Get camera position
-	static void SetPosition(const float posX, const float posY);
-	//static void SetZoom(const float zoom);
-	static void SetHeight(const int height);
+    /// <summary>
+    /// Sets the camera's position in world space.
+    /// </summary>
+    /// <param name="posX">The new x-coordinate of the camera in world space.</param>
+    /// <param name="posY">The new y-coordinate of the camera in world space.</param>
+    static void SetPosition(const float posX, const float posY);
 
-	static inline Vector2D GetPosition() { return position; };
-	static inline float GetAR() { return windowAspectRatio; };
-	static inline float GetHeight() { return static_cast<float>(cameraHeight); };
-	//static inline float GetZoom() { return zoom; };
+    /// <summary>
+    /// Sets the camera's height, which determines the vertical size of the camera's view.
+    /// </summary>
+    /// <param name="height">The new height of the camera's view.</param>
+    static void SetHeight(const int height);
 
-	void Update();
+    /// <summary>
+    /// Gets the current position of the camera in world space.
+    /// </summary>
+    /// <returns>The camera's position as a 2D vector.</returns>
+    static inline Vector2D GetPosition() { return position; };
 
-	//static inline Matrix3x3 GetCameraToNDCMatrix() { return CameraToNDCTransform; };
+    /// <summary>
+    /// Gets the window's current aspect ratio (width/height).
+    /// </summary>
+    /// <returns>The window's aspect ratio.</returns>
+    static inline float GetAR() { return windowAspectRatio; };
 
-	//inline CameraManager* GetCamera() const { return cameraPtr; };
+    /// <summary>
+    /// Gets the current height of the camera's view.
+    /// </summary>
+    /// <returns>The height of the camera's view.</returns>
+    static inline float GetHeight() { return static_cast<float>(cameraHeight); };
+
+    /// <summary>
+    /// Updates the camera's internal state. This method may include calculations or adjustments based on the current camera properties.
+    /// </summary>
+    void Update();
 private:
-	static Vector2D position;  // Camera's position in world space
-	//static float zoom;          // Zoom level (default: 1.0 = no zoom)
+    /// <summary>
+    /// The camera's position in world space as a 2D vector.
+    /// </summary>
+    static Vector2D position;
 
-	// window parameters ...
-	static int cameraHeight;
-	static float windowAspectRatio;
+    /// <summary>
+    /// The camera's height, representing the vertical size of the camera's view.
+    /// </summary>
+    static int cameraHeight;
 
-	//CameraManager* cameraPtr; // pointer to game object that embeds camera
-
-	//Vector2D right, up;
-
-	//static Matrix3x3 viewTransform;
-	//static Matrix3x3 CameraToNDCTransform;
-	//Matrix3x3 WorldToNDCTransform;
-
-	// MINIMUM ZOOM IN AND MAXIMUM ZOOM OUT HEIGHT. COMMENTED OUT FOR NOW.
-	//int min_height{ 500 }, max_height{ 2000 };
+    /// <summary>
+    /// The window's aspect ratio, representing the width/height ratio.
+    /// </summary>
+    static float windowAspectRatio;
 };
