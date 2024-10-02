@@ -73,8 +73,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;Debug\ImGui.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <IgnoreSpecificDefaultLibraries>
-      </IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
@@ -103,8 +102,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmod_vc.lib;Release\ImGui.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <IgnoreSpecificDefaultLibraries>
-      </IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>

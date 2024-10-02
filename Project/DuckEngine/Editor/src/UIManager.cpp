@@ -1,13 +1,15 @@
-//---------------------------------------------------------
-// File:    UIManager.cpp
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the definition that is used to manage the UI in the editor
-// 
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    UIManager.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the UIManager class
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
@@ -31,8 +33,8 @@
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
 std::vector<std::pair<int, std::string>> spawnedEntities;
-int entityCounter = 0;  // A counter to track entity numbering
-std::set<int> availableNumbers;  // A set to store the recycled entity numbers
+int entityCounter = 0;
+std::set<int> availableNumbers;
 
 enum class WindowType {
     DebugInfo,
@@ -335,7 +337,7 @@ void UIManager::ShowEntitySpawn() {
 
     ImGui::Begin("Entity Spawn", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-    static int spawnCount = 0;  // Slider value
+    static int spawnCount = 0;
     ImGui::SliderInt("Entity Count", &spawnCount, 0, 300);  // Control entity count
     
     // If the slider value has increased, spawn new entities
@@ -361,7 +363,7 @@ void UIManager::ShowEntitySpawn() {
         }
     }
 
-    lastSpawnCount = spawnCount;  // Update the last spawn count
+    lastSpawnCount = spawnCount;
 
     ImGui::End();
 }
@@ -415,7 +417,7 @@ void UIManager::RenderGameObjectAssets() {
             availableNumbers.erase(availableNumbers.begin());
         }
         else {
-            newEntityNumber = ++entityCounter;  // If no recycled number, increment the counter
+            newEntityNumber = ++entityCounter;
         }
 
         // Create a new square entity

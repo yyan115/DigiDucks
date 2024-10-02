@@ -1,52 +1,116 @@
-//---------------------------------------------------------
-// File:    UIManager.h
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the declaration that is used to manage the UI in the editor
-//
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    UIManager.h
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the declaration of the UIManager class
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #pragma once
 
 class UIManager {
 public:
-    // Initialize the UI
+    /****************************************************************
+    * @brief Initializes the ImGui context and platform/renderer bindings
+    *
+    * @return void
+    ***************************************************************/
     static void Initialize();
 
-    // Update the UI
+    /****************************************************************
+    * @brief Renders the ImGui elements including main menu and various windows
+    *
+    * @return void
+    ***************************************************************/
     static void Render();
 
-    // Exit the UI
+    /****************************************************************
+    * @brief Cleans up ImGui resources and destroys the context
+    *
+    * @return void
+    ***************************************************************/
     static void Exit();
 
     
 private:
-    // Show the main menu
+    /****************************************************************
+    * @brief Displays a window containing debug information and system stats
+    *
+    * @return void
+    ***************************************************************/
     static void ShowDebugInfo();
 
-    // Show the inspector window
+    /****************************************************************
+    * @brief Displays the inspector window to inspect and modify entity properties
+    *
+    * @return void
+    ***************************************************************/
     static void ShowInspector();
 
-    // Show the console window
+    /****************************************************************
+    * @brief Displays the explorer window in ImGui for managing assets
+    *
+    * @return void
+    ***************************************************************/
     static void ShowExplorer();
 
-    // Show the entity spawn window
+    /****************************************************************
+    * @brief Displays a window to control entity spawning and removal
+    *
+    * @return void
+    ***************************************************************/
     static void ShowEntitySpawn();
 
-    // Show the different window ( for debug info )
+    /****************************************************************
+    * @brief Renders visible windows based on their state
+    *
+    * @return void
+    ***************************************************************/
     static void RenderWindows();
 
-    // Render the ImGui adaptive windows
+    /****************************************************************
+    * @brief Renders ImGui windows based on size and position offsets
+    *
+    * @param WidthOffset - The width scaling factor for the window
+    * @param HeightOffset - The height scaling factor for the window
+    * @param PosX - X position offset for the window
+    * @param PosY - Y position offset for the window
+    *
+    * @return void
+    ***************************************************************/
     static void RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX = 0, float PosY = 0);
 
-    // Show the performance window
+    /****************************************************************
+    * @brief Displays a window showing performance
+    *
+    * @return void
+    ***************************************************************/
     static void ShowPerformance();
 
+    /****************************************************************
+    * @brief Renders buttons to switch between scenes in the engine
+    *
+    * @return void
+    ***************************************************************/
     static void RenderSceneAssets();
+
+    /****************************************************************
+    * @brief Renders buttons for spawning or interacting with game objects
+    *
+    * @return void
+    ***************************************************************/
     static void RenderGameObjectAssets();
+
+    /****************************************************************
+    * @brief Renders buttons for controlling audio assets
+    *
+    * @return void
+    ***************************************************************/
     static void RenderAudioAssets();
 };
 
