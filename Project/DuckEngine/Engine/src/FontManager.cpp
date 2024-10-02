@@ -26,7 +26,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     }
 
     // Compile and setup the shader
-    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/fontVertShader.vert", "../Resources/Shaders/fontFragShader.frag");
 
     // Enable blending for transparency
     glEnable(GL_BLEND);
@@ -136,19 +136,6 @@ void FontManager::AddToDrawQueue(TextRenderCommand& drawOptions) {
 
 void FontManager::Update() {
 
-
-
-    //for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TextRendererComponent>()) {
-    //    auto textRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextRendererComponent>(entityId);
-
-    //    std::cout << "1 TEXT RENDERER FOUND\n";
-
-    //    if (textRenderer) {
-    //        RenderText(*textRenderer);
-    //    }
-    //}
-
-    //std::cout << "UPDATE\n";
 }
 
 void FontManager::Render() {

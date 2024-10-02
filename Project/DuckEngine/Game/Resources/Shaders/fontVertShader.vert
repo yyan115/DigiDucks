@@ -1,6 +1,8 @@
-#version 330 core
-layout(location = 0) in vec4 vertex;  // <vec2 position, vec2 texCoords>
+#version 450 core
+layout (location = 0) in vec4 vertex; // (x, y, u, v)
+
 out vec2 TexCoords;
+
 uniform mat4 projection;
 
 void main() {
