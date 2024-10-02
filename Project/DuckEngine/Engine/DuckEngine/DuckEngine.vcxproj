@@ -117,9 +117,7 @@
     <ClInclude Include="..\include\AnimatorSystem.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
-    <ClInclude Include="..\include\CameraComponent.h" />
     <ClInclude Include="..\include\CameraManager.h" />
-    <ClInclude Include="..\include\CameraSystem.h" />
     <ClInclude Include="..\include\Bounding.h" />
     <ClInclude Include="..\include\CircleColliderSystem.h" />
     <ClInclude Include="..\include\Color.h" />
@@ -151,13 +149,11 @@
     <ClInclude Include="..\include\ShaderManager.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
-    <ClInclude Include="..\include\TextRenderingSystem.h" />
     <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
     <ClInclude Include="..\include\System.h" />
     <ClInclude Include="..\include\SystemManager.h" />
-    <ClInclude Include="..\include\TextRendererComponent.h" />
     <ClInclude Include="..\include\TimeManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
     <ClInclude Include="..\include\Vector2.h" />
@@ -196,7 +192,6 @@
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
-    <ClCompile Include="..\src\TextRenderingSystem.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
