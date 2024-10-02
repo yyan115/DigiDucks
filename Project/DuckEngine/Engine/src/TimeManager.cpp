@@ -7,26 +7,28 @@ double TimeManager::system_start_time = 0.0;
 double TimeManager::total_time_start = 0.0;
 double TimeManager::total_time = 0.0;
 
+/// <summary>
+/// Returns the current frames per second (FPS).
+/// </summary>
+/// <returns>The current FPS as a double.</returns>
 double TimeManager::FPS() {
     return fps;
 };
 
+/// <summary>
+/// Returns the delta time, which is the time taken to complete the most recent game loop.
+/// </summary>
+/// <returns>The delta time as a double.</returns>
 double TimeManager::DT() {
     return delta_time;
 };
 
-/*  _________________________________________________________________________*/
-/*! update_time
-
-@param double
-fps_calc_interval: the interval (in seconds) at which fps is to be
-calculated
-
-This function must be called once per game loop. It uses GLFW's time functions
-to compute:
-1. the interval in seconds between each frame
-2. the frames per second every "fps_calc_interval" seconds
-*/
+/// <summary>
+/// Updates the time manager's state by calculating the delta time (time between frames) 
+/// and the frames per second (FPS). This function must be called once per game loop.
+/// FPS is recalculated every "fps_calc_interval" seconds.
+/// </summary>
+/// <param name="fps_calc_interval">The interval (in seconds) at which FPS is recalculated. Defaults to 1.0 second.</param>
 void TimeManager::UpdateTime(double fps_calc_interval) {
     // get elapsed time (in seconds) between previous and current frames
     static double prev_time = glfwGetTime();
@@ -37,6 +39,7 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
     // fps calculations
     static double count = 0.0; // number of game loop iterations
     static double start_time = glfwGetTime();
+
     // get elapsed time since very beginning (in seconds) ...
     double elapsed_time = curr_time - start_time;
 
@@ -52,26 +55,40 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
     }
 }
 
-// Start timer for system updates
+/// <summary>
+/// Starts the timer for tracking system execution time.
+/// </summary>
 void TimeManager::StartSystemTimer() {
     system_start_time = glfwGetTime();
 }
 
-// End timer and calculate time taken by system
+/// <summary>
+/// Ends the system timer and returns the time taken by the system or process.
+/// </summary>
+/// <returns>The elapsed time since StartSystemTimer() was called.</returns>
 double TimeManager::EndSystemTimer() {
     double end_time = glfwGetTime();
     return end_time - system_start_time;
 }
 
-// Total loop time tracking
+/// <summary>
+/// Starts the timer for tracking total loop time.
+/// </summary>
 void TimeManager::StartTotalTimer() {
     total_time_start = glfwGetTime();
 }
 
+/// <summary>
+/// Ends the timer for tracking total loop time and updates the total time.
+/// </summary>
 void TimeManager::EndTotalTimer() {
     total_time = glfwGetTime() - total_time_start;
 }
 
+/// <summary>
+/// Returns the total time elapsed in the current game loop.
+/// </summary>
+/// <returns>The total loop time as a double.</returns>
 double TimeManager::GetTotalTime() {
     return total_time;
 }

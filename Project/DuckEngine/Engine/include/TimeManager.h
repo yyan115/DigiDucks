@@ -8,26 +8,80 @@
 
 #include <GLFW/glfw3.h>
 
+/// <summary>
+/// Manages timing and frame rate calculations for the game engine, including tracking FPS, delta time,
+/// and total time elapsed in the game loop.
+/// </summary>
 class DUCKENGINE_API TimeManager {
 public:
+    /// <summary>
+    /// Returns the current frames per second (FPS) based on the last time calculation.
+    /// </summary>
+    /// <returns>The current FPS as a double.</returns>
     static double FPS();
+
+    /// <summary>
+    /// Returns the delta time, which is the time taken to complete the most recent game loop.
+    /// </summary>
+    /// <returns>The delta time as a double.</returns>
     static double DT();
 
+    /// <summary>
+    /// Updates the time manager's internal state, calculating FPS and delta time. This should be called every frame.
+    /// </summary>
+    /// <param name="fpsCalcInt">Optional interval for calculating FPS, default is 1 second.</param>
     static void UpdateTime(double fpsCalcInt = 1.0);
 
-    static void StartSystemTimer(); // Start time for system
-    static double EndSystemTimer(); // End time for system and return elapsed time
-    
-    // Total loop time tracking
+    /// <summary>
+    /// Starts the system timer for measuring elapsed time in a specific system or process.
+    /// </summary>
+    static void StartSystemTimer();
+
+    /// <summary>
+    /// Ends the system timer and returns the elapsed time since StartSystemTimer was called.
+    /// </summary>
+    /// <returns>The elapsed time in seconds.</returns>
+    static double EndSystemTimer();
+
+    /// <summary>
+    /// Starts the timer for tracking total loop time.
+    /// </summary>
     static void StartTotalTimer();
+
+    /// <summary>
+    /// Ends the timer for tracking total loop time.
+    /// </summary>
     static void EndTotalTimer();
-    static double GetTotalTime(); // Get the total loop time
+
+    /// <summary>
+    /// Returns the total time elapsed in the current game loop.
+    /// </summary>
+    /// <returns>The total loop time as a double.</returns>
+    static double GetTotalTime();
 
 private:
+    /// <summary>
+    /// Stores the frames per second (FPS) value.
+    /// </summary>
     static GLdouble fps;
-    static GLdouble delta_time; // time taken to complete most recent game loop
 
-    static double system_start_time; // Stores the start time for systems
-    static double total_time_start;    // Start time for the total loop
-    static double total_time;          // Total time for the current loop
+    /// <summary>
+    /// Stores the delta time, which is the time taken to complete the most recent game loop.
+    /// </summary>
+    static GLdouble delta_time;
+
+    /// <summary>
+    /// Stores the start time for systems, used in StartSystemTimer and EndSystemTimer.
+    /// </summary>
+    static double system_start_time;
+
+    /// <summary>
+    /// Stores the start time for tracking total loop time.
+    /// </summary>
+    static double total_time_start;
+
+    /// <summary>
+    /// Stores the total time elapsed in the current loop.
+    /// </summary>
+    static double total_time;
 };

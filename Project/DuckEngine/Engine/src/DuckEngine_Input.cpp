@@ -2,11 +2,6 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
-bool DuckEngine_Input::WKeyDown = false;
-bool DuckEngine_Input::AKeyDown = false;
-bool DuckEngine_Input::SKeyDown = false;
-bool DuckEngine_Input::DKeyDown = false;
-
 // Define key constants for letters (A-Z)
 const int DuckEngine_Input::KEY_A = GLFW_KEY_A;
 const int DuckEngine_Input::KEY_B = GLFW_KEY_B;

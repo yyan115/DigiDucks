@@ -5,14 +5,29 @@
 #include <sstream>
 #include <string>
 
+std::map<std::string, GLShader*> ShaderManager::shaders;
+
+/// <summary>
+/// Constructor for the GLShader class. Initializes the shader program ID to 0.
+/// </summary>
 GLShader::GLShader() : programID(0) {
     // Constructor
 }
 
+/// <summary>
+/// Destructor for the GLShader class. Deletes the shader program and frees associated resources.
+/// </summary>
 GLShader::~GLShader() {
     DeleteProgram();
 }
 
+/// <summary>
+/// Compiles the vertex and fragment shaders from the specified files, links them into a shader program,
+/// and checks for compilation and linking errors.
+/// </summary>
+/// <param name="vertexShaderFile">Path to the vertex shader file.</param>
+/// <param name="fragmentShaderFile">Path to the fragment shader file.</param>
+/// <returns>Returns true if the shaders were compiled and linked successfully, false otherwise.</returns>
 bool GLShader::CompileShaders(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) {
     std::string vertexCode = ReadShaderCode(vertexShaderFile);
     std::string fragmentCode = ReadShaderCode(fragmentShaderFile);
@@ -58,6 +73,12 @@ bool GLShader::CompileShaders(const std::string& vertexShaderFile, const std::st
     return true;
 }
 
+/// <summary>
+/// Compiles a shader of the specified type (vertex or fragment) from the given source code.
+/// </summary>
+/// <param name="shaderType">The type of shader (e.g., GL_VERTEX_SHADER, GL_FRAGMENT_SHADER).</param>
+/// <param name="source">The source code of the shader.</param>
+/// <returns>Returns the shader object ID as a GLuint if compilation is successful, 0 otherwise.</returns>
 GLuint GLShader::CompileShader(GLenum shaderType, const std::string& source) {
     GLuint shader = glCreateShader(shaderType);
     if (shader == 0) {
@@ -78,6 +99,11 @@ GLuint GLShader::CompileShader(GLenum shaderType, const std::string& source) {
     return shader;
 }
 
+/// <summary>
+/// Reads the shader code from a file and returns it as a string.
+/// </summary>
+/// <param name="fileName">Path to the shader file.</param>
+/// <returns>The shader code as a string. If the file could not be opened, returns an empty string.</returns>
 std::string GLShader::ReadShaderCode(const std::string& fileName) {
     std::ifstream shaderFile;
     shaderFile.open(fileName);
@@ -92,6 +118,12 @@ std::string GLShader::ReadShaderCode(const std::string& fileName) {
     return shaderStream.str();
 }
 
+/// <summary>
+/// Checks for compilation or linking errors in a shader or program and logs the error details.
+/// </summary>
+/// <param name="shader">The shader or program object to check.</param>
+/// <param name="type">The type of object being checked (e.g., "VERTEX", "FRAGMENT", "PROGRAM").</param>
+/// <returns>Returns true if there are no errors, false otherwise.</returns>
 bool GLShader::CheckCompileErrors(GLuint shader, const std::string& type) {
     GLint success;
     GLchar infoLog[512];
@@ -114,10 +146,16 @@ bool GLShader::CheckCompileErrors(GLuint shader, const std::string& type) {
     return true;
 }
 
+/// <summary>
+/// Activates the shader program for use in the current OpenGL context.
+/// </summary>
 void GLShader::Use() const {
     glUseProgram(programID);
 }
 
+/// <summary>
+/// Deletes the shader program and frees associated resources.
+/// </summary>
 void GLShader::DeleteProgram() {
     if (programID != 0) {
         glDeleteProgram(programID);
@@ -125,15 +163,21 @@ void GLShader::DeleteProgram() {
     }
 }
 
+/// <summary>
+/// Returns the handle of the compiled shader program.
+/// </summary>
+/// <returns>The shader program ID as a GLuint.</returns>
 GLuint GLShader::GetProgram() const {
     return programID;
 }
 
-#include "ShaderManager.h"
-
-// Initialize the static member
-std::map<std::string, GLShader*> ShaderManager::shaders;
-
+/// <summary>
+/// Inserts a new shader program into the manager by compiling the vertex and fragment shaders from files.
+/// </summary>
+/// <param name="shaderName">The name of the shader program.</param>
+/// <param name="vertexShaderFile">Path to the vertex shader file.</param>
+/// <param name="fragmentShaderFile">Path to the fragment shader file.</param>
+/// <returns>Returns true if the shader program was inserted successfully, false otherwise.</returns>
 bool ShaderManager::InsertShader(const std::string& shaderName, const std::string& vertexShaderFile, const std::string& fragmentShaderFile) {
     // Check if shader already exists
     if (shaders.find(shaderName) != shaders.end()) {
@@ -154,6 +198,11 @@ bool ShaderManager::InsertShader(const std::string& shaderName, const std::strin
     return true;
 }
 
+/// <summary>
+/// Retrieves a shader program by its name.
+/// </summary>
+/// <param name="shaderName">The name of the shader program to retrieve.</param>
+/// <returns>A pointer to the GLShader object, or nullptr if the shader is not found.</returns>
 GLShader* ShaderManager::GetShader(const std::string& shaderName) {
     auto it = shaders.find(shaderName);
     if (it != shaders.end()) {
@@ -165,6 +214,9 @@ GLShader* ShaderManager::GetShader(const std::string& shaderName) {
     }
 }
 
+/// <summary>
+/// Deletes all shader programs managed by the ShaderManager and frees associated resources.
+/// </summary>
 void ShaderManager::DeleteAllShaders() {
     for (auto& pair : shaders) {
         pair.second->DeleteProgram();
@@ -173,6 +225,9 @@ void ShaderManager::DeleteAllShaders() {
     shaders.clear();
 }
 
+/// <summary>
+/// Cleans up resources by deleting all shader programs and terminating the ShaderManager.
+/// </summary>
 void ShaderManager::Exit() {
     DeleteAllShaders();
 }

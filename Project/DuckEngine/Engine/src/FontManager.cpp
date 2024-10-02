@@ -106,8 +106,8 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     glBindVertexArray(0);
 
     // Set up the projection matrix
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()), // Replace 800 with your screen width
-        0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight())); // Replace 600 with your screen height
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()),
+        0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
     //glUseProgram();
     ShaderManager::GetShader("TextShader")->Use();
     glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));

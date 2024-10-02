@@ -222,12 +222,6 @@ void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-//void DuckEngine::DrawRectangle(const Vector2D& position, const Vector2D& size, float rotation, const Color& color) {
-//    // Create a DebugDrawCommand for a rectangle with rotation and add it to the debug draw queue
-//    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, position, size, 0.f, rotation, color); // sizeOrRadius is 0 for rectangles
-//    GraphicsManager::AddToDebugDrawQueue(drawCommand);
-//}
-
 void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera) {
     // Calculate the center of the rectangle
     Vector2D center = (minCorner + maxCorner) * 0.5f;
