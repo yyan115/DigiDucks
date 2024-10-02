@@ -153,7 +153,8 @@ void DuckEngine::EndDraw()
 
 void DuckEngine::Exit() 
 { 
-    if (ToggleEditor) UIManager::Exit();
+    UIManager::Exit();
+    SoundManager::GetInstance().Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
     //PrefabManager::Exit();
@@ -161,7 +162,7 @@ void DuckEngine::Exit()
     ShaderManager::Exit();
 
     DUCKENGINE_SceneManager.Shutdown();
-    SoundManager::GetInstance().Exit();
+    
 }
 
 bool DuckEngine::Running() {

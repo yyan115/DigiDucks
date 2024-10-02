@@ -1,13 +1,15 @@
-//---------------------------------------------------------
-// File:    UIDebugConsole.cpp
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the definition that is used to manage the debug console in the editor
-//
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    UIDebugConsole.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation to handle debug console in ImGui
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #include <vector>
 #include <string>
@@ -37,7 +39,6 @@ void UIDebugConsole::AddLog(const char* level, const char* fmt, ...) {
     // provide color for each log level
     ImVec4 color;  
     color = GetColorByLevel(level);
-
 
     // Append to the log entries
     logEntries.emplace_back(std::string(message), color);
