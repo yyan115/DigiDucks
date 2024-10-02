@@ -1,13 +1,15 @@
-//---------------------------------------------------------
-// File:    SoundManager.cpp
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the definition that is used to manage sound in the game
-//
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    SoundManager.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation to handle sound effects in the game
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #include "SoundManager.h"
 #include "InputManager.h"
@@ -24,7 +26,7 @@ void SoundManager::Initialize() {
         std::cerr << "FMOD system creation failed with error code: " << result << std::endl;
         return;
     }
-    result = fmodSystem->init(512, FMOD_INIT_NORMAL, 0);  // Initialize FMOD with max 512 channels
+    result = fmodSystem->init(512, FMOD_INIT_NORMAL, 0);  // Initialize FMOD
     if (result != FMOD_OK) {
         std::cerr << "FMOD system initialization failed with error code: " << result << std::endl;
         return;

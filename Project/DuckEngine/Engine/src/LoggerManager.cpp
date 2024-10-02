@@ -1,13 +1,15 @@
-//---------------------------------------------------------
-// File:    LoggerManager.cpp
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the definition that is used to log information, warning, error and crash
-//
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    LoggerManager.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation to handle logging of information, warning, error and crash
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #include <chrono>
 #include <iomanip>

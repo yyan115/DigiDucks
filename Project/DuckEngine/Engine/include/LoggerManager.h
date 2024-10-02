@@ -1,13 +1,15 @@
-//---------------------------------------------------------
-// File:    LoggerManager.h
-//authors:	Muhammad Zikry Bin Zakaria
-// email:	muhammadzikry.b\@digipen.edu
-// 
-//
-// Brief:     Contains the declaration that is used to log information, warning, error and crash
-//
-// Copyright © 2024 DigiPen, All rights reserved.
-//---------------------------------------------------------
+/******************************************************************************/
+/*!
+\file    LoggerManager.h
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the declaration to handle logging of information, warning, error and crash
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #pragma once
 
@@ -32,11 +34,44 @@
 
 class DetailedException : public std::exception {
 public:
+    /****************************************************************
+    * @brief Constructs a DetailedException with a message, file, function, and line number
+    *
+    * @param message - The exception message
+    * @param file - The file where the exception occurred
+    * @param func - The function where the exception occurred
+    * @param line - The line number where the exception occurred
+    *
+    * @return void
+    ***************************************************************/
     DetailedException(const std::string& message, const char* file, const char* func, int line);
 
+    /****************************************************************
+    * @brief Returns the exception message
+    *
+    * @return The exception message 
+    ***************************************************************/
     const char* what() const noexcept override;
+
+    /****************************************************************
+    * @brief Returns the file where the exception occurred
+    *
+    * @return The file string
+    ***************************************************************/
     const char* GetFile() const;
+
+    /****************************************************************
+    * @brief Returns the function where the exception occurred
+    *
+    * @return The function string
+    ***************************************************************/
     const char* GetFunction() const;
+
+    /****************************************************************
+    * @brief Returns the line number where the exception occurred
+    *
+    * @return The line number as an integer
+    ***************************************************************/
     int GetLine() const;
 
 private:
@@ -48,36 +83,98 @@ private:
 
 class LoggerManager {
 public:
+    /****************************************************************
+    * @brief Retrieves the instance of the LoggerManager
+    *
+    * @return A reference to the LoggerManager instance
+    ***************************************************************/
     DUCKENGINE_API static LoggerManager& GetInstance();
 
-    // Log messages of different levels
+    /****************************************************************
+    * @brief Logs an info-level message
+    *
+    * @param message - The log message
+    * @param args - Additional arguments for formatting the message
+    *
+    * @return void
+    ***************************************************************/
     template <typename... Args>
     void LogInfo(const std::string& message, Args&&... args);
 
+    /****************************************************************
+    * @brief Logs a warning-level message
+    *
+    * @param message - The log message
+    * @param args - Additional arguments for formatting the message
+    *
+    * @return void
+    ***************************************************************/
     template <typename... Args>
     void LogWarning(const std::string& message, Args&&... args);
 
+    /****************************************************************
+    * @brief Logs an error-level message
+    *
+    * @param message - The log message
+    * @param args - Additional arguments for formatting the message
+    *
+    * @return void
+    ***************************************************************/
     template <typename... Args>
     void LogError(const std::string& message, Args&&... args);
 
-    // Log crash
+    /****************************************************************
+    * @brief Logs a crash with detailed exception information
+    *
+    * @param ex - The detailed exception object
+    *
+    * @return void
+    ***************************************************************/
     DUCKENGINE_API void LogCrash(const DetailedException& ex);
 
     
 
 private:
+    /****************************************************************
+    * @brief Constructs the LoggerManager
+    ***************************************************************/
     LoggerManager();
+
+    /****************************************************************
+    * @brief Destroys the LoggerManager
+    * **************************************************************/
     ~LoggerManager();
 
+    /****************************************************************
+    * @brief Formats a message string with given arguments
+    *
+    * @param format - The format string
+    * @param args - Additional arguments to format the message
+    *
+    * @return The formatted string
+    ***************************************************************/
     template <typename... Args>
     std::string FormatString(const std::string& format, Args&&... args);
 
-    // Write a log entry
+    /****************************************************************
+    * @brief Writes a log entry with a specified level and message
+    *
+    * @param level - The log level (INFO, WARNING, ERROR)
+    * @param message - The log message
+    *
+    * @return void
+    ***************************************************************/
     DUCKENGINE_API void WriteLog(const std::string& level, const std::string& message);
 
     std::ofstream logFile;  // Log file for logging
 
-    // Helper to write to the log file
+    /****************************************************************
+    * @brief Writes a formatted message to the log file
+    *
+    * @param message - The log message to write
+    *
+    * @return void
+    ***************************************************************/
     void WriteToFile(const std::string& message);  
 };
 
