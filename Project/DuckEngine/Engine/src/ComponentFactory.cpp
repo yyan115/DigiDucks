@@ -85,10 +85,7 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
                     std::string textureResource = animData["texture"];
                     float frameDuration = animData["frameDuration"];
 
-                    // Load the texture and add the animation to the AnimatorComponent
                     std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str());
-                    
-                    std::cout << "Retrieved textures from File Path: " << textureResource.c_str() << " Has " << textures.size() << " Sprites!";
                     animator->AddAnimation(animName, textures, frameDuration);
                 }
             }

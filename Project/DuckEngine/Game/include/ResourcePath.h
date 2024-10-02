@@ -9,6 +9,9 @@ namespace Resources
 	const std::string TEXTURE_CRATE = "../Resources/Crate.png";
 	const std::string TEXTURE_OLDMAN = "../Resources/oldman.png";
 	const std::string TEXTURE_BACKGROUND = "../Resources/background.png";
+	const std::string TEXTURE_STATIONS_CUTTINGTABLE = "../Resources/Sprites/cutting_table.png";
+	const std::string TEXTURE_STATIONS_TOMATOSTOCK = "../Resources/Sprites/tomato_stock.png";
+	const std::string TEXTURE_STATIONS_CABBAGESTOCK = "../Resources/Sprites/cabbage_stock.png";
 
 	// Sounds
 	const std::string SOUND_DUCKSOUND = "../Resources/Sounds/AnimalDuck.wav";

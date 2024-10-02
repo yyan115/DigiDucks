@@ -50,9 +50,6 @@ GLuint ImageLoader::LoadTexture(const std::string& filePath)
     // Unbind the texture
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    std::cout << "Texture loaded successfully: " << filePath << std::endl;
-    std::cout << "Dimensions: " << width << "x" << height << ", Channels: " << nrChannels << std::endl;
-
     return textureID;
 }
 

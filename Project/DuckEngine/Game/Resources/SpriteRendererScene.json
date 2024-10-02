@@ -5,16 +5,20 @@
       "position": { "x": 0, "y": 0 }
     },
     "Obstacle1": {
-      "prefab": "Obstacle1Prefab",
+      "prefab": "CuttingTablePrefab",
       "position": { "x": 5, "y": 0 }
     },
     "Obstacle2": {
-      "prefab": "Obstacle2Prefab",
+      "prefab": "CabbageStockPrefab",
       "position": { "x": -5, "y": 0 }
     },
     "Obstacle3": {
-      "prefab": "Obstacle2Prefab",
+      "prefab": "TomatoStockPrefab",
       "position": { "x": 0, "y": -5 }
+    },
+    "Duck": {
+      "prefab": "DuckPrefab",
+      "position": { "x": 8.0, "y": 8.0 }
     },
     "obstacleObject4": {
       "components": [
@@ -52,6 +56,33 @@
           "type": "RigidbodyComponent",
           "properties": {
             "isStatic": true
+          }
+        }
+      ]
+    },
+    "Background": {
+      "components": [
+        {
+          "type": "TransformComponent",
+          "properties": {
+            "position": { "x": 0, "y": 5 },
+            "scale": { "x": 100.0, "y": 100.0 },
+            "relativeToCamera": true
+          }
+        },
+        {
+          "type": "SpriteRendererComponent",
+          "properties": {
+            "sprite": true,
+            "layer": 0,
+            "texture": "../Resources/background.png",
+            "useColor": false,
+            "color": {
+              "r": 255,
+              "g": 255,
+              "b": 255,
+              "a": 255
+            }
           }
         }
       ]
