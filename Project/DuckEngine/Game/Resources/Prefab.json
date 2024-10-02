@@ -6,7 +6,7 @@
           "type": "TransformComponent",
           "properties": {
             "position": { "x": 0, "y": 0 },
-            "scale": { "x": 1.0, "y": 2.0 },
+            "scale": { "x": 1.5, "y": 3.0 },
             "velocity": { "x": 0, "y": 0 },
             "relativeToCamera": true
           }
