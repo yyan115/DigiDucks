@@ -11,6 +11,10 @@
 #include "RenderData.h"
 #include "Color.h"
 
+#ifdef APIENTRY
+#undef APIENTRY
+#endif
+
 class GraphicsManager {
 public:
     // Core functions
