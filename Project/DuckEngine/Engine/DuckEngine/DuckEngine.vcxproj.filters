@@ -332,9 +332,6 @@
     <ClCompile Include="..\..\Editor\src\UIManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Entity.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\FontManager.cpp">
       <Filter>src\Rendering</Filter>
     </ClCompile>

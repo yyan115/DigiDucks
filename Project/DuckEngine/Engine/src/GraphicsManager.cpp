@@ -28,8 +28,6 @@ GLuint GraphicsManager::circleVAO;
 int GraphicsManager::circleSegments;
 Color GraphicsManager::backgroundColor;
 
-GLuint TEST_TEXTURE = 0;
-
 std::vector<DebugDrawCommand> GraphicsManager::debugDrawQueue;
 
 /// <summary>
@@ -220,13 +218,6 @@ bool GraphicsManager::Initialize() {
     if (!SetUpGLEW()) {
         return false;
     }
-
-    TEST_TEXTURE = ImageLoader::LoadTexture("../Resources/monkey.png");
-    if (TEST_TEXTURE == 0) {
-        std::cerr << "Failed to load test texture" << std::endl;
-        return false;
-    }
-    std::cout << "Test texture loaded successfully. Texture ID: " << TEST_TEXTURE << std::endl;
 
     InitializeSingleMeshShaderSystem();
 
