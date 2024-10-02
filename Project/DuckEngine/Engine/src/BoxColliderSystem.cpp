@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file		BoxColliderSystem.h
+\file		BoxColliderSystem.cpp
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024

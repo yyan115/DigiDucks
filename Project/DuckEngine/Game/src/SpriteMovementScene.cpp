@@ -144,7 +144,7 @@ void SpriteMovementScene::Update()
 	////DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
 	////DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
-	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR());
+	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
 
 	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
 	////DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
