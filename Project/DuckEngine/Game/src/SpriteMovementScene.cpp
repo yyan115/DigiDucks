@@ -74,12 +74,11 @@ void SpriteMovementScene::Load()
 
 	// test UI
 	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
-	TransformComponent* testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
+	auto testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
 	testUITransfrom->relativeToCamera = false;
 
-	// test draw no texture
-	//noTextureEntity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 2000.0f, 2000.0f });
-	//DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(noTextureEntity->entityID, true);
+	auto testUISprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(testUI->entityID);
+	testUISprite->layer = 2;
 }
 
 void SpriteMovementScene::Start()
@@ -164,7 +163,7 @@ void SpriteMovementScene::Update()
 
 	////std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
 
-	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 70.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
+	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 200.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
 
 	DuckEngine::RenderText("TEST TEXT", { DuckEngine::GetWindowWidth() - 300.f  , 250.f }, 1.f, { 0.f, 255.f, 150.f, 250.0f });
 }

@@ -112,7 +112,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     ShaderManager::GetShader("TextShader")->Use();
     glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    // **Set the 'text' sampler uniform to texture unit 0**
+    // Set the 'text' sampler uniform to texture unit 0
     glUniform1i(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "text"), 0);
 }
 
