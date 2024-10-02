@@ -1,0 +1,10 @@
+Project Settings: (need ask lucas)
+Configuration Setup: (need ask lucas)
+
+Projects:
+ImGui: Handles the imgui backend
+DuckEngine: Handles the backend engine
+Quack_Kitchen: Handles the game itself
+
+How to turn on/off ImGui Windows:
+Press P
