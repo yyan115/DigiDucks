@@ -11,7 +11,7 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class DUCKENGINE_API SpriteRendererComponent : public Component
+class SpriteRendererComponent : public Component
 {
 public:
 	bool sprite;
@@ -19,9 +19,9 @@ public:
 	Texture texture;
 	bool useColor;
 	Color color;
-	SpriteRendererComponent(bool hasSprite, int spriteLayer = 0, bool useColor = false, Color color = Color()) : sprite(hasSprite), layer(spriteLayer), texture(), useColor(useColor), color(color) {}
+	DUCKENGINE_API SpriteRendererComponent(bool hasSprite, int spriteLayer = 0, bool useColor = false, Color color = Color()) : sprite(hasSprite), layer(spriteLayer), texture(), useColor(useColor), color(color) {}
 
-	std::shared_ptr<Component> Clone() const override
+	DUCKENGINE_API std::shared_ptr<Component> Clone() const override
 	{
 		return std::make_shared<SpriteRendererComponent>(*this);
 	}

@@ -1,4 +1,3 @@
-#pragma warning(disable : 4251)
 #pragma once
 #include <iostream>
 #include <memory>
@@ -21,10 +20,10 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class DUCKENGINE_API ComponentManager
+class ComponentManager
 {
   private:
-    std::unordered_map<std::type_index,
+      std::unordered_map<std::type_index,
                        std::unordered_map<int, std::shared_ptr<Component>>>
         componentStorage;
 
@@ -48,14 +47,15 @@ class DUCKENGINE_API ComponentManager
         return std::static_pointer_cast<T>(result.first->second).get();
     }
 
-    void AddComponent(int entityID, const std::shared_ptr<Component>& component)
+    DUCKENGINE_API void AddComponent(int entityID, const std::shared_ptr<Component>& component)
     {
         auto& typeMap = componentStorage[typeid(*component)];
         typeMap[entityID] = component;
     }
 
     // Get a component of any type associated with an entity
-    template <typename T> T *GetComponent(int entityID)
+    template <typename T> 
+    T *GetComponent(int entityID)
     {
         auto typeIt = componentStorage.find(typeid(T));
         if (typeIt != componentStorage.end())
@@ -79,7 +79,8 @@ class DUCKENGINE_API ComponentManager
 
 
     // Remove a component of any type from an entity
-    template <typename T> void RemoveComponent(int entityID)
+    template <typename T> 
+    void RemoveComponent(int entityID)
     {
         auto typeIt = componentStorage.find(typeid(T));
         if (typeIt != componentStorage.end())
@@ -89,7 +90,8 @@ class DUCKENGINE_API ComponentManager
     }
 
     // Check if an entity has a component of a certain type
-    template <typename T> bool HasComponent(int entityID)
+    template <typename T> 
+    bool HasComponent(int entityID)
     {
         auto typeIt = componentStorage.find(typeid(T));
         if (typeIt != componentStorage.end())
@@ -99,7 +101,7 @@ class DUCKENGINE_API ComponentManager
         return false;
     }
 
-    void RemoveAllComponents(int entityID)
+    void DUCKENGINE_API RemoveAllComponents(int entityID)
     {
         if (entityID < 0) entityID = 0;
         int totalRemoved = 0;

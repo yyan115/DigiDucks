@@ -9,13 +9,13 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class DUCKENGINE_API AnimatorSystem : public System
+class AnimatorSystem : public System
 {
 public:
 
-    void Start() override;
+    DUCKENGINE_API void Start() override;
 
-    void Update() override;
+    DUCKENGINE_API void Update() override;
 
 private:
     std::unordered_map<AnimatorComponent*, Animation*> activeAnimations;

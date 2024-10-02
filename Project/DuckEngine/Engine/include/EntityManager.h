@@ -1,4 +1,3 @@
-#pragma warning(disable : 4251)
 #pragma once
 #include <vector>
 #include "ComponentManager.h"
@@ -11,17 +10,17 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class DUCKENGINE_API EntityManager
+class EntityManager
 {
   private:
     std::vector<Entity> entities;
 
   public:
-    Entity& CreateEntity();
+    DUCKENGINE_API Entity& CreateEntity();
 
-    void RemoveEntity(int entityID);
+    DUCKENGINE_API void RemoveEntity(int entityID);
 
-    std::vector<Entity>& GetEntities();
+    DUCKENGINE_API std::vector<Entity>& GetEntities();
 
-    Entity* GetEntityByName(const std::string& name);
+    DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
 };

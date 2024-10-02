@@ -36,19 +36,19 @@ public:
         : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
 };
 
-class DUCKENGINE_API AnimatorComponent : public Component
+class AnimatorComponent : public Component
 {
 public:
     Animation* currentAnimation;
     std::unordered_map<std::string, Animation> animations;
-    AnimatorComponent() : currentAnimation(nullptr) {}
-    std::shared_ptr<Component> Clone() const override
+    DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr) {}
+    DUCKENGINE_API std::shared_ptr<Component> Clone() const override
     {
         return std::make_shared<AnimatorComponent>(*this);
     }
 
     // add 1 texture animation
-    void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
+    DUCKENGINE_API void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
 
@@ -58,7 +58,7 @@ public:
     }
 
     // add multiple textures animation
-    void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, float frameDuration = 0.2f)
+    DUCKENGINE_API void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
         
@@ -70,7 +70,7 @@ public:
         animations[animationName] = animationToAdd;
     }
 
-    void PlayAnimation(std::string animationName)
+    DUCKENGINE_API void PlayAnimation(std::string animationName)
     {
         if (animations.find(animationName) != animations.end())
         {
