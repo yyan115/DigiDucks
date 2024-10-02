@@ -140,13 +140,10 @@ void SpriteMovementScene::Update()
 
 
 	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
-	////DuckEngine::DrawRectangle(circle->getMin(), circle->getMax());
 
-	////DuckEngine::DrawCircle(box->getCenter(), box->getRadius());
 	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
 
 	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
-	////DuckEngine::DrawRectangle(box2->getBtmL(), box2->getTopR());
 
 	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 
@@ -154,14 +151,8 @@ void SpriteMovementScene::Update()
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
-
-	//// TEST DRAWING TO UI (LOOKS LIKE IT WORKS)
-	//DuckEngine::DrawRectangle({ 0.f, 0.f }, { 460.f, 460.f }, 0.f, { 255.f, 0.f, 0.f, 255.f }, false);
-
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
 	DuckEngine::SetCameraPosition(-playerTransform->position.x, -playerTransform->position.y);
-
-	////std::cout << "player pos: " << playerTransform->position.x << ", " << playerTransform->position.y << "\n";
 
 	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 200.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
 
