@@ -2,7 +2,6 @@
 #include <iostream>
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "glslshader.h"
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
