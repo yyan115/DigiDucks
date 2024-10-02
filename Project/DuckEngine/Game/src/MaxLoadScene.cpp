@@ -20,10 +20,12 @@ std::uniform_real_distribution<float> randomVelocity(-0.01f, 0.01f);
 
 void MaxLoadScene::Load()
 {
+    // Disable logging for max load as it makes loading the scene very slow when you spawn 2.5k objects.
+    DuckEngine::EnableLogging(false);
+
     DuckEngine::SetCameraHeight(20);
 
     DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
-
 
     for (int i = 0; i < 2500; i++)
     {

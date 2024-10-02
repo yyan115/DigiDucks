@@ -34,6 +34,8 @@ Entity* noTextureEntity;
 
 void SpriteMovementScene::Load()
 {
+	DuckEngine::EnableLogging(true);
+
 	DuckEngine::SetCameraHeight(20);
 
 	// Load necessary assets (textures, sounds, etc.)

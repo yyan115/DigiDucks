@@ -63,4 +63,6 @@ public:
     static DUCKENGINE_API void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true);
 
     static void DUCKENGINE_API DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation = 0.f, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true);
+
+    static void DUCKENGINE_API EnableLogging(bool enable);
 };

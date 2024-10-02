@@ -249,3 +249,7 @@ void DuckEngine::SetWindowTitle(std::string title) {
 float DuckEngine::FPS() {
     return static_cast<float>(TimeManager::FPS());
 }
+
+void DuckEngine::EnableLogging(bool enable) {
+    DUCKENGINE_ComponentManager.EnableLogging(enable);
+}

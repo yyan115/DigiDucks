@@ -26,6 +26,8 @@ class ComponentManager
                        std::unordered_map<int, std::shared_ptr<Component>>>
         componentStorage;
 
+      bool enableLogging = false;
+
   public:
     ComponentManager() = default;
     ~ComponentManager() = default;
@@ -38,10 +40,12 @@ class ComponentManager
         std::shared_ptr<Component> component = std::make_shared<T>(std::forward<Args>(args)...);
         auto result = typeMap.emplace(entityID, component);
 
-        //std::cout << "Added component of type " << typeid(T).name()
-        //    << " to entity " << entityID
-        //    << " (Insertion " << (result.second ? "successful" : "failed") << ")"
-        //    << std::endl;
+        if (enableLogging) {
+            std::cout << "Added component of type " << typeid(T).name()
+                << " to entity " << entityID
+                << " (Insertion " << (result.second ? "successful" : "failed") << ")"
+                << std::endl;
+        }
 
         return std::static_pointer_cast<T>(result.first->second).get();
     }
@@ -124,8 +128,14 @@ class ComponentManager
             }
         }
 
-        //std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
-        //std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
+        if (enableLogging) {
+            std::cout << "Removed " << totalRemoved << " components for entity " << entityID << std::endl;
+            std::cout << "Remaining components for entity " << entityID << ": " << totalRemaining << std::endl;
+        }
     }
 
+
+    void EnableLogging(bool enable) {
+        enableLogging = enable;
+    }
 };
