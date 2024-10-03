@@ -383,7 +383,7 @@ void UIManager::ShowEntitySpawn() {
     for (size_t i = 0; i < entities.size(); ++i) {
 
         if (entities[i].entityID == 0) {
-		    continue; // Skip the first entity (default entity)
+		    continue; 
 		}
 
         // Create a unique label for each button based on the entity ID or name
@@ -395,12 +395,10 @@ void UIManager::ShowEntitySpawn() {
 
         // Create a button for each entity
         if (ImGui::Button(entityLabel.c_str())) {
-            // You can store the selected entity ID or perform other actions here
-            selectedEntityID = entities[i].entityID;  // Example: store selected entity ID for inspector
+            selectedEntityID = entities[i].entityID;
             windowStates[WindowType::Inspector] = !windowStates[WindowType::Inspector];
         }
 
-        // Optional: Add some spacing between buttons
         ImGui::Spacing();
     }
 
@@ -461,7 +459,17 @@ void UIManager::RenderGameObjectAssets() {
         }
 
         // Create a new square entity
-        Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", pos, {1.0f, 1.0f});
+        Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", pos, {2.0f, 2.0f});
+        Vec2 center = Vec2(0.0f, 0.0f);
+        Vec2 size = Vec2(1.0f, 1.0f);
+
+        // Create and add the BoundingBox
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(square->entityID, center, size);
+
+        // Create and add the RigidbodyComponent
+        auto rbComponent = std::make_shared<RigidbodyComponent>();
+        rbComponent->isStatic = false;
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(square->entityID, *rbComponent);
 
         // Add the entity to the vector
         std::string entityName = "GameObject " + std::to_string(newEntityNumber);
