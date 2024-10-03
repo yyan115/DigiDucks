@@ -89,7 +89,7 @@ void RenderSystemTimings(const SystemManager& systemManager) {
     if (totalTime > 0.0) {
         // Display manager timings
         for (const auto& manager : managerData) {
-            double managerPercentage = (manager.second / totalTime) * 100.0;
+            double managerPercentage = (manager.second / TimeManager::DT()) * 100.0;
 
             // Display the manager name as a label
             ImGui::Text("%s", manager.first.c_str());
@@ -110,7 +110,7 @@ void RenderSystemTimings(const SystemManager& systemManager) {
 
         // Display system timings
         for (const auto& system : systemData) {
-            double systemPercentage = (system.second / totalTime) * 100.0;
+            double systemPercentage = (system.second / TimeManager::DT()) * 100.0;
 
             auto spacePos = system.first.find(" ");
             std::string rawName = system.first.c_str();
