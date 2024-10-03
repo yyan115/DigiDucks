@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       DuckEngine.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Implements the DuckEngine class, which manages the initialization,
+            update, rendering, and exit processes of the game engine. It handles
+            the coordination of various systems such as input, graphics, and
+            camera management.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "DuckEngine.h"
 #include <iostream>
 #include "GL/glew.h"
@@ -32,6 +49,11 @@ PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 bool DuckEngine::ToggleEditor = false;
 //TextRenderingSystem textRenderingSystem;
 
+/************************************************************************
+@brief Initializes the DuckEngine by setting up the window, graphics, input,
+       camera, and font managers. It also loads prefabs and adds systems
+       such as sprite rendering and collision systems to the SystemManager.
+*************************************************************************/
 void DuckEngine::Initialize() {
     // need to grab width and height from XML for rubrics in the future
     // Init Window, then Graphics, then Input
@@ -83,6 +105,11 @@ void DuckEngine::Initialize() {
     SoundManager::GetInstance().Initialize();
 }
 
+/************************************************************************
+@brief Updates the DuckEngine by processing inputs, updating systems,
+       handling scene management, and rendering text. It also updates
+       the window title with the current FPS.
+*************************************************************************/
 void DuckEngine::Update() 
 {
     // Look for inputs first
@@ -118,6 +145,10 @@ void DuckEngine::Update()
     //FontManager::AddToDrawQueue(testText);
 }
 
+/************************************************************************
+@brief Prepares the rendering process for a new frame by clearing the screen
+       and adapting the viewport to any window size changes.
+*************************************************************************/
 void DuckEngine::StartDraw()
 {
     // Clear the screen
@@ -132,6 +163,10 @@ void DuckEngine::StartDraw()
     }
 }
 
+/************************************************************************
+@brief Executes the rendering of the game, including rendering the graphics,
+       debug elements, and the UI if the editor mode is enabled.
+*************************************************************************/
 void DuckEngine::Draw() 
 { 
     //GraphicsManager::OldRender(false);
@@ -145,12 +180,20 @@ void DuckEngine::Draw()
     FontManager::Render();
 }
 
+/************************************************************************
+@brief Finalizes the rendering process by swapping the window buffers to
+       display the rendered frame.
+*************************************************************************/
 void DuckEngine::EndDraw()
 {
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
     glfwSwapBuffers(WindowManager::getWindow());
 }
 
+/************************************************************************
+@brief Exits the DuckEngine by shutting down various systems and cleaning
+       up resources.
+*************************************************************************/
 void DuckEngine::Exit() 
 { 
     UIManager::Exit();
@@ -165,6 +208,11 @@ void DuckEngine::Exit()
     
 }
 
+/************************************************************************
+@brief Checks if the game engine is still running by determining if the
+       window is closed.
+@return True if the window is still open, otherwise false.
+*************************************************************************/
 bool DuckEngine::Running() {
     if (!WindowManager::CloseWindow())
         return true;
@@ -172,35 +220,70 @@ bool DuckEngine::Running() {
         return false;
 }
 
-// DO NOT PARSE NORMALIZED!!!!!!!!!!!!!!!!!!!!! MUST BE 0 TO 255!!!!
+/************************************************************************
+@brief Sets the background color of the game using the specified RGBA values.
+@param r The red component of the background color (0-255).
+@param g The green component of the background color (0-255).
+@param b The blue component of the background color (0-255).
+@param a The alpha (transparency) component of the background color (0-255).
+*************************************************************************/
 void DuckEngine::SetBackgroundColor(const float r, const float g, const float b, const float a) 
 {
     GraphicsManager::SetBackgroundColor(r, g, b, a);
 }
 
+/************************************************************************
+@brief Retrieves the width of the game window.
+@return The width of the game window.
+*************************************************************************/
 int DuckEngine::GetWindowWidth() 
 {
     return WindowManager::GetWindowWidth();
 }
 
+/************************************************************************
+@brief Retrieves the height of the game window.
+@return The height of the game window.
+*************************************************************************/
 int DuckEngine::GetWindowHeight() 
 {
     return WindowManager::GetWindowHeight();
 }
 
+/************************************************************************
+@brief Retrieves the delta time between the current and previous frame.
+@return The time in seconds between frames.
+*************************************************************************/
 float DuckEngine::DeltaTime()
 {
     return static_cast<float>(TimeManager::DT());
 }
 
+/************************************************************************
+@brief Sets the camera position in the game world.
+@param x The x-coordinate of the camera.
+@param y The y-coordinate of the camera.
+*************************************************************************/
 void DuckEngine::SetCameraPosition(const float x, const float y) {
     CameraManager::SetPosition(x, y);
 }
 
+/************************************************************************
+@brief Sets the camera height in the game world.
+@param height The new height of the camera.
+*************************************************************************/
 void DuckEngine::SetCameraHeight(const int height) {
     CameraManager::SetHeight(height);
 }
 
+/************************************************************************
+@brief Renders text on the screen at a specified position with a given scale
+       and color.
+@param text The string of text to render.
+@param position The position on the screen where the text will appear.
+@param scale The scaling factor for the text.
+@param color The color of the text.
+*************************************************************************/
 void DuckEngine::RenderText(const std::string& text, const Vector2D& position, float scale, const Color& color) {
     TextRenderCommand command{
         text,
@@ -211,18 +294,44 @@ void DuckEngine::RenderText(const std::string& text, const Vector2D& position, f
     FontManager::AddToDrawQueue(command);
 }
 
+/************************************************************************
+@brief Draws a point on the screen at a specified position, with a given
+       size and color.
+@param position The position of the point.
+@param size The size of the point.
+@param color The color of the point (default is red).
+@param relativeToCamera Determines if the point should be drawn relative to the camera.
+*************************************************************************/
 void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a point and add it to the debug draw queue
     DebugDrawCommand drawCommand(DebugDrawCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
+/************************************************************************
+@brief Draws a line between two points on the screen with a specified size
+       and color.
+@param start The starting point of the line.
+@param end The ending point of the line.
+@param size The thickness of the line.
+@param color The color of the line (default is red).
+@param relativeToCamera Determines if the line should be drawn relative to the camera.
+*************************************************************************/
 void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a line and add it to the debug draw queue
     DebugDrawCommand drawCommand(DebugDrawCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
+/************************************************************************
+@brief Draws a rectangle on the screen using the given minimum and maximum
+       corner positions, with optional rotation.
+@param minCorner The position of the bottom-left corner of the rectangle.
+@param maxCorner The position of the top-right corner of the rectangle.
+@param rotation The rotation angle of the rectangle (default is 0 degrees).
+@param color The color of the rectangle (default is red).
+@param relativeToCamera Determines if the rectangle should be drawn relative to the camera.
+*************************************************************************/
 void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera) {
     // Calculate the center of the rectangle
     Vector2D center = (minCorner + maxCorner) * 0.5f;
@@ -235,22 +344,39 @@ void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCor
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-
+/************************************************************************
+@brief Draws a circle at a specified position with a given radius and color.
+@param position The position of the circle's center.
+@param radius The radius of the circle.
+@param color The color of the circle (default is red).
+@param relativeToCamera Determines if the circle should be drawn relative to the camera.
+*************************************************************************/
 void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera) {
     // Create a DebugDrawCommand for a circle and add it to the debug draw queue
     DebugDrawCommand drawCommand(DebugDrawCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
     GraphicsManager::AddToDebugDrawQueue(drawCommand);
 }
 
-
+/************************************************************************
+@brief Sets the window title.
+@param title The new title for the game window.
+*************************************************************************/
 void DuckEngine::SetWindowTitle(std::string title) {
     WindowManager::SetWindowTitle(title.c_str());
 }
 
+/************************************************************************
+@brief Retrieves the current frames per second (FPS) of the game.
+@return The current FPS.
+*************************************************************************/
 float DuckEngine::FPS() {
     return static_cast<float>(TimeManager::FPS());
 }
 
+/************************************************************************
+@brief Enables or disables logging for the DuckEngine component manager.
+@param enable True to enable logging, false to disable.
+*************************************************************************/
 void DuckEngine::EnableLogging(bool enable) {
     DUCKENGINE_ComponentManager.EnableLogging(enable);
 }

@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       ComponentManager.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Defines the ComponentManager class responsible for managing
+            components in the game engine, providing functionality for
+            adding, retrieving, and removing components associated with
+            entities.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include <iostream>
 #include <memory>
@@ -19,6 +37,11 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
+/************************************************************************
+@brief The ComponentManager class is responsible for managing the storage
+       and lifecycle of components in the game engine. It supports adding,
+       retrieving, and removing components associated with entities.
+*************************************************************************/
 class ComponentManager
 {
   private:
@@ -32,7 +55,13 @@ class ComponentManager
     ComponentManager() = default;
     ~ComponentManager() = default;
 
-    // Add a component of any type to an entity
+    /************************************************************************
+    @brief Adds a component of a specific type to an entity.
+    @tparam T The component type to add.
+    @param entityID The ID of the entity to associate with the component.
+    @param args Arguments required to construct the component.
+    @return A pointer to the added component.
+    *************************************************************************/
     template <typename T, typename... Args>
     T* AddComponent(int entityID, Args &&...args)
     {
@@ -50,13 +79,23 @@ class ComponentManager
         return std::static_pointer_cast<T>(result.first->second).get();
     }
 
+    /************************************************************************
+    @brief Adds a pre-constructed component to an entity.
+    @param entityID The ID of the entity.
+    @param component A shared pointer to the component to be added.
+    *************************************************************************/
     DUCKENGINE_API void AddComponent(int entityID, const std::shared_ptr<Component>& component)
     {
         auto& typeMap = componentStorage[typeid(*component)];
         typeMap[entityID] = component;
     }
 
-    // Get a component of any type associated with an entity
+    /************************************************************************
+    @brief Retrieves a component of a specific type associated with an entity.
+    @tparam T The type of the component to retrieve.
+    @param entityID The ID of the entity.
+    @return A pointer to the component, or nullptr if not found.
+    *************************************************************************/
     template <typename T> 
     T *GetComponent(int entityID)
     {
@@ -72,16 +111,23 @@ class ComponentManager
         return nullptr;
     }
 
-    // Get all components of a certain type (returns a map of entityID -> Component)
+    /************************************************************************
+    @brief Retrieves all components of a specific type.
+    @tparam T The type of components to retrieve.
+    @return A reference to a map of entityID to component pointers.
+    *************************************************************************/
     template <typename T>
     std::unordered_map<int, std::shared_ptr<Component>>& GetComponents()
     {
-        // Find the map for the specific component type
         return componentStorage[typeid(T)];
     }
 
 
-    // Remove a component of any type from an entity
+    /************************************************************************
+    @brief Removes a component of a specific type from an entity.
+    @tparam T The type of component to remove.
+    @param entityID The ID of the entity.
+    *************************************************************************/
     template <typename T> 
     void RemoveComponent(int entityID)
     {
@@ -92,7 +138,12 @@ class ComponentManager
         }
     }
 
-    // Check if an entity has a component of a certain type
+    /************************************************************************
+    @brief Checks if an entity has a component of a specific type.
+    @tparam T The type of the component to check for.
+    @param entityID The ID of the entity.
+    @return True if the component exists, otherwise false.
+    *************************************************************************/
     template <typename T> 
     bool HasComponent(int entityID)
     {
@@ -104,6 +155,10 @@ class ComponentManager
         return false;
     }
 
+    /************************************************************************
+    @brief Removes all components associated with an entity.
+    @param entityID The ID of the entity.
+    *************************************************************************/
     void DUCKENGINE_API RemoveAllComponents(int entityID)
     {
         if (entityID < 0) entityID = 0;
@@ -134,7 +189,10 @@ class ComponentManager
         }
     }
 
-
+    /************************************************************************
+    @brief Enables or disables logging of component operations.
+    @param enable A boolean indicating whether logging should be enabled.
+    *************************************************************************/
     void EnableLogging(bool enable) {
         enableLogging = enable;
     }

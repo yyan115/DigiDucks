@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       ImageLoader.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Implements the ImageLoader class, which provides functionality
+            for loading textures and sprite sheets from image files. It uses
+            the STB image library to load images and OpenGL to upload texture
+            data.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -5,6 +22,12 @@
 #include <iostream>
 #include "GL/glew.h"
 
+/************************************************************************
+@brief Loads a texture from the specified file path using the STB image library.
+       The texture is then uploaded to OpenGL and returned as a texture ID.
+@param filePath The path to the texture file.
+@return The OpenGL texture ID for the loaded texture, or 0 if loading failed.
+*************************************************************************/
 GLuint ImageLoader::LoadTexture(const std::string& filePath)
 {
     // Flip the image vertically before loading
@@ -53,6 +76,16 @@ GLuint ImageLoader::LoadTexture(const std::string& filePath)
     return textureID;
 }
 
+/************************************************************************
+@brief Loads a sprite sheet from the specified file path, splits it into
+       individual sprites based on the given width and height, and uploads
+       them to OpenGL as separate textures.
+@param filePath The path to the sprite sheet file.
+@param spriteWidth The width of each individual sprite in the sheet.
+@param spriteHeight The height of each individual sprite in the sheet.
+@return A vector of OpenGL texture IDs for each sprite, or an empty vector if
+        loading failed.
+*************************************************************************/
 std::vector<GLuint> ImageLoader::LoadSpriteSheet(const std::string& filePath, int spriteWidth, int spriteHeight)
 {
     int width, height, nrChannels;

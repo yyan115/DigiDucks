@@ -1,12 +1,40 @@
+/******************************************************************************/
+/*!
+\file       Prefab.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Implements the Prefab class, allowing for the addition of components
+			and the instantiation of prefabs into entities with their associated
+			components.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Prefab.h"
 #include "DuckEngine.h"
 
-
+/************************************************************************
+@brief Adds a component to the prefab's list of components. When the prefab
+	   is instantiated, all components in this list will be cloned and added
+	   to the new entity.
+@param component A shared pointer to the component to be added to the prefab.
+*************************************************************************/
 void Prefab::AddComponent(const std::shared_ptr<Component>& component)
 {
 	components.push_back(component);
 }
 
+/************************************************************************
+@brief Instantiates the prefab, creating a new entity at the specified
+	   position with the prefab's texture, scale, and components. Each
+	   component is cloned and added to the new entity.
+@param newPosition The position where the new entity will be created.
+@return A pointer to the newly created entity.
+*************************************************************************/
 Entity* Prefab::Instantiate(Vec2 newPosition)
 {
 	Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, scale);

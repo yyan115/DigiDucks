@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       SpriteMovementScene.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Implements the SpriteMovementScene class, which handles the logic
+			for a scene focused on sprite movement. This includes loading
+			assets, setting up entities, and managing input to control player
+			movement and animations.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "DuckEngine.h"
 #include "DuckEngine_Sound.h"
 #include "DuckEngine_Input.h"
@@ -32,6 +49,10 @@ Entity* testUI;
 // no texture sprite
 Entity* noTextureEntity;
 
+/************************************************************************
+@brief Loads the necessary assets and entities for the SpriteMovementScene.
+	   Initializes the player, obstacles, UI elements, and their components.
+*************************************************************************/
 void SpriteMovementScene::Load()
 {
 	DuckEngine::EnableLogging(true);
@@ -83,11 +104,19 @@ void SpriteMovementScene::Load()
 	testUISprite->layer = 2;
 }
 
+/************************************************************************
+@brief Starts the SpriteMovementScene, initializing sounds or other
+	   elements before the main update loop.
+*************************************************************************/
 void SpriteMovementScene::Start()
 {
 	//DuckEngine_Sound::PlaySounds("TestSound");
 }
 
+/************************************************************************
+@brief Updates the logic of the SpriteMovementScene, including player input,
+	   sprite animations, and rendering of objects.
+*************************************************************************/
 void SpriteMovementScene::Update()
 {
 	float moveSpeed = 10.0f;
@@ -161,15 +190,24 @@ void SpriteMovementScene::Update()
 	DuckEngine::RenderText("TEST TEXT", { DuckEngine::GetWindowWidth() - 300.f  , 250.f }, 1.f, { 0.f, 255.f, 150.f, 250.0f });
 }
 
+/************************************************************************
+@brief Handles post-update logic after the main update loop.
+*************************************************************************/
 void SpriteMovementScene::PostUpdate()
 {
 
 }
 
+/************************************************************************
+@brief Exits the SpriteMovementScene, handling any necessary cleanup.
+*************************************************************************/
 void SpriteMovementScene::Exit()
 {
 }
 
+/************************************************************************
+@brief Unloads the SpriteMovementScene, freeing any resources used.
+*************************************************************************/
 void SpriteMovementScene::Unload()
 {
 	// base unload

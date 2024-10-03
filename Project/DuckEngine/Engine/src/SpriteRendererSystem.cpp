@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       SpriteRendererSystem.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Implements the SpriteRendererSystem class, which manages the
+			rendering of sprites in the game engine. This system organizes
+			sprites into layers and adds them to the graphics draw queue.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "SpriteRendererSystem.h"
 #include "GraphicsManager.h"
 #include "Color.h"
@@ -15,6 +31,11 @@ void SpriteRendererSystem::Start()
 
 }
 
+/************************************************************************
+@brief Updates the SpriteRendererSystem by gathering all entities with
+	   SpriteRendererComponent and TransformComponent, sorting them by layer,
+	   and adding them to the graphics draw queue for rendering.
+*************************************************************************/
 void SpriteRendererSystem::Update()
 {
 	std::vector<RenderData> renderQueue;

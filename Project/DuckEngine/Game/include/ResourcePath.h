@@ -1,6 +1,28 @@
+/******************************************************************************/
+/*!
+\file       Resources.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Defines the Resources namespace, which contains file paths for
+			various resources used in the game, including textures, sounds,
+			fonts, and shaders. These constants are used to access and load
+			the respective resources during runtime.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <string>
 
+/************************************************************************
+@brief The Resources namespace provides constants for the file paths of
+	   textures, sounds, fonts, and shaders used in the game engine. These
+	   paths can be referenced to load the necessary resources.
+*************************************************************************/
 namespace Resources
 {
 	// Textures
