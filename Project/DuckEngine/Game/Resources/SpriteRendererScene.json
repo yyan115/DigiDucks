@@ -16,6 +16,14 @@
       "prefab": "TomatoStockPrefab",
       "position": { "x": 0, "y": -5 }
     },
+    "Obstacle4": {
+      "prefab": "TomatoStockPrefab",
+      "position": { "x": 5, "y": -5 }
+    },
+    "Obstacle5": {
+      "prefab": "TomatoStockPrefab",
+      "position": { "x": 10, "y": -5 }
+    },
     "Duck": {
       "prefab": "DuckPrefab",
       "position": { "x": 8.0, "y": 8.0 }
