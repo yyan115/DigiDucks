@@ -356,6 +356,7 @@ void UIManager::ShowInspector() {
             if (boxCollider != nullptr)
             {
                 boxCollider->setCenter(transform->position);
+                boxCollider->setRotation(transform->angle);
                 boxCollider->setSize(transform->scale/2);
             }
             

@@ -68,8 +68,9 @@ namespace {
     * @return A new `Vec2` representing the rotated vector
     ****************************************************************/
     Vec2 rotateVector(const Vec2& vec, float angle) {
-        float s = sin(angle);
-        float c = cos(angle);
+        float radian = angle * M_PI / 180.f;
+        float s = sin(radian);
+        float c = cos(radian);
 
         return Vec2(vec.x * c - vec.y * s, vec.x * s + vec.y * c);
     }
@@ -92,10 +93,10 @@ BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation
     rotation = _rotation;
 
     // Get 4 corners of box using size and rotation
-    topR = rotateVector(Vec2(_center.x + size.x, _center.y + size.y), rotation);
-    topL = rotateVector(Vec2(_center.x - size.x, _center.y + size.y), rotation);
-    btmR = rotateVector(Vec2(_center.x + size.x, _center.y - size.y), rotation);
-    btmL = rotateVector(Vec2(_center.x - size.x, _center.y - size.y), rotation);
+    topR = _center + rotateVector(Vec2(size.x, size.y), rotation);
+    topL = _center + rotateVector(Vec2(-size.x, size.y), rotation);
+    btmR = _center + rotateVector(Vec2(size.x, -size.y), rotation);
+    btmL = _center + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 /****************************************************************
@@ -114,10 +115,10 @@ BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _ro
     rotation = _rotation;
 
     // Get 4 corners of box using size and rotation
-    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
-    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
-    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
-    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 // Setters
@@ -148,10 +149,10 @@ void BoundingBox::setCenter(Vec2 center) {
 void BoundingBox::setSize(Vec2 _size) {
 	size = _size;
 
-    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
-    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
-    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
-    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 void BoundingBox::setRotation(float angle) {
@@ -160,10 +161,10 @@ void BoundingBox::setRotation(float angle) {
     if (angle > 360.f)
         angle -= 360.f;
 
-    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
-    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
-    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
-    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 /****************************************************************
@@ -177,10 +178,10 @@ void BoundingBox::rotate(float angle) {
     if (angle > 360.f)
         angle -= 360.f;
 
-	topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
-	topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
-	btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
-	btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 //// Circle Collider ////
