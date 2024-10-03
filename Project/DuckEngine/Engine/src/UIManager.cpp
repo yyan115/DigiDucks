@@ -197,7 +197,7 @@ void UIManager::Render() {
     RenderImGuiWindows(1.f, 0.25f, 0.0f, 0.75f);
     ShowExplorer();
 
-    RenderImGuiWindows(0.17f, 0.06f, 0.0f, 0.54f);
+    RenderImGuiWindows(0.2f, 0.36f, 0.0f, 0.25f);
     ShowEntitySpawn();
 
     // Render ImGui on top of the scene
@@ -374,40 +374,35 @@ void UIManager::ShowInspector() {
 
 
 void UIManager::ShowEntitySpawn() {
-    static int lastSpawnCount = 0;  // Keep track of the last spawn count
+    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
-    ImGui::Begin("Entity Spawn", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    // Get all entities
+    std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    static int spawnCount = 0;
-    ImGui::SliderInt("Entity Count", &spawnCount, 0, 300);  // Control entity count
-    
-    // If the slider value has increased, spawn new entities
-    if (spawnCount > lastSpawnCount) {
-        
-        int entitiesToSpawn = spawnCount - lastSpawnCount;
-        UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn: %d", entitiesToSpawn);
-        for (int i = 0; i < entitiesToSpawn; i++) {         
-            // Create a new square entity
-            DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", Vec2(1.0f, 1.0f), { 1.0f, 1.0f });
+    // Iterate through entities and create buttons for each one
+    for (size_t i = 0; i < entities.size(); ++i) {
+
+        if (entities[i].entityID == 0) {
+		    continue; // Skip the first entity (default entity)
+		}
+
+        // Create a unique label for each button based on the entity ID or name
+        std::string entityLabel = "Gameobject " + std::to_string(entities[i].entityID);
+
+        // Create a button for each entity
+        if (ImGui::Button(entityLabel.c_str())) {
+            // You can store the selected entity ID or perform other actions here
+            selectedEntityID = entities[i].entityID;  // Example: store selected entity ID for inspector
+            windowStates[WindowType::Inspector] = !windowStates[WindowType::Inspector];
         }
-    }
 
-    // If the slider value has decreased, remove entities
-    if (spawnCount < lastSpawnCount) {
-        UIDebugConsole::debugConsole.AddDebugLog("Removing entities");
-        int entitiesToRemove = lastSpawnCount - spawnCount;
-        for (int i = 0; i < entitiesToRemove; i++) {
-            // Remove the last spawned entity
-            if (!DuckEngine::DUCKENGINE_EntityManager.GetEntities().empty()) {
-                DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntities().back().entityID);
-            }
-        }
+        // Optional: Add some spacing between buttons
+        ImGui::Spacing();
     }
-
-    lastSpawnCount = spawnCount;
 
     ImGui::End();
 }
+
 
 void UIManager::RenderWindows() {
     for (const auto& [window, isVisible] : windowStates) {
