@@ -388,6 +388,10 @@ void UIManager::ShowEntitySpawn() {
 
         // Create a unique label for each button based on the entity ID or name
         std::string entityLabel = "Gameobject " + std::to_string(entities[i].entityID);
+        if (!entities[i].name.empty())
+        {
+            entityLabel = entities[i].name;
+        }
 
         // Create a button for each entity
         if (ImGui::Button(entityLabel.c_str())) {

@@ -47,15 +47,6 @@ public:
     DUCKENGINE_API Entity(int id, std::string toName = "") : entityID(id), name(toName) {}
 
     /************************************************************************
-    @brief Retrieves the name of the entity.
-    @return The name of the entity as a string.
-    *************************************************************************/
-    DUCKENGINE_API std::string GetName()
-    {
-        return name;
-    }
-
-    /************************************************************************
     @brief Checks if the entity's name matches a given name.
     @param compareName The name to compare with the entity's name.
     @return True if the names match, otherwise false.
