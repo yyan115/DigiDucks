@@ -61,5 +61,6 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CDC57599-E98B-427B-9CDB-6DC67E086B4F}
+		StartupProject = Quack_Kitchen
 	EndGlobalSection
 EndGlobal
