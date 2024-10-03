@@ -120,7 +120,10 @@ void DuckEngine::Update()
     TimeManager::UpdateTime(1.0);
 
     DUCKENGINE_SystemManager.UpdateAll();
+
+    TimeManager::StartSystemTimer();
     DUCKENGINE_SceneManager.Update();
+    TimeManager::EndSystemTimer("SceneManager");
     //SoundManager::GetInstance().Update();
 
     FontManager::Update();
@@ -177,11 +180,14 @@ void DuckEngine::Draw()
 
     GraphicsManager::RenderDebug();
     TimeManager::EndSystemTimer("GraphicsManager");
+
+    TimeManager::StartSystemTimer();
     if (ToggleEditor) UIManager::Render();
+    TimeManager::EndSystemTimer("UIManager");
 
-
+    TimeManager::StartSystemTimer();
     FontManager::Render();
-
+    TimeManager::EndSystemTimer("FontManager");
 }
 
 /************************************************************************
