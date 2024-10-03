@@ -1,6 +1,26 @@
+/******************************************************************************/
+/*!
+\file       ComponentFactory.cpp
+\author     Jovan Chua 2301244
+\par        c.shengkaijovan@digipen.edu
+\date       October 3 2024
+\brief      Implementation of the ComponentFactory class to add components to entities based on JSON data.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "ComponentFactory.h"
 
+
 // Implementation of the function to add components to an entity based on the JSON data
+/************************************************************************
+@brief Adds various components to an entity based on the provided JSON data.
+@param entity, a pointer to the entity to which the components will be added.
+@param componentsData, a JSON array containing the component data.
+@return nothing
+*************************************************************************/
 void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::json& componentsData)
 {
     for (const auto& componentData : componentsData)

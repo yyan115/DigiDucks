@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \file       AnimatorComponent.h
-\author     Jovan chua
+\author     Jovan chua 2301244
 \par        email c.shengkaijovan@digipen.edu
 \date       October 3 2024
 \brief      Holds the Animation class and implements the animation in different texture modes while executing it.
@@ -26,7 +26,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-
+/************************************************************************
+@brief Represents an animation consisting of multiple frames and their duration.
+*************************************************************************/
 class Animation 
 {
 private:
@@ -40,6 +42,9 @@ public:
         : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
 };
 
+/************************************************************************
+@brief Manages animations for an entity and provides functions to play and add animations.
+*************************************************************************/
 class AnimatorComponent : public Component
 {
 public:
@@ -52,6 +57,13 @@ public:
     }
 
     // add 1 texture animation
+/************************************************************************
+@brief Adds a single-frame animation to the animator component.
+@param name The name of the animation (used as the key in the animations map).
+@param animation A `shared_ptr` to the texture that will be used as the single frame of the animation.
+@param frameDuration The duration (in seconds) for which the frame will be displayed (default is 0.2f).
+@return nothing
+*************************************************************************/
     DUCKENGINE_API void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
@@ -62,6 +74,13 @@ public:
     }
 
     // add multiple textures animation
+/************************************************************************
+@brief Adds a multi-frame animation to the animator component.
+@param animationName The name of the animation (used as the key in the animations map).
+@param animation A vector of `shared_ptr` to textures that will be used as the frames of the animation.
+@param frameDuration The duration (in seconds) for which each frame will be displayed (default is 0.2f).
+@return nothing
+*************************************************************************/
     DUCKENGINE_API void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
@@ -74,6 +93,12 @@ public:
         animations[animationName] = animationToAdd;
     }
 
+    //play animation
+/************************************************************************
+@brief Plays the animation specified by its name.
+@param animationName The name of the animation to play.
+@return nothing
+*************************************************************************/
     DUCKENGINE_API void PlayAnimation(std::string animationName)
     {
         if (animations.find(animationName) != animations.end())

@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \file       FontManager.h
-\author     Jovan chua
+\author     Jovan chua 2301244
 \par        email c.shengkaijovan@digipen.edu
 \date       October 3 2024
 \brief      Declares the FontManager class, responsible for managing font

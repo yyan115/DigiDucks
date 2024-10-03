@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*!
 \file       AnimatorSystem.h
-\author     Jovan chua
+\author     Jovan chua 2301244
 \par        email c.shengkaijovan@digipen.edu
 \date       October 3 2024
 \brief      Holds the declarations of the Animator System.
@@ -23,6 +23,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
+/************************************************************************
+@brief Manages the updating and processing of animations for entities with an AnimatorComponent.
+*************************************************************************/
 class AnimatorSystem : public System
 {
 public:
