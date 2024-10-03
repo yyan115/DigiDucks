@@ -2,7 +2,8 @@
 /*!
 \file       Matrix3x3.h
 \author     Ernest Ho, h.yonghengernest, 2301223
-\par        h.yonghengernestt@digipen.edu
+(100%)
+\email    	h.yonghengernestt@digipen.edu
 \date       Sep 9 2024
 \brief      This file contains the declaration of the Matrix3x3 class, which
             represents a 3x3 matrix and provides various operations for matrix

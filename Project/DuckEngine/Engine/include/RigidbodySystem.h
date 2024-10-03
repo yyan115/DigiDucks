@@ -2,7 +2,8 @@
 /*!
 \file		RigidbodySystem.h
 \author 	Ernest Ho, h.yonghengernest, 2301223
-\par    	h.yonghengernestt@digipen.edu
+(100%)
+\email    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
 \brief  	Implements the RigidbodySystem for managing physics-related 
             updates for entities with RigidbodyComponents.

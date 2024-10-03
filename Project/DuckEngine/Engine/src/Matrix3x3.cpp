@@ -2,7 +2,8 @@
 /*!
 \file       Matrix3x3.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
-\par        h.yonghengernestt@digipen.edu
+(100%)
+\email    	h.yonghengernestt@digipen.edu
 \date       Sep 9 2024
 \brief      This file includes the definition of the Matrix3x3 structure
 

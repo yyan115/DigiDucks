@@ -2,7 +2,8 @@
 /*!
 \file		Bounding.cpp
 \author 	Ernest Ho, h.yonghengernest, 2301223
-\par    	h.yonghengernestt@digipen.edu
+(100%)
+\email    	h.yonghengernestt@digipen.edu
 \date   	Sep 26 2024
 \brief  	This file contains functions for detecting various types of
             collisions in a 2D environment, including circle-box,
