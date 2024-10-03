@@ -4,7 +4,11 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 9 2024
-\brief  	This file includes the definition of the Vector2D structure
+\brief  	This file includes the definition of the Vector2D class, which 
+            represents a 2D vector and provides various vector operations 
+            such as addition, subtraction, scalar multiplication, normalization,
+            and length calculations. It also includes several constructors and 
+            overloaded operators to simplify vector manipulation.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -26,45 +30,115 @@ public:
 	float x, y;
 
 	// Constructors
+	/****************************************************************
+	* @brief Default constructor for Vector2D, initializes x and y to 0.
+	****************************************************************/
 	Vector2D() : x(0.f), y(0.f) {}
+
+	/****************************************************************
+	* @brief Constructor that initializes Vector2D with given x and y values.
+	*
+	* @param _x The x-coordinate value.
+	* @param _y The y-coordinate value.
+	****************************************************************/
 	Vector2D(float _x, float _y) : x(_x), y(_y) {}
 
 	// Copy Constructor
+	/****************************************************************
+	* @brief Copy constructor for Vector2D.
+	*
+	* @param rhs The vector to copy from.
+	****************************************************************/
 	Vector2D(const Vector2D& rhs);
+
+	// Move Constructor
+	/****************************************************************
+	* @brief Move constructor for Vector2D.
+	*
+	* @param rhs The vector to move.
+	****************************************************************/
 	Vector2D(Vector2D&& rhs) noexcept;
+
+	// Assignment Operator
+	/****************************************************************
+	* @brief Assignment operator for copying a Vector2D.
+	*
+	* @param rhs The vector to assign from.
+	* @return The updated vector after assignment.
+	****************************************************************/
 	Vector2D& operator=(const Vector2D& rhs);
 
 	// Destructor
 	~Vector2D() = default;
 
 	// Assignment Operator
+	/****************************************************************
+	* @brief Adds a vector to the current vector.
+	*
+	* @param rhs The vector to add.
+	* @return The updated vector after addition.
+	****************************************************************/
 	Vector2D& operator+=(const Vector2D& rhs);
+
+	/****************************************************************
+	* @brief Subtracts a vector from the current vector.
+	*
+	* @param rhs The vector to subtract.
+	* @return The updated vector after subtraction.
+	****************************************************************/
 	Vector2D& operator-=(const Vector2D& rhs);
+
+	/****************************************************************
+	* @brief Multiplies the current vector by a scalar.
+	*
+	* @param scalar The scalar value to multiply by.
+	* @return The updated vector after multiplication.
+	****************************************************************/
 	Vector2D& operator*=(float scalar);
+
+	/****************************************************************
+	* @brief Divides the current vector by a scalar.
+	*
+	* @param scalar The scalar value to divide by.
+	* @return The updated vector after division.
+	****************************************************************/
 	Vector2D& operator/=(float scalar);
+
+	/****************************************************************
+	* @brief Assigns both x and y coordinates to the same value.
+	*
+	* @param val The value to assign.
+	* @return The updated vector after assignment.
+	****************************************************************/
 	Vector2D& operator=(float val);
 
-	// Negate
+	// Negation Operator
+	/****************************************************************
+	* @brief Negates the vector (reverses direction).
+	*
+	* @return A new negated vector.
+	****************************************************************/
 	Vector2D operator -() const;
 
 	// Functions
 	/****************************************************************
-	* @brief Get the normalized of the vector
-	* 
-	* @return A normalized vector
+	* @brief Gets the normalized version of the vector.
+	*
+	* @return A normalized vector.
 	****************************************************************/
 	Vector2D normalized() const;
 	/****************************************************************
-	* @brief Get the length of the vector
-	* 
-	* @return The length of the vector
+	* @brief Gets the length (magnitude) of the vector.
+	*
+	* @return The length of the vector.
 	****************************************************************/
 	float length() const;
 	/****************************************************************
-	* @brief Get the squared length of the vector
-	* 
-	* @return The squared length of the vector
-	* ***************************************************************/
+	* @brief Gets the squared length of the vector.
+	*        Useful when avoiding the overhead of sqrt() in length().
+	*
+	* @return The squared length of the vector.
+	****************************************************************/
 	float lengthSquared() const;
 
 };

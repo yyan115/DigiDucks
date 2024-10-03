@@ -4,7 +4,12 @@
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
 \date       Sep 9 2024
-\brief      This file includes the definition of the Vector2D structure
+\brief      This file contains the declaration of the Matrix3x3 class, which
+            represents a 3x3 matrix and provides various operations for matrix
+            manipulation such as addition, subtraction, multiplication, and
+            scalar operations. The class includes constructors, assignment
+            operators, and utility functions to manage matrix data and perform
+            mathematical computations on 3x3 matrices.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -33,16 +38,46 @@ public:
     float m2[3][3]{};
 
     // Constructors
-    Matrix3x3();  // Default constructor
-    Matrix3x3(const float* ptArr);  // Constructor with array
-    Matrix3x3(float _m00, float _m01, float _m02,
-        float _m10, float _m11, float _m12,
-        float _m20, float _m21, float _m22);  // Constructor with 9 floats
+    /****************************************************************
+    * @brief Default constructor for Matrix3x3
+    ****************************************************************/
+    Matrix3x3();
+
+    /****************************************************************
+    * @brief Constructor that initializes the matrix with an array
+    *
+    * @param ptArr A pointer to a 1D array of 9 floats
+    ****************************************************************/
+    Matrix3x3(const float* ptArr);
+
+    /****************************************************************
+    * @brief Constructor that initializes the matrix with individual values
+    *
+    * @param _m00 ... _m22 Values to initialize each element of the matrix
+    ****************************************************************/
+    Matrix3x3(  float _m00, float _m01, float _m02,
+                float _m10, float _m11, float _m12,
+                float _m20, float _m21, float _m22);
 
     // Copy Constructor
+    /****************************************************************
+    * @brief Copy constructor for Matrix3x3
+    *
+    * @param rhs The matrix to copy from
+    ****************************************************************/
     Matrix3x3(const Matrix3x3& rhs);
 
+    /****************************************************************
+    * @brief Copy constructor for Matrix3x3
+    *
+    * @param rhs The matrix to copy from
+    ****************************************************************/
+    Matrix3x3& operator=(const Matrix3x3& rhs);
+
     // Destructor
+    /****************************************************************
+    * @brief Destructor for Matrix3x3
+    ****************************************************************/
     ~Matrix3x3();
 
     // Assignment Operator
@@ -100,7 +135,6 @@ public:
     ***************************************************************/
     bool operator==(const Matrix3x3& rhs) const;
 
-    Matrix3x3& operator=(const Matrix3x3& rhs);
 };
 
 // Operators Overloading
@@ -160,13 +194,13 @@ Matrix3x3 operator*(const Matrix3x3& lhs, float scalar);
 Matrix3x3 operator*(float scalar, const Matrix3x3& rhs);
 
 /****************************************************************
-* @brief Overloaded operator / to divide a matrix by a scalar
+* @brief Overloaded operator * to divide a matrix by a Vector
 *
 * @param lhs - The left hand side matrix
 *
-* @param scalar - The scalar
+* @param rhs - The Vector2D
 *
-* @return The quotient of the matrix and the scalar
+* @return The product of the matrix and the Vecto 2D
 ***************************************************************/
 Vector2D operator*(const Matrix3x3& lhs, const Vector2D& rhs);
 
@@ -247,15 +281,6 @@ void MtxRotateDeg(Matrix3x3& result, float angle);
 void MtxTranspose(Matrix3x3& result, const Matrix3x3& mat);
 
 /****************************************************************
-* @brief Get the Inverse of the matrix
-*
-* @param result The matrix to get the inverse
-*
-* @param mat The matrix to get the inverse
-**************************************************************/
-void MtxInverse(Matrix3x3& result, const Matrix3x3& mat);
-
-/****************************************************************
 * @brief Get the determinant of the matrix
 *
 * @param result The determinant of the matrix
@@ -272,3 +297,12 @@ void MtxDeterminant(float& result, const Matrix3x3& mat);
 * @param mat The matrix to get the cofactor
 ***************************************************************/
 void MtxCofactor(Matrix3x3& result, const Matrix3x3& mat);
+
+/****************************************************************
+* @brief Get the Inverse of the matrix
+*
+* @param result The matrix to get the inverse
+*
+* @param mat The matrix to get the inverse
+**************************************************************/
+void MtxInverse(Matrix3x3& result, const Matrix3x3& mat);

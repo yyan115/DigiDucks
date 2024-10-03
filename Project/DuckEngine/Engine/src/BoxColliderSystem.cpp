@@ -4,7 +4,8 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
-\brief  	This file includes System class for Box Collider
+\brief  	Implementation of the BoxColliderSystem class for handling 
+			collision detection and response between bounding boxes and circles.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -19,6 +20,15 @@ void BoxColliderSystem::Start()
 
 }
 
+/****************************************************************
+* @brief Updates the Box Collider system each frame
+*
+* This function retrieves the delta time and checks for collisions
+* between all BoundingBox and BoundingCircle components. It updates
+* their positions based on their velocities and handles collision responses.
+*
+* @return void
+****************************************************************/
 void BoxColliderSystem::Update() {
 	float deltaTime = DuckEngine::DeltaTime();
 	// Find player's box collider
@@ -33,7 +43,14 @@ void BoxColliderSystem::Update() {
 		// Update Collider to current position
 		box->setCenter(boxTrans->position);
 
-		// Check collision with box collider
+
+		/****************************************************************
+		* @brief Check collisions between this box and other boxes
+		*
+		* This section iterates through all BoundingBox components to
+		* check for collisions with the current box collider. Collision
+		* responses are calculated based on the velocities of the boxes.
+		****************************************************************/
 		for (const auto& [entity2Id, boxColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
 			if(entity2Id == entityId) continue;
@@ -66,7 +83,13 @@ void BoxColliderSystem::Update() {
 							boxRb->velocity = Vec2(0.f, 0.f);
 						}
 
-						// Check if 2nd box collides with other objects
+						// Check for collisions between the second box and circles
+						/****************************************************************
+						* @brief Check for collisions between the second box and circles
+						*
+						* This section checks for collisions between the second box collider
+						* and all BoundingCircle components, handling their collision responses.
+						****************************************************************/
 						for (const auto& [entity3Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
@@ -89,19 +112,19 @@ void BoxColliderSystem::Update() {
 										boxRb->velocity = Vec2(0.0f, 0.0f);
 										boxRb2->velocity = Vec2(0.0f, 0.0f);
 									}
-									//else {
-									//	Vec2 combinedVelocity = circleRb->velocity + boxRb2->velocity;
-									//	if (circleRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
-									//		boxRb2->velocity = Vec2(0.f, 0.f);
-									//		circleRb->velocity = 3 * combinedVelocity / 4;
-									//	}
-									//	else {
-									//		boxRb2->velocity = 3 * combinedVelocity / 4;
-									//		circleRb->velocity = Vec2(0.f, 0.f);
-									//	}
+									else {
+										combinedVelocity = circleRb->velocity + boxRb2->velocity;
+										if (circleRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
+											boxRb2->velocity = Vec2(0.f, 0.f);
+											circleRb->velocity = 3 * combinedVelocity / 4;
+										}
+										else {
+											boxRb2->velocity = 3 * combinedVelocity / 4;
+											circleRb->velocity = Vec2(0.f, 0.f);
+										}
 
-									//	boxRb->velocity = Vec2(0.0f, 0.0f);
-									//}
+										boxRb->velocity = Vec2(0.0f, 0.0f);
+									}
 								}
 							}
 
@@ -112,6 +135,12 @@ void BoxColliderSystem::Update() {
 		}
 
 		// Check collision with circle
+		/****************************************************************
+		* @brief Check collisions between this box and circles
+		*
+		* This section checks for collisions between the box collider and
+		* all BoundingCircle components, handling the collision responses.
+		****************************************************************/
 		for (const auto& [entity2Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 		{
 			if(entity2Id == entityId) continue;
@@ -144,6 +173,12 @@ void BoxColliderSystem::Update() {
 							circleRb->velocity = Vec2(0.f, 0.f);
 						}
 
+						/****************************************************************
+						* @brief Check for collisions between circles
+						*
+						* This section checks for collisions between the moving circle
+						* and other circles, handling their collision responses.
+						****************************************************************/
 						for (const auto& [entity3Id, circleColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
@@ -167,20 +202,20 @@ void BoxColliderSystem::Update() {
 										circleRb->velocity = Vec2(0.0f, 0.0f);
 										boxRb->velocity = Vec2(0.0f, 0.0f);
 									}
-									//else { // If the circle is not static
-									//	Vec2 combinedVelocity = circleRb->velocity + circleRb2->velocity;
-									//	if (circleRb->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) {
-									//		circleRb2->velocity = Vec2(0.f, 0.f);
-									//		circleRb->velocity = 3 * combinedVelocity / 4;
-									//	}
-									//	else {
-									//		// If circle velocity is greater, box will gain more velocity
-									//		circleRb2->velocity = 3 * combinedVelocity / 4;
-									//		circleRb->velocity = Vec2(0.f, 0.f);
-									//	}
+									else { // If the circle is not static
+										combinedVelocity = circleRb->velocity + circleRb2->velocity;
+										if (circleRb->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) {
+											circleRb2->velocity = Vec2(0.f, 0.f);
+											circleRb->velocity = 3 * combinedVelocity / 4;
+										}
+										else {
+											// If circle velocity is greater, box will gain more velocity
+											circleRb2->velocity = 3 * combinedVelocity / 4;
+											circleRb->velocity = Vec2(0.f, 0.f);
+										}
 
-									//	boxRb->velocity = Vec2(0.0f, 0.0f);
-									//}
+										boxRb->velocity = Vec2(0.0f, 0.0f);
+									}
 								}
 							}
 						}
