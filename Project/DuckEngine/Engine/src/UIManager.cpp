@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file    UIManager.cpp
+\file     UIManager.cpp
 \author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
 \par      muhammadzikry.b@digipen.edu
 \brief    This file contains the implementation of the UIManager class
@@ -29,6 +29,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <random>
 #include <map>
 #include <set>
+#include <sstream>
 
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
@@ -68,75 +69,79 @@ void UIManager::Initialize() {
 }
 
 void RenderSystemTimings(const SystemManager& systemManager) {
-    const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
-    const std::vector<std::pair<std::string, double>>& managerData = TimeManager::GetManagerData();
+    static std::vector<std::pair<std::string, double>> lastSystemPercentages;
+    static std::vector<std::pair<std::string, double>> lastManagerPercentages;
+    static double lastUpdateTime = 0.0;
 
-    // Calculate total time for both systems and managers separately
-    double totalSystemTime = 0.0;
-    double totalManagerTime = 0.0;
+    // Current time in seconds
+    double currentTime = glfwGetTime();
 
-    for (const auto& system : systemData) {
-        totalSystemTime += system.second;
-    }
+    // Check if 2 seconds have passed
+    if (currentTime - lastUpdateTime >= 2.0) {
+        lastUpdateTime = currentTime;
 
-    for (const auto& manager : managerData) {
-        totalManagerTime += manager.second;
-    }
+        // Clear previous percentages
+        lastSystemPercentages.clear();
+        lastManagerPercentages.clear();
 
-    double totalTime = totalSystemTime + totalManagerTime;
+        const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
+        const std::vector<std::pair<std::string, double>>& managerData = TimeManager::GetManagerData();
 
-
-    if (totalTime > 0.0) {
-        // Display manager timings
+        // Store manager percentages
         for (const auto& manager : managerData) {
             double managerPercentage = (manager.second / TimeManager::DT()) * 100.0;
-
-            // Display the manager name as a label
-            ImGui::Text("%s", manager.first.c_str());
-
-            // Draw the individual progress bar for the managers
-            ImGui::ProgressBar(static_cast<float>(managerPercentage / 100.0), ImVec2(-1, 0), (std::to_string(managerPercentage) + "%").c_str());
-
-            // Show tooltip for manager details
-            if (ImGui::IsItemHovered()) {
-                ImGui::BeginTooltip();
-                ImGui::Text("Manager: %s", manager.first.c_str());
-                ImGui::Text("Percentage: %.2f%%", managerPercentage);
-                ImGui::EndTooltip();
-            }
-
-            ImGui::Spacing();
+            lastManagerPercentages.push_back({ manager.first, managerPercentage });
         }
 
-        // Display system timings
+        // Store system percentages
         for (const auto& system : systemData) {
             double systemPercentage = (system.second / TimeManager::DT()) * 100.0;
+            lastSystemPercentages.push_back({ system.first, systemPercentage });
+        } 
+    }
 
-            auto spacePos = system.first.find(" ");
-            std::string rawName = system.first.c_str();
-            if (spacePos != std::string::npos) {
-                // Extract the part after the space
-                rawName = system.first.c_str() + spacePos + 1;
-            }
+    // Display manager timings
+    for (const auto& manager : lastManagerPercentages) {
+        double managerPercentage = manager.second;
 
-            // Display the system name as a label
-            ImGui::Text("%s", rawName.c_str());
+        ImGui::Text("%s", manager.first.c_str());
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(2) << managerPercentage << "%";
+        ImGui::ProgressBar(static_cast<float>(managerPercentage / 100.0), ImVec2(-1, 0), ss.str().c_str());
 
-            // Draw the individual progress bar for the system
-            ImGui::ProgressBar(static_cast<float>(systemPercentage / 100.0), ImVec2(-1, 0), (std::to_string(systemPercentage) + "%").c_str());
-
-            // Show tooltip for system details
-            if (ImGui::IsItemHovered()) {
-                ImGui::BeginTooltip();
-                ImGui::Text("System: %s", rawName.c_str());
-                ImGui::Text("Percentage: %.2f%%", systemPercentage);
-                ImGui::EndTooltip();
-            }
-
-            ImGui::Spacing();
+        if (ImGui::IsItemHovered()) {
+            ImGui::BeginTooltip();
+            ImGui::Text("Manager: %s", manager.first.c_str());
+            ImGui::Text("Percentage: %.2f%%", managerPercentage);
+            ImGui::EndTooltip();
         }
+
+        ImGui::Spacing();
+    }
+
+    // Display system timings
+    for (const auto& system : lastSystemPercentages) {
+        double systemPercentage = system.second;
+
+        auto spacePos = system.first.find(" ");
+        std::string rawName = system.first.c_str();
+        rawName = system.first.c_str() + spacePos + 1;
+        ImGui::Text("%s", rawName.c_str());
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(2) << systemPercentage << "%";
+        ImGui::ProgressBar(static_cast<float>(systemPercentage / 100.0), ImVec2(-1, 0), ss.str().c_str());
+
+        if (ImGui::IsItemHovered()) {
+            ImGui::BeginTooltip();
+            ImGui::Text("System: %s", rawName.c_str());
+            ImGui::Text("Percentage: %.2f%%", systemPercentage);
+            ImGui::EndTooltip();
+        }
+
+        ImGui::Spacing();
     }
 }
+
 
 // Render the ImGui windows with a specific size and position to make it adaptive
 void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) {
