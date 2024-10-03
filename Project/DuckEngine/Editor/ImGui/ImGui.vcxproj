@@ -160,7 +160,6 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Editor\include;$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Editor\lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -181,7 +180,6 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Editor\lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
