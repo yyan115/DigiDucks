@@ -4,7 +4,9 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 26 2024
-\brief  	This file includes the definition of the Vector2D structure
+\brief  	This file contains functions for detecting various types of
+            collisions in a 2D environment, including circle-box,
+            box-box, circle-circle, and circle-line segment collisions.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -19,15 +21,32 @@ written consent of DigiPen Institute of Technology is prohibited.
 //#include <vector>
 
 // Getters
+/****************************************************************
+* @brief Get the center position of the collider
+*
+* @return The center position of the collider
+* ***************************************************************/
 Vec2 BoundingCollider::getCenterPos() const {
 	return centerPos;
 }
 
 // Setters
+/****************************************************************
+* @brief Set the center position of the collider
+*
+* @param pos - The center position of the collider
+* ***************************************************************/
 void BoundingCollider::setCenterPos(const Vec2& pos) {
 	centerPos = pos;
 }
 
+/****************************************************************
+* @brief Set the center position of the collider
+*
+* @param x - The x position of the collider
+*
+* @param y - The y position of the collider
+* ***************************************************************/
 void BoundingCollider::setCenterPos(float x, float y) {
 	centerPos = Vec2(x, y);
 }
@@ -35,6 +54,18 @@ void BoundingCollider::setCenterPos(float x, float y) {
 
 namespace {
     // Rotate along the z-axis
+    /****************************************************************
+    * @brief Rotates a 2D vector by a given angle
+    *
+    * This function rotates a 2D vector (`vec`) counterclockwise by a
+    * specified angle (`angle`) using the standard 2D rotation matrix.
+    * The angle is in radians.
+    *
+    * @param vec The vector to be rotated as a `Vec2`
+    * @param angle The angle in radians to rotate the vector
+    *
+    * @return A new `Vec2` representing the rotated vector
+    ****************************************************************/
     Vec2 rotateVector(const Vec2& vec, float angle) {
         float s = sin(angle);
         float c = cos(angle);
@@ -45,6 +76,15 @@ namespace {
 
 ///// Box Collider /////
 // Constructor
+/****************************************************************
+* @brief Constructor for BoundingBox
+*
+* Initializes the bounding box with a center position, size, and optional rotation.
+*
+* @param _center The center position of the bounding box as a Vec2
+* @param _size The size of the bounding box as a Vec2
+* @param _rotation The rotation of the bounding box in degrees (default is 0)
+****************************************************************/
 BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation):BoundingCollider() {
     setCenterPos(_center);
     size = _size;
@@ -57,6 +97,15 @@ BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation
     btmL = rotateVector(Vec2(_center.x - size.x, _center.y - size.y), rotation);
 }
 
+/****************************************************************
+* @brief Constructor for BoundingBox with explicit coordinates for center and size
+*
+* @param _x The x-coordinate of the center of the bounding box
+* @param _y The y-coordinate of the center of the bounding box
+* @param sizeX The width of the bounding box
+* @param sizeY The height of the bounding box
+* @param _rotation The rotation of the bounding box in degrees (default is 0)
+****************************************************************/
 BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation) :BoundingCollider() {
     setCenterPos(_x, _y);
     size.x = sizeX;
@@ -71,6 +120,11 @@ BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _ro
 }
 
 // Setters
+/****************************************************************
+* @brief Set the center position of the bounding box
+*
+* @param pos The new center position of the bounding box as a Vec2
+****************************************************************/
 void BoundingBox::setCenter(Vec2 center) {
     Vec2 prevCenter = getCenterPos();
 	setCenterPos(center);
@@ -85,6 +139,11 @@ void BoundingBox::setCenter(Vec2 center) {
     btmL += diff;
 }
 
+/****************************************************************
+* @brief Set the size of the bounding box
+*
+* @param _size The new size of the bounding box as a Vec2
+****************************************************************/
 void BoundingBox::setSize(Vec2 _size) {
 	size = _size;
 
@@ -94,6 +153,11 @@ void BoundingBox::setSize(Vec2 _size) {
     btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
 }
 
+/****************************************************************
+* @brief Rotate the bounding box by a given angle
+*
+* @param angle The rotation angle in degrees
+****************************************************************/
 void BoundingBox::rotate(float angle) {
 	rotation += angle;
     // Keep angle within 360 degrees
@@ -109,19 +173,39 @@ void BoundingBox::rotate(float angle) {
 //// Circle Collider ////
 
 // Getters
+/****************************************************************
+* @brief Get the center position of the bounding circle
+*
+* @return The center of the circle as a Vec2
+****************************************************************/
 Vec2 BoundingCircle::getCenter() const {
 	return getCenterPos();
 }
 
+/****************************************************************
+* @brief Get the radius of the bounding circle
+*
+* @return The radius of the circle as a float
+****************************************************************/
 float BoundingCircle::getRadius() const {
 	return radius;
 }
 
 // Setters
+/****************************************************************
+* @brief Set the center position of the bounding circle
+*
+* @param center The new center position of the circle as a Vec2
+****************************************************************/
 void BoundingCircle::setCenter(Vec2 center) {
 	setCenterPos(center);
 }
 
+/****************************************************************
+* @brief Set the radius of the bounding circle
+*
+* @param radius The new radius of the circle as a float
+****************************************************************/
 void BoundingCircle::setRadius(float _radius) {
 	radius = _radius;
 }
@@ -129,7 +213,20 @@ void BoundingCircle::setRadius(float _radius) {
 
 // Collision Detection
 namespace {
-
+    /****************************************************************
+    * @brief Finds the closest point on a line segment to a given point
+    *
+    * This function computes the closest point on a line segment defined by
+    * `lineStart` and `lineEnd` to the specified point (`point`). It uses
+    * vector projection to find the closest point and ensures that the
+    * result is clamped between the endpoints of the segment.
+    *
+    * @param point The point to find the closest point to, as a `Vec2`
+    * @param lineStart The start point of the line segment, as a `Vec2`
+    * @param lineEnd The end point of the line segment, as a `Vec2`
+    *
+    * @return A `Vec2` representing the closest point on the line segment
+    ****************************************************************/
     Vec2 closestPointOnLineSegment(const Vec2& point, const Vec2& lineStart, const Vec2& lineEnd) {
         Vec2 line = lineEnd - lineStart;
         float lineLengthSquared = line.lengthSquared();
@@ -145,6 +242,19 @@ namespace {
     }
 
     // Project point onto axis
+    /****************************************************************
+    * @brief Projects a point onto a given axis and updates the min
+    *        and max projection values
+    *
+    * This function calculates the dot product of the given point (`point`)
+    * and the specified axis (`axis`). It then updates the `min` and `max`
+    * values based on the projection result.
+    *
+    * @param point The point to be projected, as a `Vec2`
+    * @param axis The axis onto which the point is projected, as a `Vec2`
+    * @param min A reference to the minimum projection value, updated if needed
+    * @param max A reference to the maximum projection value, updated if needed
+    ****************************************************************/
     void projectOnAxis(const Vec2& point,const  Vec2& axis, float& min, float& max ) {
         // Dot product of point and axis
         float projection = Vec2Dot(axis, point);
@@ -160,6 +270,22 @@ namespace {
 
 
 // Circle - Box
+/****************************************************************
+* @brief Checks collision between a circle and a box
+*
+* This function determines if a dynamic collision occurs between
+* a BoundingCircle and a BoundingBox, taking into account their
+* velocities over time. If a collision is detected, collision callbacks
+* are invoked.
+*
+* @param circle The BoundingCircle object
+* @param box The BoundingBox object
+* @param deltaTime The time step for calculating future positions
+* @param cir_vel The velocity vector of the circle
+* @param box_vel The velocity vector of the box
+*
+* @return True if a collision is detected, false otherwise
+****************************************************************/
 bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel, Vec2 box_vel) {
 
     // Calculate next position of box
@@ -194,6 +320,21 @@ bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime,
 }
 
 // Box - Circle
+/****************************************************************
+* @brief Checks collision between a box and a circle
+*
+* This function checks for a dynamic collision between a
+* BoundingBox and a BoundingCircle by computing their
+* next positions based on their velocities.
+*
+* @param box The BoundingBox object
+* @param circle The BoundingCircle object
+* @param deltaTime The time step for calculating future positions
+* @param box_vel The velocity vector of the box
+* @param cir_vel The velocity vector of the circle
+*
+* @return True if a collision is detected, false otherwise
+****************************************************************/
 bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel, Vec2 cir_vel) {
 
     // Calculate next position of box
@@ -217,6 +358,21 @@ bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime,
 }
 
 // Box - Box
+/****************************************************************
+* @brief Checks collision between two boxes
+*
+* This function uses the Separating Axis Theorem (SAT) to
+* detect collisions between two BoundingBox objects based
+* on their velocities and positions.
+*
+* @param box1 The first BoundingBox object
+* @param box2 The second BoundingBox object
+* @param deltaTime The time step for calculating future positions
+* @param vel1 The velocity vector of the first box
+* @param vel2 The velocity vector of the second box
+*
+* @return True if a collision is detected, false otherwise
+****************************************************************/
 bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
     // Calculate Next Position
     Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
@@ -284,6 +440,22 @@ bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec
 }
 
 // Circle - Circle
+/****************************************************************
+* @brief Checks collision between two circles
+*
+* This function checks both static and dynamic collisions between
+* two BoundingCircle objects by calculating their relative velocity
+* and distance. It uses the quadratic formula to solve for dynamic
+* collisions.
+*
+* @param circle The first BoundingCircle object
+* @param circle2 The second BoundingCircle object
+* @param deltaTime The time step for calculating future positions
+* @param vel1 The velocity vector of the first circle
+* @param vel2 The velocity vector of the second circle
+*
+* @return True if a collision is detected, false otherwise
+****************************************************************/
 bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float deltaTime, Vec2 vel1, Vec2 vel2) {
     //// Calculate Next Position
     //Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
@@ -347,6 +519,20 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 }
 
 // Cirlce - Line
+/****************************************************************
+* @brief Checks collision between a circle and a line segment
+*
+* This function checks whether a BoundingCircle collides with
+* a line segment by finding the closest point on the line to the
+* circle's next position and comparing it to the circle's radius.
+*
+* @param circle The `BoundingCircle` object
+* @param nextPos The next position of the circle after applying velocity
+* @param lineStart The start point of the line segment
+* @param lineEnd The end point of the line segment
+*
+* @return True if a collision is detected, false otherwise
+****************************************************************/
 bool checkCollisionCL(BoundingCircle& circle,const Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd) {
 
     // Check closest Point to line from Next Position
