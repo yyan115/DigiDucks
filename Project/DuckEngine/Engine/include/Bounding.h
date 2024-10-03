@@ -233,6 +233,8 @@ public:
 	****************************************************************/
 	void setSize(Vec2 _size);
 
+	void setRotation(float angle);
+
 	/****************************************************************
 	* @brief Rotate the bounding box by a given angle
 	*

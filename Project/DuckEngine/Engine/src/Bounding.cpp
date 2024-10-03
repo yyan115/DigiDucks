@@ -154,6 +154,18 @@ void BoundingBox::setSize(Vec2 _size) {
     btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
 }
 
+void BoundingBox::setRotation(float angle) {
+    rotation = angle;
+    // Keep angle within 360 degrees
+    if (angle > 360.f)
+        angle -= 360.f;
+
+    topR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y + size.y), rotation);
+    topL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y + size.y), rotation);
+    btmR = rotateVector(Vec2(getCenterPos().x + size.x, getCenterPos().y - size.y), rotation);
+    btmL = rotateVector(Vec2(getCenterPos().x - size.x, getCenterPos().y - size.y), rotation);
+}
+
 /****************************************************************
 * @brief Rotate the bounding box by a given angle
 *
