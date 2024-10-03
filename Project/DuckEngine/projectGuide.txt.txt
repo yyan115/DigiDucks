@@ -1,5 +1,4 @@
-Project Settings: (need ask lucas)
-Configuration Setup: (need ask lucas)
+Configuration Setup: Set Quack_Kitchen module as startup project if it is not the startup project
 
 Projects:
 ImGui: Handles the imgui backend
