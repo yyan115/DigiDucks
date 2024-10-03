@@ -23,12 +23,14 @@ written consent of DigiPen Institute of Technology is prohibited.
 #endif
 
 #include <GLFW/glfw3.h>
+#include <vector>
+#include <string>
 
 /// <summary>
 /// Manages timing and frame rate calculations for the game engine, including tracking FPS, delta time,
 /// and total time elapsed in the game loop.
 /// </summary>
-class DUCKENGINE_API TimeManager {
+class TimeManager {
 public:
     /// <summary>
     /// Returns the current frames per second (FPS) based on the last time calculation.
@@ -57,7 +59,7 @@ public:
     /// Ends the system timer and returns the elapsed time since StartSystemTimer was called.
     /// </summary>
     /// <returns>The elapsed time in seconds.</returns>
-    static double EndSystemTimer();
+    static double EndSystemTimer(const std::string& managerName = "");
 
     /// <summary>
     /// Starts the timer for tracking total loop time.
@@ -74,6 +76,13 @@ public:
     /// </summary>
     /// <returns>The total loop time as a double.</returns>
     static double GetTotalTime();
+
+    /// <summary>
+    /// Returns the data for the time manager.
+    /// </summary>
+    /// <returns>A vector of pairs containing the name of the manager and the time taken by the manager.</returns>
+    static const std::vector<std::pair<std::string, double>>& GetManagerData();
+
 
 private:
     /// <summary>
@@ -100,4 +109,9 @@ private:
     /// Stores the total time elapsed in the current loop.
     /// </summary>
     static double total_time;
+
+    /// <summary>
+    /// Stores the data for all system managers.
+    /// </summary>
+    static std::vector<std::pair<std::string, double>> managerData;
 };

@@ -69,12 +69,48 @@ void UIManager::Initialize() {
 
 void RenderSystemTimings(const SystemManager& systemManager) {
     const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
-    double totalTime = systemManager.GetTotalTime();
+    const std::vector<std::pair<std::string, double>>& managerData = TimeManager::GetManagerData();
+
+    // Calculate total time for both systems and managers separately
+    double totalSystemTime = 0.0;
+    double totalManagerTime = 0.0;
+
+    for (const auto& system : systemData) {
+        totalSystemTime += system.second;
+    }
+
+    for (const auto& manager : managerData) {
+        totalManagerTime += manager.second;
+    }
+
+    double totalTime = totalSystemTime + totalManagerTime;
+
 
     if (totalTime > 0.0) {
+        // Display manager timings
+        for (const auto& manager : managerData) {
+            double managerPercentage = (manager.second / totalTime) * 100.0;
+
+            // Display the manager name as a label
+            ImGui::Text("%s", manager.first.c_str());
+
+            // Draw the individual progress bar for the managers
+            ImGui::ProgressBar(static_cast<float>(managerPercentage / 100.0), ImVec2(-1, 0), (std::to_string(managerPercentage) + "%").c_str());
+
+            // Show tooltip for manager details
+            if (ImGui::IsItemHovered()) {
+                ImGui::BeginTooltip();
+                ImGui::Text("Manager: %s", manager.first.c_str());
+                ImGui::Text("Percentage: %.2f%%", managerPercentage);
+                ImGui::EndTooltip();
+            }
+
+            ImGui::Spacing();
+        }
+
+        // Display system timings
         for (const auto& system : systemData) {
-            double percentage = (system.second / totalTime) * 100.0f;
-            float systemPercentage = static_cast<float>(percentage);
+            double systemPercentage = (system.second / totalTime) * 100.0;
 
             auto spacePos = system.first.find(" ");
             std::string rawName = system.first.c_str();
@@ -83,13 +119,13 @@ void RenderSystemTimings(const SystemManager& systemManager) {
                 rawName = system.first.c_str() + spacePos + 1;
             }
 
-            // Display the name of the system as a label
+            // Display the system name as a label
             ImGui::Text("%s", rawName.c_str());
 
             // Draw the individual progress bar for the system
-            ImGui::ProgressBar(systemPercentage, ImVec2(-1, 0), (std::to_string(systemPercentage) + "%").c_str());
+            ImGui::ProgressBar(static_cast<float>(systemPercentage / 100.0), ImVec2(-1, 0), (std::to_string(systemPercentage) + "%").c_str());
 
-            // If the bar is hovered, show a tooltip with the system name
+            // Show tooltip for system details
             if (ImGui::IsItemHovered()) {
                 ImGui::BeginTooltip();
                 ImGui::Text("System: %s", rawName.c_str());

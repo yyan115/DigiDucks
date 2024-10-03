@@ -113,7 +113,9 @@ void DuckEngine::Initialize() {
 void DuckEngine::Update() 
 {
     // Look for inputs first
+    TimeManager::StartSystemTimer();
     InputManager::Update();
+    TimeManager::EndSystemTimer("InputManager");
     // Update dt every 1 second
     TimeManager::UpdateTime(1.0);
 
@@ -170,14 +172,16 @@ void DuckEngine::StartDraw()
 void DuckEngine::Draw() 
 { 
     //GraphicsManager::OldRender(false);
-
+    TimeManager::StartSystemTimer();
     GraphicsManager::Render();
 
     GraphicsManager::RenderDebug();
-
+    TimeManager::EndSystemTimer("GraphicsManager");
     if (ToggleEditor) UIManager::Render();
 
+
     FontManager::Render();
+
 }
 
 /************************************************************************
