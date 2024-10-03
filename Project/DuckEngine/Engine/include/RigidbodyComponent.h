@@ -4,7 +4,8 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
-\brief  	This file holds the component of Rigidbody
+\brief  	This file holds the component of Rigidbody for physics 
+			simulations in the game engine.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -26,13 +27,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 class DUCKENGINE_API RigidbodyComponent : public Component
 {
 public:
-	Vec2 velocity; // Velocity of the entity
-	Vec2 acceleration; // Acceleration of the entity
-	float mass; // Mass of the entity
-	bool isStatic; // is the entity static
+	Vec2 velocity;		//< Velocity of the entity
+	Vec2 acceleration;	//< Acceleration of the entity
+	float mass;			//< Mass of the entity
+	bool isStatic;		//< Indicates if the entity is static (not affected by physics)
 
-	RigidbodyComponent() : velocity(0.0f, 0.0f), acceleration(0.0f, 0.0f), mass(1.0f), isStatic(false)
-	{}
+	// Constructor initializes the RigidbodyComponent with default values
+	RigidbodyComponent() : velocity(0.0f, 0.0f), acceleration(0.0f, 0.0f), mass(1.0f), isStatic(false) {}
 
 	std::shared_ptr<Component> Clone() const override
 	{

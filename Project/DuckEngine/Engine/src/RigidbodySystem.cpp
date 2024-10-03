@@ -4,7 +4,8 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 \par    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
-\brief  	This file includes System class for Rigidbody
+\brief  	Implements the RigidbodySystem for managing physics-related 
+            updates for entities with RigidbodyComponents.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -14,13 +15,22 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "RigidbodySystem.h"
 #include "RigidbodyComponent.h"
-//#include <algorithm>
 
 void RigidbodySystem::Start()
 {
 
 }
 
+/****************************************************************
+* @brief Updates the Rigidbody system each frame
+*
+* This function retrieves the delta time and updates the position
+* of all entities with RigidbodyComponents based on their velocity
+* and acceleration. It applies damping to the velocity and resets
+* the acceleration for the next frame.
+*
+* @return void
+****************************************************************/
 void RigidbodySystem::Update()
 {
     // Get deltaTime (elapsed time between frames)
