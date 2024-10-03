@@ -23,6 +23,7 @@ GLdouble TimeManager::delta_time = 0.0;
 double TimeManager::system_start_time = 0.0;
 double TimeManager::total_time_start = 0.0;
 double TimeManager::total_time = 0.0;
+std::vector<std::pair<std::string, double>> TimeManager::managerData;
 
 /// <summary>
 /// Returns the current frames per second (FPS).
@@ -83,9 +84,23 @@ void TimeManager::StartSystemTimer() {
 /// Ends the system timer and returns the time taken by the system or process.
 /// </summary>
 /// <returns>The elapsed time since StartSystemTimer() was called.</returns>
-double TimeManager::EndSystemTimer() {
+double TimeManager::EndSystemTimer(const std::string& managerName) {
     double end_time = glfwGetTime();
-    return end_time - system_start_time;
+    double elapsed_time = end_time - system_start_time;
+
+    if (!managerName.empty()) {
+        // Simple for loop to check if manager already exists in the data
+        for (auto& manager : managerData) {
+            if (manager.first == managerName) {
+                manager.second = elapsed_time;
+                return elapsed_time;
+            }
+        }
+        // If not found, add new manager entry
+        managerData.emplace_back(managerName, elapsed_time);
+    }
+
+    return elapsed_time;
 }
 
 /// <summary>
@@ -108,4 +123,17 @@ void TimeManager::EndTotalTimer() {
 /// <returns>The total loop time as a double.</returns>
 double TimeManager::GetTotalTime() {
     return total_time;
+}
+
+/// <summary>
+/// Returns the data for all system managers.
+/// </summary>
+/// <returns> A vector of pairs, where each pair contains the name of a system manager and the time taken by that manager.</returns>
+const std::vector<std::pair<std::string, double>>& TimeManager::GetManagerData() {
+    static std::vector<std::pair<std::string, double>> data;
+    data.clear();
+    for (const auto& pair : managerData) {
+        data.emplace_back(pair.first, pair.second);
+    }
+    return data;
 }
