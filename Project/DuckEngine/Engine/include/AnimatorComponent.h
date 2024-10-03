@@ -1,3 +1,16 @@
+/******************************************************************************/
+/*!
+\file       AnimatorComponent.h
+\author     Jovan chua
+\par        email c.shengkaijovan@digipen.edu
+\date       October 3 2024
+\brief      Holds the Animation class and implements the animation in different texture modes while executing it.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include <string>
 #include <vector>
@@ -13,15 +26,6 @@
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-
-//class Frame {
-//public:
-//    int x, y, width, height; // Position and size of the frame in the sprite sheet
-//    float duration; // Duration for which this frame should be displayed
-//
-//    Frame(int x, int y, int width, int height, float duration)
-//        : x(x), y(y), width(width), height(height), duration(duration) {}
-//};
 
 class Animation 
 {

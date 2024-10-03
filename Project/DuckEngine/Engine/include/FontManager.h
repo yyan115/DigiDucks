@@ -1,8 +1,8 @@
 /******************************************************************************/
 /*!
 \file       FontManager.h
-\author     Jovan
-\par        email
+\author     Jovan chua
+\par        email c.shengkaijovan@digipen.edu
 \date       October 3 2024
 \brief      Declares the FontManager class, responsible for managing font
             rendering using FreeType and OpenGL. This class handles the loading

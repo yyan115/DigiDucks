@@ -1,3 +1,16 @@
+/******************************************************************************/
+/*!
+\file       AnimatorSystem.cpp
+\author     Jovan chua
+\par        email c.shengkaijovan@digipen.edu
+\date       October 3 2024
+\brief      Implements the AnimatorSystem class, updating the animation status when in idle or walking mode per frame.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "AnimatorSystem.h"
 
 

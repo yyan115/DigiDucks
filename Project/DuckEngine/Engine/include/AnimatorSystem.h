@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       AnimatorSystem.h
+\author     Jovan chua
+\par        email c.shengkaijovan@digipen.edu
+\date       October 3 2024
+\brief      Holds the declarations of the Animator System.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <unordered_map>
 #include "DuckEngine.h"
