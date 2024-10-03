@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\UI">
-      <UniqueIdentifier>{a797dfd5-3461-474c-a3e1-ddafa34a9281}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\UI">
-      <UniqueIdentifier>{80ef1f1b-2940-48a1-8fbf-dc84c9502a5a}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\lib\imgui\imgui.cpp">
@@ -42,9 +36,6 @@
     <ClCompile Include="..\lib\imgui\imgui_impl_glfw.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UIDebugConsole.cpp">
-      <Filter>Source Files\UI</Filter>
-    </ClCompile>
     <ClCompile Include="..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -55,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="..\..\test\pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\UIDebugConsole.h">
-      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

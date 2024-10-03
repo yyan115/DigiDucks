@@ -48,12 +48,14 @@
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
+    <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
+    <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -110,7 +112,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Editor\include\UIManager.h" />
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />
     <ClInclude Include="..\include\AssetManager.h" />
@@ -154,11 +155,12 @@
     <ClInclude Include="..\include\SystemManager.h" />
     <ClInclude Include="..\include\TimeManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
+    <ClInclude Include="..\include\UIDebugConsole.h" />
+    <ClInclude Include="..\include\UIManager.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Editor\src\UIManager.cpp" />
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
@@ -190,6 +192,8 @@
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
+    <ClCompile Include="..\src\UIDebugConsole.cpp" />
+    <ClCompile Include="..\src\UIManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>
@@ -198,6 +202,11 @@
     <None Include="..\..\Game\Resources\Shaders\gameFragShader.frag" />
     <None Include="..\..\Game\Resources\Shaders\gameVertShader.vert" />
     <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Editor\ImGui\ImGui.vcxproj">
+      <Project>{06ee6f8e-6e75-4384-a420-f9f06694ecaa}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

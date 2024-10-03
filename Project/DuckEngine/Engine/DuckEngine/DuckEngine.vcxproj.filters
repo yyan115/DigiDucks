@@ -79,6 +79,12 @@
     <Filter Include="src\Component">
       <UniqueIdentifier>{1990c128-bc28-4537-aa60-7f634f7fc250}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\UI">
+      <UniqueIdentifier>{c8871227-0511-4ba5-b88f-9a066a65dd74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{86d19274-bba1-4a4d-af57-02eed9fa9bb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -204,9 +210,6 @@
     <ClInclude Include="..\include\ComponentFactory.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Editor\include\UIManager.h">
-      <Filter>include\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\FontManager.h">
       <Filter>include\Rendering</Filter>
     </ClInclude>
@@ -218,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="..\include\json.hpp">
       <Filter>include\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UIDebugConsole.h">
+      <Filter>include\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UIManager.h">
+      <Filter>include\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,14 +323,17 @@
     <ClCompile Include="..\src\ComponentFactory.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Editor\src\UIManager.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\FontManager.cpp">
       <Filter>src\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ShaderManager.cpp">
       <Filter>src\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UIDebugConsole.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UIManager.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
