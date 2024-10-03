@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ImageLoader.h"
 #include "LevelManager.h"
 #include "File.h"
+#include "Bounding.h"
 #include <Windows.h>
 #include "Color.h"
 #include <random>
@@ -337,7 +338,8 @@ void UIManager::ShowInspector() {
 
         // Access TransformComponent
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-
+        BoundingBox* boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(selectedEntityID);
+       
         if (transform) {
             // Display sliders for position, scale, and rotation (angle)
             ImGui::Text("Transform");
@@ -350,6 +352,15 @@ void UIManager::ShowInspector() {
 
             // Scale
             ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
+
+            if (boxCollider != nullptr)
+            {
+                boxCollider->setRotation(transform->angle);
+                boxCollider->setSize(transform->scale);
+            }
+            
+
+            
 
             // Buttons for reset actions
             if (ImGui::Button("Reset Position")) {
