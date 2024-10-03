@@ -109,8 +109,12 @@ void WindowManager::Exit() {
 void WindowManager::error_cb(int error, char const* description) {
 #ifdef _DEBUG
     std::cerr << "GLFW error: " << description << ", " << error << std::endl;
+#else
+    (void)error;        // Avoid unused parameter warning
+    (void)description;  // Avoid unused parameter warning
 #endif
 }
+
 
 /// <summary>
 /// Framebuffer size callback function that updates the window's width and height when the window is resized.
