@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*
+\file:      AssetManager.cpp
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
+\par:	    yankai.tan@digipen.edu
+
+
+\brief:     Contains the definitions that are used to manage the assets
+
+ Copyright (C) 2024 DigiPen Institute of Technology.
+ Reproduction or disclosure of this file or its contents without the prior
+ written consent of DigiPen Institute of Technology is prohibited.
+* /
+/******************************************************************************/
+
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"

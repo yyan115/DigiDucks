@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*
 \file:      Serialization.cpp
-\authors:	Tan Yan Kai
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
 \par:	    yankai.tan@digipen.edu
  
 
@@ -18,6 +18,12 @@
 json Serialization::jsonData;
 WindowInit Serialization::windowInit;
 
+/****************************************************************
+* @brief Open and read json file data for windows initialization
+*
+* @param filepath - path to json file
+*
+***************************************************************/
 void Serialization::InitJson(const std::string& filePath)
 {
     std::ifstream file(filePath);
@@ -35,6 +41,13 @@ void Serialization::InitJson(const std::string& filePath)
     windowInit.height = jsonData.value("height", 600);
 }
 
+/****************************************************************
+* @brief Load json file and read data in json file
+*
+* @param filePath - path to json file
+*
+* @return data in json file
+***************************************************************/
 json Serialization::LoadJsonFile(const std::string& filePath)
 {
     json data;
@@ -51,6 +64,19 @@ json Serialization::LoadJsonFile(const std::string& filePath)
     return data;
 }
 
+/****************************************************************
+* @brief Overloaded operator + to add two matrices
+*
+* @param j - json library
+*
+* @param key - keyword from json file
+*
+* @param defaultValue - default value if json file does not contain any value
+*
+* @return Vec2(x,y)
+*
+* @return defaultValue
+***************************************************************/
 Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& defaultValue)
 {
     if (j.contains(key))
@@ -62,6 +88,11 @@ Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& d
     return defaultValue;
 }
 
+/****************************************************************
+* @brief Get windows initialization data
+*
+* @return windowInit
+***************************************************************/
 WindowInit Serialization::GetWindowInit()
 {
     return windowInit;

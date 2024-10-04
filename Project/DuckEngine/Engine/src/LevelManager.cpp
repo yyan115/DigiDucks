@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*
+\file:      LevelManager.cpp
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
+\par:	    yankai.tan@digipen.edu
+
+
+\brief:     Contains the definitions that are used to load the level
+
+ Copyright (C) 2024 DigiPen Institute of Technology.
+ Reproduction or disclosure of this file or its contents without the prior
+ written consent of DigiPen Institute of Technology is prohibited.
+* /
+/******************************************************************************/
+
 #include "LevelManager.h"
 #include "Serialization.h"
 #include "DuckEngine.h"
@@ -71,6 +86,12 @@ void LevelManager::LoadLevel(const std::string& levelFile)
     }
 }
 
+/****************************************************************
+* @brief Load level using data from json file
+*
+* @param levelFile - json file containing data for the level
+*
+***************************************************************/
 std::string OpenFileDialog() {
     wchar_t fileName[260] = L"";
 
@@ -94,6 +115,10 @@ std::string OpenFileDialog() {
     return "";
 }
 
+/****************************************************************
+* @brief Open Level Dialog
+*
+***************************************************************/
 void LevelManager::OpenLevelDialog()
 {
     std::string levelFile = OpenFileDialog();

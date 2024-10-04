@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*
 \file:		Serialization.h
-\authors:	Tan Yan Kai
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
 \par:		yankai.tan@digipen.edu
 
 
@@ -49,44 +49,10 @@ class Serialization {
 
 public:
 
-/****************************************************************
-* @brief Open and read json file data for windows initialization
-*
-* @param filepath - path to json file
-*
-***************************************************************/
-static void InitJson(const std::string& filePath);
-
-/****************************************************************
-* @brief Load json file and read data in json file
-*
-* @param filePath - path to json file
-*
-* @return data in json file
-***************************************************************/
-static json LoadJsonFile(const std::string& filePath);
-
-/****************************************************************
-* @brief Overloaded operator + to add two matrices
-*
-* @param j - json library
-*
-* @param key - keyword from json file
-*
-* @param defaultValue - default value if json file does not contain any value
-*
-* @return Vec2(x,y)
-*
-* @return defaultValue
-***************************************************************/
-static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
-
-/****************************************************************
-* @brief Get windows initialization data
-*
-* @return windowInit
-***************************************************************/
-static WindowInit GetWindowInit();
+	static void InitJson(const std::string& filePath);
+	static json LoadJsonFile(const std::string& filePath);
+	static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
+	static WindowInit GetWindowInit();
 
 private:
 	static json jsonData;

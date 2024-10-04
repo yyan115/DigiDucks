@@ -1,7 +1,7 @@
 /******************************************************************************/
 /*
 \file:		File.cpp
-\authors:	Tan Yan Kai
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
 \par:		yankai.tan@digipen.edu
 
 
