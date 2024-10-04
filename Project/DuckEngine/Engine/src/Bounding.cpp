@@ -68,7 +68,7 @@ namespace {
     * @return A new `Vec2` representing the rotated vector
     ****************************************************************/
     Vec2 rotateVector(const Vec2& vec, float angle) {
-        float radian = angle * M_PI / 180.f;
+        float radian = static_cast<float>(angle * M_PI / 180.f);
         float s = sin(radian);
         float c = cos(radian);
 

@@ -198,7 +198,7 @@ void UIManager::Render() {
     RenderImGuiWindows(1.f, 0.25f, 0.0f, 0.75f);
     ShowExplorer();
 
-    RenderImGuiWindows(0.2f, 0.36f, 0.0f, 0.25f);
+    RenderImGuiWindows(0.2f, 0.35f, 0.0f, 0.25f);
     ShowEntitySpawn();
 
     // Render ImGui on top of the scene
@@ -334,7 +334,7 @@ void UIManager::ShowExplorer() {
 void UIManager::ShowInspector() {
     if (windowStates[WindowType::Inspector] && selectedEntityID != -1) {
         RenderImGuiWindows(0.21f, 0.16f, 0.0f, 0.6f);
-        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
         // Access TransformComponent
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
@@ -386,36 +386,59 @@ void UIManager::ShowInspector() {
 
 
 void UIManager::ShowEntitySpawn() {
-    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Get all entities
     std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
     // Iterate through entities and create buttons for each one
     for (size_t i = 0; i < entities.size(); ++i) {
-
         if (entities[i].entityID == 0) {
-		    continue; 
-		}
+            continue;
+        }
 
-        // Create a unique label for each button based on the entity ID or name
-        std::string entityLabel = "Gameobject " + std::to_string(entities[i].entityID);
-        if (!entities[i].name.empty())
-        {
+        // Create a unique label for each button
+        std::string entityLabel = "GameObject " + std::to_string(entities[i].entityID);
+        if (!entities[i].name.empty()) {
             entityLabel = entities[i].name;
+        }
+
+        // Check if this entity is selected
+        if (selectedEntityID == entities[i].entityID) {
+            // Highlight the selected entity button
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
+        }
+        else {
+            // For unselected entities
+            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_Button));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::GetStyleColorVec4(ImGuiCol_ButtonHovered));
+            ImGui::PushStyleColor(ImGuiCol_Text, ImGui::GetStyleColorVec4(ImGuiCol_Text));
         }
 
         // Create a button for each entity
         if (ImGui::Button(entityLabel.c_str())) {
-            selectedEntityID = entities[i].entityID;
-            windowStates[WindowType::Inspector] = !windowStates[WindowType::Inspector];
+            if (selectedEntityID == entities[i].entityID) {
+                // Deselect the entity if it is clicked again
+                selectedEntityID = -1;
+                windowStates[WindowType::Inspector] = false; // Hide Inspector window
+            }
+            else {
+                // Select the entity
+                selectedEntityID = entities[i].entityID;
+                windowStates[WindowType::Inspector] = true;  // Show Inspector window
+            }
         }
 
+        ImGui::PopStyleColor(3);
         ImGui::Spacing();
     }
 
     ImGui::End();
 }
+
+
 
 
 void UIManager::RenderWindows() {
