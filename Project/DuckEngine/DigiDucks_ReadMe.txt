@@ -1,7 +1,7 @@
 Game Concept:
+Quack Kitchen is a 2D top-down cooking-simulation game where players play as a duck who is managing a restaurant for the first time.
 
 Demo Input:
-
 Press W A S D to move the player around
 Press P to turn on/off ImGui Windows
 
