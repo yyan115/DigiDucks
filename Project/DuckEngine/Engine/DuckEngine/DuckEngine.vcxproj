@@ -90,7 +90,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;DUCKENGINE_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;BUILD_DLL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;$(SolutionDir)/Engine/include/ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -103,7 +103,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Engine/lib/FMOD/api/core/lib;%(AdditionalLibraryDirectories);$(SolutionDir)/Engine/lib/freetype/release_static/vs2015-2022/win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmod_vc.lib;Release\ImGui.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmod_vc.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

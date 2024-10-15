@@ -47,7 +47,7 @@ EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
-bool DuckEngine::ToggleEditor = false;
+bool isEditor = false;
 //TextRenderingSystem textRenderingSystem;
 
 /************************************************************************
@@ -55,7 +55,9 @@ bool DuckEngine::ToggleEditor = false;
        camera, and font managers. It also loads prefabs and adds systems
        such as sprite rendering and collision systems to the SystemManager.
 *************************************************************************/
-void DuckEngine::Initialize() {
+void DuckEngine::Initialize(bool _isEditor) 
+{
+    isEditor = _isEditor;
     // need to grab width and height from XML for rubrics in the future
     // Init Window, then Graphics, then Input
     Serialization::InitJson("../Resources/windows_init.json");
@@ -101,8 +103,7 @@ void DuckEngine::Initialize() {
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-    assert(!ToggleEditor && "Editor has already been initialized!");
-    UIManager::Initialize();
+    if (isEditor) { UIManager::Initialize(); }
     SoundManager::GetInstance().Initialize();
 }
 
@@ -193,7 +194,7 @@ void DuckEngine::Draw()
     TimeManager::EndSystemTimer("GraphicsManager");
 
     TimeManager::StartSystemTimer();
-    UIManager::Render();
+    if (isEditor) { UIManager::Render(); }
     TimeManager::EndSystemTimer("UIManager");
 
     TimeManager::StartSystemTimer();
@@ -217,7 +218,7 @@ void DuckEngine::EndDraw()
 *************************************************************************/
 void DuckEngine::Exit() 
 { 
-    UIManager::Exit();
+    if (isEditor) { UIManager::Exit(); }
     SoundManager::GetInstance().Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();

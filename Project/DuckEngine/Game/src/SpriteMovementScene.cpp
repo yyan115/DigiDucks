@@ -159,11 +159,6 @@ void SpriteMovementScene::Update()
 		std::cout << "Y is released!\n";
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_P))
-	{
-		DuckEngine::ToggleEditor = !DuckEngine::ToggleEditor;
-	}
-
 	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
 	{
 		playerAnimator->PlayAnimation("IdleAnimation");

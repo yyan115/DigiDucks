@@ -14,7 +14,7 @@ int main(void)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    engine.Initialize();
+    engine.Initialize(true);
 
     DuckEngine::SetCameraHeight(20);
     DuckEngine::DUCKENGINE_LevelManager.LoadLevel("../Resources/SpriteMovementScene.json");

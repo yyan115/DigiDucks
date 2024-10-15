@@ -56,7 +56,7 @@ public:
     @brief Initializes the DuckEngine, setting up necessary systems and
            resources for the game to run.
     *************************************************************************/
-    void DUCKENGINE_API Initialize();
+    void DUCKENGINE_API Initialize(bool _isEditor = false);
 
     /************************************************************************
     @brief Updates the game engine by processing input, updating systems,

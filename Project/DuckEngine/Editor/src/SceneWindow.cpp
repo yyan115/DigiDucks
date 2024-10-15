@@ -14,11 +14,11 @@ void SceneWindow::RenderSceneWindow(int width, int height)
 
         if (isPlaying) 
         {
-            //GameManager::StartGame();  // Start the game
+            //StartGame();  // Start the game
         }
         else 
         {
-            //GameManager::StopGame();   // Stop the game
+            //StopGame();   // Stop the game
         }
     }
 
