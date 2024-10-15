@@ -42,6 +42,10 @@ GLuint GraphicsManager::circleVAO;
 int GraphicsManager::circleSegments;
 Color GraphicsManager::backgroundColor;
 
+GLuint GraphicsManager::fbo = 0;
+GLuint GraphicsManager::fboTexture = 0;
+GLuint GraphicsManager::depthStencil = 0;
+
 std::vector<DebugDrawCommand> GraphicsManager::debugDrawQueue;
 
 /// <summary>
@@ -104,6 +108,8 @@ void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
 /// Handles both textured and color-based rendering, setting up necessary OpenGL states.
 /// </summary>
 void GraphicsManager::Render() {
+
+    BindFBO();
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -194,6 +200,8 @@ void GraphicsManager::Render() {
     glUseProgram(0);
 
     drawQueue.clear();
+
+    UnbindFBO();
 }
 
 /// <summary>
@@ -829,4 +837,66 @@ namespace {
                     glm::vec3(0, 0, 1.f)
         };
     }
+}
+
+bool GraphicsManager::InitializeFBO(int width, int height)
+{
+    std::cout << "Initializing FBO...\n";
+
+    // Generate the FBO
+    glGenFramebuffers(1, &fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+    std::cout << "Generated FBO: " << fbo << "\n";
+
+    // Generate the texture to render to
+    glGenTextures(1, &fboTexture);
+    glBindTexture(GL_TEXTURE_2D, fboTexture);
+    std::cout << "Generated FBO Texture: " << fboTexture << "\n";
+
+    // Allocate texture storage
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+    // Set texture parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    // Attach the texture to the FBO
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTexture, 0);
+
+    // Create and attach depth/stencil buffer
+    glGenRenderbuffers(1, &depthStencil);
+    glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
+
+    // Check if the FBO is complete
+    GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (fboStatus != GL_FRAMEBUFFER_COMPLETE) {
+        std::cout << "FBO initialization failed! Status: " << fboStatus << std::endl;
+        return false;
+    }
+
+    std::cout << "FBO initialization complete!\n";
+
+    // Unbind the FBO (switch back to the default framebuffer)
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    return true;
+}
+
+
+void GraphicsManager::BindFBO() 
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+}
+
+void GraphicsManager::UnbindFBO() 
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+GLuint GraphicsManager::GetFBOTexture() 
+{
+    return fboTexture;
 }

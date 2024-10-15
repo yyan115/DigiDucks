@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_glfw.h"
+#include "GraphicsManager.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Sound.h"
 #include "UIManager.h"
@@ -155,14 +156,20 @@ void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float 
     ImGui::SetNextWindowPos(ImVec2(windowWidth * PosX, windowHeight * PosY)); // Set position
 }
 
-void UIManager::Render() {
+void UIManager::StartRender()
+{
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+}
+
+void UIManager::Render() {
 
     // example window
     //ImGui::ShowDemoWindow();    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
     RenderImGuiWindows(0.25f, 0.25f, 0.0f, 20.0f);
     // Main menu bar
@@ -192,6 +199,23 @@ void UIManager::Render() {
         ImGui::EndMainMenuBar();
     }
 
+    //ImGui::Begin("Scene Window");
+
+    //// Fetch FBO texture
+    //GLuint fboTexture = GraphicsManager::GetFBOTexture();
+    //if (fboTexture == 0) {
+    //    std::cerr << "Invalid FBO texture" << std::endl;
+    //}
+
+    //// Display the texture in the ImGui window
+    //ImVec2 windowSize = ImGui::GetContentRegionAvail();
+    //ImGui::Image((void*)(intptr_t)fboTexture, windowSize);
+
+
+
+
+    //ImGui::End();
+
     // Rendering stats
     RenderWindows();
 
@@ -200,8 +224,10 @@ void UIManager::Render() {
 
     RenderImGuiWindows(0.2f, 0.35f, 0.0f, 0.25f);
     ShowEntitySpawn();
+}
 
-    // Render ImGui on top of the scene
+DUCKENGINE_API void UIManager::EndRender()
+{
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

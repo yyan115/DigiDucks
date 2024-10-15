@@ -50,6 +50,7 @@ public:
     static DUCKENGINE_API AssetManager DUCKENGINE_AssetManager;
     static DUCKENGINE_API EntityFactory DUCKENGINE_EntityFactory;
     static DUCKENGINE_API PrefabManager DUCKENGINE_PrefabManager;
+    static DUCKENGINE_API LevelManager DUCKENGINE_LevelManager;
 
     /************************************************************************
     @brief Initializes the DuckEngine, setting up necessary systems and
@@ -72,6 +73,9 @@ public:
     @brief Executes the drawing commands to render the current game frame.
     *************************************************************************/
     void DUCKENGINE_API Draw();
+
+    void DUCKENGINE_API StartImguiRender();
+    void DUCKENGINE_API EndImguiRender();
 
     /************************************************************************
     @brief Ends the rendering process for the current frame and displays the result.

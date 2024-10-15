@@ -131,7 +131,8 @@
       <ProgramDatabaseFile>$(SolutionDir)Build\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

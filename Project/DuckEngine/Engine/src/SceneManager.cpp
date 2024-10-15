@@ -10,7 +10,8 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
     scenes[name] = scene;
 }
 
-void SceneManager::SetActiveScene(const std::string& name) {
+void SceneManager::SetActiveScene(const std::string& name) 
+{
     // If the requested scene is already active, don't reload it
     if (activeScene && scenes[name] == activeScene) {
         return;  // Scene is already active, do nothing

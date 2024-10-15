@@ -45,6 +45,7 @@ SceneManager DuckEngine::DUCKENGINE_SceneManager;
 AssetManager DuckEngine::DUCKENGINE_AssetManager;
 EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
+LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
 bool DuckEngine::ToggleEditor = false;
 //TextRenderingSystem textRenderingSystem;
@@ -59,7 +60,7 @@ void DuckEngine::Initialize() {
     // Init Window, then Graphics, then Input
     Serialization::InitJson("../Resources/windows_init.json");
     WindowInit window = Serialization::GetWindowInit();
-    WindowManager::Initialize(window.width, window.height, window.title.c_str());
+    WindowManager::Initialize(1600, 900, "HEHE");
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
@@ -101,7 +102,7 @@ void DuckEngine::Initialize() {
     DUCKENGINE_SystemManager.StartAll();
 
     assert(!ToggleEditor && "Editor has already been initialized!");
-    if (!ToggleEditor) { UIManager::Initialize(); ToggleEditor = true; }    
+    UIManager::Initialize();
     SoundManager::GetInstance().Initialize();
 }
 
@@ -168,6 +169,16 @@ void DuckEngine::StartDraw()
     }
 }
 
+void DuckEngine::StartImguiRender()
+{
+    UIManager::StartRender();
+}
+
+void DuckEngine::EndImguiRender()
+{
+    UIManager::EndRender();
+}
+
 /************************************************************************
 @brief Executes the rendering of the game, including rendering the graphics,
        debug elements, and the UI if the editor mode is enabled.
@@ -182,7 +193,7 @@ void DuckEngine::Draw()
     TimeManager::EndSystemTimer("GraphicsManager");
 
     TimeManager::StartSystemTimer();
-    if (ToggleEditor) UIManager::Render();
+    UIManager::Render();
     TimeManager::EndSystemTimer("UIManager");
 
     TimeManager::StartSystemTimer();

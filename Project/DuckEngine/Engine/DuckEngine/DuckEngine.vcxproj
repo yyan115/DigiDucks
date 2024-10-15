@@ -61,9 +61,9 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;BUILD_DLL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;$(SolutionDir)/Engine/include/ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -71,15 +71,17 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew/;$(SolutionDir)/Editor/lib/imgui/;$(SolutionDir)Engine\lib\FMOD\api\core\lib;%(AdditionalLibraryDirectories);$(SolutionDir)/Engine/lib/freetype/release_static/vs2015-2022/win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;Debug\ImGui.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew/;$(SolutionDir)Engine\lib\FMOD\api\core\lib;%(AdditionalLibraryDirectories);$(SolutionDir)/Engine/lib/freetype/release_static/vs2015-2022/win64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
+copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
+xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -90,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;DUCKENGINE_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;$(SolutionDir)/Engine/include/ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -133,6 +135,16 @@
     <ClInclude Include="..\include\FontManager.h" />
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
+    <ClInclude Include="..\include\imgui\imconfig.h" />
+    <ClInclude Include="..\include\imgui\imgui.h" />
+    <ClInclude Include="..\include\imgui\imgui_freetype.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="..\include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="..\include\imgui\imgui_internal.h" />
+    <ClInclude Include="..\include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\include\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\include\imgui\imstb_truetype.h" />
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\json.hpp" />
     <ClInclude Include="..\include\LevelManager.h" />
@@ -177,6 +189,14 @@
     <ClCompile Include="..\src\FontManager.cpp" />
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
+    <ClCompile Include="..\src\imgui\imgui.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_freetype.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
     <ClCompile Include="..\src\LevelManager.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
@@ -202,11 +222,6 @@
     <None Include="..\..\Game\Resources\Shaders\gameFragShader.frag" />
     <None Include="..\..\Game\Resources\Shaders\gameVertShader.vert" />
     <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Editor\ImGui\ImGui.vcxproj">
-      <Project>{06ee6f8e-6e75-4384-a420-f9f06694ecaa}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

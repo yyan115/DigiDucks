@@ -63,6 +63,12 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
             auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
             spriteRenderer->texture = texture;
             DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, *spriteRenderer);
+        
+            AnimatorComponent* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity->entityID);
+            if (animator && animator->currentAnimation) {
+                // If the AnimatorComponent is present and it has a current animation, use the first frame
+                texture = animator->currentAnimation->Frames[0];
+            }
         }
         // BoundingBox
         else if (componentType == "BoundingBox")
@@ -96,7 +102,7 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
         else if (componentType == "AnimatorComponent")
         {
             auto animator = std::make_shared<AnimatorComponent>();
-
+            std::vector<std::shared_ptr<Texture>> textures;
             if (componentData["properties"].contains("animations"))
             {
                 for (const auto& animData : componentData["properties"]["animations"])
@@ -105,11 +111,11 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
                     std::string textureResource = animData["texture"];
                     float frameDuration = animData["frameDuration"];
 
-                    std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str());
+                    textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str());
+
                     animator->AddAnimation(animName, textures, frameDuration);
                 }
             }
-
             // Add the AnimatorComponent to the entity
             DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entity->entityID, *animator);
         }

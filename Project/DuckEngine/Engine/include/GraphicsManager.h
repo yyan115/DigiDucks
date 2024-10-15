@@ -32,6 +32,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 #undef APIENTRY
 #endif
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 /// <summary>
 /// The GraphicsManager class is responsible for managing all graphics rendering for game objects, including the 
 /// drawing of points, lines, circles, etc, for debugging graphics. It maintains render queues and manages the
@@ -80,6 +86,18 @@ public:
     /// <param name="b">Blue component of the background color (0-255).</param>
     /// <param name="a">Alpha component of the background color (0-255).</param>
     static void SetBackgroundColor(float r, float g, float b, float a);
+
+    // Method to initialize the FBO
+    DUCKENGINE_API static bool InitializeFBO(int width, int height);
+
+    // Method to bind the FBO for offscreen rendering
+    static void BindFBO();
+
+    // Method to unbind the FBO (return to default framebuffer)
+    static void UnbindFBO();
+
+    // Get the texture from FBO
+    DUCKENGINE_API static GLuint GetFBOTexture();
 
 private:
     /// <summary>
@@ -168,4 +186,8 @@ private:
     static GLuint circleVAO;
 
     static int circleSegments;
+
+    static GLuint fbo;
+    static GLuint fboTexture;
+    static GLuint depthStencil;
 };

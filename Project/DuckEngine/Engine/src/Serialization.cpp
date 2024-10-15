@@ -27,9 +27,10 @@ WindowInit Serialization::windowInit;
 void Serialization::InitJson(const std::string& filePath)
 {
     std::ifstream file(filePath);
+    std::cout << filePath << std::endl;
     if (!file.is_open())
     {
-        std::cerr << "Could not open the file!" << std::endl;
+        std::cerr << "Could not open the file:" << std::endl;  // Print the full file path
         return;
     }
     file >> jsonData;

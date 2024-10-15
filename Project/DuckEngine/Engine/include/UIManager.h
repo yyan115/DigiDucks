@@ -13,6 +13,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 class UIManager {
 public:
     /****************************************************************
@@ -27,7 +33,9 @@ public:
     *
     * @return void
     ***************************************************************/
+    DUCKENGINE_API static void StartRender();
     static void Render();
+    DUCKENGINE_API static void EndRender();
 
     /****************************************************************
     * @brief Cleans up ImGui resources and destroys the context
