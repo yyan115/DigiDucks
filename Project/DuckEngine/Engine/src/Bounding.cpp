@@ -60,7 +60,7 @@ namespace {
     *
     * This function rotates a 2D vector (`vec`) counterclockwise by a
     * specified angle (`angle`) using the standard 2D rotation matrix.
-    * The angle is in radians.
+    * The angle is in Degrees.
     *
     * @param vec The vector to be rotated as a `Vec2`
     * @param angle The angle in radians to rotate the vector
@@ -279,6 +279,7 @@ namespace {
         if (projection > max) {
             max = projection;
         }
+        return;
     }
 }
 
@@ -300,7 +301,7 @@ namespace {
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel, Vec2 box_vel) {
+bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel, const Vec2& box_vel) {
 
     // Calculate next position of box
     Vec2 topRight = box.getTopR() + box_vel * deltaTime;
@@ -311,25 +312,25 @@ bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime,
     // Calculate next position of circle
     Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
 
-    // Dynamic collision check
-    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight) ||
-        checkCollisionCL(circle, nextPos, btmRight, topRight) ||
-        checkCollisionCL(circle, nextPos, topRight, topLeft) ||
-        checkCollisionCL(circle, nextPos, topLeft, btmLeft)) {
+    // Dynamic collision check    
+    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
+        checkCollisionCL(circle, nextPos, btmRight, topRight, interceptPt) ||
+        checkCollisionCL(circle, nextPos, topRight, topLeft, interceptPt) ||
+        checkCollisionCL(circle, nextPos, topLeft, btmLeft, interceptPt)) {
 
         // Pass the colliding entities to the callbacks
-        if (circle.onCollisionCallback) 
+        if (circle.onCollisionCallback)
         {
             circle.onCollisionCallback(nullptr);
         }
-        if (box.onCollisionCallback) 
+        if (box.onCollisionCallback)
         {
             box.onCollisionCallback(nullptr);
         }
 
         return true;
     }
-    
+
     return false;  // No collision
 }
 
@@ -349,7 +350,7 @@ bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime,
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel, Vec2 cir_vel) {
+bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel, const Vec2& cir_vel) {
 
     // Calculate next position of box
     Vec2 topRight = box.getTopR() + box_vel * deltaTime;
@@ -361,10 +362,21 @@ bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime,
     Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
 
     // Dynamic collision check
-    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight) ||
-		checkCollisionCL(circle, nextPos, btmRight, topRight) ||
-		checkCollisionCL(circle, nextPos, topRight, topLeft) ||
-		checkCollisionCL(circle, nextPos, topLeft, btmLeft)) {
+    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
+		checkCollisionCL(circle, nextPos, btmRight, topRight, interceptPt) ||
+		checkCollisionCL(circle, nextPos, topRight, topLeft, interceptPt) ||
+		checkCollisionCL(circle, nextPos, topLeft, btmLeft, interceptPt)) {
+
+        // Pass the colliding entities to the callbacks
+        if (circle.onCollisionCallback)
+        {
+            circle.onCollisionCallback(nullptr);
+        }
+        if (box.onCollisionCallback)
+        {
+            box.onCollisionCallback(nullptr);
+        }
+
 		return true;
 	}
 
@@ -387,7 +399,7 @@ bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime,
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1, Vec2 vel2) {
+bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
     // Calculate Next Position
     Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
     Vec2 nextTR1 = box1.getTopR() + vel1 * deltaTime;
@@ -442,14 +454,15 @@ bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec
     }
 
     // No separating axis found, collision detected
-    if (box1.onCollisionCallback) 
+    if (box1.onCollisionCallback)
     {
         box1.onCollisionCallback(nullptr);
     }
-    if (box2.onCollisionCallback) 
+    if (box2.onCollisionCallback)
     {
-        box2.onCollisionCallback(nullptr); 
+        box2.onCollisionCallback(nullptr);
     }
+
     return true;
 }
 
@@ -470,7 +483,7 @@ bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float deltaTime, Vec2 vel1, Vec2 vel2) {
+bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
     //// Calculate Next Position
     //Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
     //Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
@@ -485,9 +498,9 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 
 
     // Calculate relative velocity
-	Vec2 relVel = vel1 - vel2;
+    Vec2 relVel = vel1 - vel2;
 
-	// Calculate distance between the two circles
+    // Calculate distance between the two circles
     Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
 
     float combineRadii = circle.getRadius() + circle2.getRadius();
@@ -506,22 +519,22 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
         float discriminant = b * b - 4 * a * c;
 
         if ((discriminant < 0) || (a == 0)) {
-			return false;  // No collision
-		}
+            return false;  // No collision
+        }
 
         // Find 2 possible collision
-		float t0 = (-b - sqrt(discriminant)) / (2 * a);
+        float t0 = (-b - sqrt(discriminant)) / (2 * a);
         float t1 = (-b + sqrt(discriminant)) / (2 * a);
 
         float t = t0 < t1 ? t0 : t1;
 
-        if (t >= 0.f && t <= deltaTime) 
+        if (t >= 0.f && t <= deltaTime)
         {
-            if (circle.onCollisionCallback) 
+            if (circle.onCollisionCallback)
             {
-                circle.onCollisionCallback(nullptr);  
+                circle.onCollisionCallback(nullptr);
             }
-            if (circle2.onCollisionCallback) 
+            if (circle2.onCollisionCallback)
             {
                 circle2.onCollisionCallback(nullptr);
             }
@@ -529,7 +542,7 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
         }
     }
 
-	return false;
+    return false;
 }
 
 // Cirlce - Line
@@ -547,14 +560,51 @@ bool checkCollisionCC(BoundingCircle& circle,BoundingCircle& circle2, float delt
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-bool checkCollisionCL(BoundingCircle& circle,const Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd) {
+bool checkCollisionCL(const BoundingCircle& circle,const Vec2& nextPos, const Vec2& lineStart, const Vec2& lineEnd, Vec2& interceptPt) {
 
     // Check closest Point to line from Next Position
     Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);
 
     if ((closestPt - nextPos).lengthSquared() <= circle.getRadius() * circle.getRadius()) {
+        interceptPt = closestPt;
         return true;
     }
 
     return false; // No collision
+}
+
+
+// Calculate and adjust the new velocity with intersection point
+/****************************************************************
+* @brief Calculate the new velocity of a moving object
+*
+* This function calculates the new velocity of a moving object
+* after a collision with a stationary object, using the intersection
+* point of the two objects.
+*
+* @param curPos The current position of the moving object
+* @param curVel The current velocity of the moving object
+* @param interceptPt The intersection point of the two objects
+* @param deltaTime The time step for calculating the new velocity
+* ***************************************************************/
+void calculateNewVelocity(const Vec2& curPos, Vec2& curVel, const Vec2& interceptPt,const float& radius, const float& deltaTime) {
+    // Get direction from current position to intersection point
+    Vec2 dir = interceptPt - curPos;
+
+    // Get the length of the direction vector
+    float dist = dir.length();
+
+    // Calculate distance from intercept with radius
+    float distFmIntcpt = dist - radius;
+
+    if (distFmIntcpt <= 0.0f) {
+        curVel = Vec2(0.0f, 0.0f);
+        return;
+    }
+
+    // Calculate the time taken to reach the intersection point
+    float time = distFmIntcpt / (curVel.length() * deltaTime);
+
+    // Calculate the new velocity
+    curVel *= time;
 }

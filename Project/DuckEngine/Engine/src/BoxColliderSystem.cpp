@@ -32,6 +32,8 @@ void BoxColliderSystem::Start()
 ****************************************************************/
 void BoxColliderSystem::Update() {
 	float deltaTime = DuckEngine::DeltaTime();
+	Vec2 intercepPt;
+
 	// Find player's box collider
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 	{
@@ -102,13 +104,13 @@ void BoxColliderSystem::Update() {
 							if (!circleTrans) continue;
 
 							if (!circleRb) {
-								if (checkCollisionBC(*box2, *circle, deltaTime, boxRb2->velocity)) {
+								if (checkCollisionBC(*box2, *circle, intercepPt, deltaTime, boxRb2->velocity)) {
 									boxRb->velocity = Vec2(0.0f, 0.0f);
 									boxRb2->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
 							else {
-								if (checkCollisionBC(*box2, *circle, deltaTime, boxRb2->velocity, circleRb->velocity)) {
+								if (checkCollisionBC(*box2, *circle, intercepPt, deltaTime, boxRb2->velocity, circleRb->velocity)) {
 									if (circleRb->isStatic) {
 										boxRb->velocity = Vec2(0.0f, 0.0f);
 										boxRb2->velocity = Vec2(0.0f, 0.0f);
@@ -153,12 +155,12 @@ void BoxColliderSystem::Update() {
 			if(!circleTrans) continue;
 
 			if (!circleRb) {
-				if (checkCollisionBC(*box, *circle, deltaTime, boxRb->velocity)) {
+				if (checkCollisionBC(*box, *circle, intercepPt, deltaTime, boxRb->velocity)) {
 					boxRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
 			else {
-				if (checkCollisionBC(*box, *circle, deltaTime, boxRb->velocity, circleRb->velocity)) {
+				if (checkCollisionBC(*box, *circle, intercepPt, deltaTime, boxRb->velocity, circleRb->velocity)) {
 					if (circleRb->isStatic) {
 						boxRb->velocity = Vec2(0.0f, 0.0f);
 					}

@@ -32,6 +32,8 @@ void CircleColliderSystem::Start()
  ****************************************************************/
 void CircleColliderSystem::Update() {
 	float deltaTime = DuckEngine::DeltaTime();
+	Vec2 interceptPoint;
+
 	// Find player's circle collider
 	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 	{
@@ -102,13 +104,13 @@ void CircleColliderSystem::Update() {
 							RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 							if (!boxRb) {	// One of the box is moving
-								if (checkCollisionCB(*circle2, *box, deltaTime, circle2Rb->velocity)) {
+								if (checkCollisionCB(*circle2, *box, interceptPoint, deltaTime, circle2Rb->velocity)) {
 									circle2Rb->velocity = Vec2(0.0f, 0.0f);
 									circleRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
 							else {
-								if (checkCollisionCB(*circle2, *box, deltaTime, circle2Rb->velocity, boxRb->velocity)) {
+								if (checkCollisionCB(*circle2, *box, interceptPoint, deltaTime, circle2Rb->velocity, boxRb->velocity)) {
 									// If there is a collision
 									if (boxRb->isStatic) {	// If the box is static
 										circle2Rb->velocity = Vec2(0.0f, 0.0f);
@@ -153,14 +155,15 @@ void CircleColliderSystem::Update() {
 			// Ensure the entity has both BoundingBox and RigidbodyComponent
 			if(!boxTrans) continue;
 
+
 			// Check collision
 			if (!boxRb) {
-				if (checkCollisionCB(*circle, *box, deltaTime, circleRb->velocity)) {
-					circleRb->velocity = Vec2(0.0f, 0.0f);
+				if (checkCollisionCB(*circle, *box, interceptPoint, deltaTime, circleRb->velocity)) {
+					calculateNewVelocity(circle->getCenter(), circleRb->velocity, interceptPoint, circle->getRadius(), deltaTime);
 				}
 			}
 			else{
-				if (checkCollisionCB(*circle, *box, deltaTime, circleRb->velocity, boxRb->velocity)) {
+				if (checkCollisionCB(*circle, *box, interceptPoint,  deltaTime, circleRb->velocity, boxRb->velocity)) {
 					// If there is a collision
 					if (boxRb->isStatic) {	// If the box is static
 						circleRb->velocity = Vec2(0.0f, 0.0f);
@@ -222,7 +225,7 @@ void CircleColliderSystem::Update() {
 					}
 				}
 			}
-		}		
+		}
 		// Update Collider's position based on velocity
 		circle->setCenter(circleTrans->position);
 	}

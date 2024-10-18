@@ -365,7 +365,7 @@ public:
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, float deltaTime, Vec2 cir_vel = Vec2{ 0,0 }, Vec2 box_vel = Vec2{ 0,0 });
+DUCKENGINE_API bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel = Vec2{ 0,0 }, const Vec2& box_vel = Vec2{ 0,0 });
 
 /****************************************************************
 * @brief Checks collision between a box and a circle
@@ -382,7 +382,7 @@ DUCKENGINE_API bool checkCollisionCB(BoundingCircle& circle, BoundingBox& box, f
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, float deltaTime, Vec2 box_vel = Vec2{ 0,0 }, Vec2 cir_vel = Vec2{ 0,0 });
+DUCKENGINE_API bool checkCollisionBC(const BoundingBox& box, const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel = Vec2{ 0,0 }, const Vec2& cir_vel = Vec2{ 0,0 });
 
 /****************************************************************
 * @brief Checks collision between two boxes
@@ -399,7 +399,7 @@ DUCKENGINE_API bool checkCollisionBC(BoundingBox& box, BoundingCircle& circle, f
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+DUCKENGINE_API bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Checks collision between two circles
@@ -417,7 +417,7 @@ DUCKENGINE_API bool checkCollisionBB(BoundingBox& box1, BoundingBox& box2, float
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCC(BoundingCircle& circle1, BoundingCircle& circle2, float deltaTime, Vec2 vel1 = Vec2(0.f, 0.f), Vec2 vel2 = Vec2(0.f, 0.f));
+DUCKENGINE_API bool checkCollisionCC(const BoundingCircle& circle1, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Checks collision between a circle and a line segment
@@ -433,4 +433,20 @@ DUCKENGINE_API bool checkCollisionCC(BoundingCircle& circle1, BoundingCircle& ci
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCL(BoundingCircle& circle,const Vec2& nextPos, Vec2 lineStart, Vec2 lineEnd);
+DUCKENGINE_API bool checkCollisionCL(const BoundingCircle& circle, const Vec2& nextPos, const Vec2& lineStart, const Vec2& lineEnd, Vec2& interceptPt);
+
+
+// Calculate and adjust the new velocity with intersection point
+/****************************************************************
+* @brief Calculate the new velocity of a moving object
+* 
+* This function calculates the new velocity of a moving object
+* after a collision with a stationary object, using the intersection
+* point of the two objects.
+* 
+* @param curPos The current position of the moving object
+* @param curVel The current velocity of the moving object
+* @param interceptPt The intersection point of the two objects
+* @param deltaTime The time step for calculating the new velocity
+* ***************************************************************/
+DUCKENGINE_API void calculateNewVelocity(const Vec2& curPos, Vec2& curVel, const Vec2& interceptPt, const float& radius, const float& deltaTime);
