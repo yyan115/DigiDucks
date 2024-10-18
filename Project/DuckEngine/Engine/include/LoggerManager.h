@@ -44,14 +44,14 @@ public:
     *
     * @return void
     ***************************************************************/
-    DetailedException(const std::string& message, const char* file, const char* func, int line);
+    DUCKENGINE_API DetailedException(const std::string& message, const char* file, const char* func, int line);
 
     /****************************************************************
     * @brief Returns the exception message
     *
     * @return The exception message 
     ***************************************************************/
-    const char* what() const noexcept override;
+    DUCKENGINE_API const char* what() const noexcept override;
 
     /****************************************************************
     * @brief Returns the file where the exception occurred
