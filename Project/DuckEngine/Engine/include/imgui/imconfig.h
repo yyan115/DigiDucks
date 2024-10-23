@@ -14,17 +14,6 @@
 
 #pragma once
 
-#ifdef _WIN32
-#ifdef BUILD_DLL
-#define IMGUI_API __declspec(dllexport)
-#else
-#define IMGUI_API __declspec(dllimport)
-#endif
-#else
-#define IMGUI_API
-#endif
-
-
 //---- Define assertion handler. Defaults to calling assert().
 // If your macro uses multiple statements, make sure is enclosed in a 'do { .. } while (0)' block so it can be used as a single statement.
 //#define IM_ASSERT(_EXPR)  MyAssert(_EXPR)

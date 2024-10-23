@@ -72,7 +72,7 @@ private:
     *
     * @return void
     ***************************************************************/
-    static void ShowEntitySpawn();
+    static void ShowHierarchy();
 
     /****************************************************************
     * @brief Renders visible windows based on their state

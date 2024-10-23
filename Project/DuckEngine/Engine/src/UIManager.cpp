@@ -64,6 +64,8 @@ void UIManager::Initialize() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGui::StyleColorsDark();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
     //Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
@@ -223,7 +225,7 @@ void UIManager::Render() {
     ShowExplorer();
 
     RenderImGuiWindows(0.2f, 0.35f, 0.0f, 0.25f);
-    ShowEntitySpawn();
+    ShowHierarchy();
 }
 
 DUCKENGINE_API void UIManager::EndRender()
@@ -410,7 +412,7 @@ void UIManager::ShowInspector() {
 }
 
 
-void UIManager::ShowEntitySpawn() {
+void UIManager::ShowHierarchy() {
     ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Get all entities

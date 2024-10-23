@@ -1,5 +1,6 @@
 #include "SceneWindow.h"
 #include "GraphicsManager.h"
+#include "imgui.h"
 
 bool isPlaying = false;
 
