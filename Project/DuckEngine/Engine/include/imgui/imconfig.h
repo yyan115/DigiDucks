@@ -23,10 +23,14 @@
 // Using Dear ImGui via a shared library is not recommended, because of function call overhead and because we don't guarantee backward nor forward ABI compatibility.
 // - Windows DLL users: heaps and globals are not shared across DLL boundaries! You will need to call SetCurrentContext() + SetAllocatorFunctions()
 //   for each static/DLL boundary you are calling from. Read "Context and Memory Allocators" section of imgui.cpp for more details.
-#ifdef BUILDING_IMGUI_DLL
-#define IMGUI_API __declspec(dllexport)  // Export when building DLL
+#ifdef _WIN32
+#ifdef BUILD_DLL
+#define IMGUI_API __declspec(dllexport)
 #else
-#define IMGUI_API __declspec(dllimport)  // Import when using the DLL
+#define IMGUI_API __declspec(dllimport)
+#endif
+#else
+#define IMGUI_API
 #endif
 //#define IMGUI_API __attribute__((visibility("default")))  // GCC/Clang: override visibility when set is hidden
 
