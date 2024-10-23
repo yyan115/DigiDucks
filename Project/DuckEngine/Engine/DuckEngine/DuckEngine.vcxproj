@@ -61,7 +61,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;BUILD_DLL</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;DUCKENGINE_EXPORTS;%(PreprocessorDefinitions);GLEW_STATIC;BUILD_DLL;BUILDING_IMGUI_DLL</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Editor/lib/imgui;$(SolutionDir)/Editor/include;$(SolutionDir)/Engine/lib/stb-image;$(SolutionDir)/Engine/lib/freetype/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;$(SolutionDir)/Engine/lib/nlohmannjson;$(SolutionDir)/Engine/include/ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
