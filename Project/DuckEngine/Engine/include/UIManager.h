@@ -122,6 +122,10 @@ private:
     static void RenderAudioAssets();
 
     static void RenderConsole();
+
+    static void CreateDockSpace();
+
+    static void ShowMenuBar();
 };
 
 

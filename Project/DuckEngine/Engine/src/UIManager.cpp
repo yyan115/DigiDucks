@@ -63,9 +63,12 @@ void UIManager::Initialize() {
     // ImGui initialization
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui::StyleColorsDark();
+
     ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
+    ImGui::StyleColorsDark();
 
     //Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
@@ -162,6 +165,7 @@ void UIManager::StartRender()
 {
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
+    glfwMakeContextCurrent(WindowManager::getWindow());
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 }
@@ -172,8 +176,40 @@ void UIManager::Render() {
     //ImGui::ShowDemoWindow();    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // Show the main menu bar
+    ShowMenuBar();
 
-    RenderImGuiWindows(0.25f, 0.25f, 0.0f, 20.0f);
+    // Create the dockspace
+    CreateDockSpace();
+
+    // Rendering debug stats
+    RenderWindows();
+
+    // Show the different windows
+    ShowExplorer();
+    ShowHierarchy();
+}
+
+DUCKENGINE_API void UIManager::EndRender()
+{
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault(NULL, NULL);
+    }
+}
+
+void UIManager::Exit() {
+    // Clean up ImGui resources
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
+void UIManager::ShowMenuBar()
+{
     // Main menu bar
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
@@ -200,45 +236,31 @@ void UIManager::Render() {
         }
         ImGui::EndMainMenuBar();
     }
-
-    //ImGui::Begin("Scene Window");
-
-    //// Fetch FBO texture
-    //GLuint fboTexture = GraphicsManager::GetFBOTexture();
-    //if (fboTexture == 0) {
-    //    std::cerr << "Invalid FBO texture" << std::endl;
-    //}
-
-    //// Display the texture in the ImGui window
-    //ImVec2 windowSize = ImGui::GetContentRegionAvail();
-    //ImGui::Image((void*)(intptr_t)fboTexture, windowSize);
-
-
-
-
-    //ImGui::End();
-
-    // Rendering stats
-    RenderWindows();
-
-    RenderImGuiWindows(1.f, 0.25f, 0.0f, 0.75f);
-    ShowExplorer();
-
-    RenderImGuiWindows(0.2f, 0.35f, 0.0f, 0.25f);
-    ShowHierarchy();
 }
 
-DUCKENGINE_API void UIManager::EndRender()
+void UIManager::CreateDockSpace()
 {
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
+    // Create the dockspace below the menu bar
+    float menuBarHeight = ImGui::GetFrameHeight();
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + menuBarHeight));
+    ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y - menuBarHeight));
+    ImGui::SetNextWindowViewport(viewport->ID);
 
-void UIManager::Exit() {
-    // Clean up ImGui resources
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
+        ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus |
+        ImGuiWindowFlags_NoNavFocus;
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+
+    // Create the dockspace that covers the whole viewport
+    ImGui::Begin("DockSpace Window", nullptr, window_flags);
+    ImGui::PopStyleVar(2);
+    ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+    ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+    ImGui::End();
 }
 
 void UIManager::ShowDebugInfo() {
@@ -303,7 +325,7 @@ void UIManager::ShowPerformance() {
 }   
 
 void UIManager::ShowExplorer() {
-    ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     // Create the tab bar
     if (ImGui::BeginTabBar("MyTabBar")) {
 
@@ -360,8 +382,8 @@ void UIManager::ShowExplorer() {
 
 void UIManager::ShowInspector() {
     if (windowStates[WindowType::Inspector] && selectedEntityID != -1) {
-        RenderImGuiWindows(0.21f, 0.16f, 0.0f, 0.6f);
-        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+        
+        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
         // Access TransformComponent
         TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
@@ -386,9 +408,6 @@ void UIManager::ShowInspector() {
                 boxCollider->setRotation(transform->angle);
                 boxCollider->setSize(transform->scale/2);
             }
-            
-
-            
 
             // Buttons for reset actions
             if (ImGui::Button("Reset Position")) {
@@ -411,9 +430,8 @@ void UIManager::ShowInspector() {
     }
 }
 
-
 void UIManager::ShowHierarchy() {
-    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Get all entities
     std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
