@@ -301,14 +301,13 @@ void UIManager::ShowPerformance() {
 }   
 
 void UIManager::ShowExplorer() {
-    bool consoleOpen = true;
     ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     // Create the tab bar
     if (ImGui::BeginTabBar("MyTabBar")) {
 
         // First tab: Console
         if (ImGui::BeginTabItem("Console")) {
-            UIDebugConsole::debugConsole.Render(&consoleOpen);
+            RenderConsole();
             ImGui::EndTabItem();
         }
 
@@ -464,7 +463,60 @@ void UIManager::ShowEntitySpawn() {
     ImGui::End();
 }
 
+// Get color based on log level
+ImVec4 GetColorByLevel(const std::string& level) {
+    if (level == "INFO") {
+        return ImVec4(0.0f, 1.0f, 0.0f, 1.0f);  // Green for info
+    }
+    else if (level == "WARNING") {
+        return ImVec4(1.0f, 1.0f, 0.0f, 1.0f);  // Yellow for warning
+    }
+    else if (level == "ERROR") {
+        return ImVec4(1.0f, 0.0f, 0.0f, 1.0f);  // Red for error
+    }
+    return ImVec4(1.0f, 1.0f, 1.0f, 1.0f);      // Default white color
+}
 
+// Render the console
+void UIManager::RenderConsole() {
+    // Input field for commands
+    static char inputBuf[256] = "";
+    if (ImGui::InputText("Command", inputBuf, IM_ARRAYSIZE(inputBuf), ImGuiInputTextFlags_EnterReturnsTrue)) {
+        // Add input text to the log
+        UIDebugConsole::debugConsole.AddDebugLog(inputBuf);
+
+        // Execute command
+        if (strcmp(inputBuf, "clear") == 0) {
+            UIDebugConsole::debugConsole.Clear();  // Clear the log
+        }
+        else {
+            UIDebugConsole::debugConsole.AddLog("WARNING", "Unknown command");
+        }
+
+        inputBuf[0] = '\0';
+    }
+
+    ImGui::Separator();
+
+    // Display log area
+    ImGui::BeginChild("LogRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+
+    // Retrieve and render log entries from UIDebugConsole
+    const auto& logEntries = UIDebugConsole::debugConsole.GetLogEntries();
+    for (const auto& [level, message] : logEntries) {
+        ImVec4 color = GetColorByLevel(level);
+        ImGui::PushStyleColor(ImGuiCol_Text, color);
+        ImGui::TextUnformatted(message.c_str());
+        ImGui::PopStyleColor();
+    }
+
+    // Scroll to the bottom if needed
+    if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY()) {
+        ImGui::SetScrollHereY(1.0f);
+    }
+
+    ImGui::EndChild();
+}
 
 
 void UIManager::RenderWindows() {

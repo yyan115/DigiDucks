@@ -120,6 +120,8 @@ private:
     * @return void
     ***************************************************************/
     static void RenderAudioAssets();
+
+    static void RenderConsole();
 };
 
 

@@ -12,8 +12,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #pragma once
-
-#include <imgui.h>
+#include <vector>
 
 class UIDebugConsole 
 {
@@ -45,23 +44,17 @@ public:
     void Clear();
 
     /****************************************************************
-    * @brief Renders the debug console UI in ImGui, allowing interaction and viewing of log entries
-    *
-    * @param p_open - Pointer to a bool that indicates whether the console is open
-    *
-    * @return void
-    ***************************************************************/
-    void Render(bool* p_open);
-
-    static UIDebugConsole debugConsole;
-
-private:
-    /****************************************************************
     * @brief Gets the color associated with a specific log level for display
     *
     * @param level - The log level as a string (INFO, WARNING, ERROR)
     *
     * @return The color to be used for the specified log level
     ***************************************************************/
-    ImVec4 GetColorByLevel(const std::string& level);  
+    const std::vector<std::tuple<std::string, std::string>>& GetLogEntries() const;
+
+    static UIDebugConsole debugConsole;
+
+private:
+    
+    std::vector<std::tuple<std::string, std::string>> logEntries;  // Store level and message 
 };
