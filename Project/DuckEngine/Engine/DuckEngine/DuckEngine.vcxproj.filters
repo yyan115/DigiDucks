@@ -261,6 +261,12 @@
     <ClInclude Include="..\include\imgui\imstb_truetype.h">
       <Filter>include\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\SoundSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SoundComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -391,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="..\src\imgui\imgui_widgets.cpp">
       <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SoundSystem.cpp">
+      <Filter>src\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

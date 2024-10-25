@@ -36,6 +36,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CircleColliderSystem.h"
 #include "BoxColliderSystem.h"
 #include "AnimatorSystem.h"
+#include "SoundSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -93,6 +94,9 @@ void DuckEngine::Initialize(bool _isEditor)
 
     std::shared_ptr<System> animatorSystem = std::make_shared<AnimatorSystem>();
     DUCKENGINE_SystemManager.AddSystem(animatorSystem);
+
+    std::shared_ptr<System> soundSystem = std::make_shared<SoundSystem>();
+    DUCKENGINE_SystemManager.AddSystem(soundSystem);
 
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
