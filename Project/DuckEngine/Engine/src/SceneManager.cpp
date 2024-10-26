@@ -10,21 +10,24 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
     scenes[name] = scene;
 }
 
-void SceneManager::SetActiveScene(const std::string& name) 
+void SceneManager::SetActiveScene(const std::string& name)
 {
-    // If the requested scene is already active, don't reload it
-    if (activeScene && scenes[name] == activeScene) {
-        return;  // Scene is already active, do nothing
-    }
-
-    // Unload the current scene if it's different
-    if (activeScene) 
+    // Check if the requested scene exists
+    auto it = scenes.find(name);
+    if (it == scenes.end()) 
     {
-        activeScene->Unload();
+        std::cerr << "Scene '" << name << "' not found!" << std::endl;
+        return;
     }
 
-    // Set the new scene as active
+    // If the same scene is already active, reload the scene
+    if (activeScene && scenes[name] == activeScene)
+    {
+        activeScene->Unload(); 
+    }
+
     activeScene = scenes[name];
+
     activeScene->Load();
     activeScene->Start();
 }

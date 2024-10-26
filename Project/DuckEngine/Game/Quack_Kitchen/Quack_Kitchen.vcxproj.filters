@@ -8,6 +8,9 @@
     <ClCompile Include="..\src\SpriteMovementScene.cpp">
       <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GameManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -44,6 +47,9 @@
     </ClInclude>
     <ClInclude Include="..\include\ResourcePath.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameManager.h">
+      <Filter>include\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

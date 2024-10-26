@@ -1,38 +1,33 @@
-#include "DuckEngine.h"
-#include "MaxLoadScene.h"
-#include "SpriteMovementScene.h"
+#include "GameManager.h"
 #include "LoggerManager.h"
 #include "AssetManager.h"
 
-
-static DuckEngine engine;
+static GameManager gManager;
 
 int main(void)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    engine.Initialize();
+    gManager.DuckEngine.Initialize();
     DUCKLOG_INFO("Engine initialized.");
 
-    engine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
-    engine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
-
-    engine.DUCKENGINE_SceneManager.SetActiveScene("SpriteMovementScene");
+    gManager.InitScenes();
+    gManager.SetActiveScene("SpriteMovementScene");
 
     // load all assets before game loop starts
     AssetManager::LoadAll();
 
     try {
         DUCKLOG_INFO("Game Started.");
-    while (engine.Running())
+    while (gManager.DuckEngine.Running())
     {
 
-        engine.Update();
+        gManager.DuckEngine.Update();
         
-        engine.StartDraw();
+        gManager.DuckEngine.StartDraw();
 
-        engine.Draw();
+        gManager.DuckEngine.Draw();
 
-        engine.EndDraw();
+        gManager.DuckEngine.EndDraw();
 
         //THROW_EXCEPTION("Test Error");
     }
@@ -42,7 +37,7 @@ int main(void)
     }
     std::cout << "Exited!\n";
 
-    engine.Exit();
+    gManager.DuckEngine.Exit();
 
     //cleanup();
 

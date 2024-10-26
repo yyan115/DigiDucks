@@ -5,19 +5,22 @@
 #include <imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
 #include "UIManager.h"
+#include "GameManager.h"
 
 static DuckEngine engine;
-static SceneWindow sceneWindow;
+static SceneWindow sceneWindow(engine);
 
 
 int main(void)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+
     engine.Initialize(true);
 
     DuckEngine::SetCameraHeight(20);
-    DuckEngine::DUCKENGINE_LevelManager.LoadLevel("../Resources/SpriteMovementScene.json");
+    GameManager::InitScenes();
+    GameManager::SetActiveScene("SpriteMovementScene");
 
     DUCKLOG_INFO("Engine initialized.");
 

@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="GameLib|Win32">
+      <Configuration>GameLib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GameLib|x64">
+      <Configuration>GameLib</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -67,6 +75,12 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -140,7 +154,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Editor\include;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;$(SolutionDir)/Engine/lib/glm;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\include;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;$(SolutionDir)/Engine/lib/glm;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -148,8 +162,8 @@
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"</Command>
@@ -165,7 +179,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>

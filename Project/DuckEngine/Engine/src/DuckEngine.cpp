@@ -49,6 +49,7 @@ PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
 bool isEditor = false;
+bool isPlaying = false;
 //TextRenderingSystem textRenderingSystem;
 
 /************************************************************************
@@ -111,6 +112,16 @@ void DuckEngine::Initialize(bool _isEditor)
     SoundManager::GetInstance().Initialize();
 }
 
+void DuckEngine::SetPlaying(bool playing)
+{
+    isPlaying = playing;
+}
+
+bool DuckEngine::IsPlaying()
+{
+    return isPlaying;
+}
+
 /************************************************************************
 @brief Updates the DuckEngine by processing inputs, updating systems,
        handling scene management, and rendering text. It also updates
@@ -127,10 +138,24 @@ void DuckEngine::Update()
 
     DUCKENGINE_SystemManager.UpdateAll();
 
-    TimeManager::StartSystemTimer();
-    DUCKENGINE_SceneManager.Update();
-    TimeManager::EndSystemTimer("SceneManager");
-    //SoundManager::GetInstance().Update();
+    if (isEditor)
+    {
+        if (isPlaying)
+        {
+            std::cout << "ISPLAYING" << std::endl;
+            TimeManager::StartSystemTimer();
+            DUCKENGINE_SceneManager.Update();
+            TimeManager::EndSystemTimer("SceneManager");
+            //SoundManager::GetInstance().Update();
+        }
+    }
+    else
+    {
+        TimeManager::StartSystemTimer();
+        DUCKENGINE_SceneManager.Update();
+        TimeManager::EndSystemTimer("SceneManager");
+        //SoundManager::GetInstance().Update();
+    }
 
     FontManager::Update();
 

@@ -35,7 +35,6 @@ public:
 ***************************************************************/
 static void LoadLevel(const std::string& levelFile);
 
-
 static void OpenLevelDialog();
 
 };

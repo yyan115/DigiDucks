@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{387AF271-8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Editor", "Editor", "{57ABA6C8-FFEE-4A40-94ED-171320DC2224}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Editor\ImGui\ImGui.vcxproj", "{06EE6F8E-6E75-4384-A420-F9F06694ECAA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelEditor", "Editor\ImGui\ImGui.vcxproj", "{06EE6F8E-6E75-4384-A420-F9F06694ECAA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D} = {082DCDAB-ADEF-423B-96CE-92BA204FE54D}
 	EndProjectSection
@@ -22,6 +22,8 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		GameLib|x64 = GameLib|x64
+		GameLib|x86 = GameLib|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -30,6 +32,10 @@ Global
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Debug|x64.Build.0 = Debug|x64
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Debug|x86.ActiveCfg = Debug|Win32
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Debug|x86.Build.0 = Debug|Win32
+		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.GameLib|x64.ActiveCfg = GameLib|x64
+		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.GameLib|x64.Build.0 = GameLib|x64
+		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.GameLib|x86.ActiveCfg = GameLib|Win32
+		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.GameLib|x86.Build.0 = GameLib|Win32
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Release|x64.ActiveCfg = Release|x64
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Release|x64.Build.0 = Release|x64
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D}.Release|x86.ActiveCfg = Release|Win32
@@ -38,6 +44,10 @@ Global
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Debug|x64.Build.0 = Debug|x64
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Debug|x86.ActiveCfg = Debug|x64
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Debug|x86.Build.0 = Debug|x64
+		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.GameLib|x64.ActiveCfg = Debug|x64
+		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.GameLib|x64.Build.0 = Debug|x64
+		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.GameLib|x86.ActiveCfg = GameLib|x64
+		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.GameLib|x86.Build.0 = GameLib|x64
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Release|x64.ActiveCfg = Release|x64
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Release|x64.Build.0 = Release|x64
 		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43}.Release|x86.ActiveCfg = Release|x64
@@ -46,6 +56,10 @@ Global
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Debug|x64.Build.0 = Debug|x64
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Debug|x86.ActiveCfg = Debug|Win32
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Debug|x86.Build.0 = Debug|Win32
+		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.GameLib|x64.ActiveCfg = Debug|x64
+		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.GameLib|x64.Build.0 = Debug|x64
+		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.GameLib|x86.ActiveCfg = GameLib|Win32
+		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.GameLib|x86.Build.0 = GameLib|Win32
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x64.ActiveCfg = Release|x64
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x64.Build.0 = Release|x64
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x86.ActiveCfg = Release|Win32

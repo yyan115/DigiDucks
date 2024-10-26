@@ -58,6 +58,9 @@ public:
     *************************************************************************/
     void DUCKENGINE_API Initialize(bool _isEditor = false);
 
+    static void DUCKENGINE_API SetPlaying(bool playing);
+    static bool DUCKENGINE_API IsPlaying();
+
     /************************************************************************
     @brief Updates the game engine by processing input, updating systems,
            and handling game logic for each frame.
@@ -203,4 +206,5 @@ public:
     @param enable True to enable logging, false to disable it.
     *************************************************************************/
     static void DUCKENGINE_API EnableLogging(bool enable);
+
 };

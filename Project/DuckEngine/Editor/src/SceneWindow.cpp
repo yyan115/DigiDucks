@@ -1,25 +1,32 @@
-#include "SceneWindow.h"
 #include "GraphicsManager.h"
+#include "DuckEngine.h"
+#include "SceneWindow.h"
 #include "imgui.h"
+#include "GameManager.h"
 
 bool isPlaying = false;
+
+SceneWindow::SceneWindow(DuckEngine& engine) : engine(engine) {}
 
 void SceneWindow::RenderSceneWindow(int width, int height) 
 {
     ImGui::Begin("Scene Window");
 
-    if (ImGui::Button(isPlaying ? "Stop" : "Play"))
+    bool gamePlaying = engine.IsPlaying();
+
+    if (ImGui::Button(gamePlaying ? "Stop" : "Play"))
     {
         // Toggle play state
-        isPlaying = !isPlaying;
+        gamePlaying = !gamePlaying;
 
-        if (isPlaying) 
+        engine.SetPlaying(gamePlaying);
+
+        if (gamePlaying)
         {
-            //StartGame();  // Start the game
         }
         else 
         {
-            //StopGame();   // Stop the game
+            GameManager::SetActiveScene("SpriteMovementScene");
         }
     }
 

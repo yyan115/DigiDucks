@@ -1,0 +1,42 @@
+﻿  main.cpp
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(168,21): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../main.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(171,17): error C3536: 'it': cannot be used before it is initialized
+  (compiling source file '../main.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(178,27): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../main.cpp')
+  
+  GameManager.cpp
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(168,21): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/GameManager.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(171,17): error C3536: 'it': cannot be used before it is initialized
+  (compiling source file '../src/GameManager.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(178,27): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/GameManager.cpp')
+  
+  MaxLoadScene.cpp
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(168,21): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/MaxLoadScene.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(171,17): error C3536: 'it': cannot be used before it is initialized
+  (compiling source file '../src/MaxLoadScene.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(178,27): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/MaxLoadScene.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\src\MaxLoadScene.cpp(126,23): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  SpriteMovementScene.cpp
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(168,21): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/SpriteMovementScene.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(171,17): error C3536: 'it': cannot be used before it is initialized
+  (compiling source file '../src/SpriteMovementScene.cpp')
+  
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Engine\include\ComponentManager.h(178,27): error C2429: language feature 'structured bindings' requires compiler flag '/std:c++17'
+  (compiling source file '../src/SpriteMovementScene.cpp')
+  
+  Generating Code...

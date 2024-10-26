@@ -7,5 +7,9 @@ typedef unsigned int GLuint;
 class SceneWindow
 {
 public:
-	static void RenderSceneWindow(int width, int height);
+	SceneWindow(DuckEngine& engine);
+	void RenderSceneWindow(int width, int height);
+
+private:
+	DuckEngine& engine;
 };

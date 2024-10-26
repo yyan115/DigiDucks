@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="GameLib|Win32">
+      <Configuration>GameLib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="GameLib|x64">
+      <Configuration>GameLib</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -52,6 +60,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -85,6 +100,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <OutDir>$(SolutionDir)\Game\lib\</OutDir>
+    <IntDir>$(SolutionDir\Game\lib\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -121,7 +140,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/include;$(SolutionDir)/Game/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,6 +178,13 @@
       <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\DuckEngine\DuckEngine.vcxproj">
       <Project>{e79b9515-8a42-4aa1-b5d7-71d599bd5b43}</Project>
@@ -166,10 +192,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\ResourcePath.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
