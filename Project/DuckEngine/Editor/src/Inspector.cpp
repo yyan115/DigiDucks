@@ -1,0 +1,117 @@
+#include "Inspector.h"
+#include "TransformComponent.h"
+#include "SpriteRendererComponent.h"
+#include "RigidbodyComponent.h"
+#include "Bounding.h"
+#include "AnimatorComponent.h"
+#include "DuckEngine.h"
+#include <iostream>
+
+void InspectorRenderer::RenderComponents(int entityID)
+{
+    if (entityID == -1) {
+        ImGui::Text("No entity selected.");
+        return;
+    }
+
+    // Render TransformComponent if it exists
+    if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Transform Component"))
+        {
+            ImGui::SliderFloat2("Position", &transform->position.x, -100.0f, 100.0f);
+            ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
+            ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
+        }
+    }
+
+    // Render SpriteRendererComponent if it exists
+    if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Sprite Renderer Component"))
+        {
+            ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
+            ImGui::SliderInt("Layer", &spriteRenderer->layer, 0, 10);
+            ImGui::ColorEdit4("Color", (float*)&spriteRenderer->color);
+        }
+    }
+
+    // Render RigidbodyComponent if it exists
+    if (auto* rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Rigidbody Component"))
+        {
+            ImGui::Checkbox("Is Static", &rb->isStatic);
+        }
+    }
+
+    // Render BoundingBox if it exists
+    if (auto* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Bounding Box"))
+        {
+            Vec2 center = box->getCenter();
+            Vec2 size = box->getSize();
+
+            ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
+            ImGui::SliderFloat2("Size", &size.x, 0.1f, 10.0f);
+
+            // Update component with modified values
+            box->setCenter(center);
+            box->setSize(size);
+        }
+    }
+
+    // Render BoundingCircle if it exists
+    if (auto* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Bounding Circle"))
+        {
+            Vec2 center = circle->getCenter();
+            float radius = circle->getRadius();
+
+            ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
+            ImGui::SliderFloat("Radius", &radius, 0.1f, 10.0f);
+
+            // Update component with modified values
+            circle->setCenter(center);
+            circle->setRadius(radius);
+        }
+    }
+
+    // Render AnimatorComponent if it exists
+    if (auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Animator Component"))
+        {
+            if (animator->currentAnimation)
+            {
+                ImGui::Text("Current Animation: %s", animator->currentAnimation->name.c_str());
+            }
+
+            if (ImGui::Button("Play")) 
+            {
+                if (animator->currentAnimation) 
+                {
+                    animator->PlayAnimation(animator->currentAnimation->name);
+                }
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Pause")) 
+            {
+                animator->Pause();
+            }
+
+            // List all available animations
+            for (const auto& [name, animation] : animator->animations)
+            {
+                if (ImGui::Selectable(name.c_str(), animator->currentAnimation && animator->currentAnimation->name == name))
+                {
+                    animator->SetAnimation(name);
+                }
+            }
+        }
+    }
+
+
+}

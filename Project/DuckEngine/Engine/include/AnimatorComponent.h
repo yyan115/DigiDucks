@@ -34,12 +34,20 @@ class Animation
 private:
 
 public:
+    std::string name;
     int currentFrame;        // Keeps track of the current frame
     float frameTimer;        // Timer to track how long the current frame has been displayed
     float frameDuration;     // Duration for each frame in seconds
     std::vector<Texture> Frames;  // List of frames for the animation
     Animation(float durationPerFrame = 0.2f)
         : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
+
+    void Reset() 
+    {
+        currentFrame = 0;
+        frameTimer = 0.0f;
+    }
+
 };
 
 /************************************************************************
@@ -49,8 +57,10 @@ class AnimatorComponent : public Component
 {
 public:
     Animation* currentAnimation;
+    bool isPaused;
     std::unordered_map<std::string, Animation> animations;
-    DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr) {}
+    DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr), isPaused(true) {}
+
     DUCKENGINE_API std::shared_ptr<Component> Clone() const override
     {
         return std::make_shared<AnimatorComponent>(*this);
@@ -67,9 +77,7 @@ public:
     DUCKENGINE_API void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
-
         animationToAdd.Frames.push_back(*animation);
-
         animations[name] = animationToAdd;
     }
 
@@ -101,11 +109,38 @@ public:
 *************************************************************************/
     DUCKENGINE_API void PlayAnimation(std::string animationName)
     {
+        isPaused = false;
         if (animations.find(animationName) != animations.end())
         {
             currentAnimation = &animations[animationName];
         }
     }
+
+    DUCKENGINE_API void Pause() 
+    {
+        isPaused = true;
+    }
+
+    DUCKENGINE_API void Resume() 
+    {
+        isPaused = false;
+    }
+
+    // Check if the animation is currently playing
+    bool IsPlaying() const
+    {
+        return currentAnimation != nullptr && !isPaused;
+    }
+
+    // Set a new animation by name
+    DUCKENGINE_API void SetAnimation(const std::string& animationName) 
+    {
+        if (animations.find(animationName) != animations.end()) 
+        {
+            currentAnimation = &animations[animationName];
+        }
+    }
+
 
 };
 

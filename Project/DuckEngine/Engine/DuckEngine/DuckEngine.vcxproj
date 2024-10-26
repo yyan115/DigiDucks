@@ -179,7 +179,6 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClInclude Include="..\include\TimeManager.h" />
     <ClInclude Include="..\include\TransformComponent.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />
-    <ClInclude Include="..\include\UIManager.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
   </ItemGroup>
@@ -225,7 +224,6 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
-    <ClCompile Include="..\src\UIManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>

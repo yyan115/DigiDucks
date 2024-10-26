@@ -39,7 +39,8 @@ void AnimatorSystem::Update()
             continue;
         }
 
-        if (!animator->currentAnimation) continue;
+        std::cout << animator->isPaused << std::endl;
+        if (!animator->currentAnimation || animator->isPaused) continue;
 
         animator->currentAnimation->frameTimer += DuckEngine::DeltaTime();
 

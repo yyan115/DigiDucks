@@ -27,7 +27,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Engine\src\UIDebugConsole.cpp" />
+    <ClCompile Include="..\..\Engine\src\UIManager.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +42,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Engine\include\UIDebugConsole.h" />
+    <ClInclude Include="..\..\Engine\include\UIManager.h" />
+    <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -162,8 +168,8 @@
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib;$(SolutionDir)Engine\lib\glew\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"</Command>
@@ -189,7 +195,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Engine\lib\glew\</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>

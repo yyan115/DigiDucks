@@ -23,7 +23,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GraphicsManager.h"
 #include "WindowManager.h"
 #include "TimeManager.h"
-#include "UIManager.h"
 #include "CameraManager.h"
 #include "SoundManager.h"
 #include "InputManager.h"
@@ -108,7 +107,6 @@ void DuckEngine::Initialize(bool _isEditor)
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-    if (isEditor) { UIManager::Initialize(); }
     SoundManager::GetInstance().Initialize();
 }
 
@@ -198,16 +196,6 @@ void DuckEngine::StartDraw()
     }
 }
 
-void DuckEngine::StartImguiRender()
-{
-    UIManager::StartRender();
-}
-
-void DuckEngine::EndImguiRender()
-{
-    UIManager::EndRender();
-}
-
 /************************************************************************
 @brief Executes the rendering of the game, including rendering the graphics,
        debug elements, and the UI if the editor mode is enabled.
@@ -220,10 +208,6 @@ void DuckEngine::Draw()
 
     GraphicsManager::RenderDebug();
     TimeManager::EndSystemTimer("GraphicsManager");
-
-    TimeManager::StartSystemTimer();
-    if (isEditor) { UIManager::Render(); }
-    TimeManager::EndSystemTimer("UIManager");
 
     TimeManager::StartSystemTimer();
     FontManager::Render();
@@ -246,7 +230,6 @@ void DuckEngine::EndDraw()
 *************************************************************************/
 void DuckEngine::Exit() 
 { 
-    if (isEditor) { UIManager::Exit(); }
     SoundManager::GetInstance().Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();

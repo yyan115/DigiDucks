@@ -42,7 +42,7 @@ public:
     /// Returns the delta time, which is the time taken to complete the most recent game loop.
     /// </summary>
     /// <returns>The delta time as a double.</returns>
-    static double DT();
+    static DUCKENGINE_API double DT();
 
     /// <summary>
     /// Updates the time manager's internal state, calculating FPS and delta time. This should be called every frame.
@@ -81,7 +81,7 @@ public:
     /// Returns the data for the time manager.
     /// </summary>
     /// <returns>A vector of pairs containing the name of the manager and the time taken by the manager.</returns>
-    static const std::vector<std::pair<std::string, double>>& GetManagerData();
+    static DUCKENGINE_API const std::vector<std::pair<std::string, double>>& GetManagerData();
 
 
 private:

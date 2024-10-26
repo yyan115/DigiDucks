@@ -32,6 +32,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <map>
 #include <set>
 #include <sstream>
+#include "Inspector.h"
 
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
@@ -190,7 +191,7 @@ void UIManager::Render() {
     ShowHierarchy();
 }
 
-DUCKENGINE_API void UIManager::EndRender()
+void UIManager::EndRender()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -380,55 +381,20 @@ void UIManager::ShowExplorer() {
     ImGui::End();
 }
 
-void UIManager::ShowInspector() {
-    if (windowStates[WindowType::Inspector] && selectedEntityID != -1) {
-        
-        ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+void UIManager::ShowInspector() 
+{
+    if (windowStates[WindowType::Inspector] && selectedEntityID != -1) 
+    {
+        ImGui::Begin("Inspector", nullptr,
+            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
-        // Access TransformComponent
-        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-        BoundingBox* boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(selectedEntityID);
-       
-        if (transform) {
-            // Display sliders for position, scale, and rotation (angle)
-            ImGui::Text("Transform");
-
-            // Position
-            ImGui::SliderFloat2("Position", &transform->position.x, -10.0f, 10.0f);
-
-            // Rotation
-            ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
-
-            // Scale
-            ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
-
-            if (boxCollider != nullptr)
-            {
-                boxCollider->setCenter(transform->position);
-                boxCollider->setRotation(transform->angle);
-                boxCollider->setSize(transform->scale/2);
-            }
-
-            // Buttons for reset actions
-            if (ImGui::Button("Reset Position")) {
-                transform->position = Vec2(0.0f, 0.0f);
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("Reset Rotation")) {
-                transform->angle = 0.0f;
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("Reset Scale")) {
-                transform->scale = Vec2(1.0f, 1.0f);
-            }
-        }
-        else {
-            ImGui::Text("No TransformComponent found for this entity.");
-        }
+        // Use InspectorRenderer to render components of the selected entity
+        InspectorRenderer::RenderComponents(selectedEntityID);
 
         ImGui::End();
     }
 }
+
 
 void UIManager::ShowHierarchy() {
     ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);

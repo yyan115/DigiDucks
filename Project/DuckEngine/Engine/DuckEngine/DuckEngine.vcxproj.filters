@@ -228,9 +228,6 @@
     <ClInclude Include="..\include\UIDebugConsole.h">
       <Filter>include\UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\UIManager.h">
-      <Filter>include\UI</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\imgui\imconfig.h">
       <Filter>include\ImGui</Filter>
     </ClInclude>
@@ -369,9 +366,6 @@
       <Filter>src\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="..\src\UIDebugConsole.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\UIManager.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\imgui\imgui.cpp">

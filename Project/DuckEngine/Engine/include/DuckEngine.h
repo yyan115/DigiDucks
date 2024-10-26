@@ -77,9 +77,6 @@ public:
     *************************************************************************/
     void DUCKENGINE_API Draw();
 
-    void DUCKENGINE_API StartImguiRender();
-    void DUCKENGINE_API EndImguiRender();
-
     /************************************************************************
     @brief Ends the rendering process for the current frame and displays the result.
     *************************************************************************/
