@@ -174,9 +174,10 @@ void LevelManager::OverwritePrefab(int entityID)
     std::string prefabPath = "../Resources/Prefab.json";
     json prefabData = Serialization::LoadJsonFile(prefabPath);
 
-    std::string prefabName = entity->name; // Assuming prefab name matches entity name
+    std::string prefabName = entity->name;
 
-    if (prefabData["prefabs"].contains(prefabName)) {
+    if (prefabData["prefabs"].contains(prefabName)) 
+    {
         // Save the entity's components into the prefab JSON
         ComponentFactory::SaveComponentsToJson(entityID, prefabData["prefabs"][prefabName]["components"]);
 

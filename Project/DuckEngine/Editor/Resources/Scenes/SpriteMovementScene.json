@@ -88,12 +88,12 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": -3.3329999446868896
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
+                            "x": 10.0,
+                            "y": 8.48799991607666
                         }
                     },
                     "type": "TransformComponent"
@@ -117,7 +117,7 @@
                     "properties": {
                         "center": {
                             "x": 0.0,
-                            "y": -3.3329999446868896
+                            "y": 0.0
                         },
                         "size": {
                             "x": 1.0,
