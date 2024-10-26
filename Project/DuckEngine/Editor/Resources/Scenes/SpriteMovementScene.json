@@ -1,0 +1,142 @@
+{
+    "gameObjects": {
+        "Background": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0,
+                            "y": 5
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/background.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ]
+        },
+        "Duck": {
+            "position": {
+                "x": 8.0,
+                "y": 8.0
+            },
+            "prefab": "DuckPrefab"
+        },
+        "Obstacle1": {
+            "position": {
+                "x": -8,
+                "y": 0
+            },
+            "prefab": "CuttingTablePrefab"
+        },
+        "Obstacle2": {
+            "position": {
+                "x": -5.0,
+                "y": -2.7780001163482666
+            },
+            "prefab": "CabbageStockPrefab"
+        },
+        "Obstacle3": {
+            "position": {
+                "x": -8.333000183105469,
+                "y": -7.7779998779296875
+            },
+            "prefab": "TomatoStockPrefab"
+        },
+        "Obstacle4": {
+            "position": {
+                "x": -6.111000061035156,
+                "y": -7.7779998779296875
+            },
+            "prefab": "TomatoStockPrefab"
+        },
+        "Obstacle5": {
+            "position": {
+                "x": 10,
+                "y": -5
+            },
+            "prefab": "TomatoStockPrefab"
+        },
+        "Player": {
+            "position": {
+                "x": -2.7769999504089355,
+                "y": 0.0
+            },
+            "prefab": "PlayerPrefab"
+        },
+        "obstacleObject4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -3.3329999446868896
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.799999952316284
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Crate.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": -3.3329999446868896
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "position": {
+                "x": -5.556000232696533,
+                "y": -3.3329999446868896
+            }
+        }
+    }
+}

@@ -13,12 +13,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 
-#ifdef DUCKENGINE_EXPORTS
-#define DUCKENGINE_API __declspec(dllexport)
-#else
-#define DUCKENGINE_API __declspec(dllimport)
-#endif
-
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -44,14 +38,14 @@ public:
     *
     * @return void
     ***************************************************************/
-    DUCKENGINE_API DetailedException(const std::string& message, const char* file, const char* func, int line);
+    DetailedException(const std::string& message, const char* file, const char* func, int line);
 
     /****************************************************************
     * @brief Returns the exception message
     *
     * @return The exception message 
     ***************************************************************/
-    DUCKENGINE_API const char* what() const noexcept override;
+    const char* what() const noexcept override;
 
     /****************************************************************
     * @brief Returns the file where the exception occurred
@@ -88,7 +82,7 @@ public:
     *
     * @return A reference to the LoggerManager instance
     ***************************************************************/
-    DUCKENGINE_API static LoggerManager& GetInstance();
+    static LoggerManager& GetInstance();
 
     /****************************************************************
     * @brief Logs an info-level message
@@ -130,7 +124,7 @@ public:
     *
     * @return void
     ***************************************************************/
-    DUCKENGINE_API void LogCrash(const DetailedException& ex);
+    void LogCrash(const DetailedException& ex);
 
     
 
@@ -164,7 +158,7 @@ private:
     *
     * @return void
     ***************************************************************/
-    DUCKENGINE_API void WriteLog(const std::string& level, const std::string& message);
+    void WriteLog(const std::string& level, const std::string& message);
 
     std::ofstream logFile;  // Log file for logging
 

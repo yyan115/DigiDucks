@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <set>
 #include <sstream>
 #include "Inspector.h"
+#include "GameManager.h"
 
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
@@ -214,7 +215,10 @@ void UIManager::ShowMenuBar()
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New Scene", "Ctrl+N")) { FilePath::PrintPath(); }
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
-            if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {}
+            if (ImGui::MenuItem("Save Scene", "Ctrl+S")) 
+            {
+                SaveScene(GameManager::ActiveSceneName);
+            }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit")) {
@@ -618,5 +622,29 @@ void UIManager::RenderAudioAssets() {
 
     if (ImGui::Button("Play Sound 2")) {
         DuckEngine_Sound::PlaySounds("TestSound2");
+    }
+}
+
+void UIManager::SaveScene(const std::string& sceneName)
+{
+    auto& entityChanges = InspectorRenderer::entityChanges;  
+
+    bool anyChanges = false;
+
+    for (const auto& [entityID, hasChanged] : entityChanges) {
+        if (hasChanged) 
+        {
+            LevelManager::SaveEntityChanges(entityID);
+
+            entityChanges[entityID] = false;
+            anyChanges = true;
+        }
+    }
+
+    if (anyChanges) {
+        std::cout << "Scene saved: " << sceneName << std::endl;
+    }
+    else {
+        std::cout << "No changes to save." << std::endl;
     }
 }

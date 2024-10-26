@@ -74,3 +74,15 @@ Entity* EntityManager::GetEntityByName(const std::string& name)
     return nullptr;
 }
 
+Entity* EntityManager::GetEntity(int entityID)
+{
+    for (auto& entity : entities)
+    {
+        if (entity.entityID == entityID)
+        {
+            return &entity;
+        }
+    }
+    return nullptr;
+}
+

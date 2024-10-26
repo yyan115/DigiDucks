@@ -62,6 +62,7 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
             // Create and add the SpriteRendererComponent
             auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
             spriteRenderer->texture = texture;
+            spriteRenderer->texturePath = texturePath;
             DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, *spriteRenderer);
         
             AnimatorComponent* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity->entityID);
@@ -133,3 +134,88 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
 
     }
 }
+
+void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
+{
+    componentsArray.clear();
+
+    // Save TransformComponent.
+    if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID)) 
+    {
+        json transformData;
+        transformData["type"] = "TransformComponent";
+        transformData["properties"]["position"] =
+        {
+            {"x", transform->position.x},
+            {"y", transform->position.y}
+        };
+        transformData["properties"]["scale"] =
+        {
+            {"x", transform->scale.x},
+            {"y", transform->scale.y}
+        };
+        transformData["properties"]["relativeToCamera"] = transform->relativeToCamera;
+        componentsArray.push_back(transformData);
+    }
+
+    // Save SpriteRendererComponent.
+    if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID)) 
+    {
+        json spriteData;
+        spriteData["type"] = "SpriteRendererComponent";
+        spriteData["properties"]["sprite"] = spriteRenderer->sprite;
+        spriteData["properties"]["layer"] = spriteRenderer->layer;
+        spriteData["properties"]["texture"] = spriteRenderer->GetFilePath();
+        spriteData["properties"]["useColor"] = spriteRenderer->useColor;
+        spriteData["properties"]["color"] =
+        {
+            {"r", spriteRenderer->color.r},
+            {"g", spriteRenderer->color.g},
+            {"b", spriteRenderer->color.b},
+            {"a", spriteRenderer->color.a}
+        };
+        componentsArray.push_back(spriteData);
+    }
+
+    // Save BoundingBox.
+    if (auto* boundingBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityID)) 
+    {
+        json boundingBoxData;
+        boundingBoxData["type"] = "BoundingBox";
+        boundingBoxData["properties"]["center"] =
+        {
+            {"x", boundingBox->getCenter().x},
+            {"y", boundingBox->getCenter().y}
+        };
+        boundingBoxData["properties"]["size"] =
+        {
+            {"x", boundingBox->getSize().x},
+            {"y", boundingBox->getSize().y}
+        };
+        componentsArray.push_back(boundingBoxData);
+    }
+
+    // Save BoundingCircle.
+    if (auto* boundingCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityID)) 
+    {
+        json boundingCircleData;
+        boundingCircleData["type"] = "BoundingCircle";
+        boundingCircleData["properties"]["center"] =
+        {
+            {"x", boundingCircle->getCenter().x},
+            {"y", boundingCircle->getCenter().y}
+        };
+        boundingCircleData["properties"]["radius"] = boundingCircle->getRadius();
+        componentsArray.push_back(boundingCircleData);
+    }
+
+    // Save RigidbodyComponent.
+    if (auto* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityID)) 
+    {
+        json rigidbodyData;
+        rigidbodyData["type"] = "RigidbodyComponent";
+        rigidbodyData["properties"]["isStatic"] = rigidbody->isStatic;
+        componentsArray.push_back(rigidbodyData);
+    }
+}
+

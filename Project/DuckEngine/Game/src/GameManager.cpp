@@ -2,6 +2,8 @@
 
 DuckEngine GameManager::DuckEngine;
 
+std::string GameManager::ActiveSceneName = "SpriteMovementScene";
+
 void GameManager::InitScenes()
 {
     DuckEngine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
@@ -11,5 +13,6 @@ void GameManager::InitScenes()
 
 void GameManager::SetActiveScene(std::string sceneName)
 {
+    ActiveSceneName = sceneName;
     DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(sceneName);
 }

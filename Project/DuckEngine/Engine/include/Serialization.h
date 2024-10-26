@@ -53,6 +53,7 @@ public:
 	static json LoadJsonFile(const std::string& filePath);
 	static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
 	static WindowInit GetWindowInit();
+	static void SaveJsonFile(const std::string& filePath, const nlohmann::json& data);
 
 private:
 	static json jsonData;

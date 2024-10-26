@@ -98,3 +98,20 @@ WindowInit Serialization::GetWindowInit()
 {
     return windowInit;
 }
+
+void Serialization::SaveJsonFile(const std::string& filePath, const nlohmann::json& data) 
+{
+    std::ofstream file(filePath);
+
+    if (file.is_open()) {
+        try {
+            file << std::setw(4) << data;
+        }
+        catch (const std::exception& e) {
+            std::cerr << "Error saving JSON file: " << e.what() << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Unable to open JSON file for writing: " << filePath << std::endl;
+    }
+}

@@ -38,6 +38,7 @@ public:
 	bool sprite;
 	int layer;
 	Texture texture;
+	std::string texturePath;
 	bool useColor;
 	Color color;
 
@@ -63,5 +64,13 @@ public:
 		return std::make_shared<SpriteRendererComponent>(*this);
 	}
 
+	/************************************************************************
+	@brief Retrieves the file path of the current texture.
+	@return A string containing the texture path.
+	*************************************************************************/
+	DUCKENGINE_API std::string GetFilePath() const
+	{
+		return texturePath;
+	}
 
 };

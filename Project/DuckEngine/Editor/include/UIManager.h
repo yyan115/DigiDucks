@@ -120,6 +120,9 @@ private:
     static void CreateDockSpace();
 
     static void ShowMenuBar();
+
+    static void SaveScene(const std::string& sceneName);
+
 };
 
 

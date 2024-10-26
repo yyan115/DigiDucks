@@ -23,10 +23,13 @@
 #include <windows.h>
 #include <commdlg.h>
 #include <string>
+#include <filesystem>
 
 
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
+    std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
+    std::cout << "Loading level from: " << absolutePath.string() << std::endl;
     // Load the level data from the JSON file
     json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
@@ -127,3 +130,63 @@ void LevelManager::OpenLevelDialog()
     LoadLevel(levelFile);
 
 }
+
+void LevelManager::SaveEntityChanges(int entityID)
+{
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+    if (!entity) return;
+
+    // Load the current scene data.
+    json sceneData = Serialization::LoadJsonFile("../Resources/Scenes/SpriteMovementScene.json");
+
+    // Find or create the game object entry.
+    std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
+    json& gameObjectData = sceneData["gameObjects"][entityName];
+
+    if (gameObjectData.contains("components"))
+    {
+        // Case 1: Entity has components (like obstacleObject4).
+        ComponentFactory::SaveComponentsToJson(entityID, gameObjectData["components"]);
+    }
+    else
+    {
+        // Case 2: Prefab-based entity (like Player or Obstacle).
+        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID)) {
+            gameObjectData["position"]["x"] = transform->position.x;
+            gameObjectData["position"]["y"] = transform->position.y;
+        }
+    }
+
+    // Save the updated scene data back to the file.
+    Serialization::SaveJsonFile("../Resources/Scenes/SpriteMovementScene.json", sceneData);
+    std::cout << "Entity changes saved for: " << entityName << std::endl;
+}
+
+
+
+
+void LevelManager::OverwritePrefab(int entityID)
+{
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+    if (!entity) return;
+
+    // Load the prefab data
+    std::string prefabPath = "../Resources/Prefab.json";
+    json prefabData = Serialization::LoadJsonFile(prefabPath);
+
+    std::string prefabName = entity->name; // Assuming prefab name matches entity name
+
+    if (prefabData["prefabs"].contains(prefabName)) {
+        // Save the entity's components into the prefab JSON
+        ComponentFactory::SaveComponentsToJson(entityID, prefabData["prefabs"][prefabName]["components"]);
+
+        // Save the modified prefab JSON back to the file
+        Serialization::SaveJsonFile(prefabPath, prefabData);
+
+        std::cout << "Prefab '" << prefabName << "' has been updated with the new component values." << std::endl;
+    }
+    else {
+        std::cerr << "Error: Prefab not found for entity " << prefabName << std::endl;
+    }
+}
+

@@ -27,14 +27,18 @@ class DUCKENGINE_API LevelManager
 {
 public:
 
-/****************************************************************
-* @brief Load level using data from json file
-*
-* @param levelFile - json file containing data for the level
-*
-***************************************************************/
-static void LoadLevel(const std::string& levelFile);
+	/****************************************************************
+	* @brief Load level using data from json file
+	*
+	* @param levelFile - json file containing data for the level
+	*
+	***************************************************************/
+	static void LoadLevel(const std::string& levelFile);
 
-static void OpenLevelDialog();
+	static void OpenLevelDialog();
+
+	static void SaveEntityChanges(int entityID);
+	static void OverwritePrefab(int entityID);
+
 
 };

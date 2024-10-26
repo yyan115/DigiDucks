@@ -24,10 +24,13 @@
     <ClCompile Include="..\src\Inspector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Engine\src\UIManager.cpp">
+    <ClCompile Include="..\src\UIDebugConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Engine\src\UIDebugConsole.cpp">
+    <ClCompile Include="..\src\UIManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Engine\src\LoggerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,10 +41,13 @@
     <ClInclude Include="..\include\Inspector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Engine\include\UIManager.h">
+    <ClInclude Include="..\include\UIDebugConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Engine\include\UIDebugConsole.h">
+    <ClInclude Include="..\include\UIManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Engine\include\LoggerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

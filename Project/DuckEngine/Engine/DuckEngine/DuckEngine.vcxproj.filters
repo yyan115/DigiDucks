@@ -147,9 +147,6 @@
     <ClInclude Include="..\include\ImageLoader.h">
       <Filter>include\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\LoggerManager.h">
-      <Filter>include\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Texture.h">
       <Filter>include\Data</Filter>
     </ClInclude>
@@ -224,9 +221,6 @@
     </ClInclude>
     <ClInclude Include="..\include\json.hpp">
       <Filter>include\File</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\UIDebugConsole.h">
-      <Filter>include\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\include\imgui\imconfig.h">
       <Filter>include\ImGui</Filter>
@@ -305,9 +299,6 @@
     <ClCompile Include="..\src\ImageLoader.cpp">
       <Filter>src\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\LoggerManager.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\File.cpp">
       <Filter>src\File</Filter>
     </ClCompile>
@@ -364,9 +355,6 @@
     </ClCompile>
     <ClCompile Include="..\src\ShaderManager.cpp">
       <Filter>src\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\UIDebugConsole.cpp">
-      <Filter>src\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\imgui\imgui.cpp">
       <Filter>src\ImGui</Filter>

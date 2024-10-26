@@ -27,11 +27,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Engine\src\UIDebugConsole.cpp" />
-    <ClCompile Include="..\..\Engine\src\UIManager.cpp" />
+    <ClCompile Include="..\..\Engine\src\LoggerManager.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
+    <ClCompile Include="..\src\UIDebugConsole.cpp" />
+    <ClCompile Include="..\src\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\DuckEngine\DuckEngine.vcxproj">
@@ -42,10 +43,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Engine\include\UIDebugConsole.h" />
-    <ClInclude Include="..\..\Engine\include\UIManager.h" />
+    <ClInclude Include="..\..\Engine\include\LoggerManager.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
+    <ClInclude Include="..\include\UIDebugConsole.h" />
+    <ClInclude Include="..\include\UIManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -172,7 +174,9 @@
       <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

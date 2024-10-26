@@ -7,12 +7,18 @@
 #include "DuckEngine.h"
 #include <iostream>
 
+std::unordered_map<int, bool> InspectorRenderer::entityChanges;
+
 void InspectorRenderer::RenderComponents(int entityID)
 {
+    // Handle case where no entity is selected
     if (entityID == -1) {
         ImGui::Text("No entity selected.");
         return;
     }
+
+    // Use reference to track changes for the current entity
+    bool& hasChanged = entityChanges[entityID];
 
     // Render TransformComponent if it exists
     if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
@@ -20,8 +26,13 @@ void InspectorRenderer::RenderComponents(int entityID)
         if (ImGui::CollapsingHeader("Transform Component"))
         {
             ImGui::SliderFloat2("Position", &transform->position.x, -100.0f, 100.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
         }
     }
 
@@ -31,8 +42,13 @@ void InspectorRenderer::RenderComponents(int entityID)
         if (ImGui::CollapsingHeader("Sprite Renderer Component"))
         {
             ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::SliderInt("Layer", &spriteRenderer->layer, 0, 10);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::ColorEdit4("Color", (float*)&spriteRenderer->color);
+            if (ImGui::IsItemEdited()) hasChanged = true;
         }
     }
 
@@ -42,6 +58,7 @@ void InspectorRenderer::RenderComponents(int entityID)
         if (ImGui::CollapsingHeader("Rigidbody Component"))
         {
             ImGui::Checkbox("Is Static", &rb->isStatic);
+            if (ImGui::IsItemEdited()) hasChanged = true;
         }
     }
 
@@ -54,7 +71,10 @@ void InspectorRenderer::RenderComponents(int entityID)
             Vec2 size = box->getSize();
 
             ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::SliderFloat2("Size", &size.x, 0.1f, 10.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
 
             // Update component with modified values
             box->setCenter(center);
@@ -71,7 +91,10 @@ void InspectorRenderer::RenderComponents(int entityID)
             float radius = circle->getRadius();
 
             ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
             ImGui::SliderFloat("Radius", &radius, 0.1f, 10.0f);
+            if (ImGui::IsItemEdited()) hasChanged = true;
 
             // Update component with modified values
             circle->setCenter(center);
@@ -89,17 +112,19 @@ void InspectorRenderer::RenderComponents(int entityID)
                 ImGui::Text("Current Animation: %s", animator->currentAnimation->name.c_str());
             }
 
-            if (ImGui::Button("Play")) 
+            if (ImGui::Button("Play"))
             {
-                if (animator->currentAnimation) 
+                if (animator->currentAnimation)
                 {
                     animator->PlayAnimation(animator->currentAnimation->name);
+                    hasChanged = true;
                 }
             }
             ImGui::SameLine();
-            if (ImGui::Button("Pause")) 
+            if (ImGui::Button("Pause"))
             {
                 animator->Pause();
+                hasChanged = true;
             }
 
             // List all available animations
@@ -108,10 +133,25 @@ void InspectorRenderer::RenderComponents(int entityID)
                 if (ImGui::Selectable(name.c_str(), animator->currentAnimation && animator->currentAnimation->name == name))
                 {
                     animator->SetAnimation(name);
+                    hasChanged = true;
                 }
             }
         }
     }
 
-
+    // Display Save and Overwrite buttons if changes were detected
+    if (hasChanged)
+    {
+        if (ImGui::Button("Save Entity Changes"))
+        {
+            LevelManager::SaveEntityChanges(entityID);
+            hasChanged = false; 
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Overwrite Prefab"))
+        {
+            LevelManager::OverwritePrefab(entityID);
+            hasChanged = false; 
+        }
+    }
 }
