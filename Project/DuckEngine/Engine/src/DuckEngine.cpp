@@ -142,7 +142,6 @@ void DuckEngine::Update()
     {
         if (isPlaying)
         {
-            std::cout << "ISPLAYING" << std::endl;
             TimeManager::StartSystemTimer();
             DUCKENGINE_SceneManager.Update();
             TimeManager::EndSystemTimer("SceneManager");
