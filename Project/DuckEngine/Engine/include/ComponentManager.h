@@ -29,6 +29,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RigidbodyComponent.h"
 #include "Bounding.h"
 #include "Serialization.h"
+#include "SoundComponent.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS

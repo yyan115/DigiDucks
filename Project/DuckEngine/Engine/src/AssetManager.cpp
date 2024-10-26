@@ -16,10 +16,11 @@
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"
-#include "DuckEngine_Sound.h"
+#include <iostream>
 
 std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
-
+std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
+FMOD::System* AssetManager::fmodSystem = nullptr;
 
 void AssetManager::LoadAll()
 {
@@ -62,9 +63,21 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::strin
 }
 
 
-void AssetManager::LoadSound(const std::string& soundName, const std::string& filePath)
-{
-	DuckEngine_Sound::LoadSound(soundName, filePath);
+void AssetManager::LoadSound(const std::string& soundID, const std::string& filePath) {
+	if (!fmodSystem) {
+		std::cerr << "FMOD System not initialized!" << std::endl;
+		return;
+	}
+
+	if (soundMap.find(soundID) != soundMap.end()) return;  // Already loaded
+
+	FMOD::Sound* sound = nullptr;
+	FMOD_RESULT result = fmodSystem->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+	if (result != FMOD_OK) {
+		std::cerr << "Error loading sound: " << filePath << std::endl;
+		return;
+	}
+	soundMap[soundID] = sound;
 }
 
 
@@ -89,7 +102,23 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const st
 	return texturePtrs;
 }
 
+FMOD::System*& AssetManager::GetFMODSystem() {
+	return fmodSystem;
+}
+
+FMOD::Sound* AssetManager::GetSounds(const std::string& soundID) {
+	auto it = soundMap.find(soundID);
+	return it != soundMap.end() ? it->second : nullptr;
+}
+
 void AssetManager::UnloadAll()
 {
 	textureMap.clear();
+
+	// sound
+	for (auto& [id, sound] : soundMap) {
+		sound->release();
+	}
+	soundMap.clear();
+	fmodSystem->close();
 }

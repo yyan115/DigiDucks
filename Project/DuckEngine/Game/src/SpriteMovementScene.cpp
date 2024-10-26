@@ -82,7 +82,7 @@ void SpriteMovementScene::Load()
 		UNREFERENCED_PARAMETER(otherEntity);
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
-
+	
 
 	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->entityID);
@@ -149,10 +149,12 @@ void SpriteMovementScene::Update()
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y))
-	{
-		std::cout << "Y is pressed!\n";
-	}
+	/*if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y)) {
+		SoundComponent* playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
+		if (playerSound) {
+			playerSound->Play();
+		}
+	}*/
 
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
 	{

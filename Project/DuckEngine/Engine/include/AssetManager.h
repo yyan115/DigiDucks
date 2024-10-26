@@ -17,6 +17,8 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include <fmod.hpp>
+
 
 
 #ifdef DUCKENGINE_EXPORTS
@@ -34,8 +36,13 @@ public:
 
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath);
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath, int textureWidth, int textureHeight);
-	static DUCKENGINE_API void LoadSound(const std::string& soundName, const std::string& filePath);
+	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
+	
+	// Get
+	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
+	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
 
+	
 	// unload all textures
 	static DUCKENGINE_API void UnloadAll();
 
@@ -46,5 +53,9 @@ private:
 	// Helper function to load a texture from the file
 	static std::shared_ptr<Texture> LoadTextureFromFile(const std::string& filePath);
 	static std::vector<std::shared_ptr<Texture>> LoadTextureFromFile(const std::string& filePath, int textureWidth, int textureHeight);
+
+	// Stores all loaded sounds with their file paths as keys
+	static std::unordered_map<std::string, FMOD::Sound*> soundMap;
+	static FMOD::System* fmodSystem;
 
 };

@@ -42,7 +42,6 @@ std::set<int> availableNumbers;
 
 enum class WindowType {
     DebugInfo,
-    Performance,
     Inspector,
     Count
 };
@@ -50,7 +49,6 @@ enum class WindowType {
 
 std::unordered_map<WindowType, bool> windowStates = {
     {WindowType::DebugInfo, false},
-    {WindowType::Performance, false},
     {WindowType::Inspector, false},
 };
 
@@ -229,10 +227,7 @@ void UIManager::ShowMenuBar()
         if (ImGui::BeginMenu("Debug")) {
             if (ImGui::MenuItem("Show Debug Info", NULL, windowStates[WindowType::DebugInfo])) {
                 windowStates[WindowType::DebugInfo] = !windowStates[WindowType::DebugInfo];
-            }
-            if (ImGui::MenuItem("Show Performance", NULL, windowStates[WindowType::Performance])) {
-                windowStates[WindowType::Performance] = !windowStates[WindowType::Performance];
-            }
+            }            
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
@@ -265,8 +260,8 @@ void UIManager::CreateDockSpace()
 }
 
 void UIManager::ShowDebugInfo() {
-    RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.0f);
-	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    //RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.0f);
+	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Create the tab bar
     if (ImGui::BeginTabBar("MyTabBar")) {
@@ -307,11 +302,19 @@ void UIManager::ShowDebugInfo() {
             ImGui::EndTabItem();
         }
 
-        // Second tab: Game Info
+        // Second tab: Perforamnce
+        if (ImGui::BeginTabItem("Performance")) {
+            RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
+            ImGui::EndTabItem();
+        }
+
+        // third tab: Game Info
         if (ImGui::BeginTabItem("Game Info")) {
             ImGui::Text("Total Entities: %d", DuckEngine::DUCKENGINE_EntityManager.GetEntities().size());
             ImGui::EndTabItem();
         }
+
+        
 
         ImGui::EndTabBar();
     }
@@ -319,8 +322,8 @@ void UIManager::ShowDebugInfo() {
 }
 
 void UIManager::ShowPerformance() {
-    RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.3f);
-    ImGui::Begin("Performance", nullptr, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+    //RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.3f);
+    ImGui::Begin("Performance", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
     ImGui::End();
 }   
@@ -511,10 +514,7 @@ void UIManager::RenderWindows() {
             switch (window) {
             case WindowType::DebugInfo:
                 ShowDebugInfo();
-                break;
-            case WindowType::Performance:
-                ShowPerformance();
-                break;
+                break;          
             case WindowType::Inspector:
 				ShowInspector();
 				break;

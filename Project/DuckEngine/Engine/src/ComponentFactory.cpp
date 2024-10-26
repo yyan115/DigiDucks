@@ -119,5 +119,17 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
             // Add the AnimatorComponent to the entity
             DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entity->entityID, *animator);
         }
+        // Sound Component
+        else if (componentType == "SoundComponent") 
+        {
+            std::string soundID = componentData["properties"].value("soundID", "");
+            bool loop = componentData["properties"].value("loop", false);
+            bool playOnStart = componentData["properties"].value("playOnStart", false);
+            float volume = componentData["properties"].value("volume", 1.0f);
+
+            auto soundComponent = std::make_shared<SoundComponent>(soundID, loop, playOnStart, volume);
+            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(entity->entityID, *soundComponent);
+        }
+
     }
 }
