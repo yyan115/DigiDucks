@@ -64,14 +64,22 @@ void UIManager::Initialize() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    ImGuiIO& io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
     ImGui::StyleColorsDark();
 
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
+    GLFWwindow* window = static_cast<GLFWwindow*>(WindowManager::getWindow());
+
     //Initialize platform/renderer bindings
-    ImGui_ImplGlfw_InitForOpenGL(WindowManager::getWindow(), true);
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
 }
 
@@ -165,7 +173,7 @@ void UIManager::StartRender()
 {
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
-    glfwMakeContextCurrent(WindowManager::getWindow());
+    
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 }
@@ -174,7 +182,7 @@ void UIManager::Render() {
 
     // example window
     //ImGui::ShowDemoWindow();    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Show the main menu bar
     ShowMenuBar();
@@ -194,11 +202,15 @@ void UIManager::EndRender()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
     ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        GLFWwindow* backup_current_context = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault(NULL, NULL);
-    }
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(backup_current_context);
+    }  
 }
 
 void UIManager::Exit() {
@@ -240,27 +252,7 @@ void UIManager::ShowMenuBar()
 
 void UIManager::CreateDockSpace()
 {
-    // Create the dockspace below the menu bar
-    float menuBarHeight = ImGui::GetFrameHeight();
-    ImGuiViewport* viewport = ImGui::GetMainViewport();
-    ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + menuBarHeight));
-    ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y - menuBarHeight));
-    ImGui::SetNextWindowViewport(viewport->ID);
-
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
-        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize |
-        ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus |
-        ImGuiWindowFlags_NoNavFocus;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-
-    // Create the dockspace that covers the whole viewport
-    ImGui::Begin("DockSpace Window", nullptr, window_flags);
-    ImGui::PopStyleVar(2);
-    ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-    ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
-    ImGui::End();
+    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 }
 
 void UIManager::ShowDebugInfo() {

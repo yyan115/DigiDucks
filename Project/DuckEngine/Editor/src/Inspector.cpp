@@ -5,6 +5,7 @@
 #include "RigidbodyComponent.h"
 #include "Bounding.h"
 #include "AnimatorComponent.h"
+#include "SoundComponent.h"
 #include "DuckEngine.h"
 #include "GameManager.h"
 
@@ -137,6 +138,25 @@ void InspectorRenderer::RenderComponents(int entityID)
                     hasChanged = true;
                 }
             }
+        }
+    }
+
+    // Render SoundComponent if it exists
+    if (auto* sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(entityID))
+    {
+        if (ImGui::CollapsingHeader("Sound Component"))
+        {
+            // Checkbox for looping
+            ImGui::Checkbox("Loop", &sound->loop);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
+            // Checkbox for playing on start
+            ImGui::Checkbox("Play on Start", &sound->playOnStart);
+            if (ImGui::IsItemEdited()) hasChanged = true;
+
+            // Slider for volume
+            ImGui::SliderFloat("Volume", &sound->volume, 0.0f, 1.0f, "%.2f");
+            if (ImGui::IsItemEdited()) hasChanged = true;
         }
     }
 
