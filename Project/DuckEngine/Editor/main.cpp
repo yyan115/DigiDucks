@@ -52,6 +52,7 @@ int main(void)
     }
     std::cout << "Exited!\n";
 
+    uiManager.Exit();
     engine.Exit();
 
     return 0;

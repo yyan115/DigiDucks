@@ -409,52 +409,47 @@ void UIManager::ShowHierarchy() {
     // Get all entities
     std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    // Iterate through entities and create buttons for each one
     for (size_t i = 0; i < entities.size(); ++i) {
         if (entities[i].entityID == 0) {
             continue;
         }
 
-        // Create a unique label for each button
+        // Create a unique label for each node
         std::string entityLabel = "GameObject " + std::to_string(entities[i].entityID);
         if (!entities[i].name.empty()) {
             entityLabel = entities[i].name;
         }
 
-        // Check if this entity is selected
+        // Begin a tree node for each entity
+        ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
         if (selectedEntityID == entities[i].entityID) {
-            // Highlight the selected entity button
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
-        }
-        else {
-            // For unselected entities
-            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_Button));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImGui::GetStyleColorVec4(ImGuiCol_ButtonHovered));
-            ImGui::PushStyleColor(ImGuiCol_Text, ImGui::GetStyleColorVec4(ImGuiCol_Text));
+            nodeFlags |= ImGuiTreeNodeFlags_Selected;
         }
 
-        // Create a button for each entity
-        if (ImGui::Button(entityLabel.c_str())) {
+        bool nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
+
+        // Check if this entity node is selected
+        if (ImGui::IsItemClicked()) {
             if (selectedEntityID == entities[i].entityID) {
-                // Deselect the entity if it is clicked again
-                selectedEntityID = -1;
+                selectedEntityID = -1;  // Deselect the entity
                 windowStates[WindowType::Inspector] = false; // Hide Inspector window
             }
             else {
-                // Select the entity
-                selectedEntityID = entities[i].entityID;
+                selectedEntityID = entities[i].entityID;  // Select the entity
                 windowStates[WindowType::Inspector] = true;  // Show Inspector window
             }
         }
 
-        ImGui::PopStyleColor(3);
-        ImGui::Spacing();
+        // If the node is open, display children or other properties here
+        if (nodeOpen) {
+            ImGui::Text("Entity ID: %d", entities[i].entityID); // Example of displaying extra information
+            ImGui::TreePop();
+        }
     }
 
     ImGui::End();
 }
+
 
 // Get color based on log level
 ImVec4 GetColorByLevel(const std::string& level) {
