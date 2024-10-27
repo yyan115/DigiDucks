@@ -28,6 +28,7 @@ Entity* camera;
 TransformComponent* playerTransform;
 RigidbodyComponent* playerRb;
 AnimatorComponent* playerAnimator;
+SoundComponent* playerSound;
 
 BoundingCircle* circle;
 
@@ -82,7 +83,9 @@ void SpriteMovementScene::Load()
 		UNREFERENCED_PARAMETER(otherEntity);
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
-	
+	std::shared_ptr<SoundComponent> playerSsound = std::make_shared<SoundComponent>("TestSound", false, false, 1.0f);
+	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(player->entityID, *playerSsound);
+	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
 	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
 	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->entityID);
@@ -149,12 +152,12 @@ void SpriteMovementScene::Update()
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
-	/*if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y)) {
-		SoundComponent* playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y)) {
 		if (playerSound) {
+			std::cout << "Sound play\n";
 			playerSound->Play();
 		}
-	}*/
+	}
 
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
 	{

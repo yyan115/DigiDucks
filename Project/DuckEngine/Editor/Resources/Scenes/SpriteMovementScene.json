@@ -87,13 +87,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 0,
+                            "y": 5
                         },
                         "relativeToCamera": true,
                         "scale": {
-                            "x": 10.0,
-                            "y": 8.48799991607666
+                            "x": 2.0,
+                            "y": 2.8
                         }
                     },
                     "type": "TransformComponent"
@@ -101,10 +101,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
                         },
                         "layer": 1,
                         "sprite": true,
@@ -116,7 +116,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
+                            "x": 5.0,
                             "y": 0.0
                         },
                         "size": {
