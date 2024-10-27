@@ -83,7 +83,7 @@ void SpriteMovementScene::Load()
 		UNREFERENCED_PARAMETER(otherEntity);
 		std::cout << "Player collided with another entity!" << std::endl;
 	});
-	std::shared_ptr<SoundComponent> playerSsound = std::make_shared<SoundComponent>("TestSound", false, false, 1.0f);
+	std::shared_ptr<SoundComponent> playerSsound = std::make_shared<SoundComponent>("TestSound", true, false, 0.05f);
 	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(player->entityID, *playerSsound);
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
@@ -172,6 +172,13 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_UP)
 	{
 		std::cout << "Mouse scrolled up!\n";
+	}
+
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
+		if (playerSound) {
+			std::cout << "Sound stopped\n";
+			playerSound->Stop();
+		}
 	}
 
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
