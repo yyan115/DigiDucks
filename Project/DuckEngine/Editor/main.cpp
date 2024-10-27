@@ -6,10 +6,12 @@
 #include <GLFW/glfw3.h>
 #include "UIManager.h"
 #include "GameManager.h"
+#include "WindowManager.h"
 
 static DuckEngine engine;
 static UIManager uiManager;
-static SceneWindow sceneWindow(engine);
+static SceneWindow sceneWindow(engine, 1600, 900);
+
 
 
 int main(void)
@@ -19,9 +21,12 @@ int main(void)
 
     engine.Initialize(true);
 
+    glfwMakeContextCurrent(WindowManager::getWindow());
+
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
     GameManager::SetActiveScene("SpriteMovementScene");
+    sceneWindow.Initialize();
     uiManager.Initialize();
 
     DUCKLOG_INFO("Engine initialized.");
@@ -38,7 +43,7 @@ int main(void)
             uiManager.StartRender();
 
             uiManager.Render();
-            sceneWindow.RenderSceneWindow(900, 600);
+            sceneWindow.RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
 
             uiManager.EndRender();
 

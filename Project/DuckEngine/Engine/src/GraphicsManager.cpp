@@ -839,51 +839,54 @@ namespace {
     }
 }
 
+bool IsOpenGLContextActive()
+{
+    const GLubyte* version = glGetString(GL_VERSION);
+    return version != nullptr;
+}
+
 bool GraphicsManager::InitializeFBO(int width, int height)
 {
-    std::cout << "Initializing FBO...\n";
 
-    // Generate the FBO
+    if (!IsOpenGLContextActive())
+    {
+        return false;
+    }
+
+    if (fbo != 0)
+    {
+        glDeleteFramebuffers(1, &fbo);
+        glDeleteTextures(1, &fboTexture);
+        glDeleteRenderbuffers(1, &depthStencil);
+    }
+
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    std::cout << "Generated FBO: " << fbo << "\n";
 
-    // Generate the texture to render to
     glGenTextures(1, &fboTexture);
     glBindTexture(GL_TEXTURE_2D, fboTexture);
-    std::cout << "Generated FBO Texture: " << fboTexture << "\n";
-
-    // Allocate texture storage
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-
-    // Set texture parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    // Attach the texture to the FBO
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTexture, 0);
 
-    // Create and attach depth/stencil buffer
     glGenRenderbuffers(1, &depthStencil);
     glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencil);
 
-    // Check if the FBO is complete
     GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (fboStatus != GL_FRAMEBUFFER_COMPLETE) {
         std::cout << "FBO initialization failed! Status: " << fboStatus << std::endl;
         return false;
     }
 
-    std::cout << "FBO initialization complete!\n";
-
-    // Unbind the FBO (switch back to the default framebuffer)
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
     return true;
 }
+
 
 
 void GraphicsManager::BindFBO() 
