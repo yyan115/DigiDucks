@@ -17,12 +17,16 @@ void EditorInputManager::Initialize()
 void EditorInputManager::Update()
 {
     double scrollOffsetY = InputManager::GetScrollOffsetY();
-    if (scrollOffsetY != 0)
+    if (scrollOffsetY != 0 && SceneWindow::GetInSceneFBO())
     {
         HandleScrollInput(scrollOffsetY);
     }
+    else
+    {
+        scrollOffsetY = 0;
+    }
 
-    if (InputManager::IsMouseButtonDown(GLFW_MOUSE_BUTTON_MIDDLE))
+    if (InputManager::IsMouseButtonDown(GLFW_MOUSE_BUTTON_MIDDLE) && SceneWindow::GetInSceneFBO())
     {
         if (!isDragging)
         {

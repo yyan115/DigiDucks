@@ -9,6 +9,7 @@
 bool isPlaying = false;
 int SceneWindow::width = 0;
 int SceneWindow::height = 0;
+bool SceneWindow::inSceneFBO = false;
 
 void SceneWindow::Initialize()
 {
@@ -46,7 +47,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
     ImGui::Image((void*)(intptr_t)fboTexture, windowSize, ImVec2(0, 1), ImVec2(1, 0));
 
-    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    // Check if the mouse is within the FBO content area
+    inSceneFBO = IsMouseInFBO();
+
+    if (inSceneFBO && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         Vector2D worldPos = ConvertScreenToWorld();
         std::cout << "Mouse click in world coordinates: (" << worldPos.x << ", " << worldPos.y << ")\n";
@@ -56,35 +60,31 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     ImGui::End();
 }
 
-Vector2D SceneWindow::ConvertScreenToWorld()
+bool SceneWindow::IsMouseInFBO()
 {
-    // Get mouse position
     ImVec2 mousePos = ImGui::GetMousePos();
-
-    // Get FBO position and size
     ImVec2 fboPos = ImGui::GetItemRectMin();
     ImVec2 fboSize = ImGui::GetItemRectSize();
 
-    // Calculate relative mouse position
+    return mousePos.x >= fboPos.x &&
+        mousePos.x <= fboPos.x + fboSize.x &&
+        mousePos.y >= fboPos.y &&
+        mousePos.y <= fboPos.y + fboSize.y;
+}
+
+Vector2D SceneWindow::ConvertScreenToWorld()
+{
+    ImVec2 mousePos = ImGui::GetMousePos();
+    ImVec2 fboPos = ImGui::GetItemRectMin();
+    ImVec2 fboSize = ImGui::GetItemRectSize();
+
     float relativeX = mousePos.x - fboPos.x;
     float relativeY = mousePos.y - fboPos.y;
 
-    // Ensure mouse is within the FBO content area
-    if (relativeX < 0 || relativeY < 0 ||
-        relativeX > fboSize.x || relativeY > fboSize.y)
-    {
-        std::cout << "Mouse click is outside the FBO content area!" << std::endl;
-        return Vector2D(0, 0);  // Handle as needed
-    }
-
-    // Flip Y-axis to align with OpenGL's origin
     float flippedY = fboSize.y - relativeY;
+    float normalizedX = (relativeX / fboSize.x) * 2.0f - 1.0f;
+    float normalizedY = (flippedY / fboSize.y) * 2.0f - 1.0f;
 
-    // Normalize coordinates to NDC space [-1, 1]
-    float normalizedX = (relativeX / fboSize.x) * 2.0f - 1.0f;  // [-1, 1]
-    float normalizedY = (flippedY / fboSize.y) * 2.0f - 1.0f;   // [-1, 1]
-
-    // Map NDC to world coordinates
     Vector2D cameraPos = CameraManager::GetPosition();
     float cameraHeight = static_cast<float>(CameraManager::GetHeight());
     float aspectRatio = CameraManager::GetAR();
@@ -95,4 +95,3 @@ Vector2D SceneWindow::ConvertScreenToWorld()
 
     return Vector2D(worldX, worldY);
 }
-
