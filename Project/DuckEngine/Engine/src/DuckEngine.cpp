@@ -24,7 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "WindowManager.h"
 #include "TimeManager.h"
 #include "CameraManager.h"
-#include "SoundManager.h"
+#include "InputManager.h"
 #include "InputManager.h"
 #include "ShaderManager.h"
 #include "FontManager.h"
@@ -106,8 +106,6 @@ void DuckEngine::Initialize(bool _isEditor)
 
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
-
-    SoundManager::GetInstance().Initialize();
 }
 
 void DuckEngine::SetPlaying(bool playing)
@@ -143,7 +141,6 @@ void DuckEngine::Update()
             TimeManager::StartSystemTimer();
             DUCKENGINE_SceneManager.Update();
             TimeManager::EndSystemTimer("SceneManager");
-            //SoundManager::GetInstance().Update();
         }
     }
     else
@@ -151,7 +148,6 @@ void DuckEngine::Update()
         TimeManager::StartSystemTimer();
         DUCKENGINE_SceneManager.Update();
         TimeManager::EndSystemTimer("SceneManager");
-        //SoundManager::GetInstance().Update();
     }
 
     FontManager::Update();
@@ -231,7 +227,6 @@ void DuckEngine::EndDraw()
 *************************************************************************/
 void DuckEngine::Exit() 
 { 
-    SoundManager::GetInstance().Exit();
     WindowManager::Exit();
     GraphicsManager::Exit();
     //PrefabManager::Exit();
