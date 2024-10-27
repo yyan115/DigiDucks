@@ -6,7 +6,7 @@
 #include "imgui.h"
 #include "SceneWindow.h"
 
-float cameraSensitivity = 0.07f;
+float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
 
 void EditorInputManager::Initialize()
