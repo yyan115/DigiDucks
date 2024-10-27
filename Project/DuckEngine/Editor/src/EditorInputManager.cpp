@@ -16,6 +16,8 @@ void EditorInputManager::Initialize()
 
 void EditorInputManager::Update()
 {
+    if (SceneWindow::GetIsPlaying()) return;
+
     double scrollOffsetY = InputManager::GetScrollOffsetY();
     if (scrollOffsetY != 0 && SceneWindow::GetInSceneFBO())
     {

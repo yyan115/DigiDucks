@@ -6,7 +6,7 @@
 #include "GameManager.h"
 #include "CameraManager.h"
 
-bool isPlaying = false;
+bool SceneWindow::isPlaying = false;
 int SceneWindow::width = 0;
 int SceneWindow::height = 0;
 bool SceneWindow::inSceneFBO = false;

@@ -13,9 +13,11 @@ public:
 	static bool IsMouseInFBO();
 
 	static bool GetInSceneFBO() { return inSceneFBO; }
+	static bool GetIsPlaying() { return isPlaying;  }
 
 private:
 	static bool inSceneFBO;
+	static bool isPlaying;
 	static int width;
 	static int height;
 };
