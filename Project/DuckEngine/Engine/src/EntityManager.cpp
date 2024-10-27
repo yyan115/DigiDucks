@@ -85,4 +85,3 @@ Entity* EntityManager::GetEntity(int entityID)
     }
     return nullptr;
 }
-

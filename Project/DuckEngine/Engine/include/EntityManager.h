@@ -62,4 +62,5 @@ class EntityManager
     DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
 
     DUCKENGINE_API Entity* GetEntity(int entityID);
+
 };
