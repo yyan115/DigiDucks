@@ -34,6 +34,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <sstream>
 #include "Inspector.h"
 #include "GameManager.h"
+#include "AssetsBrowser.h"
 
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
@@ -53,11 +54,7 @@ std::unordered_map<WindowType, bool> windowStates = {
     {WindowType::Inspector, false},
 };
 
-enum class AssetCategory {
-    Scene,
-    GameObject,
-    Audio
-};
+
 
 void UIManager::Initialize() {
     // ImGui initialization
@@ -338,38 +335,40 @@ void UIManager::ShowExplorer() {
         // Second tab: Assets
         if (ImGui::BeginTabItem("Assets")) {
 
-            static AssetCategory currentCategory = AssetCategory::Scene;
-            const char* items[] = { "Scene", "GameObject", "Audio" };
+            AssetsBrowser::ShowAssets();
 
-            ImGui::Text("Category:   ");
-            ImGui::SameLine();
+   //         static AssetCategory currentCategory = AssetCategory::Scene;
+   //         const char* items[] = { "Scene", "GameObject", "Audio" };
 
-            if (ImGui::BeginCombo("##Category", items[static_cast<int>(currentCategory)])) {
-                for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
-                    bool is_selected = (static_cast<int>(currentCategory) == n);
-                    if (ImGui::Selectable(items[n], is_selected)) {
-                        currentCategory = static_cast<AssetCategory>(n);
-                    }
+   //         ImGui::Text("Category:   ");
+   //         ImGui::SameLine();
 
-                    if (is_selected) {
-                        ImGui::SetItemDefaultFocus();
-                    }
-                }
-				ImGui::EndCombo();
-			}
+   //         if (ImGui::BeginCombo("##Category", items[static_cast<int>(currentCategory)])) {
+   //             for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
+   //                 bool is_selected = (static_cast<int>(currentCategory) == n);
+   //                 if (ImGui::Selectable(items[n], is_selected)) {
+   //                     currentCategory = static_cast<AssetCategory>(n);
+   //                 }
 
-            // Handle the selected category
-            switch (currentCategory) {
-            case AssetCategory::Scene:
-                RenderSceneAssets();
-                break;
-            case AssetCategory::GameObject:
-                RenderGameObjectAssets();
-                break;
-            case AssetCategory::Audio:
-                RenderAudioAssets();
-                break;
-            }
+   //                 if (is_selected) {
+   //                     ImGui::SetItemDefaultFocus();
+   //                 }
+   //             }
+			//	ImGui::EndCombo();
+			//}
+
+   //         // Handle the selected category
+   //         switch (currentCategory) {
+   //         case AssetCategory::Scene:
+   //             RenderSceneAssets();
+   //             break;
+   //         case AssetCategory::GameObject:
+   //             RenderGameObjectAssets();
+   //             break;
+   //         case AssetCategory::Audio:
+   //             RenderAudioAssets();
+   //             break;
+   //         }
             
             ImGui::EndTabItem();
         }
