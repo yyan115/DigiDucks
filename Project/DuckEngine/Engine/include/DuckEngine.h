@@ -70,7 +70,7 @@ public:
     /************************************************************************
     @brief Starts the rendering process for a new frame.
     *************************************************************************/
-    void DUCKENGINE_API StartDraw();
+    void DUCKENGINE_API StartDraw(GLint width = GetWindowWidth(), GLint height = GetWindowHeight());
 
     /************************************************************************
     @brief Executes the drawing commands to render the current game frame.

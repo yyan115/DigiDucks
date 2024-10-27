@@ -182,17 +182,18 @@ void DuckEngine::Update()
 @brief Prepares the rendering process for a new frame by clearing the screen
        and adapting the viewport to any window size changes.
 *************************************************************************/
-void DuckEngine::StartDraw()
+void DuckEngine::StartDraw(GLint width, GLint height)
 {
     // Clear the screen
     //Adapt viewport to resized window
-    GLint w{ WindowManager::GetWindowWidth() }, h{ WindowManager::GetWindowHeight() };
+    GLint w{ width }, h{ height };
     static GLint old_w{}, old_h{};
     if (w != old_w || h != old_h)
     {
         old_w = w;
         old_h = h;
         glViewport(0, 0, w, h);
+        std::cout << "caalled\n";
     }
 }
 
