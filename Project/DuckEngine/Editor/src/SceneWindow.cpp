@@ -73,9 +73,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             selectedEntity = entitiesUnderMouse[0];
             currentEntityIndex = 0;
 
-            std::cout << "Single-click selected entity with ID: "
-                << selectedEntity->entityID << "\n";
-
             EditorInputManager::SetIsDragging(true);
             initialMousePos = worldPos;
 
@@ -93,9 +90,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         {
             currentEntityIndex = (currentEntityIndex + 1) % entitiesUnderMouse.size();
             selectedEntity = entitiesUnderMouse[currentEntityIndex];
-
-            std::cout << "Double-click cycled to entity with ID: "
-                << selectedEntity->entityID << "\n";
 
             EditorInputManager::SetIsDragging(true);
             initialMousePos = worldPos;
@@ -115,7 +109,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
     {
-        std::cout << "Mouse released. Unselecting entity.\n";
         selectedEntity = nullptr;
         EditorInputManager::SetIsDragging(false);
     }
