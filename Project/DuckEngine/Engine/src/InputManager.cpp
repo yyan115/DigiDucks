@@ -66,6 +66,12 @@ void InputManager::Update() {
 
     // Poll for new events, updating current states
     glfwPollEvents();
+
+    if (!IsMouseButtonDown(GLFW_MOUSE_BUTTON_MIDDLE)) 
+    {
+        lastMouseX = mouseX;
+        lastMouseY = mouseY;
+    }
 }
 
 /// <summary>
@@ -207,6 +213,20 @@ void InputManager::mouseScrollCB(GLFWwindow* pwin, double xoffset, double yoffse
 void InputManager::mousePosCB(GLFWwindow* pwin, double xpos, double ypos) {
     UNREFERENCED_PARAMETER(pwin);
 
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
     mouseX = xpos;
     mouseY = ypos;
 }
+
+bool InputManager::IsMiddleMouseDown() 
+{ 
+    return mouseButtonStates[GLFW_MOUSE_BUTTON_MIDDLE];
+}
+
+void InputManager::ResetLastMousePosition()
+{
+    lastMouseX = mouseX;
+    lastMouseY = mouseY;
+}
+

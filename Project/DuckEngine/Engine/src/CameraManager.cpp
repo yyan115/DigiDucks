@@ -60,3 +60,21 @@ void CameraManager::SetHeight(const int height) {
 void CameraManager::Update() {
 	// Empty for now.
 }
+
+
+void CameraManager::AdjustHeight(int delta)
+{
+	cameraHeight += delta;
+
+	// cannot go negative
+	if (cameraHeight < 1)
+	{
+		cameraHeight = 1;
+	}
+}
+
+void CameraManager::MoveCamera(float deltaX, float deltaY)
+{
+	position.x -= deltaX;
+	position.y -= deltaY;
+}

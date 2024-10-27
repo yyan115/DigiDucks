@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Engine\src\LoggerManager.cpp" />
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\EditorInputManager.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
@@ -44,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Engine\include\LoggerManager.h" />
+    <ClInclude Include="..\include\EditorInputManager.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />

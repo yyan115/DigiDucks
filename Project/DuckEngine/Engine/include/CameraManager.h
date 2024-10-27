@@ -70,6 +70,9 @@ public:
     /// <returns>The height of the camera's view.</returns>
     static inline float GetHeight() { return static_cast<float>(cameraHeight); };
 
+    static void AdjustHeight(int delta);
+    static void MoveCamera(float deltaX, float deltaY);
+
     /// <summary>
     /// Updates the camera's internal state. This method may include calculations or adjustments based on the current camera properties.
     /// </summary>

@@ -117,6 +117,14 @@ public:
     /// <returns>The vertical scroll offset.</returns>
     inline static DUCKENGINE_API double GetScrollOffsetY() { return scrollY; }
 
+    inline static DUCKENGINE_API double GetMouseDeltaX() { return mouseX - lastMouseX; }
+
+    inline static DUCKENGINE_API double GetMouseDeltaY() { return mouseY - lastMouseY; }
+
+    static DUCKENGINE_API bool IsMiddleMouseDown();
+    static DUCKENGINE_API void ResetLastMousePosition();
+
+
     /// <summary>
     /// Handles keyboard input events. This function is called when a key is pressed, released, or repeated.
     /// </summary>

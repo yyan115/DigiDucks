@@ -7,6 +7,7 @@
 #include "UIManager.h"
 #include "GameManager.h"
 #include "WindowManager.h"
+#include "EditorInputManager.h"
 
 static DuckEngine engine;
 static UIManager uiManager;
@@ -28,6 +29,7 @@ int main(void)
     GameManager::SetActiveScene("SpriteMovementScene");
     sceneWindow.Initialize();
     uiManager.Initialize();
+    EditorInputManager::Initialize();
 
     DUCKLOG_INFO("Engine initialized.");
 
@@ -35,6 +37,8 @@ int main(void)
         DUCKLOG_INFO("Game Started.");
         while (engine.Running())
         {
+            EditorInputManager::Update();
+
             engine.Update();
 
             engine.StartDraw();
