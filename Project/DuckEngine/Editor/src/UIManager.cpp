@@ -37,11 +37,16 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "AssetsBrowser.h"
 #include "EditorTheme.h"
 
+
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
 std::vector<std::pair<int, std::string>> spawnedEntities;
 int entityCounter = 0;
 std::set<int> availableNumbers;
+
+// Store historical data for performance tracking
+std::unordered_map<std::string, std::vector<float>> managerHistory;
+std::unordered_map<std::string, std::vector<float>> systemHistory;
 
 enum class WindowType {
     DebugInfo,
@@ -84,81 +89,6 @@ void UIManager::Initialize() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
 }
-
-void RenderSystemTimings(const SystemManager& systemManager) {
-    static std::vector<std::pair<std::string, double>> lastSystemPercentages;
-    static std::vector<std::pair<std::string, double>> lastManagerPercentages;
-    static double lastUpdateTime = 0.0;
-
-    // Current time in seconds
-    double currentTime = glfwGetTime();
-
-    // Check if 2 seconds have passed
-    if (currentTime - lastUpdateTime >= 2.0) {
-        lastUpdateTime = currentTime;
-
-        // Clear previous percentages
-        lastSystemPercentages.clear();
-        lastManagerPercentages.clear();
-
-        const std::vector<std::pair<std::string, double>>& systemData = systemManager.GetSystemData();
-        const std::vector<std::pair<std::string, double>>& managerData = TimeManager::GetManagerData();
-
-        // Store manager percentages
-        for (const auto& manager : managerData) {
-            double managerPercentage = (manager.second / TimeManager::DT()) * 100.0;
-            lastManagerPercentages.push_back({ manager.first, managerPercentage });
-        }
-
-        // Store system percentages
-        for (const auto& system : systemData) {
-            double systemPercentage = (system.second / TimeManager::DT()) * 100.0;
-            lastSystemPercentages.push_back({ system.first, systemPercentage });
-        } 
-    }
-
-    // Display manager timings
-    for (const auto& manager : lastManagerPercentages) {
-        double managerPercentage = manager.second;
-
-        ImGui::Text("%s", manager.first.c_str());
-        std::stringstream ss;
-        ss << std::fixed << std::setprecision(2) << managerPercentage << "%";
-        ImGui::ProgressBar(static_cast<float>(managerPercentage / 100.0), ImVec2(-1, 0), ss.str().c_str());
-
-        if (ImGui::IsItemHovered()) {
-            ImGui::BeginTooltip();
-            ImGui::Text("Manager: %s", manager.first.c_str());
-            ImGui::Text("Percentage: %.2f%%", managerPercentage);
-            ImGui::EndTooltip();
-        }
-
-        ImGui::Spacing();
-    }
-
-    // Display system timings
-    for (const auto& system : lastSystemPercentages) {
-        double systemPercentage = system.second;
-
-        auto spacePos = system.first.find(" ");
-        std::string rawName = system.first.c_str();
-        rawName = system.first.c_str() + spacePos + 1;
-        ImGui::Text("%s", rawName.c_str());
-        std::stringstream ss;
-        ss << std::fixed << std::setprecision(2) << systemPercentage << "%";
-        ImGui::ProgressBar(static_cast<float>(systemPercentage / 100.0), ImVec2(-1, 0), ss.str().c_str());
-
-        if (ImGui::IsItemHovered()) {
-            ImGui::BeginTooltip();
-            ImGui::Text("System: %s", rawName.c_str());
-            ImGui::Text("Percentage: %.2f%%", systemPercentage);
-            ImGui::EndTooltip();
-        }
-
-        ImGui::Spacing();
-    }
-}
-
 
 // Render the ImGui windows with a specific size and position to make it adaptive
 void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) {
@@ -302,7 +232,7 @@ void UIManager::ShowDebugInfo() {
 
         // Second tab: Perforamnce
         if (ImGui::BeginTabItem("Performance")) {
-            RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
+            RenderPerformanceGraphs(DuckEngine::DUCKENGINE_SystemManager);
             ImGui::EndTabItem();
         }
 
@@ -319,12 +249,88 @@ void UIManager::ShowDebugInfo() {
 	ImGui::End();
 }
 
-void UIManager::ShowPerformance() {
-    //RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.3f);
-    ImGui::Begin("Performance", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-    RenderSystemTimings(DuckEngine::DUCKENGINE_SystemManager);
-    ImGui::End();
-}   
+void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
+    const auto& systemData = systemManager.GetSystemData();
+    const auto& managerData = TimeManager::GetManagerData();
+    float deltaTime = static_cast<float>(TimeManager::DT());  // Get the current frame time (or delta time)
+
+    const int averageFrameCount = 10;
+
+    // Display manager performance as graphs
+    ImGui::Text("Manager Performance");
+    for (const auto& manager : managerData) {
+        const std::string& managerName = manager.first;
+        float managerPercentage = static_cast<float>(manager.second / deltaTime) * 100.0f;
+
+        auto& history = managerHistory[managerName];
+        if (history.size() >= 100) {
+            history.erase(history.begin());
+        }
+        history.push_back(managerPercentage);
+
+        // Display the graph
+        ImGui::Text("%s", managerName.c_str());
+        ImGui::PlotLines("", history.data(), static_cast<int>(history.size()),
+            0, nullptr, 0.0f, 100.0f, ImVec2(0, 60));
+
+        if (ImGui::IsItemHovered()) {
+            ImGui::BeginTooltip();
+
+            // Calculate average
+            float averagePercentage = 0.0f;
+            int count = 0;
+            for (size_t i = history.size() - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
+                averagePercentage += history[i];
+            }
+            averagePercentage /= count;
+
+            ImGui::Text("Manager: %s", managerName.c_str());
+            ImGui::Text("Percentage: %.2f%%", averagePercentage);
+            ImGui::EndTooltip();
+        }
+
+        ImGui::Spacing();
+    }
+
+    // Display system performance as graphs
+    ImGui::Text("System Performance");
+    for (const auto& system : systemData) {
+        const std::string& systemName = system.first;
+        float systemPercentage = static_cast<float>(system.second / deltaTime) * 100.0f;
+
+        auto& history = systemHistory[systemName];
+        if (history.size() >= 100) {
+            history.erase(history.begin());
+        }
+        history.push_back(systemPercentage);
+
+        // Display the graph
+        auto spacePos = system.first.find(" ");
+        std::string rawName = system.first.c_str();
+        rawName = system.first.c_str() + spacePos + 1;
+        ImGui::Text("%s", rawName.c_str());
+        ImGui::PlotLines("", history.data(), static_cast<int>(history.size()),
+            0, nullptr, 0.0f, 100.0f, ImVec2(0, 60));
+
+        if (ImGui::IsItemHovered()) {
+            ImGui::BeginTooltip();
+
+            // Calculate average
+            float averagePercentage = 0.0f;
+            int count = 0;
+            for (size_t i = history.size() - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
+                averagePercentage += history[i];
+            }
+            averagePercentage /= count;
+
+            ImGui::Text("System: %s", systemName.c_str());
+            ImGui::Text("Percentage: %.2f%%", averagePercentage);
+            ImGui::EndTooltip();
+        }
+
+        ImGui::Spacing();
+    }
+}
 
 void UIManager::ShowExplorer() {
     ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);

@@ -92,7 +92,7 @@ private:
     *
     * @return void
     ***************************************************************/
-    static void ShowPerformance();
+    static void RenderPerformanceGraphs(const SystemManager& systemManager);
 
     /****************************************************************
     * @brief Renders buttons to switch between scenes in the engine
@@ -122,6 +122,8 @@ private:
     static void ShowMenuBar();
 
     static void SaveScene(const std::string& sceneName);
+
+    
 
 };
 

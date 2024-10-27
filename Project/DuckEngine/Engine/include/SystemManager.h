@@ -61,14 +61,7 @@ public:
     *************************************************************************/
     const std::vector<std::pair<std::string, double>>& GetSystemData() const { return systemData; }   
 
-    /************************************************************************
-    @brief Retrieves the total execution time for all systems combined.
-    @return The total execution time.
-    *************************************************************************/
-    double GetTotalTime() const { return totalTime; }
-
 private:
     std::vector<std::shared_ptr<System>> systems;
     std::vector<std::pair<std::string, double>> systemData;
-    double totalTime = 0.0;
 };

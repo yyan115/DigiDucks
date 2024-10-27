@@ -55,7 +55,6 @@ void SystemManager::UpdateAll()
 
         double elapsedTime = TimeManager::EndSystemTimer();  // Get time taken
         systemData[&system - &systems[0]].second = elapsedTime;    // Store time taken
-        totalTime += elapsedTime;	// Add to total time
         
     }
 }
