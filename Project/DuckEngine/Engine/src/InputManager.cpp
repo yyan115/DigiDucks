@@ -19,6 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <unordered_map>
+#include <iostream>
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
@@ -143,9 +144,15 @@ void InputManager::keyCB(GLFWwindow* pwin, int key, int scancode, int action, in
 
     if (action == GLFW_PRESS) {
         keyStates[key] = true;
+//#ifdef _DEBUG
+//        std::cout << "Key Pressed: " << key << std::endl;
+//#endif
     }
     else if (action == GLFW_RELEASE) {
         keyStates[key] = false;
+//#ifdef _DEBUG
+//        std::cout << "Key Released: " << key << std::endl;
+//#endif
     }
 }
 
@@ -162,9 +169,15 @@ void InputManager::mouseButtonCB(GLFWwindow* pwin, int button, int action, int m
 
     if (action == GLFW_PRESS) {
         mouseButtonStates[button] = true;
+//#ifdef _DEBUG
+//        std::cout << "Mouse Button Pressed: " << button << std::endl;
+//#endif
     }
     else if (action == GLFW_RELEASE) {
         mouseButtonStates[button] = false;
+//#ifdef _DEBUG
+//        std::cout << "Mouse Button Released: " << button << std::endl;
+//#endif
     }
 }
 
@@ -179,6 +192,10 @@ void InputManager::mouseScrollCB(GLFWwindow* pwin, double xoffset, double yoffse
 
     scrollX = xoffset;
     scrollY = yoffset;
+
+//#ifdef _DEBUG
+//    std::cout << "Mouse Scroll: X Offset = " << xoffset << ", Y Offset = " << yoffset << std::endl;
+//#endif
 }
 
 /// <summary>

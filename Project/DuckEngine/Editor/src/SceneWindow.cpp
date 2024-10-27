@@ -10,7 +10,7 @@ SceneWindow::SceneWindow(DuckEngine& engine) : engine(engine) {}
 
 void SceneWindow::RenderSceneWindow(int width, int height) 
 {
-    std::cout << "width: " << width << ", height: " << height << "\n";
+    //std::cout << "width: " << width << ", height: " << height << "\n";
     ImGui::Begin("Scene Window");
 
     bool gamePlaying = engine.IsPlaying();

@@ -148,4 +148,13 @@ public:
     static const int KEY_LEFT_SHIFT;
     static const int KEY_RIGHT_SHIFT;
     static const int KEY_BACKSPACE;
+
+    // Constants for mouse buttons
+    static const int MOUSE_BUTTON_LEFT;
+    static const int MOUSE_BUTTON_RIGHT;
+    static const int MOUSE_BUTTON_MIDDLE;
+
+    // Constants for scroll directions
+    static const double SCROLL_UP;
+    static const double SCROLL_DOWN;
 };

@@ -53,3 +53,12 @@ const int DuckEngine_Input::KEY_DOWN = GLFW_KEY_DOWN;
 const int DuckEngine_Input::KEY_LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT;
 const int DuckEngine_Input::KEY_RIGHT_SHIFT = GLFW_KEY_RIGHT_SHIFT;
 const int DuckEngine_Input::KEY_BACKSPACE = GLFW_KEY_BACKSPACE;
+
+// Define constants for mouse buttons
+const int DuckEngine_Input::MOUSE_BUTTON_LEFT = GLFW_MOUSE_BUTTON_LEFT;
+const int DuckEngine_Input::MOUSE_BUTTON_RIGHT = GLFW_MOUSE_BUTTON_RIGHT;
+const int DuckEngine_Input::MOUSE_BUTTON_MIDDLE = GLFW_MOUSE_BUTTON_MIDDLE;
+
+// Define constants for scroll directions (pseudo-constants for easier readability in the code)
+const double DuckEngine_Input::SCROLL_UP = 1.0;   // Scroll up equivalent
+const double DuckEngine_Input::SCROLL_DOWN = -1.0; // Scroll down equivalent

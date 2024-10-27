@@ -159,6 +159,21 @@ void SpriteMovementScene::Update()
 		}
 	}
 
+	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
+	{
+		std::cout << "Left mouse button pressed!\n";
+	}
+
+	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
+	{
+		std::cout << "Mouse scrolled down!\n";
+	}
+
+	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_UP)
+	{
+		std::cout << "Mouse scrolled up!\n";
+	}
+
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
 	{
 		std::cout << "Y is released!\n";
