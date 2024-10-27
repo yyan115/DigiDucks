@@ -88,6 +88,9 @@
     <Filter Include="src\ImGui">
       <UniqueIdentifier>{07cf4824-9ccd-499b-bd7a-bfd9beb8cc2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Components">
+      <UniqueIdentifier>{dcea23c7-13f8-4851-896b-975856a23121}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\DuckEngine.h">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="..\src\SoundSystem.cpp">
       <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SoundComponent.cpp">
+      <Filter>src\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

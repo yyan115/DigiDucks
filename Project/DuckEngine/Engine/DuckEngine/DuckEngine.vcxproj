@@ -215,6 +215,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClCompile Include="..\src\SceneManager.cpp" />
     <ClCompile Include="..\src\Serialization.cpp" />
     <ClCompile Include="..\src\ShaderManager.cpp" />
+    <ClCompile Include="..\src\SoundComponent.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\SoundSystem.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />

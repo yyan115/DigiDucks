@@ -2,8 +2,6 @@
 #include "Component.h"
 #include <string>
 #include <fmod.hpp>
-//#include "DuckEngine.h"
-//#include "AssetManager.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -29,36 +27,11 @@ public:
     }
 
     // Check if the sound is currently playing
-    bool IsSoundPlaying() const {
-        bool isPlaying = false;
-        if (channel) {
-            channel->isPlaying(&isPlaying);
-        }
-        return isPlaying;
-    }
+    DUCKENGINE_API bool IsSoundPlaying() const;
 
     // Play the sound associated with this component
-    void Play() {
-        //FMOD::Sound* sound = DuckEngine::DUCKENGINE_AssetManager.GetSounds(soundID);
-        //if (!sound || !DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()) return;
+    DUCKENGINE_API void Play();
 
-        //// Stop the current sound on this channel if it's playing
-        //if (channel) {
-        //    channel->stop();
-        //}
-
-        //// Play the new sound on a fresh channel
-        //FMOD::Channel* newChannel = nullptr;
-        //DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()->playSound(sound, nullptr, false, &newChannel);
-        //newChannel->setVolume(volume);
-        //channel = newChannel;
-    }
-
-    //// Stop the sound if it is playing
-    //void Stop() {
-    //    if (channel) {
-    //        channel->stop();
-    //        channel = nullptr;
-    //    }
-    //}
+    // Stop the sound if it is playing
+    DUCKENGINE_API void Stop();
 };
