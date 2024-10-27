@@ -122,6 +122,11 @@ copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
 xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />

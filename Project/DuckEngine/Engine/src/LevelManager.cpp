@@ -25,13 +25,23 @@
 #include <string>
 #include <filesystem>
 
+std::string ConstructSceneFilePath(std::string sceneName)
+{
+    std::string finalPath = "../Resources/Scenes/";
+    finalPath += sceneName;
+    finalPath += ".json";
+
+    return finalPath;
+}
 
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
-    std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
-    std::cout << "Loading level from: " << absolutePath.string() << std::endl;
+    //std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
+    //std::cout << "Loading level from: " << absolutePath.string() << std::endl;
     // Load the level data from the JSON file
-    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+    std::string finalPath = ConstructSceneFilePath(levelFile);
+    json levelData = Serialization::LoadJsonFile(finalPath.c_str());
+    std::cout << finalPath << std::endl;
 
     // Iterate over the game objects
     if (levelData.contains("gameObjects"))
@@ -131,13 +141,14 @@ void LevelManager::OpenLevelDialog()
 
 }
 
-void LevelManager::SaveEntityChanges(int entityID)
+void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 {
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
     if (!entity) return;
 
     // Load the current scene data.
-    json sceneData = Serialization::LoadJsonFile("../Resources/Scenes/SpriteMovementScene.json");
+    std::string finalPath = ConstructSceneFilePath(sceneName);
+    json sceneData = Serialization::LoadJsonFile(finalPath);
 
     // Find or create the game object entry.
     std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;

@@ -629,7 +629,7 @@ void UIManager::SaveScene(const std::string& sceneName)
     for (const auto& [entityID, hasChanged] : entityChanges) {
         if (hasChanged) 
         {
-            LevelManager::SaveEntityChanges(entityID);
+            LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
 
             entityChanges[entityID] = false;
             anyChanges = true;

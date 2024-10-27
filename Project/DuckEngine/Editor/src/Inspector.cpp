@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Inspector.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
@@ -5,7 +6,7 @@
 #include "Bounding.h"
 #include "AnimatorComponent.h"
 #include "DuckEngine.h"
-#include <iostream>
+#include "GameManager.h"
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
 
@@ -144,7 +145,7 @@ void InspectorRenderer::RenderComponents(int entityID)
     {
         if (ImGui::Button("Save Entity Changes"))
         {
-            LevelManager::SaveEntityChanges(entityID);
+            LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
             hasChanged = false; 
         }
         ImGui::SameLine();
