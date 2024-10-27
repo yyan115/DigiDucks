@@ -4,13 +4,19 @@
 enum class AssetCategory {
     Scene,
     GameObject,
-    Audio
+    Audio,
+    Material,
+    Texture,
+    Shader,
 };
 
 class AssetsBrowser {
 public:
     static void ShowAssets();
 private:
-    static void RenderDirectory(const std::string& path, AssetCategory category);
+    static void RenderDirectoryTree();
+    static void RenderAssetGrid(const std::string& path);
+
+    static std::string selectedFolderPath;
 };
 

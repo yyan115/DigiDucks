@@ -217,5 +217,17 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
         rigidbodyData["properties"]["isStatic"] = rigidbody->isStatic;
         componentsArray.push_back(rigidbodyData);
     }
+
+    // Save SoundComponent.
+    if (auto* sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(entityID))
+    {
+        json SoundData;
+        SoundData["type"] = "SoundComponent";
+        SoundData["properties"]["SoundID"] = sound->soundID;
+        SoundData["properties"]["loop"] = sound->loop;
+        SoundData["properties"]["playOnStart"] = sound->playOnStart;
+        SoundData["properties"]["volume"] = sound->volume;
+        componentsArray.push_back(SoundData);
+    }
 }
 

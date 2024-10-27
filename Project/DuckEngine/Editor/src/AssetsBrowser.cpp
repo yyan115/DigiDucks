@@ -1,70 +1,69 @@
 #include "AssetsBrowser.h"
-#include <filesystem>
 #include "imgui.h"
+#include <filesystem>
+#include <iostream>
+
 
 namespace fs = std::filesystem;
+std::string AssetsBrowser::selectedFolderPath = "../Resources";
 
-// Show the main explorer UI
-void AssetsBrowser::ShowAssets() 
-{
+// Main function to display the assets explorer UI
+void AssetsBrowser::ShowAssets() {
+    // Left pane for folder structure
+    ImGui::BeginChild("LeftPane", ImVec2(200, 0), true);
+    RenderDirectoryTree(); // Render folders dynamically based on the content of "../Resources"
+    ImGui::EndChild();
 
-    static AssetCategory currentCategory = AssetCategory::Scene;
-    const char* items[] = { "Scene", "GameObject", "Audio" };
-
-    // Dropdown for asset categories
-    ImGui::Text("Category:   ");
     ImGui::SameLine();
 
-    if (ImGui::BeginCombo("##Category", items[static_cast<int>(currentCategory)])) {
-        for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
-            bool is_selected = (static_cast<int>(currentCategory) == n);
-            if (ImGui::Selectable(items[n], is_selected)) {
-                currentCategory = static_cast<AssetCategory>(n);
-            }
-            if (is_selected) {
-                ImGui::SetItemDefaultFocus();
-            }
-        }
-        ImGui::EndCombo();
-    }
-
-    // Define the root directory for assets
-    static const std::string assetRootDir = "../Resources";
-
-    // Render the file system hierarchy based on the selected category
-    RenderDirectory(assetRootDir, currentCategory);
+    // Right pane for displaying assets within the selected folder
+    ImGui::BeginChild("RightPane", ImVec2(0, 0), true);
+    RenderAssetGrid(selectedFolderPath); // Display assets in the selected folder
+    ImGui::EndChild();
 }
 
-// Recursive function to render directories and files
-void AssetsBrowser::RenderDirectory(const std::string& path, AssetCategory category) {
-    for (const auto& entry : fs::directory_iterator(path)) {
+// Renders top-level directories in the Resources folder dynamically
+void AssetsBrowser::RenderDirectoryTree() {
+    const std::string rootPath = "../Resources";
+
+    // Iterate over directories in the root path
+    for (const auto& entry : fs::directory_iterator(rootPath)) {
         if (entry.is_directory()) {
-            // Create a tree node for each directory
-            if (ImGui::TreeNode(entry.path().filename().string().c_str())) {
-                RenderDirectory(entry.path().string(), category);
-                ImGui::TreePop();
+            std::string folderName = entry.path().filename().string();
+            std::string folderPath = entry.path().string();
+
+            // Display each folder as a selectable item
+            if (ImGui::Selectable(folderName.c_str(), selectedFolderPath == folderPath)) {
+                selectedFolderPath = folderPath; // Update the selected folder path
             }
         }
-        else {
-            // Filter files based on the current category
-            std::string extension = entry.path().extension().string();
-            bool showFile = false;
-            switch (category) {
-            case AssetCategory::Scene:
-                showFile = (extension == ".json");  // Adjust extension as needed
-                break;
-            case AssetCategory::GameObject:
-                showFile = (extension == ".object");  // Adjust extension as needed
-                break;
-            case AssetCategory::Audio:
-                showFile = (extension == ".wav" || extension == ".mp3");  // Adjust as needed
-                break;
+    }
+}
+
+// Render the assets in the right pane as a grid
+void AssetsBrowser::RenderAssetGrid(const std::string& path) {
+    if (!fs::exists(path)) return;
+
+    int itemsPerRow = 4;
+    int itemIndex = 0;
+
+    // Iterate over files in the selected folder and display them in a grid
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (!entry.is_directory()) {
+            std::string fileName = entry.path().filename().string();
+
+            ImGui::PushID(itemIndex);
+            if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
+                // Handle asset selection 
+                std::cout << "Selected " << fileName << " in " << path << std::endl;
             }
 
-            if (showFile) {
-                // Display file
-                ImGui::Selectable(entry.path().filename().string().c_str());
+            if ((itemIndex + 1) % itemsPerRow != 0) {
+                ImGui::SameLine();
             }
+
+            ImGui::PopID();
+            itemIndex++;
         }
     }
 }
