@@ -205,7 +205,7 @@ void SpriteMovementScene::Update()
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
-	DuckEngine::SetCameraPosition(-playerTransform->position.x, -playerTransform->position.y);
+	DuckEngine::SetCameraPosition(playerTransform->position.x, playerTransform->position.y);
 
 	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 200.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
 

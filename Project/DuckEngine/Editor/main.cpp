@@ -11,9 +11,6 @@
 
 static DuckEngine engine;
 static UIManager uiManager;
-static SceneWindow sceneWindow(engine, 1600, 900);
-
-
 
 int main(void)
 {
@@ -27,7 +24,7 @@ int main(void)
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
     GameManager::SetActiveScene("SpriteMovementScene");
-    sceneWindow.Initialize();
+    SceneWindow::Initialize();
     uiManager.Initialize();
     EditorInputManager::Initialize();
 
@@ -47,7 +44,7 @@ int main(void)
             uiManager.StartRender();
 
             uiManager.Render();
-            sceneWindow.RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+            SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
 
             uiManager.EndRender();
 
@@ -66,3 +63,4 @@ int main(void)
 
     return 0;
 }
+

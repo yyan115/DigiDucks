@@ -1,9 +1,10 @@
+#include <iostream>
 #include "EditorInputManager.h"
 #include "InputManager.h"
 #include "CameraManager.h"
 #include "WindowManager.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "imgui.h"
+#include "SceneWindow.h"
 
 bool EditorInputManager::isDragging = false;
 float cameraSensitivity = 0.07f;
@@ -42,6 +43,12 @@ void EditorInputManager::Update()
     {
         isDragging = false;
     }
+
+    if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    {
+        Vector2D worldPos = SceneWindow::ConvertScreenToWorld();
+        std::cout << "Mouse click in world coordinates: (" << worldPos.x << ", " << worldPos.y << ")\n";
+    }
 }
 
 void EditorInputManager::HandleScrollInput(double offsetY)
@@ -51,7 +58,6 @@ void EditorInputManager::HandleScrollInput(double offsetY)
 
 void EditorInputManager::HandleMouseDrag(double deltaX, double deltaY)
 {
-
     int windowWidth = WindowManager::GetWindowWidth();
     int windowHeight = WindowManager::GetWindowHeight();
 

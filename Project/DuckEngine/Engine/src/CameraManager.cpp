@@ -33,7 +33,8 @@ float CameraManager::windowAspectRatio;
 void CameraManager::Initialize(const float posX, const float posY, const int height) {
 	CameraManager::position = { posX, posY };
 	CameraManager::cameraHeight = height;
-	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth() / WindowManager::GetWindowHeight());
+	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth()) / static_cast<float>(WindowManager::GetWindowHeight());
+
 }
 
 /// <summary>

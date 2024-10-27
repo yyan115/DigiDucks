@@ -787,7 +787,7 @@ namespace {
         return glm::mat3x3{
                 glm::vec3(1.f, 0, 0),
                 glm::vec3(0, 1.f, 0),
-                glm::vec3(position.x, position.y, 1.f)
+                glm::vec3(-position.x, -position.y, 1.f)
         };
     }
 
