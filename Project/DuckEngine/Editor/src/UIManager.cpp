@@ -35,6 +35,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Inspector.h"
 #include "GameManager.h"
 #include "AssetsBrowser.h"
+#include "EditorTheme.h"
 
 // GLOBALS For Spawning of Entities
 int selectedEntityID = -1;
@@ -65,7 +66,11 @@ void UIManager::Initialize() {
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
-    ImGui::StyleColorsDark();
+    
+    // dark theme
+    //ImGui::StyleColorsDark();
+    // duck theme
+    EditorTheme::SetDuckTheme();
 
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
