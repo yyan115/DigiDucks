@@ -7,28 +7,38 @@
 
 namespace fs = std::filesystem;
 std::string AssetsBrowser::selectedFolderPath = "../Resources";
+std::string AssetsBrowser::selectedFolderName = "";
 
 // Main function to display the assets explorer UI
 void AssetsBrowser::ShowAssets() {
     // Left pane for folder structure
     ImGui::BeginChild("LeftPane", ImVec2(200, 0), true);
-    RenderDirectoryTree(); // Render folders dynamically based on the content of "../Resources"
+    RenderDirectoryTree(); // Render folders dynamically
     ImGui::EndChild();
 
     ImGui::SameLine();
 
     // Right pane for displaying assets within the selected folder
     ImGui::BeginChild("RightPane", ImVec2(0, 0), true);
-   
-    RenderAssetGrid(selectedFolderPath);  // Display other assets in a grid
-    ImGui::Separator();
-    RenderPrefabsGrid(); // Display all loaded prefabs
+    
+    if (selectedFolderName.compare("Prefabs") == 0) {
+		RenderPrefabsGrid(); // Display all loaded prefabs
+	}
+	else {
+		RenderAssetGrid(selectedFolderPath);  // Display other assets in a grid
+	}
     ImGui::EndChild();
 }
 
 // Renders top-level directories in the Resources folder dynamically
 void AssetsBrowser::RenderDirectoryTree() {
     const std::string rootPath = "../Resources";
+    const std::string prefabsPath = rootPath + "/Prefabs";
+
+    // Ensure "Prefabs" directory exists
+    if (!fs::exists(prefabsPath)) {
+        fs::create_directory(prefabsPath);
+    }
 
     // Iterate over directories in the root path
     for (const auto& entry : fs::directory_iterator(rootPath)) {
@@ -39,6 +49,7 @@ void AssetsBrowser::RenderDirectoryTree() {
             // Display each folder as a selectable item
             if (ImGui::Selectable(folderName.c_str(), selectedFolderPath == folderPath)) {
                 selectedFolderPath = folderPath; // Update the selected folder path
+                selectedFolderName = folderName; // Update the selected folder name
             }
             
         }
@@ -51,13 +62,11 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
     int itemsPerRow = 4;
     int itemIndex = 0;
-    std::cout << path << std::endl;
     
     // Iterate over files in the selected folder and display them in a grid
     for (const auto& entry : fs::directory_iterator(path)) {
         if (!entry.is_directory()) {
             std::string fileName = entry.path().filename().string();
-                //std::cout << entry.path().string() << std::endl;
 
             ImGui::PushID(itemIndex);
             if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
@@ -77,21 +86,32 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 }
 
 void AssetsBrowser::RenderPrefabsGrid() {
-    ImGui::Text("Prefabs:");
-    ImGui::Separator();
+    int itemsPerRow = 4;
+    int itemIndex = 0;
 
-    // Get all prefabs currently loaded in PrefabManager
-    const auto& prefabs = PrefabManager::GetAllPrefabs();
-
+    // Retrieve all prefabs loaded in PrefabManager
+    auto prefabs = PrefabManager::GetAllPrefabs();
     for (const auto& [prefabName, prefab] : prefabs) {
-        ImGui::Text("%s", prefabName.c_str());
+        ImGui::PushID(itemIndex);
 
-        // Enable drag-and-drop for each prefab
-        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-            // Set the payload to carry the prefab name (or any other unique identifier)
-            ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);
-            ImGui::Text("Dragging %s", prefabName.c_str());
+        // Display each prefab as a button
+        if (ImGui::Button(prefabName.c_str(), ImVec2(100, 100))) {
+            // Placeholder for prefab selection action
+            std::cout << "Selected prefab: " << prefabName << std::endl;
+        }
+
+        // Drag-and-drop source for the prefab
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+            ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);  // Pass prefab name as payload
+            ImGui::Text("Drag %s", prefabName.c_str());
             ImGui::EndDragDropSource();
         }
+
+        if ((itemIndex + 1) % itemsPerRow != 0) {
+            ImGui::SameLine();
+        }
+
+        ImGui::PopID();
+        itemIndex++;
     }
 }

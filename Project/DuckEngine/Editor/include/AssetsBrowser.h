@@ -19,5 +19,6 @@ private:
     static void RenderPrefabsGrid();
 
     static std::string selectedFolderPath;
+    static std::string selectedFolderName;
 };
 
