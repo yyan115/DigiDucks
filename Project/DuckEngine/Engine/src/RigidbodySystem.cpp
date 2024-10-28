@@ -61,8 +61,8 @@ void RigidbodySystem::Update()
             // Reset acceleration for the next frame
             rigidbody->acceleration = Vec2(0.0f, 0.0f);
 
-            // Apply damping to the velocity
-            rigidbody->velocity -= rigidbody->velocity * deltaTime;
+            // Apply damping to the velocity based on mass
+            rigidbody->velocity -= rigidbody->mass * (rigidbody->velocity * deltaTime);
         }
     }
 }
