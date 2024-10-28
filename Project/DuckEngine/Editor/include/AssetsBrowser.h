@@ -17,6 +17,7 @@ private:
     static void RenderDirectoryTree();
     static void RenderAssetGrid(const std::string& path);
     static void RenderPrefabsGrid();
+    static void ReplaceAsset(const std::string& oldPath, const std::string& newPath);
 
     static std::string selectedFolderPath;
     static std::string selectedFolderName;

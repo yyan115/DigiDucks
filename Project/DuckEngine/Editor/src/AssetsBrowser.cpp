@@ -1,6 +1,8 @@
 #include "AssetsBrowser.h"
 #include "PrefabManager.h"
 #include "imgui.h"
+#include "DuckEngine.h"
+#include "LevelManager.h"
 #include <filesystem>
 #include <iostream>
 
@@ -62,25 +64,37 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
     int itemsPerRow = 4;
     int itemIndex = 0;
-    
+    static std::string selectedAsset = ""; // Store the selected asset's file path
+
     // Iterate over files in the selected folder and display them in a grid
-    for (const auto& entry : fs::directory_iterator(path)) {
-        if (!entry.is_directory()) {
-            std::string fileName = entry.path().filename().string();
+    for (const auto& entry : fs::recursive_directory_iterator(path)) {
+        if (entry.is_directory()) continue;  // Skip directories in the right pane
 
-            ImGui::PushID(itemIndex);
-            if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
-                // Handle asset selection 
-                std::cout << "Selected " << fileName << " in " << path << std::endl;
-            }
+        std::string fileName = entry.path().filename().string();
 
-            if ((itemIndex + 1) % itemsPerRow != 0) {
-                ImGui::SameLine();
-            }
-
-            ImGui::PopID();
-            itemIndex++;
+        ImGui::PushID(itemIndex);
+        if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
+            std::cout << "Selected asset: " << entry.path().string() << std::endl;
+            selectedAsset = entry.path().string();
         }
+
+        // Open context menu on right-click
+        if (ImGui::BeginPopupContextItem()) {
+            if (ImGui::MenuItem("Replace Asset")) {
+                std::string newFilePath = LevelManager::OpenFileDialog("texture");
+                if (!newFilePath.empty()) {
+                    ReplaceAsset(entry.path().string(), newFilePath); // Replace the asset with the new file
+                }
+            }
+            ImGui::EndPopup();
+        }
+
+        if ((itemIndex + 1) % itemsPerRow != 0) {
+            ImGui::SameLine();
+        }
+
+        ImGui::PopID();
+        itemIndex++;
     }
     
 }
@@ -114,4 +128,47 @@ void AssetsBrowser::RenderPrefabsGrid() {
         ImGui::PopID();
         itemIndex++;
     }
+}
+
+void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& newPath) {
+    // Unload the current asset in memory
+    std::string fileName = fs::path(oldPath).filename().string();
+    if (DuckEngine::DUCKENGINE_AssetManager.IsTextureLoaded(fileName)) {
+        DuckEngine::DUCKENGINE_AssetManager.UnloadTexture(fileName); // Unload the texture to free file
+    }
+
+    // Copy new asset to a temporary file location
+    std::string tempPath = oldPath + ".tmp";
+    try {
+        fs::copy(newPath, tempPath, fs::copy_options::overwrite_existing);
+    }
+    catch (const fs::filesystem_error& e) {
+        std::cerr << "Error copying to temp file: " << e.what() << std::endl;
+        return;
+    }
+
+    // Remove the original file after unloading, then move the temp file to the original path
+    try {
+        fs::remove(oldPath);
+        fs::rename(tempPath, oldPath);
+    }
+    catch (const fs::filesystem_error& e) {
+        std::cerr << "Error replacing asset: " << e.what() << std::endl;
+        return;
+    }
+
+    // Reload the texture to update the in-memory reference
+    DuckEngine::DUCKENGINE_AssetManager.ReloadTexture(fileName, oldPath);
+
+    // Refresh entities or components using this asset
+    auto entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : entities) {
+        if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID)) {
+            if (spriteRenderer->texturePath == oldPath) {
+                spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture(fileName);
+            }
+        }
+    }
+
+    std::cout << "Asset replaced successfully: " << oldPath << " with " << newPath << std::endl;
 }

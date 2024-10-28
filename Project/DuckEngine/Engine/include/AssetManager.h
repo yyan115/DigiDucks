@@ -36,6 +36,11 @@ public:
 
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath);
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath, int textureWidth, int textureHeight);
+	static DUCKENGINE_API bool IsTextureLoaded(const std::string& fileName);
+	static DUCKENGINE_API void UnloadTexture(const std::string& fileName);
+	static DUCKENGINE_API void ReloadTexture(const std::string& fileName, const std::string& filePath);
+	static DUCKENGINE_API std::shared_ptr<Texture> GetTexture(const std::string& fileName);
+
 	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
 	
 	// Get

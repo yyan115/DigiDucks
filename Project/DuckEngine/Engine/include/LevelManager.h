@@ -34,7 +34,7 @@ public:
 	*
 	***************************************************************/
 	static void LoadLevel(const std::string& levelFile);
-
+	static std::string OpenFileDialog(const std::string& filetype);
 	static void OpenLevelDialog();
 
 	static void SaveSceneChanges(const std::string& sceneName);

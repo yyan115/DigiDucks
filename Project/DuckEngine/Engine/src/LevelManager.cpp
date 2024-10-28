@@ -98,18 +98,36 @@ void LevelManager::LoadLevel(const std::string& levelFile)
 * @param levelFile - json file containing data for the level
 *
 ***************************************************************/
-std::string OpenFileDialog() {
+std::string LevelManager::OpenFileDialog(const std::string& fileType) {
     wchar_t fileName[260] = L"";
+    wchar_t defExt[10];
 
+    // Set up the OPENFILENAME structure
     OPENFILENAME ofn;
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
-    ofn.lpstrFilter = L"JSON Files\0*.json\0All Files\0*.*\0";
+    // Select filter and default extension based on fileType
+    if (fileType == "scene") {
+        ofn.lpstrFilter = L"JSON Files\0*.json\0All Files\0*.*\0";
+        wcscpy_s(defExt, L"json");
+    }
+    else if (fileType == "texture") {
+        ofn.lpstrFilter = L"Image Files (.png;*.jpg;*.jpeg)\0*.png;*.jpg;*.jpeg\0All Files\0*.*\0";
+        wcscpy_s(defExt, L"png");
+    }
+    else if (fileType == "audio") {
+        ofn.lpstrFilter = L"Audio Files (*.ogg;*.mp3;*.wav)\0*.ogg;*.mp3;*.wav\0All Files\0*.*\0";
+        wcscpy_s(defExt, L"mp3");
+    }
+    else {
+        // Default to all files if fileType is unknown
+        ofn.lpstrFilter = L"All Files\0*.*\0";
+    }
     ofn.lpstrFile = fileName;
     ofn.nMaxFile = 260;
     ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
-    ofn.lpstrDefExt = L"json";
+    ofn.lpstrDefExt = defExt;                  // Use the passed-in default extension
 
     if (GetOpenFileName(&ofn)) {
         // Convert wide char to narrow char string
@@ -127,7 +145,7 @@ std::string OpenFileDialog() {
 ***************************************************************/
 void LevelManager::OpenLevelDialog()
 {
-    std::string levelFile = OpenFileDialog();
+    std::string levelFile = OpenFileDialog("scene");
 
     // Load the selected level file
     LoadLevel(levelFile);

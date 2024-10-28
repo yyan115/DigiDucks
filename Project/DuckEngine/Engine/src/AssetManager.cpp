@@ -62,6 +62,41 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::strin
 	return textures;
 }
 
+// Unload a specific texture by its filename
+void AssetManager::UnloadTexture(const std::string& fileName) {
+	auto it = textureMap.find(fileName);
+	if (it != textureMap.end()) {
+		it->second.clear();  // Clear texture data
+		textureMap.erase(it);  // Remove from textureMap
+		std::cout << "Texture unloaded: " << fileName << std::endl;
+	}
+	else {
+		std::cout << "Texture not found: " << fileName << std::endl;
+	}
+}
+
+// Check if a texture with the specified filename is loaded
+bool AssetManager::IsTextureLoaded(const std::string& fileName) {
+	return textureMap.find(fileName) != textureMap.end();
+}
+
+// Reloads a texture from a file path and updates the texture map
+void AssetManager::ReloadTexture(const std::string& fileName, const std::string& filePath) {
+	if (IsTextureLoaded(fileName)) {
+		textureMap[fileName].clear();
+		textureMap[fileName].push_back(LoadTextureFromFile(filePath));
+		std::cout << "Texture reloaded: " << fileName << std::endl;
+	}
+}
+
+// Get a texture by its filename if it's loaded
+std::shared_ptr<Texture> AssetManager::GetTexture(const std::string& fileName) {
+	if (IsTextureLoaded(fileName)) {
+		return textureMap[fileName][0];
+	}
+	return nullptr;
+}
+
 
 void AssetManager::LoadSound(const std::string& soundID, const std::string& filePath) {
 	if (!fmodSystem) {
@@ -120,5 +155,7 @@ void AssetManager::UnloadAll()
 		sound->release();
 	}
 	soundMap.clear();
-	fmodSystem->close();
+	if (fmodSystem) {
+		fmodSystem->close();
+	}
 }
