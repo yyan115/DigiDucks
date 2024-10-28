@@ -37,14 +37,14 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     ImGui::Begin("Scene Window");
 
-    bool gamePlaying = DuckEngine::IsPlaying();
+    isPlaying = DuckEngine::IsPlaying();
 
-    if (ImGui::Button(gamePlaying ? "Stop" : "Play"))
+    if (ImGui::Button(isPlaying ? "Stop" : "Play"))
     {
-        gamePlaying = !gamePlaying;
-        DuckEngine::SetPlaying(gamePlaying);
+        isPlaying = !isPlaying;
+        DuckEngine::SetPlaying(isPlaying);
 
-        if (!gamePlaying)
+        if (!isPlaying)
         {
             GameManager::SetActiveScene("SpriteMovementScene");
         }
@@ -66,7 +66,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         entitiesUnderMouse = GetEntitiesAtPosition(worldPos);
     }
 
-    if (inSceneFBO && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    if (inSceneFBO && !isPlaying && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         if (!entitiesUnderMouse.empty())
         {
@@ -84,7 +84,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
-    if (inSceneFBO && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    if (inSceneFBO && !isPlaying && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
     {
         if (!entitiesUnderMouse.empty())
         {
