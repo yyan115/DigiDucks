@@ -70,7 +70,7 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_DUCKSOUND.c_str());
 
 	PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
-	LevelManager::LoadLevel("SpriteMovementScene");
+	LevelManager::LoadLevel("../Resources/Scenes/SpriteMovementScene.json");
 
 	// instantiate prefabs
 	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");

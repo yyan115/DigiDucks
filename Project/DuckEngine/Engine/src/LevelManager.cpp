@@ -25,26 +25,28 @@
 #include <string>
 #include <filesystem>
 
-std::string ConstructSceneFilePath(std::string sceneName)
-{
-    std::string finalPath = "../Resources/Scenes/";
-    finalPath += sceneName;
-    finalPath += ".json";
-
-    return finalPath;
-}
 
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
-    //std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
-    //std::cout << "Loading level from: " << absolutePath.string() << std::endl;
-    // Load the level data from the JSON file
-    std::string finalPath = ConstructSceneFilePath(levelFile);
-    json levelData = Serialization::LoadJsonFile(finalPath.c_str());
-    std::cout << finalPath << std::endl;
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
-    if (levelData.contains("gameObjects"))
+    if (!levelData.empty() && levelData.contains("gameObjects"))
     {
+        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+
+        size_t lastSlash = levelFile.find_last_of("\\/");
+        std::string sceneName = (lastSlash != std::string::npos)
+            ? levelFile.substr(lastSlash + 1)
+            : levelFile;
+
+        size_t lastDot = sceneName.find_last_of('.');
+        if (lastDot != std::string::npos)
+        {
+            sceneName = sceneName.substr(0, lastDot);
+        }
+
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+
         auto gameObjects = levelData["gameObjects"];
         for (auto& [gameObjectName, gameObjectData] : gameObjects.items())
         {
@@ -52,7 +54,8 @@ void LevelManager::LoadLevel(const std::string& levelFile)
 
             if (!prefabName.empty())
             {
-                std::shared_ptr<Prefab> prefab = std::shared_ptr<Prefab>(PrefabManager::GetPrefab(prefabName.c_str()));
+                std::shared_ptr<Prefab> prefab =
+                    std::shared_ptr<Prefab>(PrefabManager::GetPrefab(prefabName.c_str()));
 
                 if (prefab)
                 {
@@ -65,32 +68,32 @@ void LevelManager::LoadLevel(const std::string& levelFile)
                     if (gameObjectData.contains("position"))
                     {
                         Vec2 position = Serialization::GetVec2(gameObjectData, "position", Vec2(0.0f, 0.0f));
-                        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+                        auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
                         if (transform)
                         {
-                            transform->position.x = position.x;
-                            transform->position.y = position.y;
+                            transform->position = position;
                         }
                     }
-
                 }
                 else
                 {
                     std::cerr << "Error: Could not find prefab: " << prefabName << std::endl;
                 }
             }
-
             else if (gameObjectData.contains("components"))
             {
                 Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
                 entity->name = gameObjectName;
-
                 ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
-
             }
         }
     }
+    else
+    {
+        std::cerr << "Failed to load level: " << levelFile << std::endl;
+    }
 }
+
 
 /****************************************************************
 * @brief Load level using data from json file
@@ -166,7 +169,7 @@ std::string GetPrefabName(int entityID)
 
 void LevelManager::SaveSceneChanges(const std::string& sceneName)
 {
-    std::string finalPath = ConstructSceneFilePath(sceneName);
+    std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
     sceneData["gameObjects"].clear();
@@ -206,7 +209,7 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
     if (!entity) return;
 
-    std::string finalPath = ConstructSceneFilePath(sceneName);
+    std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
     std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
