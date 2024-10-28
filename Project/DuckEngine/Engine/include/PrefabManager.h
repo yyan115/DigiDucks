@@ -73,5 +73,5 @@ public:
 	*************************************************************************/
 	static DUCKENGINE_API void LoadPrefabsFromFile(const std::string& filePath);
 
-
+	static const DUCKENGINE_API std::unordered_map<std::string, std::shared_ptr<Prefab>>& GetAllPrefabs();
 };

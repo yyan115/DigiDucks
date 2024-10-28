@@ -16,6 +16,7 @@ public:
 private:
     static void RenderDirectoryTree();
     static void RenderAssetGrid(const std::string& path);
+    static void RenderPrefabsGrid();
 
     static std::string selectedFolderPath;
 };

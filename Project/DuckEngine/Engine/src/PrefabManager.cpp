@@ -48,6 +48,10 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefab(const std::string& name)
 	return nullptr;
 }
 
+const std::unordered_map<std::string, std::shared_ptr<Prefab>>& PrefabManager::GetAllPrefabs() {
+	return prefabs;
+}
+
 /************************************************************************
 @brief Instantiates a prefab by name at a given position.
 @param name The name of the prefab to instantiate.

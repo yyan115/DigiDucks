@@ -50,12 +50,28 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
+
     GLuint fboTexture = GraphicsManager::GetFBOTexture();
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
     ImGui::Image((void*)(intptr_t)fboTexture, windowSize, ImVec2(0, 1), ImVec2(1, 0));
 
     inSceneFBO = IsMouseInFBO();
     Vector2D worldPos = ConvertScreenToWorld();
+
+    // Handle drag-and-drop from AssetsBrowser
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PREFAB_PAYLOAD"))
+        {
+            const char* prefabName = static_cast<const char*>(payload->Data);
+            if (prefabName)
+            {
+                // Instantiate the prefab at the current mouse position
+                PrefabManager::InstantiatePrefab(prefabName, worldPos);
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
 
     if (worldPos.x != lastMousePos.x || worldPos.y != lastMousePos.y)
     {

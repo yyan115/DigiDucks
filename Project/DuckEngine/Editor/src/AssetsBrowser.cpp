@@ -1,4 +1,5 @@
 #include "AssetsBrowser.h"
+#include "PrefabManager.h"
 #include "imgui.h"
 #include <filesystem>
 #include <iostream>
@@ -18,7 +19,10 @@ void AssetsBrowser::ShowAssets() {
 
     // Right pane for displaying assets within the selected folder
     ImGui::BeginChild("RightPane", ImVec2(0, 0), true);
-    RenderAssetGrid(selectedFolderPath); // Display assets in the selected folder
+   
+    RenderAssetGrid(selectedFolderPath);  // Display other assets in a grid
+    ImGui::Separator();
+    RenderPrefabsGrid(); // Display all loaded prefabs
     ImGui::EndChild();
 }
 
@@ -36,6 +40,7 @@ void AssetsBrowser::RenderDirectoryTree() {
             if (ImGui::Selectable(folderName.c_str(), selectedFolderPath == folderPath)) {
                 selectedFolderPath = folderPath; // Update the selected folder path
             }
+            
         }
     }
 }
@@ -46,11 +51,13 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
     int itemsPerRow = 4;
     int itemIndex = 0;
-
+    std::cout << path << std::endl;
+    
     // Iterate over files in the selected folder and display them in a grid
     for (const auto& entry : fs::directory_iterator(path)) {
         if (!entry.is_directory()) {
             std::string fileName = entry.path().filename().string();
+                //std::cout << entry.path().string() << std::endl;
 
             ImGui::PushID(itemIndex);
             if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
@@ -64,6 +71,27 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
             ImGui::PopID();
             itemIndex++;
+        }
+    }
+    
+}
+
+void AssetsBrowser::RenderPrefabsGrid() {
+    ImGui::Text("Prefabs:");
+    ImGui::Separator();
+
+    // Get all prefabs currently loaded in PrefabManager
+    const auto& prefabs = PrefabManager::GetAllPrefabs();
+
+    for (const auto& [prefabName, prefab] : prefabs) {
+        ImGui::Text("%s", prefabName.c_str());
+
+        // Enable drag-and-drop for each prefab
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+            // Set the payload to carry the prefab name (or any other unique identifier)
+            ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);
+            ImGui::Text("Dragging %s", prefabName.c_str());
+            ImGui::EndDragDropSource();
         }
     }
 }
