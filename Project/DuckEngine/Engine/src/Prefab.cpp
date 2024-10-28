@@ -37,7 +37,7 @@ void Prefab::AddComponent(const std::shared_ptr<Component>& component)
 *************************************************************************/
 Entity* Prefab::Instantiate(Vec2 newPosition)
 {
-	Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, scale);
+	Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, { 1.0f, 1.0f });
 
 	entity->prefabName = name;
 

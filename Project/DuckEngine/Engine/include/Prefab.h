@@ -34,8 +34,6 @@ class Prefab
 public:
 	std::string name;
 	std::string texturePath;
-	Vec2 position;
-	Vec2 scale;
 	std::vector<std::shared_ptr<Component>> components;
 	nlohmann::json componentsData;
 
@@ -46,8 +44,8 @@ public:
 	@param texturePath The path to the texture for the entity (default is empty).
 	@param scale The scale of the entity (default is {1.0f, 1.0f}).
 	*************************************************************************/
-	Prefab(const std::string& name, const std::string& texturePath = "", Vec2 scale = { 1.0f, 1.0f })
-		: name(name), texturePath(texturePath), scale(scale) {}
+	Prefab(const std::string& name, const std::string& texturePath = "")
+		: name(name), texturePath(texturePath) {}
 
 	/************************************************************************
 	@brief Adds a component to the prefab. The component is stored and
