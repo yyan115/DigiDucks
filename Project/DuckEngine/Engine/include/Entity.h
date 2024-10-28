@@ -37,6 +37,7 @@ class Entity
 public:
     int entityID;
     std::string name;
+    std::string prefabName;
 
     /************************************************************************
     @brief Constructor for the Entity class. Initializes the entity with a

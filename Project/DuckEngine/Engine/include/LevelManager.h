@@ -37,6 +37,7 @@ public:
 
 	static void OpenLevelDialog();
 
+	static void SaveSceneChanges(const std::string& sceneName);
 	static void SaveEntityChanges(int entityID, std::string& sceneName);
 	static void OverwritePrefab(int entityID);
 

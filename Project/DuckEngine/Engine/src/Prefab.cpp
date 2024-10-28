@@ -39,21 +39,38 @@ Entity* Prefab::Instantiate(Vec2 newPosition)
 {
 	Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, scale);
 
-	for (const std::shared_ptr<Component>& component : components)
-	{
-		std::shared_ptr<Component> clonedComponent = component->Clone();
+	entity->prefabName = name;
 
-		if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(clonedComponent))
-		{
-			if (spriteRenderer->texture)
-			{
-				spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(texturePath.c_str())[0];
-				std::cout << "add" << std::endl;
-			}
-		}
+    for (const auto& component : components)
+    {
+        std::shared_ptr<Component> clonedComponent = component->Clone();
 
-		DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, clonedComponent);
-	}
+        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(clonedComponent))
+        {
+            spriteRenderer->texturePath = this->texturePath;
 
-	return entity;
+            if (!spriteRenderer->texturePath.empty())
+            {
+                spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath.c_str())[0];
+            }
+        }
+
+        if (auto transformComponent = std::dynamic_pointer_cast<TransformComponent>(clonedComponent))
+        {
+            transformComponent->SetPosition(newPosition);
+        }
+
+        if (auto animatorComponent = std::dynamic_pointer_cast<AnimatorComponent>(clonedComponent))
+        {
+            if (!animatorComponent->animations.empty())
+            {
+                auto firstAnimation = animatorComponent->animations.begin();
+                animatorComponent->currentAnimation = &firstAnimation->second;
+            }
+        }
+
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, clonedComponent);
+    }
+
+    return entity;
 }

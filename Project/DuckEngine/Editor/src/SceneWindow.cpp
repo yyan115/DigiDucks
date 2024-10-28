@@ -66,8 +66,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             const char* prefabName = static_cast<const char*>(payload->Data);
             if (prefabName)
             {
-                // Instantiate the prefab at the current mouse position
-                PrefabManager::InstantiatePrefab(prefabName, worldPos);
+                OnPrefabDraggedIntoScene(prefabName, worldPos);
             }
         }
         ImGui::EndDragDropTarget();
@@ -204,4 +203,9 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
     }
 
     return foundEntities;
+}
+
+void SceneWindow::OnPrefabDraggedIntoScene(const std::string& prefabName, Vec2 position)
+{
+    DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab(prefabName, position);
 }

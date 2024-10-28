@@ -161,7 +161,7 @@ void UIManager::ShowMenuBar()
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
             if (ImGui::MenuItem("Save Scene", "Ctrl+S")) 
             {
-                SaveScene(GameManager::ActiveSceneName);
+                LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
             }
             ImGui::EndMenu();
         }
@@ -418,9 +418,15 @@ void UIManager::ShowHierarchy() {
 
         // Create a unique label for each node
         std::string entityLabel = "GameObject " + std::to_string(entities[i].entityID);
-        if (!entities[i].name.empty()) {
+        if (!entities[i].name.empty()) 
+        {
             entityLabel = entities[i].name;
         }
+        else
+        {
+            entities[i].name = entityLabel;
+        }
+        
 
         // Begin a tree node for each entity
         ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
@@ -631,7 +637,7 @@ void UIManager::SaveScene(const std::string& sceneName)
     for (const auto& [entityID, hasChanged] : entityChanges) {
         if (hasChanged) 
         {
-            LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
+            LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
 
             entityChanges[entityID] = false;
             anyChanges = true;

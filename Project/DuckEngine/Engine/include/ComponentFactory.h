@@ -33,5 +33,6 @@ class DUCKENGINE_API ComponentFactory
 public:
     static void AddComponentsToEntity(Entity* entity, const nlohmann::json& componentsData);
     static void SaveComponentsToJson(int entityID, json& componentsArray);
+    std::shared_ptr<Component> CreateComponentFromJson(const nlohmann::json& componentJson);
 };
 

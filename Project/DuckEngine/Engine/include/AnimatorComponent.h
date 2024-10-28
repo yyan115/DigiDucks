@@ -39,6 +39,8 @@ public:
     float frameTimer;        // Timer to track how long the current frame has been displayed
     float frameDuration;     // Duration for each frame in seconds
     std::vector<Texture> Frames;  // List of frames for the animation
+    std::string animationFilePath;
+
     Animation(float durationPerFrame = 0.2f)
         : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
 
@@ -59,6 +61,7 @@ public:
     Animation* currentAnimation;
     bool isPaused;
     std::unordered_map<std::string, Animation> animations;
+
     DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr), isPaused(true) {}
 
     DUCKENGINE_API std::shared_ptr<Component> Clone() const override
@@ -81,6 +84,20 @@ public:
         animations[name] = animationToAdd;
     }
 
+    DUCKENGINE_API void AddAnimation(const std::string& name, const std::vector<std::shared_ptr<Texture>>& frames, float frameDuration = 0.2f)
+    {
+        Animation animationToAdd(frameDuration);
+
+        for (const auto& frame : frames)
+        {
+            animationToAdd.Frames.push_back(*frame);
+        }
+
+        animations[name] = animationToAdd;
+    }
+
+
+
     // add multiple textures animation
 /************************************************************************
 @brief Adds a multi-frame animation to the animator component.
@@ -89,9 +106,11 @@ public:
 @param frameDuration The duration (in seconds) for which each frame will be displayed (default is 0.2f).
 @return nothing
 *************************************************************************/
-    DUCKENGINE_API void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, float frameDuration = 0.2f)
+    DUCKENGINE_API void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, const std::string filePath, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
+
+        animationToAdd.animationFilePath = filePath;
         
         for (std::shared_ptr<Texture> texturePtr : animation)
         {
@@ -139,6 +158,11 @@ public:
         {
             currentAnimation = &animations[animationName];
         }
+    }
+
+    DUCKENGINE_API const std::unordered_map<std::string, Animation>& GetAnimations() const
+    {
+        return animations;
     }
 
 

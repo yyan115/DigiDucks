@@ -61,7 +61,7 @@ const std::unordered_map<std::string, std::shared_ptr<Prefab>>& PrefabManager::G
 Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
-
+	std::cout << name << std::endl;
 	if (prefab)
 	{
 		return prefab->Instantiate(newPosition);
@@ -77,22 +77,40 @@ Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPositi
 *************************************************************************/
 void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
 {
-	json prefabData = Serialization::LoadJsonFile(filePath);
+    json prefabData = Serialization::LoadJsonFile(filePath);
 
-	if (prefabData.contains("prefabs"))
-	{
-		auto prefabsJson = prefabData["prefabs"];
+    if (prefabData.contains("prefabs"))
+    {
+        ComponentFactory componentFactory; 
 
-		for (auto& [prefabName, prefabInfo] : prefabsJson.items())
-		{
-			std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+        for (auto& [prefabName, prefabInfo] : prefabData["prefabs"].items())
+        {
+            std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
 
-			if (prefabInfo.contains("components"))
-			{
-				prefab->componentsData = prefabInfo["components"];
-			}
+            if (prefabInfo.contains("components"))
+            {
+                prefab->componentsData = prefabInfo["components"];
 
-			AddPrefab(prefabName, prefab);
-		}
-	}
+                for (const auto& componentJson : prefab->componentsData)
+                {
+                    std::shared_ptr<Component> component = componentFactory.CreateComponentFromJson(componentJson);
+
+                    if (component)
+                    {
+                        prefab->AddComponent(component);
+
+                        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
+                        {
+                            prefab->texturePath = spriteRenderer->texturePath;
+                        }
+
+
+                    }
+                }
+            }
+
+            AddPrefab(prefabName, prefab);
+        }
+    }
 }
+

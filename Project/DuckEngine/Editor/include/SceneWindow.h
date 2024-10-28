@@ -18,6 +18,8 @@ public:
     static bool GetIsPlaying() { return isPlaying; }
     static bool GetInSceneFBO() { return inSceneFBO; }
 
+    static void OnPrefabDraggedIntoScene(const std::string& prefabName, Vec2 position);
+
 private:
     static bool isPlaying;
     static int width;
