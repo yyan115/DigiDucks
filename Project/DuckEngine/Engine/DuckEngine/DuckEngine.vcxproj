@@ -179,6 +179,8 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClInclude Include="..\include\AnimatorSystem.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
+    <ClInclude Include="..\include\ButtonComponent.h" />
+    <ClInclude Include="..\include\ButtonSystem.h" />
     <ClInclude Include="..\include\CameraManager.h" />
     <ClInclude Include="..\include\Bounding.h" />
     <ClInclude Include="..\include\CircleColliderSystem.h" />
@@ -222,6 +224,8 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\SoundSystem.h" />
+    <ClInclude Include="..\include\TextComponent.h" />
+    <ClInclude Include="..\include\TextSystem.h" />
     <ClInclude Include="..\include\Texture.h" />
     <ClInclude Include="..\include\SpriteRendererComponent.h" />
     <ClInclude Include="..\include\SpriteRendererSystem.h" />
@@ -236,6 +240,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
+    <ClCompile Include="..\src\ButtonSystem.cpp" />
     <ClCompile Include="..\src\CameraManager.cpp" />
     <ClCompile Include="..\src\Bounding.cpp" />
     <ClCompile Include="..\src\CircleColliderSystem.cpp" />
@@ -272,6 +277,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClCompile Include="..\src\SoundSystem.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
+    <ClCompile Include="..\src\TextSystem.cpp" />
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />

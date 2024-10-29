@@ -261,6 +261,18 @@
     <ClInclude Include="..\include\SoundComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\ButtonSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TextSystem.h">
+      <Filter>include\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ButtonComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TextComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -388,6 +400,12 @@
     </ClCompile>
     <ClCompile Include="..\src\SoundComponent.cpp">
       <Filter>src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ButtonSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TextSystem.cpp">
+      <Filter>src\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
