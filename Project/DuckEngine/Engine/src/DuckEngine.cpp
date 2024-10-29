@@ -36,6 +36,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "BoxColliderSystem.h"
 #include "AnimatorSystem.h"
 #include "SoundSystem.h"
+#include "ButtonSystem.h"
+#include "TextSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -105,6 +107,12 @@ void DuckEngine::Initialize(bool _isEditor)
 
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+
+    auto textSystem = std::make_shared<TextSystem>();
+    DUCKENGINE_SystemManager.AddSystem(textSystem);
+
+    auto buttonSystem = std::make_shared<ButtonSystem>();
+    DUCKENGINE_SystemManager.AddSystem(buttonSystem);
 
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
