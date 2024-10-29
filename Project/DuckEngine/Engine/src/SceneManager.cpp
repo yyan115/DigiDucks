@@ -30,22 +30,17 @@ void SceneManager::ActivateSceneWithoutReload(const std::string& name)
 }
 
 
-void SceneManager::SetActiveScene(const std::string& name) 
+void SceneManager::SetActiveScene(const std::string& name)
 {
     auto it = scenes.find(name);
-    if (it == scenes.end()) 
+
+    if (it == scenes.end())
     {
         std::cerr << "Scene '" << name << "' not found!" << std::endl;
         return;
     }
 
-    if (activeScene == scenes[name]) 
-    {
-        std::cout << "Scene '" << name << "' is already active. No action taken." << std::endl;
-        return;
-    }
-
-    if (activeScene) 
+    if (activeScene)
     {
         activeScene->Unload();
     }
@@ -56,6 +51,7 @@ void SceneManager::SetActiveScene(const std::string& name)
     activeScene->Load();
     activeScene->Start();
 }
+
 
 void SceneManager::Update() 
 {
