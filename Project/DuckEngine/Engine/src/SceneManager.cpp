@@ -19,14 +19,16 @@ void SceneManager::SetActiveScene(const std::string& name)
         return;
     }
 
-    if (activeScene && activeScene != scenes[name])
-    {
-        activeScene->Unload();
-    }
-    else if (activeScene == scenes[name])
+    if (activeScene == scenes[name])
     {
         std::cout << "Scene '" << name << "' is already active. No action taken." << std::endl;
+        activeScene->Unload();
         return;
+    }
+
+    if (activeScene)
+    {
+        activeScene->Unload();
     }
 
     activeScene = scenes[name];
