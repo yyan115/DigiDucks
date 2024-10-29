@@ -18,6 +18,8 @@ class SceneManager {
 
         DUCKENGINE_API void AddScene(const std::string& name, std::shared_ptr<Scene> scene);
 
+        void ActivateSceneWithoutReload(const std::string& name);
+
         // Switch scenes
         DUCKENGINE_API void SetActiveScene(const std::string& name);
 

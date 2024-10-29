@@ -45,7 +45,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             sceneName = sceneName.substr(0, lastDot);
         }
 
-        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+        DuckEngine::DUCKENGINE_SceneManager.ActivateSceneWithoutReload(sceneName);
 
         auto gameObjects = levelData["gameObjects"];
         for (auto& [gameObjectName, gameObjectData] : gameObjects.items())
@@ -230,7 +230,7 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
         }
     }
 
-    Serialization::SaveJsonFile("../Resources/Scenes/SpriteMovementScene.json", sceneData);
+    Serialization::SaveJsonFile(finalPath, sceneData);
     std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
 

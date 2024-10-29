@@ -10,23 +10,36 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
     scenes[name] = scene;
 }
 
-void SceneManager::SetActiveScene(const std::string& name)
+void SceneManager::ActivateSceneWithoutReload(const std::string& name) 
 {
     auto it = scenes.find(name);
-    if (it == scenes.end())
-    {
+    if (it == scenes.end()) {
         std::cerr << "Scene '" << name << "' not found!" << std::endl;
         return;
     }
 
-    if (activeScene == scenes[name])
+    if (activeScene) 
     {
-        std::cout << "Scene '" << name << "' is already active. No action taken." << std::endl;
         activeScene->Unload();
+    }
+}
+
+
+void SceneManager::SetActiveScene(const std::string& name) 
+{
+    auto it = scenes.find(name);
+    if (it == scenes.end()) {
+        std::cerr << "Scene '" << name << "' not found!" << std::endl;
         return;
     }
 
-    if (activeScene)
+    if (activeScene == scenes[name]) 
+    {
+        std::cout << "Scene '" << name << "' is already active. No action taken." << std::endl;
+        return;
+    }
+
+    if (activeScene) 
     {
         activeScene->Unload();
     }
@@ -36,6 +49,10 @@ void SceneManager::SetActiveScene(const std::string& name)
     activeScene->Load();
     activeScene->Start();
 }
+
+
+
+
 
 
 

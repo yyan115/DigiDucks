@@ -2,7 +2,7 @@
   "gameObjects": {
     "obstacleObject1": {
       "name": "Obstacle1",
-      "prefab": "Obstacle1Prefab",
+      "prefab": "TomatoStockPrefab",
       "position": { "x": 5, "y": 0 }
     }
   }
