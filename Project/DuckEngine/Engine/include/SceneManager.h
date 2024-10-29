@@ -31,7 +31,10 @@ class SceneManager {
 
         void Shutdown();
 
+        std::string GetActiveSceneName() { return activeSceneName; }
+
     private:
         std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
         std::shared_ptr<Scene> activeScene;
+        std::string activeSceneName;
     };

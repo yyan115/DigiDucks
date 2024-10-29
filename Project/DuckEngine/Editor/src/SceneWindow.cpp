@@ -46,7 +46,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
         if (!isPlaying)
         {
-            GameManager::SetActiveScene("SpriteMovementScene");
+            GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
         }
     }
 

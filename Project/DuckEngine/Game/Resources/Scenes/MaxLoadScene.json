@@ -1,9 +1,25 @@
 {
-  "gameObjects": {
-    "obstacleObject1": {
-      "name": "Obstacle1",
-      "prefab": "TomatoStockPrefab",
-      "position": { "x": 5, "y": 0 }
+    "gameObjects": {
+        "GameObject 1": {
+            "position": {
+                "x": -12.104575157165527,
+                "y": 2.5539565086364746
+            },
+            "prefab": "CabbageStockPrefab"
+        },
+        "GameObject 2": {
+            "position": {
+                "x": -5.960784912109375,
+                "y": -0.07194221019744873
+            },
+            "prefab": "DuckPrefab"
+        },
+        "obstacleObject1": {
+            "position": {
+                "x": -1.928105354309082,
+                "y": 0.07194280624389648
+            },
+            "prefab": "TomatoStockPrefab"
+        }
     }
-  }
 }

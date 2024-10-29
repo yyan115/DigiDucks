@@ -161,7 +161,7 @@ void UIManager::ShowMenuBar()
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
             if (ImGui::MenuItem("Save Scene", "Ctrl+S")) 
             {
-                LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+                LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
             }
             ImGui::EndMenu();
         }
@@ -637,7 +637,7 @@ void UIManager::SaveScene(const std::string& sceneName)
     for (const auto& [entityID, hasChanged] : entityChanges) {
         if (hasChanged) 
         {
-            LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+            LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
 
             entityChanges[entityID] = false;
             anyChanges = true;

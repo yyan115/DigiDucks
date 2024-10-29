@@ -16,8 +16,3 @@ void GameManager::SetActiveScene(std::string sceneName)
     ActiveSceneName = sceneName;
     DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(sceneName);
 }
-
-std::string GameManager::GetActiveScene()
-{
-    return ActiveSceneName;
-}

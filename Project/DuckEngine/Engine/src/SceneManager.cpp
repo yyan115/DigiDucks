@@ -24,6 +24,9 @@ void SceneManager::ActivateSceneWithoutReload(const std::string& name)
     {
         activeScene->Unload();
     }
+
+    activeScene = scenes[name];
+    activeSceneName = name;
 }
 
 
@@ -48,6 +51,7 @@ void SceneManager::SetActiveScene(const std::string& name)
     }
 
     activeScene = scenes[name];
+    activeSceneName = name;
 
     activeScene->Load();
     activeScene->Start();
