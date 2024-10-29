@@ -2,29 +2,22 @@
     "gameObjects": {
         "GameObject 1": {
             "position": {
-                "x": -11.982858657836914,
-                "y": 2.645489454269409
+                "x": -12.104575157165527,
+                "y": 2.5539565086364746
             },
             "prefab": "CabbageStockPrefab"
         },
         "GameObject 2": {
             "position": {
-                "x": -5.997193336486816,
-                "y": -0.10918837040662766
+                "x": -5.960784912109375,
+                "y": -0.07194221019744873
             },
             "prefab": "DuckPrefab"
         },
-        "GameObject 3": {
-            "position": {
-                "x": 4.806812763214111,
-                "y": -0.27037513256073
-            },
-            "prefab": "PlayerPrefab"
-        },
         "obstacleObject1": {
             "position": {
-                "x": -1.8477948904037476,
-                "y": 0.1451510787010193
+                "x": -1.928105354309082,
+                "y": 0.07194280624389648
             },
             "prefab": "TomatoStockPrefab"
         }

@@ -7,6 +7,7 @@
 #include "EditorInputManager.h"
 #include "imgui.h"
 #include <iostream>
+#include "UIManager.h"
 
 bool SceneWindow::isPlaying = false;
 int SceneWindow::width = 0;
@@ -88,6 +89,9 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             selectedEntity = entitiesUnderMouse[0];
             currentEntityIndex = 0;
 
+            UIManager::selectedEntityID = selectedEntity->entityID;
+            UIManager::windowStates[WindowType::Inspector] = true;
+
             EditorInputManager::SetIsDragging(true);
             initialMousePos = worldPos;
 
@@ -96,6 +100,12 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             {
                 initialEntityPos = transform->position;
             }
+        }
+        else
+        {
+            selectedEntity = nullptr;
+            UIManager::selectedEntityID = -1;
+            UIManager::windowStates[WindowType::Inspector] = false;
         }
     }
 
@@ -106,6 +116,9 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             currentEntityIndex = (currentEntityIndex + 1) % entitiesUnderMouse.size();
             selectedEntity = entitiesUnderMouse[currentEntityIndex];
 
+            UIManager::selectedEntityID = selectedEntity->entityID;
+            UIManager::windowStates[WindowType::Inspector] = true;
+
             EditorInputManager::SetIsDragging(true);
             initialMousePos = worldPos;
 
@@ -116,6 +129,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             }
         }
     }
+
 
     if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {

@@ -13,8 +13,18 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 
+enum class WindowType {
+    DebugInfo,
+    Inspector,
+    Count
+};
+
 class UIManager {
 public:
+
+
+    static int selectedEntityID;
+    static std::unordered_map<WindowType, bool> windowStates;
     /****************************************************************
     * @brief Initializes the ImGui context and platform/renderer bindings
     *

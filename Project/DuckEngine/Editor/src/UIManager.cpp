@@ -39,7 +39,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 
 // GLOBALS For Spawning of Entities
-int selectedEntityID = -1;
 std::vector<std::pair<int, std::string>> spawnedEntities;
 int entityCounter = 0;
 std::set<int> availableNumbers;
@@ -48,18 +47,12 @@ std::set<int> availableNumbers;
 std::unordered_map<std::string, std::vector<float>> managerHistory;
 std::unordered_map<std::string, std::vector<float>> systemHistory;
 
-enum class WindowType {
-    DebugInfo,
-    Inspector,
-    Count
-};
 
-
-std::unordered_map<WindowType, bool> windowStates = {
+int UIManager::selectedEntityID = -1;
+std::unordered_map<WindowType, bool> UIManager::windowStates = {
     {WindowType::DebugInfo, false},
     {WindowType::Inspector, false},
 };
-
 
 
 void UIManager::Initialize() {
