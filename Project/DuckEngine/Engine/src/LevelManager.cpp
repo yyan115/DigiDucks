@@ -129,7 +129,7 @@ std::string LevelManager::OpenFileDialog(const std::string& fileType) {
     }
     ofn.lpstrFile = fileName;
     ofn.nMaxFile = 260;
-    ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+    ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_NOCHANGEDIR;
     ofn.lpstrDefExt = defExt;                  // Use the passed-in default extension
 
     if (GetOpenFileName(&ofn)) {
@@ -149,6 +149,9 @@ std::string LevelManager::OpenFileDialog(const std::string& fileType) {
 void LevelManager::OpenLevelDialog()
 {
     std::string levelFile = OpenFileDialog("scene");
+
+    std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
+    std::cout << "Open File Dialog Path: " << absolutePath << std::endl;
 
     // Load the selected level file
     LoadLevel(levelFile);
