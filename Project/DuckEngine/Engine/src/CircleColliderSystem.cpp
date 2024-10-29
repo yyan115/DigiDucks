@@ -228,5 +228,7 @@ void CircleColliderSystem::Update() {
 		}
 		// Update Collider's position based on velocity
 		circle->setCenter(circleTrans->position);
+
+		DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 	}
 }

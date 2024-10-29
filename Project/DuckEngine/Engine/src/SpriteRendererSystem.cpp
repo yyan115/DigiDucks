@@ -19,6 +19,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Color.h"
 #include "algorithm"
 
+namespace {
+	void DrawDebug(TransformComponent* transform, SpriteRendererComponent* spriteRenderer) {
+		// Calculate the rectangle bounds
+		Vector2D halfSize = transform->scale * 0.5f; // Using scale to determine half dimensions
+		Vector2D min = transform->position - halfSize; // Bottom-left corner
+		Vector2D max = transform->position + halfSize; // Top-right corner
+
+		// Optionally apply rotation to corners if needed
+		// This step can vary based on how you want to handle rotation
+		// For a simple case, you can just draw a rectangle without rotation
+		DuckEngine::DrawRectangle(min, max, transform->angle, spriteRenderer->color); // Adjust the color as needed
+	}
+}
+
 struct RenderData
 {
 	TransformComponent* transform;
@@ -93,6 +107,7 @@ void SpriteRendererSystem::Update()
 			drawOptions.relativeToCamera = transform->relativeToCamera;
 
 			GraphicsManager::AddToDrawQueue(drawOptions);
+			DrawDebug(transform, spriteRenderer);
 		}
 		else if (spriteRenderer && transform) {
 			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
@@ -107,6 +122,7 @@ void SpriteRendererSystem::Update()
 			drawOptions.relativeToCamera = transform->relativeToCamera;
 
 			GraphicsManager::AddToDrawQueue(drawOptions);
+			DrawDebug(transform, spriteRenderer);
 		}
 	}
 }

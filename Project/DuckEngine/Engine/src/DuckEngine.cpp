@@ -47,6 +47,8 @@ EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
+bool DuckEngine::showDebugDraw = false;
+
 bool isEditor = false;
 bool isPlaying = false;
 //TextRenderingSystem textRenderingSystem;

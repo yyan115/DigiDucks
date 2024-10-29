@@ -229,5 +229,7 @@ void BoxColliderSystem::Update() {
 		}
 
 		box->setCenter(boxTrans->position);
+
+		DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
 	}
 }

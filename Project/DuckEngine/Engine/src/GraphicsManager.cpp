@@ -210,33 +210,36 @@ void GraphicsManager::Render() {
 /// </summary>
 void GraphicsManager::RenderDebug()
 {
-    // Get camera matrices
-    Vector2D cameraPosition = CameraManager::GetPosition();
-    float ar = CameraManager::GetAR();
-    float height = CameraManager::GetHeight();
+    if (DuckEngine::showDebugDraw) {
 
-    // Combine camera-to-NDC and view matrix into one
-    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
-    glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
-    glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
+        // Get camera matrices
+        Vector2D cameraPosition = CameraManager::GetPosition();
+        float ar = CameraManager::GetAR();
+        float height = CameraManager::GetHeight();
 
-    // Iterate through the queue and process each draw command
-    for (const DebugDrawCommand& command : debugDrawQueue) {
-        bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
+        // Combine camera-to-NDC and view matrix into one
+        glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
+        glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+        glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
 
-        switch (command.type) {
-        case DebugDrawCommand::POINT:
-            DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::LINE:
-            DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::RECTANGLE:
-            DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::CIRCLE:
-            DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
+        // Iterate through the queue and process each draw command
+        for (const DebugDrawCommand& command : debugDrawQueue) {
+            bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
+
+            switch (command.type) {
+            case DebugDrawCommand::POINT:
+                DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::LINE:
+                DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::RECTANGLE:
+                DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::CIRCLE:
+                DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            }
         }
     }
 
@@ -479,7 +482,7 @@ void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set line width
-    glLineWidth(1.0f);
+    glLineWidth(2.0f);
 
     // Draw the rectangle outline using GL_LINE_LOOP
     glDrawArrays(GL_LINE_LOOP, 0, 4);
@@ -525,7 +528,7 @@ void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const C
     glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
     // Set width of line
-    glLineWidth(1.0f);
+    glLineWidth(2.0f);
 
     // Draw the circle outline using GL_LINE_LOOP
     glDrawArrays(GL_LINE_LOOP, 0, circleSegments);

@@ -204,4 +204,5 @@ public:
     *************************************************************************/
     static void DUCKENGINE_API EnableLogging(bool enable);
 
+    static DUCKENGINE_API bool showDebugDraw;
 };

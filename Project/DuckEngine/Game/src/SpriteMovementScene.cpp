@@ -114,6 +114,7 @@ void SpriteMovementScene::Load()
 void SpriteMovementScene::Start()
 {
 	//DuckEngine_Sound::PlaySounds("TestSound");
+	DuckEngine::showDebugDraw = true;
 }
 
 /************************************************************************
@@ -162,6 +163,7 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
+		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
 
 	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
@@ -192,15 +194,15 @@ void SpriteMovementScene::Update()
 	}
 
 
-	DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
+	//DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 
-	DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
+	//DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
 
-	DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
+	//DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
 
-	DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
+	//DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
 
-	DuckEngine::DrawPoint({ -3.f, -3.f }, 10.f);
+	//DuckEngine::DrawPoint({ -3.f, -3.f }, 10.f);
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
