@@ -16,6 +16,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 
 #include "TimeManager.h"
+#include <iostream>
+#include <unordered_map>
 
 // Define static members
 GLdouble TimeManager::fps = 0.0;
@@ -23,7 +25,8 @@ GLdouble TimeManager::delta_time = 0.0;
 double TimeManager::system_start_time = 0.0;
 double TimeManager::total_time_start = 0.0;
 double TimeManager::total_time = 0.0;
-std::vector<std::pair<std::string, double>> TimeManager::managerData;
+std::unordered_map<std::string, double> Manager_start_time;
+std::unordered_map<std::string, double> TimeManager::managerData;
 
 /// <summary>
 /// Returns the current frames per second (FPS).
@@ -80,27 +83,32 @@ void TimeManager::StartSystemTimer() {
     system_start_time = glfwGetTime();
 }
 
+void TimeManager::StartManagerTimer(const std::string& managerName) {
+    // Record the start time for the manager
+    Manager_start_time[managerName] = glfwGetTime();
+}
+
+
 /// <summary>
 /// Ends the system timer and returns the time taken by the system or process.
 /// </summary>
 /// <returns>The elapsed time since StartSystemTimer() was called.</returns>
-double TimeManager::EndSystemTimer(const std::string& managerName) {
+double TimeManager::EndSystemTimer() {
     double end_time = glfwGetTime();
-    double elapsed_time = end_time - system_start_time;
+    return end_time - system_start_time;
+}
 
-    if (!managerName.empty()) {
-        // Simple for loop to check if manager already exists in the data
-        for (auto& manager : managerData) {
-            if (manager.first == managerName) {
-                manager.second = elapsed_time;
-                return elapsed_time;
-            }
-        }
-        // If not found, add new manager entry
-        managerData.emplace_back(managerName, elapsed_time);
-    }
+void TimeManager::EndManagerTimer(const std::string& managerName) {
+    double end_time = glfwGetTime();
 
-    return elapsed_time;
+    // Calculate elapsed time if start time is available
+    double elapsed_time = end_time - Manager_start_time[managerName];
+
+    // Update the manager's elapsed time in managerData
+    managerData[managerName] = elapsed_time;
+
+    // Remove the start time entry
+    Manager_start_time.erase(managerName);
 }
 
 /// <summary>
@@ -129,11 +137,6 @@ double TimeManager::GetTotalTime() {
 /// Returns the data for all system managers.
 /// </summary>
 /// <returns> A vector of pairs, where each pair contains the name of a system manager and the time taken by that manager.</returns>
-const std::vector<std::pair<std::string, double>>& TimeManager::GetManagerData() {
-    static std::vector<std::pair<std::string, double>> data;
-    data.clear();
-    for (const auto& pair : managerData) {
-        data.emplace_back(pair.first, pair.second);
-    }
-    return data;
+const std::unordered_map<std::string, double>& TimeManager::GetManagerData() {
+    return managerData;
 }

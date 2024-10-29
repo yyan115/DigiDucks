@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "WindowManager.h"
 #include "EditorInputManager.h"
+#include "TimeManager.h"
 
 static DuckEngine engine;
 static UIManager uiManager;
@@ -34,22 +35,26 @@ int main(void)
         DUCKLOG_INFO("Game Started.");
         while (engine.Running())
         {
+            TimeManager::StartTotalTimer();  
+            
             EditorInputManager::Update();
 
             engine.Update();
-
+            
             engine.StartDraw();
-
+            
             engine.Draw();
+            
             uiManager.StartRender();
-
+            
             uiManager.Render();
+            
             SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
-
+            
             uiManager.EndRender();
-
-
-            engine.EndDraw();
+            
+            TimeManager::EndTotalTimer();
+            engine.EndDraw();                          
         }
     }
 

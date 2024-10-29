@@ -96,6 +96,7 @@ void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float 
 
 void UIManager::StartRender()
 {
+    TimeManager::StartManagerTimer("Editor Manager");
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     
@@ -104,6 +105,7 @@ void UIManager::StartRender()
 }
 
 void UIManager::Render() {
+    
 
     // example window
     //ImGui::ShowDemoWindow();    
@@ -136,6 +138,7 @@ void UIManager::EndRender()
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_context);
     }  
+    TimeManager::EndManagerTimer("Editor Manager");
 }
 
 void UIManager::Exit() {
@@ -245,15 +248,14 @@ void UIManager::ShowDebugInfo() {
 void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
     const auto& systemData = systemManager.GetSystemData();
     const auto& managerData = TimeManager::GetManagerData();
-    float deltaTime = static_cast<float>(TimeManager::DT());  // Get the current frame time (or delta time)
+    float total_time = static_cast<float>(TimeManager::GetTotalTime()); // Total game loop time
 
     const int averageFrameCount = 10;
 
     // Display manager performance as graphs
-    ImGui::Text("Manager Performance");
     for (const auto& manager : managerData) {
         const std::string& managerName = manager.first;
-        float managerPercentage = static_cast<float>(manager.second / deltaTime) * 100.0f;
+        float managerPercentage = static_cast<float>(manager.second / total_time) * 100.0f;
 
         auto& history = managerHistory[managerName];
         if (history.size() >= 100) {
@@ -261,23 +263,27 @@ void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
         }
         history.push_back(managerPercentage);
 
+        float averagePercentage = 0.0f;
+        int count = 0;
+        for (int i = static_cast<int>(history.size()) - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
+            averagePercentage += history[i];
+        }
+        // Avoid division by zero
+        if (count > 0) { 
+            averagePercentage /= count;
+        }
+        else {
+            averagePercentage = 0.0f;
+        }
+
         // Display the graph
-        ImGui::Text("%s", managerName.c_str());
+        ImGui::Text("%s ( %.2f%% )", managerName.c_str(), averagePercentage);
         ImGui::PlotLines("", history.data(), static_cast<int>(history.size()),
             0, nullptr, 0.0f, 100.0f, ImVec2(0, 60));
 
         if (ImGui::IsItemHovered()) {
             ImGui::BeginTooltip();
-
-            // Calculate average
-            float averagePercentage = 0.0f;
-            int count = 0;
-            for (size_t i = history.size() - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
-                averagePercentage += history[i];
-            }
-            averagePercentage /= count;
-
-            ImGui::Text("Manager: %s", managerName.c_str());
+            ImGui::Text("System: %s", managerName.c_str());
             ImGui::Text("Percentage: %.2f%%", averagePercentage);
             ImGui::EndTooltip();
         }
@@ -286,10 +292,10 @@ void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
     }
 
     // Display system performance as graphs
-    ImGui::Text("System Performance");
+    ImGui::Text("Component systems");
     for (const auto& system : systemData) {
         const std::string& systemName = system.first;
-        float systemPercentage = static_cast<float>(system.second / deltaTime) * 100.0f;
+        float systemPercentage = static_cast<float>(system.second / total_time) * 100.0f;
 
         auto& history = systemHistory[systemName];
         if (history.size() >= 100) {
@@ -301,21 +307,26 @@ void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
         auto spacePos = system.first.find(" ");
         std::string rawName = system.first.c_str();
         rawName = system.first.c_str() + spacePos + 1;
-        ImGui::Text("%s", rawName.c_str());
+
+        float averagePercentage = 0.0f;
+        int count = 0;
+        for (int i = static_cast<int>(history.size()) - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
+            averagePercentage += history[i];
+        }
+        // Avoid division by zero
+        if (count > 0) {
+            averagePercentage /= count;
+        }
+        else {
+            averagePercentage = 0.0f;
+        }
+
+        ImGui::Text("%s ( %.2f%% )", rawName.c_str(), averagePercentage);
         ImGui::PlotLines("", history.data(), static_cast<int>(history.size()),
             0, nullptr, 0.0f, 100.0f, ImVec2(0, 60));
 
         if (ImGui::IsItemHovered()) {
             ImGui::BeginTooltip();
-
-            // Calculate average
-            float averagePercentage = 0.0f;
-            int count = 0;
-            for (size_t i = history.size() - 1; i >= 0 && count < averageFrameCount; --i, ++count) {
-                averagePercentage += history[i];
-            }
-            averagePercentage /= count;
-
             ImGui::Text("System: %s", systemName.c_str());
             ImGui::Text("Percentage: %.2f%%", averagePercentage);
             ImGui::EndTooltip();

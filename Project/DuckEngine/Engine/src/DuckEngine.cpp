@@ -127,10 +127,10 @@ bool DuckEngine::IsPlaying()
 *************************************************************************/
 void DuckEngine::Update() 
 {
-    // Look for inputs first
-    TimeManager::StartSystemTimer();
+    // Look for inputs first   
+    TimeManager::StartManagerTimer("Input System");
     InputManager::Update();
-    TimeManager::EndSystemTimer("InputManager");
+    TimeManager::EndManagerTimer("Input System");
     // Update dt every 1 second
     TimeManager::UpdateTime(1.0);
 
@@ -140,22 +140,16 @@ void DuckEngine::Update()
     {
         if (isPlaying)
         {
-            TimeManager::StartSystemTimer();
             DUCKENGINE_SceneManager.Update();
-            TimeManager::EndSystemTimer("SceneManager");
         }
     }
     else
     {
-        TimeManager::StartSystemTimer();
         DUCKENGINE_SceneManager.Update();
-        TimeManager::EndSystemTimer("SceneManager");
     }
 
     FontManager::Update();
-
     DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
-
     //// FIRST INSTANCE
     //TextRenderCommand titleText{
     //"TEST SCENE",       // Text
@@ -202,15 +196,15 @@ void DuckEngine::StartDraw(GLint width, GLint height)
 void DuckEngine::Draw() 
 { 
     //GraphicsManager::OldRender(false);
-    TimeManager::StartSystemTimer();
+    TimeManager::StartManagerTimer("Graphics System");
     GraphicsManager::Render();
-
     GraphicsManager::RenderDebug();
-    TimeManager::EndSystemTimer("GraphicsManager");
+    TimeManager::EndManagerTimer("Graphics System");
 
-    TimeManager::StartSystemTimer();
+    TimeManager::StartManagerTimer("Font System");
     FontManager::Render();
-    TimeManager::EndSystemTimer("FontManager");
+    TimeManager::EndManagerTimer("Font System");
+    
 }
 
 /************************************************************************
@@ -218,7 +212,7 @@ void DuckEngine::Draw()
        display the rendered frame.
 *************************************************************************/
 void DuckEngine::EndDraw()
-{
+{  
     // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
     glfwSwapBuffers(WindowManager::getWindow());
 }

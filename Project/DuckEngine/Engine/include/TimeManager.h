@@ -23,7 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #endif
 
 #include <GLFW/glfw3.h>
-#include <vector>
+#include <unordered_map>
 #include <string>
 
 /// <summary>
@@ -54,34 +54,34 @@ public:
     /// Starts the system timer for measuring elapsed time in a specific system or process.
     /// </summary>
     static void StartSystemTimer();
-
+    static DUCKENGINE_API void StartManagerTimer(const std::string& managerName);
     /// <summary>
     /// Ends the system timer and returns the elapsed time since StartSystemTimer was called.
     /// </summary>
     /// <returns>The elapsed time in seconds.</returns>
-    static double EndSystemTimer(const std::string& managerName = "");
-
+    static double EndSystemTimer();
+    static DUCKENGINE_API void EndManagerTimer(const std::string& managerName = "");
     /// <summary>
     /// Starts the timer for tracking total loop time.
     /// </summary>
-    static void StartTotalTimer();
+    static DUCKENGINE_API void StartTotalTimer();
 
     /// <summary>
     /// Ends the timer for tracking total loop time.
     /// </summary>
-    static void EndTotalTimer();
+    static DUCKENGINE_API void EndTotalTimer();
 
     /// <summary>
     /// Returns the total time elapsed in the current game loop.
     /// </summary>
     /// <returns>The total loop time as a double.</returns>
-    static double GetTotalTime();
+    static DUCKENGINE_API double GetTotalTime();
 
     /// <summary>
     /// Returns the data for the time manager.
     /// </summary>
     /// <returns>A vector of pairs containing the name of the manager and the time taken by the manager.</returns>
-    static DUCKENGINE_API const std::vector<std::pair<std::string, double>>& GetManagerData();
+    static DUCKENGINE_API const std::unordered_map<std::string, double>& GetManagerData();
 
 
 private:
@@ -99,7 +99,6 @@ private:
     /// Stores the start time for systems, used in StartSystemTimer and EndSystemTimer.
     /// </summary>
     static double system_start_time;
-
     /// <summary>
     /// Stores the start time for tracking total loop time.
     /// </summary>
@@ -113,5 +112,5 @@ private:
     /// <summary>
     /// Stores the data for all system managers.
     /// </summary>
-    static std::vector<std::pair<std::string, double>> managerData;
+    static std::unordered_map<std::string, double> managerData;
 };
