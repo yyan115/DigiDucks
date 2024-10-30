@@ -38,6 +38,32 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
+struct PointInstanceData {
+    glm::vec2 position;
+    float size;
+    glm::vec4 color;
+};
+
+struct LineInstanceData {
+    glm::vec2 start;
+    glm::vec2 end;
+    float thickness;
+    glm::vec4 color;
+};
+
+struct RectangleInstanceData {
+    glm::vec2 center;
+    glm::vec2 size;
+    float rotation;
+    glm::vec4 color;
+};
+
+struct CircleInstanceData {
+    glm::vec2 position;
+    float radius;
+    glm::vec4 color;
+};
+
 /// <summary>
 /// The GraphicsManager class is responsible for managing all graphics rendering for game objects, including the 
 /// drawing of points, lines, circles, etc, for debugging graphics. It maintains render queues and manages the
@@ -190,4 +216,21 @@ private:
     static GLuint fbo;
     static GLuint fboTexture;
     static GLuint depthStencil;
+
+    static GLuint pointInstanceVBO;
+    static GLuint lineInstanceVBO;
+    static GLuint rectangleInstanceVBO;
+    static GLuint circleInstanceVBO;
+
+    // Grouped debug commands
+    static std::vector<DebugDrawCommand> pointCommands;
+    static std::vector<DebugDrawCommand> lineCommands;
+    static std::vector<DebugDrawCommand> rectangleCommands;
+    static std::vector<DebugDrawCommand> circleCommands;
+
+    // Rendering functions
+    static void RenderPoints(const glm::mat3x3& cameraViewMatrix);
+    static void RenderLines(const glm::mat3x3& cameraViewMatrix);
+    static void RenderRectangles(const glm::mat3x3& cameraViewMatrix);
+    static void RenderCircles(const glm::mat3x3& cameraViewMatrix);
 };
