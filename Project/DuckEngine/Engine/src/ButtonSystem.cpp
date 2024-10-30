@@ -28,8 +28,8 @@ void ButtonSystem::Update()
 		// Check if button is pressed
 		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
 
-			if (IsPointInside({ static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) }, button->min, button->max)) {
-
+			if (IsPointInside({ static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) }, button->minPos, button->maxPos)) {
+				std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
 				if (button->onClick) {
 
 					button->onClick();

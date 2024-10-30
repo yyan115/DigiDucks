@@ -3,7 +3,7 @@
 
 #include "Component.h"
 #include "Vector2.h"
-#include "FontManager.h"
+//#include "FontManager.h"
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
@@ -36,7 +36,7 @@ public:
     DUCKENGINE_API TextComponent(
         const std::string& text = "",
         const Vector2D& position = Vector2D(),
-        int fontSize = 12,
+        int fontSize = 1,
         const Color& color = Color(255, 255, 255),
         //std::shared_ptr<Font> font = nullptr,
         bool enabled = true

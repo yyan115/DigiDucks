@@ -31,6 +31,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Serialization.h"
 #include "SoundComponent.h"
 
+#include "TextComponent.h"
+#include "ButtonComponent.h"
+
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)

@@ -16,7 +16,7 @@ class ButtonComponent : public Component
 {
 public:
 
-    Vector2D min, max;
+    Vector2D minPos, maxPos;
 
     // probably dont need/shouldnt have texture
     //std::shared_ptr<Texture> texture;
@@ -35,7 +35,7 @@ public:
     std::function<void()> onClick;
     std::function<void()> onHover;
 
-    DUCKENGINE_API ButtonComponent(bool enabled = true) : isEnabled(enabled) {}
+    DUCKENGINE_API ButtonComponent(Vector2D min = Vector2D(), Vector2D max = Vector2D(), bool enabled = true) : minPos(min), maxPos(max), isEnabled(enabled) {}
 
     DUCKENGINE_API std::shared_ptr<Component> Clone() const override
     {

@@ -44,6 +44,14 @@ TransformComponent* obstacle2Transform;
 RigidbodyComponent* obstacle2Rb;
 BoundingCircle* box2;
 
+// Test text
+Entity* textBox;
+TextComponent* textComponent;
+
+// Test button
+Entity* buttonBox;
+ButtonComponent buttonComponent;
+
 // test UI
 Entity* testUI;
 
@@ -105,6 +113,73 @@ void SpriteMovementScene::Load()
 
 	auto testUISprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(testUI->entityID);
 	testUISprite->layer = 2;
+
+	textBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
+	auto textComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(textBox->entityID);
+	textComponent->text = "TEST TEXT COMPONENT";
+	textComponent->position = { 0.f, 0.f };
+	textComponent->fontSize = 1;
+	textComponent->color = { 255.f, 50.f, 100.f, 250.f };
+
+	buttonBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
+	auto buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(buttonBox->entityID);
+	buttonComponent->minPos = {0.f, 0.f};
+	buttonComponent->maxPos = { 200.f, 100.f };
+	buttonComponent->onClick = []() { std::cout << "Button clicked!"; };
+
+	auto buttonSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(buttonBox->entityID);
+	buttonSprite->color = { 0.0f, 255.0f, 255.0f, 255.0f };
+	buttonSprite->useColor = true;
+	buttonSprite->sprite = true;
+
+	auto buttonTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(buttonBox->entityID);
+
+	// Calculate width and height from minPos and maxPos
+	float buttonWidth = buttonComponent->maxPos.x - buttonComponent->minPos.x;
+	float buttonHeight = buttonComponent->maxPos.y - buttonComponent->minPos.y;
+
+	// Convert minPos and maxPos from top-left to OpenGL centered coordinates
+	Vector2D centeredMinPos = {
+		buttonComponent->minPos.x - DuckEngine::GetWindowWidth() / 2.0f,
+		DuckEngine::GetWindowHeight() / 2.0f - buttonComponent->minPos.y
+	};
+
+	Vector2D centeredMaxPos = {
+		buttonComponent->maxPos.x - DuckEngine::GetWindowWidth() / 2.0f,
+		DuckEngine::GetWindowHeight() / 2.0f - buttonComponent->maxPos.y
+	};
+
+	// Set Transform scale
+	buttonTransform->scale = { buttonWidth, buttonHeight };
+
+	// Set Transform position as the center of the converted min and max positions
+	buttonTransform->position = (centeredMinPos + centeredMaxPos) / 2.0f;
+
+	buttonTransform->relativeToCamera = false;
+
+
+	//buttonTransform->position = buttonCenter;
+
+	//// Given minPos and maxPos as the bounding coordinates
+	//Vector2D minPos = buttonComponent->minPos;
+	//Vector2D maxPos = buttonComponent->maxPos;
+
+	//// Calculate the width (scale in x) and height (scale in y)
+	//float width = maxPos.x - minPos.x;  // Scale along the x-axis
+	//float height = maxPos.y - minPos.y;  // Scale along the y-axis
+
+	//// Set the scale based on the calculated width and height
+	//buttonTransform->scale = { width, height };
+
+
+	//float buttonWidth = buttonComponent->maxPos.x - buttonComponent->minPos.x;
+	//float buttonHeight = buttonComponent->maxPos.y - buttonComponent->minPos.y;
+	//buttonTransform->scale = { buttonWidth, buttonHeight };
+	//buttonTransform->position = {
+	//(buttonComponent->minPos.x + buttonComponent->maxPos.x) / 2,
+	//(buttonComponent->minPos.y + buttonComponent->maxPos.y) / 2
+	//};
+	//buttonTransform->relativeToCamera = false;
 }
 
 /************************************************************************
@@ -192,7 +267,6 @@ void SpriteMovementScene::Update()
 	{
 		playerAnimator->PlayAnimation("IdleAnimation");
 	}
-
 
 	//DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 

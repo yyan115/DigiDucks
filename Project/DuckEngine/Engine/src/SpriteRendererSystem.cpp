@@ -68,7 +68,6 @@ void SpriteRendererSystem::Update()
 			data.layer = spriteRenderer->layer;
 			renderQueue.push_back(data);
 		}
-
 	}
 
 	// sort according to layer
