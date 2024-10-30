@@ -238,7 +238,6 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
-		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
 
 	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
@@ -258,9 +257,10 @@ void SpriteMovementScene::Update()
 		}
 	}
 
-	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_Y))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
 	{
-		std::cout << "Y is released!\n";
+		std::cout << "K is pressed!\n";
+		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
 
 	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
