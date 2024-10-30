@@ -51,6 +51,36 @@ void InspectorRenderer::RenderComponents(int entityID)
 
             ImGui::ColorEdit4("Color", (float*)&spriteRenderer->color);
             if (ImGui::IsItemEdited()) hasChanged = true;
+
+            // Display the current texture as a preview if it exists
+            if (!spriteRenderer->texturePath.empty()) {
+                auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
+                if (texture) {
+                    ImGui::Text("Current Texture:");
+                    ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64)); // Render texture thumbnail
+                }
+            }
+
+            // Set up a drop target for textures
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TEXTURE_PAYLOAD")) {
+                    // Cast the payload to a file path
+                    const char* newTexturePath = static_cast<const char*>(payload->Data);
+
+                    // Update spriteRenderer texture path
+                    spriteRenderer->texturePath = newTexturePath;
+                    auto newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
+                    if (newTexture) {
+                        spriteRenderer->texture = *newTexture;
+                        hasChanged = true;
+                        std::cout << "Texture replaced with: " << spriteRenderer->texturePath << std::endl;
+                    }
+                    else {
+                        std::cerr << "Error: Texture could not be loaded from " << spriteRenderer->texturePath << std::endl;
+                    }
+                }
+                ImGui::EndDragDropTarget();
+            }
         }
     }
 

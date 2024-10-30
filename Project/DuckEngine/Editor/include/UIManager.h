@@ -133,7 +133,7 @@ private:
 
     static void SaveScene(const std::string& sceneName);
 
-    
+    static void FileDropCallback(GLFWwindow* window, int count, const char** paths);
 
 };
 

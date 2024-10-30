@@ -78,6 +78,9 @@ void UIManager::Initialize() {
     }
     GLFWwindow* window = static_cast<GLFWwindow*>(WindowManager::getWindow());
 
+    // Enable file drop callback in GLFW
+    glfwSetDropCallback(window, UIManager::FileDropCallback);
+
     //Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
@@ -653,5 +656,28 @@ void UIManager::SaveScene(const std::string& sceneName)
     }
     else {
         std::cout << "No changes to save." << std::endl;
+    }
+}
+
+void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** paths) {
+    for (int i = 0; i < count; i++) {
+        std::string filePath = paths[i];
+        std::string extension = std::filesystem::path(filePath).extension().string();
+
+        if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
+            std::cout << "Texture file dropped: " << filePath << std::endl;
+            // Add logic to load texture here, e.g., DuckEngine::DUCKENGINE_AssetManager.LoadTexture(filePath);
+        }
+        else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
+            std::cout << "Audio file dropped: " << filePath << std::endl;
+            // Add logic to load sound here, e.g., DuckEngine::DUCKENGINE_AssetManager.LoadSound("newSoundID", filePath);
+        }
+        else if (extension == ".json") {
+            std::cout << "Scene or prefab JSON file dropped: " << filePath << std::endl;
+            // Handle loading scene/prefab JSON files
+        }
+        else {
+            std::cout << "Unsupported file type: " << extension << std::endl;
+        }
     }
 }
