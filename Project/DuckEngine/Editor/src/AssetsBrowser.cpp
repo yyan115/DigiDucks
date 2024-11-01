@@ -8,8 +8,8 @@
 
 
 namespace fs = std::filesystem;
-std::string AssetsBrowser::selectedFolderPath = "../Resources";
-std::string AssetsBrowser::selectedFolderName = "";
+std::string AssetsBrowser::selectedFolderPath = "../Resources/Scenes";
+std::string AssetsBrowser::selectedFolderName = "Scenes";
 
 // Main function to display the assets explorer UI
 void AssetsBrowser::ShowAssets() {
@@ -77,30 +77,45 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         if (entry.is_directory()) continue;  // Skip directories in the right pane
 
         std::string fileName = entry.path().filename().string();
-
+        std::string fileExtension = entry.path().extension().string();
+        std::string normalizedPath = NormalizePath(entry.path().string());  // Normalize the path
         ImGui::PushID(itemIndex);
-        if (ImGui::Button(fileName.c_str(), ImVec2(100, 100))) {
-            std::cout << "Selected asset: " << entry.path().string() << std::endl;
-            selectedAsset = entry.path().string();
+        std::cout << "File: " << normalizedPath << std::endl;  // Verify normalized path output
+
+        // Check if the file is a texture (image file)
+        if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
+            auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
+
+            // If texture is valid, display it as an image
+            if (texture) {
+                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0,1), ImVec2(1,0)); // Display thumbnail
+            }
+            else {
+                ImGui::Button(fileName.c_str(), ImVec2(100, 100)); // Fallback if texture is not loaded
+            }
+        }
+        else {
+            // Non-texture files can still be displayed as buttons
+            ImGui::Button(fileName.c_str(), ImVec2(100, 100));
         }
 
         // Set up drag-and-drop source for sprites
-        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
             ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
             ImGui::Text("Drag %s", fileName.c_str());
             ImGui::EndDragDropSource();
         }
 
         // Open context menu on right-click
-        if (ImGui::BeginPopupContextItem()) {
-            if (ImGui::MenuItem("Replace Asset")) {
-                std::string newFilePath = LevelManager::OpenFileDialog("texture");
-                if (!newFilePath.empty()) {
-                    ReplaceAsset(entry.path().string(), newFilePath); // Replace the asset with the new file
-                }
-            }
-            ImGui::EndPopup();
-        }
+        //if (ImGui::BeginPopupContextItem()) {
+        //    if (ImGui::MenuItem("Replace Asset")) {
+        //        std::string newFilePath = LevelManager::OpenFileDialog("texture");
+        //        if (!newFilePath.empty()) {
+        //            ReplaceAsset(entry.path().string(), newFilePath); // Replace the asset with the new file
+        //        }
+        //    }
+        //    ImGui::EndPopup();
+        //}
 
         if ((itemIndex + 1) % itemsPerRow != 0) {
             ImGui::SameLine();
