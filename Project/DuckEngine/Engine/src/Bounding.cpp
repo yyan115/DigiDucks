@@ -485,62 +485,62 @@ bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const fl
 ****************************************************************/
 bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
     //// Calculate Next Position
-    //Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
-    //Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
+    Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
+    Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
 
-    //// Get the distance between the two circles
-    //Vec2 centerDiff = nextPos1 - nextPos2;
-    //float combineRadii = circle.getRadius() + circle2.getRadius();
-
-    //if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
-    //    return true;  // Collision detected
-    //}
-
-
-    // Calculate relative velocity
-    Vec2 relVel = vel1 - vel2;
-
-    // Calculate distance between the two circles
-    Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
-
+    // Get the distance between the two circles
+    Vec2 centerDiff = nextPos1 - nextPos2;
     float combineRadii = circle.getRadius() + circle2.getRadius();
 
-    // Check static collisiohn
-    if (centerDiff.lengthSquared() <= combineRadii * combineRadii) {
-        return true;
+    if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+        return true;  // Collision detected
     }
-    else {  // Check dynamic Collision
 
-        float a = relVel.lengthSquared(); // Coefficient of t^2
-        float b = 2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
-        float c = centerDiff.lengthSquared() - (combineRadii * combineRadii); // Constant term
 
-        // Quadratic formula : b^2 - 4ac
-        float discriminant = b * b - 4 * a * c;
+    //// Calculate relative velocity
+    //Vec2 relVel = vel1 - vel2;
 
-        if ((discriminant < 0) || (a == 0)) {
-            return false;  // No collision
-        }
+    //// Calculate distance between the two circles
+    //Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
 
-        // Find 2 possible collision
-        float t0 = (-b - sqrt(discriminant)) / (2 * a);
-        float t1 = (-b + sqrt(discriminant)) / (2 * a);
+    //float combineRadii = circle.getRadius() + circle2.getRadius();
 
-        float t = t0 < t1 ? t0 : t1;
+    //// Check static collisiohn
+    //if (centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+    //    return true;
+    //}
+    //else {  // Check dynamic Collision
 
-        if (t >= 0.f && t <= deltaTime)
-        {
-            if (circle.onCollisionCallback)
-            {
-                circle.onCollisionCallback(nullptr);
-            }
-            if (circle2.onCollisionCallback)
-            {
-                circle2.onCollisionCallback(nullptr);
-            }
-            return true;  // Collision detected
-        }
-    }
+    //    float a = relVel.lengthSquared(); // Coefficient of t^2
+    //    float b = 2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
+    //    float c = centerDiff.lengthSquared() - (combineRadii * combineRadii); // Constant term
+
+    //    // Quadratic formula : b^2 - 4ac
+    //    float discriminant = b * b - 4 * a * c;
+
+    //    if ((discriminant < 0) || (a == 0)) {
+    //        return false;  // No collision
+    //    }
+
+    //    // Find 2 possible collision
+    //    float t0 = (-b - sqrt(discriminant)) / (2 * a);
+    //    float t1 = (-b + sqrt(discriminant)) / (2 * a);
+
+    //    float t = t0 < t1 ? t0 : t1;
+
+    //    if (t >= 0.f && t <= deltaTime)
+    //    {
+    //        if (circle.onCollisionCallback)
+    //        {
+    //            circle.onCollisionCallback(nullptr);
+    //        }
+    //        if (circle2.onCollisionCallback)
+    //        {
+    //            circle2.onCollisionCallback(nullptr);
+    //        }
+    //        return true;  // Collision detected
+    //    }
+    //}
 
     return false;
 }
