@@ -51,8 +51,10 @@ LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
 bool DuckEngine::showDebugDraw = false;
 
-bool isEditor = false;
+bool DuckEngine::isEditor = false;
 bool isPlaying = false;
+Vector2D DuckEngine::editorMouseWorldPos;
+Vector2D DuckEngine::editorMouseScreenPos;
 //TextRenderingSystem textRenderingSystem;
 
 /************************************************************************

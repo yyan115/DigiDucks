@@ -11,6 +11,7 @@ public:
     static void Initialize();
     static void RenderSceneWindow(int newWidth, int newHeight);
     static bool IsMouseInFBO();
+    static Vector2D ConvertScreenToFBO();
     static Vector2D ConvertScreenToWorld();
     static void HandleEntityDragging();
     static std::vector<Entity*> GetEntitiesAtPosition(const Vector2D& worldPos);

@@ -1,6 +1,8 @@
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
 #include "DuckEngine_Input.h"
+#include "imgui.h"
+#include "CameraManager.h"
 
 // Utility function to check if a point is within button bounds
 bool IsPointInside(const Vector2D& point, const Vector2D& min, const Vector2D& max)
@@ -25,14 +27,31 @@ void ButtonSystem::Update()
 			continue;
 		}
 
-		// Check if button is pressed
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+		if (DuckEngine::isEditor)
+		{
+			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) 
+			{
+				Vector2D mousePosWorld = DuckEngine::editorMouseScreenPos;
+				std::cout << "Mouse Pos: " << mousePosWorld.x << ", " << mousePosWorld.y << ".\n";
+				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos)) {
+					if (button->onClick) {
+						std::cout << "Button clicked. Mouse Pos: " << mousePosWorld.x << ", " << mousePosWorld.y << ".\n";
+						button->onClick();
+					}
+				}
+			}
+		}
 
-			if (IsPointInside({ static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) }, button->minPos, button->maxPos)) {
-				std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
-				if (button->onClick) {
+		else
+		{
+			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
 
-					button->onClick();
+				if (IsPointInside({ static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) }, button->minPos, button->maxPos)) {
+					std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
+					if (button->onClick) {
+
+						button->onClick();
+					}
 				}
 			}
 		}

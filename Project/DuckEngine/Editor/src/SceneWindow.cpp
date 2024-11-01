@@ -59,6 +59,9 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     inSceneFBO = IsMouseInFBO();
     Vector2D worldPos = ConvertScreenToWorld();
 
+    DuckEngine::editorMouseWorldPos = worldPos;
+    DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
+    
     // Handle drag-and-drop from AssetsBrowser
     if (ImGui::BeginDragDropTarget())
     {
@@ -157,6 +160,28 @@ bool SceneWindow::IsMouseInFBO()
         mousePos.y >= fboPos.y &&
         mousePos.y <= fboPos.y + fboSize.y;
 }
+
+Vector2D SceneWindow::ConvertScreenToFBO()
+{
+    if (!IsMouseInFBO())
+    {
+        return { -999.0f, -999.0f };
+    }
+    ImVec2 mousePos = ImGui::GetMousePos();
+    ImVec2 fboPos = ImGui::GetItemRectMin();
+    ImVec2 fboSize = ImGui::GetItemRectSize();
+
+    // Calculate the relative position within the FBO
+    float fboX = mousePos.x - fboPos.x;
+    float fboY = mousePos.y - fboPos.y;
+
+    // Ensure the position stays within the bounds of the FBO
+    fboX = std::clamp(fboX, 0.0f, fboSize.x);
+    fboY = std::clamp(fboY, 0.0f, fboSize.y);
+
+    return Vector2D(fboX, fboY);
+}
+
 
 Vector2D SceneWindow::ConvertScreenToWorld()
 {

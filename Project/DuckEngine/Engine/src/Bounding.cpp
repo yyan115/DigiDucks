@@ -6,8 +6,8 @@
 \email    	h.yonghengernestt@digipen.edu
 \date   	Sep 26 2024
 \brief  	This file contains functions for detecting various types of
-            collisions in a 2D environment, including circle-box,
-            box-box, circle-circle, and circle-line segment collisions.
+			collisions in a 2D environment, including circle-box,
+			box-box, circle-circle, and circle-line segment collisions.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -54,26 +54,26 @@ void BoundingCollider::setCenterPos(float x, float y) {
 
 
 namespace {
-    // Rotate along the z-axis
-    /****************************************************************
-    * @brief Rotates a 2D vector by a given angle
-    *
-    * This function rotates a 2D vector (`vec`) counterclockwise by a
-    * specified angle (`angle`) using the standard 2D rotation matrix.
-    * The angle is in Degrees.
-    *
-    * @param vec The vector to be rotated as a `Vec2`
-    * @param angle The angle in radians to rotate the vector
-    *
-    * @return A new `Vec2` representing the rotated vector
-    ****************************************************************/
-    Vec2 rotateVector(const Vec2& vec, float angle) {
-        float radian = static_cast<float>(angle * M_PI / 180.f);
-        float s = sin(radian);
-        float c = cos(radian);
+	// Rotate along the z-axis
+	/****************************************************************
+	* @brief Rotates a 2D vector by a given angle
+	*
+	* This function rotates a 2D vector (`vec`) counterclockwise by a
+	* specified angle (`angle`) using the standard 2D rotation matrix.
+	* The angle is in Degrees.
+	*
+	* @param vec The vector to be rotated as a `Vec2`
+	* @param angle The angle in radians to rotate the vector
+	*
+	* @return A new `Vec2` representing the rotated vector
+	****************************************************************/
+	Vec2 rotateVector(const Vec2& vec, float angle) {
+		float radian = static_cast<float>(angle * M_PI / 180.f);
+		float s = sin(radian);
+		float c = cos(radian);
 
-        return Vec2(vec.x * c - vec.y * s, vec.x * s + vec.y * c);
-    }
+		return Vec2(vec.x * c - vec.y * s, vec.x * s + vec.y * c);
+	}
 }
 
 ///// Box Collider /////
@@ -88,15 +88,15 @@ namespace {
 * @param _rotation The rotation of the bounding box in degrees (default is 0)
 ****************************************************************/
 BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation):BoundingCollider() {
-    setCenterPos(_center);
-    size = _size;
-    rotation = _rotation;
+	setCenterPos(_center);
+	size = _size;
+	rotation = _rotation;
 
-    // Get 4 corners of box using size and rotation
-    topR = _center + rotateVector(Vec2(size.x, size.y), rotation);
-    topL = _center + rotateVector(Vec2(-size.x, size.y), rotation);
-    btmR = _center + rotateVector(Vec2(size.x, -size.y), rotation);
-    btmL = _center + rotateVector(Vec2(-size.x, -size.y), rotation);
+	// Get 4 corners of box using size and rotation
+	topR = _center + rotateVector(Vec2(size.x, size.y), rotation);
+	topL = _center + rotateVector(Vec2(-size.x, size.y), rotation);
+	btmR = _center + rotateVector(Vec2(size.x, -size.y), rotation);
+	btmL = _center + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 /****************************************************************
@@ -109,16 +109,16 @@ BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation
 * @param _rotation The rotation of the bounding box in degrees (default is 0)
 ****************************************************************/
 BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation) :BoundingCollider() {
-    setCenterPos(_x, _y);
-    size.x = sizeX;
-    size.y = sizeY;
-    rotation = _rotation;
+	setCenterPos(_x, _y);
+	size.x = sizeX;
+	size.y = sizeY;
+	rotation = _rotation;
 
-    // Get 4 corners of box using size and rotation
-    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	// Get 4 corners of box using size and rotation
+	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 // Setters
@@ -128,17 +128,17 @@ BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _ro
 * @param pos The new center position of the bounding box as a Vec2
 ****************************************************************/
 void BoundingBox::setCenter(Vec2 center) {
-    Vec2 prevCenter = getCenterPos();
+	Vec2 prevCenter = getCenterPos();
 	setCenterPos(center);
 
-    // get the difference between the new center and the previous center
-    Vec2 diff = center - prevCenter;
+	// get the difference between the new center and the previous center
+	Vec2 diff = center - prevCenter;
 
-    // Update the 4 corners of the box
-    topR += diff;
-    topL += diff;
-    btmR += diff;
-    btmL += diff;
+	// Update the 4 corners of the box
+	topR += diff;
+	topL += diff;
+	btmR += diff;
+	btmL += diff;
 }
 
 /****************************************************************
@@ -149,22 +149,22 @@ void BoundingBox::setCenter(Vec2 center) {
 void BoundingBox::setSize(Vec2 _size) {
 	size = _size;
 
-    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 void BoundingBox::setRotation(float angle) {
-    rotation = angle;
-    // Keep angle within 360 degrees
-    if (angle > 360.f)
-        angle -= 360.f;
+	rotation = angle;
+	// Keep angle within 360 degrees
+	if (angle > 360.f)
+		angle -= 360.f;
 
-    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 /****************************************************************
@@ -174,14 +174,14 @@ void BoundingBox::setRotation(float angle) {
 ****************************************************************/
 void BoundingBox::rotate(float angle) {
 	rotation += angle;
-    // Keep angle within 360 degrees
-    if (angle > 360.f)
-        angle -= 360.f;
+	// Keep angle within 360 degrees
+	if (angle > 360.f)
+		angle -= 360.f;
 
-    topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-    topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-    btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-    btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
+	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
+	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
+	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
 }
 
 //// Circle Collider ////
@@ -227,60 +227,60 @@ void BoundingCircle::setRadius(float _radius) {
 
 // Collision Detection
 namespace {
-    /****************************************************************
-    * @brief Finds the closest point on a line segment to a given point
-    *
-    * This function computes the closest point on a line segment defined by
-    * `lineStart` and `lineEnd` to the specified point (`point`). It uses
-    * vector projection to find the closest point and ensures that the
-    * result is clamped between the endpoints of the segment.
-    *
-    * @param point The point to find the closest point to, as a `Vec2`
-    * @param lineStart The start point of the line segment, as a `Vec2`
-    * @param lineEnd The end point of the line segment, as a `Vec2`
-    *
-    * @return A `Vec2` representing the closest point on the line segment
-    ****************************************************************/
-    Vec2 closestPointOnLineSegment(const Vec2& point, const Vec2& lineStart, const Vec2& lineEnd) {
-        Vec2 line = lineEnd - lineStart;
-        float lineLengthSquared = line.lengthSquared();
+	/****************************************************************
+	* @brief Finds the closest point on a line segment to a given point
+	*
+	* This function computes the closest point on a line segment defined by
+	* `lineStart` and `lineEnd` to the specified point (`point`). It uses
+	* vector projection to find the closest point and ensures that the
+	* result is clamped between the endpoints of the segment.
+	*
+	* @param point The point to find the closest point to, as a `Vec2`
+	* @param lineStart The start point of the line segment, as a `Vec2`
+	* @param lineEnd The end point of the line segment, as a `Vec2`
+	*
+	* @return A `Vec2` representing the closest point on the line segment
+	****************************************************************/
+	Vec2 closestPointOnLineSegment(const Vec2& point, const Vec2& lineStart, const Vec2& lineEnd) {
+		Vec2 line = lineEnd - lineStart;
+		float lineLengthSquared = line.lengthSquared();
 
-        // Project point onto the line (parameterized t value)
-        float t = Vec2Dot(point - lineStart, line) / lineLengthSquared;
+		// Project point onto the line (parameterized t value)
+		float t = Vec2Dot(point - lineStart, line) / lineLengthSquared;
 
-        // Clamp t between 0 and 1 to make sure the closest point lies on the line segment
-        t = std::max(0.0f, std::min(1.0f, t));
+		// Clamp t between 0 and 1 to make sure the closest point lies on the line segment
+		t = std::max(0.0f, std::min(1.0f, t));
 
-        // Return the closest point
-        return lerp(lineStart, lineEnd, t);
-    }
+		// Return the closest point
+		return lerp(lineStart, lineEnd, t);
+	}
 
-    // Project point onto axis
-    /****************************************************************
-    * @brief Projects a point onto a given axis and updates the min
-    *        and max projection values
-    *
-    * This function calculates the dot product of the given point (`point`)
-    * and the specified axis (`axis`). It then updates the `min` and `max`
-    * values based on the projection result.
-    *
-    * @param point The point to be projected, as a `Vec2`
-    * @param axis The axis onto which the point is projected, as a `Vec2`
-    * @param min A reference to the minimum projection value, updated if needed
-    * @param max A reference to the maximum projection value, updated if needed
-    ****************************************************************/
-    void projectOnAxis(const Vec2& point,const  Vec2& axis, float& min, float& max ) {
-        // Dot product of point and axis
-        float projection = Vec2Dot(axis, point);
+	// Project point onto axis
+	/****************************************************************
+	* @brief Projects a point onto a given axis and updates the min
+	*        and max projection values
+	*
+	* This function calculates the dot product of the given point (`point`)
+	* and the specified axis (`axis`). It then updates the `min` and `max`
+	* values based on the projection result.
+	*
+	* @param point The point to be projected, as a `Vec2`
+	* @param axis The axis onto which the point is projected, as a `Vec2`
+	* @param min A reference to the minimum projection value, updated if needed
+	* @param max A reference to the maximum projection value, updated if needed
+	****************************************************************/
+	void projectOnAxis(const Vec2& point,const  Vec2& axis, float& min, float& max ) {
+		// Dot product of point and axis
+		float projection = Vec2Dot(axis, point);
 
-        if (projection < min) {
-            min = projection;
-        }
-        if (projection > max) {
-            max = projection;
-        }
-        return;
-    }
+		if (projection < min) {
+			min = projection;
+		}
+		if (projection > max) {
+			max = projection;
+		}
+		return;
+	}
 }
 
 
@@ -303,35 +303,35 @@ namespace {
 ****************************************************************/
 bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel, const Vec2& box_vel) {
 
-    // Calculate next position of box
-    Vec2 topRight = box.getTopR() + box_vel * deltaTime;
-    Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
-    Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
-    Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
+	// Calculate next position of box
+	Vec2 topRight = box.getTopR() + box_vel * deltaTime;
+	Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
+	Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
+	Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
 
-    // Calculate next position of circle
-    Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
+	// Calculate next position of circle
+	Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
 
-    // Dynamic collision check    
-    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
-        checkCollisionCL(circle, nextPos, btmRight, topRight, interceptPt) ||
-        checkCollisionCL(circle, nextPos, topRight, topLeft, interceptPt) ||
-        checkCollisionCL(circle, nextPos, topLeft, btmLeft, interceptPt)) {
+	// Dynamic collision check    
+	if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
+		checkCollisionCL(circle, nextPos, btmRight, topRight, interceptPt) ||
+		checkCollisionCL(circle, nextPos, topRight, topLeft, interceptPt) ||
+		checkCollisionCL(circle, nextPos, topLeft, btmLeft, interceptPt)) {
 
-        // Pass the colliding entities to the callbacks
-        if (circle.onCollisionCallback)
-        {
-            circle.onCollisionCallback(nullptr);
-        }
-        if (box.onCollisionCallback)
-        {
-            box.onCollisionCallback(nullptr);
-        }
+		// Pass the colliding entities to the callbacks
+		if (circle.onCollisionCallback)
+		{
+			circle.onCollisionCallback(nullptr);
+		}
+		if (box.onCollisionCallback)
+		{
+			box.onCollisionCallback(nullptr);
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    return false;  // No collision
+	return false;  // No collision
 }
 
 // Box - Circle
@@ -352,35 +352,35 @@ bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2
 ****************************************************************/
 bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel, const Vec2& cir_vel) {
 
-    // Calculate next position of box
-    Vec2 topRight = box.getTopR() + box_vel * deltaTime;
-    Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
-    Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
-    Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
+	// Calculate next position of box
+	Vec2 topRight = box.getTopR() + box_vel * deltaTime;
+	Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
+	Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
+	Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
 
-    // Calculate next position of circle
-    Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
+	// Calculate next position of circle
+	Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
 
-    // Dynamic collision check
-    if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
+	// Dynamic collision check
+	if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
 		checkCollisionCL(circle, nextPos, btmRight, topRight, interceptPt) ||
 		checkCollisionCL(circle, nextPos, topRight, topLeft, interceptPt) ||
 		checkCollisionCL(circle, nextPos, topLeft, btmLeft, interceptPt)) {
 
-        // Pass the colliding entities to the callbacks
-        if (circle.onCollisionCallback)
-        {
-            circle.onCollisionCallback(nullptr);
-        }
-        if (box.onCollisionCallback)
-        {
-            box.onCollisionCallback(nullptr);
-        }
+		// Pass the colliding entities to the callbacks
+		if (circle.onCollisionCallback)
+		{
+			circle.onCollisionCallback(nullptr);
+		}
+		if (box.onCollisionCallback)
+		{
+			box.onCollisionCallback(nullptr);
+		}
 
 		return true;
 	}
 
-    return false;  // No collision
+	return false;  // No collision
 }
 
 // Box - Box
@@ -400,70 +400,70 @@ bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2&
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
 bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
-    // Calculate Next Position
-    Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
-    Vec2 nextTR1 = box1.getTopR() + vel1 * deltaTime;
-    Vec2 nextBR1 = box1.getBtmR() + vel1 * deltaTime;
-    Vec2 nextBL1 = box1.getBtmL() + vel1 * deltaTime;
+	// Calculate Next Position
+	Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
+	Vec2 nextTR1 = box1.getTopR() + vel1 * deltaTime;
+	Vec2 nextBR1 = box1.getBtmR() + vel1 * deltaTime;
+	Vec2 nextBL1 = box1.getBtmL() + vel1 * deltaTime;
 
-    Vec2 nextTL2 = box2.getTopL() + vel2 * deltaTime;
-    Vec2 nextTR2 = box2.getTopR() + vel2 * deltaTime;
-    Vec2 nextBR2 = box2.getBtmR() + vel2 * deltaTime;
-    Vec2 nextBL2 = box2.getBtmL() + vel2 * deltaTime;
+	Vec2 nextTL2 = box2.getTopL() + vel2 * deltaTime;
+	Vec2 nextTR2 = box2.getTopR() + vel2 * deltaTime;
+	Vec2 nextBR2 = box2.getBtmR() + vel2 * deltaTime;
+	Vec2 nextBL2 = box2.getBtmL() + vel2 * deltaTime;
 
-    std::vector<Vec2> axes;
+	std::vector<Vec2> axes;
 
-    // Box 1
-    // Top Axis - Top Right to Top Left
-    axes.push_back((nextTL1 - nextTR1).normalized());
-    // Right Axis - Btm Right to Top Right
-    axes.push_back((nextTR1 - nextBR1).normalized());
+	// Box 1
+	// Top Axis - Top Right to Top Left
+	axes.push_back((nextTL1 - nextTR1).normalized());
+	// Right Axis - Btm Right to Top Right
+	axes.push_back((nextTR1 - nextBR1).normalized());
 
-    // Calculate Next Position
-    if (box1.rotation != box2.rotation) {   // If angle not equal, calculate box2 axes
-        // Top Axis - Top Right to Top Left
-        axes.push_back((nextTL2 - nextTR2).normalized());
-        // Right Axis - Btm Right to Top Right
-        axes.push_back((nextTR2 - nextBR2).normalized());
-    }
+	// Calculate Next Position
+	if (box1.rotation != box2.rotation) {   // If angle not equal, calculate box2 axes
+		// Top Axis - Top Right to Top Left
+		axes.push_back((nextTL2 - nextTR2).normalized());
+		// Right Axis - Btm Right to Top Right
+		axes.push_back((nextTR2 - nextBR2).normalized());
+	}
 
-    // Check for overlap
-    for (size_t i{}; i < axes.size(); ++i) {
+	// Check for overlap
+	for (size_t i{}; i < axes.size(); ++i) {
 
-        float min1 = std::numeric_limits<float>::max();
-        float max1 = -std::numeric_limits<float>::max();
-        float min2 = std::numeric_limits<float>::max();
-        float max2 = -std::numeric_limits<float>::max();
+		float min1 = std::numeric_limits<float>::max();
+		float max1 = -std::numeric_limits<float>::max();
+		float min2 = std::numeric_limits<float>::max();
+		float max2 = -std::numeric_limits<float>::max();
 
-        // Project box 1
-        projectOnAxis(nextTL1, axes[i], min1, max1);
-        projectOnAxis(nextTR1, axes[i], min1, max1);
-        projectOnAxis(nextBR1, axes[i], min1, max1);
-        projectOnAxis(nextBL1, axes[i], min1, max1);
+		// Project box 1
+		projectOnAxis(nextTL1, axes[i], min1, max1);
+		projectOnAxis(nextTR1, axes[i], min1, max1);
+		projectOnAxis(nextBR1, axes[i], min1, max1);
+		projectOnAxis(nextBL1, axes[i], min1, max1);
 
-        // Project box 2
-        projectOnAxis(nextTL2, axes[i], min2, max2);
-        projectOnAxis(nextTR2, axes[i], min2, max2);
-        projectOnAxis(nextBR2, axes[i], min2, max2);
-        projectOnAxis(nextBL2, axes[i], min2, max2);
+		// Project box 2
+		projectOnAxis(nextTL2, axes[i], min2, max2);
+		projectOnAxis(nextTR2, axes[i], min2, max2);
+		projectOnAxis(nextBR2, axes[i], min2, max2);
+		projectOnAxis(nextBL2, axes[i], min2, max2);
 
 
-        if (max1 < min2 || max2 < min1) {
-            return false;  // No collision
-        }
-    }
+		if (max1 < min2 || max2 < min1) {
+			return false;  // No collision
+		}
+	}
 
-    // No separating axis found, collision detected
-    if (box1.onCollisionCallback)
-    {
-        box1.onCollisionCallback(nullptr);
-    }
-    if (box2.onCollisionCallback)
-    {
-        box2.onCollisionCallback(nullptr);
-    }
+	// No separating axis found, collision detected
+	if (box1.onCollisionCallback)
+	{
+		box1.onCollisionCallback(nullptr);
+	}
+	if (box2.onCollisionCallback)
+	{
+		box2.onCollisionCallback(nullptr);
+	}
 
-    return true;
+	return true;
 }
 
 // Circle - Circle
@@ -484,65 +484,65 @@ bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const fl
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
 bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
-    //// Calculate Next Position
-    Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
-    Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
+	//// Calculate Next Position
+	Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
+	Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
 
-    // Get the distance between the two circles
-    Vec2 centerDiff = nextPos1 - nextPos2;
-    float combineRadii = circle.getRadius() + circle2.getRadius();
+	// Get the distance between the two circles
+	Vec2 centerDiff = nextPos1 - nextPos2;
+	float combineRadii = circle.getRadius() + circle2.getRadius();
 
-    if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
-        return true;  // Collision detected
-    }
+	if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+		return true;  // Collision detected
+	}
 
 
-    //// Calculate relative velocity
-    //Vec2 relVel = vel1 - vel2;
+	//// Calculate relative velocity
+	//Vec2 relVel = vel1 - vel2;
 
-    //// Calculate distance between the two circles
-    //Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
+	//// Calculate distance between the two circles
+	//Vec2 centerDiff = circle.getCenter() - circle2.getCenter();
 
-    //float combineRadii = circle.getRadius() + circle2.getRadius();
+	//float combineRadii = circle.getRadius() + circle2.getRadius();
 
-    //// Check static collisiohn
-    //if (centerDiff.lengthSquared() <= combineRadii * combineRadii) {
-    //    return true;
-    //}
-    //else {  // Check dynamic Collision
+	//// Check static collisiohn
+	//if (centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+	//    return true;
+	//}
+	//else {  // Check dynamic Collision
 
-    //    float a = relVel.lengthSquared(); // Coefficient of t^2
-    //    float b = 2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
-    //    float c = centerDiff.lengthSquared() - (combineRadii * combineRadii); // Constant term
+	//    float a = relVel.lengthSquared(); // Coefficient of t^2
+	//    float b = 2 * Vec2Dot(centerDiff, relVel); // Coefficient of t
+	//    float c = centerDiff.lengthSquared() - (combineRadii * combineRadii); // Constant term
 
-    //    // Quadratic formula : b^2 - 4ac
-    //    float discriminant = b * b - 4 * a * c;
+	//    // Quadratic formula : b^2 - 4ac
+	//    float discriminant = b * b - 4 * a * c;
 
-    //    if ((discriminant < 0) || (a == 0)) {
-    //        return false;  // No collision
-    //    }
+	//    if ((discriminant < 0) || (a == 0)) {
+	//        return false;  // No collision
+	//    }
 
-    //    // Find 2 possible collision
-    //    float t0 = (-b - sqrt(discriminant)) / (2 * a);
-    //    float t1 = (-b + sqrt(discriminant)) / (2 * a);
+	//    // Find 2 possible collision
+	//    float t0 = (-b - sqrt(discriminant)) / (2 * a);
+	//    float t1 = (-b + sqrt(discriminant)) / (2 * a);
 
-    //    float t = t0 < t1 ? t0 : t1;
+	//    float t = t0 < t1 ? t0 : t1;
 
-    //    if (t >= 0.f && t <= deltaTime)
-    //    {
-    //        if (circle.onCollisionCallback)
-    //        {
-    //            circle.onCollisionCallback(nullptr);
-    //        }
-    //        if (circle2.onCollisionCallback)
-    //        {
-    //            circle2.onCollisionCallback(nullptr);
-    //        }
-    //        return true;  // Collision detected
-    //    }
-    //}
+	//    if (t >= 0.f && t <= deltaTime)
+	//    {
+	//        if (circle.onCollisionCallback)
+	//        {
+	//            circle.onCollisionCallback(nullptr);
+	//        }
+	//        if (circle2.onCollisionCallback)
+	//        {
+	//            circle2.onCollisionCallback(nullptr);
+	//        }
+	//        return true;  // Collision detected
+	//    }
+	//}
 
-    return false;
+	return false;
 }
 
 // Cirlce - Line
@@ -562,15 +562,15 @@ bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle
 ****************************************************************/
 bool checkCollisionCL(const BoundingCircle& circle,const Vec2& nextPos, const Vec2& lineStart, const Vec2& lineEnd, Vec2& interceptPt) {
 
-    // Check closest Point to line from Next Position
-    Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);
+	// Check closest Point to line from Next Position
+	Vec2 closestPt = closestPointOnLineSegment(nextPos, lineStart, lineEnd);
 
-    if ((closestPt - nextPos).lengthSquared() <= circle.getRadius() * circle.getRadius()) {
-        interceptPt = closestPt;
-        return true;
-    }
+	if ((closestPt - nextPos).lengthSquared() <= circle.getRadius() * circle.getRadius()) {
+		interceptPt = closestPt;
+		return true;
+	}
 
-    return false; // No collision
+	return false; // No collision
 }
 
 
@@ -588,23 +588,23 @@ bool checkCollisionCL(const BoundingCircle& circle,const Vec2& nextPos, const Ve
 * @param deltaTime The time step for calculating the new velocity
 * ***************************************************************/
 void calculateNewVelocity(const Vec2& curPos, Vec2& curVel, const Vec2& interceptPt,const float& radius, const float& deltaTime) {
-    // Get direction from current position to intersection point
-    Vec2 dir = interceptPt - curPos;
+	// Get direction from current position to intersection point
+	Vec2 dir = interceptPt - curPos;
 
-    // Get the length of the direction vector
-    float dist = dir.length();
+	// Get the length of the direction vector
+	float dist = dir.length();
 
-    // Calculate distance from intercept with radius
-    float distFmIntcpt = dist - radius;
+	// Calculate distance from intercept with radius
+	float distFmIntcpt = dist - radius;
 
-    if (distFmIntcpt <= 0.0f) {
-        curVel = Vec2(0.0f, 0.0f);
-        return;
-    }
+	if (distFmIntcpt <= 0.0f) {
+		curVel = Vec2(0.0f, 0.0f);
+		return;
+	}
 
-    // Calculate the time taken to reach the intersection point
-    float time = distFmIntcpt / (curVel.length() * deltaTime);
+	// Calculate the time taken to reach the intersection point
+	float time = distFmIntcpt / (curVel.length() * deltaTime);
 
-    // Calculate the new velocity
-    curVel *= time;
+	// Calculate the new velocity
+	curVel *= time;
 }

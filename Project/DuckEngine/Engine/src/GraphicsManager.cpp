@@ -502,7 +502,7 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
     glBindVertexArray(rectVAO);
 
     // Set line width for the rectangle outline
-    glLineWidth(2.0f);
+    //glLineWidth(2.0f);
 
     // Render camera-relative rectangles
     if (!cameraRelativeData.empty()) {
@@ -513,6 +513,8 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
 
         glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, cameraRelativeData.size());
     }
+
+
 
     // Render UI rectangles
     if (!uiData.empty()) {
