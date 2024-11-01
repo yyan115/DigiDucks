@@ -58,7 +58,8 @@ void InspectorRenderer::RenderComponents(int entityID)
                 auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
                 if (texture) {
                     ImGui::Text("Current Texture:");
-                    ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64)); // Render texture thumbnail
+                    ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64), ImVec2(0, 1), ImVec2(1, 0));
+
                 }
             }
 
