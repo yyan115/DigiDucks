@@ -58,6 +58,12 @@ void AssetsBrowser::RenderDirectoryTree() {
     }
 }
 
+std::string NormalizePath(const std::string& path) {
+    std::string normalizedPath = path;
+    std::replace(normalizedPath.begin(), normalizedPath.end(), '\\', '/');
+    return normalizedPath;
+}
+
 // Render the assets in the right pane as a grid
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     if (!fs::exists(path)) return;
@@ -115,14 +121,16 @@ void AssetsBrowser::RenderPrefabsGrid() {
     for (const auto& [prefabName, prefab] : prefabs) {
         ImGui::PushID(itemIndex);
 
-        // Display each prefab as a button
-        if (ImGui::Button(prefabName.c_str(), ImVec2(100, 100))) {
-            // Placeholder for prefab selection action
-            std::cout << "Selected prefab: " << prefabName << std::endl;
+        // Retrieve and display prefab texture
+        if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
+            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0)); // Display texture thumbnail
+        }
+        else {
+            ImGui::Button(prefabName.c_str(), ImVec2(100, 100)); // Fallback button if no texture is found
         }
 
         // Drag-and-drop source for the prefab
-        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
             ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);  // Pass prefab name as payload
             ImGui::Text("Drag %s", prefabName.c_str());
             ImGui::EndDragDropSource();
