@@ -78,9 +78,9 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             selectedAsset = entry.path().string();
         }
 
-        // Set up drag-and-drop source for textures
+        // Set up drag-and-drop source for sprites
         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-            ImGui::SetDragDropPayload("TEXTURE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
+            ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
             ImGui::Text("Drag %s", fileName.c_str());
             ImGui::EndDragDropSource();
         }

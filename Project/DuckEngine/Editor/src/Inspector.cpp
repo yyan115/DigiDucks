@@ -10,6 +10,7 @@
 #include "GameManager.h"
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
+static const std::unordered_set<std::string> allowedImageExtensions = { "png", "jpg", "jpeg" };
 
 void InspectorRenderer::RenderComponents(int entityID)
 {
@@ -63,20 +64,34 @@ void InspectorRenderer::RenderComponents(int entityID)
 
             // Set up a drop target for textures
             if (ImGui::BeginDragDropTarget()) {
-                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TEXTURE_PAYLOAD")) {
-                    // Cast the payload to a file path
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SPRITE_PAYLOAD")) {
                     const char* newTexturePath = static_cast<const char*>(payload->Data);
 
-                    // Update spriteRenderer texture path
-                    spriteRenderer->texturePath = newTexturePath;
-                    auto newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
-                    if (newTexture) {
-                        spriteRenderer->texture = *newTexture;
-                        hasChanged = true;
-                        std::cout << "Texture replaced with: " << spriteRenderer->texturePath << std::endl;
+                    // Only accept files with allowed extensions
+                    if (IsAllowedExtension(newTexturePath, allowedImageExtensions)) {
+                        std::cout << "Texture dropped: " << newTexturePath << std::endl;
+
+                        // Update spriteRenderer texture path
+                        spriteRenderer->texturePath = newTexturePath;
+                        auto newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
+
+                        // Load texture if not already loaded
+                        if (!newTexture) {
+                            DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath);
+                            newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
+                        }
+
+                        if (newTexture) {
+                            spriteRenderer->texture = *newTexture;
+                            hasChanged = true;
+                            std::cout << "Texture replaced with: " << spriteRenderer->texturePath << std::endl;
+                        }
+                        else {
+                            std::cerr << "Error: Texture could not be loaded from " << spriteRenderer->texturePath << std::endl;
+                        }
                     }
                     else {
-                        std::cerr << "Error: Texture could not be loaded from " << spriteRenderer->texturePath << std::endl;
+                        std::cerr << "Error: Only PNG and JPG image files are allowed." << std::endl;
                     }
                 }
                 ImGui::EndDragDropTarget();
@@ -205,4 +220,15 @@ void InspectorRenderer::RenderComponents(int entityID)
             hasChanged = false; 
         }
     }
+}
+
+bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions) {
+    // Extract the file extension
+    std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
+
+    // Convert extension to lowercase for case-insensitive comparison
+    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
+    // Check if the extension is in the allowed set
+    return allowedExtensions.find(extension) != allowedExtensions.end();
 }
