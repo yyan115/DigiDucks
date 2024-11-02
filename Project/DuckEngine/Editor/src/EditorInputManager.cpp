@@ -5,6 +5,8 @@
 #include "WindowManager.h"
 #include "imgui.h"
 #include "SceneWindow.h"
+#include "UIManager.h"
+#include "DuckEngine_Input.h"
 
 float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
@@ -50,7 +52,15 @@ void EditorInputManager::Update()
         isDragging = false;
     }
 
+    // Use InputManager to check for Delete key press
+    if (UIManager::selectedEntityID != -1 && InputManager::IsKeyPressed(DuckEngine_Input::KEY_DEL))
+    {
+        // Remove the entity from the scene
+        DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(UIManager::selectedEntityID);
 
+        // Clear selection
+        UIManager::selectedEntityID = -1;
+    }
 }
 
 void EditorInputManager::HandleScrollInput(double offsetY)
