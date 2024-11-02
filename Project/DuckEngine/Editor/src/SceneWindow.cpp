@@ -5,9 +5,10 @@
 #include "GameManager.h"
 #include "CameraManager.h"
 #include "EditorInputManager.h"
+#include "UIManager.h"
+#include "Gizmos.h"
 #include "imgui.h"
 #include <iostream>
-#include "UIManager.h"
 
 bool SceneWindow::isPlaying = false;
 int SceneWindow::width = 0;
@@ -51,7 +52,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
-
     GLuint fboTexture = GraphicsManager::GetFBOTexture();
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
     ImGui::Image((void*)(intptr_t)fboTexture, windowSize, ImVec2(0, 1), ImVec2(1, 0));
@@ -61,7 +61,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     DuckEngine::editorMouseWorldPos = worldPos;
     DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
-    
+
     // Handle drag-and-drop from AssetsBrowser
     if (ImGui::BeginDragDropTarget())
     {
@@ -133,6 +133,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
+    // If an entity is selected, render gizmos
+    /*if (selectedEntity && !isPlaying) {
+        Gizmos::RenderGizmoForSelectedEntity(selectedEntity);
+    }*/
 
     if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
@@ -147,7 +151,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     ImGui::End();
 }
-
 
 bool SceneWindow::IsMouseInFBO()
 {
@@ -175,13 +178,11 @@ Vector2D SceneWindow::ConvertScreenToFBO()
     float fboX = mousePos.x - fboPos.x;
     float fboY = mousePos.y - fboPos.y;
 
-    // Ensure the position stays within the bounds of the FBO
     fboX = std::clamp(fboX, 0.0f, fboSize.x);
     fboY = std::clamp(fboY, 0.0f, fboSize.y);
 
     return Vector2D(fboX, fboY);
 }
-
 
 Vector2D SceneWindow::ConvertScreenToWorld()
 {
@@ -204,6 +205,31 @@ Vector2D SceneWindow::ConvertScreenToWorld()
     float worldY = normalizedY * (cameraHeight / 2.0f) + cameraPos.y;
 
     return Vector2D(worldX, worldY);
+}
+
+Vector2D SceneWindow::ConvertWorldToScreen(const Vector2D& worldPos)
+{
+    Vector2D cameraPos = CameraManager::GetPosition();
+    float cameraHeight = static_cast<float>(CameraManager::GetHeight());
+    float aspectRatio = CameraManager::GetAR();
+    float cameraWidth = cameraHeight * aspectRatio;
+
+    ImVec2 fboSize = ImGui::GetContentRegionAvail();
+    float normalizedX = (worldPos.x - cameraPos.x) / (cameraWidth / 2.0f);
+    float normalizedY = (worldPos.y - cameraPos.y) / (cameraHeight / 2.0f);
+
+    float screenX = (normalizedX + 1.0f) * fboSize.x / 2.0f;
+    float screenY = (1.0f - normalizedY) * fboSize.y / 2.0f;
+
+    ImVec2 fboPos = ImGui::GetItemRectMin();
+    return Vector2D(fboPos.x + screenX, fboPos.y + screenY);
+}
+
+Vector2D SceneWindow::GetWorldScale()
+{
+    ImVec2 fboSize = ImGui::GetContentRegionAvail();
+    Vector2D worldScale((CameraManager::GetHeight() * CameraManager::GetAR()) / fboSize.x, CameraManager::GetHeight() / fboSize.y);
+    return worldScale;
 }
 
 void SceneWindow::HandleEntityDragging()

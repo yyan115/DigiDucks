@@ -15,6 +15,8 @@ public:
     static Vector2D ConvertScreenToWorld();
     static void HandleEntityDragging();
     static std::vector<Entity*> GetEntitiesAtPosition(const Vector2D& worldPos);
+    static Vector2D ConvertWorldToScreen(const Vector2D& worldPos);
+    static Vector2D GetWorldScale();
 
     static bool GetIsPlaying() { return isPlaying; }
     static bool GetInSceneFBO() { return inSceneFBO; }

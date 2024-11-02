@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\AssetsBrowser.cpp" />
     <ClCompile Include="..\src\EditorInputManager.cpp" />
     <ClCompile Include="..\src\EditorTheme.cpp" />
+    <ClCompile Include="..\src\Gizmos.cpp" />
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\include\AssetsBrowser.h" />
     <ClInclude Include="..\include\EditorInputManager.h" />
     <ClInclude Include="..\include\EditorTheme.h" />
+    <ClInclude Include="..\include\Gizmos.h" />
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
