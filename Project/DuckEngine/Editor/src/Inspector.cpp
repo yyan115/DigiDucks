@@ -59,8 +59,11 @@ void InspectorRenderer::RenderComponents(int entityID)
                 if (texture) {
                     ImGui::Text("Current Texture:");
                     ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64), ImVec2(0, 1), ImVec2(1, 0));
-
                 }
+            }
+            else {
+                ImGui::Text("Current Texture:");
+                ImGui::Button("Empty", ImVec2(64, 64));
             }
 
             // Set up a drop target for textures

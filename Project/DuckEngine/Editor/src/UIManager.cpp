@@ -63,10 +63,7 @@ void UIManager::Initialize() {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
-    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
-    
-    // dark theme
-    //ImGui::StyleColorsDark();
+
     // duck theme
     EditorTheme::SetDuckTheme();
 
@@ -126,6 +123,7 @@ void UIManager::Render() {
     // Show the different windows
     ShowExplorer();
     ShowHierarchy();
+    ShowInspector();
 }
 
 void UIManager::EndRender()
@@ -175,6 +173,10 @@ void UIManager::ShowMenuBar()
             if (ImGui::MenuItem("Show Debug Info", NULL, windowStates[WindowType::DebugInfo])) {
                 windowStates[WindowType::DebugInfo] = !windowStates[WindowType::DebugInfo];
             }            
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Game Object")) {
+            if (ImGui::MenuItem("Spawn GameObject")) { DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f }); }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
@@ -399,16 +401,13 @@ void UIManager::ShowExplorer() {
 
 void UIManager::ShowInspector() 
 {
-    if (windowStates[WindowType::Inspector] && selectedEntityID != -1) 
-    {
         ImGui::Begin("Inspector", nullptr,
             ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
         // Use InspectorRenderer to render components of the selected entity
         InspectorRenderer::RenderComponents(selectedEntityID);
 
-        ImGui::End();
-    }
+        ImGui::End();   
 }
 
 
@@ -530,7 +529,7 @@ void UIManager::RenderWindows() {
                 ShowDebugInfo();
                 break;          
             case WindowType::Inspector:
-				ShowInspector();
+				
 				break;
             default:
                 break;
