@@ -16,13 +16,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 
+#pragma once
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-#pragma once
 #include <functional>
 #include "Vector2.h"
 #include "Component.h"

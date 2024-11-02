@@ -65,27 +65,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
-    <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -109,8 +109,7 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)";
-&lt;different options&gt;</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
@@ -135,8 +134,7 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)";
-&lt;different options&gt;</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,8 +163,7 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)";
-&lt;different options&gt;</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
@@ -174,8 +171,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)";
-&lt;different options&gt;</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

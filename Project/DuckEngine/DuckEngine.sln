@@ -18,8 +18,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelEditor", "Editor\ImGui
 		{082DCDAB-ADEF-423B-96CE-92BA204FE54D} = {082DCDAB-ADEF-423B-96CE-92BA204FE54D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedScript", "ManagedScript\ManagedScript.csproj", "{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,30 +106,6 @@ Global
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x64.Build.0 = Release|x64
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x86.ActiveCfg = Release|Win32
 		{06EE6F8E-6E75-4384-A420-F9F06694ECAA}.Release|x86.Build.0 = Release|Win32
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|x64.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Debug|x86.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|Any CPU.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|x64.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|x64.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|x86.ActiveCfg = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibDebug|x86.Build.0 = Debug|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|Any CPU.Build.0 = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|x64.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|x64.Build.0 = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|x86.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.GameLibRelease|x86.Build.0 = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|x64.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|x64.Build.0 = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|x86.ActiveCfg = Release|Any CPU
-		{5B327AF0-F29A-4ACA-9751-AB1BB3309DA5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
