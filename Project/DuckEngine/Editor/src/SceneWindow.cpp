@@ -8,6 +8,7 @@
 #include "UIManager.h"
 #include "Gizmos.h"
 #include "imgui.h"
+#include "SoundSystem.h"
 #include <iostream>
 
 bool SceneWindow::isPlaying = false;
@@ -48,6 +49,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
         if (!isPlaying)
         {
+            SoundSystem::StopAllSounds();
             GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
         }
     }

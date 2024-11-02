@@ -30,6 +30,15 @@
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": true,
+                        "soundID": "../Resources/Sounds/gameplay bgm - unmastered.mp3",
+                        "volume": 0.30000001192092896
+                    },
+                    "type": "SoundComponent"
                 }
             ]
         },
@@ -87,6 +96,138 @@
             },
             "prefab": "CabbageStockPrefab"
         },
+        "GameObject 13": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 2,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ]
+        },
+        "GameObject 14": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ]
+        },
+        "GameObject 15": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -700.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 200.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ]
+        },
+        "GameObject 16": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 2,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ]
+        },
         "GameObject 9": {
             "components": [
                 {
@@ -122,8 +263,8 @@
         },
         "Obstacle1": {
             "position": {
-                "x": -8.0,
-                "y": 0.0
+                "x": -6.809855937957764,
+                "y": 1.4748203754425049
             },
             "prefab": "CuttingTablePrefab"
         },
@@ -211,6 +352,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "../Resources/Sounds/CRATE-WOOD_GEN-HDF-08708.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 }
             ]
         }

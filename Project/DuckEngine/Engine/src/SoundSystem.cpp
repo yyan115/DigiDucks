@@ -29,3 +29,33 @@ void SoundSystem::Update() {
 }
 
 
+void SoundSystem::StopAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            soundComponent->Stop();  // Stop each sound
+		}
+    }
+    std::cout << "All sounds stopped." << std::endl;
+}
+
+void SoundSystem::PauseAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            //soundComponent.pause(true);  // Stop each sound
+        }
+    }
+    std::cout << "All sounds paused." << std::endl;
+}
+
+void SoundSystem::ResumeAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            //soundComponent.pause(false);  // Stop each sound
+        }
+    }
+    std::cout << "All sounds resumed." << std::endl;
+}
+
