@@ -273,6 +273,9 @@
     <ClInclude Include="..\include\TextComponent.h">
       <Filter>include\Components</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\API_Test.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\DuckEngine.cpp">
@@ -406,6 +409,9 @@
     </ClCompile>
     <ClCompile Include="..\src\TextSystem.cpp">
       <Filter>src\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\API_Test.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

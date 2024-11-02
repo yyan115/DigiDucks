@@ -47,6 +47,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
     <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -86,6 +87,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
     <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -169,6 +171,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
@@ -177,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />
+    <ClInclude Include="..\include\API_Test.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\ButtonComponent.h" />
@@ -238,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
+    <ClCompile Include="..\src\API_Test.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\ButtonSystem.cpp" />

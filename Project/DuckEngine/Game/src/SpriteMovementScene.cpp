@@ -21,6 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "ResourcePath.h"
+#include "API_Test.h"
 
 Entity* player;
 Entity* camera;
@@ -190,6 +191,7 @@ void SpriteMovementScene::Start()
 {
 	//DuckEngine_Sound::PlaySounds("TestSound");
 	DuckEngine::showDebugDraw = true;
+
 }
 
 /************************************************************************
