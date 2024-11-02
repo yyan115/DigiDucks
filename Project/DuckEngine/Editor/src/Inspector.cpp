@@ -215,20 +215,21 @@ void InspectorRenderer::RenderComponents(int entityID)
             // Checkbox for playing on start
             ImGui::Checkbox("Play on Start", &sound->playOnStart);
             if (ImGui::IsItemEdited()) hasChanged = true;
-
+            
             // Slider for volume
             ImGui::SliderFloat("Volume", &sound->volume, 0.0f, 1.0f, "%.2f");
             if (ImGui::IsItemEdited()) hasChanged = true;
+            
+            // Display current sound path, if it exists
+            if (!sound->soundID.empty()) {
+                ImGui::Text("Current Sound: %s", sound->soundID.c_str());
+            }
+            else {
+                ImGui::Text("Current Sound: None");
+            }
         }
 
-        // Display current sound path, if it exists
-        if (!sound->soundID.empty()) {
-            ImGui::Text("Current Sound: %s", sound->soundID.c_str());
-        }
-        else {
-            ImGui::Text("Current Sound: None");
-        }
-
+        
         // Set up a drop target for audio files
         if (ImGui::BeginDragDropTarget()) {
             if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SOUND_PAYLOAD")) {
@@ -251,6 +252,7 @@ void InspectorRenderer::RenderComponents(int entityID)
             }
             ImGui::EndDragDropTarget();
         }
+        
     }
    
 

@@ -95,7 +95,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
             // Set up drag-and-drop source for sprites
             if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
+                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1); // Payload is the texture path
                 ImGui::Text("Drag %s", fileName.c_str());
                 ImGui::EndDragDropSource();
             }
@@ -105,7 +105,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             ImGui::Button(fileName.c_str(), ImVec2(100, 100));
 
             if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-                ImGui::SetDragDropPayload("SOUND_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1);
+                ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
                 ImGui::Text("Drag %s", fileName.c_str());
                 ImGui::EndDragDropSource();
             }

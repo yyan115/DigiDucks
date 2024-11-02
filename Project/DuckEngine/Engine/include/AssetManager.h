@@ -41,6 +41,7 @@ public:
 	static DUCKENGINE_API void ReloadTexture(const std::string& fileName, const std::string& filePath);
 	static DUCKENGINE_API std::shared_ptr<Texture> GetTexture(const std::string& fileName);
 
+	static DUCKENGINE_API void LoadAllSounds(const std::string& directoryPath);
 	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
 	
 	// Get

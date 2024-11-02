@@ -229,36 +229,7 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
             gameObjectData["position"]["y"] = transform->position.y;
         }
 
-        // Check for and save SpriteRendererComponent data
-        if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID)) {
-            json spriteData;
-            spriteData["type"] = "SpriteRendererComponent";
-            spriteData["properties"]["texturePath"] = spriteRenderer->texturePath;
-            spriteData["properties"]["useColor"] = spriteRenderer->useColor;
-            spriteData["properties"]["layer"] = spriteRenderer->layer;
-
-            // Save color if it's used
-            if (spriteRenderer->useColor) {
-                spriteData["properties"]["color"]["r"] = spriteRenderer->color.r;
-                spriteData["properties"]["color"]["g"] = spriteRenderer->color.g;
-                spriteData["properties"]["color"]["b"] = spriteRenderer->color.b;
-                spriteData["properties"]["color"]["a"] = spriteRenderer->color.a;
-            }
-
-            // Append or update the SpriteRendererComponent data in the game object components
-            auto& components = gameObjectData["components"];
-            bool found = false;
-            for (auto& component : components) {
-                if (component["type"] == "SpriteRendererComponent") {
-                    component = spriteData; // Update existing component
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                components.push_back(spriteData); // Add as new component if not found
-            }
-        }
+        
     }
 
     Serialization::SaveJsonFile(finalPath, sceneData);

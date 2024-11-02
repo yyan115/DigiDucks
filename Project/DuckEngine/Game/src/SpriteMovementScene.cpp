@@ -74,8 +74,6 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE.c_str(), 19, 24);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK.c_str(), 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound", Resources::SOUND_THEME.c_str());
-	DuckEngine::DUCKENGINE_AssetManager.LoadSound("TestSound2", Resources::SOUND_DUCKSOUND.c_str());
 
 	PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
 	LevelManager::LoadLevel("../Resources/Scenes/SpriteMovementScene.json");
@@ -90,9 +88,8 @@ void SpriteMovementScene::Load()
 	{
 		UNREFERENCED_PARAMETER(otherEntity);
 		std::cout << "Player collided with another entity!" << std::endl;
+
 	});
-	std::shared_ptr<SoundComponent> playerSsound = std::make_shared<SoundComponent>("TestSound", true, false, 0.05f);
-	DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(player->entityID, *playerSsound);
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
 	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
@@ -229,9 +226,13 @@ void SpriteMovementScene::Update()
 	}
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y)) {
-		if (playerSound) {
-			std::cout << "Sound play\n";
-			playerSound->Play();
+		// For each sound component, play the sound if it is set to play on start
+		for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+			SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+
+			if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+				soundComponent->Play();
+			}
 		}
 	}
 
@@ -286,6 +287,15 @@ void SpriteMovementScene::Update()
 	DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 200.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
 
 	DuckEngine::RenderText("TEST TEXT", { DuckEngine::GetWindowWidth() - 300.f  , 250.f }, 1.f, { 0.f, 255.f, 150.f, 250.0f });
+
+	// For each sound component, play the sound if it is set to play on start
+	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+
+		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+			soundComponent->Play();
+		}
+	}
 }
 
 /************************************************************************

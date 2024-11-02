@@ -25,14 +25,6 @@ void SoundSystem::Start() {
 
 
 void SoundSystem::Update() {
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-
-        if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-            soundComponent->Play();
-        }
-    }
-
     AssetManager::GetFMODSystem()->update();
 }
 

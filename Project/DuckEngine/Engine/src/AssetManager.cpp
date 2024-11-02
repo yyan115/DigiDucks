@@ -17,10 +17,18 @@
 #include "ImageLoader.h"
 #include "Texture.h"
 #include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
 
 std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
 std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
+
+std::string NormalizePath(const std::string& path) {
+	std::string normalizedPath = path;
+	std::replace(normalizedPath.begin(), normalizedPath.end(), '\\', '/');
+	return normalizedPath;
+}
 
 void AssetManager::LoadAll()
 {
@@ -97,25 +105,6 @@ std::shared_ptr<Texture> AssetManager::GetTexture(const std::string& fileName) {
 	return nullptr;
 }
 
-
-void AssetManager::LoadSound(const std::string& soundID, const std::string& filePath) {
-	if (!fmodSystem) {
-		std::cerr << "FMOD System not initialized!" << std::endl;
-		return;
-	}
-
-	if (soundMap.find(soundID) != soundMap.end()) return;  // Already loaded
-
-	FMOD::Sound* sound = nullptr;
-	FMOD_RESULT result = fmodSystem->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
-	if (result != FMOD_OK) {
-		std::cerr << "Error loading sound: " << filePath << std::endl;
-		return;
-	}
-	soundMap[soundID] = sound;
-}
-
-
 std::shared_ptr<Texture> AssetManager::LoadTextureFromFile(const std::string& filePath)
 {
 	Texture texture = ImageLoader::LoadTexture(filePath);
@@ -139,6 +128,45 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const st
 
 FMOD::System*& AssetManager::GetFMODSystem() {
 	return fmodSystem;
+}
+
+// Load all sounds from a specific directory
+void AssetManager::LoadAllSounds(const std::string& directoryPath) {
+	if (!fmodSystem) {
+		std::cerr << "FMOD System not initialized!" << std::endl;
+		return;
+	}
+
+	// Iterate over sound files in the specified directory
+	for (const auto& entry : fs::directory_iterator(directoryPath)) {
+		if (entry.is_regular_file()) {
+			std::string filePath = NormalizePath(entry.path().string());
+			std::string fileExtension = entry.path().extension().string();
+
+			// Load the sound if it has a valid audio extension
+			if (fileExtension == ".wav" || fileExtension == ".mp3" || fileExtension == ".ogg") {
+				LoadSound(filePath, filePath);
+				std::cout << "Loaded sound: " << filePath << " from " << filePath << std::endl;
+			}
+		}
+	}
+}
+
+void AssetManager::LoadSound(const std::string& soundID, const std::string& filePath) {
+	if (!fmodSystem) {
+		std::cerr << "FMOD System not initialized!" << std::endl;
+		return;
+	}
+
+	if (soundMap.find(soundID) != soundMap.end()) return;  // Already loaded
+
+	FMOD::Sound* sound = nullptr;
+	FMOD_RESULT result = fmodSystem->createSound(filePath.c_str(), FMOD_DEFAULT, nullptr, &sound);
+	if (result != FMOD_OK) {
+		std::cerr << "Error loading sound: " << filePath << std::endl;
+		return;
+	}
+	soundMap[soundID] = sound;
 }
 
 FMOD::Sound* AssetManager::GetSounds(const std::string& soundID) {

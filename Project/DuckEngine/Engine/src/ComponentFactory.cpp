@@ -223,7 +223,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     {
         json SoundData;
         SoundData["type"] = "SoundComponent";
-        SoundData["properties"]["SoundID"] = sound->soundID;
+        SoundData["properties"]["soundID"] = sound->soundID;
         SoundData["properties"]["loop"] = sound->loop;
         SoundData["properties"]["playOnStart"] = sound->playOnStart;
         SoundData["properties"]["volume"] = sound->volume;
