@@ -11,6 +11,19 @@
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
 static const std::unordered_set<std::string> allowedImageExtensions = { "png", "jpg", "jpeg" };
+static const std::unordered_set<std::string> allowedSoundExtensions = { "ogg", "wav", "mp3" };
+
+// Available component types
+const std::vector<std::string> InspectorRenderer::componentTypes = {
+    "TransformComponent",
+    "SpriteRendererComponent",
+    "RigidbodyComponent",
+    "BoundingBox",
+    "BoundingCircle",
+    "AnimatorComponent",
+    "SoundComponent"
+};
+
 
 void InspectorRenderer::RenderComponents(int entityID)
 {
@@ -207,7 +220,39 @@ void InspectorRenderer::RenderComponents(int entityID)
             ImGui::SliderFloat("Volume", &sound->volume, 0.0f, 1.0f, "%.2f");
             if (ImGui::IsItemEdited()) hasChanged = true;
         }
+
+        // Display current sound path, if it exists
+        if (!sound->soundID.empty()) {
+            ImGui::Text("Current Sound: %s", sound->soundID.c_str());
+        }
+        else {
+            ImGui::Text("Current Sound: None");
+        }
+
+        // Set up a drop target for audio files
+        if (ImGui::BeginDragDropTarget()) {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SOUND_PAYLOAD")) {
+                const char* newSoundPath = static_cast<const char*>(payload->Data);
+
+                // Check if the dropped file has an allowed extension
+                if (IsAllowedExtension(newSoundPath, allowedSoundExtensions)) {
+                    std::cout << "Sound file dropped: " << newSoundPath << std::endl;
+
+                    // Update the sound component's file path
+                    sound->soundID = newSoundPath;
+                    DuckEngine::DUCKENGINE_AssetManager.LoadSound(sound->soundID, newSoundPath);
+
+                    hasChanged = true;
+                    std::cout << "Sound file set to: " << sound->soundID << std::endl;
+                }
+                else {
+                    std::cerr << "Error: Only OGG, MP3, and WAV audio files are allowed." << std::endl;
+                }
+            }
+            ImGui::EndDragDropTarget();
+        }
     }
+   
 
     // Display Save and Overwrite buttons if changes were detected
     if (hasChanged)
@@ -224,6 +269,36 @@ void InspectorRenderer::RenderComponents(int entityID)
             hasChanged = false; 
         }
     }
+
+    AddComponents(entityID, hasChanged);
+}
+
+void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
+{
+    // Add a separator and a dropdown to add new components
+    ImGui::Separator();
+    ImGui::Text("Add Component");
+
+    // Dropdown for selecting components to add
+    static int selectedComponentIndex = 0;
+    if (ImGui::BeginCombo("##AddComponent", componentTypes[selectedComponentIndex].c_str())) {
+        for (int i = 0; i < componentTypes.size(); i++) {
+            bool isSelected = (selectedComponentIndex == i);
+            if (ImGui::Selectable(componentTypes[i].c_str(), isSelected)) {
+                selectedComponentIndex = i;
+            }
+            if (isSelected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+
+    // Button to add the selected component
+    if (ImGui::Button("Add Component")) {
+        AddComponentToEntity(componentTypes[selectedComponentIndex], entityID);
+        hasChanged = true;
+    }
 }
 
 bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions) {
@@ -235,4 +310,29 @@ bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const st
 
     // Check if the extension is in the allowed set
     return allowedExtensions.find(extension) != allowedExtensions.end();
+}
+
+void InspectorRenderer::AddComponentToEntity(const std::string& componentName, int entityID)
+{
+    if (componentName == "TransformComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<TransformComponent>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entityID);
+    }
+    else if (componentName == "SpriteRendererComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SpriteRendererComponent>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entityID);
+    }
+    else if (componentName == "RigidbodyComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<RigidbodyComponent>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(entityID);
+    }
+    else if (componentName == "BoundingBox" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingBox>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entityID);
+    }
+    else if (componentName == "BoundingCircle" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingCircle>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entityID);
+    }
+    else if (componentName == "AnimatorComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<AnimatorComponent>(entityID)) {
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entityID);
+    }
+    else if (componentName == "SoundComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(entityID)) {
+		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(entityID);
+    }
 }

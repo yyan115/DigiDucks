@@ -1,6 +1,7 @@
 #include "AssetManager.h"
 #include "SoundSystem.h"
 #include "SoundComponent.h"
+#include "SceneWindow.h"
 #include <iostream>
 
 void SoundSystem::Start() {

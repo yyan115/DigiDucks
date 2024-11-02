@@ -80,7 +80,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         std::string fileExtension = entry.path().extension().string();
         std::string normalizedPath = NormalizePath(entry.path().string());  // Normalize the path
         ImGui::PushID(itemIndex);
-        std::cout << "File: " << normalizedPath << std::endl;  // Verify normalized path output
 
         // Check if the file is a texture (image file)
         if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
@@ -93,18 +92,30 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             else {
                 ImGui::Button(fileName.c_str(), ImVec2(100, 100)); // Fallback if texture is not loaded
             }
+
+            // Set up drag-and-drop source for sprites
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
+                ImGui::Text("Drag %s", fileName.c_str());
+                ImGui::EndDragDropSource();
+            }
+        }
+        else if (fileExtension == ".ogg" || fileExtension == ".mp3" || fileExtension == ".wav") {
+
+            ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+                ImGui::SetDragDropPayload("SOUND_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1);
+                ImGui::Text("Drag %s", fileName.c_str());
+                ImGui::EndDragDropSource();
+            }
         }
         else {
             // Non-texture files can still be displayed as buttons
             ImGui::Button(fileName.c_str(), ImVec2(100, 100));
         }
 
-        // Set up drag-and-drop source for sprites
-        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-            ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
-            ImGui::Text("Drag %s", fileName.c_str());
-            ImGui::EndDragDropSource();
-        }
+        
 
         // Open context menu on right-click
         //if (ImGui::BeginPopupContextItem()) {
