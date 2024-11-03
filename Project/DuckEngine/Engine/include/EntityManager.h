@@ -63,6 +63,4 @@ class EntityManager
 
     DUCKENGINE_API Entity* GetEntity(int entityID);
 
-	DUCKENGINE_API int GetEntityCount();
-
 };
