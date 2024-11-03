@@ -90,6 +90,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
                 ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0,1), ImVec2(1,0)); // Display thumbnail
             }
             else {
+                DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath); // Load the texture if not already loaded
                 ImGui::Button(fileName.c_str(), ImVec2(100, 100)); // Fallback if texture is not loaded
             }
 
@@ -114,8 +115,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             // Non-texture files can still be displayed as buttons
             ImGui::Button(fileName.c_str(), ImVec2(100, 100));
         }
-
-        
 
         // Open context menu on right-click
         //if (ImGui::BeginPopupContextItem()) {

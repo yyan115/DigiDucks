@@ -7,6 +7,7 @@
 #include "SceneWindow.h"
 #include "UIManager.h"
 #include "DuckEngine_Input.h"
+#include "HierarchyList.h"
 
 float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
@@ -60,6 +61,12 @@ void EditorInputManager::Update()
 
         // Clear selection
         UIManager::selectedEntityID = -1;
+    }
+
+    // Use InputManager to check for Delete key press
+    if (UIManager::selectedEntityID != -1 && InputManager::IsKeyPressed(GLFW_KEY_F2))
+    {
+        Hierarchy::StartRenamingEntity(UIManager::selectedEntityID);
     }
 }
 
