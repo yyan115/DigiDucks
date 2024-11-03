@@ -25,6 +25,57 @@
 #include <string>
 #include <filesystem>
 
+void LevelManager::LoadLevelEditor(const std::string& levelFile)
+{
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+
+    if (!levelData.empty() && levelData.contains("gameObjects"))
+    {
+        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+
+        size_t lastSlash = levelFile.find_last_of("\\/");
+        std::string sceneName = (lastSlash != std::string::npos)
+            ? levelFile.substr(lastSlash + 1)
+            : levelFile;
+
+        size_t lastDot = sceneName.find_last_of('.');
+        if (lastDot != std::string::npos)
+        {
+            sceneName = sceneName.substr(0, lastDot);
+        }
+
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+
+        if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
+        {
+            LoadLevel(levelFile);
+        }
+    }
+}
+
+void LevelManager::LoadLevelGame(const std::string& levelFile)
+{
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+
+    if (!levelData.empty() && levelData.contains("gameObjects"))
+    {
+        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+
+        size_t lastSlash = levelFile.find_last_of("\\/");
+        std::string sceneName = (lastSlash != std::string::npos)
+            ? levelFile.substr(lastSlash + 1)
+            : levelFile;
+
+        size_t lastDot = sceneName.find_last_of('.');
+        if (lastDot != std::string::npos)
+        {
+            sceneName = sceneName.substr(0, lastDot);
+        }
+
+        LoadLevel(levelFile);
+    }
+
+}
 
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
@@ -44,8 +95,6 @@ void LevelManager::LoadLevel(const std::string& levelFile)
         {
             sceneName = sceneName.substr(0, lastDot);
         }
-
-        DuckEngine::DUCKENGINE_SceneManager.ActivateSceneWithoutReload(sceneName);
 
         auto gameObjects = levelData["gameObjects"];
         for (auto& [gameObjectName, gameObjectData] : gameObjects.items())
@@ -92,6 +141,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
     {
         std::cerr << "Failed to load level: " << levelFile << std::endl;
     }
+
 }
 
 
@@ -153,8 +203,23 @@ void LevelManager::OpenLevelDialog()
     std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
     std::cout << "Open File Dialog Path: " << absolutePath << std::endl;
 
-    // Load the selected level file
-    LoadLevel(levelFile);
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+    size_t lastSlash = levelFile.find_last_of("\\/");
+    
+    std::string sceneName = (lastSlash != std::string::npos)
+        ? levelFile.substr(lastSlash + 1)
+        : levelFile;
+
+    size_t lastDot = sceneName.find_last_of('.');
+    if (lastDot != std::string::npos)
+    {
+        sceneName = sceneName.substr(0, lastDot);
+    }
+
+    if (sceneName != DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName())
+    {
+        LoadLevelEditor(levelFile);
+    }
 
 }
 
