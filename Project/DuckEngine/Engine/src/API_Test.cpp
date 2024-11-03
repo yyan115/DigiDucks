@@ -16,6 +16,15 @@ void Application::Run() {
     // Call it
     hwFunc();
 
+    hwFunc = GetFunctionPtr<void(*)(void)>
+        (
+            "ScriptingAPI",                 // Name of the Assembly
+            "ScriptAPI.EngineInterface", // Full name of the class
+            "Init"                 // Name of the function
+        );
+    // Call it
+    hwFunc();
+
     stopScriptEngine();
 }
 

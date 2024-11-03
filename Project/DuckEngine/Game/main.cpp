@@ -15,8 +15,6 @@ int main(void)
     // load all assets before game loop starts
     AssetManager::LoadAll();
 
-    Application app;
-    app.Run();
 
     while (gManager.DuckEngine.Running())
     {

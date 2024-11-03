@@ -85,3 +85,7 @@ Entity* EntityManager::GetEntity(int entityID)
     }
     return nullptr;
 }
+
+int EntityManager::GetEntityCount() {
+	return entities.size();
+}

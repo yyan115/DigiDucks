@@ -192,6 +192,9 @@ void SpriteMovementScene::Start()
 	//DuckEngine_Sound::PlaySounds("TestSound");
 	DuckEngine::showDebugDraw = true;
 
+	Application app;
+	app.Run();
+
 }
 
 /************************************************************************
