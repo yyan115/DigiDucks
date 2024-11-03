@@ -104,37 +104,39 @@ void SpriteMovementScene::Load()
 
 
 	// test UI
-	testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
-	auto testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
-	testUITransfrom->relativeToCamera = false;
+	//testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
+	//auto testUITransfrom = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(testUI->entityID);
+	//testUITransfrom->relativeToCamera = false;
 
-	auto testUISprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(testUI->entityID);
-	testUISprite->layer = 2;
+	//auto testUISprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(testUI->entityID);
+	//testUISprite->layer = 2;
 
-	textBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
-	auto textComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(textBox->entityID);
-	textComponent->text = "TEST TEXT COMPONENT";
-	textComponent->position = { 0.f, 0.f };
-	textComponent->fontSize = 1;
-	textComponent->color = { 255.f, 50.f, 100.f, 250.f };
+	//textBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
+	//auto textComponent = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
+	//textComponent->text = "TEST TEXT COMPONENT";
+	//textComponent->position = { 0.f, 0.f };
+	//textComponent->fontSize = 1;
+	//textComponent->color = { 255.f, 50.f, 100.f, 250.f };
 
-	buttonBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
-	auto buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(buttonBox->entityID);
-	buttonComponent->minPos = {0.f, 0.f};
-	buttonComponent->maxPos = { 200.f, 100.f };
-	buttonComponent->onClick = []() { std::cout << "Button clicked!"; };
+	//buttonBox = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 400.0f, 400.0f }, { 100.0f, 100.0f });
+	//auto buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(buttonBox->entityID);
+	//buttonComponent->minPos = {0.f, 0.f};
+	//buttonComponent->maxPos = { 200.f, 100.f };
+	//buttonComponent->onClick = []() { std::cout << "Button clicked!"; };
 
-	auto buttonSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(buttonBox->entityID);
-	buttonSprite->color = { 0.0f, 255.0f, 255.0f, 255.0f };
-	buttonSprite->useColor = true;
-	buttonSprite->sprite = true;
+	//auto buttonSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(buttonBox->entityID);
+	//buttonSprite->color = { 0.0f, 255.0f, 255.0f, 255.0f };
+	//buttonSprite->useColor = true;
+	//buttonSprite->sprite = true;
 
-	auto buttonTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(buttonBox->entityID);
-
+	Entity* buttonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("buttonBox");
+	auto buttonTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(buttonEntity->entityID);
+	auto buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(buttonEntity->entityID);
 	// Calculate width and height from minPos and maxPos
 	float buttonWidth = buttonComponent->maxPos.x - buttonComponent->minPos.x;
 	float buttonHeight = buttonComponent->maxPos.y - buttonComponent->minPos.y;
 
+	buttonComponent->onClick = []() { std::cout << "Button clicked!"; };
 	// Convert minPos and maxPos from top-left to OpenGL centered coordinates
 	Vector2D centeredMinPos = {
 		buttonComponent->minPos.x - DuckEngine::GetWindowWidth() / 2.0f,
