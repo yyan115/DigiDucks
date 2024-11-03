@@ -85,4 +85,34 @@ namespace ScriptAPI
 
 		scriptTypeList = Enumerable::Select(whereResult, selector);
 	}
+
+	bool EngineInterface::AddScriptViaName(int entityId, System::String^ scriptName)
+	{
+		// Check if valid entity
+		EntityManager entities;
+		int currentNumEntities = entities.GetEntityCount();
+		if (entityId < 0 || entityId > currentNumEntities)
+			return false;
+		// Remove any whitespaces just in case
+		scriptName = scriptName->Trim();
+		// Look for the correct script
+		System::Type^ scriptType = nullptr;
+		for each (System::Type ^ type in scriptTypeList)
+		{
+			if (type->FullName == scriptName || type->Name == scriptName)
+			{
+				scriptType = type;
+				break;
+			}
+		}
+		// Failed to get any script
+		if (scriptType == nullptr)
+			return false;
+		// Create the script
+		Script^ script = safe_cast<Script^>(System::Activator::CreateInstance(scriptType));
+
+		// Add the script
+		scripts[entityId]->Add(script);
+		return true;
+	}
 }

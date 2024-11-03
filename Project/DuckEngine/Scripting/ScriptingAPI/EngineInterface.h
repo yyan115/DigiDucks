@@ -11,7 +11,9 @@ namespace ScriptAPI
     public:
         static void HelloWorld();
 
-        static void Init();
+        static void Init(); 
+        
+        static bool AddScriptViaName(int entityId, System::String^ scriptName);
 
     private:
         using ScriptList = System::Collections::Generic::List<Script^>;
