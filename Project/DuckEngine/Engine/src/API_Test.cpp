@@ -2,19 +2,45 @@
 #include "API_Test.h"
 #include <array>
 #include <iomanip>
+#include <filesystem>
 
 
 void Application::Run() {
 	startScriptEngine();
 
-    void(*hwFunc)(void) = GetFunctionPtr<void(*)(void)>
+    // Step 1: Get Functions
+    auto init = GetFunctionPtr<void(*)(void)>
         (
-            "ScriptingAPI",                 // Name of the Assembly
-            "ScriptAPI.EngineInterface", // Full name of the class
-            "HelloWorld"                 // Name of the function
+            "ScriptingAPI",
+            "ScriptAPI.EngineInterface",
+            "Init"
         );
-    // Call it
-    hwFunc();
+    auto addScript = GetFunctionPtr<bool(*)(int, const char*)>
+        (
+            "ScriptingAPI",
+            "ScriptAPI.EngineInterface",
+            "AddScriptViaName"
+        );
+    auto executeUpdate = GetFunctionPtr<void(*)(void)>
+        (
+            "ScriptingAPI",
+            "ScriptAPI.EngineInterface",
+            "ExecuteUpdate"
+        );
+    // Step 2: Initialize
+    init();
+    // Step 3: Add script to an entity
+    addScript(0, "TestScript");
+
+    // Load
+    while (true)
+    {
+        if (GetKeyState(VK_ESCAPE) & 0x8000)
+            break;
+
+        // Step 4: Run the Update loop for our scripts
+        executeUpdate();
+    }
 
     stopScriptEngine();
 }
@@ -33,6 +59,11 @@ void Application::startScriptEngine()
     PathRemoveFileSpecA(runtimePath.data());
     // Since PathRemoveFileSpecA() removes from data(), the size is not updated, so we must manually update it
     runtimePath.resize(std::strlen(runtimePath.data()));
+
+    // ^ Code from Part 3, which we are reusing "runtimePath" for.  
+        // Also, while we're at it, set the current working directory to the current executable directory
+    std::filesystem::current_path(runtimePath);
+
     // Construct the CoreCLR path
     std::string coreClrPath(runtimePath); // Works
     coreClrPath += "\\coreclr.dll";
@@ -79,6 +110,7 @@ void Application::startScriptEngine()
             << "Failed to initialize CoreCLR. Error 0x" << result << "\n";
         throw std::runtime_error(oss.str());
     }
+
 }
 
 std::string Application::buildTpaList(const std::string& directory)
