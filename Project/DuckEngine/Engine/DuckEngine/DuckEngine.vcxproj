@@ -111,10 +111,7 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"
-copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
-copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
@@ -139,10 +136,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"
-copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
-copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -171,10 +165,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"
-copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
-copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
@@ -183,8 +174,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
-      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"
-&lt;different options&gt;</Command>
+      <Command>xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
