@@ -275,46 +275,6 @@ void SpriteMovementScene::Load()
 
 	buttonTransform->relativeToCamera = false;
 
-
-	// hard coded layers later remove and refactor into JSON
-	Layer backgroundLayer;
-	Layer gameplayLayer;
-	Layer uiLayer;
-	AddLayer("Background", backgroundLayer);
-	AddLayer("Gameplay", gameplayLayer);
-	AddLayer("UI", uiLayer);
-
-	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Background")->AddEntity(background);
-	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Gameplay")->AddEntity(player);
-	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("UI")->AddEntity(buttonEntity);
-
-	// temporary assign entities to gameplay layer if they dont belong in a layer
-	auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
-	auto* gameplayLayerPtr = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Gameplay");
-	if (gameplayLayerPtr)
-	{
-		for (Entity& entity : allEntities)
-		{
-			bool isInLayer = false;
-
-			for (const auto& [layerName, layer] : DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayers())
-			{
-				const auto& layerEntities = layer.GetEntities();
-				if (std::find(layerEntities.begin(), layerEntities.end(), &entity) != layerEntities.end())
-				{
-					isInLayer = true;
-					break;
-				}
-			}
-			// If the entity is not in any layer, add it to the Gameplay layer
-			if (!isInLayer)
-			{
-				gameplayLayerPtr->AddEntity(&entity);
-				std::cout << "Entity " << entity.entityID << " added to Gameplay layer by default." << std::endl;
-			}
-		}
-	}
-
 	//buttonTransform->position = buttonCenter;
 
 	//// Given minPos and maxPos as the bounding coordinates
@@ -429,32 +389,32 @@ void SpriteMovementScene::Update()
 		playerAnimator->PlayAnimation("IdleAnimation");
 	}
 
-	// Get the current positions of the player and the obstacle
-	Vec2 playerPos = playerTransform->position;
-	Vec2 obstaclePos = obstacleTransform->position;
+	//// Get the current positions of the player and the obstacle
+	//Vec2 playerPos = playerTransform->position;
+	//Vec2 obstaclePos = obstacleTransform->position;
 
-	// Call A* to find the shortest path from the obstacle to the player
-	std::vector<Vec2> path = AStarPathfinding(obstaclePos, playerPos);
+	//// Call A* to find the shortest path from the obstacle to the player
+	//std::vector<Vec2> path = AStarPathfinding(obstaclePos, playerPos);
 
-	// Check if a valid path was found and that it contains at least two positions
-	if (!path.empty() && path.size() > 1) {
-		Vec2 nextPosition = path[1]; // The next position for the obstacle to move toward
+	//// Check if a valid path was found and that it contains at least two positions
+	//if (!path.empty() && path.size() > 1) {
+	//	Vec2 nextPosition = path[1]; // The next position for the obstacle to move toward
 
-		// Calculate the direction vector and normalize it
-		Vec2 direction = { nextPosition.x - obstaclePos.x, nextPosition.y - obstaclePos.y };
-		float length = std::sqrt(direction.x * direction.x + direction.y * direction.y); // Distance to next position
-		if (length != 0) { // Prevent division by zero
-			direction.x /= length; // Normalize x-component
-			direction.y /= length; // Normalize y-component
-		}
+	//	// Calculate the direction vector and normalize it
+	//	Vec2 direction = { nextPosition.x - obstaclePos.x, nextPosition.y - obstaclePos.y };
+	//	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y); // Distance to next position
+	//	if (length != 0) { // Prevent division by zero
+	//		direction.x /= length; // Normalize x-component
+	//		direction.y /= length; // Normalize y-component
+	//	}
 
-		// Set the obstacle's velocity towards the next position along the path
-		obstacleRb->velocity = { direction.x * moveSpeed, direction.y * moveSpeed };
-	}
-	else {
-		// If no valid path, stop the obstacle by setting its velocity to zero
-		obstacleRb->velocity = { 0.0f, 0.0f };
-	}
+	//	// Set the obstacle's velocity towards the next position along the path
+	//	obstacleRb->velocity = { direction.x * moveSpeed, direction.y * moveSpeed };
+	//}
+	//else {
+	//	// If no valid path, stop the obstacle by setting its velocity to zero
+	//	obstacleRb->velocity = { 0.0f, 0.0f };
+	//}
 
 	//DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 

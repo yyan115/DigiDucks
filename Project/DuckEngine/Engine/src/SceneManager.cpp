@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "DuckEngine.h"
 #include "SceneManager.h"
 
 void SceneManager::Initialize()
@@ -31,6 +32,8 @@ void SceneManager::SetActiveScene(const std::string& name)
 
     activeScene->Load();
     activeScene->Start();
+
+
 }
 
 

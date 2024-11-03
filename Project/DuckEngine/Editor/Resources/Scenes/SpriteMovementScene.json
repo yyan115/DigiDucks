@@ -1,6 +1,21 @@
 {
-  "gameObjects": {
+  "layers": {
     "Background": {
+      "order": 0,
+      "visible": true
+    },
+    "Gameplay": {
+      "order": 1,
+      "visible": true
+    },
+    "UI": {
+      "order": 2,
+      "visible": true
+    }
+  },
+  "gameObjects": {
+    "BackgroundGameObject": {
+      "layer": "Background",
       "components": [
         {
           "properties": {

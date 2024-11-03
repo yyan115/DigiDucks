@@ -38,6 +38,7 @@ struct RenderData
 	TransformComponent* transform;
 	SpriteRendererComponent* spriteRenderer;
 	int layer;
+    int entityID;
 };
 
 void SpriteRendererSystem::Start()
@@ -59,6 +60,8 @@ void SpriteRendererSystem::Update()
 
     for (const auto& [layerName, layer] : activeScene->GetLayers())
     {
+        int layerOrder = layer.GetOrder(); // Use the layer order directly from the Layer class
+
         for (Entity* entity : layer.GetEntities())
         {
             auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
@@ -69,64 +72,52 @@ void SpriteRendererSystem::Update()
                 RenderData data;
                 data.transform = transform;
                 data.spriteRenderer = spriteRenderer;
-                data.layer = spriteRenderer->layer;
+                data.layer = layerOrder;
+                data.entityID = entity->entityID;
                 renderQueue.push_back(data);
             }
         }
     }
 
+    // Sort by layer order
     std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
         return a.layer < b.layer;
         });
 
+    // Render each entity in sorted order and print the name
     for (const RenderData& data : renderQueue)
     {
-        auto* spriteRenderer = data.spriteRenderer;
-        auto* transform = data.transform;
-
-        if (spriteRenderer->sprite && transform)
-        {
-            DrawOptions drawOptions;
-            drawOptions.translation = transform->position;
-            drawOptions.scale = transform->scale;
-            drawOptions.rotation = transform->angle;
-
-            if (spriteRenderer->texture)
-            {
-                drawOptions.useTexture = true;
-                drawOptions.texture = &spriteRenderer->texture;
+        // Print entity name and layer order
+        if (data.transform && data.spriteRenderer) {
+            Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(data.entityID); // Adjust if needed
+            if (entity) {
+                //std::cout << "Rendering entity: " << entity->name << ", Layer Order: " << data.layer << std::endl;
             }
-            else if (spriteRenderer->useColor)
-            {
-                drawOptions.useColor = true;
-                drawOptions.color = spriteRenderer->color;
-            }
-            else
-            {
-                drawOptions.useColor = true;
-                drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
-            }
-
-            drawOptions.relativeToCamera = transform->relativeToCamera;
-
-            GraphicsManager::AddToDrawQueue(drawOptions);
-
-            DrawDebug(transform, spriteRenderer);
         }
-        else if (spriteRenderer && transform)
-        {
-            DrawOptions drawOptions;
-            drawOptions.translation = transform->position;
-            drawOptions.scale = transform->scale;
-            drawOptions.rotation = transform->angle;
 
+        DrawOptions drawOptions;
+        drawOptions.translation = data.transform->position;
+        drawOptions.scale = data.transform->scale;
+        drawOptions.rotation = data.transform->angle;
+
+        if (data.spriteRenderer->texture)
+        {
+            drawOptions.useTexture = true;
+            drawOptions.texture = &data.spriteRenderer->texture;
+        }
+        else if (data.spriteRenderer->useColor)
+        {
+            drawOptions.useColor = true;
+            drawOptions.color = data.spriteRenderer->color;
+        }
+        else
+        {
             drawOptions.useColor = true;
             drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
-
-            drawOptions.relativeToCamera = transform->relativeToCamera;
-
-            GraphicsManager::AddToDrawQueue(drawOptions);
-            DrawDebug(transform, spriteRenderer);
         }
+
+        drawOptions.relativeToCamera = data.transform->relativeToCamera;
+
+        GraphicsManager::AddToDrawQueue(drawOptions);
     }
 }
