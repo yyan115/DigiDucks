@@ -15,32 +15,25 @@ void Application::Run() {
             "ScriptAPI.EngineInterface",
             "Init"
         );
+    // Step 2: Initialize
+    init();
+
     auto addScript = GetFunctionPtr<bool(*)(int, const char*)>
         (
             "ScriptingAPI",
             "ScriptAPI.EngineInterface",
             "AddScriptViaName"
         );
+    addScript(0, "TestScript");
+
     auto executeUpdate = GetFunctionPtr<void(*)(void)>
         (
             "ScriptingAPI",
             "ScriptAPI.EngineInterface",
             "ExecuteUpdate"
         );
-    // Step 2: Initialize
-    init();
-    // Step 3: Add script to an entity
-    addScript(0, "TestScript");
 
-    // Load
-    while (true)
-    {
-        if (GetKeyState(VK_ESCAPE) & 0x8000)
-            break;
-
-        // Step 4: Run the Update loop for our scripts
-        executeUpdate();
-    }
+    executeUpdate();
 
     stopScriptEngine();
 }

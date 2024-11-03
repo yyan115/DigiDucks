@@ -114,7 +114,25 @@
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
 xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /S /R /Y /Q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
+@echo off
+set "source=$(SolutionDir)extern\dotnet\bin"
+set "destination=$(OutDir)"
+set retries=5
+set delay=3
+set success=0
+for /L %%i in (1,1,%retries%) do (
+copy /y "%source%" "%destination%" &gt;nul 2&gt;&amp;1
+if %ERRORLEVEL% EQU 0 (
+set success=1
+goto :done
+)
+timeout /t %delay% &gt;nul
+)
+
+:done
+if %success% EQU 0 (
+exit /b 1
+)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
@@ -141,8 +159,7 @@ xcopy /S /R /Y /Q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
+xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,7 +191,46 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
 xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /S /R /Y /Q "$(SolutionDir)extern\dotnet\bin" "$(OutDir)"</Command>
+
+@echo off
+
+set "source=$(SolutionDir)extern\dotnet\bin"
+
+set "destination=$(OutDir)"
+
+set retries=5
+
+set delay=3
+
+set success=0
+
+
+for /L %%i in (1,1,%retries%) do (
+copy /y "%source%" "%destination%" &gt;nul 2&gt;&amp;1
+ if %ERRORLEVEL% EQU 0 (
+set success=1
+goto :done
+    
+)
+ 
+timeout /t %delay% &gt;nul
+
+)
+
+ 
+:done 
+
+if %success% EQU 0 (
+    
+echo Failed to copy mscordaccore.dll after %retries% attempts.
+
+) 
+else (
+    
+echo Post-build event completed successfully.
+
+)
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">

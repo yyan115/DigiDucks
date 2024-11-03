@@ -1,6 +1,7 @@
-// EngineInterface.cpp
-#include "EngineInterface.h"
 
+
+#include "EngineInterface.h"
+#include "Script.h"
 #include "../../Engine/include/API_Test.h"
 #include "../../Engine/include/EntityManager.h"
 
@@ -14,43 +15,42 @@ namespace ScriptAPI
 
     void EngineInterface::Init()
     {
-        System::Reflection::Assembly::LoadFrom("ManagedScripts.dll");
+        System::Reflection::Assembly::LoadFrom("ManagedScript.dll");
+		updateScriptTypeList();
         scripts = gcnew System::Collections::Generic::List<ScriptList^>();
-        EntityManager entities;
-        
-        for (int i = 0; i < entities.GetEntitiesCount(); ++i)
-        {
-            scripts->Add(gcnew ScriptList());
+        // Proceed if the assembly is loaded successfully
+        for (int i = 0; i < 2; ++i) {
+			scripts->Add(gcnew ScriptList());
         }
     }
+
 
     namespace
     {
         /* Select Many */
-        ref struct Pair
-        {
+        ref struct Pair {
             System::Reflection::Assembly^ assembly;
             System::Type^ type;
         };
-        System::Collections::Generic::IEnumerable<System::Type^>^ selectorFunc(System::Reflection::Assembly^ assembly)
-        {
+
+        System::Collections::Generic::IEnumerable<System::Type^>^ selectorFunc(System::Reflection::Assembly^ assembly) {
             return assembly->GetExportedTypes();
         }
-        Pair^ resultSelectorFunc(System::Reflection::Assembly^ assembly, System::Type^ type)
-        {
+
+        Pair^ resultSelectorFunc(System::Reflection::Assembly^ assembly, System::Type^ type) {
             Pair^ p = gcnew Pair();
             p->assembly = assembly;
             p->type = type;
             return p;
         }
+
         /* Where */
-        bool predicateFunc(Pair^ pair)
-        {
+        bool predicateFunc(Pair^ pair) {
             return pair->type->IsSubclassOf(Script::typeid) && !pair->type->IsAbstract;
         }
+
         /* Select */
-        System::Type^ selectorFunc(Pair^ pair)
-        {
+        System::Type^ selectorFunc(Pair^ pair) {
             return pair->type;
         }
     }
@@ -76,12 +76,13 @@ namespace ScriptAPI
 
     bool EngineInterface::AddScriptViaName(int entityId, System::String^ scriptName)
     {
-		EntityManager entities;
         // Check if valid entity
-        if (entityId < 0 || entityId > entities.GetEntitiesCount())
+        if (entityId < 0 || entityId > 2)
             return false;
+
         // Remove any whitespaces just in case
         scriptName = scriptName->Trim();
+
         // Look for the correct script
         System::Type^ scriptType = nullptr;
         for each (System::Type ^ type in scriptTypeList)
@@ -92,12 +93,16 @@ namespace ScriptAPI
                 break;
             }
         }
+
         // Failed to get any script
-        if (scriptType == nullptr)
+        if (scriptType == nullptr) {
             return false;
+        };
         // Create the script
         Script^ script = safe_cast<Script^>(System::Activator::CreateInstance(scriptType));
 
+        System::Console::WriteLine("Added Script");
+        
         // Add the script
         scripts[entityId]->Add(script);
         return true;
@@ -110,6 +115,7 @@ namespace ScriptAPI
             // Update each script
             for each (Script ^ script in entityScriptList)
             {
+				System::Console::WriteLine("Update");
                 script->Update();
             }
         }
