@@ -257,10 +257,10 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
     {
         auto* transform = std::static_pointer_cast<TransformComponent>(component).get();
 
-        float left = transform->position.x - transform->scale.x;
-        float right = transform->position.x + transform->scale.x;
-        float top = transform->position.y - transform->scale.y;
-        float bottom = transform->position.y + transform->scale.y;
+        float left = transform->position.x - transform->scale.x / 2;
+        float right = transform->position.x + transform->scale.x / 2;
+        float top = transform->position.y - transform->scale.y / 2;
+        float bottom = transform->position.y + transform->scale.y / 2;
 
         if (worldPos.x >= left && worldPos.x <= right &&
             worldPos.y >= top && worldPos.y <= bottom)

@@ -301,9 +301,6 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
 
-
-
-
 void LevelManager::OverwritePrefab(int entityID)
 {
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
@@ -312,7 +309,7 @@ void LevelManager::OverwritePrefab(int entityID)
     std::string prefabPath = "../Resources/Prefab.json";
     json prefabData = Serialization::LoadJsonFile(prefabPath);
 
-    std::string prefabName = entity->name;
+    std::string prefabName = entity->prefabName;
 
     if (prefabData["prefabs"].contains(prefabName)) 
     {
