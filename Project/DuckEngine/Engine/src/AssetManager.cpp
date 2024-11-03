@@ -32,14 +32,28 @@ std::string NormalizePath(const std::string& path) {
 
 void AssetManager::LoadAll()
 {
-	//// load all assets here
-	//LoadTexture("../Resources/oldman.png");
-
-	//// load sound
-	//LoadSound("TestSound", "../Resources/Sounds/twitchAlert.wav");
-	//LoadSound("TestSound2", "../Resources/Sounds/magnetic.mp3");
+	// Load all textures and sounds from respective directories
+	LoadAllTextures("../Resources/Sprites");
+	LoadAllSounds("../Resources/Sounds");
 
 }
+
+void AssetManager::LoadAllTextures(const std::string& directoryPath) {
+	// Iterate over texture files in the specified directory
+	for (const auto& entry : fs::recursive_directory_iterator(directoryPath)) {
+		if (entry.is_regular_file()) {
+			std::string filePath = NormalizePath(entry.path().string());
+			std::string fileExtension = entry.path().extension().string();
+
+			// Check for valid image extensions
+			if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
+				LoadTexture(filePath);
+				std::cout << "Loaded texture: " << filePath << std::endl;
+			}
+		}
+	}
+}
+
 
 std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::string& filePath)
 {

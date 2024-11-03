@@ -118,7 +118,7 @@ void DuckEngine::Initialize(bool _isEditor)
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadAllSounds("../Resources/Sounds");
+    DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 }
 
 void DuckEngine::SetPlaying(bool playing)
