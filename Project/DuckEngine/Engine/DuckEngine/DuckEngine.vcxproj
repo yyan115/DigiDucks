@@ -210,6 +210,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClInclude Include="..\include\imgui\imstb_truetype.h" />
     <ClInclude Include="..\include\InputManager.h" />
     <ClInclude Include="..\include\json.hpp" />
+    <ClInclude Include="..\include\Layer.h" />
     <ClInclude Include="..\include\LevelManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\Prefab.h" />
@@ -263,6 +264,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <ClCompile Include="..\src\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\src\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\InputManager.cpp" />
+    <ClCompile Include="..\src\Layer.cpp" />
     <ClCompile Include="..\src\LevelManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />

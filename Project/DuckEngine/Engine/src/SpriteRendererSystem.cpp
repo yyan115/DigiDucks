@@ -52,76 +52,81 @@ void SpriteRendererSystem::Start()
 *************************************************************************/
 void SpriteRendererSystem::Update()
 {
-	std::vector<RenderData> renderQueue;
+    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+    if (!activeScene) return;
 
-	// add to render queue
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SpriteRendererComponent>())
-	{
-		SpriteRendererComponent* spriteRenderer = static_cast<SpriteRendererComponent*>(component.get());
-		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+    std::vector<RenderData> renderQueue;
 
-		if (spriteRenderer && transform)
-		{
-			RenderData data;
-			data.transform = transform;
-			data.spriteRenderer = spriteRenderer;
-			data.layer = spriteRenderer->layer;
-			renderQueue.push_back(data);
-		}
-	}
+    for (const auto& [layerName, layer] : activeScene->GetLayers())
+    {
+        for (Entity* entity : layer.GetEntities())
+        {
+            auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
+            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 
-	// sort according to layer
-	std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
-		return a.layer < b.layer;
-		});
+            if (spriteRenderer && transform)
+            {
+                RenderData data;
+                data.transform = transform;
+                data.spriteRenderer = spriteRenderer;
+                data.layer = spriteRenderer->layer;
+                renderQueue.push_back(data);
+            }
+        }
+    }
 
-	for (const RenderData& data : renderQueue)
-	{
-		SpriteRendererComponent* spriteRenderer = data.spriteRenderer;
-		TransformComponent* transform = data.transform;
-		if (spriteRenderer->sprite && transform)
-		{
-			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
-			DrawOptions drawOptions;
-			drawOptions.translation = transform->position;
-			drawOptions.scale = transform->scale;
-			drawOptions.rotation = transform->angle;
+    std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
+        return a.layer < b.layer;
+        });
 
-			if (spriteRenderer->texture) 
-			{
-				drawOptions.useTexture = true;
-				drawOptions.texture = &spriteRenderer->texture;
-			}
-			else if (spriteRenderer->useColor)
-			{
-				//std::cout << "use color\n";
-				drawOptions.useColor = true;
-				drawOptions.color = spriteRenderer->color;
-			}
-			else {
-				drawOptions.useColor = true;
-				drawOptions.color = {255.f, 0.f, 255.f, 255.f};
-			}
+    for (const RenderData& data : renderQueue)
+    {
+        auto* spriteRenderer = data.spriteRenderer;
+        auto* transform = data.transform;
 
-			drawOptions.relativeToCamera = transform->relativeToCamera;
+        if (spriteRenderer->sprite && transform)
+        {
+            DrawOptions drawOptions;
+            drawOptions.translation = transform->position;
+            drawOptions.scale = transform->scale;
+            drawOptions.rotation = transform->angle;
 
-			GraphicsManager::AddToDrawQueue(drawOptions);
-			DrawDebug(transform, spriteRenderer);
-		}
-		else if (spriteRenderer && transform) {
-			//std::cout << "SpriteRenderer: " << transform->x << " " << transform->y << " \n";
-			DrawOptions drawOptions;
-			drawOptions.translation = transform->position;
-			drawOptions.scale = transform->scale;
-			drawOptions.rotation = transform->angle;
+            if (spriteRenderer->texture)
+            {
+                drawOptions.useTexture = true;
+                drawOptions.texture = &spriteRenderer->texture;
+            }
+            else if (spriteRenderer->useColor)
+            {
+                drawOptions.useColor = true;
+                drawOptions.color = spriteRenderer->color;
+            }
+            else
+            {
+                drawOptions.useColor = true;
+                drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+            }
 
-			drawOptions.useColor = true;
-			drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+            drawOptions.relativeToCamera = transform->relativeToCamera;
 
-			drawOptions.relativeToCamera = transform->relativeToCamera;
+            GraphicsManager::AddToDrawQueue(drawOptions);
 
-			GraphicsManager::AddToDrawQueue(drawOptions);
-			DrawDebug(transform, spriteRenderer);
-		}
-	}
+            DrawDebug(transform, spriteRenderer);
+        }
+        else if (spriteRenderer && transform)
+        {
+            DrawOptions drawOptions;
+            drawOptions.translation = transform->position;
+            drawOptions.scale = transform->scale;
+            drawOptions.rotation = transform->angle;
+
+            drawOptions.useColor = true;
+            drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+
+            drawOptions.relativeToCamera = transform->relativeToCamera;
+
+            GraphicsManager::AddToDrawQueue(drawOptions);
+            DrawDebug(transform, spriteRenderer);
+        }
+    }
 }

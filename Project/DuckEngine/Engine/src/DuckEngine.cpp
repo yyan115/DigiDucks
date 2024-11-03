@@ -147,14 +147,11 @@ void DuckEngine::Update()
 
     DUCKENGINE_SystemManager.UpdateAll();
 
-    if (isEditor)
+    if (isEditor && isPlaying)
     {
-        if (isPlaying)
-        {
-            DUCKENGINE_SceneManager.Update();
-        }
+        DUCKENGINE_SceneManager.Update();
     }
-    else
+    else if (!isEditor)
     {
         DUCKENGINE_SceneManager.Update();
     }

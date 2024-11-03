@@ -201,12 +201,12 @@ void SpriteMovementScene::Load()
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->entityID);
 	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
-	circle->SetCollisionCallback([](Entity* otherEntity) 
-	{
-		UNREFERENCED_PARAMETER(otherEntity);
-		std::cout << "Player collided with another entity!" << std::endl;
+	circle->SetCollisionCallback([](Entity* otherEntity)
+		{
+			UNREFERENCED_PARAMETER(otherEntity);
+			std::cout << "Player collided with another entity!" << std::endl;
 
-	});
+		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
 	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
@@ -219,6 +219,8 @@ void SpriteMovementScene::Load()
 	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
 	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
 
+	//background entity
+	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
 
 	// test UI
 	//testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
@@ -273,6 +275,45 @@ void SpriteMovementScene::Load()
 
 	buttonTransform->relativeToCamera = false;
 
+
+	// hard coded layers later remove and refactor into JSON
+	Layer backgroundLayer;
+	Layer gameplayLayer;
+	Layer uiLayer;
+	AddLayer("Background", backgroundLayer);
+	AddLayer("Gameplay", gameplayLayer);
+	AddLayer("UI", uiLayer);
+
+	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Background")->AddEntity(background);
+	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Gameplay")->AddEntity(player);
+	DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("UI")->AddEntity(buttonEntity);
+
+	// temporary assign entities to gameplay layer if they dont belong in a layer
+	auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+	auto* gameplayLayerPtr = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer("Gameplay");
+	if (gameplayLayerPtr)
+	{
+		for (Entity& entity : allEntities)
+		{
+			bool isInLayer = false;
+
+			for (const auto& [layerName, layer] : DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayers())
+			{
+				const auto& layerEntities = layer.GetEntities();
+				if (std::find(layerEntities.begin(), layerEntities.end(), &entity) != layerEntities.end())
+				{
+					isInLayer = true;
+					break;
+				}
+			}
+			// If the entity is not in any layer, add it to the Gameplay layer
+			if (!isInLayer)
+			{
+				gameplayLayerPtr->AddEntity(&entity);
+				std::cout << "Entity " << entity.entityID << " added to Gameplay layer by default." << std::endl;
+			}
+		}
+	}
 
 	//buttonTransform->position = buttonCenter;
 
@@ -466,5 +507,10 @@ void SpriteMovementScene::Unload()
 {
 	// base unload
 	Scene::Unload();
+
+}
+
+void SpriteMovementScene::SetupLayers()
+{
 
 }

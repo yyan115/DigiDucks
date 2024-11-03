@@ -1,2 +1,5 @@
-﻿  SpriteMovementScene.cpp
+﻿  main.cpp
+  GameManager.cpp
+  SpriteMovementScene.cpp
+  Generating Code...
   Quack_Kitchen.vcxproj -> C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\Quack_Kitchen.lib

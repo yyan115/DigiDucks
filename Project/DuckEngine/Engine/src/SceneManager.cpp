@@ -11,25 +11,6 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
     scenes[name] = scene;
 }
 
-void SceneManager::ActivateSceneWithoutReload(const std::string& name) 
-{
-    auto it = scenes.find(name);
-    if (it == scenes.end()) 
-    {
-        std::cerr << "Scene '" << name << "' not found!" << std::endl;
-        return;
-    }
-
-    if (activeScene) 
-    {
-        activeScene->Unload();
-    }
-
-    activeScene = scenes[name];
-    activeSceneName = name;
-}
-
-
 void SceneManager::SetActiveScene(const std::string& name)
 {
     auto it = scenes.find(name);
