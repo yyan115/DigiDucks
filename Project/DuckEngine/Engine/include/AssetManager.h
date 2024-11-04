@@ -44,6 +44,7 @@ public:
 
 	static DUCKENGINE_API void LoadAllSounds(const std::string& directoryPath);
 	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
+	static DUCKENGINE_API void LoadAllShaders(const std::string& directoryPath);
 	
 	// Get
 	static DUCKENGINE_API FMOD::System*& GetFMODSystem();

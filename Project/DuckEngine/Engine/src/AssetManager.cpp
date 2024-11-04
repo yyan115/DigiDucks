@@ -16,6 +16,7 @@
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"
+#include "ShaderManager.h"
 #include <iostream>
 #include <filesystem>
 namespace fs = std::filesystem;
@@ -35,7 +36,23 @@ void AssetManager::LoadAll()
 	// Load all textures and sounds from respective directories
 	LoadAllTextures("../Resources/Sprites");
 	LoadAllSounds("../Resources/Sounds");
+	LoadAllShaders("../Resources/Shaders");
+}
 
+void AssetManager::LoadAllShaders(const std::string& directoryPath) {
+	// Load all required shaders
+
+	// Load default shader used for game objects
+	ShaderManager::InsertShader("DefaultShader", directoryPath + "/gameVertShader.vert", directoryPath + "/gameFragShader.frag");
+
+	// Load font shader
+	ShaderManager::InsertShader("TextShader", directoryPath + "/fontVertShader.vert", directoryPath + "/fontFragShader.frag");
+
+	// Load debug shaders for drawing point, line, rect and circle shapes.
+	ShaderManager::InsertShader("PointShader", directoryPath + "/PointVertShader.vert", directoryPath + "/DebugFragShader.frag");
+	ShaderManager::InsertShader("LineShader", directoryPath + "/LineVertShader.vert", directoryPath + "/DebugFragShader.frag");
+	ShaderManager::InsertShader("RectangleShader", directoryPath + "/RectangleVertShader.vert", directoryPath + "/DebugFragShader.frag");
+	ShaderManager::InsertShader("CircleShader", directoryPath + "/CircleVertShader.vert", directoryPath + "/DebugFragShader.frag");
 }
 
 void AssetManager::LoadAllTextures(const std::string& directoryPath) {
