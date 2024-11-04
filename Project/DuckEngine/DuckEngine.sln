@@ -21,6 +21,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripting", "Scripting", "{60274813-47C5-491A-9587-B051A6F0CF7A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScriptingAPI", "Scripting\ScriptingAPI\ScriptingAPI.vcxproj", "{1B5BA829-71A8-4CA8-9A43-8A33697E45D9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E79B9515-8A42-4AA1-B5D7-71D599BD5B43} = {E79B9515-8A42-4AA1-B5D7-71D599BD5B43}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManagedScript", "Scripting\ManagedScript\ManagedScript.csproj", "{B0E17EDA-1A3B-4185-9200-0B876DCC2870}"
 EndProject
