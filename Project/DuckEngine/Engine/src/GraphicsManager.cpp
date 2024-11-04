@@ -382,7 +382,7 @@ void GraphicsManager::RenderPoints(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
-        glDrawArraysInstanced(GL_POINTS, 0, 1, cameraRelativeData.size());
+        glDrawArraysInstanced(GL_POINTS, 0, 1, static_cast<GLsizei>(cameraRelativeData.size()));
     }
 
     // Render UI points
@@ -397,7 +397,7 @@ void GraphicsManager::RenderPoints(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
-        glDrawArraysInstanced(GL_POINTS, 0, 1, uiData.size());
+        glDrawArraysInstanced(GL_POINTS, 0, 1, static_cast<GLsizei>(uiData.size()));
     }
 
     glBindVertexArray(0);
@@ -446,7 +446,7 @@ void GraphicsManager::RenderLines(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, cameraRelativeData.size());
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, static_cast<GLsizei>(cameraRelativeData.size()));
     }
 
     // Render UI lines
@@ -461,7 +461,7 @@ void GraphicsManager::RenderLines(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, uiData.size());
+        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, static_cast<GLsizei>(uiData.size()));
     }
 
     glBindVertexArray(0);
@@ -511,7 +511,7 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, cameraRelativeData.size());
+        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(cameraRelativeData.size()));
     }
 
 
@@ -528,7 +528,7 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, uiData.size());
+        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(uiData.size()));
     }
 
     glBindVertexArray(0);
@@ -577,7 +577,7 @@ void GraphicsManager::RenderCircles(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, cameraRelativeData.size());
+        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, static_cast<GLsizei>(cameraRelativeData.size()));
     }
 
     // Render UI circles
@@ -592,7 +592,7 @@ void GraphicsManager::RenderCircles(const glm::mat3x3& cameraViewMatrix) {
 
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, uiData.size());
+        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, static_cast<GLsizei>(uiData.size()));
     }
 
     glBindVertexArray(0);

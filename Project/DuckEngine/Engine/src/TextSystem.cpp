@@ -19,6 +19,6 @@ void TextSystem::Update()
 			continue;
 		}
 
-		DuckEngine::RenderText(text->text, text->position, text->fontSize, text->color);
+		DuckEngine::RenderText(text->text, text->position, static_cast<float>(text->fontSize), text->color);
 	}
 }
