@@ -286,6 +286,7 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
         if (!entity.prefabName.empty())
         {
             json& gameObjectData = sceneData["gameObjects"][entityName];
+            gameObjectData["layer"] = entity.layerName;
             gameObjectData["prefab"] = entity.prefabName;
 
             if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity.entityID))
@@ -317,6 +318,7 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 
     std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
     json& gameObjectData = sceneData["gameObjects"][entityName];
+    gameObjectData["layer"] = entity->layerName;
 
     if (gameObjectData.contains("components"))
     {

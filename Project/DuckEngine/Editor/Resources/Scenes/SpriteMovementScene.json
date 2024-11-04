@@ -1,7 +1,6 @@
 {
     "gameObjects": {
         "BackgroundGameObject": {
-            "layer": "Background",
             "components": [
                 {
                     "properties": {
@@ -43,28 +42,56 @@
                 }
             ]
         },
-        "CabbageStockPrefab": {
+        "Duck": {
+            "layer": "Gameplay",
             "position": {
-                "x": 1.8888899087905884,
-                "y": -2.9856116771698
-            },
-            "prefab": "CabbageStockPrefab"
-        },
-        "CuttingTablePrefab": {
-            "position": {
-                "x": 6.074074745178223,
-                "y": 0.28777003288269043
-            },
-            "prefab": "CuttingTablePrefab"
-        },
-        "DuckPrefab": {
-            "position": {
-                "x": 4.962963581085205,
-                "y": 6.510791778564453
+                "x": 8.0,
+                "y": 8.0
             },
             "prefab": "DuckPrefab"
         },
+        "Obstacle1": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.809855937957764,
+                "y": 1.4748203754425049
+            },
+            "prefab": "CuttingTablePrefab"
+        },
+        "Obstacle2": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -5.0,
+                "y": -2.7780001163482666
+            },
+            "prefab": "CabbageStockPrefab"
+        },
+        "Obstacle3": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -8.333000183105469,
+                "y": -7.7779998779296875
+            },
+            "prefab": "TomatoStockPrefab"
+        },
+        "Obstacle4": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.111000061035156,
+                "y": -7.7779998779296875
+            },
+            "prefab": "TomatoStockPrefab"
+        },
+        "Obstacle5": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 10.0,
+                "y": -5.0
+            },
+            "prefab": "TomatoStockPrefab"
+        },
         "Player": {
+            "layer": "Gameplay",
             "position": {
                 "x": -2.7769999504089355,
                 "y": 0.0
@@ -114,6 +141,67 @@
                         }
                     },
                     "type": "ButtonComponent"
+                }
+            ]
+        },
+        "obstacleObject4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 5.0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.799999952316284
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Crate.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 5.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "../Resources/Sounds/CRATE-WOOD_GEN-HDF-08708.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 }
             ]
         },
