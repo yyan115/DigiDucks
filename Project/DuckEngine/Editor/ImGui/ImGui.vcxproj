@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\AssetsBrowser.cpp" />
     <ClCompile Include="..\src\EditorInputManager.cpp" />
     <ClCompile Include="..\src\EditorTheme.cpp" />
+    <ClCompile Include="..\src\Gizmos.cpp" />
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\include\AssetsBrowser.h" />
     <ClInclude Include="..\include\EditorInputManager.h" />
     <ClInclude Include="..\include\EditorTheme.h" />
+    <ClInclude Include="..\include\Gizmos.h" />
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
@@ -251,10 +253,10 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
 xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"</Command>
     </PostBuildEvent>

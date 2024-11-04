@@ -25,8 +25,7 @@
 #include <string>
 #include <filesystem>
 
-
-void LevelManager::LoadLevel(const std::string& levelFile)
+void LevelManager::LoadLevelEditor(const std::string& levelFile)
 {
     json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
@@ -45,46 +44,131 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             sceneName = sceneName.substr(0, lastDot);
         }
 
-        DuckEngine::DUCKENGINE_SceneManager.ActivateSceneWithoutReload(sceneName);
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+
+        if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
+        {
+            LoadLevel(levelFile);
+        }
+    }
+}
+
+void LevelManager::LoadLevelGame(const std::string& levelFile)
+{
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+
+    if (!levelData.empty() && levelData.contains("gameObjects"))
+    {
+        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+
+        size_t lastSlash = levelFile.find_last_of("\\/");
+        std::string sceneName = (lastSlash != std::string::npos)
+            ? levelFile.substr(lastSlash + 1)
+            : levelFile;
+
+        size_t lastDot = sceneName.find_last_of('.');
+        if (lastDot != std::string::npos)
+        {
+            sceneName = sceneName.substr(0, lastDot);
+        }
+
+        LoadLevel(levelFile);
+    }
+
+}
+
+void LevelManager::LoadLevel(const std::string& levelFile)
+{
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+
+    if (!levelData.contains("layers") || !levelData["layers"].contains("Gameplay"))
+    {
+        Layer gameplayLayer;
+        gameplayLayer.SetOrder(1);      // Default order for "Gameplay" layer
+        gameplayLayer.SetVisible(true); // Default visibility
+
+        activeScene->AddLayer("Gameplay", gameplayLayer);
+        levelData["layers"]["Gameplay"] = { {"order", 1}, {"visible", true} };
+
+        std::cout << "'Gameplay' layer automatically added." << std::endl;
+    }
+
+    if (levelData.contains("layers"))
+    {
+        for (auto& [layerName, layerData] : levelData["layers"].items())
+        {
+            Layer layer;
+            layer.SetOrder(layerData.value("order", 0));
+            layer.SetVisible(layerData.value("visible", true));
+
+            activeScene->AddLayer(layerName, layer);
+            std::cout << "Layer '" << layerName << "' added with order "
+                << layer.GetOrder() << " and visibility "
+                << (layer.IsVisible() ? "true" : "false") << "." << std::endl;
+        }
+    }
+
+    if (levelData.contains("gameObjects"))
+    {
+        std::cout << "Successfully loaded level: " << levelFile << std::endl;
 
         auto gameObjects = levelData["gameObjects"];
         for (auto& [gameObjectName, gameObjectData] : gameObjects.items())
         {
             std::string prefabName = gameObjectData.value("prefab", "");
+            std::string layerName = gameObjectData.value("layer", "Gameplay");
 
+            Entity* entity = nullptr;
             if (!prefabName.empty())
             {
-                std::shared_ptr<Prefab> prefab =
-                    std::shared_ptr<Prefab>(PrefabManager::GetPrefab(prefabName.c_str()));
-
+                std::shared_ptr<Prefab> prefab = PrefabManager::GetPrefab(prefabName.c_str());
                 if (prefab)
                 {
-                    Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+                    entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
                     entity->name = gameObjectName;
                     entity->prefabName = prefabName;
+                    entity->layerName = layerName;
 
                     ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
-
-                    if (gameObjectData.contains("position"))
-                    {
-                        Vec2 position = Serialization::GetVec2(gameObjectData, "position", Vec2(0.0f, 0.0f));
-                        auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-                        if (transform)
-                        {
-                            transform->position = position;
-                        }
-                    }
                 }
                 else
                 {
                     std::cerr << "Error: Could not find prefab: " << prefabName << std::endl;
+                    continue; 
                 }
             }
             else if (gameObjectData.contains("components"))
             {
-                Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+                entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
                 entity->name = gameObjectName;
+                entity->layerName = layerName;
+
                 ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
+            }
+
+            if (entity)
+            {
+                if (gameObjectData.contains("position"))
+                {
+                    Vec2 position = Serialization::GetVec2(gameObjectData, "position", Vec2(0.0f, 0.0f));
+                    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+                    if (transform)
+                    {
+                        transform->position = position;
+                    }
+                }
+            }
+        }
+
+        auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+        for (Entity& entity : allEntities)
+        {
+            auto* layerPtr = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetLayer(entity.layerName);
+
+            if (layerPtr)
+            {
+                layerPtr->AddEntity(&entity);
             }
         }
     }
@@ -93,6 +177,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
         std::cerr << "Failed to load level: " << levelFile << std::endl;
     }
 }
+
 
 
 /****************************************************************
@@ -153,8 +238,23 @@ void LevelManager::OpenLevelDialog()
     std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
     std::cout << "Open File Dialog Path: " << absolutePath << std::endl;
 
-    // Load the selected level file
-    LoadLevel(levelFile);
+    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+    size_t lastSlash = levelFile.find_last_of("\\/");
+    
+    std::string sceneName = (lastSlash != std::string::npos)
+        ? levelFile.substr(lastSlash + 1)
+        : levelFile;
+
+    size_t lastDot = sceneName.find_last_of('.');
+    if (lastDot != std::string::npos)
+    {
+        sceneName = sceneName.substr(0, lastDot);
+    }
+
+    if (sceneName != DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName())
+    {
+        LoadLevelEditor(levelFile);
+    }
 
 }
 
@@ -229,44 +329,12 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
             gameObjectData["position"]["y"] = transform->position.y;
         }
 
-        // Check for and save SpriteRendererComponent data
-        if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID)) {
-            json spriteData;
-            spriteData["type"] = "SpriteRendererComponent";
-            spriteData["properties"]["texturePath"] = spriteRenderer->texturePath;
-            spriteData["properties"]["useColor"] = spriteRenderer->useColor;
-            spriteData["properties"]["layer"] = spriteRenderer->layer;
-
-            // Save color if it's used
-            if (spriteRenderer->useColor) {
-                spriteData["properties"]["color"]["r"] = spriteRenderer->color.r;
-                spriteData["properties"]["color"]["g"] = spriteRenderer->color.g;
-                spriteData["properties"]["color"]["b"] = spriteRenderer->color.b;
-                spriteData["properties"]["color"]["a"] = spriteRenderer->color.a;
-            }
-
-            // Append or update the SpriteRendererComponent data in the game object components
-            auto& components = gameObjectData["components"];
-            bool found = false;
-            for (auto& component : components) {
-                if (component["type"] == "SpriteRendererComponent") {
-                    component = spriteData; // Update existing component
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                components.push_back(spriteData); // Add as new component if not found
-            }
-        }
+        
     }
 
     Serialization::SaveJsonFile(finalPath, sceneData);
     std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
-
-
-
 
 void LevelManager::OverwritePrefab(int entityID)
 {
@@ -276,7 +344,7 @@ void LevelManager::OverwritePrefab(int entityID)
     std::string prefabPath = "../Resources/Prefab.json";
     json prefabData = Serialization::LoadJsonFile(prefabPath);
 
-    std::string prefabName = entity->name;
+    std::string prefabName = entity->prefabName;
 
     if (prefabData["prefabs"].contains(prefabName)) 
     {

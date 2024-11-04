@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="GameLibRelease|x64">
-      <Configuration>GameLibRelease</Configuration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="EditorRelease|Win32">
+      <Configuration>EditorRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="EditorRelease|x64">
+      <Configuration>EditorRelease</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="GameLib|x64">
-      <Configuration>GameLib</Configuration>
+    <ProjectConfiguration Include="EditorDebug|Win32">
+      <Configuration>EditorDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="EditorDebug|x64">
+      <Configuration>EditorDebug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
@@ -39,11 +51,17 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='EditorDebug|Win32'">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|Win32'" Label="Configuration">
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
     <PlatformToolset>v143</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'" Label="Configuration">
     <PlatformToolset>v143</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
@@ -73,14 +91,14 @@
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
     <OutDir>$(SolutionDir)\Game\lib\</OutDir>
     <IntDir>$(SolutionDir)\Game\lib\</IntDir>
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
     <OutDir>$(SolutionDir)\Game\lib\</OutDir>
     <IntDir>$(SolutionDir)\Game\lib\</IntDir>
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
@@ -133,7 +151,7 @@
       <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -143,7 +161,7 @@
       <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLibRelease|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>

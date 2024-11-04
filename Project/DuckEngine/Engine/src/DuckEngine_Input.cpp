@@ -53,6 +53,7 @@ const int DuckEngine_Input::KEY_DOWN = GLFW_KEY_DOWN;
 const int DuckEngine_Input::KEY_LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT;
 const int DuckEngine_Input::KEY_RIGHT_SHIFT = GLFW_KEY_RIGHT_SHIFT;
 const int DuckEngine_Input::KEY_BACKSPACE = GLFW_KEY_BACKSPACE;
+const int DuckEngine_Input::KEY_DEL = GLFW_KEY_DELETE;
 
 // Define constants for mouse buttons
 const int DuckEngine_Input::MOUSE_BUTTON_LEFT = GLFW_MOUSE_BUTTON_LEFT;

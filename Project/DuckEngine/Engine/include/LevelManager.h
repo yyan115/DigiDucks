@@ -33,6 +33,8 @@ public:
 	* @param levelFile - json file containing data for the level
 	*
 	***************************************************************/
+	static void LoadLevelEditor(const std::string& levelFile);
+	static void LoadLevelGame(const std::string& levelFile);
 	static void LoadLevel(const std::string& levelFile);
 	static std::string OpenFileDialog(const std::string& filetype);
 	static void OpenLevelDialog();

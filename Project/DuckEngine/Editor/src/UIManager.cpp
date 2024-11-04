@@ -36,6 +36,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "AssetsBrowser.h"
 #include "EditorTheme.h"
+#include "HierarchyList.h"
 
 
 // GLOBALS For Spawning of Entities
@@ -63,10 +64,7 @@ void UIManager::Initialize() {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
-    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // Enable Multi-Viewport / Platform Windows
-    
-    // dark theme
-    //ImGui::StyleColorsDark();
+
     // duck theme
     EditorTheme::SetDuckTheme();
 
@@ -126,6 +124,7 @@ void UIManager::Render() {
     // Show the different windows
     ShowExplorer();
     ShowHierarchy();
+    ShowInspector();
 }
 
 void UIManager::EndRender()
@@ -175,6 +174,10 @@ void UIManager::ShowMenuBar()
             if (ImGui::MenuItem("Show Debug Info", NULL, windowStates[WindowType::DebugInfo])) {
                 windowStates[WindowType::DebugInfo] = !windowStates[WindowType::DebugInfo];
             }            
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Game Object")) {
+            if (ImGui::MenuItem("Spawn GameObject")) { DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f }); }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
@@ -352,42 +355,7 @@ void UIManager::ShowExplorer() {
 
         // Second tab: Assets
         if (ImGui::BeginTabItem("Assets")) {
-
             AssetsBrowser::ShowAssets();
-
-   //         static AssetCategory currentCategory = AssetCategory::Scene;
-   //         const char* items[] = { "Scene", "GameObject", "Audio" };
-
-   //         ImGui::Text("Category:   ");
-   //         ImGui::SameLine();
-
-   //         if (ImGui::BeginCombo("##Category", items[static_cast<int>(currentCategory)])) {
-   //             for (int n = 0; n < IM_ARRAYSIZE(items); n++) {
-   //                 bool is_selected = (static_cast<int>(currentCategory) == n);
-   //                 if (ImGui::Selectable(items[n], is_selected)) {
-   //                     currentCategory = static_cast<AssetCategory>(n);
-   //                 }
-
-   //                 if (is_selected) {
-   //                     ImGui::SetItemDefaultFocus();
-   //                 }
-   //             }
-			//	ImGui::EndCombo();
-			//}
-
-   //         // Handle the selected category
-   //         switch (currentCategory) {
-   //         case AssetCategory::Scene:
-   //             RenderSceneAssets();
-   //             break;
-   //         case AssetCategory::GameObject:
-   //             RenderGameObjectAssets();
-   //             break;
-   //         case AssetCategory::Audio:
-   //             RenderAudioAssets();
-   //             break;
-   //         }
-            
             ImGui::EndTabItem();
         }
 
@@ -399,69 +367,17 @@ void UIManager::ShowExplorer() {
 
 void UIManager::ShowInspector() 
 {
-    if (windowStates[WindowType::Inspector] && selectedEntityID != -1) 
-    {
-        ImGui::Begin("Inspector", nullptr,
-            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysVerticalScrollbar);
-
-        // Use InspectorRenderer to render components of the selected entity
-        InspectorRenderer::RenderComponents(selectedEntityID);
-
-        ImGui::End();
-    }
+    ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysVerticalScrollbar);
+    // Use InspectorRenderer to render components of the selected entity
+    InspectorRenderer::RenderComponents(selectedEntityID);
+    ImGui::End();   
 }
 
 
 void UIManager::ShowHierarchy() {
     ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-
-    // Get all entities
-    std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
-
-    for (size_t i = 0; i < entities.size(); ++i) {
-        if (entities[i].entityID == 0) {
-            continue;
-        }
-
-        // Create a unique label for each node
-        std::string entityLabel = "GameObject " + std::to_string(entities[i].entityID);
-        if (!entities[i].name.empty()) 
-        {
-            entityLabel = entities[i].name;
-        }
-        else
-        {
-            entities[i].name = entityLabel;
-        }
-        
-
-        // Begin a tree node for each entity
-        ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-        if (selectedEntityID == entities[i].entityID) {
-            nodeFlags |= ImGuiTreeNodeFlags_Selected;
-        }
-
-        bool nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
-
-        // Check if this entity node is selected
-        if (ImGui::IsItemClicked()) {
-            if (selectedEntityID == entities[i].entityID) {
-                selectedEntityID = -1;  // Deselect the entity
-                windowStates[WindowType::Inspector] = false; // Hide Inspector window
-            }
-            else {
-                selectedEntityID = entities[i].entityID;  // Select the entity
-                windowStates[WindowType::Inspector] = true;  // Show Inspector window
-            }
-        }
-
-        // If the node is open, display children or other properties here
-        if (nodeOpen) {
-            ImGui::Text("Entity ID: %d", entities[i].entityID); // Example of displaying extra information
-            ImGui::TreePop();
-        }
-    }
-
+    // Render the hierarchy window
+    Hierarchy::ShowHierarchy(selectedEntityID);
     ImGui::End();
 }
 
@@ -530,7 +446,7 @@ void UIManager::RenderWindows() {
                 ShowDebugInfo();
                 break;          
             case WindowType::Inspector:
-				ShowInspector();
+				
 				break;
             default:
                 break;
@@ -666,11 +582,11 @@ void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** pat
 
         if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
             std::cout << "Texture file dropped: " << filePath << std::endl;
-            // Add logic to load texture here, e.g., DuckEngine::DUCKENGINE_AssetManager.LoadTexture(filePath);
+            // Add logic to load texture
         }
         else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
             std::cout << "Audio file dropped: " << filePath << std::endl;
-            // Add logic to load sound here, e.g., DuckEngine::DUCKENGINE_AssetManager.LoadSound("newSoundID", filePath);
+            // Add logic to load sound
         }
         else if (extension == ".json") {
             std::cout << "Scene or prefab JSON file dropped: " << filePath << std::endl;

@@ -275,6 +275,8 @@
     </ClInclude>
     <ClInclude Include="..\include\API_Test.h">
       <Filter>include</Filter>
+    <ClInclude Include="..\include\Layer.h">
+      <Filter>include\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +414,8 @@
     </ClCompile>
     <ClCompile Include="..\src\API_Test.cpp">
       <Filter>src</Filter>
+    <ClCompile Include="..\src\Layer.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

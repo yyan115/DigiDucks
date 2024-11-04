@@ -205,4 +205,7 @@ public:
     static void DUCKENGINE_API EnableLogging(bool enable);
 
     static DUCKENGINE_API bool showDebugDraw;
+    static bool isEditor;
+    static DUCKENGINE_API Vector2D editorMouseWorldPos;
+    static DUCKENGINE_API Vector2D editorMouseScreenPos;
 };

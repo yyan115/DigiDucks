@@ -51,8 +51,10 @@ LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
 bool DuckEngine::showDebugDraw = false;
 
-bool isEditor = false;
+bool DuckEngine::isEditor = false;
 bool isPlaying = false;
+Vector2D DuckEngine::editorMouseWorldPos;
+Vector2D DuckEngine::editorMouseScreenPos;
 //TextRenderingSystem textRenderingSystem;
 
 /************************************************************************
@@ -72,7 +74,6 @@ void DuckEngine::Initialize(bool _isEditor)
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
     FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
-
     // load prefabs
     PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
 
@@ -116,6 +117,8 @@ void DuckEngine::Initialize(bool _isEditor)
 
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
+
+    DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 }
 
 void DuckEngine::SetPlaying(bool playing)
@@ -144,14 +147,11 @@ void DuckEngine::Update()
 
     DUCKENGINE_SystemManager.UpdateAll();
 
-    if (isEditor)
+    if (isEditor && isPlaying)
     {
-        if (isPlaying)
-        {
-            DUCKENGINE_SceneManager.Update();
-        }
+        DUCKENGINE_SceneManager.Update();
     }
-    else
+    else if (!isEditor)
     {
         DUCKENGINE_SceneManager.Update();
     }

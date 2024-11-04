@@ -1,2 +1,1 @@
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\Quack_Kitchen.lib
-C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\lib\Quack_Kitchen.lib
+C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\lib\Quack_Kitchen.lib

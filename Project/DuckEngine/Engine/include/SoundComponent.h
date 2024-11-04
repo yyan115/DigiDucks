@@ -19,7 +19,7 @@ public:
     float volume;                 // Sound volume
 
     // Constructor
-    SoundComponent(const std::string& _soundID, bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
+    SoundComponent(const std::string& _soundID = "", bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
         : soundID(_soundID), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume) {}
 
     std::shared_ptr<Component> Clone() const override {

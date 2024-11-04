@@ -29,3 +29,26 @@ void Scene::Unload()
     DuckEngine::SetCameraPosition(0.0f, 0.0f);
 
 }
+
+void Scene::AddLayer(const std::string& name, Layer layer)
+{
+    if (layers.find(name) == layers.end())
+    {
+        layers[name] = layer;
+    }
+}
+
+Layer* Scene::GetLayer(const std::string& name)
+{
+    auto it = layers.find(name);
+    if (it != layers.end())
+    {
+        return &(it->second);
+    }
+    return nullptr;
+}
+
+const std::unordered_map<std::string, Layer>& Scene::GetLayers() const
+{
+    return layers;
+}

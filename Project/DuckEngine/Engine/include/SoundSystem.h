@@ -16,5 +16,8 @@ public:
 
     void Start() override;
     void Update() override;
+    static void StopAllSounds();
+    static void PauseAllSounds();
+    static void ResumeAllSounds();
 };
 

@@ -1,103 +1,89 @@
 #include "HierarchyList.h"
 #include "DuckEngine.h"
 #include "imgui.h"
+#include <unordered_map>
 
-// Define the static selectedEntityID
-int Hierarchy::selectedEntityID = -1;
+int renamingEntityID = -1;
+char nameBuffer[128] = {};
 
-void Hierarchy::ShowHierarchy() {
-    ImGui::Begin("Hierarchy", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
-
+void Hierarchy::ShowHierarchy(int& selectedEntityID) {
     // Get all entities
-    std::vector<Entity> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    // Iterate through entities and create tree nodes for each one
-    for (Entity& entity : entities) {
-        if (entity.entityID == 0) continue;
+    // Track prefab instance counts
+    std::unordered_map<std::string, int> prefabInstanceCounts;
 
-        // Generate a unique label for the entity
-        std::string entityLabel = entity.name.empty() ? "GameObject " + std::to_string(entity.entityID) : entity.name;
+    for (auto& entity : entities) {
+        std::string entityLabel;
 
-        // Check if this entity is selected and apply color styling if needed
-        if (selectedEntityID == entity.entityID) {
-            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 0.0f, 1.0f)); // Highlighted text color
+        if (!entity.prefabName.empty()) {
+            // If it's a prefab and has a custom name, use the custom name
+            if (!entity.name.empty()) {
+                entityLabel = entity.name;
+            }
+            else {
+                // Generate a label based on the prefab name and instance count
+                int& count = prefabInstanceCounts[entity.prefabName];
+                entityLabel = entity.prefabName;
+                if (count > 0) {
+                    entityLabel += " (" + std::to_string(count) + ")";
+                }
+                count++;
+            }
+        }
+        else {
+            // If not a prefab, use the entity's existing name or a default label
+            entityLabel = entity.name.empty() ? "GameObject " + std::to_string(entity.entityID) : entity.name;
         }
 
-        // Create a TreeNode for each entity
-        ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-        bool opened = ImGui::TreeNodeEx(entityLabel.c_str(), flags);
+        // If the entity isn't being renamed, apply the label to its name
+        if (entity.entityID != renamingEntityID) {
+            entity.name = entityLabel;
+        }
 
-        //// Handle selecting entity on click
-        //if (ImGui::IsItemClicked()) {
-        //    selectedEntityID = entity.entityID;
-        //}
+        // Begin a tree node for each entity
+        ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+        if (selectedEntityID == entity.entityID) {
+            nodeFlags |= ImGuiTreeNodeFlags_Selected;
+        }
 
-        //// Drag-and-drop source: Start dragging this entity
-        //if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-        //    ImGui::SetDragDropPayload("ENTITY_PAYLOAD", &entity.entityID, sizeof(int));
-        //    ImGui::Text("Move %s", entityLabel.c_str());
-        //    ImGui::EndDragDropSource();
-        //}
+        bool nodeOpen;
 
-        //// Drag-and-drop target: Accept dragged entities to make them children
-        //if (ImGui::BeginDragDropTarget()) {
-        //    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_PAYLOAD")) {
-        //        int payloadEntityID = *(const int*)payload->Data;
+        if (entity.entityID == renamingEntityID) {
+            // Display a renaming input field for the selected entity
+            ImGui::SetKeyboardFocusHere();
+            if (ImGui::InputText("##Rename", nameBuffer, sizeof(nameBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
+                entity.name = nameBuffer;  
+                LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());  // Save the scene changes
+                renamingEntityID = -1;  
+            }
+            // Exit if focus lost
+            if (ImGui::IsItemDeactivated()) {
+                renamingEntityID = -1; 
+            }
+            nodeOpen = false;
+        }
+        else {
+            nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
+            // Handle selection on click
+            if (ImGui::IsItemClicked()) {
+                selectedEntityID = (selectedEntityID == entity.entityID) ? -1 : entity.entityID;
+            }
+        }
 
-        //        // Set entity with `payloadEntityID` as a child of the current `entity`
-        //        DuckEngine::DUCKENGINE_EntityManager.SetParent(payloadEntityID, entity.entityID);
-        //    }
-        //    ImGui::EndDragDropTarget();
-        //}
-
-        //if (opened) {
-        //    // Recursively display children (if any)
-        //    //ShowChildHierarchy(entity.entityID);
-        //    ImGui::TreePop();
-        //}
-
-        //if (selectedEntityID == entity.entityID) {
-        //    //ImGui::PopStyleColor();
-        //}
+        // Show child nodes if expanded
+        if (nodeOpen) {
+            ImGui::Text("Entity ID: %d", entity.entityID);
+            ImGui::TreePop();
+        }
     }
-
-    ImGui::End();
 }
 
-// Recursive function to show children of an entity
-void Hierarchy::ShowChildHierarchy(int parentID) {
-    //const auto& children = DuckEngine::DUCKENGINE_EntityManager.GetChildren(parentID);
-
-    //for (const auto& child : children) {
-    //    std::string childLabel = child->name.empty() ? "GameObject " + std::to_string(child->entityID) : child->name;
-
-    //    bool childOpened = ImGui::TreeNodeEx(childLabel.c_str(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth);
-
-    //    if (ImGui::IsItemClicked()) {
-    //        selectedEntityID = child->entityID;
-    //    }
-
-    //    // Drag-and-drop source for child
-    //    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-    //        ImGui::SetDragDropPayload("ENTITY_PAYLOAD", &child->entityID, sizeof(int));
-    //        ImGui::Text("Move %s", childLabel.c_str());
-    //        ImGui::EndDragDropSource();
-    //    }
-
-    //    // Accept other entities as children of this child
-    //    if (ImGui::BeginDragDropTarget()) {
-    //        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_PAYLOAD")) {
-    //            int payloadEntityID = *(const int*)payload->Data;
-
-    //            // Set entity with `payloadEntityID` as a child of the current child entity
-    //            DuckEngine::DUCKENGINE_EntityManager.SetParent(payloadEntityID, child->entityID);
-    //        }
-    //        ImGui::EndDragDropTarget();
-    //    }
-
-    //    if (childOpened) {
-    //        ShowChildHierarchy(child->entityID); // Recurse for grandchildren
-    //        ImGui::TreePop();
-    //    }
-    //}
+void Hierarchy::StartRenamingEntity(int entityID) {
+    renamingEntityID = entityID;
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+    if (entity) {
+        strncpy_s(nameBuffer, entity->name.c_str(), sizeof(nameBuffer) - 1);
+        nameBuffer[sizeof(nameBuffer) - 1] = '\0';
+    }
 }

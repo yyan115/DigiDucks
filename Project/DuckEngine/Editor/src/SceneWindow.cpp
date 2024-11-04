@@ -5,9 +5,11 @@
 #include "GameManager.h"
 #include "CameraManager.h"
 #include "EditorInputManager.h"
-#include "imgui.h"
-#include <iostream>
 #include "UIManager.h"
+#include "Gizmos.h"
+#include "imgui.h"
+#include "SoundSystem.h"
+#include <iostream>
 
 bool SceneWindow::isPlaying = false;
 int SceneWindow::width = 0;
@@ -47,10 +49,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
         if (!isPlaying)
         {
+            SoundSystem::StopAllSounds();
             GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
         }
     }
-
 
     GLuint fboTexture = GraphicsManager::GetFBOTexture();
     ImVec2 windowSize = ImGui::GetContentRegionAvail();
@@ -58,6 +60,9 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     inSceneFBO = IsMouseInFBO();
     Vector2D worldPos = ConvertScreenToWorld();
+
+    DuckEngine::editorMouseWorldPos = worldPos;
+    DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
 
     // Handle drag-and-drop from AssetsBrowser
     if (ImGui::BeginDragDropTarget())
@@ -130,6 +135,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
+    // If an entity is selected, render gizmos
+    /*if (selectedEntity && !isPlaying) {
+        Gizmos::RenderGizmoForSelectedEntity(selectedEntity);
+    }*/
 
     if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
     {
@@ -145,7 +154,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     ImGui::End();
 }
 
-
 bool SceneWindow::IsMouseInFBO()
 {
     ImVec2 mousePos = ImGui::GetMousePos();
@@ -156,6 +164,26 @@ bool SceneWindow::IsMouseInFBO()
         mousePos.x <= fboPos.x + fboSize.x &&
         mousePos.y >= fboPos.y &&
         mousePos.y <= fboPos.y + fboSize.y;
+}
+
+Vector2D SceneWindow::ConvertScreenToFBO()
+{
+    if (!IsMouseInFBO())
+    {
+        return { -999.0f, -999.0f };
+    }
+    ImVec2 mousePos = ImGui::GetMousePos();
+    ImVec2 fboPos = ImGui::GetItemRectMin();
+    ImVec2 fboSize = ImGui::GetItemRectSize();
+
+    // Calculate the relative position within the FBO
+    float fboX = mousePos.x - fboPos.x;
+    float fboY = mousePos.y - fboPos.y;
+
+    fboX = std::clamp(fboX, 0.0f, fboSize.x);
+    fboY = std::clamp(fboY, 0.0f, fboSize.y);
+
+    return Vector2D(fboX, fboY);
 }
 
 Vector2D SceneWindow::ConvertScreenToWorld()
@@ -181,6 +209,31 @@ Vector2D SceneWindow::ConvertScreenToWorld()
     return Vector2D(worldX, worldY);
 }
 
+Vector2D SceneWindow::ConvertWorldToScreen(const Vector2D& worldPos)
+{
+    Vector2D cameraPos = CameraManager::GetPosition();
+    float cameraHeight = static_cast<float>(CameraManager::GetHeight());
+    float aspectRatio = CameraManager::GetAR();
+    float cameraWidth = cameraHeight * aspectRatio;
+
+    ImVec2 fboSize = ImGui::GetContentRegionAvail();
+    float normalizedX = (worldPos.x - cameraPos.x) / (cameraWidth / 2.0f);
+    float normalizedY = (worldPos.y - cameraPos.y) / (cameraHeight / 2.0f);
+
+    float screenX = (normalizedX + 1.0f) * fboSize.x / 2.0f;
+    float screenY = (1.0f - normalizedY) * fboSize.y / 2.0f;
+
+    ImVec2 fboPos = ImGui::GetItemRectMin();
+    return Vector2D(fboPos.x + screenX, fboPos.y + screenY);
+}
+
+Vector2D SceneWindow::GetWorldScale()
+{
+    ImVec2 fboSize = ImGui::GetContentRegionAvail();
+    Vector2D worldScale((CameraManager::GetHeight() * CameraManager::GetAR()) / fboSize.x, CameraManager::GetHeight() / fboSize.y);
+    return worldScale;
+}
+
 void SceneWindow::HandleEntityDragging()
 {
     Vector2D currentMousePos = ConvertScreenToWorld();
@@ -204,10 +257,10 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
     {
         auto* transform = std::static_pointer_cast<TransformComponent>(component).get();
 
-        float left = transform->position.x - transform->scale.x;
-        float right = transform->position.x + transform->scale.x;
-        float top = transform->position.y - transform->scale.y;
-        float bottom = transform->position.y + transform->scale.y;
+        float left = transform->position.x - transform->scale.x / 2;
+        float right = transform->position.x + transform->scale.x / 2;
+        float top = transform->position.y - transform->scale.y / 2;
+        float bottom = transform->position.y + transform->scale.y / 2;
 
         if (worldPos.x >= left && worldPos.x <= right &&
             worldPos.y >= top && worldPos.y <= bottom)

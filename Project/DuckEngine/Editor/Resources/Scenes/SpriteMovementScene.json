@@ -1,6 +1,7 @@
 {
     "gameObjects": {
-        "Background": {
+        "BackgroundGameObject": {
+            "layer": "Background",
             "components": [
                 {
                     "properties": {
@@ -30,24 +31,93 @@
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": true,
+                        "soundID": "../Resources/Sounds/gameplay bgm - unmastered.mp3",
+                        "volume": 0.30000001192092896
+                    },
+                    "type": "SoundComponent"
                 }
             ]
         },
-        "Duck": {
+        "CabbageStockPrefab": {
             "position": {
-                "x": 8.0,
-                "y": 8.0
-            },
-            "prefab": "DuckPrefab"
-        },
-        "GameObject 10": {
-            "position": {
-                "x": -12.732027053833008,
-                "y": -4.928057670593262
+                "x": 1.8888899087905884,
+                "y": -2.9856116771698
             },
             "prefab": "CabbageStockPrefab"
         },
-        "GameObject 9": {
+        "CuttingTablePrefab": {
+            "position": {
+                "x": 6.074074745178223,
+                "y": 0.28777003288269043
+            },
+            "prefab": "CuttingTablePrefab"
+        },
+        "DuckPrefab": {
+            "position": {
+                "x": 4.962963581085205,
+                "y": 6.510791778564453
+            },
+            "prefab": "DuckPrefab"
+        },
+        "Player": {
+            "position": {
+                "x": -2.7769999504089355,
+                "y": 0.0
+            },
+            "prefab": "PlayerPrefab"
+        },
+        "buttonBox": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -700.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 200.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 200.0,
+                            "y": 100.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ]
+        },
+        "textBox": {
             "components": [
                 {
                     "properties": {
@@ -66,113 +136,35 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
+                            "a": 250.0,
+                            "b": 100.0,
+                            "g": 50.0,
                             "r": 255.0
                         },
-                        "layer": 2,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ]
-        },
-        "Obstacle1": {
-            "position": {
-                "x": -8.0,
-                "y": 0.0
-            },
-            "prefab": "CuttingTablePrefab"
-        },
-        "Obstacle2": {
-            "position": {
-                "x": -5.0,
-                "y": -2.7780001163482666
-            },
-            "prefab": "CabbageStockPrefab"
-        },
-        "Obstacle3": {
-            "position": {
-                "x": -8.333000183105469,
-                "y": -7.7779998779296875
-            },
-            "prefab": "TomatoStockPrefab"
-        },
-        "Obstacle4": {
-            "position": {
-                "x": -6.111000061035156,
-                "y": -7.7779998779296875
-            },
-            "prefab": "TomatoStockPrefab"
-        },
-        "Obstacle5": {
-            "position": {
-                "x": 10.0,
-                "y": -5.0
-            },
-            "prefab": "TomatoStockPrefab"
-        },
-        "Player": {
-            "position": {
-                "x": -2.7769999504089355,
-                "y": 0.0
-            },
-            "prefab": "PlayerPrefab"
-        },
-        "obstacleObject4": {
-            "components": [
-                {
-                    "properties": {
+                        "fontSize": 1,
                         "position": {
                             "x": 0.0,
-                            "y": 5.0
+                            "y": 0.0
                         },
-                        "relativeToCamera": true,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
+                        "text": "TEST TEXT COMPONENT"
                     },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "layer": 1,
-                        "sprite": true,
-                        "texture": "../Resources/Crate.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 0.0,
-                            "y": 5.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
+                    "type": "TextComponent"
                 }
             ]
+        }
+    },
+    "layers": {
+        "Background": {
+            "order": 0,
+            "visible": true
+        },
+        "Gameplay": {
+            "order": 1,
+            "visible": true
+        },
+        "UI": {
+            "order": 2,
+            "visible": true
         }
     }
 }

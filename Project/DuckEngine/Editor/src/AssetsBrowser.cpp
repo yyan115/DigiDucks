@@ -32,7 +32,7 @@ void AssetsBrowser::ShowAssets() {
     ImGui::EndChild();
 }
 
-// Renders top-level directories in the Resources folder dynamically
+// Renders top-level directories in the Resources folder
 void AssetsBrowser::RenderDirectoryTree() {
     const std::string rootPath = "../Resources";
     const std::string prefabsPath = rootPath + "/Prefabs";
@@ -70,52 +70,66 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
     int itemsPerRow = 4;
     int itemIndex = 0;
-    static std::string selectedAsset = ""; // Store the selected asset's file path
+    static std::string selectedAsset = "";
 
     // Iterate over files in the selected folder and display them in a grid
     for (const auto& entry : fs::recursive_directory_iterator(path)) {
-        if (entry.is_directory()) continue;  // Skip directories in the right pane
+        if (entry.is_directory()) continue;
 
         std::string fileName = entry.path().filename().string();
         std::string fileExtension = entry.path().extension().string();
         std::string normalizedPath = NormalizePath(entry.path().string());  // Normalize the path
-        ImGui::PushID(itemIndex);
-        std::cout << "File: " << normalizedPath << std::endl;  // Verify normalized path output
+        ImGui::PushID(normalizedPath.c_str());
 
-        // Check if the file is a texture (image file)
+        // Check if the file is a texture
         if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
             auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
 
             // If texture is valid, display it as an image
             if (texture) {
-                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0,1), ImVec2(1,0)); // Display thumbnail
+                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0,1), ImVec2(1,0));
             }
             else {
-                ImGui::Button(fileName.c_str(), ImVec2(100, 100)); // Fallback if texture is not loaded
+                DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath); // Load the texture if not already loaded
+                ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+            }
+
+            // Set up drag-and-drop source for sprites
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1); // Payload is the texture path
+                ImGui::Text("Drag %s", fileName.c_str());
+                ImGui::EndDragDropSource();
+            }
+
+            // Open context menu on right-click
+            if (ImGui::BeginPopupContextItem(("Replace##" + normalizedPath).c_str())) {
+                // Replace the asset with the new file
+                if (ImGui::MenuItem("Replace texture")) {
+                    std::string newFilePath = LevelManager::OpenFileDialog("texture");
+                    if (!newFilePath.empty()) {
+                        ReplaceAsset(normalizedPath, newFilePath); 
+                    }
+                }
+                ImGui::EndPopup();
+            }
+            
+        }
+        else if (fileExtension == ".ogg" || fileExtension == ".mp3" || fileExtension == ".wav") {
+
+            ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+
+            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
+                ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
+                ImGui::Text("Drag %s", fileName.c_str());
+                ImGui::EndDragDropSource();
             }
         }
         else {
-            // Non-texture files can still be displayed as buttons
+            // Non-texture files displayed as buttons
             ImGui::Button(fileName.c_str(), ImVec2(100, 100));
         }
 
-        // Set up drag-and-drop source for sprites
-        if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-            ImGui::SetDragDropPayload("SPRITE_PAYLOAD", entry.path().string().c_str(), entry.path().string().size() + 1); // Payload is the texture path
-            ImGui::Text("Drag %s", fileName.c_str());
-            ImGui::EndDragDropSource();
-        }
-
-        // Open context menu on right-click
-        //if (ImGui::BeginPopupContextItem()) {
-        //    if (ImGui::MenuItem("Replace Asset")) {
-        //        std::string newFilePath = LevelManager::OpenFileDialog("texture");
-        //        if (!newFilePath.empty()) {
-        //            ReplaceAsset(entry.path().string(), newFilePath); // Replace the asset with the new file
-        //        }
-        //    }
-        //    ImGui::EndPopup();
-        //}
+        
 
         if ((itemIndex + 1) % itemsPerRow != 0) {
             ImGui::SameLine();
@@ -138,7 +152,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
         // Retrieve and display prefab texture
         if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0)); // Display texture thumbnail
+            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0));\
         }
         else {
             ImGui::Button(prefabName.c_str(), ImVec2(100, 100)); // Fallback button if no texture is found
@@ -161,41 +175,30 @@ void AssetsBrowser::RenderPrefabsGrid() {
 }
 
 void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& newPath) {
-    // Unload the current asset in memory
-    std::string fileName = fs::path(oldPath).filename().string();
-    if (DuckEngine::DUCKENGINE_AssetManager.IsTextureLoaded(fileName)) {
-        DuckEngine::DUCKENGINE_AssetManager.UnloadTexture(fileName); // Unload the texture to free file
+    // Unload the current asset if loaded
+    if (DuckEngine::DUCKENGINE_AssetManager.IsTextureLoaded(oldPath)) {
+        DuckEngine::DUCKENGINE_AssetManager.UnloadTexture(oldPath);
     }
 
-    // Copy new asset to a temporary file location
-    std::string tempPath = oldPath + ".tmp";
+    // Replace the original file with the new file
     try {
-        fs::copy(newPath, tempPath, fs::copy_options::overwrite_existing);
+        std::filesystem::copy(newPath, oldPath, std::filesystem::copy_options::overwrite_existing);
     }
-    catch (const fs::filesystem_error& e) {
-        std::cerr << "Error copying to temp file: " << e.what() << std::endl;
-        return;
-    }
-
-    // Remove the original file after unloading, then move the temp file to the original path
-    try {
-        fs::remove(oldPath);
-        fs::rename(tempPath, oldPath);
-    }
-    catch (const fs::filesystem_error& e) {
+    catch (const std::filesystem::filesystem_error& e) {
         std::cerr << "Error replacing asset: " << e.what() << std::endl;
         return;
     }
 
     // Reload the texture to update the in-memory reference
-    DuckEngine::DUCKENGINE_AssetManager.ReloadTexture(fileName, oldPath);
+    DuckEngine::DUCKENGINE_AssetManager.ReloadTexture(oldPath, oldPath);
 
-    // Refresh entities or components using this asset
-    auto entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
-    for (auto& entity : entities) {
-        if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID)) {
-            if (spriteRenderer->texturePath == oldPath) {
-                spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture(fileName);
+    // Update only entities that use this texture
+    for (auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities()) {
+        int entityID = entity.entityID;
+        if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SpriteRendererComponent>(entityID)) {
+            auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
+            if (spriteRenderer && spriteRenderer->texturePath == oldPath) {
+                spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture(oldPath);
             }
         }
     }

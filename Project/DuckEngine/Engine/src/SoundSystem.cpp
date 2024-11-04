@@ -1,6 +1,7 @@
 #include "AssetManager.h"
 #include "SoundSystem.h"
 #include "SoundComponent.h"
+#include "SceneWindow.h"
 #include <iostream>
 
 void SoundSystem::Start() {
@@ -24,15 +25,37 @@ void SoundSystem::Start() {
 
 
 void SoundSystem::Update() {
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-
-        if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-            soundComponent->Play();
-        }
-    }
-
     AssetManager::GetFMODSystem()->update();
 }
 
+
+void SoundSystem::StopAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            soundComponent->Stop();  // Stop each sound
+		}
+    }
+    std::cout << "All sounds stopped." << std::endl;
+}
+
+void SoundSystem::PauseAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            //soundComponent.pause(true);  // Stop each sound
+        }
+    }
+    std::cout << "All sounds paused." << std::endl;
+}
+
+void SoundSystem::ResumeAllSounds() {
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+        if (soundComponent) {
+            //soundComponent.pause(false);  // Stop each sound
+        }
+    }
+    std::cout << "All sounds resumed." << std::endl;
+}
 

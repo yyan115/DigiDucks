@@ -13,7 +13,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 #include "ComponentFactory.h"
 
-
 // Implementation of the function to add components to an entity based on the JSON data
 /************************************************************************
 @brief Adds various components to an entity based on the provided JSON data.
@@ -25,113 +24,65 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
 {
     for (const auto& componentData : componentsData)
     {
-        std::string componentType = componentData["type"];
-
-        // TransformComponent
-        if (componentType == "TransformComponent")
+        std::shared_ptr<Component> component = CreateComponentFromJson(componentData);
+        if (component)
         {
-            Vec2 position = Serialization::GetVec2(componentData["properties"], "position", Vec2(0.0f, 0.0f));
-            Vec2 scale = Serialization::GetVec2(componentData["properties"], "scale", Vec2(1.0f, 1.0f));
-            bool relativeToCamera = componentData["properties"].value("relativeToCamera", true);
-
-            // Create and add the TransformComponent
-            auto transform = std::make_shared<TransformComponent>(position, scale);
-            transform->relativeToCamera = relativeToCamera;
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->entityID, *transform);
-        }
-        // SpriteRendererComponent
-        else if (componentType == "SpriteRendererComponent")
-        {
-            bool sprite = componentData["properties"].value("sprite", true);
-            int layer = componentData["properties"].value("layer", 0);
-            std::string texturePath = componentData["properties"].value("texture", "");
-            bool useColor = componentData["properties"].value("useColor", false);
-
-            // Extract color with default values
-            Color color = { 255, 255, 255, 255 };
-            if (componentData["properties"].contains("color")) {
-                color.r = static_cast<float>(componentData["properties"]["color"].value("r", 255));
-                color.g = static_cast<float>(componentData["properties"]["color"].value("g", 255));
-                color.b = static_cast<float>(componentData["properties"]["color"].value("b", 255));
-                color.a = static_cast<float>(componentData["properties"]["color"].value("a", 255));
-            }
-
-            // Load the texture
-            Texture texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(texturePath.c_str())[0];
-
-            // Create and add the SpriteRendererComponent
-            auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
-            spriteRenderer->texture = texture;
-            spriteRenderer->texturePath = texturePath;
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, *spriteRenderer);
-        
-            AnimatorComponent* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity->entityID);
-            if (animator && animator->currentAnimation) {
-                // If the AnimatorComponent is present and it has a current animation, use the first frame
-                texture = animator->currentAnimation->Frames[0];
-            }
-        }
-        // BoundingBox
-        else if (componentType == "BoundingBox")
-        {
-            Vec2 center = Serialization::GetVec2(componentData["properties"], "center", Vec2(0.0f, 0.0f));
-            Vec2 size = Serialization::GetVec2(componentData["properties"], "size", Vec2(1.0f, 1.0f));
-
-            // Create and add the BoundingBox
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entity->entityID, center, size);
-        }
-        // BoundingCircle
-        else if (componentType == "BoundingCircle")
-        {
-            float radius = componentData["properties"]["radius"];
-            Vec2 center = Serialization::GetVec2(componentData["properties"], "center", Vec2(0.0f, 0.0f));
-
-            // Create and add the BoundingCircle
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entity->entityID, center, radius);
-        }
-        // RigidbodyComponent
-        else if (componentType == "RigidbodyComponent")
-        {
-            bool isStaticComponent = componentData["properties"].value("isStatic", false);
-
-            // Create and add the RigidbodyComponent
-            auto rbComponent = std::make_shared<RigidbodyComponent>();
-            rbComponent->isStatic = isStaticComponent;
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(entity->entityID, *rbComponent);
-        }
-        // AnimatorComponent
-        else if (componentType == "AnimatorComponent")
-        {
-            auto animator = std::make_shared<AnimatorComponent>();
-            std::vector<std::shared_ptr<Texture>> textures;
-            if (componentData["properties"].contains("animations"))
+            // Add the component to the entity
+            // Handle special cases if necessary
+            if (auto transform = std::dynamic_pointer_cast<TransformComponent>(component))
             {
-                for (const auto& animData : componentData["properties"]["animations"])
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->entityID, *transform);
+            }
+            else if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
+            {
+                // Load the texture
+                if (!spriteRenderer->texturePath.empty())
                 {
-                    std::string animName = animData["name"];
-                    std::string textureResource = animData["texture"];
-                    float frameDuration = animData["frameDuration"];
+                    spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath.c_str())[0];
+                }
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, *spriteRenderer);
 
-                    textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str());
-                    
-                    animator->AddAnimation(animName, textures, textureResource, frameDuration);
+                // Check for AnimatorComponent dependency
+                AnimatorComponent* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity->entityID);
+                if (animator && animator->currentAnimation)
+                {
+                    // If the AnimatorComponent is present and it has a current animation, use the first frame
+                    spriteRenderer->texture = animator->currentAnimation->Frames[0];
                 }
             }
-            // Add the AnimatorComponent to the entity
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entity->entityID, *animator);
+            else if (auto animator = std::dynamic_pointer_cast<AnimatorComponent>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entity->entityID, *animator);
+            }
+            else if (auto soundComponent = std::dynamic_pointer_cast<SoundComponent>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(entity->entityID, *soundComponent);
+            }
+            else if (auto boundingBox = std::dynamic_pointer_cast<BoundingBox>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entity->entityID, *boundingBox);
+            }
+            else if (auto boundingCircle = std::dynamic_pointer_cast<BoundingCircle>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entity->entityID, *boundingCircle);
+            }
+            else if (auto rigidbody = std::dynamic_pointer_cast<RigidbodyComponent>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(entity->entityID, *rigidbody);
+            }
+            else if (auto textComponent = std::dynamic_pointer_cast<TextComponent>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(entity->entityID, *textComponent);
+            }
+            else if (auto buttonComponent = std::dynamic_pointer_cast<ButtonComponent>(component))
+            {
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(entity->entityID, *buttonComponent);
+            }
         }
-        // Sound Component
-        else if (componentType == "SoundComponent") 
+        else
         {
-            std::string soundID = componentData["properties"].value("soundID", "");
-            bool loop = componentData["properties"].value("loop", false);
-            bool playOnStart = componentData["properties"].value("playOnStart", false);
-            float volume = componentData["properties"].value("volume", 1.0f);
-
-            auto soundComponent = std::make_shared<SoundComponent>(soundID, loop, playOnStart, volume);
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SoundComponent>(entity->entityID, *soundComponent);
+            std::cerr << "Failed to create component from JSON data" << std::endl;
         }
-
     }
 }
 
@@ -140,7 +91,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     componentsArray.clear();
 
     // Save TransformComponent.
-    if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID)) 
+    if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
     {
         json transformData;
         transformData["type"] = "TransformComponent";
@@ -159,7 +110,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     }
 
     // Save SpriteRendererComponent.
-    if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID)) 
+    if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID))
     {
         json spriteData;
         spriteData["type"] = "SpriteRendererComponent";
@@ -178,7 +129,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     }
 
     // Save BoundingBox.
-    if (auto* boundingBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityID)) 
+    if (auto* boundingBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityID))
     {
         json boundingBoxData;
         boundingBoxData["type"] = "BoundingBox";
@@ -196,7 +147,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     }
 
     // Save BoundingCircle.
-    if (auto* boundingCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityID)) 
+    if (auto* boundingCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityID))
     {
         json boundingCircleData;
         boundingCircleData["type"] = "BoundingCircle";
@@ -210,7 +161,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     }
 
     // Save RigidbodyComponent.
-    if (auto* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityID)) 
+    if (auto* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityID))
     {
         json rigidbodyData;
         rigidbodyData["type"] = "RigidbodyComponent";
@@ -221,15 +172,16 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
     // Save SoundComponent.
     if (auto* sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(entityID))
     {
-        json SoundData;
-        SoundData["type"] = "SoundComponent";
-        SoundData["properties"]["SoundID"] = sound->soundID;
-        SoundData["properties"]["loop"] = sound->loop;
-        SoundData["properties"]["playOnStart"] = sound->playOnStart;
-        SoundData["properties"]["volume"] = sound->volume;
-        componentsArray.push_back(SoundData);
+        json soundData;
+        soundData["type"] = "SoundComponent";
+        soundData["properties"]["soundID"] = sound->soundID;
+        soundData["properties"]["loop"] = sound->loop;
+        soundData["properties"]["playOnStart"] = sound->playOnStart;
+        soundData["properties"]["volume"] = sound->volume;
+        componentsArray.push_back(soundData);
     }
 
+    // Save AnimatorComponent.
     if (auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entityID))
     {
         json animatorData;
@@ -241,7 +193,6 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
             json animationData;
             animationData["name"] = animName;
             animationData["frameDuration"] = animation.frameDuration;
-
             animationData["texture"] = animation.animationFilePath;
 
             animatorData["properties"]["animations"].push_back(animationData);
@@ -249,8 +200,46 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 
         componentsArray.push_back(animatorData);
     }
-}
 
+    if (auto* textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entityID))
+    {
+        json textData;
+        textData["type"] = "TextComponent";
+        textData["properties"]["text"] = textComponent->text;
+        textData["properties"]["position"] =
+        {
+            {"x", textComponent->position.x},
+            {"y", textComponent->position.y}
+        };
+        textData["properties"]["fontSize"] = textComponent->fontSize;
+        textData["properties"]["color"] =
+        {
+            {"r", textComponent->color.r},
+            {"g", textComponent->color.g},
+            {"b", textComponent->color.b},
+            {"a", textComponent->color.a}
+        };
+        componentsArray.push_back(textData);
+    }
+
+    // Save ButtonComponent.
+    if (auto* buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(entityID))
+    {
+        json buttonData;
+        buttonData["type"] = "ButtonComponent";
+        buttonData["properties"]["minPos"] =
+        {
+            {"x", buttonComponent->minPos.x},
+            {"y", buttonComponent->minPos.y}
+        };
+        buttonData["properties"]["maxPos"] =
+        {
+            {"x", buttonComponent->maxPos.x},
+            {"y", buttonComponent->maxPos.y}
+        };
+        componentsArray.push_back(buttonData);
+    }
+}
 
 std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohmann::json& componentJson)
 {
@@ -266,35 +255,26 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
         transformComponent->relativeToCamera = relativeToCamera;
         return transformComponent;
     }
-
-    else if (type == "RigidbodyComponent")
-    {
-        auto rbComponent = std::make_shared<RigidbodyComponent>();
-        rbComponent->isStatic = componentJson["properties"].value("isStatic", false);
-        return rbComponent;
-    }
-
     else if (type == "SpriteRendererComponent")
     {
-        bool sprite = componentJson["properties"]["sprite"];
-        int layer = componentJson["properties"]["layer"];
-        std::string texturePath = componentJson["properties"]["texture"];
-        bool useColor = componentJson["properties"]["useColor"];
+        bool sprite = componentJson["properties"].value("sprite", true);
+        int layer = componentJson["properties"].value("layer", 0);
+        std::string texturePath = componentJson["properties"].value("texture", "");
+        bool useColor = componentJson["properties"].value("useColor", false);
 
-        Color color;
+        Color color{ 255, 255, 255, 255 };
         if (componentJson["properties"].contains("color"))
         {
-            color.r = componentJson["properties"]["color"]["r"];
-            color.g = componentJson["properties"]["color"]["g"];
-            color.b = componentJson["properties"]["color"]["b"];
-            color.a = componentJson["properties"]["color"]["a"];
+            color.r = static_cast<float>(componentJson["properties"]["color"].value("r", 255));
+            color.g = static_cast<float>(componentJson["properties"]["color"].value("g", 255));
+            color.b = static_cast<float>(componentJson["properties"]["color"].value("b", 255));
+            color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
         }
 
         auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
         spriteRenderer->texturePath = texturePath;
         return spriteRenderer;
     }
-
     else if (type == "BoundingBox")
     {
         Vec2 center = Serialization::GetVec2(componentJson["properties"], "center", Vec2(0.0f, 0.0f));
@@ -303,7 +283,6 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
         auto boundingBox = std::make_shared<BoundingBox>(center, size);
         return boundingBox;
     }
-
     else if (type == "BoundingCircle")
     {
         Vec2 center = Serialization::GetVec2(componentJson["properties"], "center", Vec2(0.0f, 0.0f));
@@ -312,11 +291,15 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
         auto boundingCircle = std::make_shared<BoundingCircle>(center, radius);
         return boundingCircle;
     }
-
+    else if (type == "RigidbodyComponent")
+    {
+        auto rbComponent = std::make_shared<RigidbodyComponent>();
+        rbComponent->isStatic = componentJson["properties"].value("isStatic", false);
+        return rbComponent;
+    }
     else if (type == "AnimatorComponent")
     {
         auto animator = std::make_shared<AnimatorComponent>();
-        std::vector<std::shared_ptr<Texture>> textures;
         if (componentJson["properties"].contains("animations"))
         {
             for (const auto& animData : componentJson["properties"]["animations"])
@@ -325,24 +308,50 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
                 std::string textureResource = animData["texture"];
                 float frameDuration = animData["frameDuration"];
 
-                textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str(), 19, 24);
+                // Load textures for animation
+                std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str(), 19, 24);
 
                 animator->AddAnimation(animName, textures, textureResource, frameDuration);
             }
         }
         return animator;
     }
-
-
-
     else if (type == "SoundComponent")
     {
-        auto soundComponent = std::make_shared<SoundComponent>("", false, false, 1.0f);
-        soundComponent->soundID = componentJson["properties"]["soundID"];
-        soundComponent->loop = componentJson["properties"].value("loop", false);
-        soundComponent->playOnStart = componentJson["properties"].value("playOnStart", false);
-        soundComponent->volume = componentJson["properties"].value("volume", 1.0f);
+        std::string soundID = componentJson["properties"].value("soundID", "");
+        bool loop = componentJson["properties"].value("loop", false);
+        bool playOnStart = componentJson["properties"].value("playOnStart", false);
+        float volume = componentJson["properties"].value("volume", 1.0f);
+
+        auto soundComponent = std::make_shared<SoundComponent>(soundID, loop, playOnStart, volume);
         return soundComponent;
+    }
+
+    else if (type == "TextComponent")
+    {
+        std::string text = componentJson["properties"].value("text", "");
+        Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
+        int fontSize = componentJson["properties"].value("fontSize", 12);
+
+        Color color{ 255, 255, 255, 255 };
+        if (componentJson["properties"].contains("color"))
+        {
+            color.r = static_cast<float>(componentJson["properties"]["color"].value("r", 255));
+            color.g = static_cast<float>(componentJson["properties"]["color"].value("g", 255));
+            color.b = static_cast<float>(componentJson["properties"]["color"].value("b", 255));
+            color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
+        }
+
+        auto textComponent = std::make_shared<TextComponent>(text, position, fontSize, color);
+        return textComponent;
+    }
+    else if (type == "ButtonComponent")
+    {
+        Vec2 minPos = Serialization::GetVec2(componentJson["properties"], "minPos", Vec2(0.0f, 0.0f));
+        Vec2 maxPos = Serialization::GetVec2(componentJson["properties"], "maxPos", Vec2(0.0f, 0.0f));
+
+        auto buttonComponent = std::make_shared<ButtonComponent>(minPos, maxPos);
+        return buttonComponent;
     }
 
     std::cerr << "Error: Unknown component type: " << type << std::endl;
