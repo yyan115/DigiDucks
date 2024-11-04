@@ -126,14 +126,14 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)/Engine/lib/glfw/;$(SolutionDir)/Engine/lib/glew/;$(SolutionDir)Engine\lib\FMOD\api\core\lib;%(AdditionalLibraryDirectories);$(SolutionDir)/Engine/lib/freetype/release_static/vs2015-2022/win64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;fmod_vc.lib;%(AdditionalDependencies);freetype.lib</AdditionalDependencies>
       <ProgramDatabaseFile>$(SolutionDir)Engine\DuckEngine\Build\$(TargetName).pdb</ProgramDatabaseFile>
       <ImportLibrary>$(SolutionDir)Build\$(Configuration)\$(TargetName).lib</ImportLibrary>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
 xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
     </PostBuildEvent>
