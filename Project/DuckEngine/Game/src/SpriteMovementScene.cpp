@@ -39,18 +39,6 @@ SoundComponent* playerSound;
 
 BoundingCircle* circle;
 
-// Testing Obstacle
-Entity* obstacle;
-TransformComponent* obstacleTransform;
-RigidbodyComponent* obstacleRb;
-BoundingBox* box;
-
-// 2nd Obstacle
-Entity* obstacle2;
-TransformComponent* obstacle2Transform;
-RigidbodyComponent* obstacle2Rb;
-BoundingCircle* box2;
-
 // Test text
 Entity* textBox;
 TextComponent* textComponent;
@@ -181,7 +169,7 @@ std::vector<Vec2> AStarPathfinding(const Vec2& start, const Vec2& target) {
 *************************************************************************/
 void SpriteMovementScene::Load()
 {
-	DuckEngine::EnableLogging(true);
+	DuckEngine::EnableLogging(false);
 
 	DuckEngine::SetCameraHeight(20);
 
@@ -208,16 +196,6 @@ void SpriteMovementScene::Load()
 
 		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
-
-	obstacle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle1");
-	obstacleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle->entityID);
-	obstacleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle->entityID);
-	box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(obstacle->entityID);
-
-	obstacle2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Obstacle2");
-	obstacle2Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(obstacle2->entityID);
-	obstacle2Rb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(obstacle2->entityID);
-	box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(obstacle2->entityID);
 
 	//background entity
 	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
@@ -306,7 +284,7 @@ void SpriteMovementScene::Load()
 void SpriteMovementScene::Start()
 {
 	//DuckEngine_Sound::PlaySounds("TestSound");
-	DuckEngine::showDebugDraw = true;
+	DuckEngine::showDebugDraw = false;
 }
 
 /************************************************************************
