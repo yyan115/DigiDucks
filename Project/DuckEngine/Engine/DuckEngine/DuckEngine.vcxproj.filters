@@ -139,6 +139,9 @@
     <ClCompile Include="..\src\AnimatorSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="MessagingSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Component.h">
       <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MessagingSystem.h">
+      <Filter>include\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
