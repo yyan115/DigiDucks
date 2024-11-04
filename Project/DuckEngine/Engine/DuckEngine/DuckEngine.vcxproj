@@ -51,6 +51,10 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <PlatformToolset>v143</PlatformToolset>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -71,7 +75,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
@@ -85,17 +89,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)/extern/dotnet/include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(SolutionDir)/extern/dotnet/include;$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <ExternalIncludePath>$(SolutionDir)/extern/dotnet/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -121,7 +129,26 @@
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
+xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"
+@echo off
+set "source=$(SolutionDir)extern\dotnet\bin"
+set "destination=$(OutDir)"
+set retries=5
+set delay=3
+set success=0
+for /L %%i in (1,1,%retries%) do (
+copy /y "%source%" "%destination%" &gt;nul 2&gt;&amp;1
+if %ERRORLEVEL% EQU 0 (
+set success=1
+goto :done
+)
+timeout /t %delay% &gt;nul
+)
+
+:done
+if %success% EQU 0 (
+exit /b 1
+)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
@@ -206,12 +233,64 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\Editor\"
-xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</Command>
+xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"
+
+@echo off
+
+set "source=$(SolutionDir)extern\dotnet\bin"
+
+set "destination=$(OutDir)"
+
+set retries=5
+
+set delay=3
+
+set success=0
+
+
+for /L %%i in (1,1,%retries%) do (
+copy /y "%source%" "%destination%" &gt;nul 2&gt;&amp;1
+ if %ERRORLEVEL% EQU 0 (
+set success=1
+goto :done
+    
+)
+ 
+timeout /t %delay% &gt;nul
+
+)
+
+ 
+:done 
+
+if %success% EQU 0 (
+    
+echo Failed to copy mscordaccore.dll after %retries% attempts.
+
+) 
+else (
+    
+echo Post-build event completed successfully.
+
+)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />
+    <ClInclude Include="..\include\API_Test.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\ButtonComponent.h" />
@@ -274,6 +353,7 @@ xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Editor\Resources"</
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
+    <ClCompile Include="..\src\API_Test.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\ButtonSystem.cpp" />
