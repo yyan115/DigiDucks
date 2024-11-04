@@ -104,7 +104,7 @@ bool AssetManager::IsTextureLoaded(const std::string& fileName) {
 
 // Reloads a texture from a file path and updates the texture map
 void AssetManager::ReloadTexture(const std::string& fileName, const std::string& filePath) {
-	if (IsTextureLoaded(fileName)) {
+	if (!IsTextureLoaded(fileName)) {
 		textureMap[fileName].clear();
 		textureMap[fileName].push_back(LoadTextureFromFile(filePath));
 		std::cout << "Texture reloaded: " << fileName << std::endl;
