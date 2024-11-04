@@ -1,42 +1,46 @@
 
-
 #include "EngineInterface.h"
 #include "Script.h"
 #include "../../Engine/include/API_Test.h"
-#include "../../Engine/include/EntityManager.h"
+
+#pragma warning(disable : 4679)
 
 namespace ScriptAPI
 {
     void EngineInterface::HelloWorld()
     {
-        System::Console::WriteLine("Hello Managed World!");
+        System::Console::Out->WriteLine("Hello Managed World!");
 		Application::HelloWorld();
     }
 
     void EngineInterface::Init()
     {
         System::Reflection::Assembly::LoadFrom("ManagedScript.dll");
-		updateScriptTypeList();
+
+        updateScriptTypeList();
+
+        // Initialize the scripts list
         scripts = gcnew System::Collections::Generic::List<ScriptList^>();
-        // Proceed if the assembly is loaded successfully
         for (int i = 0; i < 2; ++i) {
-			scripts->Add(gcnew ScriptList());
+            scripts->Add(gcnew ScriptList());
         }
     }
 
 
     namespace
     {
-        /* Select Many */
+        /* Struct to Hold Assembly and Type Information */
         ref struct Pair {
             System::Reflection::Assembly^ assembly;
             System::Type^ type;
         };
 
-        System::Collections::Generic::IEnumerable<System::Type^>^ selectorFunc(System::Reflection::Assembly^ assembly) {
+        // Function to Get Exported Types from an Assembly
+        System::Collections::Generic::IEnumerable<System::Type^>^ assemblySelectorFunc(System::Reflection::Assembly^ assembly) {
             return assembly->GetExportedTypes();
         }
 
+        // Function to Create a Pair of Assembly and Type
         Pair^ resultSelectorFunc(System::Reflection::Assembly^ assembly, System::Type^ type) {
             Pair^ p = gcnew Pair();
             p->assembly = assembly;
@@ -44,14 +48,15 @@ namespace ScriptAPI
             return p;
         }
 
-        /* Where */
+        // Predicate to Filter Concrete Classes That Subclass Script
         bool predicateFunc(Pair^ pair) {
-            return pair->type->IsSubclassOf(Script::typeid) && !pair->type->IsAbstract;
+            return pair != nullptr && pair->type != nullptr &&
+                pair->type->IsSubclassOf(Script::typeid) && !pair->type->IsAbstract;
         }
 
-        /* Select */
-        System::Type^ selectorFunc(Pair^ pair) {
-            return pair->type;
+        // Function to Select Type from Pair
+        System::Type^ typeSelectorFunc(Pair^ pair) {
+            return pair != nullptr ? pair->type : nullptr;
         }
     }
 
@@ -59,20 +64,46 @@ namespace ScriptAPI
     {
         using namespace System;
         using namespace System::Reflection;
-        using namespace System::Linq;
         using namespace System::Collections::Generic;
+
         /* Select Many: Types in Loaded Assemblies */
         IEnumerable<Assembly^>^ assemblies = AppDomain::CurrentDomain->GetAssemblies();
-        Func<Assembly^, IEnumerable<Type^>^>^ collectionSelector = gcnew Func<Assembly^, IEnumerable<Type^>^>(selectorFunc);
-        Func<Assembly^, Type^, Pair^>^ resultSelector = gcnew Func<Assembly^, Type^, Pair^>(resultSelectorFunc);
-        IEnumerable<Pair^>^ selectManyResult = Enumerable::SelectMany(assemblies, collectionSelector, resultSelector);
+        List<Pair^>^ selectManyResult = gcnew List<Pair^>();
+        for each (System::Reflection::Assembly ^ assembly in assemblies)
+        {
+            auto types = assemblySelectorFunc(assembly); // GetExportedTypes for each assembly
+            for each (System::Type ^ type in types)
+            {
+                Pair^ pair = resultSelectorFunc(assembly, type); // Create Pair
+                selectManyResult->Add(pair);
+            }
+        }
+
         /* Where: Are concrete Scripts */
-        Func<Pair^, bool>^ predicate = gcnew Func<Pair^, bool>(predicateFunc);
-        IEnumerable<Pair^>^ whereResult = Enumerable::Where(selectManyResult, predicate);
-        /* Select: Select them all */
-        Func<Pair^, Type^>^ selector = gcnew Func<Pair^, Type^>(selectorFunc);
-        scriptTypeList = Enumerable::Select(whereResult, selector);
+        List<Pair^>^ whereResult = gcnew List<Pair^>();
+        for each (Pair ^ pair in selectManyResult)
+        {
+            if (predicateFunc(pair)) // Apply the predicate function to each Pair
+            {
+                whereResult->Add(pair);
+            }
+        }
+
+        /* Select: Select all types that match the predicate */
+        List<System::Type^>^ localScriptTypeList = gcnew List<System::Type^>();
+        for each (Pair ^ pair in whereResult)
+        {
+            System::Type^ type = typeSelectorFunc(pair);
+            if (type != nullptr) // Ensure the selected type is not null
+            {
+                localScriptTypeList->Add(type);
+            }
+        }
+
+        // Assign to the class-level scriptTypeList if needed
+        EngineInterface::scriptTypeList = localScriptTypeList;
     }
+
 
     bool EngineInterface::AddScriptViaName(int entityId, System::String^ scriptName)
     {
