@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "jh0nOMvxmkc=",
+  "dgSpecHash": "rqV5JeHNRTc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+  "projectFilePath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
   "expectedPackageFiles": [
-    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.34\\microsoft.windows.sdk.net.ref.10.0.22621.34.nupkg.sha512"
+    "C:\\Users\\Brownies\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.44\\microsoft.windows.sdk.net.ref.10.0.22621.44.nupkg.sha512"
   ],
   "logs": []
 }

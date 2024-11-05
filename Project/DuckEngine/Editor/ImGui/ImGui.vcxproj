@@ -297,7 +297,8 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"</Command>
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"
+xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

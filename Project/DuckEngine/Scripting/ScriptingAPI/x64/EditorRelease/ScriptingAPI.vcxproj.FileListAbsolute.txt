@@ -1,0 +1,5 @@
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Build\EditorRelease\Ijwhost.dll
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.deps.json
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.runtimeconfig.json
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Scripting\ScriptingAPI\x64\EditorRelease\ScriptingAPI.sourcelink.json
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Scripting\ScriptingAPI\x64\EditorRelease\ScriptingAPI.genruntimeconfig.cache

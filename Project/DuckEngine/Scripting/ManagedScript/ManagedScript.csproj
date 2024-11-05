@@ -7,6 +7,7 @@
 		<BaseOutputPath>$(SolutionDir)Build\</BaseOutputPath>
 		<PackageOutputPath></PackageOutputPath>
 		<Platforms>AnyCPU;x64</Platforms>
+		<Configurations>Debug;Release;EditorDebug;EditorRelease</Configurations>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -15,7 +16,19 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|AnyCPU'">
+	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
 	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
@@ -27,7 +40,19 @@
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|AnyCPU'">
+	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
+	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
 	  <OutputPath>$(SolutionDir)Build\$(Configuration)\</OutputPath>
 	  <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	  <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
@@ -39,7 +64,17 @@
 	</PropertyGroup>
 	
 	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|AnyCPU'">
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
 	  <WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	
@@ -47,7 +82,15 @@
 	  <WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|AnyCPU'">
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
 	  <WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 	
