@@ -291,7 +291,7 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib\EditorDebug\;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -348,7 +348,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib;$(SolutionDir)Game\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib;$(SolutionDir)Game\lib\EditorRelease\</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;fmod_vc.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>

@@ -1,0 +1,46 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(516,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  main.cpp
+  GameManager.cpp
+  MaxLoadScene.cpp
+  SpriteMovementScene.cpp
+  Generating Code...
+  Quack_Kitchen.vcxproj -> C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\background.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
+  C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
+  37 File(s) copied

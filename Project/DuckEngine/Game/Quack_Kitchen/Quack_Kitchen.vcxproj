@@ -92,15 +92,15 @@
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
-    <OutDir>$(SolutionDir)\Game\lib\</OutDir>
-    <IntDir>$(SolutionDir)\Game\lib\</IntDir>
+    <OutDir>$(SolutionDir)\Game\lib\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)\Game\lib\$(Configuration)</IntDir>
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
-    <OutDir>$(SolutionDir)\Game\lib\</OutDir>
-    <IntDir>$(SolutionDir)\Game\lib\</IntDir>
+    <OutDir>$(SolutionDir)\Game\lib\$(Configuration)</OutDir>
+    <IntDir>$(SolutionDir)\Game\lib\$(Configuration</IntDir>
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>

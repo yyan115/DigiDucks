@@ -1,0 +1,15 @@
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\Ijwhost.dll
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\ManagedScript.deps.json
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\ManagedScript.dll
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\ManagedScript.pdb
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.csproj.AssemblyReference.cache
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.AssemblyInfoInputs.cache
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.AssemblyInfo.cs
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.csproj.CoreCompileInputs.cache
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.sourcelink.json
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedS.6091FA49.Up2Date
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.dll
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\refint\ManagedScript.dll
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ManagedScript.pdb
+C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\obj\x64\EditorDebug\ref\ManagedScript.dll
