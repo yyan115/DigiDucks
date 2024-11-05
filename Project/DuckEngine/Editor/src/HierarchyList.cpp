@@ -20,10 +20,12 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
             // If it's a prefab and has a custom name, use the custom name
             if (!entity.name.empty()) {
                 entityLabel = entity.name;
+				
             }
             else {
                 // Generate a label based on the prefab name and instance count
                 int& count = prefabInstanceCounts[entity.prefabName];
+                std::cout << "Prefab count: " << count << std::endl;
                 entityLabel = entity.prefabName;
                 if (count > 0) {
                     entityLabel += " (" + std::to_string(count) + ")";

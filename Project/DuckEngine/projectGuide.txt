@@ -1,9 +1,15 @@
-Configuration Setup: Set Quack_Kitchen module as startup project if it is not the startup project
+Configuration Setup:
+Debug: Set Quack_Kitchen module as startup project
+EditorDebug: Set LevelEditor module as startup project
+Release: Set Quack_Kitchen module as startup project
+EditorRelease: Set LevelEditor module as startup project
 
 Projects:
-ImGui: Handles the imgui backend
+LevelEditor: Handles the level editor backend
 DuckEngine: Handles the backend engine
 Quack_Kitchen: Handles the game itself
 
-How to turn on/off ImGui Windows:
-Press P
+How to turn on/off level editor:
+Offline. 
+To turn it on, Change configuration to EditorRelease, and Set LevelEditor module as startup project. Then, clean, rebuild solution and run.
+To turn it ff, Change configuration to Release, and Set Quack_Kitchen module as startup project. Then, clean, rebuild solution and run.

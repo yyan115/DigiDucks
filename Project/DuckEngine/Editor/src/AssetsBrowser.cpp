@@ -152,7 +152,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
         // Retrieve and display prefab texture
         if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0));\
+            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0));
         }
         else {
             ImGui::Button(prefabName.c_str(), ImVec2(100, 100)); // Fallback button if no texture is found
