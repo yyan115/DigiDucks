@@ -21,6 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
 #include "ResourcePath.h"
+#include "RoamingLogic.h"
 #include <vector>
 #include <queue>
 #include <map>
@@ -52,6 +53,11 @@ Entity* testUI;
 
 // no texture sprite
 Entity* noTextureEntity;
+
+// Test Roaming Logic
+Entity* duckEntity;
+Vec2 pos1 = { 10.f, 10.f };
+Vec2 pos2 = { -10.f, 10.f };
 
 struct MyStruct {
 	int x;
@@ -275,6 +281,11 @@ void SpriteMovementScene::Load()
 	//(buttonComponent->minPos.y + buttonComponent->maxPos.y) / 2
 	//};
 	//buttonTransform->relativeToCamera = false;
+
+	//Roaming Logic
+	duckEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Duck");
+	RigidbodyComponent* duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duckEntity->entityID);
+	duckRb->isStatic = false;
 }
 
 /************************************************************************
@@ -421,6 +432,9 @@ void SpriteMovementScene::Update()
 			soundComponent->Play();
 		}
 	}
+
+	// Test Roaming Logic
+	RoamChar(*duckEntity, pos1, pos2);
 }
 
 /************************************************************************

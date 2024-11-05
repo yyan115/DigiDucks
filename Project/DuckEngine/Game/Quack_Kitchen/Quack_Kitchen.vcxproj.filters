@@ -11,6 +11,9 @@
     <ClCompile Include="..\src\GameManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\RoamingLogic.cpp">
+      <Filter>src\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -37,6 +40,12 @@
     <Filter Include="include\Managers">
       <UniqueIdentifier>{106e0aec-992c-4a3c-8b4d-8524e63ed477}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Objects">
+      <UniqueIdentifier>{959664c8-71e8-46e9-9ebc-96c19fb55e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Objects">
+      <UniqueIdentifier>{d6a0691e-4b9d-4176-89dd-e9dbc0b69b47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\MaxLoadScene.h">
@@ -50,6 +59,9 @@
     </ClInclude>
     <ClInclude Include="..\include\GameManager.h">
       <Filter>include\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RoamingLogic.h">
+      <Filter>include\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
