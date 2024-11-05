@@ -300,7 +300,6 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     <ClInclude Include="..\include\TransformComponent.h" />
     <ClInclude Include="..\include\Vector2.h" />
     <ClInclude Include="..\include\WindowManager.h" />
-    <ClInclude Include="MessagingSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
@@ -349,7 +348,6 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     <ClCompile Include="..\src\TimeManager.cpp" />
     <ClCompile Include="..\src\Vector2.cpp" />
     <ClCompile Include="..\src\WindowManager.cpp" />
-    <ClCompile Include="MessagingSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fontVertShader.vert" />

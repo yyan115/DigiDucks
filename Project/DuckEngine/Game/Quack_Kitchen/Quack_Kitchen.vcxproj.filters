@@ -14,6 +14,9 @@
     <ClCompile Include="..\src\RoamingLogic.cpp">
       <Filter>src\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MessagingSystem.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="..\include\RoamingLogic.h">
       <Filter>include\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MessagingSystem.h">
+      <Filter>include\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

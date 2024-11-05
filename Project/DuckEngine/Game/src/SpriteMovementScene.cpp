@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ImageLoader.h"
 #include "ResourcePath.h"
 #include "RoamingLogic.h"
+#include "MessagingSystem.h"
 #include <vector>
 #include <queue>
 #include <map>
@@ -58,6 +59,10 @@ Entity* noTextureEntity;
 Entity* duckEntity;
 Vec2 pos1 = { 10.f, 10.f };
 Vec2 pos2 = { -10.f, 10.f };
+
+//Test Messaging System
+InputEventManager inputEventManager;
+Player message;
 
 struct MyStruct {
 	int x;
@@ -286,6 +291,8 @@ void SpriteMovementScene::Load()
 	duckEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Duck");
 	RigidbodyComponent* duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duckEntity->entityID);
 	duckRb->isStatic = false;
+
+	inputEventManager.addListener(&message);
 }
 
 /************************************************************************
@@ -305,7 +312,7 @@ void SpriteMovementScene::Start()
 void SpriteMovementScene::Update()
 {
 	float moveSpeed = 10.0f;
-
+	
 	// Reset the player's velocity at the start of each frame
 	playerRb->velocity = Vec2(0.f, 0.f);
 
@@ -345,11 +352,12 @@ void SpriteMovementScene::Update()
 		}
 	}
 
+	/*
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
 	}
-
+	
 	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
 	{
 		std::cout << "Mouse scrolled down!\n";
@@ -372,12 +380,19 @@ void SpriteMovementScene::Update()
 		std::cout << "K is pressed!\n";
 		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
+	*/
+
+	inputEventManager.notifyScrollEvent(DuckEngine_Input::GetScrollOffsetY());
+	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed());
+	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K));
+	//inputEventManager.notifyMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT);
 
 	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
 	{
 		playerAnimator->PlayAnimation("IdleAnimation");
 	}
 
+	
 	//// Get the current positions of the player and the obstacle
 	//Vec2 playerPos = playerTransform->position;
 	//Vec2 obstaclePos = obstacleTransform->position;
@@ -435,6 +450,8 @@ void SpriteMovementScene::Update()
 
 	// Test Roaming Logic
 	RoamChar(*duckEntity, pos1, pos2);
+
+	
 }
 
 /************************************************************************

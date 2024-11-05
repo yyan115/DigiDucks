@@ -1,6 +1,7 @@
 #include "MessagingSystem.h"
 
 // Main function
+/*
 int main() {
     // Create Colliders
     Collider playerCollider("Player");
@@ -19,4 +20,4 @@ int main() {
     collisionManager.detectCollision(playerCollider, wall2);
 
     return 0;
-}
+}*/
