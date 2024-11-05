@@ -26,6 +26,6 @@ public:
 
 private:
     std::vector<Entity*> entities; // Entities in this layer
-    int order;                     // Order of the layer
-    bool visible;                  // Visibility of the layer
+    int order = 1;                     // Order of the layer
+    bool visible = true;                  // Visibility of the layer
 };

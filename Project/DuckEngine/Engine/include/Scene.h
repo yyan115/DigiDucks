@@ -24,6 +24,7 @@ public:
 	DUCKENGINE_API void AddLayer(const std::string& name, Layer layer);
 	DUCKENGINE_API Layer* GetLayer(const std::string& name);
 	DUCKENGINE_API const std::unordered_map<std::string, Layer>& GetLayers() const;
+	void AddEntityToLayer(const std::string& layerName, Entity* entity);
 private:
 	std::unordered_map<std::string, Layer> layers; // Layers in the scene
 };

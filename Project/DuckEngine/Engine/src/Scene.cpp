@@ -52,3 +52,14 @@ const std::unordered_map<std::string, Layer>& Scene::GetLayers() const
 {
     return layers;
 }
+
+void Scene::AddEntityToLayer(const std::string& layerName, Entity* entity)
+{
+    //auto it = layers.find(layerName);
+    //if (it == layers.end())
+    //{
+    //    layers[layerName] = Layer(layerName);
+    //}
+
+    layers[layerName].AddEntity(entity);
+}

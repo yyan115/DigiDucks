@@ -56,11 +56,33 @@ void SpriteRendererSystem::Update()
     auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
     if (!activeScene) return;
 
+    auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (Entity& entity : allEntities)
+    {
+        bool isAssignedToLayer = false;
+
+        for (const auto& [layerName, layer] : activeScene->GetLayers())
+        {
+            const auto& entitiesInLayer = layer.GetEntities();
+            if (std::find(entitiesInLayer.begin(), entitiesInLayer.end(), &entity) != entitiesInLayer.end())
+            {
+                isAssignedToLayer = true;
+                break;
+            }
+        }
+
+        if (!isAssignedToLayer)
+        {
+            std::cout << "Entity ID: " << entity.entityID << " (Name: " << entity.name << ") not assigned to any layer, adding to Gameplay layer." << std::endl;
+            activeScene->AddEntityToLayer("Gameplay", &entity);
+        }
+    }
+
     std::vector<RenderData> renderQueue;
 
     for (const auto& [layerName, layer] : activeScene->GetLayers())
     {
-        int layerOrder = layer.GetOrder(); // Use the layer order directly from the Layer class
+        int layerOrder = layer.GetOrder();
 
         for (Entity* entity : layer.GetEntities())
         {
@@ -79,22 +101,12 @@ void SpriteRendererSystem::Update()
         }
     }
 
-    // Sort by layer order
     std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
         return a.layer < b.layer;
         });
 
-    // Render each entity in sorted order and print the name
     for (const RenderData& data : renderQueue)
     {
-        // Print entity name and layer order
-        if (data.transform && data.spriteRenderer) {
-            Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(data.entityID); // Adjust if needed
-            if (entity) {
-                //std::cout << "Rendering entity: " << entity->name << ", Layer Order: " << data.layer << std::endl;
-            }
-        }
-
         DrawOptions drawOptions;
         drawOptions.translation = data.transform->position;
         drawOptions.scale = data.transform->scale;

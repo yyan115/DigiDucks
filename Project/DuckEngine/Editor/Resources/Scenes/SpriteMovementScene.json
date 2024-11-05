@@ -44,6 +44,7 @@
             "layer": "Background"
         },
         "Duck": {
+            "layer": "Gameplay",
             "position": {
                 "x": 8.0,
                 "y": 8.0
@@ -51,13 +52,157 @@
             "prefab": "DuckPrefab"
         },
         "GameObject 11": {
-            "layer": "UI",
-            "position": {
-                "x": 0.0,
-                "y": 0.0
-            }
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.592592239379883,
+                            "y": 3.884892463684082
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.799999952316284
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/cabbage_stock.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -10.592592239379883,
+                            "y": 3.884892463684082
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 12": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -14.259259223937988,
+                            "y": -5.2877702713012695
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.799999952316284
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/cabbage_stock.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -14.259259223937988,
+                            "y": -5.2877702713012695
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 13": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 4.592592716217041,
+                            "y": -2.9856114387512207
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.799999952316284
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/cabbage_stock.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 4.592592716217041,
+                            "y": -2.9856114387512207
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "Obstacle1": {
+            "layer": "Gameplay",
             "position": {
                 "x": -6.809855937957764,
                 "y": 1.4748203754425049
@@ -65,6 +210,7 @@
             "prefab": "CuttingTablePrefab"
         },
         "Obstacle2": {
+            "layer": "Gameplay",
             "position": {
                 "x": -5.0,
                 "y": -2.7780001163482666
@@ -72,6 +218,7 @@
             "prefab": "CabbageStockPrefab"
         },
         "Obstacle3": {
+            "layer": "Gameplay",
             "position": {
                 "x": -8.333000183105469,
                 "y": -7.7779998779296875
@@ -79,6 +226,7 @@
             "prefab": "TomatoStockPrefab"
         },
         "Obstacle4": {
+            "layer": "Gameplay",
             "position": {
                 "x": -6.111000061035156,
                 "y": -7.7779998779296875
@@ -86,6 +234,7 @@
             "prefab": "TomatoStockPrefab"
         },
         "Obstacle5": {
+            "layer": "Gameplay",
             "position": {
                 "x": 10.0,
                 "y": -5.0
@@ -93,6 +242,7 @@
             "prefab": "TomatoStockPrefab"
         },
         "Player": {
+            "layer": "Gameplay",
             "position": {
                 "x": -2.7769999504089355,
                 "y": 0.0
@@ -104,7 +254,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
+                            "x": -700.0,
                             "y": 400.0
                         },
                         "relativeToCamera": false,
@@ -114,6 +264,21 @@
                         }
                     },
                     "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 },
                 {
                     "properties": {
@@ -127,22 +292,9 @@
                         }
                     },
                     "type": "ButtonComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "layer": 1,
-                        "sprite": true,
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
                 }
-            ]
+            ],
+            "layer": "Gameplay"
         },
         "obstacleObject4": {
             "components": [
@@ -203,7 +355,8 @@
                     },
                     "type": "SoundComponent"
                 }
-            ]
+            ],
+            "layer": "Gameplay"
         },
         "textBox": {
             "components": [
@@ -238,7 +391,8 @@
                     },
                     "type": "TextComponent"
                 }
-            ]
+            ],
+            "layer": "Gameplay"
         }
     },
     "layers": {

@@ -275,18 +275,20 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
     std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
+    // Clear existing gameObjects to avoid duplicate entries
     sceneData["gameObjects"].clear();
 
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
     for (auto& entity : entities)
     {
-        std::string entityName = entity.name;
+        std::string entityName = entity.name.empty() ? "Entity_" + std::to_string(entity.entityID) : entity.name;
+        json& gameObjectData = sceneData["gameObjects"][entityName];
+
+        gameObjectData["layer"] = entity.layerName;
 
         if (!entity.prefabName.empty())
         {
-            json& gameObjectData = sceneData["gameObjects"][entityName];
-            gameObjectData["layer"] = entity.layerName;
             gameObjectData["prefab"] = entity.prefabName;
 
             if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity.entityID))
@@ -297,8 +299,6 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
         }
         else
         {
-            json& gameObjectData = sceneData["gameObjects"][entityName];
-            gameObjectData["layer"] = entity.layerName;
             ComponentFactory::SaveComponentsToJson(entity.entityID, gameObjectData["components"]);
         }
     }
@@ -306,7 +306,6 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
     Serialization::SaveJsonFile(finalPath, sceneData);
     std::cout << "Scene changes saved: " << sceneName << std::endl;
 }
-
 
 
 void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
@@ -321,23 +320,25 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     json& gameObjectData = sceneData["gameObjects"][entityName];
     gameObjectData["layer"] = entity->layerName;
 
-    if (gameObjectData.contains("components"))
+    if (!entity->prefabName.empty())
     {
-        ComponentFactory::SaveComponentsToJson(entityID, gameObjectData["components"]);
-    }
-    else
-    {
-        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID)) {
+        gameObjectData["prefab"] = entity->prefabName;
+
+        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
+        {
             gameObjectData["position"]["x"] = transform->position.x;
             gameObjectData["position"]["y"] = transform->position.y;
         }
-
-        
+    }
+    else
+    {
+        ComponentFactory::SaveComponentsToJson(entityID, gameObjectData["components"]);
     }
 
     Serialization::SaveJsonFile(finalPath, sceneData);
     std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
+
 
 void LevelManager::OverwritePrefab(int entityID)
 {
