@@ -38,7 +38,7 @@ public:
     int entityID;
     std::string name;
     std::string prefabName;
-    std::string layerName;
+    std::string layerName = "Gameplay";
 
     /************************************************************************
     @brief Constructor for the Entity class. Initializes the entity with a

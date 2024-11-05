@@ -177,7 +177,9 @@ void UIManager::ShowMenuBar()
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Game Object")) {
-            if (ImGui::MenuItem("Spawn GameObject")) { DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f }); }
+            if (ImGui::MenuItem("Spawn GameObject")) { 
+                Entity* entity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
+            }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
@@ -369,6 +371,7 @@ void UIManager::ShowInspector()
 {
     ImGui::Begin("Inspector", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysVerticalScrollbar);
     // Use InspectorRenderer to render components of the selected entity
+    InspectorRenderer::RenderLayer(selectedEntityID);
     InspectorRenderer::RenderComponents(selectedEntityID);
     ImGui::End();   
 }

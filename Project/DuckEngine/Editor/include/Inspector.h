@@ -8,6 +8,7 @@ class InspectorRenderer
 {
 public:
     static std::unordered_map<int, bool> entityChanges;
+    static void RenderLayer(int entityID);
     static void RenderComponents(int entityID);
     static void AddComponents(int entityID, bool& hasChanged);
 private:

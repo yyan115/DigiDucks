@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.runtimeconfig.json</FullPath>
+      <FullPath>C:\Digipen\repos\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.runtimeconfig.json</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.dll</FullPath>
+      <FullPath>C:\Digipen\repos\DigiDucks\Project\DuckEngine\Build\EditorRelease\ScriptingAPI.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

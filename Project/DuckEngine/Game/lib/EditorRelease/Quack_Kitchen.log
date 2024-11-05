@@ -1,0 +1,44 @@
+﻿  main.cpp
+  GameManager.cpp
+  MaxLoadScene.cpp
+  SpriteMovementScene.cpp
+  Generating Code...
+  Quack_Kitchen.vcxproj -> C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\lib\EditorRelease\Quack_Kitchen.lib
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\background.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
+  C:\Digipen\repos\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
+  37 File(s) copied

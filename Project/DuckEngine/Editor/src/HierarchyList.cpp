@@ -74,6 +74,7 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
         // Show child nodes if expanded
         if (nodeOpen) {
             ImGui::Text("Entity ID: %d", entity.entityID);
+            ImGui::Text("Layer name: %s", entity.layerName.c_str());
             ImGui::TreePop();
         }
     }

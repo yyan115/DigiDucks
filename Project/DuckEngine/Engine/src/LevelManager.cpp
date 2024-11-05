@@ -281,7 +281,7 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
 
     for (auto& entity : entities)
     {
-        std::string entityName = entity.name.empty() ? "GameObject " + std::to_string(entity.entityID) : entity.name;
+        std::string entityName = entity.name;
 
         if (!entity.prefabName.empty())
         {
@@ -298,6 +298,7 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
         else
         {
             json& gameObjectData = sceneData["gameObjects"][entityName];
+            gameObjectData["layer"] = entity.layerName;
             ComponentFactory::SaveComponentsToJson(entity.entityID, gameObjectData["components"]);
         }
     }
@@ -360,4 +361,5 @@ void LevelManager::OverwritePrefab(int entityID)
         std::cerr << "Error: Prefab not found for entity " << prefabName << std::endl;
     }
 }
+
 

@@ -9,6 +9,7 @@
 #include "DuckEngine.h"
 #include "GameManager.h"
 
+
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
 static const std::unordered_set<std::string> allowedImageExtensions = { "png", "jpg", "jpeg" };
 static const std::unordered_set<std::string> allowedSoundExtensions = { "ogg", "wav", "mp3" };
@@ -24,12 +25,64 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
     "SoundComponent"
 };
 
+void InspectorRenderer::RenderLayer(int entityID)
+{
+    if (entityID == -1) {
+        ImGui::Text("No entity selected.");
+        return;
+    }
+
+    // Get the current entity and scene
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+    if (!entity || !activeScene) return;
+
+    // Retrieve the list of layer names from the active scene
+    const auto& layers = activeScene->GetLayers();
+    std::vector<std::string> layerNames;
+    for (const auto& [layerName, layer] : layers) {
+        layerNames.push_back(layerName);
+    }
+
+    // Find the current layer index
+    int currentLayerIndex = 0;
+    for (size_t i = 0; i < layerNames.size(); ++i) {
+        if (layerNames[i] == entity->layerName) {
+            currentLayerIndex = static_cast<int>(i);
+            break;
+        }
+    }
+
+    ImGui::Text("Layer");
+    ImGui::SameLine();
+
+    ImGui::PushID(entityID);
+    if (ImGui::BeginCombo("##LayerCombo", layerNames[currentLayerIndex].c_str()))
+    {
+        for (int i = 0; i < layerNames.size(); ++i)
+        {
+            bool isSelected = (currentLayerIndex == i);
+            if (ImGui::Selectable(layerNames[i].c_str(), isSelected))
+            {
+                currentLayerIndex = i;
+                entity->layerName = layerNames[i];  // Update entity layer
+                LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
+            }
+
+            if (isSelected) {
+                ImGui::SetItemDefaultFocus();
+            }
+        }
+        ImGui::EndCombo();
+    }
+    ImGui::PopID();
+    ImGui::Separator();
+}
+
 
 void InspectorRenderer::RenderComponents(int entityID)
 {
-    // Handle case where no entity is selected
     if (entityID == -1) {
-        ImGui::Text("No entity selected.");
         return;
     }
 
@@ -58,9 +111,6 @@ void InspectorRenderer::RenderComponents(int entityID)
         if (ImGui::CollapsingHeader("Sprite Renderer Component"))
         {
             ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
-            if (ImGui::IsItemEdited()) hasChanged = true;
-
-            ImGui::SliderInt("Layer", &spriteRenderer->layer, 0, 10);
             if (ImGui::IsItemEdited()) hasChanged = true;
 
             ImGui::ColorEdit4("Color", (float*)&spriteRenderer->color);
