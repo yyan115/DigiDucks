@@ -56,7 +56,7 @@ private:
 
 class Walls : public CollisionListener {
 public:
-    explicit Wall(const std::string& name) : name(name) {}
+    explicit Walls(const std::string& name) : name(name) {}
 
     void onCollision(const std::string& colliderName) override {
         std::cout << name << " reacts to collision with " << colliderName << "\n";
