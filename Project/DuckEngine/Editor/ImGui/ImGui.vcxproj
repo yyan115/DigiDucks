@@ -35,7 +35,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Engine\src\LoggerManager.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\AssetsBrowser.cpp" />
     <ClCompile Include="..\src\EditorInputManager.cpp" />
@@ -43,6 +42,7 @@
     <ClCompile Include="..\src\Gizmos.cpp" />
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
+    <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
     <ClCompile Include="..\src\UIManager.cpp" />
@@ -56,13 +56,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Engine\include\LoggerManager.h" />
     <ClInclude Include="..\include\AssetsBrowser.h" />
     <ClInclude Include="..\include\EditorInputManager.h" />
     <ClInclude Include="..\include\EditorTheme.h" />
     <ClInclude Include="..\include\Gizmos.h" />
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
+    <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />
     <ClInclude Include="..\include\UIManager.h" />
