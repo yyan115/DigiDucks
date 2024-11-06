@@ -1,8 +1,5 @@
-﻿  main.cpp
-  GameManager.cpp
-  MaxLoadScene.cpp
+﻿  MaxLoadScene.cpp
   MessagingSystem.cpp
-  RoamingLogic.cpp
   SpriteMovementScene.cpp
   Generating Code...
   Quack_Kitchen.vcxproj -> C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib

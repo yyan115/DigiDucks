@@ -5,8 +5,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 5.0
+                            "x": -0.07407426834106445,
+                            "y": 5.035971641540527
                         },
                         "relativeToCamera": true,
                         "scale": {
@@ -116,8 +116,8 @@
         "Obstacle1": {
             "layer": "Gameplay",
             "position": {
-                "x": -6.809855937957764,
-                "y": 1.4748203754425049
+                "x": -13.1431884765625,
+                "y": 4.784173011779785
             },
             "prefab": "CuttingTablePrefab"
         },
@@ -132,16 +132,16 @@
         "Obstacle3": {
             "layer": "Gameplay",
             "position": {
-                "x": -8.333000183105469,
-                "y": -7.7779998779296875
+                "x": 12.44477653503418,
+                "y": -5.044188022613525
             },
             "prefab": "TomatoStockPrefab"
         },
         "Obstacle4": {
             "layer": "Gameplay",
             "position": {
-                "x": -6.111000061035156,
-                "y": -7.7779998779296875
+                "x": 14.926036834716797,
+                "y": -5.116128921508789
             },
             "prefab": "TomatoStockPrefab"
         },
