@@ -47,7 +47,7 @@ TextComponent* textComponent;
 
 // Test button
 Entity* buttonBox;
-ButtonComponent buttonComponent;
+//ButtonComponent buttonComponent;
 
 // test UI
 Entity* testUI;
@@ -208,7 +208,7 @@ void SpriteMovementScene::Load()
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
 	//background entity
-	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
+	//Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
 
 	// test UI
 	//testUI = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", {400.0f, 400.0f}, {100.0f, 100.0f});
@@ -365,7 +365,7 @@ void SpriteMovementScene::Update()
 	}
 	*/
 
-	inputEventManager.notifyScrollEvent(DuckEngine_Input::GetScrollOffsetY());
+	inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
 	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed());
 	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K));
 	//inputEventManager.notifyMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT);
@@ -433,9 +433,9 @@ void SpriteMovementScene::Update()
 
 	// Test Roaming Logic
 	// Between 2 Pos
-	RoamSelectedObject("DuckPrefab", positon1, position2);
+	//("DuckPrefab", positon1, position2);
 	// A direction for a time.
-	//RoamSelectedPrefab("DuckPrefab", pos1, 3.f);
+	RoamSelectedPrefab("DuckPrefab", positon1, 3.f);
 	
 }
 
