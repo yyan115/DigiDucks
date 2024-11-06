@@ -86,8 +86,6 @@ void RoamSelectedObject(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
         if (entity.prefabName == prefabName) {
-            // Log each duck found to verify multiple instances are iterated
-            std::cout << "Roaming " << prefabName << " entity: " << entity.entityID << std::endl;
             RoamChar(entity.entityID, firstPos, secondPos);
         }
 

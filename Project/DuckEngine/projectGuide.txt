@@ -12,4 +12,4 @@ Quack_Kitchen: Handles the game itself
 How to turn on/off level editor:
 Offline. 
 To turn it on, Change configuration to EditorRelease, and Set LevelEditor module as startup project. Then, clean, rebuild solution and run.
-To turn it ff, Change configuration to Release, and Set Quack_Kitchen module as startup project. Then, clean, rebuild solution and run.
+To turn it off, Change configuration to Release, and Set Quack_Kitchen module as startup project. Then, clean, rebuild solution and run.

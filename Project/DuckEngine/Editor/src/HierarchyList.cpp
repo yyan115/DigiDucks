@@ -10,8 +10,7 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
     // Get all entities
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    // Track prefab instance counts
-    std::unordered_map<std::string, int> prefabInstanceCounts;
+    
 
     for (auto& entity : entities) {
         std::string entityLabel;
@@ -23,14 +22,9 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
 				
             }
             else {
-                // Generate a label based on the prefab name and instance count
-                int& count = prefabInstanceCounts[entity.prefabName];
-                std::cout << "Prefab count: " << count << std::endl;
+                // Generate a label based on the prefab name and entity id
                 entityLabel = entity.prefabName;
-                if (count > 0) {
-                    entityLabel += " (" + std::to_string(count) + ")";
-                }
-                count++;
+                entityLabel += " (" + std::to_string(entity.entityID) + ")";
             }
         }
         else {
@@ -77,6 +71,7 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
         if (nodeOpen) {
             ImGui::Text("Entity ID: %d", entity.entityID);
             ImGui::Text("Layer name: %s", entity.layerName.c_str());
+            ImGui::Text("Prefab name: %s", entity.prefabName.c_str());
             ImGui::TreePop();
         }
     }

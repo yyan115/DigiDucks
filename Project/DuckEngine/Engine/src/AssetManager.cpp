@@ -177,7 +177,7 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 			// Load the sound if it has a valid audio extension
 			if (fileExtension == ".wav" || fileExtension == ".mp3" || fileExtension == ".ogg") {
 				LoadSound(filePath, filePath);
-				std::cout << "Preloaded sound: " << filePath << " from " << filePath << std::endl;
+				std::cout << "Preloaded sound: " << filePath << std::endl;
 			}
 		}
 	}

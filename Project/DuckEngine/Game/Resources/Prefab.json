@@ -1,225 +1,297 @@
 {
-  "prefabs": {
-    "PlayerPrefab": {
-      "components": [
-        {
-          "type": "TransformComponent",
-          "properties": {
-            "position": { "x": 0, "y": 0 },
-            "scale": { "x": 1.5, "y": 3.0 },
-            "velocity": { "x": 0, "y": 0 },
-            "relativeToCamera": true
-          }
-        },
-        {
-          "type": "SpriteRendererComponent",
-          "properties": {
-            "sprite": true,
-            "layer": 1,
-            "texture": "../Resources/characteridle.png",
-            "useColor": false,
-            "color": {
-              "r": 255,
-              "g": 255,
-              "b": 255,
-              "a": 255
-            }
-          }
-        },
-        {
-          "type": "BoundingCircle",
-          "properties": {
-            "center": { "x": 0.0, "y": 0.0 },
-            "radius": 1.0
-          }
-        },
-        {
-          "type": "RigidbodyComponent",
-          "properties": {
-            "isStatic": false,
-            "velocity": { "x": 0.0, "y": 0.0 }
-          }
-        },
-        {
-          "type": "AnimatorComponent",
-          "properties": {
-            "animations": [
-              {
-                "name": "WalkAnimation",
-                "texture": "../Resources/characterwalk.png",
-                "frameDuration": 0.2
-              },
-              {
-                "name": "IdleAnimation",
-                "texture": "../Resources/characteridle.png",
-                "frameDuration": 0.6
-              }
+    "prefabs": {
+        "CabbageStockPrefab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -5,
+                            "y": 0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.8
+                        },
+                        "velocity": {
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/cabbage_stock.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -5.0,
+                            "y": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
             ]
-          }
+        },
+        "CuttingTablePrefab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 5,
+                            "y": 0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.8
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/cutting_table.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 5.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ]
+        },
+        "DuckPrefab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 7.957408905029297,
+                            "y": 7.586331367492676
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 3.200000047683716
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/duck.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 7.957408905029297,
+                            "y": 7.586331367492676
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "../Resources/Sounds/AnimalDuck.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                }
+            ]
+        },
+        "PlayerPrefab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 3.0
+                        },
+                        "velocity": {
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/characteridle.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false,
+                        "velocity": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "animations": [
+                            {
+                                "frameDuration": 0.2,
+                                "name": "WalkAnimation",
+                                "texture": "../Resources/characterwalk.png"
+                            },
+                            {
+                                "frameDuration": 0.6,
+                                "name": "IdleAnimation",
+                                "texture": "../Resources/characteridle.png"
+                            }
+                        ]
+                    },
+                    "type": "AnimatorComponent"
+                }
+            ]
+        },
+        "TomatoStockPrefab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -5,
+                            "y": 0
+                        },
+                        "relativeToCamera": true,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.8
+                        },
+                        "velocity": {
+                            "x": 0,
+                            "y": 0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255,
+                            "b": 255,
+                            "g": 255,
+                            "r": 255
+                        },
+                        "layer": 1,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/tomato_stock.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -5.0,
+                            "y": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ]
         }
-      ]
-    },
-    "DuckPrefab": {
-      "components": [
-        {
-          "type": "TransformComponent",
-          "properties": {
-            "position": { "x": 5, "y": 0 },
-            "scale": { "x": 2.0, "y": 3.2 },
-            "relativeToCamera": true
-          }
-        },
-        {
-          "type": "SpriteRendererComponent",
-          "properties": {
-            "sprite": true,
-            "layer": 1,
-            "texture": "../Resources/duck.png",
-            "useColor": false,
-            "color": {
-              "r": 255,
-              "g": 255,
-              "b": 255,
-              "a": 255
-            }
-          }
-        },
-        {
-          "type": "BoundingBox",
-          "properties": {
-            "center": { "x": 5.0, "y": 0.0 },
-            "size": { "x": 1.0, "y": 1.5 }
-          }
-        },
-        {
-          "type": "RigidbodyComponent",
-          "properties": {
-            "isStatic": true
-          }
-        }
-      ]
-    },
-    "CuttingTablePrefab": {
-      "components": [
-        {
-          "type": "TransformComponent",
-          "properties": {
-            "position": { "x": 5, "y": 0 },
-            "scale": { "x": 2.0, "y": 2.8 },
-            "relativeToCamera": true
-          }
-        },
-        {
-          "type": "SpriteRendererComponent",
-          "properties": {
-            "sprite": true,
-            "layer": 1,
-            "texture": "../Resources/Sprites/Stations/cutting_table.png",
-            "useColor": false,
-            "color": {
-              "r": 255,
-              "g": 255,
-              "b": 255,
-              "a": 255
-            }
-          }
-        },
-        {
-          "type": "BoundingBox",
-          "properties": {
-            "center": { "x": 5.0, "y": 0.0 },
-            "size": { "x": 1.0, "y": 1.5 }
-          }
-        },
-        {
-          "type": "RigidbodyComponent",
-          "properties": {
-            "isStatic": true
-          }
-        }
-      ]
-    },
-    "CabbageStockPrefab": {
-      "components": [
-        {
-          "type": "TransformComponent",
-          "properties": {
-            "position": { "x": -5, "y": 0 },
-            "scale": { "x": 2.0, "y": 2.8 },
-            "velocity": { "x": 0, "y": 0 },
-            "relativeToCamera": true
-          }
-        },
-        {
-          "type": "SpriteRendererComponent",
-          "properties": {
-            "sprite": true,
-            "layer": 1,
-            "texture": "../Resources/Sprites/Stations/cabbage_stock.png",
-            "useColor": false,
-            "color": {
-              "r": 255,
-              "g": 255,
-              "b": 255,
-              "a": 255
-            }
-          }
-        },
-        {
-          "type": "BoundingCircle",
-          "properties": {
-            "center": { "x": -5.0, "y": 0.0 },
-            "radius": 1.0
-          }
-        },
-        {
-          "type": "RigidbodyComponent",
-          "properties": {
-            "isStatic": false
-          }
-        }
-      ]
-    },
-    "TomatoStockPrefab": {
-      "components": [
-        {
-          "type": "TransformComponent",
-          "properties": {
-            "position": { "x": -5, "y": 0 },
-            "scale": { "x": 2.0, "y": 2.8 },
-            "velocity": { "x": 0, "y": 0 },
-            "relativeToCamera": true
-          }
-        },
-        {
-          "type": "SpriteRendererComponent",
-          "properties": {
-            "sprite": true,
-            "layer": 1,
-            "texture": "../Resources/Sprites/Stations/tomato_stock.png",
-            "useColor": false,
-            "color": {
-              "r": 255,
-              "g": 255,
-              "b": 255,
-              "a": 255
-            }
-          }
-        },
-        {
-          "type": "BoundingCircle",
-          "properties": {
-            "center": { "x": -5.0, "y": 0.0 },
-            "radius": 1.0
-          }
-        },
-        {
-          "type": "RigidbodyComponent",
-          "properties": {
-            "isStatic": false
-          }
-        }
-      ]
     }
-  }
 }

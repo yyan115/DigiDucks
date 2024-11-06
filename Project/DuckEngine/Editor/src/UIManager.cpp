@@ -178,7 +178,7 @@ void UIManager::ShowMenuBar()
         }
         if (ImGui::BeginMenu("Game Object")) {
             if (ImGui::MenuItem("Spawn GameObject")) { 
-                Entity* entity = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
+                DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
             }
             ImGui::EndMenu();
         }

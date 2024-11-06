@@ -56,8 +56,8 @@ Entity* testUI;
 Entity* noTextureEntity;
 
 // Test Roaming Logic
-Vec2 pos1 = { 10.f, 10.f };
-Vec2 pos2 = { -10.f, 10.f };
+Vec2 positon1 = { 10.f, 10.f };
+Vec2 position2 = { -10.f, 10.f };
 
 //Test Messaging System
 InputEventManager inputEventManager;
@@ -335,17 +335,6 @@ void SpriteMovementScene::Update()
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_Y)) {
-		// For each sound component, play the sound if it is set to play on start
-		for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-			SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-
-			if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-				soundComponent->Play();
-			}
-		}
-	}
-
 	/*
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
@@ -443,7 +432,7 @@ void SpriteMovementScene::Update()
 	}
 
 	// Test Roaming Logic
-	RoamSelectedObject("DuckPrefab", pos1, pos2);
+	RoamSelectedObject("DuckPrefab", positon1, position2);
 	
 }
 

@@ -44,7 +44,6 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefab(const std::string& name)
 		return it->second;
 	}
 
-	std::cerr << "Error: Prefab " << name << " not found!" << std::endl;
 	return nullptr;
 }
 
@@ -61,13 +60,12 @@ const std::unordered_map<std::string, std::shared_ptr<Prefab>>& PrefabManager::G
 Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
-	std::cout << name << std::endl;
+    
 	if (prefab)
 	{
 		return prefab->Instantiate(newPosition);
 	}
 
-	std::cerr << "Error: Prefab " << name << " not found!" << std::endl;
 	return nullptr;
 }
 
