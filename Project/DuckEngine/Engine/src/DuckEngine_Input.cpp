@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       DuckEngine_Input.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       November 7 2024
+\brief      Implements DuckEngine_Input, managing input bindings for the game engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "DuckEngine_Input.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"

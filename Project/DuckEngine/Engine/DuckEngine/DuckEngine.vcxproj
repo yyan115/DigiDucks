@@ -350,10 +350,16 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     <ClCompile Include="..\src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Game\Resources\Shaders\CircleVertShader.vert" />
+    <None Include="..\..\Game\Resources\Shaders\DebugFragShader.frag" />
+    <None Include="..\..\Game\Resources\Shaders\DebugVertShader.vert" />
     <None Include="..\..\Game\Resources\Shaders\fontVertShader.vert" />
     <None Include="..\..\Game\Resources\Shaders\gameFragShader.frag" />
     <None Include="..\..\Game\Resources\Shaders\gameVertShader.vert" />
     <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag" />
+    <None Include="..\..\Game\Resources\Shaders\LineVertShader.vert" />
+    <None Include="..\..\Game\Resources\Shaders\PointVertShader.vert" />
+    <None Include="..\..\Game\Resources\Shaders\RectangleVertShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

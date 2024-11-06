@@ -1,8 +1,10 @@
 /******************************************************************************/
 /*!
 \file       FontManager.h
-\author     Jovan chua 2301244
+\author     Jovan chua 2301244 (50%)
 \par        email c.shengkaijovan@digipen.edu
+\author     Yan Yu 2301213 (50%)
+\par        email y.yan@digipen.edu
 \date       October 3 2024
 \brief      Declares the FontManager class, responsible for managing font
             rendering using FreeType and OpenGL. This class handles the loading
@@ -35,6 +37,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /// </summary>
 class FontManager {
 public:
+
     /// <summary>
     /// Loads a font from the specified file and stores it under the given font name.
     /// Also sets the font size and initializes the corresponding glyph textures.

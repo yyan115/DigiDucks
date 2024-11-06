@@ -31,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /// </summary>
 class DUCKENGINE_API CameraManager {
 public:
+
     /// <summary>
     /// Initializes the camera's position and height.
     /// </summary>
@@ -71,7 +72,17 @@ public:
     /// <returns>The height of the camera's view.</returns>
     static inline float GetHeight() { return static_cast<float>(cameraHeight); };
 
+    /// <summary>
+    /// Adjusts the height of the camera's view by a specified delta value.
+    /// </summary>
+    /// <param name="delta">The amount to adjust the camera's height by.</param>
     static void AdjustHeight(int delta);
+
+    /// <summary>
+    /// Moves the camera by specified x and y delta values.
+    /// </summary>
+    /// <param name="deltaX">The amount to move the camera along the X-axis.</param>
+    /// <param name="deltaY">The amount to move the camera along the Y-axis.</param>
     static void MoveCamera(float deltaX, float deltaY);
 
     /// <summary>

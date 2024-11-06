@@ -40,6 +40,10 @@ public:
     /// <returns>Returns true if the window was successfully created, false otherwise.</returns>
     static bool Initialize(GLint width, GLint height, const char* title);
 
+    /// <summary>
+    /// Updates the viewport dimensions based on the current window size
+    /// or editor settings if applicable.
+    /// </summary>
     static void UpdateViewportDimensions();
 
     /// <summary>
@@ -86,8 +90,16 @@ public:
     /// <returns>The height of the window in pixels.</returns>
     static GLint GetWindowHeight();
 
+    /// <summary>
+    /// Retrieves the current width of the viewport.
+    /// </summary>
+    /// <returns>The width of the viewport in pixels.</returns>
     static GLint GetViewportWidth();
 
+    /// <summary>
+    /// Retrieves the current height of the viewport.
+    /// </summary>
+    /// <returns>The height of the viewport in pixels.</returns>
     static GLint GetViewportHeight();
 
     /// <summary>

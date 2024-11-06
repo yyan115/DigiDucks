@@ -117,11 +117,28 @@ public:
     /// <returns>The vertical scroll offset.</returns>
     inline static DUCKENGINE_API double GetScrollOffsetY() { return scrollY; }
 
+    /// <summary>
+    /// Calculates the change in mouse position along the X-axis since the last frame.
+    /// </summary>
+    /// <returns>The change in mouse X position.</returns>
     inline static DUCKENGINE_API double GetMouseDeltaX() { return mouseX - lastMouseX; }
 
+    /// <summary>
+    /// Calculates the change in mouse position along the Y-axis since the last frame.
+    /// </summary>
+    /// <returns>The change in mouse Y position.</returns>
     inline static DUCKENGINE_API double GetMouseDeltaY() { return mouseY - lastMouseY; }
 
+    /// <summary>
+    /// Checks if the middle mouse button is currently pressed.
+    /// </summary>
+    /// <returns>True if the middle mouse button is down, otherwise false.</returns>
     static DUCKENGINE_API bool IsMiddleMouseDown();
+
+    /// <summary>
+    /// Resets the last recorded mouse position to the current position.
+    /// Useful for recalibrating delta calculations.
+    /// </summary>
     static DUCKENGINE_API void ResetLastMousePosition();
 
 

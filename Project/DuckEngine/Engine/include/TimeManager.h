@@ -55,6 +55,7 @@ public:
     /// </summary>
     static void StartSystemTimer();
     static DUCKENGINE_API void StartManagerTimer(const std::string& managerName);
+
     /// <summary>
     /// Ends the system timer and returns the elapsed time since StartSystemTimer was called.
     /// </summary>

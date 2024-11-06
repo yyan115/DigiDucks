@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\file       ButtonSystem.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       November 7 2024
+\brief      Implements the ButtonSystem class, managing button components for
+			detecting and handling clicks, hover states, and rendering.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
 #include "DuckEngine_Input.h"

@@ -1,8 +1,10 @@
 /******************************************************************************/
 /*!
 \file       FontManager.cpp
-\author     Jovan chua 2301244
+\author     Jovan chua 2301244 (50%)
 \par        email c.shengkaijovan@digipen.edu
+\author     Yan Yu 2301213 (50%)
+\par        email y.yan@digipen.edu
 \date       October 3 2024
 \brief      Implements the FontManager class, initializing FreeType and
             OpenGL buffers for text rendering, generating character textures
