@@ -1,8 +1,10 @@
 /******************************************************************************/
 /*
 \file:      LevelManager.cpp
-\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (50%)
+            Lucas Yee, l.yee, 2301212 (50%)
 \par:	    yankai.tan@digipen.edu
+\par:	    l.yee@digipen.edu
 
 
 \brief:     Contains the definitions that are used to load the level
@@ -25,6 +27,10 @@
 #include <string>
 #include <filesystem>
 
+/************************************************************************
+@brief Loads a level in the editor from a JSON file.
+@param levelFile The path to the JSON file containing level data.
+*************************************************************************/
 void LevelManager::LoadLevelEditor(const std::string& levelFile)
 {
     json levelData = Serialization::LoadJsonFile(levelFile.c_str());
@@ -53,6 +59,10 @@ void LevelManager::LoadLevelEditor(const std::string& levelFile)
     }
 }
 
+/************************************************************************
+@brief Loads a level in the game from a JSON file.
+@param levelFile The path to the JSON file containing level data.
+*************************************************************************/
 void LevelManager::LoadLevelGame(const std::string& levelFile)
 {
     json levelData = Serialization::LoadJsonFile(levelFile.c_str());
@@ -77,6 +87,10 @@ void LevelManager::LoadLevelGame(const std::string& levelFile)
 
 }
 
+/************************************************************************
+@brief Loads a level from a JSON file and initializes its entities and layers.
+@param levelFile The path to the JSON file containing level data.
+*************************************************************************/
 void LevelManager::LoadLevel(const std::string& levelFile)
 {
     json levelData = Serialization::LoadJsonFile(levelFile.c_str());
@@ -258,18 +272,10 @@ void LevelManager::OpenLevelDialog()
 
 }
 
-std::string GetPrefabName(int entityID)
-{
-    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
-    if (entity && !entity->prefabName.empty())
-    {
-        std::cout << entity->prefabName << std::endl;
-        return entity->prefabName;
-    }
-    return "";
-}
-
-
+/************************************************************************
+@brief Saves any changes made to entities in the active scene.
+@param sceneName The name of the scene to save.
+*************************************************************************/
 void LevelManager::SaveSceneChanges(const std::string& sceneName)
 {
     std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
@@ -307,7 +313,11 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
     std::cout << "Scene changes saved: " << sceneName << std::endl;
 }
 
-
+/************************************************************************
+@brief Saves any changes made to a specific entity in the scene.
+@param entityID The ID of the entity.
+@param sceneName The name of the scene the entity belongs to.
+*************************************************************************/
 void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 {
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
@@ -339,7 +349,10 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
 
-
+/************************************************************************
+@brief Overwrites an existing prefab file with new component values for an entity.
+@param entityID The ID of the entity whose prefab data should be updated.
+*************************************************************************/
 void LevelManager::OverwritePrefab(int entityID)
 {
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);

@@ -1,9 +1,11 @@
 /******************************************************************************/
 /*!
 \file       ComponentFactory.h
-\author     Jovan Chua 2301244
+\author     Jovan Chua 2301244 (50%)
 \par        c.shengkaijovan@digipen.edu
-\date       October 3 2024
+\author     Lucas Yee 2301212 (50%)
+\par        l.yee@digipen.edu
+\date       November 11 2024
 \brief      Declaration of the ComponentFactory class responsible for adding components to entities based on JSON data.
 
 Copyright (C) 2024 DigiPen Institute of Technology.

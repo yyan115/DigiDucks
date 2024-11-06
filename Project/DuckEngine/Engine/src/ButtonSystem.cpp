@@ -32,10 +32,9 @@ void ButtonSystem::Update()
 			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) 
 			{
 				Vector2D mousePosWorld = DuckEngine::editorMouseScreenPos;
-				std::cout << "Mouse Pos: " << mousePosWorld.x << ", " << mousePosWorld.y << ".\n";
-				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos)) {
+				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos)) 
+				{
 					if (button->onClick) {
-						std::cout << "Button clicked. Mouse Pos: " << mousePosWorld.x << ", " << mousePosWorld.y << ".\n";
 						button->onClick();
 					}
 				}

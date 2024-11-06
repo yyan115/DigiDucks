@@ -1,3 +1,31 @@
+/******************************************************************************
+\file       EditorInputManager.h
+\author     Lucas Yee 2301212
+\par        l.yee@digipen.edu
+\date       November 6, 2024
+\brief      Declaration of the EditorInputManager class, which manages input
+            events for the editor, such as camera manipulation, scroll handling,
+            and entity selection.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+******************************************************************************/
+
+/******************************************************************************
+\file       EditorInputManager.cpp
+\author     Lucas Yee 2301212
+\par        l.yee@digipen.edu
+\date       November 6, 2024
+\brief      Implementation of the EditorInputManager class, which manages input
+            handling for the editor, including camera movement, entity selection,
+            and hotkey detection.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+******************************************************************************/
+
 #include <iostream>
 #include "EditorInputManager.h"
 #include "InputManager.h"
@@ -12,11 +40,18 @@
 float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
 
+/**************************************************************************
+@brief Initializes the editor input manager, setting dragging to false by default.
+**************************************************************************/
 void EditorInputManager::Initialize()
 {
     isDragging = false;
 }
 
+/**************************************************************************
+@brief Handles frame-based updates for editor input, including scroll handling,
+       middle-mouse dragging for camera movement, and delete key functionality.
+**************************************************************************/
 void EditorInputManager::Update()
 {
     if (SceneWindow::GetIsPlaying()) return;
@@ -70,11 +105,22 @@ void EditorInputManager::Update()
     }
 }
 
+/**************************************************************************
+@brief Processes scroll input to adjust the camera’s height, effectively zooming
+       in or out in the scene view.
+@param offsetY The scroll offset in the Y direction.
+**************************************************************************/
 void EditorInputManager::HandleScrollInput(double offsetY)
 {
     CameraManager::AdjustHeight(static_cast<int>(-offsetY));
 }
 
+/**************************************************************************
+@brief Handles mouse dragging for panning the camera. Adjusts camera movement
+       based on the mouse deltas and aspect ratio.
+@param deltaX The horizontal change in the mouse position.
+@param deltaY The vertical change in the mouse position.
+**************************************************************************/
 void EditorInputManager::HandleMouseDrag(double deltaX, double deltaY)
 {
     int windowWidth = WindowManager::GetWindowWidth();

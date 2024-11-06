@@ -1,3 +1,19 @@
+/******************************************************************************
+\file       SceneWindow.cpp
+\author     Lucas Yee 2301212 (50%)
+\par        l.yee@digipen.edu
+\author     Muhammad Zikry Bin Zakaria , 2201751 (50%)
+\par        muhammadzikry.b@digipen.edu
+\date       November 6, 2024
+\brief      Implementation of the SceneWindow class, which manages scene rendering,
+            FBO and world coordinate transformations, and entity interaction within
+            the editor viewport.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+******************************************************************************/
+
 #include "SceneWindow.h"
 #include "GraphicsManager.h"
 #include "WindowManager.h"
@@ -22,6 +38,9 @@ std::vector<Entity*> SceneWindow::entitiesUnderMouse;
 int SceneWindow::currentEntityIndex = -1;
 Vector2D SceneWindow::lastMousePos;
 
+/**************************************************************************
+@brief Initializes the scene window by setting up the FBO dimensions.
+**************************************************************************/
 void SceneWindow::Initialize()
 {
     width = WindowManager::GetWindowWidth();
@@ -29,6 +48,11 @@ void SceneWindow::Initialize()
     GraphicsManager::InitializeFBO(width, height);
 }
 
+/**************************************************************************
+@brief Renders the scene window, updating the FBO and handling user interactions.
+@param newWidth The new width of the scene window.
+@param newHeight The new height of the scene window.
+**************************************************************************/
 void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 {
     if (newWidth != width || newHeight != height)
@@ -154,6 +178,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     ImGui::End();
 }
 
+/**************************************************************************
+@brief Checks if the mouse cursor is within the FBO region.
+@return True if the mouse is within the FBO, false otherwise.
+**************************************************************************/
 bool SceneWindow::IsMouseInFBO()
 {
     ImVec2 mousePos = ImGui::GetMousePos();
@@ -166,6 +194,11 @@ bool SceneWindow::IsMouseInFBO()
         mousePos.y <= fboPos.y + fboSize.y;
 }
 
+/**************************************************************************
+@brief Converts the current mouse position on the screen to FBO coordinates.
+@return The converted FBO coordinates as a Vector2D. Returns {-999.0f, -999.0f}
+        if the mouse is outside the FBO area.
+**************************************************************************/
 Vector2D SceneWindow::ConvertScreenToFBO()
 {
     if (!IsMouseInFBO())
@@ -186,6 +219,11 @@ Vector2D SceneWindow::ConvertScreenToFBO()
     return Vector2D(fboX, fboY);
 }
 
+/**************************************************************************
+@brief Converts the mouse position on the screen to world coordinates based on
+       camera settings.
+@return The world coordinates as a Vector2D.
+**************************************************************************/
 Vector2D SceneWindow::ConvertScreenToWorld()
 {
     ImVec2 mousePos = ImGui::GetMousePos();
@@ -209,6 +247,11 @@ Vector2D SceneWindow::ConvertScreenToWorld()
     return Vector2D(worldX, worldY);
 }
 
+/**************************************************************************
+@brief Converts world coordinates to screen coordinates within the FBO.
+@param worldPos The world coordinates to convert.
+@return The converted screen coordinates as a Vector2D.
+**************************************************************************/
 Vector2D SceneWindow::ConvertWorldToScreen(const Vector2D& worldPos)
 {
     Vector2D cameraPos = CameraManager::GetPosition();
@@ -227,6 +270,11 @@ Vector2D SceneWindow::ConvertWorldToScreen(const Vector2D& worldPos)
     return Vector2D(fboPos.x + screenX, fboPos.y + screenY);
 }
 
+/**************************************************************************
+@brief Calculates the scale factor between the world and the FBO based on
+       the current camera settings and FBO dimensions.
+@return The world scale as a Vector2D.
+**************************************************************************/
 Vector2D SceneWindow::GetWorldScale()
 {
     ImVec2 fboSize = ImGui::GetContentRegionAvail();
@@ -234,6 +282,10 @@ Vector2D SceneWindow::GetWorldScale()
     return worldScale;
 }
 
+/**************************************************************************
+@brief Handles the dragging action for an entity by updating its position
+       based on the initial and current mouse positions in world space.
+**************************************************************************/
 void SceneWindow::HandleEntityDragging()
 {
     Vector2D currentMousePos = ConvertScreenToWorld();
@@ -247,6 +299,12 @@ void SceneWindow::HandleEntityDragging()
     }
 }
 
+/**************************************************************************
+@brief Retrieves a list of entities at a specific position in the world,
+       typically based on the mouse cursor's location.
+@param worldPos The position in the world to check for entities.
+@return A vector of pointers to entities at the specified world position.
+**************************************************************************/
 std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos)
 {
     std::vector<Entity*> foundEntities;
@@ -272,6 +330,12 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
     return foundEntities;
 }
 
+/**************************************************************************
+@brief Handles the event of a prefab being dragged and dropped into the scene,
+       instantiating it at the specified world position.
+@param prefabName The name of the prefab being dragged into the scene.
+@param position The position in the world where the prefab will be instantiated.
+**************************************************************************/
 void SceneWindow::OnPrefabDraggedIntoScene(const std::string& prefabName, Vec2 position)
 {
     DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab(prefabName, position);
