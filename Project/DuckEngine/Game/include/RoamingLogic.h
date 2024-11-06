@@ -9,7 +9,7 @@ enum ObjectState
 };
 
 // Distance needed for player to be in range of object
-const float objectRange = 3.f;
+const float objectRange = 5.f;
 
 // Wait Time for object.
 const float waitTime = 5.f;

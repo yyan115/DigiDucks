@@ -90,9 +90,11 @@ void RoamChar(Entity& object, Vec2& firstPos, Vec2& secondPos)
 
 		// Chasing state, object is chasing the player.
 	case Chasing:
-		std::cout << "Chasing " << std::endl;
 		// If Player is out of range, go back to moving.
 		if (Vec2Dist(objectTransform->position, playerTransform->position) > (objectRange*1.5f)) { state = Moving; }
+
+		Vec2 dir = getSpeed(objectTransform->position, playerTransform->position, objectSpeed);
+		objectRigidbody->velocity = dir;
 
 		break;
 	};
