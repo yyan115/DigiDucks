@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\file		RoamingLogic.CPP
+\author 	Ernest Ho, h.yonghengernest, 2301223
+(100%)
+\email    	h.yonghengernestt@digipen.edu
+\date   	Nov 6 2024
+\brief		Definition of Roaming Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "RoamingLogic.h"
 
 namespace {
@@ -12,7 +27,14 @@ namespace {
 // Define the global objectState variable here
 std::unordered_map<int, ObjectDatas> objectState;
 
-
+/**
+* @brief
+* Function to roam any object with a specific prefab name between two positions
+*
+* @param prefabName - The name of the prefab to roam
+* @param firstPos - The first position to roam to
+* @param secondPos - The second position to roam to
+*/
 void RoamSelectedPrefab(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
@@ -23,6 +45,14 @@ void RoamSelectedPrefab(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
     }
 }
 
+/**
+* @brief
+* Function to roam any object with a specific object name between two positions
+*
+* @param objectName - The name of the object to roam
+* @param firstPos - The first position to roam to
+* @param secondPos - The second position to roam to
+*/
 void RoamSelectedObject(std::string objectName, Vec2 firstPos, Vec2 secondPos) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
@@ -33,6 +63,14 @@ void RoamSelectedObject(std::string objectName, Vec2 firstPos, Vec2 secondPos) {
     }
 }
 
+/**
+* @brief
+* Function to roam any object with a specific object ID between two positions
+*
+* @param objectID - The ID of the object to roam
+* @param firstPos - The first position to roam to
+* @param secondPos - The second position to roam to
+*/
 void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
     // Retrieve or initialize the Object's specific state
     ObjectDatas& state = objectState[objectID];
@@ -124,7 +162,17 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
     }
 }
 
+/*****************************************************************************************/
 
+/**
+* @brief
+* Function to roam any object with a specific prefab name in a specific direction
+* for a specific time
+*
+* @param prefabName - The name of the prefab to roam
+* @param dir - The direction to roam in
+* @param time - The time to roam in that direction
+*/
 void RoamSelectedPrefab(std::string prefabName, Vec2 dir, float time) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
@@ -135,6 +183,15 @@ void RoamSelectedPrefab(std::string prefabName, Vec2 dir, float time) {
     }
 }
 
+/**
+* @brief
+* Function to roam any object with a specific object name in a specific direction
+* for a specific time
+*
+* @param objectName - The name of the object to roam
+* @param dir - The direction to roam in
+* @param time - The time to roam in that direction
+*/
 void RoamSelectedObject(std::string objectName, Vec2 dir, float time) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
@@ -145,6 +202,15 @@ void RoamSelectedObject(std::string objectName, Vec2 dir, float time) {
     }
 }
 
+/**
+* @brief
+* Function to roam any object with a specific object ID in a specific direction
+* for a specific time
+*
+* @param objectID - The ID of the object to roam
+* @param dir - The direction to roam in
+* @param time - The time to roam in that direction
+*/
 void RoamDir(int objectID, Vec2& dir, float time) {
     // Retrieve or initialize the Object's specific state
     ObjectDatas& state = objectState[objectID];

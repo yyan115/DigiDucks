@@ -4,7 +4,7 @@
 \author 	Ernest Ho, h.yonghengernest, 2301223
 (100%)
 \email    	h.yonghengernestt@digipen.edu
-\date   	Sep 28 2024
+\date   	Oct 28 2024
 \brief  	Implementation of the CircleColliderSystem class for handling
 			collision detection and response between bounding boxes and circles.
 

@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\file		RoamingLogic.h
+\author 	Ernest Ho, h.yonghengernest, 2301223
+(100%)
+\email    	h.yonghengernestt@digipen.edu
+\date   	Nov 6 2024
+\brief		Declaration of Roaming Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "DuckEngine.h"
 #include <unordered_map>
@@ -50,6 +65,10 @@ void RoamSelectedObject(std::string objectName, Vec2 firstPos, Vec2 secondPos);
 * @param secondPos - The second position to roam to
 */
 void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos);
+
+
+/*****************************************************************************************/
+
 
 /**
 * @brief
