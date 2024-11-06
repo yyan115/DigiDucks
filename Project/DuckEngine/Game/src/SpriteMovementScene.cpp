@@ -449,7 +449,7 @@ void SpriteMovementScene::Update()
 	}
 
 	// Test Roaming Logic
-	RoamChar(*duckEntity, pos1, pos2);
+	RoamAllDucks(pos1, pos2);
 
 	
 }

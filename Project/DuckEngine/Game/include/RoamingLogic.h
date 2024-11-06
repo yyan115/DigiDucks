@@ -19,3 +19,5 @@ const float objectSpeed = 3.f;
 
 // Function to handle roaming logic
 void RoamChar(Entity& object, Vec2& firstPos, Vec2& secondPos);
+
+void RoamAllDucks(Vec2 firstPos, Vec2 secondPos);

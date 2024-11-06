@@ -1,102 +1,105 @@
 #include "RoamingLogic.h"
+#include <unordered_map>
+#include <iostream>
 
 namespace {
-	Vec2 getSpeed(Vec2& firstPos, Vec2& secondPos, float speed)
-	{
-		Vec2 dir = secondPos - firstPos;
-		dir = dir.normalized();
-		dir *= speed;
+    Vec2 getSpeed(Vec2& firstPos, Vec2& secondPos, float speed) {
+        Vec2 dir = secondPos - firstPos;
+        dir = dir.normalized();
+        dir *= speed;
+        return dir;
+    }
 
-		return dir;
-	}
+    // Structure to hold individual state data for each duck
+    struct DuckState {
+        bool reachedPos = false;
+        bool firstToSecond = true;
+        ObjectState state = Moving;
+        float timer = 0.f;
+    };
+
+    // Map to track the state for each duck entity by its entityID
+    std::unordered_map<int, DuckState> duckStates;
 }
 
-void RoamChar(Entity& object, Vec2& firstPos, Vec2& secondPos)
-{
-	// True: Object has reached either firstPos or secondPos.
-	// False: Object is still moving.
-	static bool reachedPos = false;
+void RoamChar(Entity& object, Vec2& firstPos, Vec2& secondPos) {
+    // Retrieve or initialize the duck's specific state
+    DuckState& state = duckStates[object.entityID];
 
-	// True: Moving from firstPos to secondPos.
-	// False: Moving from secondPos to firstPos.
-	static bool firstToSecond = true;
-	// Enum to check the state of the object
-	static ObjectState state = Moving;
-	// Timer to wait for a bit before moving again
-	static float timer = 0.f;
+    // Get components
+    TransformComponent* objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(object.entityID);
+    RigidbodyComponent* objectRigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(object.entityID);
+    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+    TransformComponent* playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
 
+    // Check for missing components
+    if (!objectTransform || !objectRigidbody || !playerTransform) {
+        std::cerr << "Missing necessary components on DuckPrefab or Player entity." << std::endl;
+        return;
+    }
 
-	// If object is at firstPos, move towards secondPos
-	TransformComponent* objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(object.entityID);
-	RigidbodyComponent* objectRigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(object.entityID);
+    // FSM to handle duck movement
+    switch (state.state) {
+    case Idle:
+        if (Vec2Dist(objectTransform->position, playerTransform->position) < objectRange) {
+            state.state = Chasing;
+            std::cout << "Duck started chasing." << std::endl;
+        }
 
-	Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
-	TransformComponent* playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
+        if (state.reachedPos) {
+            if (state.timer >= waitTime) {
+                state.reachedPos = false;
+                state.timer = 0.f;
+                state.state = Moving;
+            }
+            else {
+                state.timer += DuckEngine::DeltaTime();
+            }
+        }
+        else {
+            state.state = Moving;
+        }
+        break;
 
-	// Make a FSM to handle the movement of the object
-	switch (state)
-	{
-		// Idle state, object is not moving.
-	case Idle:
-		// If Player is in range, start chasing.
-		if (Vec2Dist(objectTransform->position, playerTransform->position) < objectRange) { state = Chasing; }
+    case Moving:
+        if (Vec2Dist(objectTransform->position, playerTransform->position) < objectRange) {
+            state.state = Chasing;
+        }
 
-		// If Object has reached either firstPos or secondPos, relax for a bit.
-		if (reachedPos) {
-			// Once object waits for a bit, start moving again.
-			if (timer >= waitTime) {
-				reachedPos = false;
-				timer = 0.f;
-				state = Moving;
-			}
-			else {
-				timer += DuckEngine::DeltaTime();
-			}
-		}
-		else {
-			state = Moving;
-		}
-		break;
+        if (state.firstToSecond) {
+            if (Vec2Dist(objectTransform->position, secondPos) <= 0.1f) {
+                state.reachedPos = true;
+                state.firstToSecond = false;
+                state.state = Idle;
+            }
+            objectRigidbody->velocity = getSpeed(objectTransform->position, secondPos, objectSpeed);
+        }
+        else {
+            if (Vec2Dist(objectTransform->position, firstPos) <= 0.1f) {
+                state.reachedPos = true;
+                state.firstToSecond = true;
+                state.state = Idle;
+            }
+            objectRigidbody->velocity = getSpeed(objectTransform->position, firstPos, objectSpeed);
+        }
+        break;
 
-		// Moving state, object is moving between firstPos and secondPos.
-	case Moving:
-		// If Player is in range, start chasing.
-		if (Vec2Dist(objectTransform->position, playerTransform->position) < objectRange) { state = Chasing; }
+    case Chasing:
+        if (Vec2Dist(objectTransform->position, playerTransform->position) > (objectRange * 1.5f)) {
+            state.state = Moving;
+        }
+        objectRigidbody->velocity = getSpeed(objectTransform->position, playerTransform->position, objectSpeed);
+        break;
+    }
+}
 
-		if (firstToSecond) {
-			// Moving from FirstPos to SecondPos
-			if (Vec2Dist(objectTransform->position, secondPos) <= 0.1f) {	// Object has reached secondPos
-				reachedPos = true;
-				firstToSecond = false;
-				state = Idle;
-			}
-
-			Vec2 dir = getSpeed(objectTransform->position, secondPos, objectSpeed);
-			objectRigidbody->velocity = dir;
-		}
-		else {
-			// Moving from SecondPos to FirstPos
-			if (Vec2Dist(objectTransform->position, firstPos) <= 0.1f) {	// Object has reached firstPos
-				reachedPos = true;
-				firstToSecond = true;
-				state = Idle;
-			}
-
-			Vec2 dir = getSpeed(objectTransform->position, firstPos, objectSpeed);
-			objectRigidbody->velocity = dir;
-		}
-
-		break;
-
-		// Chasing state, object is chasing the player.
-	case Chasing:
-		// If Player is out of range, go back to moving.
-		if (Vec2Dist(objectTransform->position, playerTransform->position) > (objectRange*1.5f)) { state = Moving; }
-
-		Vec2 dir = getSpeed(objectTransform->position, playerTransform->position, objectSpeed);
-		objectRigidbody->velocity = dir;
-
-		break;
-	};
-
+void RoamAllDucks(Vec2 firstPos, Vec2 secondPos) {
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : entities) {
+        if (entity.prefabName == "DuckPrefab") {
+            // Log each duck found to verify multiple instances are iterated
+            std::cout << "Roaming DuckPrefab entity: " << entity.entityID << std::endl;
+            RoamChar(entity, firstPos, secondPos);
+        }
+    }
 }
