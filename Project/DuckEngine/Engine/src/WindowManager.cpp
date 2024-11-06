@@ -168,6 +168,17 @@ GLint WindowManager::GetWindowHeight()
     return height;
 }
 
+GLint WindowManager::GetViewportWidth()
+{
+    std::cout << "viewportW: " << viewportWidth << ", normalW: " << width << "\n";
+    return viewportWidth;
+}
+
+GLint WindowManager::GetViewportHeight()
+{
+    return viewportHeight;
+}
+
 /// <summary>
 /// Sets the title of the window to the specified string.
 /// </summary>

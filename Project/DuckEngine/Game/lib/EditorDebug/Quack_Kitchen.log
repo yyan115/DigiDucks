@@ -1,4 +1,10 @@
-﻿  SpriteMovementScene.cpp
+﻿  main.cpp
+  GameManager.cpp
+  MaxLoadScene.cpp
+  MessagingSystem.cpp
+  RoamingLogic.cpp
+  SpriteMovementScene.cpp
+  Generating Code...
   Quack_Kitchen.vcxproj -> C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
   C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\background.png
   C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png

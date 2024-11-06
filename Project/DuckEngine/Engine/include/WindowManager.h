@@ -86,6 +86,10 @@ public:
     /// <returns>The height of the window in pixels.</returns>
     static GLint GetWindowHeight();
 
+    static GLint GetViewportWidth();
+
+    static GLint GetViewportHeight();
+
     /// <summary>
     /// Sets the title of the window.
     /// </summary>

@@ -79,7 +79,7 @@ void DuckEngine::Initialize(bool _isEditor)
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
-    FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
+    //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
     // load prefabs
     PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
 
@@ -125,6 +125,8 @@ void DuckEngine::Initialize(bool _isEditor)
     DUCKENGINE_SystemManager.StartAll();
 
     DuckEngine::DUCKENGINE_AssetManager.LoadAll();
+    GraphicsManager::Start();
+    FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
 }
 
 void DuckEngine::SetPlaying(bool playing)

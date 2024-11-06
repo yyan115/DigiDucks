@@ -9,6 +9,12 @@ void TextSystem::Start()
 
 void TextSystem::Update()
 {
+
+}
+
+void TextSystem::Render()
+{
+	std::cout << DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TextComponent>().size();
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TextComponent>())
 	{
 		TextComponent* text = static_cast<TextComponent*>(component.get());

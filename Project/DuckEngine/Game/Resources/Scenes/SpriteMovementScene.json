@@ -302,6 +302,23 @@
                         "text": "TEST TEXT COMPONENT"
                     },
                     "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 250.0,
+                            "b": 100.0,
+                            "g": 50.0,
+                            "r": 255.0
+                        },
+                        "fontSize": 1,
+                        "position": {
+                            "x": 0.0,
+                            "y": 960.0
+                        },
+                        "text": "BUTTON!"
+                    },
+                    "type": "TextComponent"
                 }
             ],
             "layer": "Gameplay"

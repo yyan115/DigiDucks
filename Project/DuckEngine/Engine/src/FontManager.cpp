@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "WindowManager.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "GraphicsManager.h"
 
 // Map of characters for quick lookup
 std::map<GLchar, FontManager::Character> FontManager::Characters;
@@ -50,7 +51,7 @@ void FontManager::Initialize(std::string fontPath, int fontSize) {
     }
 
     // Compile and setup the shader
-    ShaderManager::InsertShader("TextShader", "../Resources/Shaders/fontVertShader.vert", "../Resources/Shaders/fontFragShader.frag");
+    //ShaderManager::InsertShader("TextShader", "../Resources/Shaders/fontVertShader.vert", "../Resources/Shaders/fontFragShader.frag");
 
     // Enable blending for transparency
     glEnable(GL_BLEND);
@@ -181,6 +182,16 @@ void FontManager::Update() {
 /// </summary>
 void FontManager::Render() {
 
+    GraphicsManager::BindFBO();
+
+    // Set up the projection matrix
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()),
+        0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
+    //glUseProgram();
+    ShaderManager::GetShader("TextShader")->Use();
+
+    glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
     for (auto& text : drawQueue) {
         glDisable(GL_DEPTH_TEST);
 
@@ -233,4 +244,6 @@ void FontManager::Render() {
     }
 
     drawQueue.clear();
+
+    GraphicsManager::UnbindFBO();
 }

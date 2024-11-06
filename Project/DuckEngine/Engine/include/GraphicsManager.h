@@ -77,6 +77,8 @@ public:
     /// <returns>Returns true if initialization was successful, false otherwise.</returns>
     static bool Initialize();
 
+    static void Start();
+
     /// <summary>
     /// Cleans up the graphics system and releases any resources used by the GraphicsManager.
     /// </summary>

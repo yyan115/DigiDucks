@@ -222,7 +222,16 @@ void GraphicsManager::Render() {
 }
 
 void GraphicsManager::RenderDebug() {
-    if (!DuckEngine::showDebugDraw) return;
+    if (!DuckEngine::showDebugDraw) {
+        debugDrawQueue.clear();
+        pointCommands.clear();
+        lineCommands.clear();
+        rectangleCommands.clear();
+        circleCommands.clear();
+        return;
+    }
+
+    BindFBO();
 
     // Clear previous grouped commands
     pointCommands.clear();
@@ -266,6 +275,8 @@ void GraphicsManager::RenderDebug() {
 
     // Clear the debug draw queue after rendering
     debugDrawQueue.clear();
+
+    UnbindFBO();
 }
 
 /// <summary>
@@ -291,11 +302,13 @@ bool GraphicsManager::Initialize() {
         return false;
     }
 
+    return true;
+}
+
+void GraphicsManager::Start() {
     InitializeSingleMeshShaderSystem();
 
     InitializeDebugShaderSystem();
-
-    return true;
 }
 
 /// <summary>
@@ -318,7 +331,7 @@ void GraphicsManager::Exit() {
 /// </summary>
 void GraphicsManager::InitializeSingleMeshShaderSystem() {
 
-    ShaderManager::InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
+    //ShaderManager::InsertShader("DefaultShader", "../Resources/Shaders/gameVertShader.vert", "../Resources/Shaders/gameFragShader.frag");
 
     InitMesh(VAO);
 }
@@ -335,10 +348,10 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     //GraphicsManager::SetupPointVAO();
     //GraphicsManager::SetupRectangleVAO();
 
-    ShaderManager::InsertShader("PointShader", "../Resources/Shaders/PointVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    ShaderManager::InsertShader("LineShader", "../Resources/Shaders/LineVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    ShaderManager::InsertShader("RectangleShader", "../Resources/Shaders/RectangleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    ShaderManager::InsertShader("CircleShader", "../Resources/Shaders/CircleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    //ShaderManager::InsertShader("PointShader", "../Resources/Shaders/PointVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    //ShaderManager::InsertShader("LineShader", "../Resources/Shaders/LineVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    //ShaderManager::InsertShader("RectangleShader", "../Resources/Shaders/RectangleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    //ShaderManager::InsertShader("CircleShader", "../Resources/Shaders/CircleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
     // Set up VAOs for shapes
     GraphicsManager::SetupCircleVAO(100);
@@ -519,6 +532,8 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
         glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(cameraRelativeData.size()));
+
+        std::cout << "Rendered debug rects.\n";
     }
 
 
@@ -536,6 +551,8 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
         glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(uiData.size()));
+
+        std::cout << "Rendered UI debug rects.\n";
     }
 
     glBindVertexArray(0);

@@ -229,6 +229,14 @@ void BoxColliderSystem::Update() {
 		}
 
 		box->setCenter(boxTrans->position);
+	}
+}
+
+void BoxColliderSystem::Render() {
+
+	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+	{
+		BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
 
 		DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
 	}

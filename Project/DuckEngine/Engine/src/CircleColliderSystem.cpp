@@ -242,6 +242,13 @@ void CircleColliderSystem::Update() {
 		}
 		// Update Collider's position based on velocity
 		circle->setCenter(circleTrans->position);
+	}
+}
+
+void CircleColliderSystem::Render() {
+	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+	{
+		BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
 
 		DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
 	}

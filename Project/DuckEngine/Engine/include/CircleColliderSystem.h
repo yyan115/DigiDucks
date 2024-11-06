@@ -31,5 +31,5 @@ class DUCKENGINE_API CircleColliderSystem : public System
 public:
 	void Start() override;
 	void Update() override;
-
+	void Render() override;
 };
