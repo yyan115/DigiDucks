@@ -12,31 +12,54 @@ namespace {
 // Define the global objectState variable here
 std::unordered_map<int, ObjectDatas> objectState;
 
-void RoamChar(int objectID, Vec2& firstPos, Vec2& secondPos) {
-    // Retrieve or initialize the duck's specific state
+
+void RoamSelectedPrefab(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : entities) {
+        if (entity.prefabName == prefabName) {
+            RoamTwoPos(entity.entityID, firstPos, secondPos);
+        }
+
+    }
+}
+
+void RoamSelectedObject(std::string objectName, Vec2 firstPos, Vec2 secondPos) {
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : entities) {
+        if (entity.name == objectName) {
+            RoamTwoPos(entity.entityID, firstPos, secondPos);
+        }
+
+    }
+}
+
+void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
+    // Retrieve or initialize the Object's specific state
     ObjectDatas& state = objectState[objectID];
 
     // Get components
-    TransformComponent* objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectID);
-    RigidbodyComponent* objectRigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(objectID);
-	if (objectRigidbody->isStatic) {
-		objectRigidbody->isStatic = false;
-	}
+    TransformComponent* objTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectID);
+    RigidbodyComponent* objRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(objectID);
+    BoundingBox* objBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(objectID);
+    BoundingCircle* objCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(objectID);
+    if (objRb->isStatic) { objRb->isStatic = false; }
 
 	// Get player components
     Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
-    TransformComponent* playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
+    TransformComponent* playerTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
+	BoundingCircle* playerCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 
     // Check for missing components
-    if (!objectTransform || !objectRigidbody || !playerTransform) {
+    if (!objTrf || !objRb || !playerTrf) {
         std::cerr << "Missing necessary components on ObjectPrefab or Player entity." << std::endl;
         return;
     }
 
-    // FSM to handle duck movement
+    // FSM to handle object movement
     switch (state.state) {
     case Idle:
-        if (Vec2Dist(objectTransform->position, playerTransform->position) < state.objectRange) { state.state = Chasing; }
+		// Check if player is within range
+        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
 
         if (state.reachedPos) {
             if (state.timer >= state.waitTime) {
@@ -54,40 +77,165 @@ void RoamChar(int objectID, Vec2& firstPos, Vec2& secondPos) {
         break;
 
     case Moving:
-        if (Vec2Dist(objectTransform->position, playerTransform->position) < state.objectRange) { state.state = Chasing; }
+        // Check if player is within range
+        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
 
         if (state.firstToSecond) {
-            if (Vec2Dist(objectTransform->position, secondPos) <= 0.1f) {
+            if (Vec2Dist(objTrf->position, secondPos) <= 0.1f) {
                 state.reachedPos = true;
                 state.firstToSecond = false;
                 state.state = Idle;
             }
-            objectRigidbody->velocity = getSpeed(objectTransform->position, secondPos, state.objectSpeed);
+            objRb->velocity = getSpeed(objTrf->position, secondPos, state.objectSpeed);
         }
         else {
-            if (Vec2Dist(objectTransform->position, firstPos) <= 0.1f) {
+            if (Vec2Dist(objTrf->position, firstPos) <= 0.1f) {
                 state.reachedPos = true;
                 state.firstToSecond = true;
                 state.state = Idle;
             }
-            objectRigidbody->velocity = getSpeed(objectTransform->position, firstPos, state.objectSpeed);
+            objRb->velocity = getSpeed(objTrf->position, firstPos, state.objectSpeed);
         }
         break;
 
     case Chasing:
-        if (Vec2Dist(objectTransform->position, playerTransform->position) > (state.objectRange * 1.5f)) { state.state = Moving; }
+        float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
+        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Moving; }
 
-        objectRigidbody->velocity = getSpeed(objectTransform->position, playerTransform->position, state.objectSpeed);
+        // Check if object has a circle or box collider
+        if (!objBox) {
+            float playerRadius_ObjRadius = playerCircle->getRadius() + objCircle->getRadius();
+            if (distFromPlayer <= playerRadius_ObjRadius) {
+                objRb->isStatic = true;
+                break;
+            }
+        }
+        else {
+            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
+            if (distFromPlayer <= playerRadius_ObjSize) {
+                objRb->isStatic = true;
+                break;
+            }
+        }
+
+        objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+
         break;
     }
 }
 
-void RoamSelectedObject(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
+
+void RoamSelectedPrefab(std::string prefabName, Vec2 dir, float time) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
         if (entity.prefabName == prefabName) {
-            RoamChar(entity.entityID, firstPos, secondPos);
+            RoamDir(entity.entityID, dir, time);
         }
 
     }
 }
+
+void RoamSelectedObject(std::string objectName, Vec2 dir, float time) {
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : entities) {
+        if (entity.name == objectName) {
+            RoamDir(entity.entityID, dir, time);
+        }
+
+    }
+}
+
+void RoamDir(int objectID, Vec2& dir, float time) {
+    // Retrieve or initialize the Object's specific state
+    ObjectDatas& state = objectState[objectID];
+
+    // Get components
+    TransformComponent* objTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectID);
+    RigidbodyComponent* objRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(objectID);
+	BoundingBox* objBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(objectID);
+	BoundingCircle* objCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(objectID);
+    if (objRb->isStatic) { objRb->isStatic = false; }
+
+    // Get player components
+    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+    TransformComponent* playerTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
+    BoundingCircle* playerCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
+
+    // Check for missing components
+    if (!objTrf || !objRb || !playerTrf) {
+        std::cerr << "Missing necessary components on ObjectPrefab or Player entity." << std::endl;
+        return;
+    }
+    
+    // FSM to handle object movement
+    switch (state.state) {
+    case Idle:
+        // Check if player is within range
+        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+
+        if (state.reachedPos) {
+            if (state.timer >= state.waitTime) {
+                state.reachedPos = false;
+                state.timer = 0.f;
+                state.state = Moving;
+            }
+            else {
+                state.timer += DuckEngine::DeltaTime();
+            }
+        }
+        else {
+            state.state = Moving;
+        }
+        break;
+
+    case Moving:
+        // Check if player is within range
+        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+
+        if (state.firstToSecond) {
+            if (state.timer >= time) {
+                state.reachedPos = true;
+                state.firstToSecond = false;
+                state.state = Idle;
+				state.timer = 0.f;
+            }
+			objRb->velocity = dir.normalized() * state.objectSpeed;
+			state.timer += DuckEngine::DeltaTime();
+        }
+        else {
+            if (state.timer >= time) {
+                state.reachedPos = true;
+                state.firstToSecond = true;
+                state.state = Idle;
+                state.timer = 0.f;
+            }
+            objRb->velocity = -dir.normalized() * state.objectSpeed;
+            state.timer += DuckEngine::DeltaTime();
+        }
+        break;
+
+    case Chasing:
+        float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
+        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Moving; }
+
+        // Check if object has a circle or box collider
+        if (!objBox) {
+			float playerRadius_ObjRadius = playerCircle->getRadius() + objCircle->getRadius();
+            if (distFromPlayer <= playerRadius_ObjRadius) {
+                objRb->isStatic = true;
+                break;
+            }
+        }
+        else {
+            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
+			if (distFromPlayer <= playerRadius_ObjSize) {
+				objRb->isStatic = true;
+				break;
+			}
+        }
+
+        objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+        break;
+    }
+}
+
