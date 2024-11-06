@@ -158,7 +158,7 @@ public:
     @param scale The scale factor for the text.
     @param color The color of the text.
     *************************************************************************/
-    static DUCKENGINE_API void RenderText(const std::string& text, const Vector2D& position, float scale, const Color& color);
+    static DUCKENGINE_API void RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color);
 
     /************************************************************************
     @brief Draws a point on the screen at a specified position with a given size.

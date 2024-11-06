@@ -14,8 +14,6 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
-
-
 #include "FontManager.h"
 #include <iostream>
 #include "ShaderManager.h"
@@ -24,226 +22,148 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <glm/gtc/type_ptr.hpp>
 #include "GraphicsManager.h"
 
-// Map of characters for quick lookup
-std::map<GLchar, FontManager::Character> FontManager::Characters;
+// Map of fonts storing characters for each font name
+std::map<std::string, std::map<GLchar, FontManager::Character>> FontManager::Fonts;
 
 std::vector<TextRenderCommand> FontManager::drawQueue;
 
-// FreeType library and face
+// FreeType library
 FT_Library FontManager::ft;
-FT_Face FontManager::face;
 
 // OpenGL handles
 unsigned int FontManager::VAO;
 unsigned int FontManager::VBO;
 
 /// <summary>
-/// Initializes the FontManager by setting up FreeType, loading the font,
-/// generating character textures, and setting up OpenGL buffers for rendering text.
+/// Loads a font and stores it with the specified name, generating textures for each character.
 /// </summary>
-/// <param name="fontPath">The path to the font file (e.g., .ttf)</param>
-/// <param name="fontSize">The size of the font in pixels</param>
-void FontManager::Initialize(std::string fontPath, int fontSize) {
-    // Initialize FreeType library
+/// <param name="fontName">A unique name for the font.</param>
+/// <param name="fontPath">The path to the font file.</param>
+/// <param name="fontSize">The size of the font.</param>
+void FontManager::LoadFont(const std::string& fontName, const std::string& fontPath, int fontSize) {
     if (FT_Init_FreeType(&ft)) {
         std::cerr << "ERROR::FREETYPE: Could not init FreeType Library\n";
-        // Handle error appropriately
+        return;
     }
 
-    // Compile and setup the shader
-    //ShaderManager::InsertShader("TextShader", "../Resources/Shaders/fontVertShader.vert", "../Resources/Shaders/fontFragShader.frag");
-
-    // Enable blending for transparency
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // Load font face
+    FT_Face face;
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
         std::cerr << "ERROR::FREETYPE: Failed to load font: " << fontPath << "\n";
         return;
     }
-    // Set font size
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
-    // Generate character textures
-    Characters.clear();
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
+    std::map<GLchar, Character> characters;
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     for (GLubyte c = 0; c < 128; c++) {
-        // Load character glyph
         if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
             std::cerr << "ERROR::FREETYPE: Failed to load Glyph for character " << c << "\n";
             continue;
         }
-        // Generate texture
+
         GLuint texture;
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED, // We use GL_RED since we're dealing with grayscale
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
-        // Set texture options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // Prevents artifacts when scaling
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows, 0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);    // Smooth edges
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        // Now store character for later use
         Character character = {
             texture,
             glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             static_cast<GLuint>(face->glyph->advance.x)
         };
-        Characters.insert(std::pair<GLchar, Character>(c, character));
-
-        //if (face->glyph->bitmap.width == 0 || face->glyph->bitmap.rows == 0) {
-        //    std::cerr << "WARNING: Glyph for character " << c << " has zero width or height.\n";
-        //}
-
+        characters.insert({ c, character });
     }
+    Fonts[fontName] = characters;
     glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Initialize OpenGL buffers
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    // Bind and configure VBO and VAO
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // We are using dynamic draw because we'll update the content every frame
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-
-    // Vertex attributes (position and texture coordinates)
-    glEnableVertexAttribArray(0);
-    // Each vertex has 4 floats: x, y, u, v
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    // Set up the projection matrix
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()),
-        0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
-    //glUseProgram();
-    ShaderManager::GetShader("TextShader")->Use();
-    glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
-    // Set the 'text' sampler uniform to texture unit 0
-    glUniform1i(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "text"), 0);
-}
-
-/// <summary>
-/// Cleans up resources used by the FontManager, including textures, VAO, VBO, 
-/// and FreeType objects.
-/// </summary>
-void FontManager::Exit() {
-    // Clean up textures
-    for (auto& pair : Characters) {
-        glDeleteTextures(1, &pair.second.TextureID);
-    }
-    // Delete VAO and VBO
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-
-    // Clean up FreeType
     FT_Done_Face(face);
-    FT_Done_FreeType(ft);
+
+    // Initialize VAO and VBO once for all fonts
+    if (VAO == 0 && VBO == 0) {
+        glGenVertexArrays(1, &VAO);
+        glGenBuffers(1, &VBO);
+        glBindVertexArray(VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+    }
 }
 
-/// <summary>
-/// Adds a text render command to the draw queue for rendering in the next frame.
-/// </summary>
-/// <param name="drawOptions">The TextRenderCommand object containing text, position, scale, and color.</param>
 void FontManager::AddToDrawQueue(TextRenderCommand& drawOptions) {
     drawQueue.emplace_back(drawOptions);
 }
 
-/// <summary>
-/// Placeholder for updating any internal state of the FontManager.
-/// Currently does nothing but can be extended for future use.
-/// </summary>
 void FontManager::Update() {
 
 }
 
 /// <summary>
-/// Renders all text in the draw queue to the screen.
-/// Iterates through all the characters in each text render command, calculates 
-/// their positions, updates the VBO, and renders them as quads.
+/// Renders all text commands in the draw queue, using the specified font for each command.
 /// </summary>
 void FontManager::Render() {
-
     GraphicsManager::BindFBO();
 
-    // Set up the projection matrix
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()),
-        0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
-    //glUseProgram();
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()), 0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
     ShaderManager::GetShader("TextShader")->Use();
-
     glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     for (auto& text : drawQueue) {
         glDisable(GL_DEPTH_TEST);
-
-        // Activate corresponding render state	
-        //glUseProgram(shaderProgram);
         ShaderManager::GetShader("TextShader")->Use();
-        glUniform4f(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "textColor"), text.color.r / 255.f,
-                                                                                                             text.color.g / 255.f,
-                                                                                                             text.color.b / 255.f,
-                                                                                                             text.color.a / 255.f);
-        glActiveTexture(GL_TEXTURE0);
-        glBindVertexArray(VAO);
+        glUniform4f(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "textColor"), text.color.r / 255.f, text.color.g / 255.f, text.color.b / 255.f, text.color.a / 255.f);
 
-        // Iterate through all characters in the text
-        std::string::const_iterator c;
-        for (c = text.text.begin(); c != text.text.end(); c++) {
-            Character ch = Characters[*c];
+        glBindVertexArray(VAO);
+        glActiveTexture(GL_TEXTURE0);
+
+        const auto& font = Fonts[text.fontName];  // Fetch the font by name
+        for (const char& c : text.text) {
+            Character ch = font.at(c);
 
             float xpos = text.position.x + ch.Bearing.x * text.scale;
             float ypos = text.position.y - (ch.Size.y - ch.Bearing.y) * text.scale;
-
             float w = ch.Size.x * text.scale;
             float h = ch.Size.y * text.scale;
 
-            // Update VBO for each character
             GLfloat vertices[6][4] = {
-                { xpos,     ypos + h,   0.0f, 0.0f }, // Top-left
-                { xpos,     ypos,       0.0f, 1.0f }, // Bottom-left
-                { xpos + w, ypos,       1.0f, 1.0f }, // Bottom-right
-
-                { xpos,     ypos + h,   0.0f, 0.0f }, // Top-left
-                { xpos + w, ypos,       1.0f, 1.0f }, // Bottom-right
-                { xpos + w, ypos + h,   1.0f, 0.0f }  // Top-right
+                { xpos, ypos + h, 0.0f, 0.0f }, { xpos, ypos, 0.0f, 1.0f }, { xpos + w, ypos, 1.0f, 1.0f },
+                { xpos, ypos + h, 0.0f, 0.0f }, { xpos + w, ypos, 1.0f, 1.0f }, { xpos + w, ypos + h, 1.0f, 0.0f }
             };
-            // Render glyph texture over quad
-            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
-            // Update content of VBO memory
+            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-
-            // Render quad
             glDrawArrays(GL_TRIANGLES, 0, 6);
 
-            // Advance cursor for next glyph
-            text.position.x += (ch.Advance >> 6) * text.scale; // Bitshift by 6 to get value in pixels (1/64 pixels per unit)
+            text.position.x += (ch.Advance >> 6) * text.scale;
         }
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
     drawQueue.clear();
-
     GraphicsManager::UnbindFBO();
+}
+
+/// <summary>
+/// Cleans up the loaded fonts and FreeType resources.
+/// </summary>
+void FontManager::Exit() {
+    for (auto& font : Fonts) {
+        for (auto& pair : font.second) {
+            glDeleteTextures(1, &pair.second.TextureID);
+        }
+    }
+    Fonts.clear();
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    FT_Done_FreeType(ft);
 }

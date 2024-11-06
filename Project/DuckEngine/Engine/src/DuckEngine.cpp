@@ -126,7 +126,11 @@ void DuckEngine::Initialize(bool _isEditor)
 
     DuckEngine::DUCKENGINE_AssetManager.LoadAll();
     GraphicsManager::Start();
-    FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
+    //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
+    // Load fonts during initialization
+    FontManager::LoadFont("Roboto-Black", "../Resources/Roboto-Black.ttf", 48);
+    FontManager::LoadFont("AbrilFatface-Regular", "../Resources/AbrilFatface-Regular.ttf", 48);
+
 }
 
 void DuckEngine::SetPlaying(bool playing)
@@ -343,8 +347,9 @@ void DuckEngine::SetCameraHeight(const int height) {
 @param scale The scaling factor for the text.
 @param color The color of the text.
 *************************************************************************/
-void DuckEngine::RenderText(const std::string& text, const Vector2D& position, float scale, const Color& color) {
+void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color) {
     TextRenderCommand command{
+        fontName,
         text,
         position,
         scale,

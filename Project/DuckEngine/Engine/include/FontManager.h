@@ -15,7 +15,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-
 #pragma once
 
 #include "GL/glew.h"
@@ -37,12 +36,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 class FontManager {
 public:
     /// <summary>
-    /// Initializes the FontManager by loading a font from the specified file and setting the font size.
-    /// Also initializes the FreeType library and sets up OpenGL buffers for text rendering.
+    /// Loads a font from the specified file and stores it under the given font name.
+    /// Also sets the font size and initializes the corresponding glyph textures.
     /// </summary>
+    /// <param name="fontName">A unique name to identify the font.</param>
     /// <param name="fontPath">The path to the font file (e.g., .ttf).</param>
     /// <param name="fontSize">The size of the font in pixels.</param>
-    static void Initialize(std::string fontPath, int fontSize);
+    static void LoadFont(const std::string& fontName, const std::string& fontPath, int fontSize);
 
     /// <summary>
     /// Cleans up and exits the FontManager by releasing the FreeType library, deleting OpenGL buffers,
@@ -63,7 +63,7 @@ public:
     /// <summary>
     /// Adds a text render command to the draw queue for rendering in the next frame.
     /// </summary>
-    /// <param name="drawOptions">The TextRenderCommand object containing the text, position, scale, and color.</param>
+    /// <param name="drawOptions">The TextRenderCommand object containing the text, position, scale, color, and font name.</param>
     static void AddToDrawQueue(TextRenderCommand& drawOptions);
 
 private:
@@ -78,9 +78,9 @@ private:
     };
 
     /// <summary>
-    /// A map storing character glyphs for quick lookup based on character codes.
+    /// A map storing all loaded fonts, each identified by a unique name, with each font storing its character glyphs.
     /// </summary>
-    static std::map<GLchar, Character> Characters;
+    static std::map<std::string, std::map<GLchar, Character>> Fonts;
 
     /// <summary>
     /// A queue that stores text render commands to be processed and rendered each frame.
@@ -91,11 +91,6 @@ private:
     /// The FreeType library instance.
     /// </summary>
     static FT_Library ft;
-
-    /// <summary>
-    /// The FreeType font face instance for the loaded font.
-    /// </summary>
-    static FT_Face face;
 
     /// <summary>
     /// The OpenGL Vertex Array Object (VAO) used for rendering text.

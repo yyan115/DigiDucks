@@ -29,6 +29,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 /// </summary>
 struct TextRenderCommand {
     
+    std::string fontName;
+
     // Text to actually render
     std::string text;
 
@@ -45,35 +47,35 @@ struct TextRenderCommand {
     /// Constructs a TextRenderCommand with specified text, position, scale, and color.
     /// Defaults to a white color.
     /// </summary>
-    TextRenderCommand(const std::string& txt = "",
+    TextRenderCommand(std::string fontName, const std::string& txt = "",
         float posX = 0.0f, float posY = 0.0f,
         float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f })
-        : text(txt), position(posX, posY), scale(scl), color(clr) {}
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using RGB values with default alpha.
     /// </summary>
-    TextRenderCommand(const std::string& txt,
+    TextRenderCommand(std::string fontName, const std::string& txt,
         float posX, float posY,
         float scl, float r, float g, float b, float a)
-        : text(txt), position(posX, posY), scale(scl), color(r, g, b, a) {}
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and RGB values with default alpha.
     /// </summary>
-    TextRenderCommand(const std::string& txt,
+    TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
         float scl, float r, float g, float b, float a)
-        : text(txt), position(position), scale(scl), color(r, g, b, a) {}
+        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and a Color struct for color.
     /// Defaults to a white color.
     /// </summary>
-    TextRenderCommand(const std::string& txt,
+    TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
         float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f })
-        : text(txt), position(position), scale(scl), color(clr) {}
+        : fontName(fontName), text(txt), position(position), scale(scl), color(clr) {}
 
     /// <summary>
     /// Destructor for TextRenderCommand.

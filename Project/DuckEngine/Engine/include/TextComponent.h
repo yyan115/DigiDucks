@@ -16,6 +16,8 @@ class TextComponent : public Component
 {
 public:
 
+    std::string fontName;
+
     std::string text;
 
     Vector2D position;
@@ -34,6 +36,7 @@ public:
     //Alignment alignment = Alignment::Left;
 
     DUCKENGINE_API TextComponent(
+        const std::string& fontName,
         const std::string& text = "",
         const Vector2D& position = Vector2D(),
         int fontSize = 1,
@@ -41,7 +44,7 @@ public:
         //std::shared_ptr<Font> font = nullptr,
         bool enabled = true
     )
-        : text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled) {}
+        : fontName(fontName), text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled) {}
 
     DUCKENGINE_API std::shared_ptr<Component> Clone() const override
     {

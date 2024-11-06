@@ -299,7 +299,8 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "text": "TEST TEXT COMPONENT"
+                        "text": "TEST TEXT COMPONENT",
+                        "fontName": "Roboto-Black"
                     },
                     "type": "TextComponent"
                 },
@@ -316,7 +317,8 @@
                             "x": 0.0,
                             "y": 960.0
                         },
-                        "text": "BUTTON!"
+                        "text": "BUTTON!",
+                        "fontName": "AbrilFatface-Regular"
                     },
                     "type": "TextComponent"
                 }

@@ -203,10 +203,13 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
         componentsArray.push_back(animatorData);
     }
 
+    // Save TextComponent.
     if (auto* textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entityID))
     {
+        std::cout << "font name: " << textComponent->fontName << "\n";
         json textData;
         textData["type"] = "TextComponent";
+        textData["properties"]["fontName"] = textComponent->fontName;
         textData["properties"]["text"] = textComponent->text;
         textData["properties"]["position"] =
         {
@@ -331,6 +334,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 
     else if (type == "TextComponent")
     {
+        std::string fontName = componentJson["properties"].value("fontName", "Roboto-Black");
         std::string text = componentJson["properties"].value("text", "");
         Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
         int fontSize = componentJson["properties"].value("fontSize", 12);
@@ -344,7 +348,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
             color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
         }
 
-        auto textComponent = std::make_shared<TextComponent>(text, position, fontSize, color);
+        auto textComponent = std::make_shared<TextComponent>(fontName, text, position, fontSize, color);
         return textComponent;
     }
     else if (type == "ButtonComponent")

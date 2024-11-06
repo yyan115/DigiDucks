@@ -532,8 +532,6 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
 
         glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(cameraRelativeData.size()));
-
-        std::cout << "Rendered debug rects.\n";
     }
 
 
@@ -551,8 +549,6 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
         glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
 
         glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(uiData.size()));
-
-        std::cout << "Rendered UI debug rects.\n";
     }
 
     glBindVertexArray(0);
