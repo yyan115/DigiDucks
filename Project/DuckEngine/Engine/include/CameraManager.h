@@ -57,6 +57,7 @@ public:
     /// </summary>
     /// <returns>The camera's position as a 2D vector.</returns>
     static inline Vector2D GetPosition() { return position; };
+    static Vector2D GetPreviousPosition() { return previousPosition; };
 
     /// <summary>
     /// Gets the window's current aspect ratio (width/height).
@@ -76,12 +77,13 @@ public:
     /// <summary>
     /// Updates the camera's internal state. This method may include calculations or adjustments based on the current camera properties.
     /// </summary>
-    void Update();
+    static void Update();
 private:
     /// <summary>
     /// The camera's position in world space as a 2D vector.
     /// </summary>
     static Vector2D position;
+    static Vector2D previousPosition;
 
     /// <summary>
     /// The camera's height, representing the vertical size of the camera's view.

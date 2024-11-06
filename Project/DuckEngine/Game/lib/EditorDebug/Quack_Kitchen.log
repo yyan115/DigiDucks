@@ -1,7 +1,4 @@
-﻿  MaxLoadScene.cpp
-  MessagingSystem.cpp
-  SpriteMovementScene.cpp
-  Generating Code...
+﻿  SpriteMovementScene.cpp
   Quack_Kitchen.vcxproj -> C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
   C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\background.png
   C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png

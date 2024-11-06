@@ -28,6 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "InputManager.h"
 #include "ShaderManager.h"
 #include "FontManager.h"
+#include "CameraManager.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -56,6 +57,10 @@ bool isPlaying = false;
 Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
 //TextRenderingSystem textRenderingSystem;
+
+double DuckEngine::accumulatedTime = 0.0;
+int DuckEngine::currentSteps = 0;
+const double DuckEngine::FIXED_TIMESTEP = 1.0 / 60.0;
 
 /************************************************************************
 @brief Initializes the DuckEngine by setting up the window, graphics, input,
@@ -136,46 +141,59 @@ bool DuckEngine::IsPlaying()
        handling scene management, and rendering text. It also updates
        the window title with the current FPS.
 *************************************************************************/
-void DuckEngine::Update() 
+void DuckEngine::Update()
 {
     // Look for inputs first   
     TimeManager::StartManagerTimer("Input System");
     InputManager::Update();
     TimeManager::EndManagerTimer("Input System");
-    // Update dt every 1 second
+
+    // Get the actual frame time
     TimeManager::UpdateTime(1.0);
+    double frameTime = TimeManager::DT();
 
-    DUCKENGINE_SystemManager.UpdateAll();
+    // Accumulate time
+    accumulatedTime += frameTime;
+    currentSteps = 0;
 
-    if (isEditor && isPlaying)
+    // Update in fixed timesteps
+    while (accumulatedTime >= FIXED_TIMESTEP)
     {
-        DUCKENGINE_SceneManager.Update();
-    }
-    else if (!isEditor)
-    {
-        DUCKENGINE_SceneManager.Update();
+        // Fixed update step
+        TimeManager::StartManagerTimer("Systems Update");
+
+        CameraManager::Update();
+
+        DUCKENGINE_SystemManager.UpdateAll();
+
+        if (isEditor && isPlaying)
+        {
+            DUCKENGINE_SceneManager.Update();
+        }
+        else if (!isEditor)
+        {
+            DUCKENGINE_SceneManager.Update();
+        }
+
+        TimeManager::EndManagerTimer("Systems Update");
+
+        accumulatedTime -= FIXED_TIMESTEP;
+        currentSteps++;
+
+        // Safety check to prevent spiral of death
+        if (currentSteps > 5)
+        {
+            accumulatedTime = 0.0;
+            break;
+        }
     }
 
+    // Render at whatever FPS we can achieve
+    TimeManager::StartManagerTimer("Font System");
     FontManager::Update();
+    TimeManager::EndManagerTimer("Font System");
+
     DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
-    //// FIRST INSTANCE
-    //TextRenderCommand titleText{
-    //"TEST SCENE",       // Text
-    //{ 20.f , WindowManager::GetWindowHeight() - 70.f },         // Position (X, Y)
-    //1.0f,                  // Scale
-    //255.f, 50.f, 100.0f, 250.0f       // Color (R, G, B)
-    //};
-
-    //FontManager::AddToDrawQueue(titleText);
-
-    //TextRenderCommand testText {
-    //"TEST TEXT",       // Text
-    //{ WindowManager::GetWindowWidth() - 300.f  , 250.f },         // Position (X, Y)
-    //1.0f,                  // Scale
-    //0.f, 255.f, 150.f, 250.0f       // Color (R, G, B)
-    //};
-
-    //FontManager::AddToDrawQueue(testText);
 }
 
 /************************************************************************
@@ -209,6 +227,8 @@ void DuckEngine::Draw()
     GraphicsManager::RenderDebug();
     TimeManager::EndManagerTimer("Graphics System");
 
+    DuckEngine::DUCKENGINE_SystemManager.RenderAll();
+    
     TimeManager::StartManagerTimer("Font System");
     FontManager::Render();
     TimeManager::EndManagerTimer("Font System");
@@ -289,7 +309,7 @@ int DuckEngine::GetWindowHeight()
 *************************************************************************/
 float DuckEngine::DeltaTime()
 {
-    return static_cast<float>(TimeManager::DT());
+    return static_cast<float>(FIXED_TIMESTEP);
 }
 
 /************************************************************************

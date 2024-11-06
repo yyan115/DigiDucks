@@ -59,3 +59,11 @@ void SystemManager::UpdateAll()
     }
 }
 
+void SystemManager::RenderAll()
+{
+    for (std::shared_ptr<System>& system : systems)
+    {
+        system->Render();
+    }
+}
+

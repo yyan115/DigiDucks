@@ -32,6 +32,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "ShaderManager.h"
 
+
+
 GLuint GraphicsManager::VAO = 0;
 std::vector<DrawOptions> GraphicsManager::drawQueue;
 
@@ -134,11 +136,16 @@ void GraphicsManager::Render() {
 
     glBindVertexArray(VAO);
 
-    Vector2D cameraPosition = CameraManager::GetPosition();
+    float alpha = static_cast<float>(DuckEngine::accumulatedTime / DuckEngine::FIXED_TIMESTEP);
+
+    // Get interpolated camera position
+    Vector2D interpolatedCameraPosition = CameraManager::GetPreviousPosition() +
+        (CameraManager::GetPosition() - CameraManager::GetPreviousPosition()) * alpha;
+
+    // Use interpolatedCameraPosition to set up the view matrix
+    glm::mat3x3 viewMatrix = ViewMatrix(interpolatedCameraPosition);
     float ar = CameraManager::GetAR();
     float height = CameraManager::GetHeight();
-
-    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
 
     for (const auto& drawItem : drawQueue) {

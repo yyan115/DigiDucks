@@ -41,6 +41,8 @@ public:
     *************************************************************************/
     virtual void Update() = 0;
 
+    virtual void Render() {}
+
     /************************************************************************
     @brief Virtual destructor for the System class to ensure derived classes
            can clean up resources when destroyed.

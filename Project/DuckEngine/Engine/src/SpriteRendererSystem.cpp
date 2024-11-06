@@ -53,8 +53,18 @@ void SpriteRendererSystem::Start()
 *************************************************************************/
 void SpriteRendererSystem::Update()
 {
+
+}
+
+void SpriteRendererSystem::Render()
+{
     auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
     if (!activeScene) return;
+
+
+    float totalTime = DuckEngine::accumulatedTime;
+    float alpha = (totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP);
+    alpha = std::min(1.0f, std::max(0.0f, alpha));
 
     auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (Entity& entity : allEntities)
@@ -108,7 +118,21 @@ void SpriteRendererSystem::Update()
     for (const RenderData& data : renderQueue)
     {
         DrawOptions drawOptions;
-        drawOptions.translation = data.transform->position;
+
+        // Interpolate position between previous and current positions
+        if (data.transform->relativeToCamera)
+        {
+            // If using previous position storage:
+            Vector2D interpolatedPosition = data.transform->previousPosition +
+                (data.transform->position - data.transform->previousPosition) * alpha;
+            drawOptions.translation = interpolatedPosition;
+        }
+        else
+        {
+            drawOptions.translation = data.transform->position;
+        }
+
+        // You might also want to interpolate rotation and scale if they change frequently
         drawOptions.scale = data.transform->scale;
         drawOptions.rotation = data.transform->angle;
 

@@ -46,6 +46,8 @@ void RigidbodySystem::Update()
         // Ensure the entity has both RigidbodyComponent and TransformComponent
         if (rigidbody && transform)
         {
+            transform->previousPosition = transform->position;
+
             // Skip if the rigidbody is static (not affected by physics)
             if (rigidbody->isStatic)
             {
@@ -54,6 +56,7 @@ void RigidbodySystem::Update()
 
             // Update velocity based on acceleration and deltaTime
             rigidbody->velocity += rigidbody->acceleration * deltaTime;
+
 
             // Update the position based on the velocity
             transform->position += rigidbody->velocity * deltaTime;

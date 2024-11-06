@@ -18,8 +18,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CameraManager.h"
 #include "WindowManager.h"
 
+
 // Initialize static member variables for camera position, height, and window aspect ratio
 Vector2D CameraManager::position;
+Vector2D CameraManager::previousPosition;
 int CameraManager::cameraHeight;
 float CameraManager::windowAspectRatio;
 
@@ -32,6 +34,7 @@ float CameraManager::windowAspectRatio;
 /// <param name="height">The initial height of the camera's view.</param>
 void CameraManager::Initialize(const float posX, const float posY, const int height) {
 	CameraManager::position = { posX, posY };
+	CameraManager::previousPosition = CameraManager::position;
 	CameraManager::cameraHeight = height;
 	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth()) / static_cast<float>(WindowManager::GetWindowHeight());
 
@@ -59,7 +62,7 @@ void CameraManager::SetHeight(const int height) {
 /// or adjustments necessary as the camera's position or height changes over time.
 /// </summary>
 void CameraManager::Update() {
-	// Empty for now.
+	previousPosition = position;
 }
 
 

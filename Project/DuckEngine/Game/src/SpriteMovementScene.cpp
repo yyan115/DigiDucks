@@ -306,35 +306,44 @@ void SpriteMovementScene::Start()
 void SpriteMovementScene::Update()
 {
 	float moveSpeed = 10.0f;
-	
-	// Reset the player's velocity at the start of each frame
+
+	// Reset the player's velocity at the start of each fixed update
 	playerRb->velocity = Vec2(0.f, 0.f);
 
-	// Handle movement based on key input by setting velocity
+	// Store input state - don't directly modify velocity
+	Vector2D inputDirection(0.0f, 0.0f);
+
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
-		playerRb->velocity.y = moveSpeed; // Move up
+		inputDirection.y += 1.0f;
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
-
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
-		playerRb->velocity.y = -moveSpeed; // Move down
+		inputDirection.y -= 1.0f;
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
-
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
-		playerRb->velocity.x = -moveSpeed; // Move left
+		inputDirection.x -= 1.0f;
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
-
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
-		playerRb->velocity.x = moveSpeed; // Move right
+		inputDirection.x += 1.0f;
 		playerAnimator->PlayAnimation("WalkAnimation");
 	}
 
+	// Normalize the input direction if it's not zero
+	if (inputDirection.x != 0.0f || inputDirection.y != 0.0f)
+	{
+		float length = std::sqrt(inputDirection.x * inputDirection.x + inputDirection.y * inputDirection.y);
+		inputDirection.x /= length;
+		inputDirection.y /= length;
+	}
+
+	// Set velocity based on normalized input
+	playerRb->velocity = inputDirection * moveSpeed;
 	/*
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
