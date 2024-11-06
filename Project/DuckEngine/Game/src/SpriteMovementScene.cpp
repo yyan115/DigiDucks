@@ -56,7 +56,6 @@ Entity* testUI;
 Entity* noTextureEntity;
 
 // Test Roaming Logic
-Entity* duckEntity;
 Vec2 pos1 = { 10.f, 10.f };
 Vec2 pos2 = { -10.f, 10.f };
 
@@ -287,11 +286,6 @@ void SpriteMovementScene::Load()
 	//};
 	//buttonTransform->relativeToCamera = false;
 
-	//Roaming Logic
-	duckEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Duck");
-	RigidbodyComponent* duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duckEntity->entityID);
-	duckRb->isStatic = false;
-
 	inputEventManager.addListener(&message);
 }
 
@@ -449,8 +443,7 @@ void SpriteMovementScene::Update()
 	}
 
 	// Test Roaming Logic
-	RoamAllDucks(pos1, pos2);
-
+	RoamSelectedObject("DuckPrefab", pos1, pos2);
 	
 }
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "DuckEngine.h"
+#include <unordered_map>
+#include <iostream>
 
 enum ObjectState
 {
@@ -8,16 +10,19 @@ enum ObjectState
 	Chasing
 };
 
-// Distance needed for player to be in range of object
-const float objectRange = 5.f;
+// Structure to hold individual state data for each duck
+struct ObjectDatas {
+	float objectRange = 5.f;
+	float waitTime = 5.f;
+	float objectSpeed = 3.f;
+	bool reachedPos = false;
+	bool firstToSecond = true;
+	ObjectState state = Moving;
+	float timer = 0.f;
+};
 
-// Wait Time for object.
-const float waitTime = 5.f;
 
-// Object Speed
-const float objectSpeed = 3.f;
+void RoamSelectedObject(std::string prefabName, Vec2 firstPos, Vec2 secondPos);
 
 // Function to handle roaming logic
-void RoamChar(Entity& object, Vec2& firstPos, Vec2& secondPos);
-
-void RoamAllDucks(Vec2 firstPos, Vec2 secondPos);
+void RoamChar(int objectID, Vec2& firstPos, Vec2& secondPos);
