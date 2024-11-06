@@ -243,7 +243,7 @@ void SpriteMovementScene::Load()
 	float buttonWidth = buttonComponent->maxPos.x - buttonComponent->minPos.x;
 	float buttonHeight = buttonComponent->maxPos.y - buttonComponent->minPos.y;
 
-	buttonComponent->onClick = []() { std::cout << "Button clicked!"; };
+	buttonComponent->onClick = []() { std::cout << "Button clicked!\n"; };
 	// Convert minPos and maxPos from top-left to OpenGL centered coordinates
 	Vector2D centeredMinPos = {
 		buttonComponent->minPos.x - DuckEngine::GetWindowWidth() / 2.0f,
@@ -344,7 +344,7 @@ void SpriteMovementScene::Update()
 
 	// Set velocity based on normalized input
 	playerRb->velocity = inputDirection * moveSpeed;
-	/*
+	
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
@@ -372,7 +372,7 @@ void SpriteMovementScene::Update()
 		std::cout << "K is pressed!\n";
 		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
-	*/
+	
 
 	inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
 	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed());

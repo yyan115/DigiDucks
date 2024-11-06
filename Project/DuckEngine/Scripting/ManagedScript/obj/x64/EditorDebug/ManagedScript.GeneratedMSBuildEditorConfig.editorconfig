@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ManagedScript
-build_property.ProjectDir = C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\
+build_property.ProjectDir = C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Scripting\ManagedScript\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

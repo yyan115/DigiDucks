@@ -17,12 +17,15 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 
 #include "WindowManager.h"
+#include "DuckEngine.h"
 
 #define UNREFERENCED_PARAMETER(P) (P)
 
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 GLint WindowManager::width;
 GLint WindowManager::height;
+GLint WindowManager::viewportWidth;
+GLint WindowManager::viewportHeight;
 const char* WindowManager::title;
 
 /// <summary>
@@ -36,6 +39,8 @@ const char* WindowManager::title;
 bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) {
     WindowManager::width = _width;
     WindowManager::height = _height;
+    WindowManager::viewportWidth = _width;
+    WindowManager::viewportHeight = _height;
     title = _title;
 
     // Check if glfw init success
@@ -72,6 +77,19 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
 
     return true;
+}
+
+void WindowManager::UpdateViewportDimensions() {
+    if (DuckEngine::isEditor) {
+        Vec2 newViewportSize = DuckEngine::editorContentRegion;
+        viewportWidth = static_cast<GLint>(newViewportSize.x);
+        viewportHeight = static_cast<GLint>(newViewportSize.y);
+    }
+    else {
+        // Fallback to window dimensions if ImGui is not initialized
+        viewportWidth = width;
+        viewportHeight = height;
+    }
 }
 
 /// <summary>

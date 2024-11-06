@@ -56,6 +56,7 @@ bool DuckEngine::isEditor = false;
 bool isPlaying = false;
 Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
+Vector2D DuckEngine::editorContentRegion;
 //TextRenderingSystem textRenderingSystem;
 
 double DuckEngine::accumulatedTime = 0.0;
@@ -147,6 +148,9 @@ void DuckEngine::Update()
     TimeManager::StartManagerTimer("Input System");
     InputManager::Update();
     TimeManager::EndManagerTimer("Input System");
+
+    // Update viewport
+    WindowManager::UpdateViewportDimensions();
 
     // Get the actual frame time
     TimeManager::UpdateTime(1.0);

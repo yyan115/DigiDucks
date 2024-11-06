@@ -85,6 +85,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     inSceneFBO = IsMouseInFBO();
     Vector2D worldPos = ConvertScreenToWorld();
 
+    DuckEngine::editorContentRegion = { windowSize.x, windowSize.y };
     DuckEngine::editorMouseWorldPos = worldPos;
     DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
 

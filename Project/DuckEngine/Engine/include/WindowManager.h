@@ -40,6 +40,8 @@ public:
     /// <returns>Returns true if the window was successfully created, false otherwise.</returns>
     static bool Initialize(GLint width, GLint height, const char* title);
 
+    static void UpdateViewportDimensions();
+
     /// <summary>
     /// Cleans up and closes the window, releasing any associated resources.
     /// </summary>
@@ -105,6 +107,9 @@ private:
     /// The height of the window in pixels.
     /// </summary>
     static GLint height;
+
+    static GLint viewportWidth;
+    static GLint viewportHeight;
 
     /// <summary>
     /// The title of the window.

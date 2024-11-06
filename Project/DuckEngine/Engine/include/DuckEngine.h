@@ -208,6 +208,7 @@ public:
     static bool isEditor;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;
     static DUCKENGINE_API Vector2D editorMouseScreenPos;
+    static DUCKENGINE_API Vector2D editorContentRegion;
 
     static const double FIXED_TIMESTEP; // 60 FPS fixed timestep
     static double accumulatedTime;

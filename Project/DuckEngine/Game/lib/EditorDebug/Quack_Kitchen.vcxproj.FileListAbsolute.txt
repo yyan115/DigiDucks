@@ -1,2 +1,3 @@
 C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
 C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
+C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
