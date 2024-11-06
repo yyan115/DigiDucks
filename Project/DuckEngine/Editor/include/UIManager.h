@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file    UIManager.h
+\file     UIManager.h
 \author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
 \par      muhammadzikry.b@digipen.edu
 \brief    This file contains the declaration of the UIManager class
@@ -21,10 +21,9 @@ enum class WindowType {
 
 class UIManager {
 public:
-
-
     static int selectedEntityID;
     static std::unordered_map<WindowType, bool> windowStates;
+
     /****************************************************************
     * @brief Initializes the ImGui context and platform/renderer bindings
     *
@@ -112,27 +111,42 @@ private:
     static void RenderSceneAssets();
 
     /****************************************************************
-    * @brief Renders buttons for spawning or interacting with game objects
-    *
+	* @brief Renders the console window in ImGui
+    * 
     * @return void
     ***************************************************************/
-    static void RenderGameObjectAssets();
-
-    /****************************************************************
-    * @brief Renders buttons for controlling audio assets
-    *
-    * @return void
-    ***************************************************************/
-    static void RenderAudioAssets();
-
     static void RenderConsole();
 
+    /****************************************************************
+    * @brief creates a dockspace for the ImGui windows
+    *
+    * @return void
+    ***************************************************************/
     static void CreateDockSpace();
 
+    /****************************************************************
+	* @brief shows the main menu bar in ImGui
+    *
+    * @return void
+    ***************************************************************/
     static void ShowMenuBar();
 
+    /****************************************************************
+    * @brief saves the current scene to a JSON file
+    *
+    * @param sceneName - the name of the scene to save
+    * @return void
+    ***************************************************************/
     static void SaveScene(const std::string& sceneName);
 
+    /****************************************************************
+	* @brief function to handle file drop callback from the window
+    *
+	* @param window - the window that the file was dropped on
+	* @param count - the number of files dropped
+	* @param paths - the paths of the files dropped
+    * @return void
+    ***************************************************************/
     static void FileDropCallback(GLFWwindow* window, int count, const char** paths);
 
 };

@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file     SoundComponent.h
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the declaration of the SoundComponent class
+          which is responsible for playing and stopping sounds in the game.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "Component.h"
 #include <string>
@@ -18,20 +32,41 @@ public:
     bool playOnStart;             // Play sound when the entity is created
     float volume;                 // Sound volume
 
-    // Constructor
+    /****************************************************************
+	* @brief Constructor for the SoundComponent class
+    *
+    * @return void
+    ***************************************************************/
     SoundComponent(const std::string& _soundID = "", bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
         : soundID(_soundID), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume) {}
 
+    /****************************************************************
+	* @brief Clone function for the SoundComponent class
+    *
+	* @return std::shared_ptr<Component> A shared pointer to the cloned component
+    ***************************************************************/
     std::shared_ptr<Component> Clone() const override {
         return std::make_shared<SoundComponent>(*this);
     }
 
-    // Check if the sound is currently playing
+    /****************************************************************
+	* @brief Check if the sound is currently playing
+    *
+	* @return bool True if the sound is playing, false otherwise
+    ***************************************************************/
     DUCKENGINE_API bool IsSoundPlaying() const;
 
-    // Play the sound associated with this component
+    /****************************************************************
+	* @brief Play the sound associated with this component
+    *
+    * @return void
+    ***************************************************************/
     DUCKENGINE_API void Play();
 
-    // Stop the sound if it is playing
+    /****************************************************************
+	* @brief Stop the sound if it is playing
+    *
+    * @return void
+    ***************************************************************/
     DUCKENGINE_API void Stop();
 };

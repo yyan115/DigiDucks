@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file     Gizmos.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implmentation of the Gizmos class
+          which is responsible for rendering gizmos in the editor.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "Gizmos.h"
 #include "SceneWindow.h"
 #include "DuckEngine.h"

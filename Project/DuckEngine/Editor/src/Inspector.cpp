@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\file     Inspector.cpp
+\author   Lucas Yee JunJie, l.yee, 2301212 (70%)
+          Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (30%)
+\par      l.yee@digipen.edu, muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the InspectorRenderer class
+		  which is responsible for rendering the inspector UI in the editor.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include <iostream>
 #include "Inspector.h"
 #include "TransformComponent.h"
@@ -358,7 +373,8 @@ bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const st
     std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
 
     // Convert extension to lowercase for case-insensitive comparison
-    std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+    std::transform(extension.begin(), extension.end(), extension.begin(),
+        [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 
     // Check if the extension is in the allowed set
     return allowedExtensions.find(extension) != allowedExtensions.end();

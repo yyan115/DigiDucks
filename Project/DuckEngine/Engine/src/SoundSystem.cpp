@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file     SoundSystem.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the SoundSystem class
+          which is responsible for managing the sound system in the engine.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "AssetManager.h"
 #include "SoundSystem.h"
 #include "SoundComponent.h"
@@ -43,7 +57,7 @@ void SoundSystem::PauseAllSounds() {
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
         SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
         if (soundComponent) {
-            //soundComponent.pause(true);  // Stop each sound
+            //soundComponent.pause(true);  // pause each sound
         }
     }
     std::cout << "All sounds paused." << std::endl;
@@ -53,7 +67,7 @@ void SoundSystem::ResumeAllSounds() {
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
         SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
         if (soundComponent) {
-            //soundComponent.pause(false);  // Stop each sound
+            //soundComponent.pause(false);  //resume each sound
         }
     }
     std::cout << "All sounds resumed." << std::endl;

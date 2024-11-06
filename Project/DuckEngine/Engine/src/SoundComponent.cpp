@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file     SoundComponent.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the SoundComponent class
+		  which is responsible for playing and stopping sounds in the game.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include "DuckEngine.h"
 #include "SoundComponent.h"
@@ -16,7 +30,7 @@ void SoundComponent::Play() {
     FMOD::Sound* sound = DuckEngine::DUCKENGINE_AssetManager.GetSounds(soundID);
     if (!sound || !DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()) return;
 
-    // Stop the current sound on this channel if it's playing
+    // Stop the current sound on this channel if playing
     if (channel) {
         channel->stop();
     }
@@ -28,7 +42,6 @@ void SoundComponent::Play() {
     DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()->playSound(sound, nullptr, false, &newChannel);
     if (newChannel) {
         newChannel->setVolume(volume);
-        std::cout << "volume: " << volume << std::endl;
     }
     channel = newChannel;
 }

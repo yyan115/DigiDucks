@@ -27,19 +27,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Brownies\\.nuget\\packages\\": {}
+    "C:\\Users\\Zikry\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+      "projectUniqueName": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
       "projectName": "ManagedScript",
-      "projectPath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
-      "packagesPath": "C:\\Users\\Brownies\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
+      "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+      "packagesPath": "C:\\Users\\Zikry\\.nuget\\packages\\",
+      "outputPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Brownies\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Zikry\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -53,8 +53,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows7.0",
           "projectReferences": {
-            "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
-              "projectPath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
+            "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+              "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
             }
           }
         }

@@ -1,11 +1,25 @@
+/******************************************************************************/
+/*!
+\file     AssetsBrowser.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the AssetsBrowser class
+		  which is responsible for displaying the assets explorer UI in the editor.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "AssetsBrowser.h"
 #include "PrefabManager.h"
 #include "imgui.h"
 #include "DuckEngine.h"
 #include "LevelManager.h"
+
 #include <filesystem>
 #include <iostream>
-
 
 namespace fs = std::filesystem;
 std::string AssetsBrowser::selectedFolderPath = "../Resources/Scenes";
@@ -15,7 +29,7 @@ std::string AssetsBrowser::selectedFolderName = "Scenes";
 void AssetsBrowser::ShowAssets() {
     // Left pane for folder structure
     ImGui::BeginChild("LeftPane", ImVec2(200, 0), true);
-    RenderDirectoryTree(); // Render folders dynamically
+    RenderDirectoryTree(); 
     ImGui::EndChild();
 
     ImGui::SameLine();
@@ -24,10 +38,12 @@ void AssetsBrowser::ShowAssets() {
     ImGui::BeginChild("RightPane", ImVec2(0, 0), true);
     
     if (selectedFolderName.compare("Prefabs") == 0) {
-		RenderPrefabsGrid(); // Display all loaded prefabs
+        // Display all loaded prefabs
+		RenderPrefabsGrid(); 
 	}
 	else {
-		RenderAssetGrid(selectedFolderPath);  // Display other assets in a grid
+        // Display other assets in a grid
+		RenderAssetGrid(selectedFolderPath);  
 	}
     ImGui::EndChild();
 }
@@ -72,13 +88,13 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     int itemIndex = 0;
     static std::string selectedAsset = "";
 
-    // Iterate over files in the selected folder and display them in a grid
+    // Iterate over files in the selected folder
     for (const auto& entry : fs::recursive_directory_iterator(path)) {
         if (entry.is_directory()) continue;
 
         std::string fileName = entry.path().filename().string();
         std::string fileExtension = entry.path().extension().string();
-        std::string normalizedPath = NormalizePath(entry.path().string());  // Normalize the path
+        std::string normalizedPath = NormalizePath(entry.path().string());
         ImGui::PushID(normalizedPath.c_str());
 
         // Check if the file is a texture
@@ -96,7 +112,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
             // Set up drag-and-drop source for sprites
             if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1); // Payload is the texture path
+                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
                 ImGui::Text("Drag %s", fileName.c_str());
                 ImGui::EndDragDropSource();
             }
@@ -141,6 +157,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     
 }
 
+// Render theprefabs in the right pane as a grid
 void AssetsBrowser::RenderPrefabsGrid() {
     int itemsPerRow = 4;
     int itemIndex = 0;
@@ -160,7 +177,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
         // Drag-and-drop source for the prefab
         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-            ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);  // Pass prefab name as payload
+            ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);
             ImGui::Text("Drag %s", prefabName.c_str());
             ImGui::EndDragDropSource();
         }

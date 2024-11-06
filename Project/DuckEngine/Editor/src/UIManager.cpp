@@ -26,28 +26,18 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "LevelManager.h"
 #include "File.h"
 #include "Bounding.h"
-#include <Windows.h>
 #include "Color.h"
-#include <random>
-#include <map>
-#include <set>
-#include <sstream>
 #include "Inspector.h"
 #include "GameManager.h"
 #include "AssetsBrowser.h"
 #include "EditorTheme.h"
 #include "HierarchyList.h"
 
-
-// GLOBALS For Spawning of Entities
-std::vector<std::pair<int, std::string>> spawnedEntities;
-int entityCounter = 0;
-std::set<int> availableNumbers;
+#include <Windows.h>
 
 // Store historical data for performance tracking
 std::unordered_map<std::string, std::vector<float>> managerHistory;
 std::unordered_map<std::string, std::vector<float>> systemHistory;
-
 
 int UIManager::selectedEntityID = -1;
 std::unordered_map<WindowType, bool> UIManager::windowStates = {
@@ -56,7 +46,8 @@ std::unordered_map<WindowType, bool> UIManager::windowStates = {
 };
 
 
-void UIManager::Initialize() {
+void UIManager::Initialize() 
+{
     // ImGui initialization
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -85,7 +76,8 @@ void UIManager::Initialize() {
 }
 
 // Render the ImGui windows with a specific size and position to make it adaptive
-void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) {
+void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float PosX, float PosY) 
+{
     // Get the current window size
     int windowWidth = WindowManager::GetWindowWidth();
     int windowHeight = WindowManager::GetWindowHeight();
@@ -100,18 +92,12 @@ void UIManager::StartRender()
     TimeManager::StartManagerTimer("Editor Manager");
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
-    
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 }
 
-void UIManager::Render() {
-    
-
-    // example window
-    //ImGui::ShowDemoWindow();    
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+void UIManager::Render() 
+{
     // Show the main menu bar
     ShowMenuBar();
 
@@ -191,8 +177,8 @@ void UIManager::CreateDockSpace()
     ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 }
 
-void UIManager::ShowDebugInfo() {
-    //RenderImGuiWindows(0.2f, 0.3f, 0.8f, 0.0f);
+void UIManager::ShowDebugInfo() 
+{
 	ImGui::Begin("Debug Info", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
     // Create the tab bar
@@ -246,14 +232,13 @@ void UIManager::ShowDebugInfo() {
             ImGui::EndTabItem();
         }
 
-        
-
         ImGui::EndTabBar();
     }
 	ImGui::End();
 }
 
-void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
+void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) 
+{
     const auto& systemData = systemManager.GetSystemData();
     const auto& managerData = TimeManager::GetManagerData();
     float total_time = static_cast<float>(TimeManager::GetTotalTime()); // Total game loop time
@@ -344,7 +329,8 @@ void UIManager::RenderPerformanceGraphs(const SystemManager& systemManager) {
     }
 }
 
-void UIManager::ShowExplorer() {
+void UIManager::ShowExplorer() 
+{
     ImGui::Begin("Explorer", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
     // Create the tab bar
     if (ImGui::BeginTabBar("MyTabBar")) {
@@ -470,90 +456,6 @@ void UIManager::RenderSceneAssets() {
     }
 }
 
-void UIManager::RenderGameObjectAssets() {
-    if (ImGui::Button("Spawn Crate")) {
-
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_real_distribution<float> randomPosition(0.0f, 5.0f);
-
-
-        UIDebugConsole::debugConsole.AddDebugLog("entitiesSpawn");
-        Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
-
-        int newEntityNumber;
-        if (!availableNumbers.empty()) {
-            newEntityNumber = *availableNumbers.begin();  // Get the smallest available number
-            availableNumbers.erase(availableNumbers.begin());
-        }
-        else {
-            newEntityNumber = ++entityCounter;
-        }
-
-        // Create a new square entity
-        Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("../Resources/Crate.png", pos, {2.0f, 2.0f});
-        Vec2 center = Vec2(0.0f, 0.0f);
-        Vec2 size = Vec2(1.0f, 1.0f);
-
-        // Create and add the BoundingBox
-        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(square->entityID, center, size);
-
-        // Create and add the RigidbodyComponent
-        auto rbComponent = std::make_shared<RigidbodyComponent>();
-        rbComponent->isStatic = false;
-        DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(square->entityID, *rbComponent);
-
-        // Add the entity to the vector
-        std::string entityName = "GameObject " + std::to_string(newEntityNumber);
-        spawnedEntities.emplace_back(square->entityID, entityName);
-
-        
-	}
-
-    // Loop through the spawned entities and render buttons for each
-    for (size_t i = 0; i < spawnedEntities.size(); ++i) {
-        // Display button for the entity
-        if (ImGui::Button(spawnedEntities[i].second.c_str())) {
-            selectedEntityID = spawnedEntities[i].first;
-            windowStates[WindowType::Inspector] = !windowStates[WindowType::Inspector];
-        }
-
-        ImGui::SameLine();
-
-        // Button to remove the entity
-        std::string removeButtonLabel = "Remove " + spawnedEntities[i].second;
-        if (ImGui::Button(removeButtonLabel.c_str())) {
-            // Remove the entity from the entity manager
-            DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(spawnedEntities[i].first);
-
-            // Recycle the removed number
-            std::string entityLabel = spawnedEntities[i].second;
-            int removedNumber = std::stoi(entityLabel.substr(entityLabel.find(" ") + 1));
-            availableNumbers.insert(removedNumber);
-
-            // Remove the entity from the list
-            spawnedEntities.erase(spawnedEntities.begin() + i);
-            --i;
-        }
-    }
-}
-
-void UIManager::RenderAudioAssets() {
-	// Placeholder for Audio assets
-    if (ImGui::Button("Play Sound")) {
-		DuckEngine_Sound::PlaySounds("TestSound");
-	}
-
-    ImGui::SameLine();
-    if (ImGui::Button("Stop Sound")) {
-		DuckEngine_Sound::StopSound();
-	}
-
-    if (ImGui::Button("Play Sound 2")) {
-        DuckEngine_Sound::PlaySounds("TestSound2");
-    }
-}
-
 void UIManager::SaveScene(const std::string& sceneName)
 {
     auto& entityChanges = InspectorRenderer::entityChanges;  
@@ -579,6 +481,7 @@ void UIManager::SaveScene(const std::string& sceneName)
 }
 
 void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** paths) {
+	UNREFERENCED_PARAMETER(window);
     for (int i = 0; i < count; i++) {
         std::string filePath = paths[i];
         std::string extension = std::filesystem::path(filePath).extension().string();
