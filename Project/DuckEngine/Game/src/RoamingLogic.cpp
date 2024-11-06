@@ -138,7 +138,7 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
 
     case Chasing:
         float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
-        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Moving; }
+        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Idle; }
 
         // Check if object has a circle or box collider
         if (!objBox) {
@@ -282,7 +282,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
 
     case Chasing:
         float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
-        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Moving; }
+        if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Idle; }
 
         // Check if object has a circle or box collider
         if (!objBox) {
