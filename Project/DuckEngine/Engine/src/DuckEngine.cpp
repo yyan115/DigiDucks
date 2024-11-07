@@ -441,3 +441,13 @@ float DuckEngine::FPS() {
 void DuckEngine::EnableLogging(bool enable) {
     DUCKENGINE_ComponentManager.EnableLogging(enable);
 }
+
+float DuckEngine::GetViewportWidth()
+{
+    return WindowManager::GetViewportWidth();
+}
+
+float DuckEngine::GetViewportHeight()
+{
+    return WindowManager::GetViewportHeight();
+}
