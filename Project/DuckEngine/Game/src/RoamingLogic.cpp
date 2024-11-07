@@ -167,13 +167,13 @@ void pathing() {
     Node* goal = &node49;
 
     // Run A* to find the path
-    //std::vector<Node*> path = AStar(start, goal, allNodes);
+    std::vector<Node*> path = AStar(start, goal, allNodes);
 
     // Output the path
-    //std::cout << "Path from enemy to player:" << std::endl;
-    //for (Node* node : path) {
-    //    std::cout << "(" << node->x << ", " << node->y << ")" << std::endl;
-    //}
+    std::cout << "Path from enemy to player:" << std::endl;
+    for (Node* node : path) {
+        std::cout << "(" << node->x << ", " << node->y << ")" << std::endl;
+    }
 }
 
 namespace {
