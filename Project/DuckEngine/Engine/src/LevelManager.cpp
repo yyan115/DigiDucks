@@ -51,9 +51,9 @@ void LevelManager::LoadLevelEditor(const std::string& levelFile)
         }
 
 
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
         if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
         {
-            DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
             LoadLevel(levelFile);
         }
     }
