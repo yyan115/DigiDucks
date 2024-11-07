@@ -128,8 +128,8 @@ void DuckEngine::Initialize(bool _isEditor)
     GraphicsManager::Start();
     //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
     // Load fonts during initialization
-    FontManager::LoadFont("Roboto-Black", "../Resources/Roboto-Black.ttf", 48);
-    FontManager::LoadFont("AbrilFatface-Regular", "../Resources/AbrilFatface-Regular.ttf", 48);
+    //FontManager::LoadFont("Roboto-Black", "../Resources/Roboto-Black.ttf", 48);
+    //FontManager::LoadFont("AbrilFatface-Regular", "../Resources/AbrilFatface-Regular.ttf", 48);
 
 }
 
