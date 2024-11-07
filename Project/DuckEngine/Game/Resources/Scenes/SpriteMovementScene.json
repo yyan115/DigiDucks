@@ -265,15 +265,15 @@
                     "properties": {
                         "color": {
                             "a": 250.0,
-                            "b": 255.0,
+                            "b": 0.0,
                             "g": 50.0,
-                            "r": 100.0
+                            "r": 250.0
                         },
-                        "fontName": "Kenney Pixel",
-                        "fontSize": 1,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 2,
                         "position": {
-                            "x": 500.0,
-                            "y": 50.0
+                            "x": 600.0,
+                            "y": 100.0
                         },
                         "text": "Second Font!"
                     },
