@@ -120,6 +120,8 @@ void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
 /// Handles both textured and color-based rendering, setting up necessary OpenGL states.
 /// </summary>
 void GraphicsManager::Render() {
+    // Turn off VSync
+    glfwSwapInterval(0);
 
     BindFBO();
 
