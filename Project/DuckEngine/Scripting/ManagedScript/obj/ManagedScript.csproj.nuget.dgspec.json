@@ -1,35 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj": {}
+    "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj": {
+    "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+        "projectUniqueName": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
         "projectName": "ManagedScript",
-        "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
-        "packagesPath": "C:\\Users\\yolod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
+        "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+        "packagesPath": "C:\\Users\\Zikry\\.nuget\\packages\\",
+        "outputPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yolod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Zikry\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0-windows7.0"
+          "net7.0-windows7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0-windows7.0": {
-            "targetAlias": "net8.0-windows7.0",
+          "net7.0-windows7.0": {
+            "targetAlias": "net7.0-windows7.0",
             "projectReferences": {
-              "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
-                "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
+              "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+                "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
               }
             }
           }
@@ -46,8 +46,8 @@
         }
       },
       "frameworks": {
-        "net8.0-windows7.0": {
-          "targetAlias": "net8.0-windows7.0",
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0-windows7.0",
           "imports": [
             "net461",
             "net462",
@@ -64,33 +64,33 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+    "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "projectUniqueName": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
         "projectName": "ScriptingAPI",
-        "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
-        "packagesPath": "C:\\Users\\yolod\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
+        "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "packagesPath": "C:\\Users\\Zikry\\.nuget\\packages\\",
+        "outputPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\yolod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Zikry\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net8.0"
+          "net7.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0-windows7.0": {
-            "targetAlias": "net8.0",
+          "net7.0-windows7.0": {
+            "targetAlias": "net7.0",
             "projectReferences": {}
           }
         },
@@ -101,8 +101,8 @@
         }
       },
       "frameworks": {
-        "net8.0-windows7.0": {
-          "targetAlias": "net8.0",
+        "net7.0-windows7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",
@@ -118,7 +118,7 @@
           "downloadDependencies": [
             {
               "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.22621.34, 10.0.22621.34]"
+              "version": "[10.0.22621.43, 10.0.22621.43]"
             }
           ],
           "frameworkReferences": {
@@ -126,7 +126,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -35,8 +35,8 @@ namespace {
 
 struct RenderData
 {
-	TransformComponent* transform;
-	SpriteRendererComponent* spriteRenderer;
+	TransformComponent* transform = nullptr;
+	SpriteRendererComponent* spriteRenderer = nullptr;
 	int layer;
     int entityID;
 };
