@@ -62,8 +62,8 @@ void SpriteRendererSystem::Render()
     if (!activeScene) return;
 
 
-    float totalTime = DuckEngine::accumulatedTime;
-    float alpha = (totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP);
+    float totalTime = static_cast<float>(DuckEngine::accumulatedTime);
+    float alpha = static_cast<float>((totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP));
     alpha = std::min(1.0f, std::max(0.0f, alpha));
 
     auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
