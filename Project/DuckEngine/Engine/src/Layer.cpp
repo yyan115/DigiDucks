@@ -21,21 +21,23 @@ written consent of DigiPen Institute of Technology is prohibited.
 **************************************************************************/
 void Layer::AddEntity(Entity* entity)
 {
-    // Check if the entity is already in the list
-    if (std::find(entities.begin(), entities.end(), entity) == entities.end())
+    int entityID = entity->entityID;
+    if (std::find(entityIDs.begin(), entityIDs.end(), entityID) == entityIDs.end())
     {
-        entities.push_back(entity);
+        entityIDs.push_back(entityID);
     }
 }
+
 
 /**************************************************************************
 @brief Retrieves the list of entities contained within this layer.
 @return A constant reference to a vector containing pointers to entities.
 **************************************************************************/
-const std::vector<Entity*>& Layer::GetEntities() const
+const std::vector<int>& Layer::GetEntityIDs() const
 {
-    return entities;
+    return entityIDs;
 }
+
 
 /**************************************************************************
 @brief Retrieves the render order of the layer.
@@ -72,3 +74,9 @@ void Layer::SetVisible(bool _visible)
 {
     this->visible = _visible;
 }
+
+bool Layer::HasEntityByID(int entityID) const
+{
+    return std::find(entityIDs.begin(), entityIDs.end(), entityID) != entityIDs.end();
+}
+

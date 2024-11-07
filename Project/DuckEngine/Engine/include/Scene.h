@@ -88,6 +88,8 @@ public:
 	@param entity Pointer to the entity to add.
 	**************************************************************************/
 	void AddEntityToLayer(const std::string& layerName, Entity* entity);
+
+	std::string sceneName;
 private:
 	std::unordered_map<std::string, Layer> layers; // Layers in the scene
 };

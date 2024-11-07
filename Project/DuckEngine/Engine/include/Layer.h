@@ -36,7 +36,7 @@ public:
     @brief Retrieves the list of entities contained within this layer.
     @return A constant reference to a vector containing pointers to entities.
     **************************************************************************/
-    DUCKENGINE_API const std::vector<Entity*>& GetEntities() const;
+    DUCKENGINE_API const std::vector<int>& GetEntityIDs() const;
 
     /**************************************************************************
     @brief Retrieves the render order of the layer.
@@ -62,8 +62,11 @@ public:
     **************************************************************************/
     DUCKENGINE_API void SetVisible(bool _visible);
 
+    DUCKENGINE_API bool HasEntityByID(int entityID) const;
+
 private:
-    std::vector<Entity*> entities; // Entities in this layer
+    std::vector<int> entityIDs; // Entities in this layer
     int order = 1;                     // Order of the layer
     bool visible = true;                  // Visibility of the layer
+    std::string name;
 };

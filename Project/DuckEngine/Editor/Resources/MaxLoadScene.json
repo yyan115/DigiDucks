@@ -1,0 +1,9 @@
+{
+  "gameObjects": {
+    "obstacleObject1": {
+      "name": "Obstacle1",
+      "prefab": "Obstacle1Prefab",
+      "position": { "x": 5, "y": 0 }
+    }
+  }
+}

@@ -30,6 +30,7 @@ void SceneManager::Initialize()
 void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scene) 
 {
     scenes[name] = scene;
+    scene->sceneName = name;
 }
 
 /**************************************************************************
