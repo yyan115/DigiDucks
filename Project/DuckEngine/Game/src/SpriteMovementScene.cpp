@@ -437,9 +437,9 @@ void SpriteMovementScene::Update()
 
 	// Test Roaming Logic
 	// Between 2 Pos
-	//("DuckPrefab", positon1, position2);
+	RoamSelectedPrefab("DuckPrefab", positon1, position2);
 	// A direction for a time.
-	RoamSelectedPrefab("DuckPrefab", positon1, 3.f);
+	//RoamSelectedPrefab("DuckPrefab", positon1, 3.f);
 	
 }
 
