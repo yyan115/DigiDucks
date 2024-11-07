@@ -121,7 +121,7 @@ void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
 /// </summary>
 void GraphicsManager::Render() {
     // Turn off VSync
-    glfwSwapInterval(0);
+    //glfwSwapInterval(0);
 
     BindFBO();
 
