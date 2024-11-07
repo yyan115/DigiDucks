@@ -311,8 +311,9 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
             }
         }
         else {
-            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
-            if (distFromPlayer <= playerRadius_ObjSize) {
+            float playerRadius_ObjSizeX = playerCircle->getRadius() + objBox->getSize().x;
+            float playerRadius_ObjSizeY = playerCircle->getRadius() + objBox->getSize().y;
+            if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
                 objRb->isStatic = true;
                 break;
             }
@@ -458,8 +459,9 @@ void RoamDir(int objectID, Vec2& dir, float time) {
             }
         }
         else {
-            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
-			if (distFromPlayer <= playerRadius_ObjSize) {
+            float playerRadius_ObjSizeX = playerCircle->getRadius() + objBox->getSize().x;
+            float playerRadius_ObjSizeY = playerCircle->getRadius() + objBox->getSize().y;
+			if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
 				objRb->isStatic = true;
 				break;
 			}
