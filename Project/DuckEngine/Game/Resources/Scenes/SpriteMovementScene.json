@@ -206,7 +206,44 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
+        },
+        "buttonText": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 250.0,
+                            "b": 255.0,
+                            "g": 50.0,
+                            "r": 100.0
+                        },
+                        "fontName": "AbrilFatface-Regular",
+                        "fontSize": 1,
+                        "position": {
+                            "x": 1200.0,
+                            "y": 50.0
+                        },
+                        "text": "Button!"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "obstacleObject4": {
             "components": [
@@ -294,36 +331,18 @@
                             "g": 50.0,
                             "r": 255.0
                         },
+                        "fontName": "Roboto-Black",
                         "fontSize": 1,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "text": "TEST TEXT COMPONENT",
-                        "fontName": "Roboto-Black"
-                    },
-                    "type": "TextComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 100.0,
-                            "g": 50.0,
-                            "r": 255.0
-                        },
-                        "fontSize": 1,
-                        "position": {
-                            "x": 0.0,
-                            "y": 960.0
-                        },
-                        "text": "BUTTON!",
-                        "fontName": "AbrilFatface-Regular"
+                        "text": "TEST TEXT COMPONENT"
                     },
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         }
     },
     "layers": {

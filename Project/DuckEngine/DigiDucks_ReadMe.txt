@@ -1,9 +1,11 @@
 Game Concept:
 Quack Kitchen is a 2D top-down cooking-simulation game where players play as a duck who is managing a restaurant for the first time.
 
+Editor Demo Input:
+Press K to turn on/off debug draw
+
 Demo Input:
 Press W A S D to move the player around
-Press K to turn on/off debug draw
 
 Team Roster:
 HO Yong Heng Ernest 		( Programmer | Collision/Physics Champion )
