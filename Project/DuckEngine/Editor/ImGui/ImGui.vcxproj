@@ -160,27 +160,27 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Build\Editor\</OutDir>
+    <OutDir>$(SolutionDir)Build\EditorDebug\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)Build\Editor\</IntDir>
+    <IntDir>$(SolutionDir)Build\EditorDebug\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Build\Editor\</OutDir>
+    <OutDir>$(SolutionDir)Build\EditorDebug\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(SolutionDir)/Engine/include;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)Build\Editor\</IntDir>
+    <IntDir>$(SolutionDir)Build\EditorDebug\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Build\Editor\</OutDir>
+    <OutDir>$(SolutionDir)Build\EditorRelease\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)Build\Editor\</IntDir>
+    <IntDir>$(SolutionDir)Build\EditorRelease\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)Build\Editor\</OutDir>
+    <OutDir>$(SolutionDir)Build\EditorRelease\</OutDir>
     <IncludePath>$(SolutionDir)Editor\include;$(IncludePath)</IncludePath>
-    <IntDir>$(SolutionDir)Build\Editor\</IntDir>
+    <IntDir>$(SolutionDir)Build\EditorRelease\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
