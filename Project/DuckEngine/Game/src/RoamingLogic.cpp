@@ -396,7 +396,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
     }
     
     
-    pathing();
+    //pathing();
 
     // FSM to handle object movement
     switch (state.state) {
