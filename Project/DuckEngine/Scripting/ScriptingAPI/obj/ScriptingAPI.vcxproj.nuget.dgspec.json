@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
+    "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+    "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "projectUniqueName": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
         "projectName": "ScriptingAPI",
-        "projectPath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
-        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
+        "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "packagesPath": "C:\\Users\\yolod\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\yolod\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

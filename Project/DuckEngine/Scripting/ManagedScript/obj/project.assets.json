@@ -27,19 +27,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lucas\\.nuget\\packages\\": {}
+    "C:\\Users\\yolod\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+      "projectUniqueName": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
       "projectName": "ManagedScript",
-      "projectPath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
-      "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
+      "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+      "packagesPath": "C:\\Users\\yolod\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yolod\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -53,8 +53,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows7.0",
           "projectReferences": {
-            "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
-              "projectPath": "C:\\Users\\lucas\\OneDrive\\Documents\\DigipenProjects\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
+            "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+              "projectPath": "C:\\Users\\yolod\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj"
             }
           }
         }

@@ -17,6 +17,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include <unordered_map>
 #include <iostream>
+#include <vector>
+#include <queue>
+#include <cmath>
+#include <algorithm>
+
 
 enum ObjectState
 {
@@ -102,3 +107,30 @@ void RoamSelectedObject(std::string prefabName, Vec2 dir, float time);
 * @param time - The time to roam in that direction
 */
 void RoamDir(int objectID, Vec2& dir, float time);
+
+// Position struct representing a 2D point in space
+struct Position {
+    float x, y;
+
+    Position(float x = 0, float y = 0) : x(x), y(y) {}
+
+    // Calculate the Euclidean distance from another position
+    float distanceTo(const Position& other) const {
+        return std::sqrt(std::pow(other.x - x, 2) + std::pow(other.y - y, 2));
+    }
+
+    // Move towards a target position by a step
+    void moveTowards(const Position& target, float step = 1.0f) {
+        float angle = std::atan2(target.y - y, target.x - x);
+        x += std::cos(angle) * step;  // Move in x direction
+        y += std::sin(angle) * step;  // Move in y direction
+    }
+
+    // Heuristic: Euclidean distance to the target position
+    float heuristic(const Position& target) const {
+        return distanceTo(target);
+    }
+};
+
+// A* algorithm in a continuous space
+std::vector<Position> aStarPathfinding(Position start, Position goal, float maxStep = 1.0f);

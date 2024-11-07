@@ -15,6 +15,26 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "RoamingLogic.h"
 
+// A* algorithm in a continuous space
+std::vector<Position> aStarPathfinding(Position start, Position goal, float maxStep) {
+    std::vector<Position> path;
+    Position current = start;
+
+    // Loop until the current position is close enough to the goal
+    while (current.distanceTo(goal) > maxStep) {
+        // Move the current position one step towards the goal
+        current.moveTowards(goal, maxStep);
+
+        // Add the new position to the path
+        path.push_back(current);
+    }
+
+    // Once close enough, add the goal position to the path
+    path.push_back(goal);
+    return path;
+}
+
+
 namespace {
     Vec2 getSpeed(Vec2& firstPos, Vec2& secondPos, float speed) {
         Vec2 dir = secondPos - firstPos;
@@ -233,6 +253,12 @@ void RoamDir(int objectID, Vec2& dir, float time) {
         return;
     }
     
+    Position Aplayer(0.0f, 0.0f);
+    Position enemy(100.0f, 100.0f);
+
+    std::vector<Position> path = aStarPathfinding(enemy, Aplayer);
+    
+
     // FSM to handle object movement
     switch (state.state) {
     case Idle:
@@ -300,7 +326,10 @@ void RoamDir(int objectID, Vec2& dir, float time) {
 			}
         }
 
+       
         objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+
+        
         break;
     }
 }
