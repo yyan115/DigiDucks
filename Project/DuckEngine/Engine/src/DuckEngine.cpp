@@ -152,7 +152,6 @@ void DuckEngine::Update()
 {
     // Look for inputs first   
     TimeManager::StartManagerTimer("Input System");
-    InputManager::Update();
     TimeManager::EndManagerTimer("Input System");
 
     // Update viewport
@@ -237,6 +236,7 @@ void DuckEngine::Draw()
     GraphicsManager::RenderDebug();
     TimeManager::EndManagerTimer("Graphics System");
 
+    InputManager::Update();
     DuckEngine::DUCKENGINE_SystemManager.RenderAll();
     
     TimeManager::StartManagerTimer("Font System");
