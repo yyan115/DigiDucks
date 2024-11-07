@@ -21,7 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <queue>
 #include <cmath>
 #include <algorithm>
-
+#include <set>
 
 enum ObjectState
 {
@@ -108,29 +108,29 @@ void RoamSelectedObject(std::string prefabName, Vec2 dir, float time);
 */
 void RoamDir(int objectID, Vec2& dir, float time);
 
-// Position struct representing a 2D point in space
-struct Position {
-    float x, y;
+struct Node {
+    int x, y;            // Position of the node (can be in any coordinate system)
+    bool isObstacle;     // Flag to check if it's an obstacle
+    int gCost;           // Cost from the start node
+    int hCost;           // Heuristic cost to the goal node
+    int fCost() const { return gCost + hCost; } // f = g + h (used to prioritize nodes)
+    Node* parent;        // Pointer to parent node in the path
 
-    Position(float x = 0, float y = 0) : x(x), y(y) {}
+    Node(int x, int y, bool isObstacle = false)
+        : x(x), y(y), isObstacle(isObstacle), gCost(0), hCost(0), parent(nullptr) {}
 
-    // Calculate the Euclidean distance from another position
-    float distanceTo(const Position& other) const {
-        return std::sqrt(std::pow(other.x - x, 2) + std::pow(other.y - y, 2));
-    }
-
-    // Move towards a target position by a step
-    void moveTowards(const Position& target, float step = 1.0f) {
-        float angle = std::atan2(target.y - y, target.x - x);
-        x += std::cos(angle) * step;  // Move in x direction
-        y += std::sin(angle) * step;  // Move in y direction
-    }
-
-    // Heuristic: Euclidean distance to the target position
-    float heuristic(const Position& target) const {
-        return distanceTo(target);
+    // For easier comparison in the priority queue
+    bool operator>(const Node& other) const {
+        return fCost() > other.fCost();
     }
 };
 
-// A* algorithm in a continuous space
-std::vector<Position> aStarPathfinding(Position start, Position goal, float maxStep = 1.0f);
+using NodeList = std::vector<Node>;
+using NodePtr = Node*;
+
+
+
+std::vector<Node*> getNeighbors(Node* node, const std::vector<std::vector<Node>>& nodes); 
+
+std::vector<Node*> AStar(Node* start, Node* goal, const std::vector<Node*>& allNodes);
+

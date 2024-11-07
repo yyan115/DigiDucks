@@ -350,7 +350,8 @@ void SpriteMovementScene::Update()
 		std::cout << "Left mouse button pressed!\n";
 	}
 	
-	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
+	
+	/*if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
 	{
 		std::cout << "Mouse scrolled down!\n";
 	}
@@ -358,8 +359,8 @@ void SpriteMovementScene::Update()
 	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_UP)
 	{
 		std::cout << "Mouse scrolled up!\n";
-	}
-
+	}*/
+	
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
 		if (playerSound) {
 			std::cout << "Sound stopped\n";
@@ -371,14 +372,11 @@ void SpriteMovementScene::Update()
 	{
 		std::cout << "K is pressed!\n";
 		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
+		
 	}
-	
 
 	inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
-	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed());
-	//inputEventManager.notifyKeyPressed(DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K));
-	//inputEventManager.notifyMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT);
-
+	
 	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
 	{
 		playerAnimator->PlayAnimation("IdleAnimation");
