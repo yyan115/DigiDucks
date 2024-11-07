@@ -65,6 +65,8 @@ void Scene::Unload()
 
     DuckEngine::SetCameraPosition(0.0f, 0.0f);
 
+    DuckEngine::DUCKENGINE_EntityManager.ResetEntityID();
+
 }
 
 /**************************************************************************
