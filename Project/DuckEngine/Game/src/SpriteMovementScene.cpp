@@ -345,10 +345,6 @@ void SpriteMovementScene::Update()
 	// Set velocity based on normalized input
 	playerRb->velocity = inputDirection * moveSpeed;
 	
-	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
-	{
-		std::cout << "Left mouse button pressed!\n";
-	}
 	
 	
 	/*if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
@@ -451,7 +447,10 @@ void SpriteMovementScene::Update()
 *************************************************************************/
 void SpriteMovementScene::PostUpdate()
 {
-
+	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
+	{
+		std::cout << "Left mouse button pressed!\n";
+	}
 }
 
 /************************************************************************
