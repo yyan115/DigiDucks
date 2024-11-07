@@ -73,14 +73,6 @@ void SceneManager::Update()
     }
 }
 
-void SceneManager::PostUpdate()
-{
-    if (activeScene)
-    {
-        activeScene->PostUpdate();
-    }
-}
-
 /**************************************************************************
 @brief Renders the currently active scene. Placeholder function.
 **************************************************************************/

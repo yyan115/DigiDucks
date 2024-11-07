@@ -238,7 +238,6 @@ void DuckEngine::Draw()
 
     InputManager::Update();
     DuckEngine::DUCKENGINE_SystemManager.RenderAll();
-    DUCKENGINE_SceneManager.PostUpdate();
     
     TimeManager::StartManagerTimer("Font System");
     FontManager::Render();
