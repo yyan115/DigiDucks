@@ -6,3 +6,5 @@
 
 # Ignore the game log file
 game_log.txt
+/Project/DuckEngine/Scripting/ManagedScript
+/Project/DuckEngine/Scripting/ScriptingAPI
