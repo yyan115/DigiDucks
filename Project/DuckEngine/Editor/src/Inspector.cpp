@@ -109,7 +109,9 @@ void InspectorRenderer::RenderComponents(int entityID)
     {
         if (ImGui::CollapsingHeader("Transform Component"))
         {
-            ImGui::SliderFloat2("Position", &transform->position.x, -100.0f, 100.0f);
+			float position[2] = { transform->position.x, transform->position.y };
+            ImGui::SliderFloat2("Position", position, -100.0f, 100.0f);
+            transform->SetPosition(Vec2(position[0], position[1]));
             if (ImGui::IsItemEdited()) hasChanged = true;
 
             ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
