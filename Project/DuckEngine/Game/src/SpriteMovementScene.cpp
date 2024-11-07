@@ -344,32 +344,6 @@ void SpriteMovementScene::Update()
 
 	// Set velocity based on normalized input
 	playerRb->velocity = inputDirection * moveSpeed;
-	
-	
-	
-	/*if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
-	{
-		std::cout << "Mouse scrolled down!\n";
-	}
-
-	if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_UP)
-	{
-		std::cout << "Mouse scrolled up!\n";
-	}*/
-	
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
-		if (playerSound) {
-			std::cout << "Sound stopped\n";
-			playerSound->Stop();
-		}
-	}
-
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
-	{
-		std::cout << "K is pressed!\n";
-		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
-		
-	}
 
 	inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
 	
@@ -406,16 +380,6 @@ void SpriteMovementScene::Update()
 	//	obstacleRb->velocity = { 0.0f, 0.0f };
 	//}
 
-	//DuckEngine::DrawCircle(circle->getCenter(), circle->getRadius());
-
-	//DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
-
-	//DuckEngine::DrawCircle(box2->getCenter(), box2->getRadius());
-
-	//DuckEngine::DrawLine({ 7.f, 5.f }, {-10.f, 10.f}, 0.05f);
-
-	//DuckEngine::DrawPoint({ -3.f, -3.f }, 10.f);
-
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
@@ -450,6 +414,29 @@ void SpriteMovementScene::PostUpdate()
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
+	}
+
+	//if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_DOWN)
+	//{
+	//	std::cout << "Mouse scrolled down!\n";
+	//}
+
+	//if (DuckEngine_Input::GetScrollOffsetY() == DuckEngine_Input::SCROLL_UP)
+	//{
+	//	std::cout << "Mouse scrolled up!\n";
+	//}
+
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
+		if (playerSound) {
+			std::cout << "Sound stopped\n";
+			playerSound->Stop();
+		}
+	}
+
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
+	{
+		std::cout << "K is pressed!\n";
+		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
 	}
 }
 
