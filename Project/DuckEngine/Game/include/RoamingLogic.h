@@ -111,6 +111,10 @@ void RoamSelectedObject(std::string prefabName, Vec2 dir, float time);
 */
 void RoamDir(int objectID, Vec2& dir, float time);
 
+
+/*****************************************************************************************/
+
+
 namespace std {
 	template <>
 	struct hash<Vec2> {
