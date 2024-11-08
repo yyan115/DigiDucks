@@ -119,7 +119,8 @@ namespace std {
 	template <>
 	struct hash<Vec2> {
 		size_t operator()(const Vec2& p) const {
-			return hash<int>()(p.x) ^ hash<int>()(p.y);
+			// Explicitly cast p.x and p.y to int with comments indicating possible truncation
+			return hash<int>()(static_cast<int>(p.x)) ^ hash<int>()(static_cast<int>(p.y));
 		}
 	};
 }
