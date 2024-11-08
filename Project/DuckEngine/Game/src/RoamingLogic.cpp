@@ -17,123 +17,170 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 
 // Function to check if a point (circle) intersects with the bounding box (rectangle) of an obstacle
+/****************************************************************
+* @brief Checks if a circular area (player) intersects a bounding box (obstacle).
+*
+* @param point - The position of the circle's center.
+* @param box - The position of the box's center.
+* @param player - The player's bounding circle.
+* @param object - The obstacle's bounding box.
+* @return True if the circle intersects the box, false otherwise.
+***************************************************************/
 bool point_intersects_box(const Vec2& point, const Vec2& box, BoundingCircle* player, BoundingBox* object) {
-    // Check if the circle is colliding with the box by checking if the circle intersects the box boundary
-    float distFromPlayer = Vec2Dist(box, point);
+    float distFromPlayer = Vec2Dist(box, point);  // Calculate distance from point to box center
     float playerRadius_ObjSizeX = player->getRadius() + object->getSize().x;
     float playerRadius_ObjSizeY = player->getRadius() + object->getSize().y;
 
+    // Check if the distance is less than or equal to the sum of the player's radius and the box size
     if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
         return true;
     }
-    
     return false;
 }
 
 // Check if a line between two points (representing enemy movement) intersects with the box obstacle
-bool line_intersects_obstacle(const Node& start, const Node& end,BoundingCircle* player, BoundingBox* box) {
-    // We need to check if the circle (enemy's movement) crosses any of the box's boundaries.
-    // For simplicity, check if either endpoint of the movement is colliding with the box
-    return point_intersects_box(start.position,box->getCenter(),player, box) || point_intersects_box(end.position, box->getCenter(), player, box);
+/****************************************************************
+* @brief Checks if the line between two nodes (representing movement) intersects with an obstacle.
+*
+* @param start - The starting node.
+* @param end - The ending node.
+* @param player - The player's bounding circle.
+* @param box - The bounding box representing the obstacle.
+* @return True if the line intersects with the box, false otherwise.
+***************************************************************/
+bool line_intersects_obstacle(const Node& start, const Node& end, BoundingCircle* player, BoundingBox* box) {
+    // Check if either endpoint of the line is colliding with the box
+    return point_intersects_box(start.position, box->getCenter(), player, box) ||
+        point_intersects_box(end.position, box->getCenter(), player, box);
 }
 
-bool is_valid_move(const Vec2& neighbor,const Vec2& point, BoundingCircle* player, BoundingBox* obstacles , BoundingCircle* object) {
-    // Check collision with the player (bounding circle)
-    float colliderrad = player->getRadius() + object->getRadius();
-    if (Vec2Dist(neighbor,point) < colliderrad){
-        return false; // The enemy collides with the player
+// Check if a move to a neighboring position is valid
+/****************************************************************
+* @brief Checks if moving to a neighboring position is valid (no collisions).
+*
+* @param neighbor - The position of the neighboring node.
+* @param point - The current position.
+* @param player - The player's bounding circle.
+* @param obstacles - The bounding box representing obstacles.
+* @param object - The enemy's bounding circle.
+* @return True if the move is valid, false if it results in a collision.
+***************************************************************/
+bool is_valid_move(const Vec2& neighbor, const Vec2& point, BoundingCircle* player, BoundingBox* obstacles, BoundingCircle* object) {
+    float colliderrad = player->getRadius() + object->getRadius();  // Sum of radii for collision check
+    if (Vec2Dist(neighbor, point) < colliderrad) {
+        return false;  // The enemy collides with the player
     }
 
-    // Check collision with any obstacles (bounding boxes)
-    
-    if (point_intersects_box(neighbor, obstacles->getCenter(),player,obstacles)) {
-        return false; // Path is blocked by an obstacle
+    // Check for collision with obstacles
+    if (point_intersects_box(neighbor, obstacles->getCenter(), player, obstacles)) {
+        return false;  // Path is blocked by an obstacle
     }
 
-    return true; // No collisions, the move is valid
+    return true;  // No collisions, valid move
 }
 
-// Get neighboring nodes (step towards the player, adjusted for smooth movement)
+// Get neighboring nodes (steps toward the goal)
+/****************************************************************
+* @brief Generates neighboring nodes based on movement towards the player.
+*
+* @param current - The current node.
+* @param player - The goal node (player's position).
+* @param step_size - The size of each step towards the player.
+* @return A vector of neighboring nodes.
+***************************************************************/
 std::vector<Node> get_neighbors(const Node& current, const Node& player, float step_size) {
     std::vector<Node> neighbors;
-    // Move towards the player in small steps
-    Vec2 direction = player.position - current.position;
-    float distance_to_player = Vec2Dist(current.position,player.position);
+    Vec2 direction = player.position - current.position;  // Direction vector to the player
+    float distance_to_player = Vec2Dist(current.position, player.position);
 
     if (distance_to_player > step_size) {
-        // Normalize direction and create the new position
-        Vec2 step = direction * (step_size / distance_to_player);
-        neighbors.push_back({ current.position + step, 0, 0, 0, nullptr });
+        Vec2 step = direction * (step_size / distance_to_player);  // Normalize and scale the direction
+        neighbors.push_back({ current.position + step, 0, 0, 0, nullptr });  // Create new neighbor
     }
     else {
-        // If within step size, just move to the player
-        neighbors.push_back({ player.position, 0, 0, 0, nullptr });
+        neighbors.push_back({ player.position, 0, 0, 0, nullptr });  // Add player position as a neighbor
     }
 
     return neighbors;
 }
 
 // Reconstruct the path from the goal to the start node
+/****************************************************************
+* @brief Reconstructs the path from the goal node to the start node.
+*
+* @param goal - The goal node.
+* @return A vector of nodes representing the path.
+***************************************************************/
 std::vector<Node> reconstruct_path(Node* goal) {
     std::vector<Node> path;
     Node* current = goal;
     while (current != nullptr) {
         path.push_back(*current);
-        current = current->parent;
+        current = current->parent;  // Move to the parent node
     }
-    std::reverse(path.begin(), path.end());
+    std::reverse(path.begin(), path.end());  // Reverse the path for correct order
     return path;
 }
 
+// Heuristic function for A* pathfinding
+/****************************************************************
+* @brief Heuristic function for estimating the cost from the current node to the goal.
+*
+* @param current - The current node.
+* @param goal - The goal node.
+* @return The estimated cost (Euclidean distance).
+***************************************************************/
 float heuristic(const Node& current, const Node& goal) {
     return Vec2Dist(current.position, goal.position);
 }
 
+// A* pathfinding algorithm
+/****************************************************************
+* @brief Finds the optimal path from start to goal using the A* algorithm.
+*
+* @param start - The starting node.
+* @param goal - The goal node.
+* @param step_size - The step size for generating neighbors.
+* @param player - The player's bounding circle.
+* @param box - The obstacle's bounding box.
+* @param enemy - The enemy's bounding circle.
+* @return A vector of nodes representing the optimal path.
+***************************************************************/
 std::vector<Node> find_path(Node& start, Node& goal, float step_size, BoundingCircle* player, BoundingBox* box, BoundingCircle* enemy) {
-    std::priority_queue<Node, std::vector<Node>, CompareNodes> open_list;  // Priority queue to choose the best node
-    std::unordered_set<Node, NodeHash> closed_list;  // Set to store visited nodes, NodeHash is a custom hash function for Node
+    std::priority_queue<Node, std::vector<Node>, CompareNodes> open_list;  // Priority queue for best node selection
+    std::unordered_set<Node, NodeHash> closed_list;  // Set for visited nodes
 
-    start.g = 0;  // Starting cost is 0
-    start.h = heuristic(start, goal);  // Heuristic value from start to goal
-    start.f = start.g + start.h;  // Total cost (f = g + h)
+    start.g = 0;  // Initial cost
+    start.h = heuristic(start, goal);  // Initial heuristic
+    start.f = start.g + start.h;  // Initial total cost
     open_list.push(start);
 
     while (!open_list.empty()) {
-        Node current = open_list.top();  // Get the node with the lowest f-value
+        Node current = open_list.top();  // Node with lowest f-value
         open_list.pop();
 
-        // If we have reached the goal, reconstruct the path and return it
+        // If goal is reached, reconstruct the path
         if (current == goal) {
-            return reconstruct_path(&current);  // Reconstruct and return the path
+            return reconstruct_path(&current);
         }
 
-        // Add the current node to the closed list (visited nodes)
-        closed_list.insert(current);
+        closed_list.insert(current);  // Mark current node as visited
 
-        // Get neighbors (possible moves)
+        // Check neighboring nodes
         for (auto& neighbor : get_neighbors(current, goal, step_size)) {
-            // Check if the move is valid and if the neighbor is not in the closed list
             if (is_valid_move(neighbor.position, current.position, player, box, enemy) &&
                 closed_list.find(neighbor) == closed_list.end()) {
-
-                // Calculate g, h, and f for the neighbor
-                neighbor.g = current.g + Vec2Dist(current.position, neighbor.position);
+                neighbor.g = current.g + Vec2Dist(current.position, neighbor.position);  // Calculate cost
                 neighbor.h = heuristic(neighbor, goal);
                 neighbor.f = neighbor.g + neighbor.h;
-                neighbor.parent = &current;  // Set the parent node for path reconstruction
+                neighbor.parent = &current;  // Set parent for path reconstruction
 
-                // Push the neighbor onto the open list
-                open_list.push(neighbor);
+                open_list.push(neighbor);  // Add to open list
             }
         }
     }
 
-    return {};  // No path found, return an empty vector
-}
-
-void workaround()
-{
-
+    return {};  // Return empty vector if no path found
 }
 
 
