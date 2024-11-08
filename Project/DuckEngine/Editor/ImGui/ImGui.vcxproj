@@ -293,6 +293,7 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Engine\lib\glfw\;$(SolutionDir)Game\lib\EditorDebug\;$(SolutionDir)Engine\lib\glew\;$(SolutionDir)Engine\lib\FMOD\api\core\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"

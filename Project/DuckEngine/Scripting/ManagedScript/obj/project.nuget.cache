@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "gQogihhnYAGBddhYYbycZGHbQiUp8tttS38YgbvZlMKnk1j8cDpzVkEPGEJxzAEpD7o/EyFUseysOk3dcX6rpA==",
+  "dgSpecHash": "0PVKwTR424Q=",
   "success": true,
-  "projectFilePath": "C:\\Users\\yolod\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ManagedScript\\ManagedScript.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -116,6 +116,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -177,6 +179,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,6 +215,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeaderFile>stdafx.h, GL/glew.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
