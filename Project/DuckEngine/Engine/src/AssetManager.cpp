@@ -78,9 +78,16 @@ void AssetManager::LoadAllTextures(const std::string& directoryPath) {
 
 			// Check for valid image extensions
 			if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
-				LoadTexture(filePath);
-				std::cout << "Preloaded texture: " << filePath << std::endl;
+				if (textureMap.find(filePath) != textureMap.end()) {
+					std::cerr << "All textures already loaded.\n";
+					return;
+				}
+				else {
+					LoadTexture(filePath);
+					std::cout << "Preloaded texture: " << filePath << std::endl;
+				}
 			}
+				
 		}
 	}
 }
@@ -190,8 +197,14 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 
 			// Load the sound if it has a valid audio extension
 			if (fileExtension == ".wav" || fileExtension == ".mp3" || fileExtension == ".ogg") {
-				LoadSound(filePath, filePath);
-				std::cout << "Preloaded sound: " << filePath << std::endl;
+				if (soundMap.find(filePath) != soundMap.end()) {
+					std::cerr << "All sounds already loaded.\n";
+					return;
+				}
+				else {
+					LoadSound(filePath, filePath);
+					std::cout << "Preloaded sound: " << filePath << std::endl;
+				}
 			}
 		}
 	}
