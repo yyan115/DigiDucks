@@ -50,8 +50,8 @@ void LevelManager::LoadLevelEditor(const std::string& levelFile)
             sceneName = sceneName.substr(0, lastDot);
         }
 
-        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
 
+        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
         if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
         {
             LoadLevel(levelFile);
@@ -183,6 +183,7 @@ void LevelManager::LoadLevel(const std::string& levelFile)
             if (layerPtr)
             {
                 layerPtr->AddEntity(&entity);
+                std::cout << "Added entity '" << entity.name << "' to layer '" << entity.layerName << "' in the active scene." << std::endl;
             }
         }
     }

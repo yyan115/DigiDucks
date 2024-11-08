@@ -22,12 +22,13 @@ written consent of DigiPen Institute of Technology is prohibited.
        of entities managed by the EntityManager.
 @return A reference to the newly created entity.
 *************************************************************************/
-Entity& EntityManager::CreateEntity()
+Entity& EntityManager::CreateEntity() 
 {
-    int newID = static_cast<int>(entities.size());
+    int newID = nextEntityID++;
     entities.emplace_back(newID);
     return entities.back();
 }
+
 
 /************************************************************************
 @brief Removes an entity by its ID, including all associated components.

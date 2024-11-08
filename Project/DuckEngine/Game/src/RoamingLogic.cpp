@@ -15,6 +15,128 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "RoamingLogic.h"
 
+
+// Function to check if a point (circle) intersects with the bounding box (rectangle) of an obstacle
+bool point_intersects_box(const Vec2& point, const Vec2& box, BoundingCircle* player, BoundingBox* object) {
+    // Check if the circle is colliding with the box by checking if the circle intersects the box boundary
+    float distFromPlayer = Vec2Dist(box, point);
+    float playerRadius_ObjSizeX = player->getRadius() + object->getSize().x;
+    float playerRadius_ObjSizeY = player->getRadius() + object->getSize().y;
+
+    if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
+        return true;
+    }
+    
+    return false;
+}
+
+// Check if a line between two points (representing enemy movement) intersects with the box obstacle
+bool line_intersects_obstacle(const Node& start, const Node& end,BoundingCircle* player, BoundingBox* box) {
+    // We need to check if the circle (enemy's movement) crosses any of the box's boundaries.
+    // For simplicity, check if either endpoint of the movement is colliding with the box
+    return point_intersects_box(start.position,box->getCenter(),player, box) || point_intersects_box(end.position, box->getCenter(), player, box);
+}
+
+bool is_valid_move(const Vec2& neighbor,const Vec2& point, BoundingCircle* player, BoundingBox* obstacles , BoundingCircle* object) {
+    // Check collision with the player (bounding circle)
+    float colliderrad = player->getRadius() + object->getRadius();
+    if (Vec2Dist(neighbor,point) < colliderrad){
+        return false; // The enemy collides with the player
+    }
+
+    // Check collision with any obstacles (bounding boxes)
+    
+    if (point_intersects_box(neighbor, obstacles->getCenter(),player,obstacles)) {
+        return false; // Path is blocked by an obstacle
+    }
+
+    return true; // No collisions, the move is valid
+}
+
+// Get neighboring nodes (step towards the player, adjusted for smooth movement)
+std::vector<Node> get_neighbors(const Node& current, const Node& player, float step_size) {
+    std::vector<Node> neighbors;
+    // Move towards the player in small steps
+    Vec2 direction = player.position - current.position;
+    float distance_to_player = Vec2Dist(current.position,player.position);
+
+    if (distance_to_player > step_size) {
+        // Normalize direction and create the new position
+        Vec2 step = direction * (step_size / distance_to_player);
+        neighbors.push_back({ current.position + step, 0, 0, 0, nullptr });
+    }
+    else {
+        // If within step size, just move to the player
+        neighbors.push_back({ player.position, 0, 0, 0, nullptr });
+    }
+
+    return neighbors;
+}
+
+// Reconstruct the path from the goal to the start node
+std::vector<Node> reconstruct_path(Node* goal) {
+    std::vector<Node> path;
+    Node* current = goal;
+    while (current != nullptr) {
+        path.push_back(*current);
+        current = current->parent;
+    }
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
+float heuristic(const Node& current, const Node& goal) {
+    return Vec2Dist(current.position, goal.position);
+}
+
+std::vector<Node> find_path(Node& start, Node& goal, float step_size, BoundingCircle* player, BoundingBox* box, BoundingCircle* enemy) {
+    std::priority_queue<Node, std::vector<Node>, CompareNodes> open_list;  // Priority queue to choose the best node
+    std::unordered_set<Node, NodeHash> closed_list;  // Set to store visited nodes, NodeHash is a custom hash function for Node
+
+    start.g = 0;  // Starting cost is 0
+    start.h = heuristic(start, goal);  // Heuristic value from start to goal
+    start.f = start.g + start.h;  // Total cost (f = g + h)
+    open_list.push(start);
+
+    while (!open_list.empty()) {
+        Node current = open_list.top();  // Get the node with the lowest f-value
+        open_list.pop();
+
+        // If we have reached the goal, reconstruct the path and return it
+        if (current == goal) {
+            return reconstruct_path(&current);  // Reconstruct and return the path
+        }
+
+        // Add the current node to the closed list (visited nodes)
+        closed_list.insert(current);
+
+        // Get neighbors (possible moves)
+        for (auto& neighbor : get_neighbors(current, goal, step_size)) {
+            // Check if the move is valid and if the neighbor is not in the closed list
+            if (is_valid_move(neighbor.position, current.position, player, box, enemy) &&
+                closed_list.find(neighbor) == closed_list.end()) {
+
+                // Calculate g, h, and f for the neighbor
+                neighbor.g = current.g + Vec2Dist(current.position, neighbor.position);
+                neighbor.h = heuristic(neighbor, goal);
+                neighbor.f = neighbor.g + neighbor.h;
+                neighbor.parent = &current;  // Set the parent node for path reconstruction
+
+                // Push the neighbor onto the open list
+                open_list.push(neighbor);
+            }
+        }
+    }
+
+    return {};  // No path found, return an empty vector
+}
+
+void workaround()
+{
+
+}
+
+
 namespace {
     Vec2 getSpeed(Vec2& firstPos, Vec2& secondPos, float speed) {
         Vec2 dir = secondPos - firstPos;
@@ -149,8 +271,9 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
             }
         }
         else {
-            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
-            if (distFromPlayer <= playerRadius_ObjSize) {
+            float playerRadius_ObjSizeX = playerCircle->getRadius() + objBox->getSize().x;
+            float playerRadius_ObjSizeY = playerCircle->getRadius() + objBox->getSize().y;
+            if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
                 objRb->isStatic = true;
                 break;
             }
@@ -232,7 +355,9 @@ void RoamDir(int objectID, Vec2& dir, float time) {
         std::cerr << "Missing necessary components on ObjectPrefab or Player entity." << std::endl;
         return;
     }
+
     
+
     // FSM to handle object movement
     switch (state.state) {
     case Idle:
@@ -293,14 +418,19 @@ void RoamDir(int objectID, Vec2& dir, float time) {
             }
         }
         else {
-            float playerRadius_ObjSize = playerCircle->getRadius() + objBox->getSize().length();
-			if (distFromPlayer <= playerRadius_ObjSize) {
+            float playerRadius_ObjSizeX = playerCircle->getRadius() + objBox->getSize().x;
+            float playerRadius_ObjSizeY = playerCircle->getRadius() + objBox->getSize().y;
+			if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
 				objRb->isStatic = true;
 				break;
 			}
         }
 
+        
         objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+
+        
+        
         break;
     }
 }

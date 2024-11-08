@@ -5,43 +5,56 @@
   RoamingLogic.cpp
   SpriteMovementScene.cpp
   Generating Code...
-  Quack_Kitchen.vcxproj -> C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\AbrilFatface-Regular.ttf
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\background.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
-  C:\Users\lucas\OneDrive\Documents\DigipenProjects\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
-  38 File(s) copied
+  Quack_Kitchen.vcxproj -> C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\AbrilFatface-Regular.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\background.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Blocks.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future Narrow.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High Square.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square Mono.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel Square.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket Square.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket.ttf
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\License.txt
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
+  C:\Nextcloud\School\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
+  51 File(s) copied

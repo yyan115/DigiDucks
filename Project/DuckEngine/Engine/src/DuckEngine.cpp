@@ -126,10 +126,6 @@ void DuckEngine::Initialize(bool _isEditor)
 
     DuckEngine::DUCKENGINE_AssetManager.LoadAll();
     GraphicsManager::Start();
-    //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
-    // Load fonts during initialization
-    FontManager::LoadFont("Roboto-Black", "../Resources/Roboto-Black.ttf", 48);
-    FontManager::LoadFont("AbrilFatface-Regular", "../Resources/AbrilFatface-Regular.ttf", 48);
 
 }
 
@@ -152,7 +148,6 @@ void DuckEngine::Update()
 {
     // Look for inputs first   
     TimeManager::StartManagerTimer("Input System");
-    InputManager::Update();
     TimeManager::EndManagerTimer("Input System");
 
     // Update viewport
@@ -237,7 +232,9 @@ void DuckEngine::Draw()
     GraphicsManager::RenderDebug();
     TimeManager::EndManagerTimer("Graphics System");
 
+    InputManager::Update();
     DuckEngine::DUCKENGINE_SystemManager.RenderAll();
+    DuckEngine::DUCKENGINE_SceneManager.Render();
     
     TimeManager::StartManagerTimer("Font System");
     FontManager::Render();
@@ -443,4 +440,14 @@ float DuckEngine::FPS() {
 *************************************************************************/
 void DuckEngine::EnableLogging(bool enable) {
     DUCKENGINE_ComponentManager.EnableLogging(enable);
+}
+
+float DuckEngine::GetViewportWidth()
+{
+    return static_cast<float>(WindowManager::GetViewportWidth());
+}
+
+float DuckEngine::GetViewportHeight()
+{
+    return static_cast<float>(WindowManager::GetViewportHeight());
 }

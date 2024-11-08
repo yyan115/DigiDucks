@@ -1,13 +1,15 @@
 Configuration Setup:
-Debug: Set Quack_Kitchen module as startup project
-EditorDebug: Set LevelEditor module as startup project
-Release: Set Quack_Kitchen module as startup project
-EditorRelease: Set LevelEditor module as startup project
+Debug: Set Quack_Kitchen module as startup project. Then, clean, build solution and run.
+EditorDebug: Set LevelEditor module as startup project. Then, clean, build solution and run.
+Release: Set Quack_Kitchen module as startup project. Then, clean, build solution and run.
+EditorRelease: Set LevelEditor module as startup project. Then, clean, build solution and run.
 
 Projects:
 LevelEditor: Handles the level editor backend
 DuckEngine: Handles the backend engine
 Quack_Kitchen: Handles the game itself
+Scripting API: Handles the API for scripting
+ManagedScript: Handles the scripts for the engine
 
 How to turn on/off level editor:
 Offline. 

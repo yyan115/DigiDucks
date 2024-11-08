@@ -40,4 +40,6 @@ public:
 	/// </summary>
 	void Update() override;
 
+	void Render() override;
+
 };

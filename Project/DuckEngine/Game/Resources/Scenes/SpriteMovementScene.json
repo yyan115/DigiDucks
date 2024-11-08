@@ -232,13 +232,50 @@
                             "g": 50.0,
                             "r": 100.0
                         },
-                        "fontName": "AbrilFatface-Regular",
+                        "fontName": "Kenney Rocket",
                         "fontSize": 1,
                         "position": {
                             "x": 1200.0,
                             "y": 50.0
                         },
-                        "text": "Button!"
+                        "text": "More Text!"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "TestText2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 250.0,
+                            "b": 0.0,
+                            "g": 50.0,
+                            "r": 250.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 2,
+                        "position": {
+                            "x": 600.0,
+                            "y": 100.0
+                        },
+                        "text": "Second Font!"
                     },
                     "type": "TextComponent"
                 }
@@ -331,7 +368,7 @@
                             "g": 50.0,
                             "r": 255.0
                         },
-                        "fontName": "Roboto-Black",
+                        "fontName": "Kenney Mini",
                         "fontSize": 1,
                         "position": {
                             "x": 0.0,

@@ -32,6 +32,12 @@ void ButtonSystem::Start()
 
 void ButtonSystem::Update()
 {
+}
+
+
+// temporary in render until i add fixedupdate and update for next milestone
+void ButtonSystem::Render()
+{
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
 	{
 		ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
@@ -44,10 +50,10 @@ void ButtonSystem::Update()
 
 		if (DuckEngine::isEditor)
 		{
-			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) 
+			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 			{
 				Vector2D mousePosWorld = DuckEngine::editorMouseScreenPos;
-				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos)) 
+				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos))
 				{
 					if (button->onClick) {
 						button->onClick();
@@ -69,7 +75,7 @@ void ButtonSystem::Update()
 				}
 			}
 		}
-		
+
 		// on hover MIA for now
 	}
 }
