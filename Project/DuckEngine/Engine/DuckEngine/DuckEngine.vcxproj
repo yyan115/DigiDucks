@@ -128,7 +128,10 @@
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
+      <Command>if not exist "$(SolutionDir)Build\EditorDebug" (
+    mkdir "$(SolutionDir)Build\EditorDebug"
+)
+copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug"
 xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
 xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
@@ -188,7 +191,10 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
+      <Command>if not exist "$(SolutionDir)Build\EditorDebug" (
+    mkdir "$(SolutionDir)Build\EditorDebug"
+)
+copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease\"
 xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
 xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
