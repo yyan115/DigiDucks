@@ -444,10 +444,10 @@ void DuckEngine::EnableLogging(bool enable) {
 
 float DuckEngine::GetViewportWidth()
 {
-    return WindowManager::GetViewportWidth();
+    return static_cast<float>(WindowManager::GetViewportWidth());
 }
 
 float DuckEngine::GetViewportHeight()
 {
-    return WindowManager::GetViewportHeight();
+    return static_cast<float>(WindowManager::GetViewportHeight());
 }
