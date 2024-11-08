@@ -1,11 +1,11 @@
 /******************************************************************************/
 /*!
 \file		RoamingLogic.CPP
-\author 	Ernest Ho, h.yonghengernest, 2301223
-(100%)
+\author 	Ernest Ho, h.yonghengernest, 2301223 (65%)
+            Jovan Chua,c.shengkaijovan, 2301244 (35%)
 \email    	h.yonghengernestt@digipen.edu
 \date   	Nov 6 2024
-\brief		Definition of Roaming Logic functions
+\brief		Definition of Roaming Logic functions, as well as pathfinding functions.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
