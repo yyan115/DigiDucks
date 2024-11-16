@@ -40,6 +40,24 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
     "SoundComponent"
 };
 
+template <typename ComponentName>
+void ComponentMenu(int entityID)
+{
+    ImVec2 contentRegion = ImGui::GetContentRegionAvail();
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + contentRegion.x - 30);
+    if (ImGui::Button("...")) ImGui::OpenPopup("ComponentMenu");
+    if (ImGui::BeginPopup("ComponentMenu"))
+    {
+        if (ImGui::MenuItem("Remove Component"))
+        {
+            DuckEngine::DUCKENGINE_ComponentManager.RemoveComponent<ComponentName>(entityID);
+            ImGui::CloseCurrentPopup();
+            return;
+        }
+        ImGui::EndPopup();
+    }
+}
+
 void InspectorRenderer::RenderLayer(int entityID)
 {
     if (entityID == -1) {
@@ -109,16 +127,24 @@ void InspectorRenderer::RenderComponents(int entityID)
     {
         if (ImGui::CollapsingHeader("Transform Component"))
         {
-			float position[2] = { transform->position.x, transform->position.y };
-            ImGui::SliderFloat2("Position", position, -100.0f, 100.0f);
-            transform->SetPosition(Vec2(position[0], position[1]));
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            // Position
+            ImGui::Text("Position");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat2("##Position", &transform->position.x, 0.1f, -10000.0f, 10000.0f)) {
+                transform->SetPosition(transform->position);
+                hasChanged = true;
+            }
 
-            ImGui::SliderFloat("Rotation", &transform->angle, -180.0f, 180.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            // Rotation
+            ImGui::Text("Rotation");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f)) hasChanged = true;
 
-            ImGui::SliderFloat2("Scale", &transform->scale.x, 0.1f, 10.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            // Scale
+            ImGui::Text("Scale");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat2("##Scale", &transform->scale.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
+
         }
     }
 
@@ -130,8 +156,24 @@ void InspectorRenderer::RenderComponents(int entityID)
             ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
             if (ImGui::IsItemEdited()) hasChanged = true;
 
-            ImGui::ColorEdit4("Color", (float*)&spriteRenderer->color);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            // Normalize the color values
+            float color[4] = {
+                spriteRenderer->color.r / 255.0f,
+                spriteRenderer->color.g / 255.0f,
+                spriteRenderer->color.b / 255.0f,
+                spriteRenderer->color.a / 255.0f
+            };
+
+			// Display color picker
+            if (ImGui::ColorEdit4("Color", color))
+            {
+                // Denormalize the values
+                spriteRenderer->color.r = color[0] * 255.0f;
+                spriteRenderer->color.g = color[1] * 255.0f;
+                spriteRenderer->color.b = color[2] * 255.0f;
+                spriteRenderer->color.a = color[3] * 255.0f;
+                hasChanged = true;
+            }
 
             // Display the current texture as a preview if it exists
             if (!spriteRenderer->texturePath.empty()) {
@@ -190,7 +232,12 @@ void InspectorRenderer::RenderComponents(int entityID)
         {
             ImGui::Checkbox("Is Static", &rb->isStatic);
             if (ImGui::IsItemEdited()) hasChanged = true;
+
+			// Remove component button
+            ComponentMenu<RigidbodyComponent>(entityID);
         }
+
+        
     }
 
     // Render BoundingBox if it exists
@@ -201,16 +248,24 @@ void InspectorRenderer::RenderComponents(int entityID)
             Vec2 center = box->getCenter();
             Vec2 size = box->getSize();
 
-            ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            ImGui::Text("Size");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat2("##Size", &size.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
 
-            ImGui::SliderFloat2("Size", &size.x, 0.1f, 10.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            ImGui::Text("Rotation");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat("##Rotation", &box->rotation, 1.0f, 0.0f, 360.0f)) hasChanged = true;
 
             // Update component with modified values
             box->setCenter(center);
             box->setSize(size);
+			//box->setRotation(box->rotation);
+
+            // Remove component button
+            ComponentMenu<BoundingBox>(entityID);
         }
+
+        
     }
 
     // Render BoundingCircle if it exists
@@ -221,15 +276,16 @@ void InspectorRenderer::RenderComponents(int entityID)
             Vec2 center = circle->getCenter();
             float radius = circle->getRadius();
 
-            ImGui::SliderFloat2("Center", &center.x, -10.0f, 10.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
-
-            ImGui::SliderFloat("Radius", &radius, 0.1f, 10.0f);
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            ImGui::Text("Radius");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat("##Radius", &radius, 0.1f, 0.0f, 360.0f)) hasChanged = true;
 
             // Update component with modified values
             circle->setCenter(center);
             circle->setRadius(radius);
+
+            // Remove component button
+            ComponentMenu<BoundingCircle>(entityID);
         }
     }
 
@@ -267,7 +323,12 @@ void InspectorRenderer::RenderComponents(int entityID)
                     hasChanged = true;
                 }
             }
+
+            // Remove component button
+            ComponentMenu<AnimatorComponent>(entityID);
         }
+
+        
     }
 
     // Render SoundComponent if it exists
@@ -284,8 +345,9 @@ void InspectorRenderer::RenderComponents(int entityID)
             if (ImGui::IsItemEdited()) hasChanged = true;
             
             // Slider for volume
-            ImGui::SliderFloat("Volume", &sound->volume, 0.0f, 1.0f, "%.2f");
-            if (ImGui::IsItemEdited()) hasChanged = true;
+            ImGui::Text("Volume");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat("##Volume", &sound->volume, 0.01f, 0.0f, 1.0f)) hasChanged = true;
             
             // Display current sound path, if it exists
             if (!sound->soundID.empty()) {
@@ -294,6 +356,9 @@ void InspectorRenderer::RenderComponents(int entityID)
             else {
                 ImGui::Text("Current Sound: None");
             }
+
+            // Remove component button
+            ComponentMenu<SoundComponent>(entityID);
         }
 
         

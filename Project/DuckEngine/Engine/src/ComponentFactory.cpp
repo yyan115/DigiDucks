@@ -107,6 +107,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
             {"x", transform->scale.x},
             {"y", transform->scale.y}
         };
+        transformData["properties"]["rotation"] = transform->angle;
         transformData["properties"]["relativeToCamera"] = transform->relativeToCamera;
         componentsArray.push_back(transformData);
     }
@@ -254,9 +255,11 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
     {
         Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
         Vec2 scale = Serialization::GetVec2(componentJson["properties"], "scale", Vec2(1.0f, 1.0f));
+        float rotation = componentJson["properties"].value("rotation", 0.0f);
         bool relativeToCamera = componentJson["properties"].value("relativeToCamera", true);
 
         auto transformComponent = std::make_shared<TransformComponent>(position, scale);
+		transformComponent->angle = rotation;
         transformComponent->relativeToCamera = relativeToCamera;
         return transformComponent;
     }
