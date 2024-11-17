@@ -18,3 +18,7 @@ Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.vcxproj.FileListAbsolute
 Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.lib
 /Project/DuckEngine/Scripting/ManagedScript/obj
 Project/DuckEngine/Scripting/ScriptingAPI/x64/EditorRelease/ScriptingAPI.assets.cache
+Project/DuckEngine/Game/lib/EditorDebug/Quack_Kitchen.lib
+Project/DuckEngine/Game/lib/EditorDebug/Quack_Kitchen.vcxproj.FileListAbsolute.txt
+Project/DuckEngine/Scripting/ScriptingAPI/x64/EditorDebug/ScriptingAPI.assets.cache
+Project/DuckEngine/Game/lib/EditorDebug/Quack_Kitchen.lib.recipe
