@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
+    "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
   },
   "projects": {
-    "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+    "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "projectUniqueName": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
         "projectName": "ScriptingAPI",
-        "projectPath": "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
-        "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
+        "projectPath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "packagesPath": "C:\\Users\\Brownies\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Brownies\\Desktop\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Brownies\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -53,24 +53,8 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
-            },
-            {
               "name": "Microsoft.Windows.SDK.NET.Ref",
-              "version": "[10.0.22621.34, 10.0.22621.34]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.20, 7.0.20]"
+              "version": "[10.0.22621.43, 10.0.22621.43]"
             }
           ],
           "frameworkReferences": {
@@ -78,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

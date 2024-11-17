@@ -1,1 +1,2 @@
 C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
+C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib

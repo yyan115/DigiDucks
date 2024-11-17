@@ -1,25 +1,86 @@
 {
-    "gameObjects": {
-        "GameObject 1": {
+  "gameObjects": {
+    "BackgroundGameObject": {
+      "components": [
+        {
+          "properties": {
             "position": {
-                "x": -12.104575157165527,
-                "y": 2.5539565086364746
+              "x": -0.07407426834106445,
+              "y": 5.035971641540527
             },
-            "prefab": "CabbageStockPrefab"
+            "relativeToCamera": true,
+            "scale": {
+              "x": 100.0,
+              "y": 100.0
+            }
+          },
+          "type": "TransformComponent"
         },
-        "GameObject 2": {
-            "position": {
-                "x": -5.960784912109375,
-                "y": -0.07194221019744873
+        {
+          "properties": {
+            "color": {
+              "a": 255.0,
+              "b": 255.0,
+              "g": 255.0,
+              "r": 255.0
             },
-            "prefab": "DuckPrefab"
+            "layer": 0,
+            "sprite": true,
+            "texture": "../Resources/background.png",
+            "useColor": false
+          },
+          "type": "SpriteRendererComponent"
         },
-        "obstacleObject1": {
-            "position": {
-                "x": -1.928105354309082,
-                "y": 0.07194280624389648
-            },
-            "prefab": "TomatoStockPrefab"
+        {
+          "properties": {
+            "loop": false,
+            "playOnStart": true,
+            "soundID": "../Resources/Sounds/gameplay bgm - unmastered.mp3",
+            "volume": 0.30000001192092896
+          },
+          "type": "SoundComponent"
         }
+      ],
+      "layer": "Background"
+    },
+    "Cabbage Stock": {
+      "layer": "Gameplay",
+      "position": {
+        "x": -12.104575157165527,
+        "y": 2.5539565086364746
+      },
+      "prefab": "CabbageStockPrefab"
+    },
+    "Duck": {
+      "layer": "Gameplay",
+      "position": {
+        "x": -5.960784912109375,
+        "y": -0.07194221019744873
+      },
+      "prefab": "DuckPrefab"
+    },
+    "Tomato Stock": {
+      "layer": "Gameplay",
+      "position": {
+        "x": -1.928105354309082,
+        "y": 0.07194280624389648
+      },
+      "prefab": "TomatoStockPrefab"
     }
+  },
+  "layers": {
+    "Background": {
+      "order": 0,
+      "visible": true
+    },
+    "Gameplay": {
+      "order": 1,
+      "visible": true
+    },
+    "UI": {
+      "order": 2,
+      "visible": true
+    }
+
+  }
 }

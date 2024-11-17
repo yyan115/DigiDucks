@@ -1,60 +1,105 @@
-﻿  main.cpp
-  GameManager.cpp
-  MaxLoadScene.cpp
-  MessagingSystem.cpp
-  RoamingLogic.cpp
-  SpriteMovementScene.cpp
-  Generating Code...
-  Quack_Kitchen.vcxproj -> C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\AbrilFatface-Regular.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\background.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Blocks.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future Narrow.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High Square.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square Mono.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel Square.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket Square.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket.ttf
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\License.txt
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
-  C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
-  51 File(s) copied
+﻿  Quack_Kitchen.vcxproj -> C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\lib\EditorDebug\Quack_Kitchen.lib
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\AbrilFatface-Regular.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\background.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\characteridle.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\characterwalk.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Crate.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\duck.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\imgui.ini
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\MaxLoadScene.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\oldman.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Prefab.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Roboto-Black.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\SpriteMovementScene.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\testjson.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\windows_init.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Blocks.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future Narrow.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Future.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High Square.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney High.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square Mono.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini Square.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Mini.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel Square.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Pixel.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket Square.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\Kenney Rocket.ttf
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Fonts\License.txt
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\GameScene.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\imgui.ini
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\MaxLoadScene.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Scenes\SpriteMovementScene.json
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\CircleVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugFragShader.frag
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\DebugVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontFragShader.frag
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\fontVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameFragShader.frag
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\gameVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\LineVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\PointVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Shaders\RectangleVertShader.vert
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AccordionCome CTE04_05.5.wav
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuck.wav
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\AnimalDuckCart CTE01_21.6.wav
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\COMEDYACCENT.wav
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\CRATE-WOOD_GEN-HDF-08708.wav
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sounds\gameplay bgm - unmastered.mp3
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back4.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back5.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_back6.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_side1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_side2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_side3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_side4.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_side5.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk4.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk5.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\duck_walk6.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\cut\cut1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\cut\cut2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\cut\cut3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_back_idle1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_back_idle2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_back_idle3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_s_idle1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_s_idle2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\duck_s_idle3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\idle1.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\idle2.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Duck\idle\idle3.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\board.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\bunbox.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\bunlow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\cheesefridge.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\cheeselow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\emptybox.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\emptyfridge.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\lettucebox.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\lettucelow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\mushroombox.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\mushroomlow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\shrimpfridge.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\shrimplow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\steakfridge.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\steaklow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\tomatobox.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\foodstash stuff\tomatolow.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cabbage_stock.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cuttingboard.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\cutting_table.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\stove.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_front.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\table_vert.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\tomato_stock.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\verttable.png
+  C:\Users\Brownies\Desktop\DigiDucks\Project\DuckEngine\Game\Resources\Sprites\Stations\waste.png
+  103 File(s) copied

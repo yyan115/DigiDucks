@@ -261,6 +261,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\include;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;$(SolutionDir)/Engine/lib/glm;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -286,6 +287,7 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
       <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\include;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;$(SolutionDir)/Engine/lib/glm;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -316,6 +318,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -345,6 +348,7 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
       <AdditionalIncludeDirectories>$(SolutionDir)\Game\include;$(SolutionDir)Editor\lib\imgui;$(SolutionDir)Engine\include;$(SolutionDir)Engine\include\ImGui;%(AdditionalIncludeDirectories);$(SolutionDir)/Engine/lib/glew/include;$(SolutionDir)/Engine/lib/glfw/include;$(SolutionDir)/Engine/lib/glm;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>
