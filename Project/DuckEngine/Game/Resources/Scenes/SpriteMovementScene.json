@@ -51,18 +51,19 @@
             },
             "prefab": "DuckPrefab"
         },
-        "GameObject 11": {
+        "GameObject 10": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 3.9999985694885254,
-                            "y": 1.330934762954712
+                            "x": 10.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
+                        "rotation": 0.0,
                         "scale": {
-                            "x": 2.0160000324249268,
-                            "y": 2.552000045776367
+                            "x": 2.0,
+                            "y": 2.5
                         }
                     },
                     "type": "TransformComponent"
@@ -77,38 +78,512 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table_front.png",
-                        "useColor": false
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 11": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
                 },
                 {
                     "properties": {
-                        "center": {
-                            "x": 3.9999985694885254,
-                            "y": 1.330934762954712
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
                         },
-                        "size": {
-                            "x": 1.0579999685287476,
-                            "y": 1.590000033378601
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 13": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": 5.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
-                    "type": "BoundingBox"
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/verttable.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 14": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 16": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.0,
+                            "y": 12.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/waste.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 17": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": 12.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 18": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 6.0,
+                            "y": 12.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 21": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0,
+                            "y": 12.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 22": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 12.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 29": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": 7.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/verttable.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 30": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "GameObject 34": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 },
                 {
                     "properties": {
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
                 },
                 {
                     "properties": {
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": "../Resources/Sounds/AccordionCome CTE04_05.5.wav",
-                        "volume": 0.4000000059604645
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
                     },
-                    "type": "SoundComponent"
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 5": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 9": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "../Resources/Sprites/Stations/stove.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -160,6 +635,43 @@
                 "y": 0.0
             },
             "prefab": "PlayerPrefab"
+        },
+        "TestText2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 400.0,
+                            "y": 400.0
+                        },
+                        "relativeToCamera": false,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 250.0,
+                            "b": 0.0,
+                            "g": 50.0,
+                            "r": 250.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 2,
+                        "position": {
+                            "x": 600.0,
+                            "y": 100.0
+                        },
+                        "text": "Second Font!"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "buttonBox": {
             "components": [
@@ -239,43 +751,6 @@
                             "y": 50.0
                         },
                         "text": "More Text!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "TestText2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 400.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "scale": {
-                            "x": 100.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 0.0,
-                            "g": 50.0,
-                            "r": 250.0
-                        },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2,
-                        "position": {
-                            "x": 600.0,
-                            "y": 100.0
-                        },
-                        "text": "Second Font!"
                     },
                     "type": "TextComponent"
                 }
