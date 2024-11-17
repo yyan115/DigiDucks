@@ -36,6 +36,7 @@ public:
 	static void LoadLevelEditor(const std::string& levelFile);
 	static void LoadLevelGame(const std::string& levelFile);
 	static void LoadLevel(const std::string& levelFile);
+	static bool CreateNewScene(const std::string& sceneName);
 	static std::string OpenFileDialog(const std::string& filetype);
 	static void OpenLevelDialog();
 

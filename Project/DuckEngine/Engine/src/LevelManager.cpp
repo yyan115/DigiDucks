@@ -377,4 +377,28 @@ void LevelManager::OverwritePrefab(int entityID)
     }
 }
 
+bool LevelManager::CreateNewScene(const std::string& sceneName) {
+    // Paths for the new files
+    std::string jsonPath = "../Resources/Scenes/" + sceneName + ".json";
+
+    // Check if JSON file already exists
+    if (std::filesystem::exists(jsonPath)) {
+        std::cerr << "Error: Scene already exists: " << sceneName << std::endl;
+        return false;
+    }
+
+    // Create the JSON file
+    json sceneData = {
+        { "gameObjects", json::object() },
+        { "layers", { { "Gameplay", { { "order", 1 }, { "visible", true } } } } }
+    };
+    Serialization::SaveJsonFile(jsonPath, sceneData);
+
+	//TODO: Create a GenericScnee, make it a sharePTr to all newly created scenes
+    std::cout << "Successfully created scene JSON: " << sceneName << std::endl;
+
+    return true;
+}
+
+
 

@@ -43,6 +43,7 @@ int UIManager::selectedEntityID = -1;
 std::unordered_map<WindowType, bool> UIManager::windowStates = {
     {WindowType::DebugInfo, false},
     {WindowType::Inspector, false},
+    {WindowType::NewScene, false},
 };
 
 
@@ -106,7 +107,6 @@ void UIManager::Render()
 
     // Rendering debug stats
     RenderWindows();
-
     // Show the different windows
     ShowExplorer();
     ShowHierarchy();
@@ -141,7 +141,10 @@ void UIManager::ShowMenuBar()
     // Main menu bar
     if (ImGui::BeginMainMenuBar()) {
         if (ImGui::BeginMenu("File")) {
-            if (ImGui::MenuItem("New Scene", "Ctrl+N")) { FilePath::PrintPath(); }
+            if (ImGui::MenuItem("New Scene", "Ctrl+N")) {
+                windowStates[WindowType::NewScene] = true;
+                std::cout << "wtfd" << std::endl;
+            }
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
             if (ImGui::MenuItem("Save Scene", "Ctrl+S")) 
             {
@@ -437,6 +440,8 @@ void UIManager::RenderWindows() {
             case WindowType::Inspector:
 				
 				break;
+            case WindowType::NewScene:
+                CreateNewSceneDialog();
             default:
                 break;
             }
@@ -501,5 +506,48 @@ void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** pat
         else {
             std::cout << "Unsupported file type: " << extension << std::endl;
         }
+    }
+}
+
+void UIManager::CreateNewSceneDialog() {
+    static char sceneName[128] = ""; // Buffer for scene name
+
+     ImGui::OpenPopup("Create New Scene");
+
+
+    // Render the popup
+    if (ImGui::BeginPopupModal("Create New Scene", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        ImGui::Text("Enter Scene Name:");
+        ImGui::InputText("##SceneName", sceneName, IM_ARRAYSIZE(sceneName));
+
+        // Create button
+        if (ImGui::Button("Create")) {
+            std::string sceneNameStr(sceneName);
+
+            // Validate the scene name
+            if (sceneNameStr.empty()) {
+                ImGui::Text("Invalid scene name!");
+            }
+            else {
+                // Try to create the new scene
+                if (LevelManager::CreateNewScene(sceneNameStr)) {
+                    ImGui::CloseCurrentPopup();
+					windowStates[WindowType::NewScene] = false;
+                }
+                else {
+                    ImGui::Text("Error: Scene creation failed or already exists.");
+                }
+            }
+        }
+
+        ImGui::SameLine();
+
+        // Cancel button
+        if (ImGui::Button("Cancel")) {
+            ImGui::CloseCurrentPopup();
+            windowStates[WindowType::NewScene] = false;
+        }
+
+        ImGui::EndPopup();
     }
 }

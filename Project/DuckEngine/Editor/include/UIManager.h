@@ -16,7 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 enum class WindowType {
     DebugInfo,
     Inspector,
-    Count
+	NewScene
 };
 
 class UIManager {
@@ -148,6 +148,8 @@ private:
     * @return void
     ***************************************************************/
     static void FileDropCallback(GLFWwindow* window, int count, const char** paths);
+
+    static void CreateNewSceneDialog();
 
 };
 
