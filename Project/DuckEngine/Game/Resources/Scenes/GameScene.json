@@ -1214,14 +1214,6 @@
                 }
             ],
             "layer": "Gameplay"
-        },
-        "PlayerPrefab (30)": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 0.7777770161628723,
-                "y": -1.1769230365753174
-            },
-            "prefab": "PlayerPrefab"
         }
     },
     "layers": {

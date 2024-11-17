@@ -6,6 +6,10 @@
 
 # Ignore the game log file
 game_log.txt
-/Project/DuckEngine/Scripting/ManagedScript
-/Project/DuckEngine/Scripting/ScriptingAPI
-/Project/DuckEngine/Scripting
+Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.vcxproj.FileListAbsolute.txt
+/Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.tlog
+Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.Build.CppClean.log
+*.obj
+*.tlog
+*.lastbuildstate
+Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.vcxproj.FileListAbsolute.txt

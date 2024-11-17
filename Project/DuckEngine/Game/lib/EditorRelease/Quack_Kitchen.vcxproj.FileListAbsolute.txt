@@ -1,2 +1,0 @@
-C:\Users\lucas\OneDrive\Desktop\gogo\DigiDucks\Project\DuckEngine\Game\lib\EditorRelease\Quack_Kitchen.lib
-C:\Users\leeyi\OneDrive\Documents\GitHub\DigiDucks\Project\DuckEngine\Game\lib\EditorRelease\Quack_Kitchen.lib
