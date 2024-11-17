@@ -16,3 +16,4 @@ Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.vcxproj.FileListAbsolute
 *.log
 *.pdb
 Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.lib
+/Project/DuckEngine/Scripting/ManagedScript/obj
