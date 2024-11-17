@@ -26,6 +26,7 @@ namespace fs = std::filesystem;
 std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
 std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
+std::vector<std::string> AssetManager::fontNames;
 
 std::string NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;
@@ -48,9 +49,14 @@ void AssetManager::LoadAllFonts(const std::string& directoryPath) {
             std::string fontName = entry.path().stem().string();  // Gets the filename without extension
             std::string fontPath = entry.path().string();
             FontManager::LoadFont(fontName, fontPath, 48);  // Adjust font size as needed
+			fontNames.push_back(fontName);
 			std::cout << "loaded font: " << fontName << ", path: " << fontPath << "\n";
         }
     }
+}
+
+const std::vector<std::string>& AssetManager::GetFontNames() {
+	return fontNames;
 }
 
 void AssetManager::LoadAllShaders(const std::string& directoryPath) {

@@ -54,7 +54,7 @@ public:
     /// <param name="color">The color of the text (default is white).</param>
     /// <param name="enabled">Specifies whether the text component is enabled.</param>
     DUCKENGINE_API TextComponent(
-        const std::string& fontName,
+        const std::string& fontName = "Kenney High Square",
         const std::string& text = "",
         const Vector2D& position = Vector2D(),
         int fontSize = 1,
