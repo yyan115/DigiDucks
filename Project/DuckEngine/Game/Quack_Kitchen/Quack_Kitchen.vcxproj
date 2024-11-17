@@ -113,6 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)/Engine/include;$(SolutionDir)/Game/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +158,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
@@ -166,6 +169,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)/Game/include;$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/FMOD/api/core/inc</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
     </ClCompile>
     <PostBuildEvent>
       <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
@@ -179,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
+    <ClCompile Include="..\src\GameScene.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
@@ -186,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\GameManager.h" />
+    <ClInclude Include="..\include\GameScene.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
     <ClInclude Include="..\include\ResourcePath.h" />

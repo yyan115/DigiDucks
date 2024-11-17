@@ -12,20 +12,6 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 ******************************************************************************/
 
-/******************************************************************************
-\file       EditorInputManager.cpp
-\author     Lucas Yee 2301212
-\par        l.yee@digipen.edu
-\date       November 6, 2024
-\brief      Implementation of the EditorInputManager class, which manages input
-            handling for the editor, including camera movement, entity selection,
-            and hotkey detection.
-
-Copyright (C) 2024 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-******************************************************************************/
-
 #include <iostream>
 #include "EditorInputManager.h"
 #include "InputManager.h"

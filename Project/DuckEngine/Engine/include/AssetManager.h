@@ -50,7 +50,7 @@ public:
 	// Get
 	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
 	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
-
+	static DUCKENGINE_API const std::vector<std::string>& GetFontNames();
 	
 	// unload all textures
 	static DUCKENGINE_API void UnloadAll();
@@ -66,5 +66,8 @@ private:
 	// Stores all loaded sounds with their file paths as keys
 	static std::unordered_map<std::string, FMOD::Sound*> soundMap;
 	static FMOD::System* fmodSystem;
+
+	//Stores all font names
+	static std::vector<std::string> fontNames;
 
 };

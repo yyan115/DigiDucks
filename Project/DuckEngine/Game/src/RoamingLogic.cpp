@@ -1,11 +1,11 @@
 /******************************************************************************/
 /*!
 \file		RoamingLogic.CPP
-\author 	Ernest Ho, h.yonghengernest, 2301223
-(100%)
+\author 	Ernest Ho, h.yonghengernest, 2301223 (65%)
+            Jovan Chua,c.shengkaijovan, 2301244 (35%)
 \email    	h.yonghengernestt@digipen.edu
 \date   	Nov 6 2024
-\brief		Definition of Roaming Logic functions
+\brief		Definition of Roaming Logic functions, as well as pathfinding functions.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -15,166 +15,174 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "RoamingLogic.h"
 
-std::vector<Node*> getNeighbors(Node* node, const std::vector<Node*>& allNodes) {
-    std::vector<Node*> neighbors;
 
-    // Example of checking the possible 4 directions (expand as needed)
-    for (Node* neighbor : allNodes) {
-        // Ensure neighbor is not an obstacle and is not the same as the current node
-        if (!neighbor->isObstacle && neighbor != node) {
-            // Only add neighbors that are adjacent to the current node (same row or column)
-            if ((std::abs(node->x - neighbor->x) == 1 && node->y == neighbor->y) || // Horizontal neighbors
-                (std::abs(node->y - neighbor->y) == 1 && node->x == neighbor->x)    // Vertical neighbors
-                ) {
-                neighbors.push_back(neighbor);
-            }
-        }
+// Function to check if a point (circle) intersects with the bounding box (rectangle) of an obstacle
+/****************************************************************
+* @brief Checks if a circular area (player) intersects a bounding box (obstacle).
+*
+* @param point - The position of the circle's center.
+* @param box - The position of the box's center.
+* @param player - The player's bounding circle.
+* @param object - The obstacle's bounding box.
+* @return True if the circle intersects the box, false otherwise.
+***************************************************************/
+bool point_intersects_box(const Vec2& point, const Vec2& box, BoundingCircle* player, BoundingBox* object) {
+    float distFromPlayer = Vec2Dist(box, point);  // Calculate distance from point to box center
+    float playerRadius_ObjSizeX = player->getRadius() + object->getSize().x;
+    float playerRadius_ObjSizeY = player->getRadius() + object->getSize().y;
+
+    // Check if the distance is less than or equal to the sum of the player's radius and the box size
+    if (distFromPlayer <= playerRadius_ObjSizeX || distFromPlayer <= playerRadius_ObjSizeY) {
+        return true;
+    }
+    return false;
+}
+
+// Check if a line between two points (representing enemy movement) intersects with the box obstacle
+/****************************************************************
+* @brief Checks if the line between two nodes (representing movement) intersects with an obstacle.
+*
+* @param start - The starting node.
+* @param end - The ending node.
+* @param player - The player's bounding circle.
+* @param box - The bounding box representing the obstacle.
+* @return True if the line intersects with the box, false otherwise.
+***************************************************************/
+bool line_intersects_obstacle(const Node& start, const Node& end, BoundingCircle* player, BoundingBox* box) {
+    // Check if either endpoint of the line is colliding with the box
+    return point_intersects_box(start.position, box->getCenter(), player, box) ||
+        point_intersects_box(end.position, box->getCenter(), player, box);
+}
+
+// Check if a move to a neighboring position is valid
+/****************************************************************
+* @brief Checks if moving to a neighboring position is valid (no collisions).
+*
+* @param neighbor - The position of the neighboring node.
+* @param point - The current position.
+* @param player - The player's bounding circle.
+* @param obstacles - The bounding box representing obstacles.
+* @param object - The enemy's bounding circle.
+* @return True if the move is valid, false if it results in a collision.
+***************************************************************/
+bool is_valid_move(const Vec2& neighbor, const Vec2& point, BoundingCircle* player, BoundingBox* obstacles, BoundingCircle* object) {
+    float colliderrad = player->getRadius() + object->getRadius();  // Sum of radii for collision check
+    if (Vec2Dist(neighbor, point) < colliderrad) {
+        return false;  // The enemy collides with the player
+    }
+
+    // Check for collision with obstacles
+    if (point_intersects_box(neighbor, obstacles->getCenter(), player, obstacles)) {
+        return false;  // Path is blocked by an obstacle
+    }
+
+    return true;  // No collisions, valid move
+}
+
+// Get neighboring nodes (steps toward the goal)
+/****************************************************************
+* @brief Generates neighboring nodes based on movement towards the player.
+*
+* @param current - The current node.
+* @param player - The goal node (player's position).
+* @param step_size - The size of each step towards the player.
+* @return A vector of neighboring nodes.
+***************************************************************/
+std::vector<Node> get_neighbors(const Node& current, const Node& player, float step_size) {
+    std::vector<Node> neighbors;
+    Vec2 direction = player.position - current.position;  // Direction vector to the player
+    float distance_to_player = Vec2Dist(current.position, player.position);
+
+    if (distance_to_player > step_size) {
+        Vec2 step = direction * (step_size / distance_to_player);  // Normalize and scale the direction
+        neighbors.push_back({ current.position + step, 0, 0, 0, nullptr });  // Create new neighbor
+    }
+    else {
+        neighbors.push_back({ player.position, 0, 0, 0, nullptr });  // Add player position as a neighbor
     }
 
     return neighbors;
 }
 
-// Heuristic (Manhattan Distance)
-static int heuristic(Node* a, Node* b) {
-    return std::abs(a->x - b->x) + std::abs(a->y - b->y);  // Manhattan Distance
+// Reconstruct the path from the goal to the start node
+/****************************************************************
+* @brief Reconstructs the path from the goal node to the start node.
+*
+* @param goal - The goal node.
+* @return A vector of nodes representing the path.
+***************************************************************/
+std::vector<Node> reconstruct_path(Node* goal) {
+    std::vector<Node> path;
+    Node* current = goal;
+    while (current != nullptr) {
+        path.push_back(*current);
+        current = current->parent;  // Move to the parent node
+    }
+    std::reverse(path.begin(), path.end());  // Reverse the path for correct order
+    return path;
 }
 
-std::vector<Node*> AStar(Node* start, Node* goal, const std::vector<Node*>& allNodes) {
-    std::priority_queue<Node*, std::vector<Node*>, std::greater<Node*>> openSet;
-    std::set<Node*> openSetTracker;  // Track nodes that are in the open set
-    std::vector<Node*> closedSet;
+// Heuristic function for A* pathfinding
+/****************************************************************
+* @brief Heuristic function for estimating the cost from the current node to the goal.
+*
+* @param current - The current node.
+* @param goal - The goal node.
+* @return The estimated cost (Euclidean distance).
+***************************************************************/
+float heuristic(const Node& current, const Node& goal) {
+    return Vec2Dist(current.position, goal.position);
+}
 
-    start->gCost = 0;
-    start->hCost = heuristic(start, goal);
-    openSet.push(start);
-    openSetTracker.insert(start);
+// A* pathfinding algorithm
+/****************************************************************
+* @brief Finds the optimal path from start to goal using the A* algorithm.
+*
+* @param start - The starting node.
+* @param goal - The goal node.
+* @param step_size - The step size for generating neighbors.
+* @param player - The player's bounding circle.
+* @param box - The obstacle's bounding box.
+* @param enemy - The enemy's bounding circle.
+* @return A vector of nodes representing the optimal path.
+***************************************************************/
+std::vector<Node> find_path(Node& start, Node& goal, float step_size, BoundingCircle* player, BoundingBox* box, BoundingCircle* enemy) {
+    std::priority_queue<Node, std::vector<Node>, CompareNodes> open_list;  // Priority queue for best node selection
+    std::unordered_set<Node, NodeHash> closed_list;  // Set for visited nodes
 
-    while (!openSet.empty()) {
-        Node* current = openSet.top();
-        openSet.pop();
-        openSetTracker.erase(current);
+    start.g = 0;  // Initial cost
+    start.h = heuristic(start, goal);  // Initial heuristic
+    start.f = start.g + start.h;  // Initial total cost
+    open_list.push(start);
 
-        // Check if we reached the goal
+    while (!open_list.empty()) {
+        Node current = open_list.top();  // Node with lowest f-value
+        open_list.pop();
+
+        // If goal is reached, reconstruct the path
         if (current == goal) {
-            // Path reconstruction
-            std::vector<Node*> path;
-            while (current != nullptr) {
-                path.push_back(current);
-                current = current->parent;
-            }
-            std::reverse(path.begin(), path.end());  // Reverse the path to start-to-goal
-            return path;
+            return reconstruct_path(&current);
         }
 
-        closedSet.push_back(current);
+        closed_list.insert(current);  // Mark current node as visited
 
-        // Explore neighbors
-        for (Node* neighbor : getNeighbors(current, allNodes)) {
-            // Skip if already processed
-            if (std::find(closedSet.begin(), closedSet.end(), neighbor) != closedSet.end())
-                continue;
+        // Check neighboring nodes
+        for (auto& neighbor : get_neighbors(current, goal, step_size)) {
+            if (is_valid_move(neighbor.position, current.position, player, box, enemy) &&
+                closed_list.find(neighbor) == closed_list.end()) {
+                neighbor.g = current.g + Vec2Dist(current.position, neighbor.position);  // Calculate cost
+                neighbor.h = heuristic(neighbor, goal);
+                neighbor.f = neighbor.g + neighbor.h;
+                neighbor.parent = &current;  // Set parent for path reconstruction
 
-            int tentativeGCost = current->gCost + 1;  // Assuming uniform cost between nodes
-
-            bool inOpenSet = openSetTracker.find(neighbor) != openSetTracker.end();
-
-            if (!inOpenSet || tentativeGCost < neighbor->gCost) {
-                neighbor->gCost = tentativeGCost;
-                neighbor->hCost = heuristic(neighbor, goal);
-                neighbor->parent = current;
-
-                if (!inOpenSet) {
-                    openSet.push(neighbor);
-                    openSetTracker.insert(neighbor);
-                }
+                open_list.push(neighbor);  // Add to open list
             }
         }
     }
 
-    return {};  // Return empty path if no path is found
+    return {};  // Return empty vector if no path found
 }
 
-// Pathing function to run A* and output the path
-void pathing() {
-    // Create nodes (locations or waypoints in the world)
-    Node node1(0, 0);
-    Node node2(1, 0);
-    Node node3(2, 0, true);  // Obstacle
-    Node node4(3, 0);
-    Node node5(4, 0);
-    Node node6(5, 0);
-    Node node7(6, 0, true);  // Obstacle
-
-    Node node8(0, 1);
-    Node node9(1, 1);
-    Node node10(2, 1, true);  // Obstacle
-    Node node11(3, 1);
-    Node node12(4, 1, true);  // Obstacle
-    Node node13(5, 1);
-    Node node14(6, 1);
-
-    Node node15(0, 2);
-    Node node16(1, 2, true);  // Obstacle
-    Node node17(2, 2);
-    Node node18(3, 2, true);  // Obstacle
-    Node node19(4, 2);
-    Node node20(5, 2);
-    Node node21(6, 2);
-
-    Node node22(0, 3);
-    Node node23(1, 3);
-    Node node24(2, 3, true);  // Obstacle
-    Node node25(3, 3);
-    Node node26(4, 3);
-    Node node27(5, 3);
-    Node node28(6, 3, true);  // Obstacle
-
-    Node node29(0, 4);
-    Node node30(1, 4);
-    Node node31(2, 4);
-    Node node32(3, 4);
-    Node node33(4, 4);
-    Node node34(5, 4);
-    Node node35(6, 4, true);  // Obstacle
-
-    Node node36(0, 5);
-    Node node37(1, 5);
-    Node node38(2, 5);
-    Node node39(3, 5,true);
-    Node node40(4, 5);
-    Node node41(5, 5);
-    Node node42(6, 5);
-
-    Node node43(0, 6);
-    Node node44(1, 6,true);
-    Node node45(2, 6);
-    Node node46(3, 6);
-    Node node47(4, 6,true);
-    Node node48(5, 6);
-    Node node49(6, 6, false);  // Obstacle
-
-    // Set up all the nodes (world)
-    std::vector<Node*> allNodes = { &node1, &node2, &node3, &node4, &node5, &node6, &node7,
-                                    &node8, &node9, &node10, &node11, &node12, &node13, &node14,
-                                    &node15, &node16, &node17, &node18, &node19, &node20, &node21,
-                                    &node22, &node23, &node24, &node25, &node26, &node27, &node28,
-                                    &node29, &node30, &node31, &node32, &node33, &node34, &node35,
-                                    &node36, &node37, &node38, &node39, &node40, &node41, &node42,
-                                    &node43, &node44, &node45, &node46, &node47, &node48, &node49 };
-
-    // Start (enemy) and goal (player)
-    Node* start = &node1;
-    Node* goal = &node49;
-
-    // Run A* to find the path
-    std::vector<Node*> path = AStar(start, goal, allNodes);
-
-    // Output the path
-    std::cout << "Path from enemy to player:" << std::endl;
-    for (Node* node : path) {
-        std::cout << "(" << node->x << ", " << node->y << ")" << std::endl;
-    }
-}
 
 namespace {
     Vec2 getSpeed(Vec2& firstPos, Vec2& secondPos, float speed) {
@@ -253,7 +261,6 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
         std::cerr << "Missing necessary components on ObjectPrefab or Player entity." << std::endl;
         return;
     }
-   
 
     // FSM to handle object movement
     switch (state.state) {
@@ -395,9 +402,8 @@ void RoamDir(int objectID, Vec2& dir, float time) {
         std::cerr << "Missing necessary components on ObjectPrefab or Player entity." << std::endl;
         return;
     }
+
     
-    
-    //pathing();
 
     // FSM to handle object movement
     switch (state.state) {
@@ -467,9 +473,10 @@ void RoamDir(int objectID, Vec2& dir, float time) {
 			}
         }
 
-       
+        
         objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
 
+        
         
         break;
     }

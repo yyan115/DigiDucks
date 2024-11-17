@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "aFWzcIYSbLo=",
+  "dgSpecHash": "zIdDlPmXwP0=",
   "success": true,
-  "projectFilePath": "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+  "projectFilePath": "C:\\Users\\lucas\\OneDrive\\Desktop\\gogo\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
   "expectedPackageFiles": [
-    "C:\\Users\\admin\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.43\\microsoft.windows.sdk.net.ref.10.0.22621.43.nupkg.sha512"
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.34\\microsoft.windows.sdk.net.ref.10.0.22621.34.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.20\\microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "C:\\Users\\lucas\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.20\\microsoft.netcore.app.host.win-x64.7.0.20.nupkg.sha512"
   ],
   "logs": []
 }

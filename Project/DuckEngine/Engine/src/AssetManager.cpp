@@ -26,6 +26,7 @@ namespace fs = std::filesystem;
 std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
 std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
+std::vector<std::string> AssetManager::fontNames;
 
 std::string NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;
@@ -48,9 +49,14 @@ void AssetManager::LoadAllFonts(const std::string& directoryPath) {
             std::string fontName = entry.path().stem().string();  // Gets the filename without extension
             std::string fontPath = entry.path().string();
             FontManager::LoadFont(fontName, fontPath, 48);  // Adjust font size as needed
+			fontNames.push_back(fontName);
 			std::cout << "loaded font: " << fontName << ", path: " << fontPath << "\n";
         }
     }
+}
+
+const std::vector<std::string>& AssetManager::GetFontNames() {
+	return fontNames;
 }
 
 void AssetManager::LoadAllShaders(const std::string& directoryPath) {
@@ -78,9 +84,16 @@ void AssetManager::LoadAllTextures(const std::string& directoryPath) {
 
 			// Check for valid image extensions
 			if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
-				LoadTexture(filePath);
-				std::cout << "Preloaded texture: " << filePath << std::endl;
+				if (textureMap.find(filePath) != textureMap.end()) {
+					std::cerr << "All textures already loaded.\n";
+					return;
+				}
+				else {
+					LoadTexture(filePath);
+					std::cout << "Preloaded texture: " << filePath << std::endl;
+				}
 			}
+				
 		}
 	}
 }
@@ -190,8 +203,14 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 
 			// Load the sound if it has a valid audio extension
 			if (fileExtension == ".wav" || fileExtension == ".mp3" || fileExtension == ".ogg") {
-				LoadSound(filePath, filePath);
-				std::cout << "Preloaded sound: " << filePath << std::endl;
+				if (soundMap.find(filePath) != soundMap.end()) {
+					std::cerr << "All sounds already loaded.\n";
+					return;
+				}
+				else {
+					LoadSound(filePath, filePath);
+					std::cout << "Preloaded sound: " << filePath << std::endl;
+				}
 			}
 		}
 	}

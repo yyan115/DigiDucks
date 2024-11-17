@@ -3,6 +3,7 @@
 #include "DuckEngine.h"
 #include "MaxLoadScene.h"
 #include "SpriteMovementScene.h"
+#include "GameScene.h"
 
 class GameManager
 {

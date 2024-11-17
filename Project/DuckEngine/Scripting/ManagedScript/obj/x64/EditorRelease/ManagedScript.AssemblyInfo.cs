@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ManagedScript")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("EditorRelease")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+046ef6d6fb07dc5a63862f89bf2433a2e45b3bd8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+009e122a6dee2f480401345d1b164b5b84e0c2d5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ManagedScript")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ManagedScript")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -20,6 +20,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <filesystem>
 #include <iostream>
+#include <algorithm> // For std::transform
+
+static char searchQuery[128] = ""; // Buffer to store the search query
+std::string queryLower = ""; // Lowercase version of the search query
 
 namespace fs = std::filesystem;
 std::string AssetsBrowser::selectedFolderPath = "../Resources/Scenes";
@@ -27,6 +31,12 @@ std::string AssetsBrowser::selectedFolderName = "Scenes";
 
 // Main function to display the assets explorer UI
 void AssetsBrowser::ShowAssets() {
+    // Render the search bar at the top
+    ImGui::InputTextWithHint("##SearchBar", "Search assets...", searchQuery, IM_ARRAYSIZE(searchQuery));
+    queryLower = searchQuery;
+    std::transform(queryLower.begin(), queryLower.end(), queryLower.begin(), 
+        [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
     // Left pane for folder structure
     ImGui::BeginChild("LeftPane", ImVec2(200, 0), true);
     RenderDirectoryTree(); 
@@ -84,8 +94,15 @@ std::string NormalizePath(const std::string& path) {
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     if (!fs::exists(path)) return;
 
-    int itemsPerRow = 4;
+	// Calculate how many items can fit in one row
+    float contentWidth = ImGui::GetContentRegionAvail().x;
+    float itemWidth = 120.0f; // Width of each asset cell
+    float itemPadding = 20.0f; // Padding between items
+    int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
+    if (itemsPerRow < 1) itemsPerRow = 1;
+
     int itemIndex = 0;
+
     static std::string selectedAsset = "";
 
     // Iterate over files in the selected folder
@@ -93,12 +110,24 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         if (entry.is_directory()) continue;
 
         std::string fileName = entry.path().filename().string();
+        std::string fileNameLower = fileName;
+        std::string truncatedFileName = fileName;        
+        std::transform(fileNameLower.begin(), fileNameLower.end(), fileNameLower.begin(), 
+            [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
+        // Filter assets based on the search query
+        if (!queryLower.empty() && fileNameLower.find(queryLower) == std::string::npos) {
+            continue; // Skip files that don't match the query
+        }
+
         std::string fileExtension = entry.path().extension().string();
         std::string normalizedPath = NormalizePath(entry.path().string());
         ImGui::PushID(normalizedPath.c_str());
 
+        ImGui::BeginGroup();
         // Check if the file is a texture
         if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
+            
             auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
 
             // If texture is valid, display it as an image
@@ -145,7 +174,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             ImGui::Button(fileName.c_str(), ImVec2(100, 100));
         }
 
-        
+        // Truncate file name
+        if (truncatedFileName.length() > 15) truncatedFileName = truncatedFileName.substr(0, 12) + "...";
+        ImGui::TextWrapped("%s", truncatedFileName.c_str());
+        ImGui::EndGroup();
 
         if ((itemIndex + 1) % itemsPerRow != 0) {
             ImGui::SameLine();
@@ -159,7 +191,12 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 // Render theprefabs in the right pane as a grid
 void AssetsBrowser::RenderPrefabsGrid() {
-    int itemsPerRow = 4;
+    // Calculate how many items can fit in one row
+    float contentWidth = ImGui::GetContentRegionAvail().x;
+    float itemWidth = 120.0f; // Width of each asset cell
+    float itemPadding = 20.0f; // Padding between items
+    int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
+    if (itemsPerRow < 1) itemsPerRow = 1;
     int itemIndex = 0;
 
     // Retrieve all prefabs loaded in PrefabManager
@@ -167,6 +204,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
     for (const auto& [prefabName, prefab] : prefabs) {
         ImGui::PushID(itemIndex);
 
+        ImGui::BeginGroup();
         // Retrieve and display prefab texture
         if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
             ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0));
@@ -181,6 +219,10 @@ void AssetsBrowser::RenderPrefabsGrid() {
             ImGui::Text("Drag %s", prefabName.c_str());
             ImGui::EndDragDropSource();
         }
+		std::string truncatedPrefabName = prefabName;
+        if (truncatedPrefabName.length() > 15) truncatedPrefabName = truncatedPrefabName.substr(0, 12) + "...";
+        ImGui::TextWrapped("%s", truncatedPrefabName.c_str());
+        ImGui::EndGroup();
 
         if ((itemIndex + 1) % itemsPerRow != 0) {
             ImGui::SameLine();
