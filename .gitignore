@@ -13,3 +13,5 @@ Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.Build.CppClean.log
 *.tlog
 *.lastbuildstate
 Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.vcxproj.FileListAbsolute.txt
+*.log
+*.pdb
