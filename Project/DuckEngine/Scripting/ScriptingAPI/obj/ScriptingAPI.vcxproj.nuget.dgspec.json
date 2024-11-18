@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
+    "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {}
   },
   "projects": {
-    "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
+    "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "projectUniqueName": "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
         "projectName": "ScriptingAPI",
-        "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
-        "packagesPath": "C:\\Users\\Zikry\\.nuget\\packages\\",
-        "outputPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
+        "projectPath": "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Nextcloud\\School\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Zikry\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

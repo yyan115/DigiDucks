@@ -500,7 +500,7 @@ void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
         RectangleInstanceData data;
         data.center = glm::vec2(command.position1.x, command.position1.y);
         data.size = glm::vec2(command.position2.x, command.position2.y);
-        data.rotation = command.rotation;
+        data.rotation = -command.rotation;
         data.color = glm::vec4(
             command.color.r / 255.0f,
             command.color.g / 255.0f,
