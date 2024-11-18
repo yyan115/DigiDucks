@@ -76,7 +76,7 @@ int main(void)
 
     uiManager.Exit();
     engine.Exit();
-
+    glfwTerminate();
     return 0;
 }
 
