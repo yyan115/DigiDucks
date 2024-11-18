@@ -63,6 +63,7 @@ public:
     DUCKENGINE_API void SetVisible(bool _visible);
 
     DUCKENGINE_API bool HasEntityByID(int entityID) const;
+    DUCKENGINE_API void RemoveEntityByID(int entityID);
 
 private:
     std::vector<int> entityIDs; // Entities in this layer

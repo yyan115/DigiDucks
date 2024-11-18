@@ -202,6 +202,9 @@ DUCKENGINE_API Vector2D operator * (float lhs, const Vector2D& rhs);
 ****************************************************************/
 DUCKENGINE_API Vector2D operator / (const Vector2D& lhs, float rhs);
 
+DUCKENGINE_API bool operator==(const Vector2D& lhs, const Vector2D& rhs);
+DUCKENGINE_API bool operator!=(const Vector2D& lhs, const Vector2D& rhs);
+
 // Functions
 /****************************************************************
 * @brief Get the dot product of two vectors

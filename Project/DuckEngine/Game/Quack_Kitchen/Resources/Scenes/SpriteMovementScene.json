@@ -26,7 +26,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/background.png",
+                        "texture": "Resources/background.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -35,7 +35,7 @@
                     "properties": {
                         "loop": false,
                         "playOnStart": true,
-                        "soundID": "../Resources/Sounds/gameplay bgm - unmastered.mp3",
+                        "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
                         "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"
@@ -78,7 +78,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -113,7 +113,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -148,7 +148,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/verttable.png",
+                        "texture": "Resources/Sprites/Stations/verttable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -183,7 +183,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -218,7 +218,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/waste.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -253,7 +253,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -288,7 +288,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -323,7 +323,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -358,7 +358,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -393,7 +393,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/verttable.png",
+                        "texture": "Resources/Sprites/Stations/verttable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -463,7 +463,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -545,7 +545,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/table.png",
+                        "texture": "Resources/Sprites/Stations/table.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -580,7 +580,7 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "../Resources/Sprites/Stations/stove.png",
+                        "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -783,7 +783,7 @@
                         },
                         "layer": 1,
                         "sprite": true,
-                        "texture": "../Resources/Crate.png",
+                        "texture": "Resources/Crate.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -811,7 +811,7 @@
                     "properties": {
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "../Resources/Sounds/CRATE-WOOD_GEN-HDF-08708.wav",
+                        "soundID": "Resources/Sounds/CRATE-WOOD_GEN-HDF-08708.wav",
                         "volume": 0.5
                     },
                     "type": "SoundComponent"

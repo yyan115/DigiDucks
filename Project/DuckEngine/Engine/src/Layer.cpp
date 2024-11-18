@@ -80,3 +80,11 @@ bool Layer::HasEntityByID(int entityID) const
     return std::find(entityIDs.begin(), entityIDs.end(), entityID) != entityIDs.end();
 }
 
+void Layer::RemoveEntityByID(int entityID)
+{
+    auto it = std::find(entityIDs.begin(), entityIDs.end(), entityID);
+    if (it != entityIDs.end())
+    {
+        entityIDs.erase(it);
+    }
+}

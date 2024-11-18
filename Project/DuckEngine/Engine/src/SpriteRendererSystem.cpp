@@ -67,30 +67,49 @@ void SpriteRendererSystem::Render()
 
     auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    // Ensure all entities are assigned to a layer
+    // Validate and reassign layers if necessary
     for (Entity& entity : allEntities)
     {
-        bool isAssignedToLayer = false;
+        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID);
+
+        // Skip entities without a SpriteRendererComponent
+        if (!spriteRenderer) continue;
+
+        // Check if the entity is in the correct layer
+        bool isInCorrectLayer = false;
 
         for (const auto& [layerName, layer] : activeScene->GetLayers())
         {
             if (layer.HasEntityByID(entity.entityID))
             {
-                isAssignedToLayer = true;
+                // Entity is in the correct layer
+                isInCorrectLayer = (layerName == entity.layerName);
                 break;
             }
         }
 
-        if (!isAssignedToLayer)
+        // If the entity is not in the correct layer, reassign it
+        if (!isInCorrectLayer)
         {
-            std::cout << "Entity ID: " << entity.entityID << " (Name: " << entity.name << ") not assigned to any layer, adding to Gameplay layer." << std::endl;
-            activeScene->AddEntityToLayer("Gameplay", &entity);
+            // Remove from the old layer
+            for (const auto& [layerName, layer] : activeScene->GetLayers())
+            {
+                if (layer.HasEntityByID(entity.entityID))
+                {
+                    activeScene->RemoveEntityFromLayer(layerName, entity.entityID);
+                    break;
+                }
+            }
+
+            // Add to the correct layer
+            activeScene->AddEntityToLayer(entity.layerName, &entity);
+            std::cout << "Entity ID: " << entity.entityID << " reassigned to layer: " << entity.layerName << std::endl;
         }
     }
 
+    // Build the render queue
     std::vector<RenderData> renderQueue;
 
-    // Iterate over layers and collect entities for rendering
     for (const auto& [layerName, layer] : activeScene->GetLayers())
     {
         int layerOrder = layer.GetOrder();
@@ -112,7 +131,7 @@ void SpriteRendererSystem::Render()
         }
     }
 
-    // Sort the render queue based on layer order
+    // Sort the render queue by layer order
     std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
         return a.layer < b.layer;
         });
@@ -125,17 +144,24 @@ void SpriteRendererSystem::Render()
         // Interpolate position between previous and current positions
         if (data.transform->relativeToCamera)
         {
-            // If using previous position storage:
-            Vector2D interpolatedPosition = data.transform->previousPosition +
-                (data.transform->position - data.transform->previousPosition) * alpha;
-            drawOptions.translation = interpolatedPosition;
+            // Skip interpolation if the position hasn't changed
+            if (data.transform->previousPosition == data.transform->position)
+            {
+                drawOptions.translation = data.transform->position;
+            }
+            else
+            {
+                // Interpolate position
+                Vector2D interpolatedPosition = data.transform->previousPosition +
+                    (data.transform->position - data.transform->previousPosition) * alpha;
+                drawOptions.translation = interpolatedPosition;
+            }
         }
         else
         {
             drawOptions.translation = data.transform->position;
         }
 
-        // You might also want to interpolate rotation and scale if they change frequently
         drawOptions.scale = data.transform->scale;
         drawOptions.rotation = data.transform->angle;
 

@@ -121,3 +121,11 @@ void Scene::AddEntityToLayer(const std::string& layerName, Entity* entity)
 
     layers[layerName].AddEntity(entity);
 }
+
+void Scene::RemoveEntityFromLayer(const std::string& layerName, int entityID)
+{
+    if (layers.find(layerName) != layers.end())
+    {
+        layers[layerName].RemoveEntityByID(entityID);
+    }
+}

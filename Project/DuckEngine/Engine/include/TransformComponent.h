@@ -90,8 +90,11 @@ class DUCKENGINE_API TransformComponent : public Component
 
 	void SetPosition(const Vec2& newPos)
 	{
-		previousPosition = position;
-		position = newPos;
+		if (position != newPos)
+		{
+			previousPosition = newPos; 
+			position = newPos;
+		}
 	}
 
 

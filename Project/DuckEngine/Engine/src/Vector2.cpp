@@ -186,6 +186,16 @@ Vector2D operator / (const Vector2D& lhs, float rhs) {
 	return Vector2D(lhs.x / rhs, lhs.y / rhs);
 }
 
+bool operator==(const Vector2D& lhs, const Vector2D& rhs)
+{
+	return lhs.x == rhs.x && lhs.y == rhs.y;
+}
+
+bool operator!=(const Vector2D& lhs, const Vector2D& rhs)
+{
+	return !(lhs == rhs);
+}
+
 // Functions
 /****************************************************************
 * @brief Gets the normalized version of the vector.

@@ -88,6 +88,7 @@ public:
 	@param entity Pointer to the entity to add.
 	**************************************************************************/
 	void AddEntityToLayer(const std::string& layerName, Entity* entity);
+	void RemoveEntityFromLayer(const std::string& layerName, int entityID);
 
 	std::string sceneName;
 private:
