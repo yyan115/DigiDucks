@@ -76,7 +76,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)\extern\dotnet\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
@@ -90,14 +90,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)/extern/dotnet/include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
     <IncludePath>$(SolutionDir)/Engine/include;$(SolutionDir)/Engine/lib/glew/include;$(IncludePath)</IncludePath>
-    <ExternalIncludePath>$(SolutionDir)/extern/dotnet/include;$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <OutDir>$(SolutionDir)Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Engine\DuckEngine\Build\</IntDir>
     <LibraryPath>$(SolutionDir)Editor\lib\imgui\$(Configuration)\;$(LibraryPath)</LibraryPath>
@@ -135,11 +135,7 @@
 )
 copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug"
-xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
-</Command>
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
@@ -168,11 +164,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug"
-xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
-</Command>
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -208,12 +200,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
 )
 copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
-xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
-
-</Command>
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
@@ -246,11 +233,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
-xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
-</Command>
+xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">
@@ -267,7 +250,6 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
   <ItemGroup>
     <ClInclude Include="..\include\AnimatorComponent.h" />
     <ClInclude Include="..\include\AnimatorSystem.h" />
-    <ClInclude Include="..\include\API_Test.h" />
     <ClInclude Include="..\include\AssetManager.h" />
     <ClInclude Include="..\include\BoxColliderSystem.h" />
     <ClInclude Include="..\include\ButtonComponent.h" />
@@ -335,7 +317,6 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AnimatorSystem.cpp" />
-    <ClCompile Include="..\src\API_Test.cpp" />
     <ClCompile Include="..\src\AssetManager.cpp" />
     <ClCompile Include="..\src\BoxColliderSystem.cpp" />
     <ClCompile Include="..\src\ButtonSystem.cpp" />

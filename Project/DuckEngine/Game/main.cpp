@@ -1,6 +1,5 @@
 #include "GameManager.h"
 #include "AssetManager.h"
-#include "API_Test.h"
 
 static GameManager gManager;
 
@@ -15,8 +14,6 @@ int main(void)
     // load all assets before game loop starts
     AssetManager::LoadAll();
 
-    //Application app;
-    //app.Run();
 
     while (gManager.DuckEngine.Running())
     {

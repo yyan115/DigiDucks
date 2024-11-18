@@ -1,5 +1,0 @@
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\Ijwhost.dll
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\ScriptingAPI.deps.json
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Build\EditorDebug\ScriptingAPI.runtimeconfig.json
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ScriptingAPI\x64\EditorDebug\ScriptingAPI.sourcelink.json
-C:\Users\growt\Desktop\DigiDucks\Project\DuckEngine\Scripting\ScriptingAPI\x64\EditorDebug\ScriptingAPI.genruntimeconfig.cache

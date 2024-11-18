@@ -85,9 +85,6 @@
     <ClCompile Include="..\src\Matrix3x3.cpp">
       <Filter>src\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\API_Test.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\DuckEngine.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -269,9 +266,6 @@
     </ClInclude>
     <ClInclude Include="..\include\AssetManager.h">
       <Filter>include\Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\API_Test.h">
-      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\DuckEngine.h">
       <Filter>include</Filter>
