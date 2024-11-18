@@ -26,25 +26,25 @@ written consent of DigiPen Institute of Technology is prohibited.
 namespace Resources
 {
 	// Textures
-	const std::string TEXTURE_CHARACTERIDLE = "../Resources/characteridle.png";
-	const std::string TEXTURE_CHARACTERWALK = "../Resources/characterwalk.png";
-	const std::string TEXTURE_CRATE = "../Resources/Crate.png";
-	const std::string TEXTURE_OLDMAN = "../Resources/oldman.png";
-	const std::string TEXTURE_BACKGROUND = "../Resources/background.png";
-	const std::string TEXTURE_STATIONS_CUTTINGTABLE = "../Resources/Sprites/cutting_table.png";
-	const std::string TEXTURE_STATIONS_TOMATOSTOCK = "../Resources/Sprites/tomato_stock.png";
-	const std::string TEXTURE_STATIONS_CABBAGESTOCK = "../Resources/Sprites/cabbage_stock.png";
+	const std::string TEXTURE_CHARACTERIDLE = "Resources/characteridle.png";
+	const std::string TEXTURE_CHARACTERWALK = "Resources/characterwalk.png";
+	const std::string TEXTURE_CRATE = "Resources/Crate.png";
+	const std::string TEXTURE_OLDMAN = "Resources/oldman.png";
+	const std::string TEXTURE_BACKGROUND = "Resources/background.png";
+	const std::string TEXTURE_STATIONS_CUTTINGTABLE = "Resources/Sprites/cutting_table.png";
+	const std::string TEXTURE_STATIONS_TOMATOSTOCK = "Resources/Sprites/tomato_stock.png";
+	const std::string TEXTURE_STATIONS_CABBAGESTOCK = "Resources/Sprites/cabbage_stock.png";
 
 	// Sounds
-	const std::string SOUND_DUCKSOUND = "../Resources/Sounds/AnimalDuck.wav";
-	const std::string SOUND_THEME = "../Resources/Sounds/COMEDYACCENT.wav";
+	const std::string SOUND_DUCKSOUND = "Resources/Sounds/AnimalDuck.wav";
+	const std::string SOUND_THEME = "Resources/Sounds/COMEDYACCENT.wav";
 
 	// Fonts
-	const std::string FONT_ARIAL = "../Resources/Fonts/arial.ttf";
+	const std::string FONT_ARIAL = "Resources/Fonts/arial.ttf";
 
 	// Shaders
-	const std::string SHADER_VERTEX = "../Resources/Shaders/vertex_shader.glsl";
-	const std::string SHADER_FRAGMENT = "../Resources/Shaders/fragment_shader.glsl";
+	const std::string SHADER_VERTEX = "Resources/Shaders/vertex_shader.glsl";
+	const std::string SHADER_FRAGMENT = "Resources/Shaders/fragment_shader.glsl";
 }
 
 

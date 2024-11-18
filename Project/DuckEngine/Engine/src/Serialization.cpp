@@ -53,9 +53,10 @@ json Serialization::LoadJsonFile(const std::string& filePath)
 {
     json data;
     std::ifstream file(filePath);
+    std::filesystem::path absolutePath = std::filesystem::absolute(filePath);
     if (!file.is_open())
     {
-        std::cerr << "Could not open the file: " << filePath << std::endl;
+        std::cerr << "Could not open the file: " << absolutePath << std::endl;
     }
     else
     {

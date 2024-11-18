@@ -90,8 +90,8 @@ void SpriteMovementScene::Load()
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE.c_str(), 19, 24);
 	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK.c_str(), 19, 24);
 
-	PrefabManager::LoadPrefabsFromFile("../Resources/Prefab.json");
-	LevelManager::LoadLevelGame("../Resources/Scenes/SpriteMovementScene.json");
+	PrefabManager::LoadPrefabsFromFile("Resources/Prefab.json");
+	LevelManager::LoadLevelGame("Resources/Scenes/SpriteMovementScene.json");
 
 	// instantiate prefabs
 	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");

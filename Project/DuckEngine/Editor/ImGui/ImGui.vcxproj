@@ -271,9 +271,7 @@
       <AdditionalDependencies>glfw3.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
@@ -300,8 +298,6 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)Editor\ImGui\imgui.ini" "$(OutDir)"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"
 xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -330,9 +326,7 @@ xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
       <AdditionalDependencies>glfw3.lib;fmod_vc.lib;Quack_Kitchen.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
@@ -362,8 +356,6 @@ xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"<
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(SolutionDir)Editor\ImGui\imgui.ini" "$(OutDir)"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)Editor\Resources" "$(SolutionDir)Build\Resources"
 xcopy /s /r /y /q "$(SolutionDir)extern\dotnet\bin" "$(Outdir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

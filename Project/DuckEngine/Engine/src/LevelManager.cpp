@@ -279,7 +279,7 @@ void LevelManager::OpenLevelDialog()
 *************************************************************************/
 void LevelManager::SaveSceneChanges(const std::string& sceneName)
 {
-    std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
+    std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
     // Clear existing gameObjects to avoid duplicate entries
@@ -324,7 +324,7 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
     if (!entity) return;
 
-    std::string finalPath = "../Resources/Scenes/" + sceneName + ".json";
+    std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
     std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
@@ -359,7 +359,7 @@ void LevelManager::OverwritePrefab(int entityID)
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
     if (!entity) return;
 
-    std::string prefabPath = "../Resources/Prefab.json";
+    std::string prefabPath = "Resources/Prefab.json";
     json prefabData = Serialization::LoadJsonFile(prefabPath);
 
     std::string prefabName = entity->prefabName;
@@ -379,7 +379,7 @@ void LevelManager::OverwritePrefab(int entityID)
 
 bool LevelManager::CreateNewScene(const std::string& sceneName) {
     // Paths for the new files
-    std::string jsonPath = "../Resources/Scenes/" + sceneName + ".json";
+    std::string jsonPath = "Resources/Scenes/" + sceneName + ".json";
 
     // Check if JSON file already exists
     if (std::filesystem::exists(jsonPath)) {

@@ -125,7 +125,8 @@
       <AdditionalDependencies>fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +153,8 @@
       <AdditionalDependencies>fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
@@ -164,7 +166,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PostBuildEvent>
-      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
@@ -176,7 +179,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PostBuildEvent>
-      <Command>xcopy /E /I /Y "$(SolutionDir)Game\Resources" "$(SolutionDir)Build\Resources"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

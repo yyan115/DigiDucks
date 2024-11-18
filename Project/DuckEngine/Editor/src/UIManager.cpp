@@ -491,7 +491,7 @@ void UIManager::SaveScene(const std::string& sceneName)
 
 void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** paths) {
     UNREFERENCED_PARAMETER(window);
-    const std::string resourcesPath = "../Resources/";
+    const std::string resourcesPath = "Resources/";
 
     for (int i = 0; i < count; i++) {
         std::string filePath = paths[i];

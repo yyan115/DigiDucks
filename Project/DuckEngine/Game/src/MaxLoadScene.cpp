@@ -49,7 +49,7 @@ void MaxLoadScene::Load()
 
     DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 
-    LevelManager::LoadLevelGame("../Resources/Scenes/MaxLoadScene.json");
+    LevelManager::LoadLevelGame("Resources/Scenes/MaxLoadScene.json");
     //for (int i = 0; i < 2500; i++)
     //{
     //    SpawnSquare();

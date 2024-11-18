@@ -26,7 +26,7 @@ static char searchQuery[128] = ""; // Buffer to store the search query
 std::string queryLower = ""; // Lowercase version of the search query
 
 namespace fs = std::filesystem;
-std::string AssetsBrowser::selectedFolderPath = "../Resources/Scenes";
+std::string AssetsBrowser::selectedFolderPath = "Resources/Scenes";
 std::string AssetsBrowser::selectedFolderName = "Scenes";
 
 // Main function to display the assets explorer UI
@@ -60,7 +60,7 @@ void AssetsBrowser::ShowAssets() {
 
 // Renders top-level directories in the Resources folder
 void AssetsBrowser::RenderDirectoryTree() {
-    const std::string rootPath = "../Resources";
+    const std::string rootPath = "Resources";
     const std::string prefabsPath = rootPath + "/Prefabs";
 
     // Ensure "Prefabs" directory exists

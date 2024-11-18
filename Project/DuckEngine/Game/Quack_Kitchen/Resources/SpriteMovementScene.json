@@ -1,0 +1,99 @@
+{
+  "gameObjects": {
+    "Player": {
+      "prefab": "PlayerPrefab",
+      "position": { "x": 0, "y": 0 }
+    },
+    "Obstacle1": {
+      "prefab": "CuttingTablePrefab",
+      "position": { "x": 5, "y": 0 }
+    },
+    "Obstacle2": {
+      "prefab": "CabbageStockPrefab",
+      "position": { "x": -5, "y": 0 }
+    },
+    "Obstacle3": {
+      "prefab": "TomatoStockPrefab",
+      "position": { "x": 0, "y": -5 }
+    },
+    "Obstacle4": {
+      "prefab": "TomatoStockPrefab",
+      "position": { "x": 5, "y": -5 }
+    },
+    "Obstacle5": {
+      "prefab": "TomatoStockPrefab",
+      "position": { "x": 10, "y": -5 }
+    },
+    "Duck": {
+      "prefab": "DuckPrefab",
+      "position": { "x": 8.0, "y": 8.0 }
+    },
+    "obstacleObject4": {
+      "components": [
+        {
+          "type": "TransformComponent",
+          "properties": {
+            "position": { "x": 0, "y": 5 },
+            "scale": { "x": 2.0, "y": 2.8 },
+            "relativeToCamera": true
+          }
+        },
+        {
+          "type": "SpriteRendererComponent",
+          "properties": {
+            "sprite": true,
+            "layer": 1,
+            "texture": "../Resources/Crate.png",
+            "useColor": false,
+            "color": {
+              "r": 255,
+              "g": 255,
+              "b": 255,
+              "a": 255
+            }
+          }
+        },
+        {
+          "type": "BoundingBox",
+          "properties": {
+            "center": { "x": 5.0, "y": 0.0 },
+            "size": { "x": 1.0, "y": 1.5 }
+          }
+        },
+        {
+          "type": "RigidbodyComponent",
+          "properties": {
+            "isStatic": true
+          }
+        }
+      ]
+    },
+    "Background": {
+      "components": [
+        {
+          "type": "TransformComponent",
+          "properties": {
+            "position": { "x": 0, "y": 5 },
+            "scale": { "x": 100.0, "y": 100.0 },
+            "relativeToCamera": true
+          }
+        },
+        {
+          "type": "SpriteRendererComponent",
+          "properties": {
+            "sprite": true,
+            "layer": 0,
+            "texture": "../Resources/background.png",
+            "useColor": false,
+            "color": {
+              "r": 255,
+              "g": 255,
+              "b": 255,
+              "a": 255
+            }
+          }
+        }
+      ]
+    }
+  }
+}
