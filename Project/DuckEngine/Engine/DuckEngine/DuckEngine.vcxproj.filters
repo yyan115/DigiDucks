@@ -139,6 +139,18 @@
     <ClCompile Include="..\src\AnimatorSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\imgui\ImCurveEdit.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imgui\ImGradient.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imgui\ImGuizmo.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imgui\ImSequencer.cpp">
+      <Filter>src\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -326,6 +338,21 @@
     </ClInclude>
     <ClInclude Include="..\include\Component.h">
       <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\ImCurveEdit.h">
+      <Filter>include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\ImGradient.h">
+      <Filter>include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\ImGuizmo.h">
+      <Filter>include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\ImSequencer.h">
+      <Filter>include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\imgui\ImZoomSlider.h">
+      <Filter>include\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

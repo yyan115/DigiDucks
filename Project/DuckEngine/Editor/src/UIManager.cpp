@@ -46,9 +46,10 @@ std::unordered_map<WindowType, bool> UIManager::windowStates = {
     {WindowType::NewScene, false},
 };
 
-
 void UIManager::Initialize() 
 {
+    GLFWwindow* window = WindowManager::getWindow();
+    
     // ImGui initialization
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -66,14 +67,15 @@ void UIManager::Initialize()
         style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
-    GLFWwindow* window = static_cast<GLFWwindow*>(WindowManager::getWindow());
-
-    // Enable file drop callback in GLFW
-    glfwSetDropCallback(window, UIManager::FileDropCallback);
-
+    
     //Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
+    glfwSetDropCallback(window, UIManager::FileDropCallback);
+    // Enable file drop callback in GLFW
+    //glfwSetDropCallback(window, TestDropCallback);
+    std::cout << "Drop callback set!" << std::endl;
+    std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
 }
 
 // Render the ImGui windows with a specific size and position to make it adaptive
@@ -91,6 +93,7 @@ void UIManager::RenderImGuiWindows(float WidthOffset, float HeightOffset, float 
 void UIManager::StartRender()
 {
     TimeManager::StartManagerTimer("Editor Manager");
+    
     // Start ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -442,6 +445,7 @@ void UIManager::RenderWindows() {
 				break;
             case WindowType::NewScene:
                 CreateNewSceneDialog();
+                break;
             default:
                 break;
             }
@@ -486,28 +490,51 @@ void UIManager::SaveScene(const std::string& sceneName)
 }
 
 void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** paths) {
-	UNREFERENCED_PARAMETER(window);
+    UNREFERENCED_PARAMETER(window);
+    const std::string resourcesPath = "../Resources/";
+
     for (int i = 0; i < count; i++) {
         std::string filePath = paths[i];
         std::string extension = std::filesystem::path(filePath).extension().string();
+        std::string fileName = std::filesystem::path(filePath).filename().string();
 
+        // Determine the destination folder based on the file extension
+        std::string destinationFolder;
         if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
-            std::cout << "Texture file dropped: " << filePath << std::endl;
-            // Add logic to load texture
+            destinationFolder = resourcesPath + "Sprites/";
         }
         else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
-            std::cout << "Audio file dropped: " << filePath << std::endl;
-            // Add logic to load sound
+            destinationFolder = resourcesPath + "Sounds/";
         }
         else if (extension == ".json") {
-            std::cout << "Scene or prefab JSON file dropped: " << filePath << std::endl;
-            // Handle loading scene/prefab JSON files
+            destinationFolder = resourcesPath + "Scenes/";
         }
         else {
             std::cout << "Unsupported file type: " << extension << std::endl;
+            continue; // Skip unsupported files
+        }
+
+        // Ensure the destination folder exists
+        try {
+            std::filesystem::create_directories(destinationFolder);
+        }
+        catch (const std::filesystem::filesystem_error& e) {
+            std::cerr << "Failed to create directory: " << e.what() << std::endl;
+            continue;
+        }
+
+        // Copy the file to the destination folder
+        std::string destinationPath = destinationFolder + fileName;
+        try {
+            std::filesystem::copy_file(filePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
+            std::cout << "File moved to: " << destinationPath << std::endl;
+        }
+        catch (const std::filesystem::filesystem_error& e) {
+            std::cerr << "Failed to copy file: " << e.what() << std::endl;
         }
     }
 }
+
 
 void UIManager::CreateNewSceneDialog() {
     static char sceneName[128] = ""; // Buffer for scene name
