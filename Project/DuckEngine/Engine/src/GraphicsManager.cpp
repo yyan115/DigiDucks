@@ -223,62 +223,43 @@ void GraphicsManager::Render() {
     UnbindFBO();
 }
 
-void GraphicsManager::RenderDebug() {
-    if (!DuckEngine::showDebugDraw) {
-        debugDrawQueue.clear();
-        pointCommands.clear();
-        lineCommands.clear();
-        rectangleCommands.clear();
-        circleCommands.clear();
-        return;
-    }
-
-    BindFBO();
-
-    // Clear previous grouped commands
-    pointCommands.clear();
-    lineCommands.clear();
-    rectangleCommands.clear();
-    circleCommands.clear();
-
-    // Partition debugDrawQueue
-    for (const DebugDrawCommand& command : debugDrawQueue) {
-        switch (command.type) {
-        case DebugDrawCommand::POINT:
-            pointCommands.push_back(command);
-            break;
-        case DebugDrawCommand::LINE:
-            lineCommands.push_back(command);
-            break;
-        case DebugDrawCommand::RECTANGLE:
-            rectangleCommands.push_back(command);
-            break;
-        case DebugDrawCommand::CIRCLE:
-            circleCommands.push_back(command);
-            break;
+/// <summary>
+/// Renders all objects in the debug draw queue using the debug shader. 
+/// Handles rendering of shapes like points, lines, rectangles, and circles for debugging purposes.
+/// </summary>
+void GraphicsManager::RenderDebug()
+{
+    if (DuckEngine::showDebugDraw) {
+        // Get camera matrices
+        Vector2D cameraPosition = CameraManager::GetPosition();
+        float ar = CameraManager::GetAR();
+        float height = CameraManager::GetHeight();
+        // Combine camera-to-NDC and view matrix into one
+        glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
+        glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+        glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
+        // Iterate through the queue and process each draw command
+        for (const DebugDrawCommand& command : debugDrawQueue) {
+            bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
+            switch (command.type) {
+            case DebugDrawCommand::POINT:
+                DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::LINE:
+                DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::RECTANGLE:
+                DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
+                break;
+            case DebugDrawCommand::CIRCLE:
+                DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+                break;
+            }
         }
     }
 
-    // Get camera matrices
-    Vector2D cameraPosition = CameraManager::GetPosition();
-    float ar = CameraManager::GetAR();
-    float height = CameraManager::GetHeight();
-
-    // Combine camera-to-NDC and view matrix into one
-    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
-    glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
-    glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
-
-    // Render each group
-    RenderPoints(cameraViewMatrix);
-    RenderLines(cameraViewMatrix);
-    RenderRectangles(cameraViewMatrix);
-    RenderCircles(cameraViewMatrix);
-
     // Clear the debug draw queue after rendering
     debugDrawQueue.clear();
-
-    UnbindFBO();
 }
 
 /// <summary>
@@ -355,6 +336,8 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     //ShaderManager::InsertShader("RectangleShader", "../Resources/Shaders/RectangleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
     //ShaderManager::InsertShader("CircleShader", "../Resources/Shaders/CircleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
+    ShaderManager::InsertShader("DebugShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+
     // Set up VAOs for shapes
     GraphicsManager::SetupCircleVAO(100);
     GraphicsManager::SetupLineVAO();
@@ -362,409 +345,321 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     GraphicsManager::SetupRectangleVAO();
 }
 
-void GraphicsManager::RenderPoints(const glm::mat3x3& cameraViewMatrix) {
-    if (pointCommands.empty()) return;
-
-    // Separate commands based on relativeToCamera
-    std::vector<PointInstanceData> cameraRelativeData;
-    std::vector<PointInstanceData> uiData;
-
-    for (const auto& command : pointCommands) {
-        PointInstanceData data;
-        data.position = glm::vec2(command.position1.x, command.position1.y);
-        data.size = command.sizeOrRadius;
-        data.color = glm::vec4(
-            command.color.r / 255.0f,
-            command.color.g / 255.0f,
-            command.color.b / 255.0f,
-            command.color.a / 255.0f
-        );
-
-        if (command.relativeToCamera) {
-            cameraRelativeData.push_back(data);
-        }
-        else {
-            uiData.push_back(data);
-        }
-    }
-
-    GLShader* shader = ShaderManager::GetShader("PointShader");
-    shader->Use();
-
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shader->GetProgram(), "uModelToNDC");
-
+/// <summary>
+/// Draws a point at the specified position with the given size and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="position">The 2D position of the point.</param>
+/// <param name="size">The size of the point.</param>
+/// <param name="color">The color of the point (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
+void GraphicsManager::DrawPoint(const Vector2D& position, float size, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
     glBindVertexArray(pointVAO);
 
-    glLineWidth(2.0f);
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
-    // Render camera-relative points
-    if (!cameraRelativeData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, pointInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, cameraRelativeData.size() * sizeof(PointInstanceData), cameraRelativeData.data(), GL_DYNAMIC_DRAW);
+    // Model matrix for the point
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(size, size), 0.0f, position);
+    glPointSize(size);
 
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
+    // Use camera-view matrix if useCamera is true, otherwise use the model matrix directly
+    glm::mat3x3 finalMatrix;
 
-        glDrawArraysInstanced(GL_POINTS, 0, 1, static_cast<GLsizei>(cameraRelativeData.size()));
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
     }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
+        finalMatrix = uiProjection * modelToWorld;
+    };
 
-    // Render UI points
-    if (!uiData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, pointInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, uiData.size() * sizeof(PointInstanceData), uiData.data(), GL_DYNAMIC_DRAW);
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-        glm::mat3x3 uiProjection = CameraToNDCMatrix(
-            static_cast<float>(WindowManager::GetWindowWidth()),
-            static_cast<float>(WindowManager::GetWindowHeight())
-        );
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
-
-        glDrawArraysInstanced(GL_POINTS, 0, 1, static_cast<GLsizei>(uiData.size()));
-    }
+    // Draw the point
+    glDrawArrays(GL_POINTS, 0, 1);
 
     glBindVertexArray(0);
     glUseProgram(0);
 }
 
-void GraphicsManager::RenderLines(const glm::mat3x3& cameraViewMatrix) {
-    if (lineCommands.empty()) return;
-
-    std::vector<LineInstanceData> cameraRelativeData;
-    std::vector<LineInstanceData> uiData;
-
-    for (const auto& command : lineCommands) {
-        LineInstanceData data;
-        data.start = glm::vec2(command.position1.x, command.position1.y);
-        data.end = glm::vec2(command.position2.x, command.position2.y);
-        data.thickness = command.sizeOrRadius;
-        data.color = glm::vec4(
-            command.color.r / 255.0f,
-            command.color.g / 255.0f,
-            command.color.b / 255.0f,
-            command.color.a / 255.0f
-        );
-
-        if (command.relativeToCamera) {
-            cameraRelativeData.push_back(data);
-        }
-        else {
-            uiData.push_back(data);
-        }
-    }
-
-    GLShader* shader = ShaderManager::GetShader("LineShader");
-    shader->Use();
-
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shader->GetProgram(), "uModelToNDC");
+/// <summary>
+/// Draws a line between two points with the specified thickness and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="start">The starting position of the line.</param>
+/// <param name="end">The ending position of the line.</param>
+/// <param name="size">The thickness of the line.</param>
+/// <param name="color">The color of the line (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
+void GraphicsManager::DrawLine(const Vector2D& start, const Vector2D& end, float size,
+    const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
 
     glBindVertexArray(lineVAO);
 
-    glLineWidth(2.0f);
-
-    // Render camera-relative lines
-    if (!cameraRelativeData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, lineInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, cameraRelativeData.size() * sizeof(LineInstanceData), cameraRelativeData.data(), GL_DYNAMIC_DRAW);
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
-
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, static_cast<GLsizei>(cameraRelativeData.size()));
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+    // Calculate the direction vector and length
+    Vector2D direction = end - start;
+    float length = glm::length(glm::vec2{ direction.x, direction.y });
+    // Normalize the direction
+    Vector2D unitDirection = direction / length;
+    // Compute angle of rotation
+    float angle = atan2(unitDirection.y, unitDirection.x);
+    float cosTheta = cos(angle);
+    float sinTheta = sin(angle);
+    // Construct scaling matrix
+    glm::mat3x3 scaleMatrix = glm::mat3x3(1.0f);
+    scaleMatrix[0][0] = length; // Scale X to match the length of the line
+    scaleMatrix[1][1] = size;   // Scale Y to adjust line thickness
+    // Construct rotation matrix
+    glm::mat3x3 rotationMatrix = glm::mat3x3(1.0f);
+    rotationMatrix[0][0] = cosTheta;
+    rotationMatrix[0][1] = sinTheta;
+    rotationMatrix[1][0] = -sinTheta;
+    rotationMatrix[1][1] = cosTheta;
+    // Construct translation matrix
+    glm::mat3x3 translationMatrix = glm::mat3x3(1.0f);
+    translationMatrix[2][0] = start.x; // Translate to start position
+    translationMatrix[2][1] = start.y;
+    // Combine the transformations: modelToWorld = Translation * Rotation * Scale
+    glm::mat3x3 modelToWorld = translationMatrix * rotationMatrix * scaleMatrix;
+    // Apply camera transformation if useCamera is true
+    glm::mat3x3 finalMatrix;
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
+        finalMatrix = uiProjection * modelToWorld;
     }
 
-    // Render UI lines
-    if (!uiData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, lineInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, uiData.size() * sizeof(LineInstanceData), uiData.data(), GL_DYNAMIC_DRAW);
+    // Pass the final matrix to the shader
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-        glm::mat3x3 uiProjection = CameraToNDCMatrix(
-            static_cast<float>(WindowManager::GetWindowWidth()),
-            static_cast<float>(WindowManager::GetWindowHeight())
-        );
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
-
-        glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, static_cast<GLsizei>(uiData.size()));
-    }
+    // Draw the line rectangle
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindVertexArray(0);
     glUseProgram(0);
 }
 
-void GraphicsManager::RenderRectangles(const glm::mat3x3& cameraViewMatrix) {
-    if (rectangleCommands.empty()) return;
 
-    std::vector<RectangleInstanceData> cameraRelativeData;
-    std::vector<RectangleInstanceData> uiData;
-
-    for (const auto& command : rectangleCommands) {
-        RectangleInstanceData data;
-        data.center = glm::vec2(command.position1.x, command.position1.y);
-        data.size = glm::vec2(command.position2.x, command.position2.y);
-        data.rotation = -command.rotation;
-        data.color = glm::vec4(
-            command.color.r / 255.0f,
-            command.color.g / 255.0f,
-            command.color.b / 255.0f,
-            command.color.a / 255.0f
-        );
-
-        if (command.relativeToCamera) {
-            cameraRelativeData.push_back(data);
-        }
-        else {
-            uiData.push_back(data);
-        }
-    }
-
-    GLShader* shader = ShaderManager::GetShader("RectangleShader");
-    shader->Use();
-
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shader->GetProgram(), "uModelToNDC");
+/// <summary>
+/// Draws a rectangle at the specified center position with the given size, rotation, and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="center">The center position of the rectangle.</param>
+/// <param name="size">The width and height of the rectangle.</param>
+/// <param name="rotation">The rotation angle of the rectangle (in degrees).</param>
+/// <param name="color">The color of the rectangle.</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
+void GraphicsManager::DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color,
+    bool useCamera, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
 
     glBindVertexArray(rectVAO);
 
-    // Set line width for the rectangle outline
-    //glLineWidth(2.0f);
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
 
-    // Render camera-relative rectangles
-    if (!cameraRelativeData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, rectangleInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, cameraRelativeData.size() * sizeof(RectangleInstanceData), cameraRelativeData.data(), GL_DYNAMIC_DRAW);
+    // Create the model-to-world matrix using the center position and rotation
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(size, rotation, center);
 
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
+    // Apply camera transformation if useCamera is true
+    glm::mat3x3 finalMatrix;
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(cameraRelativeData.size()));
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
+        finalMatrix = uiProjection * modelToWorld;
     }
 
+    // Pass the final transformation matrix to the shader
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
+    // Set line width
+    glLineWidth(2.0f);
 
-    // Render UI rectangles
-    if (!uiData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, rectangleInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, uiData.size() * sizeof(RectangleInstanceData), uiData.data(), GL_DYNAMIC_DRAW);
-
-        glm::mat3x3 uiProjection = CameraToNDCMatrix(
-            static_cast<float>(WindowManager::GetWindowWidth()),
-            static_cast<float>(WindowManager::GetWindowHeight())
-        );
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
-
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, 4, static_cast<GLsizei>(uiData.size()));
-    }
+    // Draw the rectangle outline using GL_LINE_LOOP
+    glDrawArrays(GL_LINE_LOOP, 0, 4);
 
     glBindVertexArray(0);
     glUseProgram(0);
 }
 
-void GraphicsManager::RenderCircles(const glm::mat3x3& cameraViewMatrix) {
-    if (circleCommands.empty()) return;
-
-    std::vector<CircleInstanceData> cameraRelativeData;
-    std::vector<CircleInstanceData> uiData;
-
-    for (const auto& command : circleCommands) {
-        CircleInstanceData data;
-        data.position = glm::vec2(command.position1.x, command.position1.y);
-        data.radius = command.sizeOrRadius;
-        data.color = glm::vec4(
-            command.color.r / 255.0f,
-            command.color.g / 255.0f,
-            command.color.b / 255.0f,
-            command.color.a / 255.0f
-        );
-
-        if (command.relativeToCamera) {
-            cameraRelativeData.push_back(data);
-        }
-        else {
-            uiData.push_back(data);
-        }
-    }
-
-    GLShader* shader = ShaderManager::GetShader("CircleShader");
-    shader->Use();
-
-    GLint uniformModelToNDCLocation = glGetUniformLocation(shader->GetProgram(), "uModelToNDC");
+/// <summary>
+/// Draws a circle at the specified position with the given radius and color. 
+/// Optionally applies camera transformations if useCamera is true.
+/// </summary>
+/// <param name="position">The center position of the circle.</param>
+/// <param name="radius">The radius of the circle.</param>
+/// <param name="color">The color of the circle (default is red).</param>
+/// <param name="useCamera">Indicates whether to apply camera transformations.</param>
+/// <param name="cameraViewMatrix">The camera view matrix to apply if useCamera is true.</param>
+void GraphicsManager::DrawCircle(const Vector2D& position, float radius, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
 
     glBindVertexArray(circleVAO);
 
-    // Set line width for the circle outline
-    glLineWidth(30.0f);
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
 
-    // Render camera-relative circles
-    if (!cameraRelativeData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, circleInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, cameraRelativeData.size() * sizeof(CircleInstanceData), cameraRelativeData.data(), GL_DYNAMIC_DRAW);
+    // Model matrix for the circle
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(radius, radius), 0.0f, position);
 
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(cameraViewMatrix));
+    // Use camera-view matrix if useCamera is true
+    glm::mat3x3 finalMatrix;
 
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, static_cast<GLsizei>(cameraRelativeData.size()));
+    if (useCamera) {
+        // Apply camera transformation
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        // Apply UI projection matrix
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
+        finalMatrix = uiProjection * modelToWorld;
     }
 
-    // Render UI circles
-    if (!uiData.empty()) {
-        glBindBuffer(GL_ARRAY_BUFFER, circleInstanceVBO);
-        glBufferData(GL_ARRAY_BUFFER, uiData.size() * sizeof(CircleInstanceData), uiData.data(), GL_DYNAMIC_DRAW);
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
 
-        glm::mat3x3 uiProjection = CameraToNDCMatrix(
-            static_cast<float>(WindowManager::GetWindowWidth()),
-            static_cast<float>(WindowManager::GetWindowHeight())
-        );
+    // Set width of line
+    glLineWidth(2.0f);
 
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(uiProjection));
-
-        glDrawArraysInstanced(GL_LINE_LOOP, 0, circleSegments, static_cast<GLsizei>(uiData.size()));
-    }
+    // Draw the circle outline using GL_LINE_LOOP
+    glDrawArrays(GL_LINE_LOOP, 0, circleSegments);
 
     glBindVertexArray(0);
     glUseProgram(0);
 }
 
-
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering points.
+/// </summary>
 void GraphicsManager::SetupPointVAO() {
-    float pointVertex[] = { 0.0f, 0.0f, 0.0f };
+    float pointVertex[] = {
+        0.0f, 0.0f, 0.0f  // Single point at the origin
+    };
 
+    unsigned int pointVBO;
     glGenVertexArrays(1, &pointVAO);
+    glGenBuffers(1, &pointVBO);
     glBindVertexArray(pointVAO);
 
-    // Vertex data VBO
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, pointVBO);
+
     glBufferData(GL_ARRAY_BUFFER, sizeof(pointVertex), pointVertex, GL_STATIC_DRAW);
 
-    // Vertex attribute for position (location = 0)
+    // Set vertex attribute pointer for position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-    // Instance data VBO
-    glGenBuffers(1, &pointInstanceVBO);
-
-    // Position (location = 1)
-    glBindBuffer(GL_ARRAY_BUFFER, pointInstanceVBO);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(PointInstanceData), (void*)offsetof(PointInstanceData, position));
-    glVertexAttribDivisor(1, 1);
-
-    // Size (location = 2)
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(PointInstanceData), (void*)offsetof(PointInstanceData, size));
-    glVertexAttribDivisor(2, 1);
-
-    // Color (location = 3)
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(PointInstanceData), (void*)offsetof(PointInstanceData, color));
-    glVertexAttribDivisor(3, 1);
 
     glBindVertexArray(0);
 }
 
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering lines.
+/// </summary>
 void GraphicsManager::SetupLineVAO() {
-    // Define a unit line along the x-axis from (0, 0) to (1, 0)
+
     float lineVertices[] = {
+        // positions (x, y, z)
         0.0f, -0.5f, 0.0f,  // Bottom-left corner
         1.0f, -0.5f, 0.0f,  // Bottom-right corner
         1.0f,  0.5f, 0.0f,  // Top-right corner
         0.0f,  0.5f, 0.0f   // Top-left corner
     };
 
-    unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
-
-    glGenVertexArrays(1, &lineVAO);
-    glBindVertexArray(lineVAO);
-
-    // Vertex data VBO
-    GLuint VBO, EBO;
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // Vertex attribute for position (location = 0)
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-    // Instance data VBO
-    glGenBuffers(1, &lineInstanceVBO);
-
-    // Start position (location = 1)
-    glBindBuffer(GL_ARRAY_BUFFER, lineInstanceVBO);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(LineInstanceData), (void*)offsetof(LineInstanceData, start));
-    glVertexAttribDivisor(1, 1);
-
-    // End position (location = 2)
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(LineInstanceData), (void*)offsetof(LineInstanceData, end));
-    glVertexAttribDivisor(2, 1);
-
-    // Thickness (location = 3)
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(LineInstanceData), (void*)offsetof(LineInstanceData, thickness));
-    glVertexAttribDivisor(3, 1);
-
-    // Color (location = 4)
-    glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(LineInstanceData), (void*)offsetof(LineInstanceData, color));
-    glVertexAttribDivisor(4, 1);
-
-    glBindVertexArray(0);
-}
-
-void GraphicsManager::SetupRectangleVAO() {
-    // Rectangle vertices (unit square centered at origin)
-    float rectVertices[] = {
-        -0.5f, -0.5f, 0.0f,  // Bottom-left corner
-         0.5f, -0.5f, 0.0f,  // Bottom-right corner
-         0.5f,  0.5f, 0.0f,  // Top-right corner
-        -0.5f,  0.5f, 0.0f   // Top-left corner
+    unsigned int lineIndices[] = {
+    0, 1, 2,  // First triangle
+    0, 2, 3   // Second triangle
     };
 
-    glGenVertexArrays(1, &rectVAO);
-    glBindVertexArray(rectVAO);
+    unsigned int lineVBO, lineEBO;
+    glGenVertexArrays(1, &lineVAO);
+    glGenBuffers(1, &lineVBO);
+    glGenBuffers(1, &lineEBO);
+    glBindVertexArray(lineVAO);
 
-    // Vertex data VBO
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(rectVertices), rectVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, lineVBO);
 
-    // Vertex attribute for position (location = 0)
+    glBufferData(GL_ARRAY_BUFFER, sizeof(lineVertices), lineVertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lineEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(lineIndices), lineIndices, GL_STATIC_DRAW);
+
+    // Set vertex attribute pointer for position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-    // Instance data VBO
-    glGenBuffers(1, &rectangleInstanceVBO);
-
-    // Center position (location = 1)
-    glBindBuffer(GL_ARRAY_BUFFER, rectangleInstanceVBO);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(RectangleInstanceData), (void*)offsetof(RectangleInstanceData, center));
-    glVertexAttribDivisor(1, 1);
-
-    // Size (location = 2)
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(RectangleInstanceData), (void*)offsetof(RectangleInstanceData, size));
-    glVertexAttribDivisor(2, 1);
-
-    // Rotation (location = 3)
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(RectangleInstanceData), (void*)offsetof(RectangleInstanceData, rotation));
-    glVertexAttribDivisor(3, 1);
-
-    // Color (location = 4)
-    glEnableVertexAttribArray(4);
-    glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(RectangleInstanceData), (void*)offsetof(RectangleInstanceData, color));
-    glVertexAttribDivisor(4, 1);
 
     glBindVertexArray(0);
 }
 
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering rectangles.
+/// </summary>
+void GraphicsManager::SetupRectangleVAO() {
+
+    float rectVertices[] = {
+        // positions in counter-clockwise order
+        -0.5f, -0.5f, 0.0f,  // bottom left (vertex 0)
+         0.5f, -0.5f, 0.0f,  // bottom right (vertex 1)
+         0.5f,  0.5f, 0.0f,  // top right (vertex 2)
+        -0.5f,  0.5f, 0.0f   // top left (vertex 3)
+    };
+
+    unsigned int rectVBO;
+    glGenVertexArrays(1, &rectVAO);
+    glGenBuffers(1, &rectVBO);
+    glBindVertexArray(rectVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, rectVBO);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(rectVertices), rectVertices, GL_STATIC_DRAW);
+
+    // Set vertex attribute pointer for position (layout location = 0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+/// <summary>
+/// Sets up the Vertex Array Object (VAO) for rendering circles with the specified number of segments.
+/// </summary>
+/// <param name="segments">The number of segments to approximate the circle shape.</param>
 void GraphicsManager::SetupCircleVAO(int segments) {
     std::vector<float> vertices; // Store vertices
 
@@ -783,40 +678,28 @@ void GraphicsManager::SetupCircleVAO(int segments) {
     }
 
     // Generate VAO and VBO for the circle
+    unsigned int circleVBO;
     glGenVertexArrays(1, &circleVAO);
+    glGenBuffers(1, &circleVBO);
     glBindVertexArray(circleVAO);
 
-    // Vertex data VBO
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    // Bind and fill VBO with vertex data
+    glBindBuffer(GL_ARRAY_BUFFER, circleVBO);
+
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-    // Vertex attribute for position (location = 0)
+    // Set up vertex attributes (position in this case)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-    // Instance data VBO
-    glGenBuffers(1, &circleInstanceVBO);
-
-    // Position (location = 1)
-    glBindBuffer(GL_ARRAY_BUFFER, circleInstanceVBO);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(CircleInstanceData), (void*)offsetof(CircleInstanceData, position));
-    glVertexAttribDivisor(1, 1);
-
-    // Radius (location = 2)
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(CircleInstanceData), (void*)offsetof(CircleInstanceData, radius));
-    glVertexAttribDivisor(2, 1);
-
-    // Color (location = 3)
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(CircleInstanceData), (void*)offsetof(CircleInstanceData, color));
-    glVertexAttribDivisor(3, 1);
 
     glBindVertexArray(0);
 }
+
+
+
+
+
 
 /// <summary>
 /// namespace with helper functions

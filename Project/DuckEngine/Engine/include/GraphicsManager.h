@@ -38,31 +38,31 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-struct PointInstanceData {
-    glm::vec2 position;
-    float size;
-    glm::vec4 color;
-};
-
-struct LineInstanceData {
-    glm::vec2 start;
-    glm::vec2 end;
-    float thickness;
-    glm::vec4 color;
-};
-
-struct RectangleInstanceData {
-    glm::vec2 center;
-    glm::vec2 size;
-    float rotation;
-    glm::vec4 color;
-};
-
-struct CircleInstanceData {
-    glm::vec2 position;
-    float radius;
-    glm::vec4 color;
-};
+//struct PointInstanceData {
+//    glm::vec2 position;
+//    float size;
+//    glm::vec4 color;
+//};
+//
+//struct LineInstanceData {
+//    glm::vec2 start;
+//    glm::vec2 end;
+//    float thickness;
+//    glm::vec4 color;
+//};
+//
+//struct RectangleInstanceData {
+//    glm::vec2 center;
+//    glm::vec2 size;
+//    float rotation;
+//    glm::vec4 color;
+//};
+//
+//struct CircleInstanceData {
+//    glm::vec2 position;
+//    float radius;
+//    glm::vec4 color;
+//};
 
 /// <summary>
 /// The GraphicsManager class is responsible for managing all graphics rendering for game objects, including the 
@@ -139,6 +139,49 @@ public:
     DUCKENGINE_API static GLuint GetFBOTexture();
 
 private:
+
+    /// <summary>
+    /// Draws a point at the specified position with the given size and color.
+    /// </summary>
+    /// <param name="position">The 2D position of the point.</param>
+    /// <param name="size">The size of the point.</param>
+    /// <param name="color">The color of the point (default is red).</param>
+    /// <param name="useCamera">Indicates whether to use the camera view matrix for rendering.</param>
+    /// <param name="cameraViewMatrix">The camera view matrix to apply (default is an empty matrix).</param>
+    static void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool useCamera = true, const glm::mat3x3& cameraViewMatrix = {});
+
+    /// <summary>
+    /// Draws a line between two points with the specified size and color.
+    /// </summary>
+    /// <param name="start">The starting position of the line.</param>
+    /// <param name="end">The ending position of the line.</param>
+    /// <param name="size">The thickness of the line.</param>
+    /// <param name="color">The color of the line (default is red).</param>
+    /// <param name="useCamera">Indicates whether to use the camera view matrix for rendering.</param>
+    /// <param name="cameraViewMatrix">The camera view matrix to apply (default is an empty matrix).</param>
+    static void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool useCamera = true, const glm::mat3x3& cameraViewMatrix = {});
+
+    /// <summary>
+    /// Draws a circle at the specified position with the given radius and color.
+    /// </summary>
+    /// <param name="position">The center position of the circle.</param>
+    /// <param name="radius">The radius of the circle.</param>
+    /// <param name="color">The color of the circle (default is red).</param>
+    /// <param name="useCamera">Indicates whether to use the camera view matrix for rendering.</param>
+    /// <param name="cameraViewMatrix">The camera view matrix to apply (default is an empty matrix).</param>
+    static void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool useCamera = true, const glm::mat3x3& cameraViewMatrix = {});
+
+    /// <summary>
+    /// Draws a rectangle at the specified position with the given size, rotation, and color.
+    /// </summary>
+    /// <param name="center">The center position of the rectangle.</param>
+    /// <param name="size">The size (width and height) of the rectangle.</param>
+    /// <param name="rotation">The rotation of the rectangle (in degrees).</param>
+    /// <param name="color">The color of the rectangle.</param>
+    /// <param name="useCamera">Indicates whether to use the camera view matrix for rendering.</param>
+    /// <param name="cameraViewMatrix">The camera view matrix to apply.</param>
+    static void DrawRectangle(const Vector2D& center, const Vector2D& size, float rotation, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix);
+
     /// <summary>
     /// Sets up the VAO (Vertex Array Object) for drawing points.
     /// </summary>
@@ -199,39 +242,39 @@ private:
     static std::vector<DebugDrawCommand> rectangleCommands;
     static std::vector<DebugDrawCommand> circleCommands;
 
-    /// <summary>
-    /// Renders multiple points using instanced rendering based on the specified
-    /// camera view matrix. Each point's position, size, and color are configured 
-    /// in the rendering data.
-    /// </summary>
-    /// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
-    /// view transformation, applied to each point instance.</param>
-    static void RenderPoints(const glm::mat3x3& cameraViewMatrix);
+    ///// <summary>
+    ///// Renders multiple points using instanced rendering based on the specified
+    ///// camera view matrix. Each point's position, size, and color are configured 
+    ///// in the rendering data.
+    ///// </summary>
+    ///// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
+    ///// view transformation, applied to each point instance.</param>
+    //static void RenderPoints(const glm::mat3x3& cameraViewMatrix);
 
-    /// <summary>
-    /// Renders multiple lines using instanced rendering based on the specified
-    /// camera view matrix. Each line's start and end points, thickness, and color 
-    /// are defined in the rendering data.
-    /// </summary>
-    /// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
-    /// view transformation, applied to each line instance.</param>
-    static void RenderLines(const glm::mat3x3& cameraViewMatrix);
+    ///// <summary>
+    ///// Renders multiple lines using instanced rendering based on the specified
+    ///// camera view matrix. Each line's start and end points, thickness, and color 
+    ///// are defined in the rendering data.
+    ///// </summary>
+    ///// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
+    ///// view transformation, applied to each line instance.</param>
+    //static void RenderLines(const glm::mat3x3& cameraViewMatrix);
 
-    /// <summary>
-    /// Renders multiple rectangles using instanced rendering, applying the specified
-    /// camera view matrix. Each rectangle's position, size, rotation, and color are 
-    /// configured in the rendering data.
-    /// </summary>
-    /// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
-    /// view transformation, applied to each rectangle instance.</param>
-    static void RenderRectangles(const glm::mat3x3& cameraViewMatrix);
+    ///// <summary>
+    ///// Renders multiple rectangles using instanced rendering, applying the specified
+    ///// camera view matrix. Each rectangle's position, size, rotation, and color are 
+    ///// configured in the rendering data.
+    ///// </summary>
+    ///// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
+    ///// view transformation, applied to each rectangle instance.</param>
+    //static void RenderRectangles(const glm::mat3x3& cameraViewMatrix);
 
-    /// <summary>
-    /// Renders multiple circles using instanced rendering with the specified 
-    /// camera view matrix. Each circle's position, radius, and color are configured 
-    /// in the rendering data.
-    /// </summary>
-    /// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
-    /// view transformation, applied to each circle instance.</param>
-    static void RenderCircles(const glm::mat3x3& cameraViewMatrix);
+    ///// <summary>
+    ///// Renders multiple circles using instanced rendering with the specified 
+    ///// camera view matrix. Each circle's position, radius, and color are configured 
+    ///// in the rendering data.
+    ///// </summary>
+    ///// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
+    ///// view transformation, applied to each circle instance.</param>
+    //static void RenderCircles(const glm::mat3x3& cameraViewMatrix);
 };
