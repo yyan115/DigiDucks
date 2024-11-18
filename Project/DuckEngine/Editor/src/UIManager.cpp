@@ -57,7 +57,6 @@ void UIManager::Initialize()
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;      // Enable Docking
-
     // duck theme
     EditorTheme::SetDuckTheme();
 
@@ -76,6 +75,11 @@ void UIManager::Initialize()
     //glfwSetDropCallback(window, TestDropCallback);
     std::cout << "Drop callback set!" << std::endl;
     std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
+
+    // font
+    io.Fonts->Clear();
+    io.Fonts->AddFontFromFileTTF("Resources/Inter.ttf", 18.0f);
+    ImGui_ImplOpenGL3_CreateFontsTexture(); // Rebuild font atlas
 }
 
 // Render the ImGui windows with a specific size and position to make it adaptive

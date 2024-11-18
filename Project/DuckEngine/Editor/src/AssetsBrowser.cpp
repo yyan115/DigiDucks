@@ -132,11 +132,11 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
             // If texture is valid, display it as an image
             if (texture) {
-                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0,1), ImVec2(1,0));
+                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0,1), ImVec2(1,0));
             }
             else {
                 DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath); // Load the texture if not already loaded
-                ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+                ImGui::Button(fileName.c_str(), ImVec2(120, 120));
             }
 
             // Set up drag-and-drop source for sprites
@@ -161,7 +161,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         }
         else if (fileExtension == ".ogg" || fileExtension == ".mp3" || fileExtension == ".wav") {
 
-            ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
 
             if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
                 ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
@@ -171,11 +171,11 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         }
         else {
             // Non-texture files displayed as buttons
-            ImGui::Button(fileName.c_str(), ImVec2(100, 100));
+            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
         }
 
         // Truncate file name
-        if (truncatedFileName.length() > 15) truncatedFileName = truncatedFileName.substr(0, 12) + "...";
+        if (truncatedFileName.length() > 12) truncatedFileName = truncatedFileName.substr(0, 9) + "...";
         ImGui::TextWrapped("%s", truncatedFileName.c_str());
         ImGui::EndGroup();
 
@@ -207,10 +207,10 @@ void AssetsBrowser::RenderPrefabsGrid() {
         ImGui::BeginGroup();
         // Retrieve and display prefab texture
         if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(100, 100), ImVec2(0, 1), ImVec2(1, 0));
+            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
         }
         else {
-            ImGui::Button(prefabName.c_str(), ImVec2(100, 100)); // Fallback button if no texture is found
+            ImGui::Button(prefabName.c_str(), ImVec2(120, 120)); // Fallback button if no texture is found
         }
 
         // Drag-and-drop source for the prefab
@@ -220,7 +220,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
             ImGui::EndDragDropSource();
         }
 		std::string truncatedPrefabName = prefabName;
-        if (truncatedPrefabName.length() > 15) truncatedPrefabName = truncatedPrefabName.substr(0, 12) + "...";
+        if (truncatedPrefabName.length() > 12) truncatedPrefabName = truncatedPrefabName.substr(0, 9) + "...";
         ImGui::TextWrapped("%s", truncatedPrefabName.c_str());
         ImGui::EndGroup();
 

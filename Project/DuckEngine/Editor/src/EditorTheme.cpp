@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 void EditorTheme::SetDuckTheme()
 {
     ImGuiStyle& style = ImGui::GetStyle();
+    style.ScaleAllSizes(1.25f); // Match the font scale factor
     ImVec4* colors = style.Colors;
 
     // General Background colors
