@@ -8,19 +8,19 @@
     "net7.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\leeyi\\.nuget\\packages\\": {}
+    "C:\\Users\\Zikry\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leeyi\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+      "projectUniqueName": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
       "projectName": "ScriptingAPI",
-      "projectPath": "C:\\Users\\leeyi\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
-      "packagesPath": "C:\\Users\\leeyi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\leeyi\\OneDrive\\Documents\\GitHub\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
+      "projectPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\ScriptingAPI.vcxproj",
+      "packagesPath": "C:\\Users\\Zikry\\.nuget\\packages\\",
+      "outputPath": "C:\\Digipen\\repos\\DigiDucks\\Project\\DuckEngine\\Scripting\\ScriptingAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\leeyi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Zikry\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -35,6 +35,11 @@
           "targetAlias": "net7.0",
           "projectReferences": {}
         }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -55,7 +60,7 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.Windows.SDK.NET.Ref",
-            "version": "[10.0.22621.31, 10.0.22621.31]"
+            "version": "[10.0.22621.43, 10.0.22621.43]"
           }
         ],
         "frameworkReferences": {
@@ -63,7 +68,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,12 +1,11 @@
+#include "WindowManager.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "LoggerManager.h"
 #include "SceneWindow.h"
 #include <imgui_impl_opengl3.h>
-#include <GLFW/glfw3.h>
 #include "UIManager.h"
 #include "GameManager.h"
-#include "WindowManager.h"
 #include "EditorInputManager.h"
 #include "TimeManager.h"
 
@@ -20,7 +19,19 @@ int main(void)
 
     engine.Initialize(true);
 
-    glfwMakeContextCurrent(WindowManager::getWindow());
+    if (!glfwInit()) {
+        std::cerr << "Failed to initialize GLFW!" << std::endl;
+        return -1;
+    }
+
+    GLFWwindow* window = WindowManager::getWindow();
+    if (!window) {
+        std::cerr << "Failed to create GLFW window!" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+
+    glfwMakeContextCurrent(window);
 
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
@@ -48,7 +59,7 @@ int main(void)
             uiManager.StartRender();
             
             uiManager.Render();
-            
+
             SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
             
             uiManager.EndRender();

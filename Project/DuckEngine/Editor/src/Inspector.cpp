@@ -363,33 +363,32 @@ void InspectorRenderer::RenderComponents(int entityID)
                 ImGui::Text("Current Sound: None");
             }
 
+            // Set up a drop target for audio files
+            if (ImGui::BeginDragDropTarget()) {
+                if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SOUND_PAYLOAD")) {
+                    const char* newSoundPath = static_cast<const char*>(payload->Data);
+
+                    // Check if the dropped file has an allowed extension
+                    if (IsAllowedExtension(newSoundPath, allowedSoundExtensions)) {
+                        std::cout << "Sound file dropped: " << newSoundPath << std::endl;
+
+                        // Update the sound component's file path
+                        sound->soundID = newSoundPath;
+                        DuckEngine::DUCKENGINE_AssetManager.LoadSound(sound->soundID, newSoundPath);
+
+                        hasChanged = true;
+                        std::cout << "Sound file set to: " << sound->soundID << std::endl;
+                    }
+                    else {
+                        std::cerr << "Error: Only OGG, MP3, and WAV audio files are allowed." << std::endl;
+                    }
+                }
+                ImGui::EndDragDropTarget();
+            }
+
             // Remove component button
             ComponentMenu<SoundComponent>(entityID);
-        }
-
-        
-        // Set up a drop target for audio files
-        if (ImGui::BeginDragDropTarget()) {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SOUND_PAYLOAD")) {
-                const char* newSoundPath = static_cast<const char*>(payload->Data);
-
-                // Check if the dropped file has an allowed extension
-                if (IsAllowedExtension(newSoundPath, allowedSoundExtensions)) {
-                    std::cout << "Sound file dropped: " << newSoundPath << std::endl;
-
-                    // Update the sound component's file path
-                    sound->soundID = newSoundPath;
-                    DuckEngine::DUCKENGINE_AssetManager.LoadSound(sound->soundID, newSoundPath);
-
-                    hasChanged = true;
-                    std::cout << "Sound file set to: " << sound->soundID << std::endl;
-                }
-                else {
-                    std::cerr << "Error: Only OGG, MP3, and WAV audio files are allowed." << std::endl;
-                }
-            }
-            ImGui::EndDragDropTarget();
-        }
+        }      
         
     }
 
