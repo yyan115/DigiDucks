@@ -450,4 +450,4 @@ float DuckEngine::GetViewportWidth()
 float DuckEngine::GetViewportHeight()
 {
     return static_cast<float>(WindowManager::GetViewportHeight());
-}
+} 
