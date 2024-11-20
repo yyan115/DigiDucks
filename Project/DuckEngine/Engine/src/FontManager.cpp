@@ -23,6 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "GraphicsManager.h"
+#include "CameraManager.h"
 
 // Map of fonts storing characters for each font name
 std::map<std::string, std::map<GLchar, FontManager::Character>> FontManager::Fonts;
@@ -114,39 +115,83 @@ void FontManager::Update() {
 void FontManager::Render() {
     GraphicsManager::BindFBO();
 
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(WindowManager::GetWindowWidth()), 0.0f, static_cast<GLfloat>(WindowManager::GetWindowHeight()));
-    ShaderManager::GetShader("TextShader")->Use();
-    glUniformMatrix4fv(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    // Use the same projection matrix as the game objects
+    float virtualHeight = CameraManager::GetHeight(); // Fixed virtual height used in your game
+    float ar = CameraManager::GetAR(); // Aspect ratio
+    float virtualWidth = virtualHeight * ar;
+
+    // Create the projection matrix
+    glm::mat4 projection = glm::ortho(
+        0.0f, virtualWidth,
+        0.0f, virtualHeight
+    );
+
+    // Get the shader used by game objects
+    auto shader = ShaderManager::GetShader("TextShader");
+    shader->Use();
+
+    // Set the projection matrix uniform
+    glUniformMatrix4fv(
+        glGetUniformLocation(shader->GetProgram(), "projection"),
+        1, GL_FALSE, glm::value_ptr(projection)
+    );
+
+    // Prepare for rendering
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_DEPTH_TEST);
+
+    // Conversion factor from pixels to world units
+    float pixelsPerUnit = WindowManager::GetWindowHeight() / virtualHeight;
 
     for (auto& text : drawQueue) {
-        glDisable(GL_DEPTH_TEST);
-        ShaderManager::GetShader("TextShader")->Use();
-        glUniform4f(glGetUniformLocation(ShaderManager::GetShader("TextShader")->GetProgram(), "textColor"), text.color.r / 255.f, text.color.g / 255.f, text.color.b / 255.f, text.color.a / 255.f);
+        // Set the text color
+        glUniform4f(
+            glGetUniformLocation(shader->GetProgram(), "textColor"),
+            text.color.r / 255.f, text.color.g / 255.f,
+            text.color.b / 255.f, text.color.a / 255.f
+        );
 
         glBindVertexArray(VAO);
         glActiveTexture(GL_TEXTURE0);
 
-        const auto& font = Fonts[text.fontName];  // Fetch the font by name
+        const auto& font = Fonts[text.fontName];
+        float x = text.position.x / pixelsPerUnit;
+        float y = text.position.y / pixelsPerUnit;
+
         for (const char& c : text.text) {
             Character ch = font.at(c);
 
-            float xpos = text.position.x + ch.Bearing.x * text.scale;
-            float ypos = text.position.y - (ch.Size.y - ch.Bearing.y) * text.scale;
-            float w = ch.Size.x * text.scale;
-            float h = ch.Size.y * text.scale;
+            float xpos = x + (ch.Bearing.x * text.scale) / pixelsPerUnit;
+            float ypos = y - ((ch.Size.y - ch.Bearing.y) * text.scale) / pixelsPerUnit;
+            float w = (ch.Size.x * text.scale) / pixelsPerUnit;
+            float h = (ch.Size.y * text.scale) / pixelsPerUnit;
 
+            // Update VBO for each character
             GLfloat vertices[6][4] = {
-                { xpos, ypos + h, 0.0f, 0.0f }, { xpos, ypos, 0.0f, 1.0f }, { xpos + w, ypos, 1.0f, 1.0f },
-                { xpos, ypos + h, 0.0f, 0.0f }, { xpos + w, ypos, 1.0f, 1.0f }, { xpos + w, ypos + h, 1.0f, 0.0f }
+                { xpos,     ypos + h, 0.0f, 0.0f },
+                { xpos,     ypos,     0.0f, 1.0f },
+                { xpos + w, ypos,     1.0f, 1.0f },
+
+                { xpos,     ypos + h, 0.0f, 0.0f },
+                { xpos + w, ypos,     1.0f, 1.0f },
+                { xpos + w, ypos + h, 1.0f, 0.0f }
             };
 
+            // Render glyph texture over quad
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+
+            // Update content of VBO memory
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+            // Render quad
             glDrawArrays(GL_TRIANGLES, 0, 6);
 
-            text.position.x += (ch.Advance >> 6) * text.scale;
+            // Advance cursors for next glyph
+            x += (ch.Advance >> 6) * text.scale / pixelsPerUnit;
         }
+
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
@@ -154,6 +199,7 @@ void FontManager::Render() {
     drawQueue.clear();
     GraphicsManager::UnbindFBO();
 }
+
 
 /// <summary>
 /// Cleans up the loaded fonts and FreeType resources.
