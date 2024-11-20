@@ -64,6 +64,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 //    glm::vec4 color;
 //};
 
+struct GizmoData {
+    Vector2D position;
+    float size;
+};
+
 /// <summary>
 /// The GraphicsManager class is responsible for managing all graphics rendering for game objects, including the 
 /// drawing of points, lines, circles, etc, for debugging graphics. It maintains render queues and manages the
@@ -137,6 +142,12 @@ public:
     /// Get the texture from FBO.
     /// </summary>
     DUCKENGINE_API static GLuint GetFBOTexture();
+
+    DUCKENGINE_API static void DrawGizmo();
+
+    DUCKENGINE_API static bool entityIsSelected;
+
+    DUCKENGINE_API static GizmoData gizmoData;
 
 private:
 
@@ -277,4 +288,8 @@ private:
     ///// <param name="cameraViewMatrix">The 3x3 matrix representing the camera's 
     ///// view transformation, applied to each circle instance.</param>
     //static void RenderCircles(const glm::mat3x3& cameraViewMatrix);
+
+    static void DrawArrow(const Vector2D& start, const Vector2D& direction, const Color& color, const glm::mat3x3& cameraViewMatrix);
+
+    static void DrawFilledTriangle(const Vector2D& p1, const Vector2D& p2, const Vector2D& p3, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix);
 };

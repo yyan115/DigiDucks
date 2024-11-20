@@ -60,6 +60,9 @@ std::vector<DebugDrawCommand> GraphicsManager::lineCommands;
 std::vector<DebugDrawCommand> GraphicsManager::rectangleCommands;
 std::vector<DebugDrawCommand> GraphicsManager::circleCommands;
 
+bool GraphicsManager::entityIsSelected = 0;
+GizmoData GraphicsManager::gizmoData;
+
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
 /// </summary>
@@ -348,6 +351,127 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     GraphicsManager::SetupPointVAO();
     GraphicsManager::SetupRectangleVAO();
 }
+
+void GraphicsManager::DrawGizmo() {
+
+    if (entityIsSelected) {
+        BindFBO();
+
+        Vector2D position = gizmoData.position;
+        float size = gizmoData.size;
+
+        // Disable depth testing to render on top
+        glDisable(GL_DEPTH_TEST);
+
+        // Use the debug shader
+        ShaderManager::GetShader("DebugShader")->Use();
+
+        // Common settings
+        glm::mat3x3 viewMatrix = ViewMatrix(CameraManager::GetPosition());
+        float ar = CameraManager::GetAR();
+        float height = CameraManager::GetHeight();
+        glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+        glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
+
+        // Draw X axis arrow (red)
+        DrawArrow(position, Vector2D(size, 0.0f), Color(255, 0, 0, 255), cameraViewMatrix);
+
+        // Draw Y axis arrow (green)
+        DrawArrow(position, Vector2D(0.0f, size), Color(0, 255, 0, 255), cameraViewMatrix);
+
+        // Re-enable depth testing if needed
+        glEnable(GL_DEPTH_TEST);
+
+        UnbindFBO();
+    }
+}
+
+void GraphicsManager::DrawArrow(const Vector2D& start, const Vector2D& direction, const Color& color, const glm::mat3x3& cameraViewMatrix) {
+    // Calculate the end point of the arrow
+    Vector2D end = start + direction;
+
+    // Draw the shaft of the arrow
+    DrawLine(start, end, 0.05f, color, true, cameraViewMatrix);
+
+    // Calculate the magnitude of the direction vector
+    float magnitude = sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (magnitude == 0) return; // Avoid division by zero
+
+    // Calculate the unit direction vector
+    Vector2D unitDir = { direction.x / magnitude, direction.y / magnitude };
+
+    // Calculate an orthogonal vector for the arrowhead
+    Vector2D orthoDir = { -unitDir.y, unitDir.x };
+
+    // Arrowhead size is proportional to the direction magnitude
+    float arrowheadSize = 0.2f * magnitude;
+
+    // Calculate arrowhead points
+    Vector2D arrowPoint1 = end;
+    Vector2D arrowPoint2 = end - unitDir * arrowheadSize + orthoDir * arrowheadSize * 0.5f;
+    Vector2D arrowPoint3 = end - unitDir * arrowheadSize - orthoDir * arrowheadSize * 0.5f;
+
+    // Draw the arrowhead (triangle)
+    DrawFilledTriangle(arrowPoint1, arrowPoint2, arrowPoint3, color, true, cameraViewMatrix);
+}
+
+void GraphicsManager::DrawFilledTriangle(const Vector2D& p1, const Vector2D& p2, const Vector2D& p3, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
+
+    // Set up vertex data
+    GLfloat vertices[] = {
+        p1.x, p1.y, 0.0f,
+        p2.x, p2.y, 0.0f,
+        p3.x, p3.y, 0.0f
+    };
+
+    GLuint triangleVAO, triangleVBO;
+
+    // Generate buffers
+    glGenVertexArrays(1, &triangleVAO);
+    glGenBuffers(1, &triangleVBO);
+
+    // Bind and set data
+    glBindVertexArray(triangleVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, triangleVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Position attribute (layout location = 0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+
+    // Compute the transformation matrix
+    glm::mat3x3 modelToWorld = glm::mat3x3(1.0f); // Identity matrix
+
+    glm::mat3x3 finalMatrix;
+    if (useCamera) {
+        finalMatrix = cameraViewMatrix * modelToWorld;
+    }
+    else {
+        glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
+        finalMatrix = uiProjection * modelToWorld;
+    }
+
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+    // Draw the triangle
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    // Cleanup
+    glBindVertexArray(0);
+    glDeleteBuffers(1, &triangleVBO);
+    glDeleteVertexArrays(1, &triangleVAO);
+
+    glUseProgram(0);
+}
+
+
 
 /// <summary>
 /// Draws a point at the specified position with the given size and color. 

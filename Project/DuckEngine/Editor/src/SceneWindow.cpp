@@ -176,6 +176,11 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         EditorInputManager::SetIsDragging(false);
     }
 
+    if (selectedEntity) {
+        //GraphicsManager::AddToDebugDrawQueue();
+        //std::cout << "selected";
+    }
+
     ImGui::End();
 }
 

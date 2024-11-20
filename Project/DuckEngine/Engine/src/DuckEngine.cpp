@@ -230,6 +230,7 @@ void DuckEngine::Draw()
     TimeManager::StartManagerTimer("Graphics System");
     GraphicsManager::Render();
     GraphicsManager::RenderDebug();
+    GraphicsManager::DrawGizmo();
     TimeManager::EndManagerTimer("Graphics System");
 
     InputManager::Update();
