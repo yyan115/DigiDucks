@@ -230,6 +230,8 @@ void GraphicsManager::Render() {
 void GraphicsManager::RenderDebug()
 {
     if (DuckEngine::showDebugDraw) {
+        BindFBO();
+
         // Get camera matrices
         Vector2D cameraPosition = CameraManager::GetPosition();
         float ar = CameraManager::GetAR();
@@ -256,6 +258,8 @@ void GraphicsManager::RenderDebug()
                 break;
             }
         }
+
+        UnbindFBO();
     }
 
     // Clear the debug draw queue after rendering
