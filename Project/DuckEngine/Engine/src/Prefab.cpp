@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "Prefab.h"
 #include "DuckEngine.h"
+#include "ComponentFactory.h"
 
 /************************************************************************
 @brief Adds a component to the prefab's list of components. When the prefab
@@ -37,14 +38,20 @@ void Prefab::AddComponent(const std::shared_ptr<Component>& component)
 *************************************************************************/
 Entity* Prefab::Instantiate(Vec2 newPosition)
 {
-	Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, { 1.0f, 1.0f });
-    //entity->name = "Prefab " + entity->entityID;
-	entity->prefabName = name;
+    Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, { 1.0f, 1.0f });
+    entity->prefabName = name;
 
-    for (const auto& component : components)
+    for (const auto& componentJson : componentsData)
     {
-        std::shared_ptr<Component> clonedComponent = component->Clone();
-        DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, clonedComponent);
+        std::shared_ptr<Component> component = ComponentFactory::CreateComponentFromJson(componentJson);
+        if (component)
+        {
+            DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, component);
+        }
+        else
+        {
+            std::cerr << "Error: Failed to instantiate component from prefab: " << name << std::endl;
+        }
     }
 
     return entity;
