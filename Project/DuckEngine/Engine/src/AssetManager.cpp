@@ -45,8 +45,7 @@ void AssetManager::LoadAll()
 	LoadAllShaders("Resources/Shaders");
 	LoadAllFonts("Resources/Fonts");
 
-
-	PrefabManager::LoadPrefabsFromFile("Resources/Prefab.json");
+	PrefabManager::LoadPrefabsFromDirectory("Resources/Prefabs");
 	PreloadScenes("Resources/Scenes");
 }
 

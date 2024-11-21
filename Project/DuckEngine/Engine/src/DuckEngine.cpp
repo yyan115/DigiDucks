@@ -80,8 +80,8 @@ void DuckEngine::Initialize(bool _isEditor)
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
     //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
-    // load prefabs
-    PrefabManager::LoadPrefabsFromFile("Resources/Prefab.json");
+
+    DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
@@ -124,7 +124,6 @@ void DuckEngine::Initialize(bool _isEditor)
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadAll();
     GraphicsManager::Start();
 
 }

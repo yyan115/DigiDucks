@@ -135,9 +135,10 @@
 )
 copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"</Command>
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
@@ -166,9 +167,10 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug\"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -205,9 +207,10 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
 )
 copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"</Command>
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='EditorRelease|x64'">
@@ -240,9 +243,10 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"</Command>
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='GameLib|x64'">

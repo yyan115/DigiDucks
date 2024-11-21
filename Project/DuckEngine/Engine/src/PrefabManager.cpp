@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PrefabManager.h"
 #include "DuckEngine.h"
 #include "ComponentFactory.h"
+#include <filesystem>
 
 std::unordered_map<std::string, std::shared_ptr<Prefab>> PrefabManager::prefabs;
 
@@ -73,42 +74,46 @@ Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPositi
 @brief Loads prefabs from a JSON file and adds them to the PrefabManager's collection.
 @param filePath The path to the JSON file containing prefab definitions.
 *************************************************************************/
-void PrefabManager::LoadPrefabsFromFile(const std::string& filePath)
+void PrefabManager::LoadPrefabsFromDirectory(const std::string& directoryPath)
 {
-    json prefabData = Serialization::LoadJsonFile(filePath);
+    std::cout << "Loading prefabs from directory: " << directoryPath << std::endl;
 
-    if (prefabData.contains("prefabs"))
+    std::filesystem::path absolutePath = std::filesystem::absolute(directoryPath);
+    for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
     {
-        ComponentFactory componentFactory; 
-
-        for (auto& [prefabName, prefabInfo] : prefabData["prefabs"].items())
+        if (entry.is_regular_file() && entry.path().extension() == ".json")
         {
-            std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+            std::string prefabName = entry.path().stem().string();
+            std::string filePath = entry.path().string();
 
-            if (prefabInfo.contains("components"))
+            std::cout << "Found prefab file: " << filePath << std::endl;
+
+            nlohmann::json prefabData = Serialization::LoadJsonFile(filePath.c_str());
+            if (prefabData.is_null())
             {
-                prefab->componentsData = prefabInfo["components"];
-
-                for (const auto& componentJson : prefab->componentsData)
-                {
-                    std::shared_ptr<Component> component = componentFactory.CreateComponentFromJson(componentJson);
-
-                    if (component)
-                    {
-                        prefab->AddComponent(component);
-
-                        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
-                        {
-                            prefab->texturePath = spriteRenderer->texturePath;
-                        }
-
-
-                    }
-                }
+                std::cerr << "Error: Failed to parse JSON file: " << filePath << std::endl;
+                continue;
             }
 
+            if (!prefabData.contains("components"))
+            {
+                std::cerr << "Error: Missing 'components' key in prefab JSON: " << prefabName << std::endl;
+                continue;
+            }
+
+            std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+            prefab->componentsData = prefabData["components"];
             AddPrefab(prefabName, prefab);
+
+            std::cout << "Successfully loaded prefab: " << prefabName << std::endl;
         }
     }
-}
 
+    std::cout << "Finished loading prefabs from directory: " << directoryPath << std::endl;
+
+    std::cout << "Prefabs loaded into PrefabManager:" << std::endl;
+    for (const auto& [name, prefab] : prefabs)
+    {
+        std::cout << "  - " << name << std::endl;
+    }
+}

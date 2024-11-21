@@ -71,7 +71,7 @@ public:
 		   defined in the file will be added to the manager's collection.
 	@param filePath The path to the file containing prefab data.
 	*************************************************************************/
-	static DUCKENGINE_API void LoadPrefabsFromFile(const std::string& filePath);
+	static DUCKENGINE_API void LoadPrefabsFromDirectory(const std::string& directoryPath);
 
 	static const DUCKENGINE_API std::unordered_map<std::string, std::shared_ptr<Prefab>>& GetAllPrefabs();
 };
