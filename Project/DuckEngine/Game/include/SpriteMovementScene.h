@@ -59,8 +59,4 @@ public:
 	*************************************************************************/
 	void Unload() override;
 
-	// to refactor after
-	void SetupLayers();
-
-
 };

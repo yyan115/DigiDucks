@@ -24,6 +24,7 @@ Vector2D CameraManager::position;
 Vector2D CameraManager::previousPosition;
 int CameraManager::cameraHeight;
 float CameraManager::windowAspectRatio;
+int CameraManager::defaultCameraHeight;
 
 /// <summary>
 /// Initializes the camera with a specified position and height. 
@@ -37,7 +38,7 @@ void CameraManager::Initialize(const float posX, const float posY, const int hei
 	CameraManager::previousPosition = CameraManager::position;
 	CameraManager::cameraHeight = height;
 	CameraManager::windowAspectRatio = static_cast<float>(WindowManager::GetWindowWidth()) / static_cast<float>(WindowManager::GetWindowHeight());
-
+	CameraManager::defaultCameraHeight = 20;
 }
 
 /// <summary>
@@ -81,4 +82,9 @@ void CameraManager::MoveCamera(float deltaX, float deltaY)
 {
 	position.x -= deltaX;
 	position.y -= deltaY;
+}
+
+void CameraManager::ResetToDefault()
+{
+	cameraHeight = defaultCameraHeight;
 }

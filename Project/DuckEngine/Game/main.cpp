@@ -9,7 +9,8 @@ int main(void)
     gManager.DuckEngine.Initialize();
 
     gManager.InitScenes();
-    gManager.SetActiveScene("GameScene");
+    gManager.SetActiveScene("SpriteMovementScene");
+
 
     // load all assets before game loop starts
     AssetManager::LoadAll();
@@ -17,7 +18,6 @@ int main(void)
 
     while (gManager.DuckEngine.Running())
     {
-
         gManager.DuckEngine.Update();
         
         gManager.DuckEngine.StartDraw();

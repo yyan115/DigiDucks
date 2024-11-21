@@ -18,8 +18,7 @@
 #include <string>
 #include <memory>
 #include <fmod.hpp>
-
-
+#include "Serialization.h"
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
@@ -47,11 +46,16 @@ public:
 	static DUCKENGINE_API void LoadAllShaders(const std::string& directoryPath);
 	static DUCKENGINE_API void LoadAllFonts(const std::string& directoryPath);
 
+	// Scenes
+	static DUCKENGINE_API void PreloadScenes(const std::string& directoryPath);
+	static DUCKENGINE_API nlohmann::json GetLevelData(const std::string& levelName);
+
 	// Get
 	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
 	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
 	static DUCKENGINE_API const std::vector<std::string>& GetFontNames();
-	
+
+
 	// unload all textures
 	static DUCKENGINE_API void UnloadAll();
 
@@ -69,5 +73,9 @@ private:
 
 	//Stores all font names
 	static std::vector<std::string> fontNames;
+
+	// Stores all the scenes
+	static std::unordered_map<std::string, nlohmann::json> levelDataMap;
+
 
 };

@@ -76,6 +76,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             SoundSystem::StopAllSounds();
             GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
         }
+        else
+        {
+            CameraManager::ResetToDefault();
+        }
     }
 
     GLuint fboTexture = GraphicsManager::GetFBOTexture();

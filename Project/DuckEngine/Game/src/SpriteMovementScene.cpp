@@ -30,6 +30,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 #include <unordered_set>
 #include <set>
+#include "GameManager.h"
 
 Entity* player;
 Entity* camera;
@@ -82,16 +83,6 @@ void SpriteMovementScene::Load()
 	DuckEngine::EnableLogging(false);
 
 	DuckEngine::SetCameraHeight(20);
-
-	// Load necessary assets (textures, sounds, etc.)
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_OLDMAN.c_str());
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_BACKGROUND.c_str());
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERIDLE.c_str(), 19, 24);
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CHARACTERWALK.c_str(), 19, 24);
-
-	PrefabManager::LoadPrefabsFromFile("Resources/Prefab.json");
-	LevelManager::LoadLevelGame("Resources/Scenes/SpriteMovementScene.json");
 
 	// instantiate prefabs
 	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
@@ -354,10 +345,5 @@ void SpriteMovementScene::Unload()
 {
 	// base unload
 	Scene::Unload();
-
-}
-
-void SpriteMovementScene::SetupLayers()
-{
 
 }

@@ -18,6 +18,8 @@
 #include "Texture.h"
 #include "ShaderManager.h"
 #include "FontManager.h"
+#include "LevelManager.h"
+#include "PrefabManager.h"
 
 #include <iostream>
 #include <filesystem>
@@ -27,6 +29,7 @@ std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetMana
 std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
 std::vector<std::string> AssetManager::fontNames;
+std::unordered_map<std::string, nlohmann::json> AssetManager::levelDataMap;
 
 std::string NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;
@@ -41,6 +44,10 @@ void AssetManager::LoadAll()
 	LoadAllSounds("Resources/Sounds");
 	LoadAllShaders("Resources/Shaders");
 	LoadAllFonts("Resources/Fonts");
+
+
+	PrefabManager::LoadPrefabsFromFile("Resources/Prefab.json");
+	PreloadScenes("Resources/Scenes");
 }
 
 void AssetManager::LoadAllFonts(const std::string& directoryPath) {
@@ -236,6 +243,31 @@ void AssetManager::LoadSound(const std::string& soundID, const std::string& file
 FMOD::Sound* AssetManager::GetSounds(const std::string& soundID) {
 	auto it = soundMap.find(soundID);
 	return it != soundMap.end() ? it->second : nullptr;
+}
+
+void AssetManager::PreloadScenes(const std::string& directoryPath) 
+{
+	for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) 
+	{
+		if (entry.is_regular_file() && entry.path().extension() == ".json") 
+		{
+			std::string levelName = entry.path().stem().string();
+			std::string filePath = entry.path().string();
+			nlohmann::json levelData = Serialization::LoadJsonFile(filePath.c_str());
+			levelDataMap[levelName] = levelData;
+			std::cout << "Preloaded level: " << levelName << std::endl;
+		}
+	}
+}
+
+nlohmann::json AssetManager::GetLevelData(const std::string& levelName) 
+{
+	if (levelDataMap.find(levelName) != levelDataMap.end()) 
+	{
+		return levelDataMap[levelName];
+	}
+	std::cerr << "Level not found: " << levelName << std::endl;
+	return nlohmann::json();
 }
 
 void AssetManager::UnloadAll()

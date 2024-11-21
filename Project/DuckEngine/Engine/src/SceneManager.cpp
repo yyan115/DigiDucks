@@ -40,8 +40,29 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
 **************************************************************************/
 void SceneManager::SetActiveScene(const std::string& name)
 {
-    auto it = scenes.find(name);
+    // Check if the scene being set is already the active scene
+    if (activeSceneName == name)
+    {
+        // Reset the current active scene
+        std::cout << "Scene '" << name << "' is already active. Resetting the scene." << std::endl;
 
+        if (activeScene)
+        {
+            activeScene->Unload(); // Unload all entities and resources
+        }
+
+        LevelManager::LoadLevel(name); // Reload the level data
+        if (activeScene)
+        {
+            activeScene->Load();  // Reload the active scene
+            activeScene->Start(); // Restart the scene
+        }
+
+        return; // Exit early to prevent additional logic
+    }
+
+    // Handle switching to a new scene
+    auto it = scenes.find(name);
     if (it == scenes.end())
     {
         std::cerr << "Scene '" << name << "' not found!" << std::endl;
@@ -50,17 +71,19 @@ void SceneManager::SetActiveScene(const std::string& name)
 
     if (activeScene)
     {
-        activeScene->Unload();
+        activeScene->Unload(); // Unload the previous scene
     }
 
     activeScene = scenes[name];
     activeSceneName = name;
 
+    // Load level data and set up the new scene
+    LevelManager::LoadLevel(name);
     activeScene->Load();
     activeScene->Start();
-
-
 }
+
+
 
 /**************************************************************************
 @brief Updates the currently active scene by calling its Update function.

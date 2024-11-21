@@ -89,6 +89,8 @@ public:
     /// Updates the camera's internal state. This method may include calculations or adjustments based on the current camera properties.
     /// </summary>
     static void Update();
+
+    static void ResetToDefault();
 private:
     /// <summary>
     /// The camera's position in world space as a 2D vector.
@@ -105,4 +107,6 @@ private:
     /// The window's aspect ratio, representing the width/height ratio.
     /// </summary>
     static float windowAspectRatio;
+
+    static int defaultCameraHeight;
 };
