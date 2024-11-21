@@ -343,7 +343,7 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     //ShaderManager::InsertShader("RectangleShader", "../Resources/Shaders/RectangleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
     //ShaderManager::InsertShader("CircleShader", "../Resources/Shaders/CircleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
-    ShaderManager::InsertShader("DebugShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
+    ShaderManager::InsertShader("DebugShader", "Resources/Shaders/DebugVertShader.vert", "Resources/Shaders/DebugFragShader.frag");
 
     // Set up VAOs for shapes
     GraphicsManager::SetupCircleVAO(100);
