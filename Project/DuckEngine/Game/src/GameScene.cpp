@@ -50,9 +50,6 @@ void GameScene::Load()
 
     DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 
-    LevelManager::LoadLevelGame("Resources/Scenes/GameScene.json");
-
-
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Duck");
 	duckTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
