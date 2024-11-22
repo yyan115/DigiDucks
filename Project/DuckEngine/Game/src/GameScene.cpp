@@ -32,7 +32,8 @@ TransformComponent* duckTrfm;
 RigidbodyComponent* duckRb;
 AnimatorComponent* duckAnimator;
 SoundComponent* duckSound;
-BoundingCircle* duckCollider;
+BoundingCircle* duckCircleCollider;
+BoundingBox* duckBoxCollider;
 
 ////Test Messaging System
 //InputEventManager inputEventManager;
@@ -55,11 +56,20 @@ void GameScene::Load()
 	duckTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duck->entityID);
 	duckAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(duck->entityID);
-	duckCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
-	duckCollider->SetCollisionCallback([](int otherEntityID)
+	duckCircleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
+	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
+	duckCircleCollider->SetCollisionCallback([](int otherEntityID)
 		{
 			std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
 		});
+	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
+	if (duckBoxCollider) {
+		duckBoxCollider->setOffSet(0.5f, 0.f);
+		duckBoxCollider->SetCollisionCallback([](int otherEntityID)
+			{
+				std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
+			});
+	}
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 
 
@@ -81,6 +91,7 @@ void GameScene::Start()
 /// </summary>
 void GameScene::Update() 
 {
+	
 	float moveSpeed = 10.0f;
 
 	// Reset the player's velocity at the start of each fixed update

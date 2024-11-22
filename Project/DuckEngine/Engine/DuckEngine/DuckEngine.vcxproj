@@ -137,7 +137,7 @@ copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmodL.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -169,7 +169,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorDebug\"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
 
 </Command>
     </PostBuildEvent>
@@ -209,7 +209,7 @@ copy /Y "$(SolutionDir)Engine\lib\FMOD\api\core\lib\fmod.dll" "$(OutDir)"
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -245,7 +245,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
 copy /Y "$(OutDir)DuckEngine.dll" "$(SolutionDir)Build\EditorRelease"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Game\Quack_Kitchen\Resources"
 xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Editor\ImGui\Resources"
-xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\"
+xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\Resources"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

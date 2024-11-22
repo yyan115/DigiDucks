@@ -32,6 +32,7 @@ template class __declspec(dllexport) std::function<void(Entity*)>;
 class DUCKENGINE_API BoundingCollider {
 private:
 	Vec2 centerPos{};
+	Vec2 offSet{};
 
 public:
 	// Constructor
@@ -40,21 +41,21 @@ public:
 	*
 	* Initializes the center position of the collider to (0, 0).
 	****************************************************************/
-	BoundingCollider() : centerPos(0.f, 0.f) {}
+	BoundingCollider() : centerPos(0.f, 0.f), offSet(0.f,0.f) {}
 
 	/****************************************************************
 	* @brief Constructor with center position
 	*
 	* @param pos The initial center position of the collider as a Vec2
 	****************************************************************/
-	BoundingCollider(const Vec2& pos) : centerPos(pos) {}
+	BoundingCollider(const Vec2& pos, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(pos), offSet(offSet_) {}
 	/****************************************************************
 	* @brief Constructor with x and y coordinates
 	*
 	* @param x The x-coordinate of the center position
 	* @param y The y-coordinate of the center position
 	****************************************************************/
-	BoundingCollider(float x, float y) : centerPos(x, y) {}
+	BoundingCollider(float x, float y, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(x, y), offSet(offSet_) {}
 
 	using OnCollisionCallback = std::function<void(int)>;
 	OnCollisionCallback onCollisionCallback;
@@ -76,6 +77,13 @@ public:
 	* ***************************************************************/
 	Vec2 getCenterPos() const;
 
+	/****************************************************************
+	* @brief Get the offset of the collider
+	* 
+	* @return The offset of the collider
+	* ***************************************************************/
+	Vec2 getOffSet() const;
+
 	// Setters
 	/****************************************************************
 	* @brief Set the center position of the collider
@@ -92,6 +100,22 @@ public:
 	* @param y - The y position of the collider
 	* ***************************************************************/
 	void setCenterPos(float x, float y);
+
+	/****************************************************************
+	* @brief Set the offset of the collider
+	*	
+	* @param offSet_ - The offset of the collider
+	* ***************************************************************/
+	void setOffSet(const Vec2& offSet_);
+
+	/****************************************************************
+	* @brief Set the offset of the collider
+	*	
+	* @param x - The x offset of the collider
+	* 
+	* @param y - The y offset of the collider
+	* ***************************************************************/
+	void setOffSet(float x, float y);
 
 	/****************************************************************
 	* @brief Set the collision callback function
@@ -112,6 +136,11 @@ private:
 	Vec2 topL{};
 	Vec2 btmR{};
 	Vec2 btmL{};
+
+	/****************************************************************
+	* @brief Set the Corners of the box
+	****************************************************************/
+	void setCorners();
 
 public:
 	float rotation{};

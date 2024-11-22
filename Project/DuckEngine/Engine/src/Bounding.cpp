@@ -31,6 +31,15 @@ Vec2 BoundingCollider::getCenterPos() const {
 	return centerPos;
 }
 
+/****************************************************************
+* @brief Get the OffSet of the collider
+*	
+* @return The OffSet of the collider
+* ***************************************************************/
+Vec2 BoundingCollider::getOffSet() const {
+	return offSet;
+}
+
 // Setters
 /****************************************************************
 * @brief Set the center position of the collider
@@ -50,6 +59,25 @@ void BoundingCollider::setCenterPos(const Vec2& pos) {
 * ***************************************************************/
 void BoundingCollider::setCenterPos(float x, float y) {
 	centerPos = Vec2(x, y);
+}
+
+/****************************************************************
+* @brief Set the OffSet of the collider
+*	
+* @param offSet_ - The OffSet of the collider
+* ***************************************************************/
+void BoundingCollider::setOffSet(const Vec2& offSet_) {
+	offSet = offSet_;
+}
+
+/****************************************************************
+* @brief Set the OffSet of the collider
+*	
+* @param x - The x position of the OffSet
+* @param y - The y position of the OffSet
+* ***************************************************************/
+void BoundingCollider::setOffSet(float x, float y) {
+	offSet = Vec2(x, y);
 }
 
 
@@ -92,11 +120,7 @@ BoundingBox::BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation
 	size = _size;
 	rotation = _rotation;
 
-	// Get 4 corners of box using size and rotation
-	topR = _center + rotateVector(Vec2(size.x, size.y), rotation);
-	topL = _center + rotateVector(Vec2(-size.x, size.y), rotation);
-	btmR = _center + rotateVector(Vec2(size.x, -size.y), rotation);
-	btmL = _center + rotateVector(Vec2(-size.x, -size.y), rotation);
+	setCorners();
 }
 
 /****************************************************************
@@ -114,7 +138,13 @@ BoundingBox::BoundingBox(float _x, float _y, float sizeX, float sizeY, float _ro
 	size.y = sizeY;
 	rotation = _rotation;
 
-	// Get 4 corners of box using size and rotation
+	setCorners();
+}
+
+/****************************************************************
+* @brief Set the Corners of the box
+****************************************************************/
+void BoundingBox::setCorners() {
 	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
 	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
 	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
@@ -149,10 +179,7 @@ void BoundingBox::setCenter(Vec2 center) {
 void BoundingBox::setSize(Vec2 _size) {
 	size = _size;
 
-	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	setCorners();
 }
 
 void BoundingBox::setRotation(float angle) {
@@ -161,10 +188,7 @@ void BoundingBox::setRotation(float angle) {
 	if (angle > 360.f)
 		angle -= 360.f;
 
-	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	setCorners();
 }
 
 /****************************************************************
@@ -178,10 +202,7 @@ void BoundingBox::rotate(float angle) {
 	if (angle > 360.f)
 		angle -= 360.f;
 
-	topR = getCenter() + rotateVector(Vec2(size.x, size.y), rotation);
-	topL = getCenter() + rotateVector(Vec2(-size.x, size.y), rotation);
-	btmR = getCenter() + rotateVector(Vec2(size.x, -size.y), rotation);
-	btmL = getCenter() + rotateVector(Vec2(-size.x, -size.y), rotation);
+	setCorners();
 }
 
 //// Circle Collider ////
@@ -455,8 +476,7 @@ bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const fl
 
 	// No separating axis found, collision detected
 	if (box1.onCollisionCallback)
-	{
-		
+	{		
 		box1.onCollisionCallback(box2.GetEntityID());
 	}
 	if (box2.onCollisionCallback)
@@ -494,6 +514,14 @@ bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle
 	float combineRadii = circle.getRadius() + circle2.getRadius();
 
 	if(centerDiff.lengthSquared() <= combineRadii * combineRadii) {
+		if (circle.onCollisionCallback)
+		{
+			circle.onCollisionCallback(circle2.GetEntityID());
+		}
+		if (circle2.onCollisionCallback)
+		{
+			circle2.onCollisionCallback(circle.GetEntityID());
+		}
 		return true;  // Collision detected
 	}
 

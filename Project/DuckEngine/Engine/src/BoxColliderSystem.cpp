@@ -30,22 +30,23 @@ void BoxColliderSystem::Start()
 *
 * @return void
 ****************************************************************/
-void BoxColliderSystem::Update() {
+void BoxColliderSystem::Update() 
+{
 	float deltaTime = DuckEngine::DeltaTime();
 	Vec2 intercepPt;
 
-	// Find player's box collider
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 	{
-		BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
-		TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
-		RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+		Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityId);
 
-		if (!boxRb) continue;	// No rb = not moving
+		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity->entityID);
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity->entityID);
+
+		if (!entityRb) continue;	// No rb = not moving
 
 		// Update Collider to current position
-		box->setCenter(boxTrans->position);
-
+		entityBox->setCenter(entityTrans->position);
 
 		/****************************************************************
 		* @brief Check collisions between this box and other boxes
@@ -56,34 +57,48 @@ void BoxColliderSystem::Update() {
 		****************************************************************/
 		for (const auto& [entity2Id, boxColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
-			if(entity2Id == entityId) continue;
+			if (entity2Id == entityId) continue;
 
-			BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
-			TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
-			RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+			Entity* entity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
 
-			if (!boxTrans2) continue;
+			BoundingBox* entityBox2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2->entityID);
+			TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2->entityID);
+			RigidbodyComponent* entityRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2->entityID);
 
-			if (!boxRb2) {	// One of the box is moving
-				if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity)) {
-					boxRb->velocity = Vec2(0.0f, 0.0f);
+			if (!entityTrans2) continue;
+
+			if (!entityRb2) // One of the box is moving
+			{	
+				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity)) 
+				{
+					if (entity->name == "Player" || entity2->name == "Player") { continue; }
+
+					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
-			else{
-				if (checkCollisionBB(*box, *box2, deltaTime, boxRb->velocity, boxRb2->velocity)) {
+			else 
+			{
+				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity, entityRb2->velocity)) 
+				{
+					if (entity->name == "Player" || entity2->name == "Player") { continue; }
+
 					// If there is a collision
-					if (boxRb2->isStatic) {	// If the box is static
-						boxRb->velocity = Vec2(0.0f, 0.0f);
+					if (entityRb2->isStatic)	// If the box is static
+					{
+						entityRb->velocity = Vec2(0.0f, 0.0f);
 					}
-					else { // If the box is not static
-						Vec2 combinedVelocity = boxRb->velocity + boxRb2->velocity;
-						if (boxRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
-							boxRb2->velocity = Vec2(0.f, 0.f);
-							boxRb->velocity = 3 * combinedVelocity / 4;
+					else	// If the box is not static
+					{
+						Vec2 combinedVelocity = entityRb->velocity + entityRb2->velocity;
+						if (entityRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared()) 
+						{
+							entityRb2->velocity = Vec2(0.f, 0.f);
+							entityRb->velocity = 3 * combinedVelocity / 4;
 						}
-						else {
-							boxRb2->velocity = 3 * combinedVelocity / 4;
-							boxRb->velocity = Vec2(0.f, 0.f);
+						else 
+						{
+							entityRb2->velocity = 3 * combinedVelocity / 4;
+							entityRb->velocity = Vec2(0.f, 0.f);
 						}
 
 						// Check for collisions between the second box and circles
@@ -103,30 +118,37 @@ void BoxColliderSystem::Update() {
 
 							if (!circleTrans) continue;
 
-							if (!circleRb) {
-								if (checkCollisionBC(*box2, *circle, intercepPt, deltaTime, boxRb2->velocity)) {
-									boxRb->velocity = Vec2(0.0f, 0.0f);
-									boxRb2->velocity = Vec2(0.0f, 0.0f);
+							if (!circleRb) 
+							{
+								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity)) 
+								{
+									entityRb->velocity = Vec2(0.0f, 0.0f);
+									entityRb2->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
-							else {
-								if (checkCollisionBC(*box2, *circle, intercepPt, deltaTime, boxRb2->velocity, circleRb->velocity)) {
+							else 
+							{
+								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity, circleRb->velocity)) 
+								{
 									if (circleRb->isStatic) {
-										boxRb->velocity = Vec2(0.0f, 0.0f);
-										boxRb2->velocity = Vec2(0.0f, 0.0f);
+										entityRb->velocity = Vec2(0.0f, 0.0f);
+										entityRb2->velocity = Vec2(0.0f, 0.0f);
 									}
-									else {
-										combinedVelocity = circleRb->velocity + boxRb2->velocity;
-										if (circleRb->velocity.lengthSquared() < boxRb2->velocity.lengthSquared()) {
-											boxRb2->velocity = Vec2(0.f, 0.f);
+									else 
+									{
+										combinedVelocity = circleRb->velocity + entityRb2->velocity;
+										if (circleRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared()) 
+										{
+											entityRb2->velocity = Vec2(0.f, 0.f);
 											circleRb->velocity = 3 * combinedVelocity / 4;
 										}
-										else {
-											boxRb2->velocity = 3 * combinedVelocity / 4;
+										else 
+										{
+											entityRb2->velocity = 3 * combinedVelocity / 4;
 											circleRb->velocity = Vec2(0.f, 0.f);
 										}
 
-										boxRb->velocity = Vec2(0.0f, 0.0f);
+										entityRb->velocity = Vec2(0.0f, 0.0f);
 									}
 								}
 							}
@@ -134,6 +156,7 @@ void BoxColliderSystem::Update() {
 						}
 					}
 				}
+
 			}
 		}
 
@@ -146,34 +169,46 @@ void BoxColliderSystem::Update() {
 		****************************************************************/
 		for (const auto& [entity2Id, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 		{
-			if(entity2Id == entityId) continue;
+			if (entity2Id == entityId) continue;
 
-			BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2Id);
-			TransformComponent* circleTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
-			RigidbodyComponent* circleRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+			Entity* entity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
 
-			if(!circleTrans) continue;
+			BoundingCircle* entityCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2->entityID);
+			TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2->entityID);
+			RigidbodyComponent* entityRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2->entityID);
 
-			if (!circleRb) {
-				if (checkCollisionBC(*box, *circle, intercepPt, deltaTime, boxRb->velocity)) {
-					boxRb->velocity = Vec2(0.0f, 0.0f);
+			if (!entityTrans2) continue;
+
+			if (!entityRb2) 
+			{
+				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity)) 
+				{
+					if (entity->name == "Player") { continue; }
+					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
-			else {
-				if (checkCollisionBC(*box, *circle, intercepPt, deltaTime, boxRb->velocity, circleRb->velocity)) {
-					if (circleRb->isStatic) {
-						boxRb->velocity = Vec2(0.0f, 0.0f);
+			else 
+			{
+				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity, entityRb2->velocity)) 
+				{
+					if (entity->name == "Player") { continue; }
+
+					if (entityRb2->isStatic) {
+						entityRb->velocity = Vec2(0.0f, 0.0f);
 					}
-					else {
-						Vec2 combinedVelocity = circleRb->velocity + boxRb->velocity;
-						if (circleRb->velocity.lengthSquared() < boxRb->velocity.lengthSquared()) {
-							boxRb->velocity = Vec2(0.f, 0.f);
-							circleRb->velocity = 3 * combinedVelocity / 4;
+					else 
+					{
+						Vec2 combinedVelocity = entityRb2->velocity + entityRb->velocity;
+						if (entityRb2->velocity.lengthSquared() < entityRb->velocity.lengthSquared()) 
+						{
+							entityRb->velocity = Vec2(0.f, 0.f);
+							entityRb2->velocity = 3 * combinedVelocity / 4;
 						}
-						else {
+						else 
+						{
 							// If circle velocity is greater, box will gain more velocity
-							boxRb->velocity = 3 * combinedVelocity / 4;
-							circleRb->velocity = Vec2(0.f, 0.f);
+							entityRb->velocity = 3 * combinedVelocity / 4;
+							entityRb2->velocity = Vec2(0.f, 0.f);
 						}
 
 						/****************************************************************
@@ -192,32 +227,40 @@ void BoxColliderSystem::Update() {
 
 							if (!circleTrans2) continue;
 
-							if(!circleRb2) {
-								if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity)) {
-									circleRb->velocity = Vec2(0.0f, 0.0f);
-									boxRb->velocity = Vec2(0.0f, 0.0f);
+							if (!circleRb2) 
+							{
+								if (checkCollisionCC(*entityCircle, *circle2, deltaTime, entityRb2->velocity)) 
+								{
+									entityRb2->velocity = Vec2(0.0f, 0.0f);
+									entityRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
-							else {
-								if (checkCollisionCC(*circle, *circle2, deltaTime, circleRb->velocity, circleRb2->velocity)) {
+							else 
+							{
+								if (checkCollisionCC(*entityCircle, *circle2, deltaTime, entityRb2->velocity, circleRb2->velocity)) 
+								{
 									// If there is a collision
-									if (circleRb2->isStatic) {	// If the circle is static
-										circleRb->velocity = Vec2(0.0f, 0.0f);
-										boxRb->velocity = Vec2(0.0f, 0.0f);
+									if (circleRb2->isStatic)	// If the circle is static
+									{
+										entityRb2->velocity = Vec2(0.0f, 0.0f);
+										entityRb->velocity = Vec2(0.0f, 0.0f);
 									}
-									else { // If the circle is not static
-										combinedVelocity = circleRb->velocity + circleRb2->velocity;
-										if (circleRb->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) {
+									else // If the circle is not static
+									{ 
+										combinedVelocity = entityRb2->velocity + circleRb2->velocity;
+										if (entityRb2->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) 
+										{
 											circleRb2->velocity = Vec2(0.f, 0.f);
-											circleRb->velocity = 3 * combinedVelocity / 4;
+											entityRb2->velocity = 3 * combinedVelocity / 4;
 										}
-										else {
+										else 
+										{
 											// If circle velocity is greater, box will gain more velocity
 											circleRb2->velocity = 3 * combinedVelocity / 4;
-											circleRb->velocity = Vec2(0.f, 0.f);
+											entityRb2->velocity = Vec2(0.f, 0.f);
 										}
 
-										boxRb->velocity = Vec2(0.0f, 0.0f);
+										entityRb->velocity = Vec2(0.0f, 0.0f);
 									}
 								}
 							}
@@ -228,16 +271,17 @@ void BoxColliderSystem::Update() {
 
 		}
 
-		box->setCenter(boxTrans->position);
+		entityBox->setCenter(entityTrans->position+entityBox->getOffSet());
 	}
 }
 
-void BoxColliderSystem::Render() {
+void BoxColliderSystem::Render() 
+{
 
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 	{
 		BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
 
-		DuckEngine::DrawRectangle(box->getBtmL(), box->getTopR(), box->rotation);
+		DuckEngine::DrawRectangle(box->getBtmL() + box->getOffSet(), box->getTopR() + box->getOffSet(), box->rotation);
 	}
 }
