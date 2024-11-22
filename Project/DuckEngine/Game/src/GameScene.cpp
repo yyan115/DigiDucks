@@ -64,7 +64,7 @@ void GameScene::Load()
 		});
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
 	if (duckBoxCollider) {
-		duckBoxCollider->setOffSet(0.5f, 0.f);
+		duckBoxCollider->setOffSet(1.f, 0.f);
 		duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 			{
 				std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
