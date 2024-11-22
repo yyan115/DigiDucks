@@ -43,6 +43,7 @@
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
+    <ClCompile Include="..\src\Raycast.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
     <ClCompile Include="..\src\UIManager.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
+    <ClInclude Include="..\include\Raycast.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />
     <ClInclude Include="..\include\UIManager.h" />

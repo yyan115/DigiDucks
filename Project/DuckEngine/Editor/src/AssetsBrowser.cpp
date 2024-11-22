@@ -108,7 +108,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     // Iterate over files in the selected folder
     for (const auto& entry : fs::recursive_directory_iterator(path)) {
         if (entry.is_directory()) continue;
-
         std::string fileName = entry.path().filename().string();
         std::string fileNameLower = fileName;
         std::string truncatedFileName = fileName;        
@@ -203,15 +202,20 @@ void AssetsBrowser::RenderPrefabsGrid() {
     auto prefabs = PrefabManager::GetAllPrefabs();
     for (const auto& [prefabName, prefab] : prefabs) {
         ImGui::PushID(itemIndex);
-
+		std::cout << "prefab name: " << prefabName <<   " prefab component: " << prefab->components.size() << "\n";
         ImGui::BeginGroup();
         // Retrieve and display prefab texture
-        if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
-        }
-        else {
-            ImGui::Button(prefabName.c_str(), ImVec2(120, 120)); // Fallback button if no texture is found
-        }
+		for (const auto& component : prefab->components) {
+            auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component);
+			if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath)) {
+				ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
+                break;
+			}
+			//else {
+			//	ImGui::Button(prefabName.c_str(), ImVec2(120, 120)); // Fallback button if no texture is found
+			//}
+			
+		}
 
         // Drag-and-drop source for the prefab
         if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
