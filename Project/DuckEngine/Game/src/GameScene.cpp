@@ -56,11 +56,9 @@ void GameScene::Load()
 	duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duck->entityID);
 	duckAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(duck->entityID);
 	duckCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
-	duckCollider->SetCollisionCallback([](Entity* otherEntity)
+	duckCollider->SetCollisionCallback([](int otherEntityID)
 		{
-			UNREFERENCED_PARAMETER(otherEntity);
-			std::cout << "Player collided with another entity!" << std::endl;
-
+			std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
 		});
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 

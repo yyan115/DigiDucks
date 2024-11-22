@@ -46,4 +46,10 @@ public:
     @return A shared pointer to the cloned component.
     *************************************************************************/
     virtual std::shared_ptr<Component> Clone() const = 0;
+
+    void SetEntityID(int entityID) { assignedEntityID = entityID; }
+    int GetEntityID() const { return assignedEntityID;  }
+
+private:
+    int assignedEntityID = 0;
 };

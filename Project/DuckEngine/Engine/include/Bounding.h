@@ -56,9 +56,8 @@ public:
 	****************************************************************/
 	BoundingCollider(float x, float y) : centerPos(x, y) {}
 
-	typedef std::function<void(Entity*)> OnCollisionCallback;
-
-	OnCollisionCallback onCollisionCallback = nullptr;
+	using OnCollisionCallback = std::function<void(int)>;
+	OnCollisionCallback onCollisionCallback;
 
 	// Destructor
 	/****************************************************************
@@ -241,6 +240,7 @@ public:
 	* @param angle The rotation angle in degrees
 	****************************************************************/
 	void rotate(float angle);
+
 };
 
 

@@ -71,6 +71,7 @@ class ComponentManager
     {
         auto& typeMap = componentStorage[typeid(T)];
         std::shared_ptr<Component> component = std::make_shared<T>(std::forward<Args>(args)...);
+        component->SetEntityID(entityID);
         auto result = typeMap.emplace(entityID, component);
 
         if (enableLogging) {

@@ -321,11 +321,11 @@ bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2
 		// Pass the colliding entities to the callbacks
 		if (circle.onCollisionCallback)
 		{
-			circle.onCollisionCallback(nullptr);
+			circle.onCollisionCallback(box.GetEntityID());
 		}
 		if (box.onCollisionCallback)
 		{
-			box.onCollisionCallback(nullptr);
+			box.onCollisionCallback(circle.GetEntityID());
 		}
 
 		return true;
@@ -370,11 +370,11 @@ bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2&
 		// Pass the colliding entities to the callbacks
 		if (circle.onCollisionCallback)
 		{
-			circle.onCollisionCallback(nullptr);
+			circle.onCollisionCallback(box.GetEntityID());
 		}
 		if (box.onCollisionCallback)
 		{
-			box.onCollisionCallback(nullptr);
+			box.onCollisionCallback(circle.GetEntityID());
 		}
 
 		return true;
@@ -456,11 +456,12 @@ bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const fl
 	// No separating axis found, collision detected
 	if (box1.onCollisionCallback)
 	{
-		box1.onCollisionCallback(nullptr);
+		
+		box1.onCollisionCallback(box2.GetEntityID());
 	}
 	if (box2.onCollisionCallback)
 	{
-		box2.onCollisionCallback(nullptr);
+		box2.onCollisionCallback(box1.GetEntityID());
 	}
 
 	return true;

@@ -90,10 +90,9 @@ void SpriteMovementScene::Load()
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->entityID);
 	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
 	circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
-	circle->SetCollisionCallback([](Entity* otherEntity)
+	circle->SetCollisionCallback([](int otherEntityID)
 		{
-			UNREFERENCED_PARAMETER(otherEntity);
-			std::cout << "Player collided with another entity!" << std::endl;
+			std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
 
 		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
