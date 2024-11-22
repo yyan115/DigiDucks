@@ -4,6 +4,7 @@
 #include "MaxLoadScene.h"
 #include "SpriteMovementScene.h"
 #include "GameScene.h"
+#include "MainMenu.h"
 
 class GameManager
 {

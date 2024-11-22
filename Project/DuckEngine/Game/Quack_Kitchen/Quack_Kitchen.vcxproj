@@ -192,6 +192,7 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />
+    <ClCompile Include="..\src\MainMenu.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
@@ -200,6 +201,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
+    <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
     <ClInclude Include="..\include\ResourcePath.h" />

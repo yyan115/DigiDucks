@@ -17,8 +17,11 @@
     <ClCompile Include="..\src\MessagingSystem.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\GameScene.cpp">
+    <ClCompile Include="..\src\MainMenu.cpp">
       <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameScene.cpp">
+      <Filter>src\Scenes\TestingScenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +76,9 @@
       <Filter>include\Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GameScene.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MainMenu.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
