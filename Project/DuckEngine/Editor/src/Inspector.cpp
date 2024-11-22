@@ -253,6 +253,7 @@ void InspectorRenderer::RenderComponents(int entityID)
         {
             Vec2 center = box->getCenter();
             Vec2 size = box->getSize();
+            Vec2 Offset = box->getOffSet();
 
             ImGui::Text("Size");
             ImGui::SameLine(100);
@@ -262,9 +263,14 @@ void InspectorRenderer::RenderComponents(int entityID)
             ImGui::SameLine(100);
             if (ImGui::DragFloat("##Rotation", &box->rotation, 1.0f, 0.0f, 360.0f)) hasChanged = true;
 
+            ImGui::Text("Offset");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat2("##Offset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+
             // Update component with modified values
             box->setCenter(center);
             box->setSize(size);
+			box->setOffSet(Offset);
 			//box->setRotation(box->rotation);
 
             // Remove component button
@@ -281,14 +287,20 @@ void InspectorRenderer::RenderComponents(int entityID)
         {
             Vec2 center = circle->getCenter();
             float radius = circle->getRadius();
+            Vec2 Offset = circle->getOffSet();
 
             ImGui::Text("Radius");
             ImGui::SameLine(100);
             if (ImGui::DragFloat("##Radius", &radius, 0.1f, 0.0f, 360.0f)) hasChanged = true;
 
+            ImGui::Text("Offset");
+            ImGui::SameLine(100);
+            if (ImGui::DragFloat2("##Offset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+
             // Update component with modified values
             circle->setCenter(center);
             circle->setRadius(radius);
+            circle->setOffSet(Offset);
 
             // Remove component button
             ComponentMenu<BoundingCircle>(entityID);
