@@ -106,6 +106,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
         ImGui::EndDragDropTarget();
     }
+   
 
     if (worldPos.x != lastMousePos.x || worldPos.y != lastMousePos.y)
     {
@@ -333,6 +334,13 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
         if (worldPos.x >= left && worldPos.x <= right &&
             worldPos.y >= top && worldPos.y <= bottom)
         {
+            // Skip entities with the "Background" layer
+            Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+            if (entity && entity->layerName == "Background")
+            {
+                continue; 
+            }
+
             foundEntities.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID));
         }
     }
