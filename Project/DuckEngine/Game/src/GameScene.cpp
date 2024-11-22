@@ -52,24 +52,22 @@ void GameScene::Load()
     DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 
 	// instantiate prefabs
-	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Duck");
+	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	duckTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duck->entityID);
 	duckAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(duck->entityID);
 	duckCircleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
-	duckCircleCollider->SetCollisionCallback([](int otherEntityID)
+	//duckCircleCollider->SetCollisionCallback([](int otherEntityID)
+	//	{
+	//		std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
+	//	});
+	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
+	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 		{
 			std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
 		});
-	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
-	if (duckBoxCollider) {
-		duckBoxCollider->setOffSet(1.f, 0.f);
-		duckBoxCollider->SetCollisionCallback([](int otherEntityID)
-			{
-				std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
-			});
-	}
+	
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 
 
@@ -90,8 +88,7 @@ void GameScene::Start()
 /// This function is called every frame.
 /// </summary>
 void GameScene::Update() 
-{
-	
+{	
 	float moveSpeed = 10.0f;
 
 	// Reset the player's velocity at the start of each fixed update
@@ -103,21 +100,25 @@ void GameScene::Update()
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		inputDirection.y += 1.0f;
+		duckBoxCollider->setOffSet(0.f, 1.f);
 		//playerAnimator->PlayAnimation("WalkAnimation");
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		inputDirection.y -= 1.0f;
+		duckBoxCollider->setOffSet(0.f, -1.f);
 		//playerAnimator->PlayAnimation("WalkAnimation");
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
 		inputDirection.x -= 1.0f;
+		duckBoxCollider->setOffSet(-1.f, 0.f);
 		//playerAnimator->PlayAnimation("WalkAnimation");
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		inputDirection.x += 1.0f;
+		duckBoxCollider->setOffSet(1.f, 0.f);
 		//playerAnimator->PlayAnimation("WalkAnimation");
 	}
 

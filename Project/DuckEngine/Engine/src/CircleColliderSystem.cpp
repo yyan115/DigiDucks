@@ -60,8 +60,6 @@ void CircleColliderSystem::Update() {
 		{
 			if (entityId == entity2Id) continue;
 
-			Entity* entity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
-
 			BoundingCircle* entityCircle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity2Id);
 			TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
 			RigidbodyComponent* entityRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
