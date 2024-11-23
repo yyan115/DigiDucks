@@ -98,9 +98,6 @@ void SpriteMovementScene::Load()
 		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
-	auto* logicComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<GameLogicComponent>(player->entityID, "MovementLogic");
-	auto movementLogic = std::make_shared<MovementLogic>(logicComponent, 10.0f);
-	GameLogicManager::AddLogic("MovementLogic", movementLogic);
 
 
 	//background entity

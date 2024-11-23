@@ -10,14 +10,19 @@ void GameLogicSystem::Start()
     for (auto& [entityID, component] : components)
     {
         auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
-        auto logic = GameLogicManager::GetLogic(logicComponent->logicName);
 
-        if (logic)
+        for (const auto& logicName : logicComponent->logicNames)
         {
-            logic->Start();
+            auto logic = GameLogicManager::GetLogic(logicName);
+            if (logic)
+            {
+                logic->SetComponent(logicComponent);
+                logic->Start();
+            }
         }
     }
 }
+
 
 void GameLogicSystem::Update()
 {
@@ -26,11 +31,14 @@ void GameLogicSystem::Update()
     for (auto& [entityID, component] : components)
     {
         auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
-        auto logic = GameLogicManager::GetLogic(logicComponent->logicName);
 
-        if (logic)
+        for (const auto& logicName : logicComponent->logicNames)
         {
-            logic->Update();
+            auto logic = GameLogicManager::GetLogic(logicName);
+            if (logic)
+            {
+                logic->Update();
+            }
         }
     }
 }

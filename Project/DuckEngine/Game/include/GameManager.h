@@ -13,6 +13,5 @@ public:
 	static DuckEngine DuckEngine;
 	static void InitScenes();
 	static void SetActiveScene(std::string sceneName);
-
 };
 

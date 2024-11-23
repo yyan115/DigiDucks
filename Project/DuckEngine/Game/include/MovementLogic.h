@@ -12,8 +12,12 @@ private:
     float moveSpeed;
 
 public:
+    MovementLogic()
+        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), moveSpeed(10.0f) {
+    }
+
     MovementLogic(GameLogicComponent* component, float speed = 10.0f)
-        : GameLogic(component), transform(nullptr), rigidbody(nullptr), animator(nullptr), moveSpeed(speed) {
+        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), moveSpeed(speed) {
     }
 
     void Start() override;
