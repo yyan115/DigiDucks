@@ -2,7 +2,7 @@
 /*
 \file:      LevelManager.cpp
 \authors:	Tan Yan Kai, yankai.tan, 2301312 (50%)
-            Lucas Yee, l.yee, 2301212 (50%)
+			Lucas Yee, l.yee, 2301212 (50%)
 \par:	    yankai.tan@digipen.edu
 \par:	    l.yee@digipen.edu
 
@@ -33,30 +33,30 @@
 *************************************************************************/
 void LevelManager::LoadLevelEditor(const std::string& levelFile)
 {
-    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+	json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
-    if (!levelData.empty() && levelData.contains("gameObjects"))
-    {
-        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+	if (!levelData.empty() && levelData.contains("gameObjects"))
+	{
+		std::cout << "Successfully loaded level: " << levelFile << std::endl;
 
-        size_t lastSlash = levelFile.find_last_of("\\/");
-        std::string sceneName = (lastSlash != std::string::npos)
-            ? levelFile.substr(lastSlash + 1)
-            : levelFile;
+		size_t lastSlash = levelFile.find_last_of("\\/");
+		std::string sceneName = (lastSlash != std::string::npos)
+			? levelFile.substr(lastSlash + 1)
+			: levelFile;
 
-        size_t lastDot = sceneName.find_last_of('.');
-        if (lastDot != std::string::npos)
-        {
-            sceneName = sceneName.substr(0, lastDot);
-        }
+		size_t lastDot = sceneName.find_last_of('.');
+		if (lastDot != std::string::npos)
+		{
+			sceneName = sceneName.substr(0, lastDot);
+		}
 
 
-        DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
-        if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
-        {
-            LoadLevel(levelFile);
-        }
-    }
+		DuckEngine::DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+		if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() != sceneName)
+		{
+			LoadLevel(levelFile);
+		}
+	}
 }
 
 /************************************************************************
@@ -65,25 +65,25 @@ void LevelManager::LoadLevelEditor(const std::string& levelFile)
 *************************************************************************/
 void LevelManager::LoadLevelGame(const std::string& levelFile)
 {
-    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+	json levelData = Serialization::LoadJsonFile(levelFile.c_str());
 
-    if (!levelData.empty() && levelData.contains("gameObjects"))
-    {
-        std::cout << "Successfully loaded level: " << levelFile << std::endl;
+	if (!levelData.empty() && levelData.contains("gameObjects"))
+	{
+		std::cout << "Successfully loaded level: " << levelFile << std::endl;
 
-        size_t lastSlash = levelFile.find_last_of("\\/");
-        std::string sceneName = (lastSlash != std::string::npos)
-            ? levelFile.substr(lastSlash + 1)
-            : levelFile;
+		size_t lastSlash = levelFile.find_last_of("\\/");
+		std::string sceneName = (lastSlash != std::string::npos)
+			? levelFile.substr(lastSlash + 1)
+			: levelFile;
 
-        size_t lastDot = sceneName.find_last_of('.');
-        if (lastDot != std::string::npos)
-        {
-            sceneName = sceneName.substr(0, lastDot);
-        }
+		size_t lastDot = sceneName.find_last_of('.');
+		if (lastDot != std::string::npos)
+		{
+			sceneName = sceneName.substr(0, lastDot);
+		}
 
-        LoadLevel(levelFile);
-    }
+		LoadLevel(levelFile);
+	}
 
 }
 
@@ -93,73 +93,73 @@ void LevelManager::LoadLevelGame(const std::string& levelFile)
 *************************************************************************/
 void LevelManager::LoadLevel(const std::string& levelName) 
 {
-    nlohmann::json levelData = AssetManager::GetLevelData(levelName);
-    if (levelData.empty()) 
-    {
-        std::cerr << "Failed to load level: " << levelName << std::endl;
-        return;
-    }
+	nlohmann::json levelData = AssetManager::GetLevelData(levelName);
+	if (levelData.empty()) 
+	{
+		std::cerr << "Failed to load level: " << levelName << std::endl;
+		return;
+	}
 
-    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
 
-    // Add layers to the scene
-    if (levelData.contains("layers")) 
-    {
-        for (auto& [layerName, layerData] : levelData["layers"].items()) {
-            Layer layer;
-            layer.SetOrder(layerData.value("order", 0));
-            layer.SetVisible(layerData.value("visible", true));
-            activeScene->AddLayer(layerName, layer);
-        }
-    }
+	// Add layers to the scene
+	if (levelData.contains("layers")) 
+	{
+		for (auto& [layerName, layerData] : levelData["layers"].items()) {
+			Layer layer;
+			layer.SetOrder(layerData.value("order", 0));
+			layer.SetVisible(layerData.value("visible", true));
+			activeScene->AddLayer(layerName, layer);
+		}
+	}
 
-    // Add game objects to the scene
-    if (levelData.contains("gameObjects")) 
-    {
-        for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items()) 
-        {
-            std::string prefabName = gameObjectData.value("prefab", "");
-            std::string layerName = gameObjectData.value("layer", "Gameplay");
+	// Add game objects to the scene
+	if (levelData.contains("gameObjects")) 
+	{
+		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items()) 
+		{
+			std::string prefabName = gameObjectData.value("prefab", "");
+			std::string layerName = gameObjectData.value("layer", "Gameplay");
 
-            Entity* entity = nullptr;
-            if (!prefabName.empty()) 
-            {
-                auto prefab = PrefabManager::GetPrefab(prefabName.c_str());
-                if (prefab) {
-                    entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                    entity->name = gameObjectName;
-                    entity->prefabName = prefabName;
-                    entity->layerName = layerName;
+			Entity* entity = nullptr;
+			if (!prefabName.empty()) 
+			{
+				auto prefab = PrefabManager::GetPrefab(prefabName.c_str());
+				if (prefab) {
+					entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+					entity->name = gameObjectName;
+					entity->prefabName = prefabName;
+					entity->layerName = layerName;
 
-                    ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
-                }
-            }
+					ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
+				}
+			}
 
-            else if (gameObjectData.contains("components")) 
-            {
-                entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-                entity->name = gameObjectName;
-                entity->layerName = layerName;
+			else if (gameObjectData.contains("components")) 
+			{
+				entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+				entity->name = gameObjectName;
+				entity->layerName = layerName;
 
-                ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
-            }
+				ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
+			}
 
-            if (entity) 
-            {
-                auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-                if (transform && gameObjectData.contains("position")) 
-                {
-                    transform->position = Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f });
-                }
+			if (entity) 
+			{
+				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+				if (transform && gameObjectData.contains("position")) 
+				{
+					transform->position = Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f });
+				}
 
-                auto* layer = activeScene->GetLayer(layerName);
-                if (layer) 
-                {
-                    layer->AddEntity(entity);
-                }
-            }
-        }
-    }
+				auto* layer = activeScene->GetLayer(layerName);
+				if (layer) 
+				{
+					layer->AddEntity(entity);
+				}
+			}
+		}
+	}
 }
 
 
@@ -171,44 +171,44 @@ void LevelManager::LoadLevel(const std::string& levelName)
 *
 ***************************************************************/
 std::string LevelManager::OpenFileDialog(const std::string& fileType) {
-    wchar_t fileName[260] = L"";
-    wchar_t defExt[10];
+	wchar_t fileName[260] = L"";
+	wchar_t defExt[10];
 
-    // Set up the OPENFILENAME structure
-    OPENFILENAME ofn;
-    ZeroMemory(&ofn, sizeof(ofn));
-    ofn.lStructSize = sizeof(ofn);
-    ofn.hwndOwner = NULL;
-    // Select filter and default extension based on fileType
-    if (fileType == "scene") {
-        ofn.lpstrFilter = L"JSON Files\0*.json\0All Files\0*.*\0";
-        wcscpy_s(defExt, L"json");
-    }
-    else if (fileType == "texture") {
-        ofn.lpstrFilter = L"Image Files (.png;*.jpg;*.jpeg)\0*.png;*.jpg;*.jpeg\0All Files\0*.*\0";
-        wcscpy_s(defExt, L"png");
-    }
-    else if (fileType == "audio") {
-        ofn.lpstrFilter = L"Audio Files (*.ogg;*.mp3;*.wav)\0*.ogg;*.mp3;*.wav\0All Files\0*.*\0";
-        wcscpy_s(defExt, L"mp3");
-    }
-    else {
-        // Default to all files if fileType is unknown
-        ofn.lpstrFilter = L"All Files\0*.*\0";
-    }
-    ofn.lpstrFile = fileName;
-    ofn.nMaxFile = 260;
-    ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_NOCHANGEDIR;
-    ofn.lpstrDefExt = defExt;                  // Use the passed-in default extension
+	// Set up the OPENFILENAME structure
+	OPENFILENAME ofn;
+	ZeroMemory(&ofn, sizeof(ofn));
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = NULL;
+	// Select filter and default extension based on fileType
+	if (fileType == "scene") {
+		ofn.lpstrFilter = L"JSON Files\0*.json\0All Files\0*.*\0";
+		wcscpy_s(defExt, L"json");
+	}
+	else if (fileType == "texture") {
+		ofn.lpstrFilter = L"Image Files (.png;*.jpg;*.jpeg)\0*.png;*.jpg;*.jpeg\0All Files\0*.*\0";
+		wcscpy_s(defExt, L"png");
+	}
+	else if (fileType == "audio") {
+		ofn.lpstrFilter = L"Audio Files (*.ogg;*.mp3;*.wav)\0*.ogg;*.mp3;*.wav\0All Files\0*.*\0";
+		wcscpy_s(defExt, L"mp3");
+	}
+	else {
+		// Default to all files if fileType is unknown
+		ofn.lpstrFilter = L"All Files\0*.*\0";
+	}
+	ofn.lpstrFile = fileName;
+	ofn.nMaxFile = 260;
+	ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_NOCHANGEDIR;
+	ofn.lpstrDefExt = defExt;                  // Use the passed-in default extension
 
-    if (GetOpenFileName(&ofn)) {
-        // Convert wide char to narrow char string
-        char narrowFileName[260];
-        size_t convertedChars = 0;
-        wcstombs_s(&convertedChars, narrowFileName, sizeof(narrowFileName), fileName, _TRUNCATE);
-        return std::string(narrowFileName);
-    }
-    return "";
+	if (GetOpenFileName(&ofn)) {
+		// Convert wide char to narrow char string
+		char narrowFileName[260];
+		size_t convertedChars = 0;
+		wcstombs_s(&convertedChars, narrowFileName, sizeof(narrowFileName), fileName, _TRUNCATE);
+		return std::string(narrowFileName);
+	}
+	return "";
 }
 
 /****************************************************************
@@ -217,28 +217,28 @@ std::string LevelManager::OpenFileDialog(const std::string& fileType) {
 ***************************************************************/
 void LevelManager::OpenLevelDialog()
 {
-    std::string levelFile = OpenFileDialog("scene");
+	std::string levelFile = OpenFileDialog("scene");
 
-    std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
-    std::cout << "Open File Dialog Path: " << absolutePath << std::endl;
+	std::filesystem::path absolutePath = std::filesystem::absolute(levelFile);
+	std::cout << "Open File Dialog Path: " << absolutePath << std::endl;
 
-    json levelData = Serialization::LoadJsonFile(levelFile.c_str());
-    size_t lastSlash = levelFile.find_last_of("\\/");
-    
-    std::string sceneName = (lastSlash != std::string::npos)
-        ? levelFile.substr(lastSlash + 1)
-        : levelFile;
+	json levelData = Serialization::LoadJsonFile(levelFile.c_str());
+	size_t lastSlash = levelFile.find_last_of("\\/");
+	
+	std::string sceneName = (lastSlash != std::string::npos)
+		? levelFile.substr(lastSlash + 1)
+		: levelFile;
 
-    size_t lastDot = sceneName.find_last_of('.');
-    if (lastDot != std::string::npos)
-    {
-        sceneName = sceneName.substr(0, lastDot);
-    }
+	size_t lastDot = sceneName.find_last_of('.');
+	if (lastDot != std::string::npos)
+	{
+		sceneName = sceneName.substr(0, lastDot);
+	}
 
-    if (sceneName != DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName())
-    {
-        LoadLevelEditor(levelFile);
-    }
+	if (sceneName != DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName())
+	{
+		LoadLevelEditor(levelFile);
+	}
 
 }
 
@@ -248,27 +248,27 @@ void LevelManager::OpenLevelDialog()
 *************************************************************************/
 void LevelManager::SaveSceneChanges(const std::string& sceneName)
 {
-    std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
-    json sceneData = Serialization::LoadJsonFile(finalPath);
+	std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
+	json sceneData = Serialization::LoadJsonFile(finalPath);
 
-    std::filesystem::path asd = std::filesystem::absolute(finalPath);
-    std::cout << "final path: " << asd << std::endl;
-    
-    // Clear existing gameObjects to avoid duplicate entries
-    sceneData["gameObjects"].clear();
+	std::filesystem::path asd = std::filesystem::absolute(finalPath);
+	std::cout << "final path: " << asd << std::endl;
+	
+	// Clear existing gameObjects to avoid duplicate entries
+	sceneData["gameObjects"].clear();
 
-    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+	auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    for (auto& entity : entities)
-    {
-        std::string entityName = entity.name.empty() ? "Entity_" + std::to_string(entity.entityID) : entity.name;
-        json& gameObjectData = sceneData["gameObjects"][entityName];
+	for (auto& entity : entities)
+	{
+		std::string entityName = entity.name.empty() ? "Entity_" + std::to_string(entity.entityID) : entity.name;
+		json& gameObjectData = sceneData["gameObjects"][entityName];
 
-        SaveEntityToJson(&entity, gameObjectData);
-    }
+		SaveEntityToJson(&entity, gameObjectData);
+	}
 
-    Serialization::SaveJsonFile(finalPath, sceneData);
-    std::cout << "Scene changes saved to: " << finalPath << std::endl;
+	Serialization::SaveJsonFile(finalPath, sceneData);
+	std::cout << "Scene changes saved to: " << finalPath << std::endl;
 }
 
 /************************************************************************
@@ -278,20 +278,20 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
 *************************************************************************/
 void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 {
-    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
-    if (!entity) return;
+	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	if (!entity) return;
 
-    std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
-    
-    json sceneData = Serialization::LoadJsonFile(finalPath);
+	std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
+	
+	json sceneData = Serialization::LoadJsonFile(finalPath);
 
-    std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
-    json& gameObjectData = sceneData["gameObjects"][entityName];
+	std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
+	json& gameObjectData = sceneData["gameObjects"][entityName];
 
-    SaveEntityToJson(entity, gameObjectData);
+	SaveEntityToJson(entity, gameObjectData);
 
-    Serialization::SaveJsonFile(finalPath, sceneData);
-    std::cout << "Entity changes saved for: " << entityName << " in scene: " << sceneName << std::endl;
+	Serialization::SaveJsonFile(finalPath, sceneData);
+	std::cout << "Entity changes saved for: " << entityName << " in scene: " << sceneName << std::endl;
 }
 
 /************************************************************************
@@ -301,32 +301,32 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 *************************************************************************/
 void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 {
-    if (!entity)
-    {
-        std::cerr << "Error: Attempted to save a null entity." << std::endl;
-        return;
-    }
+	if (!entity)
+	{
+		std::cerr << "Error: Attempted to save a null entity." << std::endl;
+		return;
+	}
 
-    gameObjectData["layer"] = entity->layerName;
+	gameObjectData["layer"] = entity->layerName;
 
-    if (!entity->prefabName.empty())
-    {
-        gameObjectData["prefab"] = entity->prefabName;
+	if (!entity->prefabName.empty())
+	{
+		gameObjectData["prefab"] = entity->prefabName;
 
-        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
-        {
-            gameObjectData["position"]["x"] = transform->position.x;
-            gameObjectData["position"]["y"] = transform->position.y;
-        }
+		if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
+		{
+			gameObjectData["position"]["x"] = transform->position.x;
+			gameObjectData["position"]["y"] = transform->position.y;
+		}
 
-        std::cout << "Saved prefab entity: " << entity->prefabName << " with position ("
-            << gameObjectData["position"]["x"] << ", " << gameObjectData["position"]["y"] << ")" << std::endl;
-    }
-    else
-    {
-        ComponentFactory::SaveComponentsToJson(entity->entityID, gameObjectData["components"]);
-        std::cout << "Saved non-prefab entity: " << (entity->name.empty() ? "Unnamed Entity" : entity->name) << std::endl;
-    }
+		std::cout << "Saved prefab entity: " << entity->prefabName << " with position ("
+			<< gameObjectData["position"]["x"] << ", " << gameObjectData["position"]["y"] << ")" << std::endl;
+	}
+	else
+	{
+		ComponentFactory::SaveComponentsToJson(entity->entityID, gameObjectData["components"]);
+		std::cout << "Saved non-prefab entity: " << (entity->name.empty() ? "Unnamed Entity" : entity->name) << std::endl;
+	}
 }
 
 
@@ -336,48 +336,54 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 *************************************************************************/
 void LevelManager::OverwritePrefab(int entityID)
 {
-    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
-    if (!entity) return;
+	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	if (!entity)
+	{
+		std::cerr << "Error: Entity not found with ID " << entityID << std::endl;
+		return;
+	}
 
-    std::string prefabPath = "Resources/Prefab.json";
-    json prefabData = Serialization::LoadJsonFile(prefabPath);
+	std::string prefabName = entity->prefabName;
+	std::string prefabPath = "Resources/Prefabs/" + prefabName + ".json";
 
-    std::string prefabName = entity->prefabName;
+	json prefabData = Serialization::LoadJsonFile(prefabPath);
 
-    if (prefabData["prefabs"].contains(prefabName)) 
-    {
-        ComponentFactory::SaveComponentsToJson(entityID, prefabData["prefabs"][prefabName]["components"]);
+	if (prefabData.empty())
+	{
+		std::cerr << "Error: Prefab not found at path " << prefabPath << std::endl;
+		return;
+	}
 
-        Serialization::SaveJsonFile(prefabPath, prefabData);
+	ComponentFactory::SaveComponentsToJson(entityID, prefabData["components"]);
 
-        std::cout << "Prefab '" << prefabName << "' has been updated with the new component values." << std::endl;
-    }
-    else {
-        std::cerr << "Error: Prefab not found for entity " << prefabName << std::endl;
-    }
+	Serialization::SaveJsonFile(prefabPath, prefabData);
+
+	std::cout << "Prefab '" << prefabName << "' has been updated successfully." << std::endl;
 }
 
+
+
 bool LevelManager::CreateNewScene(const std::string& sceneName) {
-    // Paths for the new files
-    std::string jsonPath = "Resources/Scenes/" + sceneName + ".json";
+	// Paths for the new files
+	std::string jsonPath = "Resources/Scenes/" + sceneName + ".json";
 
-    // Check if JSON file already exists
-    if (std::filesystem::exists(jsonPath)) {
-        std::cerr << "Error: Scene already exists: " << sceneName << std::endl;
-        return false;
-    }
+	// Check if JSON file already exists
+	if (std::filesystem::exists(jsonPath)) {
+		std::cerr << "Error: Scene already exists: " << sceneName << std::endl;
+		return false;
+	}
 
-    // Create the JSON file
-    json sceneData = {
-        { "gameObjects", json::object() },
-        { "layers", { { "Gameplay", { { "order", 1 }, { "visible", true } } } } }
-    };
-    Serialization::SaveJsonFile(jsonPath, sceneData);
+	// Create the JSON file
+	json sceneData = {
+		{ "gameObjects", json::object() },
+		{ "layers", { { "Gameplay", { { "order", 1 }, { "visible", true } } } } }
+	};
+	Serialization::SaveJsonFile(jsonPath, sceneData);
 
 	//TODO: Create a GenericScnee, make it a sharePTr to all newly created scenes
-    std::cout << "Successfully created scene JSON: " << sceneName << std::endl;
+	std::cout << "Successfully created scene JSON: " << sceneName << std::endl;
 
-    return true;
+	return true;
 }
 
 

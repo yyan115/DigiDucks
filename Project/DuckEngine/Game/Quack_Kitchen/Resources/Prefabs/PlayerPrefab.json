@@ -1,74 +1,75 @@
 {
-  "components": [
-    {
-      "properties": {
-        "position": {
-          "x": 0,
-          "y": 0
+    "components": [
+        {
+            "properties": {
+                "position": {
+                    "x": -2.7769999504089355,
+                    "y": 0.0
+                },
+                "relativeToCamera": true,
+                "rotation": 0.0,
+                "scale": {
+                    "x": 1.5,
+                    "y": 3.0
+                }
+            },
+            "type": "TransformComponent"
         },
-        "relativeToCamera": true,
-        "scale": {
-          "x": 1.5,
-          "y": 3.0
+        {
+            "properties": {
+                "color": {
+                    "a": 255.0,
+                    "b": 255.0,
+                    "g": 255.0,
+                    "r": 255.0
+                },
+                "layer": 1,
+                "sprite": true,
+                "texture": "Resources/characteridle.png",
+                "useColor": false
+            },
+            "type": "SpriteRendererComponent"
         },
-        "velocity": {
-          "x": 0,
-          "y": 0
+        {
+            "properties": {
+                "center": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "radius": 1.0
+            },
+            "type": "BoundingCircle"
+        },
+        {
+            "properties": {
+                "isStatic": false
+            },
+            "type": "RigidbodyComponent"
+        },
+        {
+            "properties": {
+                "animations": [
+                    {
+                        "frameDuration": 0.20000000298023224,
+                        "name": "WalkAnimation",
+                        "texture": "Resources/characterwalk.png"
+                    },
+                    {
+                        "frameDuration": 0.6000000238418579,
+                        "name": "IdleAnimation",
+                        "texture": "Resources/characteridle.png"
+                    }
+                ]
+            },
+            "type": "AnimatorComponent"
+        },
+        {
+            "properties": {
+                "logicNames": [
+                    "MovementLogic"
+                ]
+            },
+            "type": "GameLogicComponent"
         }
-      },
-      "type": "TransformComponent"
-    },
-    {
-      "properties": {
-        "color": {
-          "a": 255,
-          "b": 255,
-          "g": 255,
-          "r": 255
-        },
-        "layer": 1,
-        "sprite": true,
-        "texture": "Resources/characteridle.png",
-        "useColor": false
-      },
-      "type": "SpriteRendererComponent"
-    },
-    {
-      "properties": {
-        "center": {
-          "x": 0.0,
-          "y": 0.0
-        },
-        "radius": 1.0
-      },
-      "type": "BoundingCircle"
-    },
-    {
-      "properties": {
-        "isStatic": false,
-        "velocity": {
-          "x": 0.0,
-          "y": 0.0
-        }
-      },
-      "type": "RigidbodyComponent"
-    },
-    {
-      "properties": {
-        "animations": [
-          {
-            "frameDuration": 0.2,
-            "name": "WalkAnimation",
-            "texture": "Resources/characterwalk.png"
-          },
-          {
-            "frameDuration": 0.6,
-            "name": "IdleAnimation",
-            "texture": "Resources/characteridle.png"
-          }
-        ]
-      },
-      "type": "AnimatorComponent"
-    }
-  ]
+    ]
 }

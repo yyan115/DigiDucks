@@ -1,4 +1,6 @@
 #include "GameManager.h"
+#include "GameLogicComponent.h"
+#include "MovementLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -10,6 +12,10 @@ void GameManager::InitScenes()
     DuckEngine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
     DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
     DuckEngine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
+
+
+    // add game logic
+    GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
 }
 
 void GameManager::SetActiveScene(std::string sceneName)
