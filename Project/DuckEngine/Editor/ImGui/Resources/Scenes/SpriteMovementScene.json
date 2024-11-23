@@ -44,6 +44,14 @@
             ],
             "layer": "Background"
         },
+        "CabbageStockPrefab (28)": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -11.47140884399414,
+                "y": -0.5517244338989258
+            },
+            "prefab": "CabbageStockPrefab"
+        },
         "Duck": {
             "layer": "Gameplay",
             "position": {
@@ -681,7 +689,7 @@
                     "properties": {
                         "position": {
                             "x": -700.0,
-                            "y": 396.5
+                            "y": 400.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,

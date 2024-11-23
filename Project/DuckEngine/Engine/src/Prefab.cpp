@@ -39,19 +39,29 @@ void Prefab::AddComponent(const std::shared_ptr<Component>& component)
 Entity* Prefab::Instantiate(Vec2 newPosition)
 {
     Entity* entity = EntityFactory::CreateEntity(texturePath, newPosition, { 1.0f, 1.0f });
+    //entity->name = "Prefab " + entity->entityID;
     entity->prefabName = name;
 
-    for (const auto& componentJson : componentsData)
+    for (const auto& component : components)
     {
-        std::shared_ptr<Component> component = ComponentFactory::CreateComponentFromJson(componentJson);
-        if (component)
+        std::shared_ptr<Component> clonedComponent = component->Clone();
+
+        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(clonedComponent))
         {
-            DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, component);
+            spriteRenderer->texturePath = this->texturePath;
+
+            if (!spriteRenderer->texturePath.empty())
+            {
+                spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath.c_str())[0];
+            }
         }
-        else
+
+        if (auto transformComponent = std::dynamic_pointer_cast<TransformComponent>(clonedComponent))
         {
-            std::cerr << "Error: Failed to instantiate component from prefab: " << name << std::endl;
+            transformComponent->SetPosition(newPosition);
         }
+
+        DuckEngine::DUCKENGINE_ComponentManager.AddComponent(entity->entityID, clonedComponent);
     }
 
     return entity;
