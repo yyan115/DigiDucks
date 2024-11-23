@@ -33,10 +33,16 @@ AnimatorComponent* duckAnimator;
 SoundComponent* duckSound;
 BoundingCircle* duckCircleCollider;
 BoundingBox* duckBoxCollider;
+bool holdingObject = false;
+
+// Object infront of player
+Entity* frontObject;
 
 ////Test Messaging System
 //InputEventManager inputEventManager;
 //Player message;
+
+void playerInteraction();
 
 /// <summary>
 /// Loads all necessary resources for the scene.
@@ -64,7 +70,12 @@ void GameScene::Load()
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
 	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 		{
-			std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
+			frontObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
+			if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R))
+			{
+				playerInteraction();
+				holdingObject = !holdingObject;
+			}
 		});
 	
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
@@ -197,5 +208,15 @@ void GameScene::Unload()
 {
 	// base unload
 	Scene::Unload();
+
+}
+
+void playerInteraction()
+{
+	if (holdingObject) {
+		if (frontObject->name == "Lettuce_Box") {
+			std::cout << "Player interacted with Lettuce_Box\n";
+		}
+	}
 
 }

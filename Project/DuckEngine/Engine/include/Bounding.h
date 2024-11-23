@@ -27,7 +27,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "Component.h"
 #include "Entity.h"
-template class __declspec(dllexport) std::function<void(Entity*)>;
 
 class DUCKENGINE_API BoundingCollider {
 private:
@@ -394,7 +393,7 @@ public:
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel = Vec2{ 0,0 }, const Vec2& box_vel = Vec2{ 0,0 });
+bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel = Vec2{ 0,0 }, const Vec2& box_vel = Vec2{ 0,0 });
 
 /****************************************************************
 * @brief Checks collision between a box and a circle
@@ -411,7 +410,7 @@ DUCKENGINE_API bool checkCollisionCB(const BoundingCircle& circle, const Boundin
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionBC(const BoundingBox& box, const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel = Vec2{ 0,0 }, const Vec2& cir_vel = Vec2{ 0,0 });
+bool checkCollisionBC(const BoundingBox& box, const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel = Vec2{ 0,0 }, const Vec2& cir_vel = Vec2{ 0,0 });
 
 /****************************************************************
 * @brief Checks collision between two boxes
@@ -428,7 +427,7 @@ DUCKENGINE_API bool checkCollisionBC(const BoundingBox& box, const BoundingCircl
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
+bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Checks collision between two circles
@@ -446,7 +445,7 @@ DUCKENGINE_API bool checkCollisionBB(const BoundingBox& box1, const BoundingBox&
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCC(const BoundingCircle& circle1, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
+bool checkCollisionCC(const BoundingCircle& circle1, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1 = Vec2(0.f, 0.f), const Vec2& vel2 = Vec2(0.f, 0.f));
 
 /****************************************************************
 * @brief Checks collision between a circle and a line segment
@@ -462,7 +461,7 @@ DUCKENGINE_API bool checkCollisionCC(const BoundingCircle& circle1, const Boundi
 *
 * @return True if a collision is detected, false otherwise
 ****************************************************************/
-DUCKENGINE_API bool checkCollisionCL(const BoundingCircle& circle, const Vec2& nextPos, const Vec2& lineStart, const Vec2& lineEnd, Vec2& interceptPt);
+bool checkCollisionCL(const BoundingCircle& circle, const Vec2& nextPos, const Vec2& lineStart, const Vec2& lineEnd, Vec2& interceptPt);
 
 
 // Calculate and adjust the new velocity with intersection point
@@ -478,4 +477,4 @@ DUCKENGINE_API bool checkCollisionCL(const BoundingCircle& circle, const Vec2& n
 * @param interceptPt The intersection point of the two objects
 * @param deltaTime The time step for calculating the new velocity
 * ***************************************************************/
-DUCKENGINE_API void calculateNewVelocity(const Vec2& curPos, Vec2& curVel, const Vec2& interceptPt, const float& radius, const float& deltaTime);
+void calculateNewVelocity(const Vec2& curPos, Vec2& curVel, const Vec2& interceptPt, const float& radius, const float& deltaTime);
