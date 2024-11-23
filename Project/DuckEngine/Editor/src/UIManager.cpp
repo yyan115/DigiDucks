@@ -16,7 +16,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "imgui_impl_glfw.h"
 #include "GraphicsManager.h"
 #include "DuckEngine.h"
-#include "DuckEngine_Sound.h"
 #include "UIManager.h"
 #include "UIDebugConsole.h"
 #include "WindowManager.h"

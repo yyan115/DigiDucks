@@ -136,6 +136,8 @@ void DuckEngine::SetupSystems()
 
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
+
+    DuckEngine::DUCKENGINE_AssetManager.LoadAllSounds("Resources/Sounds");
 }
 
 

@@ -25,9 +25,6 @@
     <ClCompile Include="..\src\TimeManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SoundManager.cpp">
-      <Filter>src\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\LevelManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
@@ -89,9 +86,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\DuckEngine_Input.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\DuckEngine_Sound.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TextSystem.cpp">

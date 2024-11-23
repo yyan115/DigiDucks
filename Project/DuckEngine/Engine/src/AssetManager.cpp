@@ -41,7 +41,6 @@ void AssetManager::LoadAll()
 {
 	// Load all textures and sounds from respective directories
 	LoadAllTextures("Resources/Sprites");
-	LoadAllSounds("Resources/Sounds");
 	LoadAllShaders("Resources/Shaders");
 	LoadAllFonts("Resources/Fonts");
 

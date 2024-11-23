@@ -16,7 +16,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "GameScene.h"
 #include "DuckEngine.h"
-#include "DuckEngine_Sound.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
 #include "ResourcePath.h"

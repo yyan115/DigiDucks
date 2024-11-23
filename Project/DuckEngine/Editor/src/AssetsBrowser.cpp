@@ -94,6 +94,16 @@ std::string NormalizePath(const std::string& path) {
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     if (!fs::exists(path)) return;
 
+    std::unordered_map<std::string, std::vector<std::string>> folderAllowedExtensions = {
+        {"Sprites", {".png", ".jpg", ".jpeg"}},
+        {"Sounds", {".ogg", ".mp3", ".wav"}},
+        {"Scripts", {".txt", ".json", ".lua"}},
+        // Add other folders and their extensions as needed
+    };
+
+    auto allowedExtensions = folderAllowedExtensions.find(selectedFolderName);
+
+
 	// Calculate how many items can fit in one row
     float contentWidth = ImGui::GetContentRegionAvail().x;
     float itemWidth = 120.0f; // Width of each asset cell
@@ -104,6 +114,8 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     int itemIndex = 0;
 
     static std::string selectedAsset = "";
+    static bool showErrorPopup = false;
+    static std::string errorMessage = "";
 
     // Iterate over files in the selected folder
     for (const auto& entry : fs::recursive_directory_iterator(path)) {
@@ -122,11 +134,25 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
         std::string fileExtension = entry.path().extension().string();
         std::string normalizedPath = NormalizePath(entry.path().string());
+
+        // Validate file extension
+        if (allowedExtensions != folderAllowedExtensions.end()) {
+            const auto& extensions = allowedExtensions->second;
+            if (std::find(extensions.begin(), extensions.end(), fileExtension) == extensions.end()) {
+                // File extension is not allowed for this folder
+                showErrorPopup = true;
+                errorMessage = "Error: File '" + fileName + "' in folder '" + selectedFolderName +
+                    "' has an invalid extension (" + fileExtension + ").";
+                continue; // Skip rendering this file
+            }
+        }
+
         ImGui::PushID(normalizedPath.c_str());
 
         ImGui::BeginGroup();
-        // Check if the file is a texture
-        if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
+
+        // Check if texture folder
+        if (selectedFolderName == "Sprites") {
             
             auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
 
@@ -159,7 +185,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             }
             
         }
-        else if (fileExtension == ".ogg" || fileExtension == ".mp3" || fileExtension == ".wav") {
+        else if (selectedFolderName == "Sounds") {
 
             ImGui::Button(fileName.c_str(), ImVec2(120, 120));
 
@@ -185,6 +211,20 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
         ImGui::PopID();
         itemIndex++;
+    }
+
+    // Show error popup if an invalid file was detected
+    if (showErrorPopup) {
+        ImGui::OpenPopup("Invalid File Error");
+    }
+
+    if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        ImGui::TextWrapped("%s", errorMessage.c_str());
+        if (ImGui::Button("Close")) {
+            showErrorPopup = false; // Reset the popup flag
+            ImGui::CloseCurrentPopup();
+        }
+        ImGui::EndPopup();
     }
     
 }
