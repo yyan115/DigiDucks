@@ -142,7 +142,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
                 // File extension is not allowed for this folder
                 showErrorPopup = true;
                 errorMessage = "Error: File '" + fileName + "' in folder '" + selectedFolderName +
-                    "' has an invalid extension (" + fileExtension + ").";
+                    "' has an invalid extension (" + fileExtension + "). Please delete the file in the folder.";
                 continue; // Skip rendering this file
             }
         }
@@ -222,12 +222,12 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 
-    if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
+    if (ImGui::BeginPopupModal("Invalid File Error", NULL,  ImGuiWindowFlags_NoMove)) {
         ImGui::TextWrapped("%s", errorMessage.c_str());
-        float windowWidth = ImGui::GetWindowSize().x;
-        float buttonWidth = 100.0f; // Adjust the button width if needed
-        ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
-        if (ImGui::Button("Close", ImVec2(buttonWidth, 0))) {
+        float buttonWidth = ImGui::CalcTextSize("Close").x + ImGui::GetStyle().FramePadding.x * 2.0f;
+        ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - buttonWidth); // Align to the right
+
+        if (ImGui::Button("Close")) {
             showErrorPopup = false; // Reset the popup flag
             ImGui::CloseCurrentPopup();
         }
