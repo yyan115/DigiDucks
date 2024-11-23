@@ -4,23 +4,19 @@
 
 void MovementLogic::Start()
 {
-    // Initialize the components from the GameLogicComponent's owner entity
-    transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
-    rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
-    animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+	// Initialize the components from the GameLogicComponent's owner entity
+	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
+	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 
-    if (!transform || !rigidbody)
-    {
-        std::cerr << "MovementLogic: Missing required components (Transform or Rigidbody)!" << std::endl;
-    }
 }
 
 void MovementLogic::Update()
 {
-    if (!transform || !rigidbody)
-    {
-        return;
-    }
+	if (!transform || !rigidbody || !animator)
+	{
+		return;
+	}
 
 	float moveSpeed = 10.0f;
 
