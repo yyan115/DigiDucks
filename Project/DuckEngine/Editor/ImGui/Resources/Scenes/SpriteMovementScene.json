@@ -9,6 +9,7 @@
                             "y": 5.035971641540527
                         },
                         "relativeToCamera": true,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0
@@ -46,8 +47,8 @@
         "Duck": {
             "layer": "Gameplay",
             "position": {
-                "x": 7.957408905029297,
-                "y": 7.586331367492676
+                "x": -9.448450088500977,
+                "y": -6.620565414428711
             },
             "prefab": "DuckPrefab"
         },
@@ -441,8 +442,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -10.0,
-                            "y": 0.0
+                            "x": -7.2477922439575195,
+                            "y": 7.954022407531738
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -591,8 +592,8 @@
         "Obstacle1": {
             "layer": "Gameplay",
             "position": {
-                "x": -13.1431884765625,
-                "y": 4.784173011779785
+                "x": -14.221756935119629,
+                "y": -5.05490779876709
             },
             "prefab": "CuttingTablePrefab"
         },
@@ -645,6 +646,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0
@@ -682,6 +684,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 200.0,
                             "y": 100.0
@@ -729,6 +732,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0
@@ -766,6 +770,7 @@
                             "y": 5.0
                         },
                         "relativeToCamera": true,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
                             "y": 2.799999952316284
@@ -828,6 +833,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0

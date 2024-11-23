@@ -251,6 +251,9 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
     std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
+    std::filesystem::path asd = std::filesystem::absolute(finalPath);
+    std::cout << "final path: " << asd << std::endl;
+    
     // Clear existing gameObjects to avoid duplicate entries
     sceneData["gameObjects"].clear();
 
@@ -261,26 +264,11 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
         std::string entityName = entity.name.empty() ? "Entity_" + std::to_string(entity.entityID) : entity.name;
         json& gameObjectData = sceneData["gameObjects"][entityName];
 
-        gameObjectData["layer"] = entity.layerName;
-
-        if (!entity.prefabName.empty())
-        {
-            gameObjectData["prefab"] = entity.prefabName;
-
-            if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity.entityID))
-            {
-                gameObjectData["position"]["x"] = transform->position.x;
-                gameObjectData["position"]["y"] = transform->position.y;
-            }
-        }
-        else
-        {
-            ComponentFactory::SaveComponentsToJson(entity.entityID, gameObjectData["components"]);
-        }
+        SaveEntityToJson(&entity, gameObjectData);
     }
 
     Serialization::SaveJsonFile(finalPath, sceneData);
-    std::cout << "Scene changes saved: " << sceneName << std::endl;
+    std::cout << "Scene changes saved to: " << finalPath << std::endl;
 }
 
 /************************************************************************
@@ -294,30 +282,53 @@ void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
     if (!entity) return;
 
     std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
+    
     json sceneData = Serialization::LoadJsonFile(finalPath);
 
     std::string entityName = entity->name.empty() ? "Entity_" + std::to_string(entityID) : entity->name;
     json& gameObjectData = sceneData["gameObjects"][entityName];
+
+    SaveEntityToJson(entity, gameObjectData);
+
+    Serialization::SaveJsonFile(finalPath, sceneData);
+    std::cout << "Entity changes saved for: " << entityName << " in scene: " << sceneName << std::endl;
+}
+
+/************************************************************************
+@brief Saves an entity's data to a JSON object.
+@param entity The entity to save.
+@param gameObjectData The JSON object where the entity's data will be saved.
+*************************************************************************/
+void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
+{
+    if (!entity)
+    {
+        std::cerr << "Error: Attempted to save a null entity." << std::endl;
+        return;
+    }
+
     gameObjectData["layer"] = entity->layerName;
 
     if (!entity->prefabName.empty())
     {
         gameObjectData["prefab"] = entity->prefabName;
 
-        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
+        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
         {
             gameObjectData["position"]["x"] = transform->position.x;
             gameObjectData["position"]["y"] = transform->position.y;
         }
+
+        std::cout << "Saved prefab entity: " << entity->prefabName << " with position ("
+            << gameObjectData["position"]["x"] << ", " << gameObjectData["position"]["y"] << ")" << std::endl;
     }
     else
     {
-        ComponentFactory::SaveComponentsToJson(entityID, gameObjectData["components"]);
+        ComponentFactory::SaveComponentsToJson(entity->entityID, gameObjectData["components"]);
+        std::cout << "Saved non-prefab entity: " << (entity->name.empty() ? "Unnamed Entity" : entity->name) << std::endl;
     }
-
-    Serialization::SaveJsonFile(finalPath, sceneData);
-    std::cout << "Entity changes saved for: " << entityName << std::endl;
 }
+
 
 /************************************************************************
 @brief Overwrites an existing prefab file with new component values for an entity.

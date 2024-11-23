@@ -58,7 +58,7 @@ void SceneManager::SetActiveScene(const std::string& name)
             activeScene->Start(); // Restart the scene
         }
 
-        return; // Exit early to prevent additional logic
+        return;
     }
 
     // Handle switching to a new scene

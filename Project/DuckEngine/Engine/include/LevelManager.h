@@ -15,13 +15,14 @@
 #pragma once
 
 #include <string>
+#include "Serialization.h"
+#include "Entity.h"
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
-
 
 class DUCKENGINE_API LevelManager
 {
@@ -40,8 +41,10 @@ public:
 	static std::string OpenFileDialog(const std::string& filetype);
 	static void OpenLevelDialog();
 
+	// Saving
 	static void SaveSceneChanges(const std::string& sceneName);
 	static void SaveEntityChanges(int entityID, std::string& sceneName);
+	static void SaveEntityToJson(Entity* entity, json& gameObjectData);
 	static void OverwritePrefab(int entityID);
 
 

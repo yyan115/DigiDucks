@@ -259,15 +259,38 @@ void AssetManager::PreloadScenes(const std::string& directoryPath)
 	}
 }
 
-nlohmann::json AssetManager::GetLevelData(const std::string& levelName) 
+nlohmann::json AssetManager::GetLevelData(const std::string& levelName)
 {
-	if (levelDataMap.find(levelName) != levelDataMap.end()) 
+	std::string filePath = "Resources/Scenes/" + levelName + ".json";
+
+	if (std::filesystem::exists(filePath))
 	{
+		nlohmann::json levelData = Serialization::LoadJsonFile(filePath.c_str());
+		if (!levelData.is_null())
+		{
+			levelDataMap[levelName] = levelData;
+			std::cout << "Reloaded level data for: " << levelName << " from file." << std::endl;
+			return levelData;
+		}
+		else
+		{
+			std::cerr << "Error: Failed to load level data from file: " << filePath << std::endl;
+		}
+	}
+	else
+	{
+		std::cerr << "Error: Level file not found: " << filePath << std::endl;
+	}
+
+	if (levelDataMap.find(levelName) != levelDataMap.end())
+	{
+		std::cerr << "Returning cached data for: " << levelName << std::endl;
 		return levelDataMap[levelName];
 	}
-	std::cerr << "Level not found: " << levelName << std::endl;
+
 	return nlohmann::json();
 }
+
 
 void AssetManager::UnloadAll()
 {
