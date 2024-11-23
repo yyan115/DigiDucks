@@ -46,6 +46,7 @@ public:
     /// <param name="posX">The new x-coordinate of the camera in world space.</param>
     /// <param name="posY">The new y-coordinate of the camera in world space.</param>
     static void SetPosition(const float posX, const float posY);
+    static void LerpCameraTo(const float posX, const float posY);
 
     /// <summary>
     /// Sets the camera's height, which determines the vertical size of the camera's view.
@@ -109,4 +110,7 @@ private:
     static float windowAspectRatio;
 
     static int defaultCameraHeight;
+
+    static Vector2D targetCameraPosition; // Target camera position
+    static float cameraLerpSpeed;        // Speed of interpolation
 };

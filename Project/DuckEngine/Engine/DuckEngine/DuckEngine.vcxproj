@@ -282,6 +282,10 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\EntityManager.h" />
     <ClInclude Include="..\include\File.h" />
     <ClInclude Include="..\include\FontManager.h" />
+    <ClInclude Include="..\include\GameLogic.h" />
+    <ClInclude Include="..\include\GameLogicComponent.h" />
+    <ClInclude Include="..\include\GameLogicManager.h" />
+    <ClInclude Include="..\include\GameLogicSystem.h" />
     <ClInclude Include="..\include\GraphicsManager.h" />
     <ClInclude Include="..\include\ImageLoader.h" />
     <ClInclude Include="..\include\imgui\imconfig.h" />
@@ -344,6 +348,8 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\File.cpp" />
     <ClCompile Include="..\src\FontManager.cpp" />
+    <ClCompile Include="..\src\GameLogicManager.cpp" />
+    <ClCompile Include="..\src\GameLogicSystem.cpp" />
     <ClCompile Include="..\src\GraphicsManager.cpp" />
     <ClCompile Include="..\src\ImageLoader.cpp" />
     <ClCompile Include="..\src\imgui\ImCurveEdit.cpp" />

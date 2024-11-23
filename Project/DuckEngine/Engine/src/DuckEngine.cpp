@@ -39,6 +39,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "ButtonSystem.h"
 #include "TextSystem.h"
+#include "GameLogicSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -83,6 +84,13 @@ void DuckEngine::Initialize(bool _isEditor)
 
     DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 
+    GraphicsManager::Start();
+
+}
+
+void DuckEngine::SetupSystems()
+{
+
     // add the systems
     std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
     DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
@@ -93,6 +101,7 @@ void DuckEngine::Initialize(bool _isEditor)
 
     // Update Collision System
     // Circle Collider System
+
     std::shared_ptr<System> circleColliderSystem = std::make_shared<CircleColliderSystem>();
     DUCKENGINE_SystemManager.AddSystem(circleColliderSystem);
 
@@ -109,6 +118,9 @@ void DuckEngine::Initialize(bool _isEditor)
     std::shared_ptr<System> soundSystem = std::make_shared<SoundSystem>();
     DUCKENGINE_SystemManager.AddSystem(soundSystem);
 
+    std::shared_ptr<System> gameLogicSystem = std::make_shared<GameLogicSystem>();
+    DUCKENGINE_SystemManager.AddSystem(gameLogicSystem);
+
     //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
     //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
 
@@ -121,12 +133,11 @@ void DuckEngine::Initialize(bool _isEditor)
     auto buttonSystem = std::make_shared<ButtonSystem>();
     DUCKENGINE_SystemManager.AddSystem(buttonSystem);
 
+
     // start all systems
     DUCKENGINE_SystemManager.StartAll();
-
-    GraphicsManager::Start();
-
 }
+
 
 void DuckEngine::SetPlaying(bool playing)
 {
@@ -168,15 +179,15 @@ void DuckEngine::Update()
 
         CameraManager::Update();
 
-        DUCKENGINE_SystemManager.UpdateAll();
-
         if (isEditor && isPlaying)
         {
             DUCKENGINE_SceneManager.Update();
+            DUCKENGINE_SystemManager.UpdateAll();
         }
         else if (!isEditor)
         {
             DUCKENGINE_SceneManager.Update();
+            DUCKENGINE_SystemManager.UpdateAll();
         }
 
         TimeManager::EndManagerTimer("Systems Update");

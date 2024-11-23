@@ -31,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <unordered_set>
 #include <set>
 #include "GameManager.h"
+#include "MovementLogic.h"
 
 Entity* player;
 Entity* camera;
@@ -96,6 +97,11 @@ void SpriteMovementScene::Load()
 
 		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
+
+	auto* logicComponent = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<GameLogicComponent>(player->entityID, "MovementLogic");
+	auto movementLogic = std::make_shared<MovementLogic>(logicComponent, 10.0f);
+	GameLogicManager::AddLogic("MovementLogic", movementLogic);
+
 
 	//background entity
 	//Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
@@ -195,80 +201,7 @@ void SpriteMovementScene::Start()
 *************************************************************************/
 void SpriteMovementScene::Update()
 {
-	float moveSpeed = 10.0f;
-
-	// Reset the player's velocity at the start of each fixed update
-	playerRb->velocity = Vec2(0.f, 0.f);
-
-	// Store input state - don't directly modify velocity
-	Vector2D inputDirection(0.0f, 0.0f);
-
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
-	{
-		inputDirection.y += 1.0f;
-		playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
-	{
-		inputDirection.y -= 1.0f;
-		playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
-	{
-		inputDirection.x -= 1.0f;
-		playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
-	{
-		inputDirection.x += 1.0f;
-		playerAnimator->PlayAnimation("WalkAnimation");
-	}
-
-	// Normalize the input direction if it's not zero
-	if (inputDirection.x != 0.0f || inputDirection.y != 0.0f)
-	{
-		float length = std::sqrt(inputDirection.x * inputDirection.x + inputDirection.y * inputDirection.y);
-		inputDirection.x /= length;
-		inputDirection.y /= length;
-	}
-
-	// Set velocity based on normalized input
-	playerRb->velocity = inputDirection * moveSpeed;
-
 	inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
-	
-	if (playerRb->velocity.x == 0.0f && playerRb->velocity.y == 0.0f)
-	{
-		playerAnimator->PlayAnimation("IdleAnimation");
-	}
-
-	
-	//// Get the current positions of the player and the obstacle
-	//Vec2 playerPos = playerTransform->position;
-	//Vec2 obstaclePos = obstacleTransform->position;
-
-	//// Call A* to find the shortest path from the obstacle to the player
-	//std::vector<Vec2> path = AStarPathfinding(obstaclePos, playerPos);
-
-	//// Check if a valid path was found and that it contains at least two positions
-	//if (!path.empty() && path.size() > 1) {
-	//	Vec2 nextPosition = path[1]; // The next position for the obstacle to move toward
-
-	//	// Calculate the direction vector and normalize it
-	//	Vec2 direction = { nextPosition.x - obstaclePos.x, nextPosition.y - obstaclePos.y };
-	//	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y); // Distance to next position
-	//	if (length != 0) { // Prevent division by zero
-	//		direction.x /= length; // Normalize x-component
-	//		direction.y /= length; // Normalize y-component
-	//	}
-
-	//	// Set the obstacle's velocity towards the next position along the path
-	//	obstacleRb->velocity = { direction.x * moveSpeed, direction.y * moveSpeed };
-	//}
-	//else {
-	//	// If no valid path, stop the obstacle by setting its velocity to zero
-	//	obstacleRb->velocity = { 0.0f, 0.0f };
-	//}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -293,7 +226,7 @@ void SpriteMovementScene::Update()
 	RoamSelectedPrefab("DuckPrefab", positon1, position2);
 	// A direction for a time.
 	//RoamSelectedPrefab("DuckPrefab", positon1, 3.f);
-	
+
 }
 
 /************************************************************************

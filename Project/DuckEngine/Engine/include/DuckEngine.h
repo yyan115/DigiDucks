@@ -28,6 +28,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PrefabManager.h"
 #include "Serialization.h"
 #include "LevelManager.h"
+#include "GameLogicManager.h"
+#include "CameraManager.h"
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
@@ -57,6 +59,7 @@ public:
            resources for the game to run.
     *************************************************************************/
     void DUCKENGINE_API Initialize(bool _isEditor = false);
+    void DUCKENGINE_API SetupSystems();
 
     static void DUCKENGINE_API SetPlaying(bool playing);
     static bool DUCKENGINE_API IsPlaying();

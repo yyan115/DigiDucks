@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "CameraManager.h"
 #include "WindowManager.h"
+#include "TimeManager.h"
 
 
 // Initialize static member variables for camera position, height, and window aspect ratio
@@ -25,6 +26,9 @@ Vector2D CameraManager::previousPosition;
 int CameraManager::cameraHeight;
 float CameraManager::windowAspectRatio;
 int CameraManager::defaultCameraHeight;
+
+Vector2D CameraManager::targetCameraPosition = { 0.0f, 0.0f };
+float CameraManager::cameraLerpSpeed = 5.0f;
 
 /// <summary>
 /// Initializes the camera with a specified position and height. 
@@ -50,6 +54,11 @@ void CameraManager::SetPosition(const float x, const float y) {
 	CameraManager::position = { x, y };
 }
 
+void CameraManager::LerpCameraTo(const float posX, const float posY)
+{
+	targetCameraPosition = { posX, posY };
+}
+
 /// <summary>
 /// Sets the camera's height to the specified value, determining the vertical size of the camera's view.
 /// </summary>
@@ -64,6 +73,9 @@ void CameraManager::SetHeight(const int height) {
 /// </summary>
 void CameraManager::Update() {
 	previousPosition = position;
+
+	position.x += (targetCameraPosition.x - position.x) * cameraLerpSpeed * TimeManager::DT();
+	position.y += (targetCameraPosition.y - position.y) * cameraLerpSpeed * TimeManager::DT();
 }
 
 

@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <typeindex>
 #include <unordered_map>
 
+#include "GameLogic.h"
 #include "Component.h"
 #include "AnimatorComponent.h"
 #include "TransformComponent.h"
@@ -30,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Bounding.h"
 #include "Serialization.h"
 #include "SoundComponent.h"
+#include "GameLogicComponent.h"
 
 #include "TextComponent.h"
 #include "ButtonComponent.h"

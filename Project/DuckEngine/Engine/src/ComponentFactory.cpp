@@ -261,6 +261,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
         auto transformComponent = std::make_shared<TransformComponent>(position, scale);
 		transformComponent->angle = rotation;
         transformComponent->relativeToCamera = relativeToCamera;
+        transformComponent->previousPosition = transformComponent->position;
         return transformComponent;
     }
     else if (type == "SpriteRendererComponent")

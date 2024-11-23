@@ -148,6 +148,12 @@
     <ClCompile Include="..\src\imgui\ImSequencer.cpp">
       <Filter>src\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GameLogicManager.cpp">
+      <Filter>src\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameLogicSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -347,6 +353,18 @@
     </ClInclude>
     <ClInclude Include="..\include\imgui\ImZoomSlider.h">
       <Filter>include\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameLogicManager.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameLogic.h">
+      <Filter>include\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameLogicComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GameLogicSystem.h">
+      <Filter>include\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

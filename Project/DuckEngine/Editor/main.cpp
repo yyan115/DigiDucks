@@ -39,6 +39,8 @@ int main(void)
     SceneWindow::Initialize();
     uiManager.Initialize();
     EditorInputManager::Initialize();
+    
+    engine.SetupSystems();
 
     DUCKLOG_INFO("Engine initialized.");
 

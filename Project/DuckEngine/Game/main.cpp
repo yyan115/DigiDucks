@@ -10,7 +10,7 @@ int main(void)
 
     gManager.InitScenes();
     gManager.SetActiveScene("GameScene");
-
+    gManager.DuckEngine.SetupSystems();
 
     // load all assets before game loop starts
     AssetManager::LoadAll();

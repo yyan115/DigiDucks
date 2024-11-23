@@ -19,7 +19,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 void RigidbodySystem::Start()
 {
+    for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
+    {
+        RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 
+        // Ensure the entity has both RigidbodyComponent and TransformComponent
+        if (rigidbody && transform)
+        {
+            transform->previousPosition = transform->position;
+        }
+    }
 }
 
 /****************************************************************
