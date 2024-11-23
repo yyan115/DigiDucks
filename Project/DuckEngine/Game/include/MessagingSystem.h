@@ -14,7 +14,6 @@
 #pragma once
 
 #include "DuckEngine.h"
-#include "ResourcePath.h"
 
 #include <iostream>
 #include <string>

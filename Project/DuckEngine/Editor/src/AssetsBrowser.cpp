@@ -218,9 +218,16 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         ImGui::OpenPopup("Invalid File Error");
     }
 
-    if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+    // Center the error popup
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+
+    if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
         ImGui::TextWrapped("%s", errorMessage.c_str());
-        if (ImGui::Button("Close")) {
+        float windowWidth = ImGui::GetWindowSize().x;
+        float buttonWidth = 100.0f; // Adjust the button width if needed
+        ImGui::SetCursorPosX((windowWidth - buttonWidth) * 0.5f);
+        if (ImGui::Button("Close", ImVec2(buttonWidth, 0))) {
             showErrorPopup = false; // Reset the popup flag
             ImGui::CloseCurrentPopup();
         }

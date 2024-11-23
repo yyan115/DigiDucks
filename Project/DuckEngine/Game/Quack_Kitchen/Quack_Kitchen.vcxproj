@@ -206,7 +206,6 @@
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
     <ClInclude Include="..\include\MovementLogic.h" />
-    <ClInclude Include="..\include\ResourcePath.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
   </ItemGroup>

@@ -19,7 +19,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "SpriteMovementScene.h"
 #include "ImageLoader.h"
-#include "ResourcePath.h"
 #include "RoamingLogic.h"
 #include "MessagingSystem.h"
 #include <vector>

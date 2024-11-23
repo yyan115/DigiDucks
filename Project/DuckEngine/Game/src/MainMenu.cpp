@@ -4,7 +4,6 @@
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
-#include "ResourcePath.h"
 #include "RoamingLogic.h"
 #include "MessagingSystem.h"
 #include <random>
@@ -36,8 +35,6 @@ void MainMenu ::Load()
 	DuckEngine::EnableLogging(false);
 
 	DuckEngine::SetCameraHeight(20);
-
-	DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 }
 
 /// <summary>

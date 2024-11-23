@@ -22,7 +22,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <chrono>
 #include <map>
 #include "ImageLoader.h"
-#include "ResourcePath.h"
 
 // Global variables for timing
 std::chrono::time_point<std::chrono::steady_clock> lastSpawnTime = std::chrono::steady_clock::now();
@@ -47,7 +46,6 @@ void MaxLoadScene::Load()
 
     DuckEngine::SetCameraHeight(20);
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
     //for (int i = 0; i < 2500; i++)
     //{
     //    SpawnSquare();
@@ -105,15 +103,12 @@ void MaxLoadScene::SpawnSquare()
     float scaleY = randomScale(gen);
     float rotation = randomRotation(gen);
 
-    // Create a new square entity
-    Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_CRATE.c_str(), pos, {1.0f, 1.0f});
-
-    // Add transform component with randomized values
-    TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
-    
-    transform->position = pos;
-    transform->angle = rotation;
-    transform->scale = { scaleX, scaleY };
+    //// Add transform component with randomized values
+    //TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
+    //
+    //transform->position = pos;
+    //transform->angle = rotation;
+    //transform->scale = { scaleX, scaleY };
 }
 
 /// <summary>

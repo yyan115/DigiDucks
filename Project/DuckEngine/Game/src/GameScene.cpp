@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
-#include "ResourcePath.h"
 #include "RoamingLogic.h"
 #include "MessagingSystem.h"
 #include <random>
@@ -53,8 +52,6 @@ void GameScene::Load()
     DuckEngine::EnableLogging(false);
 
     DuckEngine::SetCameraHeight(20);
-
-    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(Resources::TEXTURE_CRATE.c_str());
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");

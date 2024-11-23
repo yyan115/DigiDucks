@@ -72,9 +72,6 @@
     <ClInclude Include="..\include\SpriteMovementScene.h">
       <Filter>include\Scenes\TestingScenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ResourcePath.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\GameManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
