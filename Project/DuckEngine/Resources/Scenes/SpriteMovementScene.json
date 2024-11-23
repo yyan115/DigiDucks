@@ -593,7 +593,7 @@
             "layer": "Gameplay",
             "position": {
                 "x": -14.221756935119629,
-                "y": -5.05490779876709
+                "y": 3.9170541763305664
             },
             "prefab": "CuttingTablePrefab"
         },
@@ -681,7 +681,7 @@
                     "properties": {
                         "position": {
                             "x": -700.0,
-                            "y": 400.0
+                            "y": 396.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,

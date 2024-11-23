@@ -95,17 +95,33 @@ void PrefabManager::LoadPrefabsFromDirectory(const std::string& directoryPath)
                 continue;
             }
 
-            if (!prefabData.contains("components"))
+            if (prefabData.contains("components"))
+            {
+                std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+                prefab->componentsData = prefabData["components"];
+
+                for (const auto& componentJson : prefab->componentsData)
+                {
+                    std::shared_ptr<Component> component = ComponentFactory::CreateComponentFromJson(componentJson);
+                    if (component)
+                    {
+                        prefab->AddComponent(component);
+
+                        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
+                        {
+                            prefab->texturePath = spriteRenderer->texturePath;
+                        }
+                    }
+                }
+
+                AddPrefab(prefabName, prefab);
+                std::cout << "Successfully loaded prefab: " << prefabName << std::endl;
+            }
+            else
             {
                 std::cerr << "Error: Missing 'components' key in prefab JSON: " << prefabName << std::endl;
                 continue;
             }
-
-            std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
-            prefab->componentsData = prefabData["components"];
-            AddPrefab(prefabName, prefab);
-
-            std::cout << "Successfully loaded prefab: " << prefabName << std::endl;
         }
     }
 

@@ -257,6 +257,10 @@
             "size" :{
               "x": 0.5,
               "y": 0.5
+            },
+            "offset":{
+              "x": 1.0,
+              "y": 0.0
             }
           },
           "type": "BoundingBox"
