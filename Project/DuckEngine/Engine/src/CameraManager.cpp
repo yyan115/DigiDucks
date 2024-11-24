@@ -94,6 +94,8 @@ void CameraManager::MoveCamera(float deltaX, float deltaY)
 {
 	position.x -= deltaX;
 	position.y -= deltaY;
+
+	targetCameraPosition = position;
 }
 
 void CameraManager::ResetToDefault()
