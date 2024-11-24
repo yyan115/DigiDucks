@@ -59,6 +59,14 @@ void SystemManager::UpdateAll()
     }
 }
 
+void SystemManager::FixedUpdateAll()
+{
+    for (std::shared_ptr<System>& system : systems)
+    {
+        system->FixedUpdate();
+    }
+}
+
 void SystemManager::RenderAll()
 {
     for (std::shared_ptr<System>& system : systems)

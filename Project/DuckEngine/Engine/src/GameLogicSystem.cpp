@@ -42,3 +42,22 @@ void GameLogicSystem::Update()
         }
     }
 }
+
+void GameLogicSystem::FixedUpdate()
+{
+    auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
+
+    for (auto& [entityID, component] : components)
+    {
+        auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
+
+        for (const auto& logicName : logicComponent->logicNames)
+        {
+            auto logic = GameLogicManager::GetLogic(logicName);
+            if (logic)
+            {
+                logic->FixedUpdate();
+            }
+        }
+    }
+}

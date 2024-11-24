@@ -31,5 +31,6 @@ class DUCKENGINE_API RigidbodySystem : public System
 public:
 	void Start() override;
 	void Update() override;
+	void FixedUpdate() override;
 	
 };

@@ -173,37 +173,33 @@ void DuckEngine::Update()
     accumulatedTime += frameTime;
     currentSteps = 0;
 
+    CameraManager::Update();
+
+    if (isEditor && isPlaying || !isEditor)
+    {
+        if (startUp)
+        {
+            DUCKENGINE_SystemManager.StartAll();
+            startUp = false;
+        }
+        DUCKENGINE_SceneManager.Update();
+        DUCKENGINE_SystemManager.UpdateAll();
+    }
+    else
+    {
+        startUp = true;
+    }
+
     // Update in fixed timesteps
     while (accumulatedTime >= FIXED_TIMESTEP)
     {
         // Fixed update step
         TimeManager::StartManagerTimer("Systems Update");
 
-        CameraManager::Update();
 
-        if (isEditor && isPlaying)
+        if (isEditor && isPlaying || !isEditor)
         {
-            if (startUp)
-            {
-                DUCKENGINE_SystemManager.StartAll();
-                startUp = false;
-            }
-            DUCKENGINE_SceneManager.Update();
-            DUCKENGINE_SystemManager.UpdateAll();
-        }
-        else if (!isEditor)
-        {
-            if (startUp)
-            {
-                DUCKENGINE_SystemManager.StartAll();
-                startUp = false;
-            }
-            DUCKENGINE_SceneManager.Update();
-            DUCKENGINE_SystemManager.UpdateAll();
-        }
-        else
-        {
-            startUp = true;
+            DUCKENGINE_SystemManager.FixedUpdateAll();
         }
 
         TimeManager::EndManagerTimer("Systems Update");

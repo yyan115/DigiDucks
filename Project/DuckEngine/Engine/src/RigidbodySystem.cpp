@@ -32,6 +32,11 @@ void RigidbodySystem::Start()
     }
 }
 
+void RigidbodySystem::Update()
+{
+
+}
+
 /****************************************************************
 * @brief Updates the Rigidbody system each frame
 *
@@ -42,7 +47,7 @@ void RigidbodySystem::Start()
 *
 * @return void
 ****************************************************************/
-void RigidbodySystem::Update()
+void RigidbodySystem::FixedUpdate()
 {
     // Get deltaTime (elapsed time between frames)
     float deltaTime = DuckEngine::DeltaTime();

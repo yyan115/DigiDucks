@@ -13,6 +13,11 @@ void MovementLogic::Start()
 
 void MovementLogic::Update()
 {
+	
+}
+
+void MovementLogic::FixedUpdate()
+{
 	if (!transform || !rigidbody || !animator)
 	{
 		return;
