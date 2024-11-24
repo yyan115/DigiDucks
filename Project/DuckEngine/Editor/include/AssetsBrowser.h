@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #include <string>
+#include "GraphicsManager.h"
 
 class AssetsBrowser {
 public:
@@ -23,6 +24,7 @@ public:
     * @return void
     ***************************************************************/
     static void ShowAssets();
+    static void HandleFileDrop(GLFWwindow* window, int count, const char** paths);
 private:
     /****************************************************************
 	* @brief Renders the directory tree in the left pane
@@ -53,6 +55,7 @@ private:
     ***************************************************************/
     static void ReplaceAsset(const std::string& oldPath, const std::string& newPath);
 
+    
     static std::string selectedFolderPath;
     static std::string selectedFolderName;
 };

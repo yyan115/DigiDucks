@@ -30,6 +30,9 @@ namespace fs = std::filesystem;
 std::string AssetsBrowser::selectedFolderPath = "Resources/Scenes";
 std::string AssetsBrowser::selectedFolderName = "Scenes";
 
+static bool showErrorPopup = false;
+static std::string errorMessage = "";
+
 // Main function to display the assets explorer UI
 void AssetsBrowser::ShowAssets() {
     // Render the search bar at the top
@@ -108,8 +111,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     int itemIndex = 0;
 
     static std::string selectedAsset = "";
-    static bool showErrorPopup = false;
-    static std::string errorMessage = "";
 
     // Iterate over files in the selected folder
     for (const auto& entry : fs::recursive_directory_iterator(path)) {
@@ -190,7 +191,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             }
         }
         else if (selectedFolderName == "Scenes") {
-
+            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
         }
         else {
             // Non-texture files displayed as buttons
@@ -307,4 +308,45 @@ void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& 
     }
 
     std::cout << "Asset replaced successfully: " << oldPath << " with " << newPath << std::endl;
+}
+
+// Handle file drag/drop into the asset browser
+void AssetsBrowser::HandleFileDrop(GLFWwindow * window, int count, const char** paths) {
+    UNREFERENCED_PARAMETER(window);
+
+    for (int i = 0; i < count; ++i) {
+        std::string filePath = paths[i];
+        std::string extension = fs::path(filePath).extension().string();
+        std::string fileName = fs::path(filePath).filename().string();
+
+        // Validate if the file extension is allowed in the current folder
+        auto allowedExtensions = folderAllowedExtensions.find(selectedFolderName);
+        if (allowedExtensions != folderAllowedExtensions.end()) {
+            if (std::find(allowedExtensions->second.begin(), allowedExtensions->second.end(), extension) == allowedExtensions->second.end()) {
+                // Set the popup state and error message
+                showErrorPopup = true;
+                errorMessage = "Error: Unsupported file type '" + extension + "' for folder '" + selectedFolderName + "'.";
+                continue; // Skip this file
+            }
+        }
+
+        // Ensure the destination folder exists
+        std::string destinationPath = selectedFolderPath + "/" + fileName;
+        try {
+            fs::create_directories(selectedFolderPath);
+        }
+        catch (const fs::filesystem_error& e) {
+            std::cerr << "Failed to create directory: " << e.what() << std::endl;
+            continue;
+        }
+
+        // Copy the file to the destination folder
+        try {
+            fs::copy_file(filePath, destinationPath, fs::copy_options::overwrite_existing);
+            std::cout << "File added to: " << destinationPath << std::endl;
+        }
+        catch (const fs::filesystem_error& e) {
+            std::cerr << "Failed to copy file: " << e.what() << std::endl;
+        }
+    }
 }

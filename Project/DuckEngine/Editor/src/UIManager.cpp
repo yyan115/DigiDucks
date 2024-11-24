@@ -69,11 +69,7 @@ void UIManager::Initialize()
     //Initialize platform/renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 450");
-    glfwSetDropCallback(window, UIManager::FileDropCallback);
-    // Enable file drop callback in GLFW
-    //glfwSetDropCallback(window, TestDropCallback);
-    std::cout << "Drop callback set!" << std::endl;
-    std::cout << "GLFW Version: " << glfwGetVersionString() << std::endl;
+    glfwSetDropCallback(window, AssetsBrowser::HandleFileDrop);
 
     // font
     io.Fonts->Clear();
@@ -501,53 +497,6 @@ void UIManager::SaveScene(const std::string& sceneName)
         std::cout << "No changes to save." << std::endl;
     }
 }
-
-void UIManager::FileDropCallback(GLFWwindow* window, int count, const char** paths) {
-    UNREFERENCED_PARAMETER(window);
-    const std::string resourcesPath = "Resources/";
-
-    for (int i = 0; i < count; i++) {
-        std::string filePath = paths[i];
-        std::string extension = std::filesystem::path(filePath).extension().string();
-        std::string fileName = std::filesystem::path(filePath).filename().string();
-
-        // Determine the destination folder based on the file extension
-        std::string destinationFolder;
-        if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
-            destinationFolder = resourcesPath + "Sprites/";
-        }
-        else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
-            destinationFolder = resourcesPath + "Sounds/";
-        }
-        else if (extension == ".json") {
-            destinationFolder = resourcesPath + "Scenes/";
-        }
-        else {
-            std::cout << "Unsupported file type: " << extension << std::endl;
-            continue; // Skip unsupported files
-        }
-
-        // Ensure the destination folder exists
-        try {
-            std::filesystem::create_directories(destinationFolder);
-        }
-        catch (const std::filesystem::filesystem_error& e) {
-            std::cerr << "Failed to create directory: " << e.what() << std::endl;
-            continue;
-        }
-
-        // Copy the file to the destination folder
-        std::string destinationPath = destinationFolder + fileName;
-        try {
-            std::filesystem::copy_file(filePath, destinationPath, std::filesystem::copy_options::overwrite_existing);
-            std::cout << "File moved to: " << destinationPath << std::endl;
-        }
-        catch (const std::filesystem::filesystem_error& e) {
-            std::cerr << "Failed to copy file: " << e.what() << std::endl;
-        }
-    }
-}
-
 
 void UIManager::CreateNewSceneDialog() {
     static char sceneName[128] = ""; // Buffer for scene name
