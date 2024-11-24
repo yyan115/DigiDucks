@@ -63,6 +63,8 @@ public:
 
     static void DUCKENGINE_API SetPlaying(bool playing);
     static bool DUCKENGINE_API IsPlaying();
+    static void DUCKENGINE_API SetPaused(bool paused);
+    static bool DUCKENGINE_API IsPaused();
 
     /************************************************************************
     @brief Updates the game engine by processing input, updating systems,

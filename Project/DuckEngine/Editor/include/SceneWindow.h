@@ -101,6 +101,7 @@ public:
 
 private:
     static bool isPlaying;
+    static bool isPaused;
     static int width;
     static int height;
     static bool inSceneFBO;

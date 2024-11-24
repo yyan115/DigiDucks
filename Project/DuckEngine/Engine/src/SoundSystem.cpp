@@ -57,7 +57,7 @@ void SoundSystem::PauseAllSounds() {
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
         SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
         if (soundComponent) {
-            //soundComponent.pause(true);  // pause each sound
+            soundComponent->Pause();
         }
     }
     std::cout << "All sounds paused." << std::endl;
@@ -67,7 +67,7 @@ void SoundSystem::ResumeAllSounds() {
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
         SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
         if (soundComponent) {
-            //soundComponent.pause(false);  //resume each sound
+            soundComponent->Resume();
         }
     }
     std::cout << "All sounds resumed." << std::endl;

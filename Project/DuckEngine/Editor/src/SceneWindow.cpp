@@ -28,6 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 
 bool SceneWindow::isPlaying = false;
+bool SceneWindow::isPaused = false;
 int SceneWindow::width = 0;
 int SceneWindow::height = 0;
 bool SceneWindow::inSceneFBO = false;
@@ -65,7 +66,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     ImGui::Begin("Scene Window");
 
     isPlaying = DuckEngine::IsPlaying();
-
+    isPaused = DuckEngine::IsPaused();
     if (ImGui::Button(isPlaying ? "Stop" : "Play"))
     {
         isPlaying = !isPlaying;
@@ -75,10 +76,32 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         {
             SoundSystem::StopAllSounds();
             GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+            DuckEngine::SetPaused(false);
         }
         else
         {
             CameraManager::ResetToDefault();
+            SoundSystem::ResumeAllSounds();
+            DuckEngine::SetPaused(false);
+        }
+    }
+
+    if (isPlaying)
+    {
+        ImGui::SameLine();
+        if (ImGui::Button(isPaused ? "Continue" : "Pause"))
+        {
+            isPaused = !isPaused;
+            DuckEngine::SetPaused(isPaused);
+
+            if (isPaused)
+            {
+                SoundSystem::PauseAllSounds();  // Pause all sounds
+            }
+            else
+            {
+                SoundSystem::ResumeAllSounds();  // Resume all sounds
+            }
         }
     }
 

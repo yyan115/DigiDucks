@@ -55,6 +55,7 @@ bool DuckEngine::showDebugDraw = false;
 
 bool DuckEngine::isEditor = false;
 bool isPlaying = false;
+bool isPaused = false;
 Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
 Vector2D DuckEngine::editorContentRegion;
@@ -144,11 +145,20 @@ void DuckEngine::SetupSystems()
 void DuckEngine::SetPlaying(bool playing)
 {
     isPlaying = playing;
+    if (!playing) isPaused = false;
 }
 
 bool DuckEngine::IsPlaying()
 {
     return isPlaying;
+}
+
+void DuckEngine::SetPaused(bool paused) {
+    isPaused = paused;
+}
+
+bool DuckEngine::IsPaused() {
+    return isPaused;
 }
 
 /************************************************************************
@@ -175,25 +185,27 @@ void DuckEngine::Update()
 
     CameraManager::Update();
 
-    if (isEditor && isPlaying || !isEditor)
+    if (!isPaused)
     {
-        DUCKENGINE_SceneManager.Update();
-        DUCKENGINE_SystemManager.UpdateAll();
+        if (isEditor && isPlaying || !isEditor)
+        {
+            DUCKENGINE_SceneManager.Update();
+            DUCKENGINE_SystemManager.UpdateAll();
+        }
     }
 
+    TimeManager::StartManagerTimer("Systems Update");
     // Update in fixed timesteps
     while (accumulatedTime >= FIXED_TIMESTEP)
     {
         // Fixed update step
-        TimeManager::StartManagerTimer("Systems Update");
-
-
-        if (isEditor && isPlaying || !isEditor)
-        {
-            DUCKENGINE_SystemManager.FixedUpdateAll();
-        }
-
-        TimeManager::EndManagerTimer("Systems Update");
+        if (!isPaused) {
+            if (isEditor && isPlaying || !isEditor)
+            {
+                DUCKENGINE_SceneManager.Update();
+                DUCKENGINE_SystemManager.FixedUpdateAll();
+            }
+        }  
 
         accumulatedTime -= FIXED_TIMESTEP;
         currentSteps++;
@@ -205,6 +217,8 @@ void DuckEngine::Update()
             break;
         }
     }
+        
+    TimeManager::EndManagerTimer("Systems Update");
 
     // Render at whatever FPS we can achieve
     TimeManager::StartManagerTimer("Font System");

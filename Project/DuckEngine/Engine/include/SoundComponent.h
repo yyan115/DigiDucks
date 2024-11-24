@@ -69,4 +69,18 @@ public:
     * @return void
     ***************************************************************/
     DUCKENGINE_API void Stop();
+
+    /****************************************************************
+    * @brief Pause the sound if it is playing
+    *
+    * @return void
+    ***************************************************************/
+    DUCKENGINE_API void Pause();
+
+    /****************************************************************
+    * @brief Resume the sound if it is not playing
+    *
+    * @return void
+    ***************************************************************/
+    DUCKENGINE_API void Resume();
 };

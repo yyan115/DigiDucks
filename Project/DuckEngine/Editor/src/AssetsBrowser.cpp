@@ -222,7 +222,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     ImVec2 center = ImGui::GetMainViewport()->GetCenter();
     ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 
-    if (ImGui::BeginPopupModal("Invalid File Error", NULL,  ImGuiWindowFlags_NoMove)) {
+    if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
         ImGui::TextWrapped("%s", errorMessage.c_str());
         float buttonWidth = ImGui::CalcTextSize("Close").x + ImGui::GetStyle().FramePadding.x * 2.0f;
         ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - buttonWidth); // Align to the right

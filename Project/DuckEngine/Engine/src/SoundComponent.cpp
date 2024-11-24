@@ -53,3 +53,25 @@ void SoundComponent::Stop() {
         channel = nullptr;
     }
 }
+
+// Pause the sound if it is playing
+void SoundComponent::Pause() {
+    if (channel) {
+        bool isPaused = false;
+        channel->getPaused(&isPaused);
+        if (!isPaused) {
+            channel->setPaused(true);
+        }
+    }
+}
+
+// Resume the sound if it is paused
+void SoundComponent::Resume() {
+    if (channel) {
+        bool isPaused = false;
+        channel->getPaused(&isPaused);
+        if (isPaused) {
+            channel->setPaused(false);
+        }
+    }
+}
