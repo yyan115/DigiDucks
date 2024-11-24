@@ -379,11 +379,99 @@ void GraphicsManager::DrawGizmo() {
         // Draw Y axis arrow (green)
         DrawArrow(position, Vector2D(0.0f, size), Color(0, 255, 0, 255), cameraViewMatrix);
 
+        // Draw scaling handles (yellow squares)
+        float scaleHandleSize = 0.2f * size;
+        DrawSquare(position + Vector2D(size, 0.0f), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // x-axis scale handle
+        DrawSquare(position + Vector2D(0.0f, size), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // y-axis scale handle
+
+        // Draw rotation gizmo (blue circle)
+        DrawCircle(position, size * 1.2f, Color(0, 0, 255, 255), true, cameraViewMatrix);
+
         // Re-enable depth testing if needed
         glEnable(GL_DEPTH_TEST);
 
         UnbindFBO();
     }
+}
+
+void GraphicsManager::DrawSquare(const Vector2D& center, float size, const Color& color, const glm::mat3x3& cameraViewMatrix) {
+    ShaderManager::GetShader("DebugShader")->Use();
+
+    // Set up vertex data for a square centered at (0,0) with size 1
+    float halfSize = 0.5f;
+    float squareVertices[] = {
+        -halfSize, -halfSize, 0.0f,
+         halfSize, -halfSize, 0.0f,
+         halfSize,  halfSize, 0.0f,
+        -halfSize,  halfSize, 0.0f
+    };
+
+    GLuint squareVAO, squareVBO;
+    glGenVertexArrays(1, &squareVAO);
+    glGenBuffers(1, &squareVBO);
+
+    glBindVertexArray(squareVAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, squareVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
+
+    // Position attribute (layout location = 0)
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Set the color
+    GLint uniformColorLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uColor");
+    glUniform4f(uniformColorLocation, color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f);
+
+    // Compute the transformation matrix
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(Vector2D(size, size), 0.0f, center);
+
+    glm::mat3x3 finalMatrix = cameraViewMatrix * modelToWorld;
+
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DebugShader")->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+    // Draw the square
+    glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+    // Cleanup
+    glBindVertexArray(0);
+    glDeleteBuffers(1, &squareVBO);
+    glDeleteVertexArrays(1, &squareVAO);
+
+    glUseProgram(0);
+}
+
+Vector2D GraphicsManager::ScreenToWorld(const Vector2D& screenPosition) {
+    // Convert screen space to NDC space [-1, 1]
+    float ndcX = (2.0f * screenPosition.x) / WindowManager::GetWindowWidth() - 1.0f;
+    float ndcY = 1.0f - (2.0f * screenPosition.y) / WindowManager::GetWindowHeight();
+
+    glm::vec3 ndcPos(ndcX, ndcY, 1.0f);
+
+    // Build the camera matrices
+    Vector2D cameraPosition = CameraManager::GetPosition();
+    float ar = CameraManager::GetAR();
+    float height = CameraManager::GetHeight();
+
+    glm::mat3x3 viewMatrix = glm::mat3x3{
+        glm::vec3(1.0f, 0, 0),
+        glm::vec3(0, 1.0f, 0),
+        glm::vec3(-cameraPosition.x, -cameraPosition.y, 1.0f)
+    };
+
+    glm::mat3x3 cameraToNDC = glm::mat3x3{
+        glm::vec3(2.0f / (ar * height), 0, 0),
+        glm::vec3(0, 2.0f / height, 0),
+        glm::vec3(0, 0, 1.0f)
+    };
+
+    glm::mat3x3 worldToNDC = cameraToNDC * viewMatrix;
+    glm::mat3x3 ndcToWorld = glm::inverse(worldToNDC);
+
+    glm::vec3 worldPos = ndcToWorld * ndcPos;
+
+    return Vector2D(worldPos.x, worldPos.y);
 }
 
 void GraphicsManager::DrawArrow(const Vector2D& start, const Vector2D& direction, const Color& color, const glm::mat3x3& cameraViewMatrix) {

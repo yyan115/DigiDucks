@@ -31,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "AssetsBrowser.h"
 #include "EditorTheme.h"
 #include "HierarchyList.h"
+#include "GizmoManager.h"
 
 #include <Windows.h>
 
@@ -101,6 +102,8 @@ void UIManager::StartRender()
 
 void UIManager::Render() 
 {
+    GizmoManager::Update();
+
     // Show the main menu bar
     ShowMenuBar();
 
@@ -114,15 +117,17 @@ void UIManager::Render()
     ShowHierarchy();
     ShowInspector();
 
-    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    if (transform)
-    {
-        GraphicsManager::gizmoData = { transform->GetPosition(), 3.f };
-        GraphicsManager::entityIsSelected = true;
-    }
-    else {
-        GraphicsManager::entityIsSelected = false;
-    }
+    //auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
+    //if (transform)
+    //{
+    //    GraphicsManager::gizmoData = { transform->GetPosition(), 3.f };
+    //    GraphicsManager::entityIsSelected = true;
+    //}
+    //else {
+    //    GraphicsManager::entityIsSelected = false;
+    //}
+
+    GizmoManager::Render();
 }
 
 void UIManager::EndRender()

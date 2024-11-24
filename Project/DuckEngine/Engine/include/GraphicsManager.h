@@ -149,6 +149,8 @@ public:
 
     DUCKENGINE_API static GizmoData gizmoData;
 
+    DUCKENGINE_API static Vector2D ScreenToWorld(const Vector2D& screenPosition);
+
 private:
 
     /// <summary>
@@ -292,4 +294,6 @@ private:
     static void DrawArrow(const Vector2D& start, const Vector2D& direction, const Color& color, const glm::mat3x3& cameraViewMatrix);
 
     static void DrawFilledTriangle(const Vector2D& p1, const Vector2D& p2, const Vector2D& p3, const Color& color, bool useCamera, const glm::mat3x3& cameraViewMatrix);
+
+    static void DrawSquare(const Vector2D& center, float size, const Color& color, const glm::mat3x3& cameraViewMatrix);
 };
