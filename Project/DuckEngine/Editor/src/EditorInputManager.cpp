@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "UIManager.h"
 #include "DuckEngine_Input.h"
 #include "HierarchyList.h"
+#include "SnapshotManager.h"
 
 float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
@@ -77,6 +78,8 @@ void EditorInputManager::Update()
     // Use InputManager to check for Delete key press
     if (UIManager::selectedEntityID != -1 && InputManager::IsKeyPressed(DuckEngine_Input::KEY_DEL))
     {
+        SnapshotManager::SaveUndoState();
+
         // Remove the entity from the scene
         DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(UIManager::selectedEntityID);
 
@@ -89,6 +92,17 @@ void EditorInputManager::Update()
     {
         Hierarchy::StartRenamingEntity(UIManager::selectedEntityID);
     }
+
+    if (InputManager::IsKeyDown(DuckEngine_Input::KEY_CTRL) && InputManager::IsKeyPressed('Z'))
+    {
+        SnapshotManager::Undo();
+    }
+
+    if (InputManager::IsKeyDown(DuckEngine_Input::KEY_CTRL) && InputManager::IsKeyPressed('Y'))
+    {
+        SnapshotManager::Redo();
+    }
+
 }
 
 /**************************************************************************

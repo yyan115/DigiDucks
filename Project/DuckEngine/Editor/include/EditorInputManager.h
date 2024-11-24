@@ -47,6 +47,7 @@ public:
 	@param enable True to enable dragging, false to disable.
 	**************************************************************************/
 	static void SetIsDragging(bool enable) { isDragging = enable; }
+	static bool GetIsDragging() { return isDragging; }
 
 private:
 	static bool isDragging;

@@ -47,5 +47,8 @@ public:
 	static void SaveEntityToJson(Entity* entity, json& gameObjectData);
 	static void OverwritePrefab(int entityID);
 
+	static nlohmann::json SerializeScene(const std::string& sceneName);
+	static void DeserializeScene(const std::string& sceneName, const nlohmann::json& sceneData);
+
 
 };

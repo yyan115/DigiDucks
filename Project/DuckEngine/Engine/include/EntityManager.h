@@ -67,6 +67,9 @@ class EntityManager
 
     DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
 
+    DUCKENGINE_API void RemoveAllEntities();
+
+
 private:
     int nextEntityID = 0;
 };

@@ -87,6 +87,19 @@ Entity* EntityManager::GetEntity(int entityID)
     return nullptr;
 }
 
-int EntityManager::GetEntitiesCount() {
+int EntityManager::GetEntitiesCount() 
+{
 	return static_cast<int>(entities.size());
+}
+
+void EntityManager::RemoveAllEntities()
+{
+    for (const auto& entity : entities)
+    {
+        DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entity.entityID);
+    }
+
+    entities.clear();
+
+    ResetEntityID();
 }

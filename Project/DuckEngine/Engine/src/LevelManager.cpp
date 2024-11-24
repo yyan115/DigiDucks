@@ -386,5 +386,24 @@ bool LevelManager::CreateNewScene(const std::string& sceneName) {
 	return true;
 }
 
+nlohmann::json LevelManager::SerializeScene(const std::string& sceneName)
+{
+	std::string scenePath = "Resources/Scenes/" + sceneName + ".json";
+	nlohmann::json sceneData = Serialization::LoadJsonFile(scenePath);
 
+	if (sceneData.empty())
+	{
+		std::cerr << "Error: Failed to serialize scene: " << sceneName << std::endl;
+	}
+
+	return sceneData;
+}
+
+void LevelManager::DeserializeScene(const std::string& sceneName, const nlohmann::json& sceneData)
+{
+	std::string scenePath = "Resources/Scenes/" + sceneName + ".json";
+	Serialization::SaveJsonFile(scenePath, sceneData);
+
+	LoadLevelEditor(scenePath);
+}
 

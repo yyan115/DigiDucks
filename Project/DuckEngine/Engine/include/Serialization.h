@@ -45,15 +45,21 @@ struct GameObjectData
 
 extern WindowInit W_init;
 
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 class Serialization {
 
 public:
 
 	static void InitJson(const std::string& filePath);
-	static json LoadJsonFile(const std::string& filePath);
+	static DUCKENGINE_API json LoadJsonFile(const std::string& filePath);
 	static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
 	static WindowInit GetWindowInit();
-	static void SaveJsonFile(const std::string& filePath, const nlohmann::json& data);
+	static DUCKENGINE_API void SaveJsonFile(const std::string& filePath, const nlohmann::json& data);
 
 private:
 	static json jsonData;

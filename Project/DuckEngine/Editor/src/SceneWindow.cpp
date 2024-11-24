@@ -26,6 +26,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "imgui.h"
 #include "SoundSystem.h"
 #include <iostream>
+#include "SnapshotManager.h"
 
 bool SceneWindow::isPlaying = false;
 bool SceneWindow::isPaused = false;
@@ -144,6 +145,8 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     {
         if (!entitiesUnderMouse.empty())
         {
+            SnapshotManager::SaveUndoState();
+
             selectedEntity = entitiesUnderMouse[0];
             currentEntityIndex = 0;
 
@@ -200,6 +203,10 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
     {
+        if (EditorInputManager::GetIsDragging())
+        {
+            SnapshotManager::SaveUndoState(); // Save state after dragging ends
+        }
         selectedEntity = nullptr;
         EditorInputManager::SetIsDragging(false);
     }
