@@ -25,7 +25,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/background.png",
                         "useColor": false
@@ -69,7 +69,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/bun_box.png",
                         "useColor": true
@@ -123,7 +123,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Empty.png",
                         "useColor": true
@@ -132,7 +132,9 @@
                 },
                 {
                     "properties": {
-                        "logicNames": []
+                        "logicNames": [
+                            "HoldingLogic"
+                        ]
                     },
                     "type": "GameLogicComponent"
                 }
@@ -164,7 +166,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/cheese_fridge.png",
                         "useColor": true
@@ -218,7 +220,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
@@ -272,7 +274,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/lettuce_box.png",
                         "useColor": true
@@ -326,7 +328,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/mushroom_box.png",
                         "useColor": true
@@ -380,7 +382,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Duck/duck_front1.png",
                         "useColor": true
@@ -415,6 +417,15 @@
                         "isStatic": false
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "MovementLogic",
+                            "PlayerLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -444,7 +455,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/shrimp_fridge.png",
                         "useColor": true
@@ -498,7 +509,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/steak_fridge.png",
                         "useColor": true
@@ -552,7 +563,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -606,7 +617,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -660,7 +671,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -714,7 +725,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -768,7 +779,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -822,7 +833,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -876,7 +887,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -930,7 +941,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -984,7 +995,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1038,7 +1049,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1092,7 +1103,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1146,7 +1157,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1200,7 +1211,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1254,7 +1265,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1302,7 +1313,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1356,7 +1367,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1410,7 +1421,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1464,7 +1475,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1518,7 +1529,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/tomato_box.png",
                         "useColor": true
@@ -1572,7 +1583,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/trash_bin.png",
                         "useColor": true
@@ -1626,7 +1637,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/trash_bin.png",
                         "useColor": true

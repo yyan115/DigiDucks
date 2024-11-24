@@ -17,9 +17,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "Bounding.h"
 #include <math.h>
-//#include <algorithm>
-//#include <iostream>
-//#include <vector>
 
 // Getters
 /****************************************************************
@@ -422,15 +419,15 @@ bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2&
 ****************************************************************/
 bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
 	// Calculate Next Position
-	Vec2 nextTL1 = box1.getTopL() + vel1 * deltaTime;
-	Vec2 nextTR1 = box1.getTopR() + vel1 * deltaTime;
-	Vec2 nextBR1 = box1.getBtmR() + vel1 * deltaTime;
-	Vec2 nextBL1 = box1.getBtmL() + vel1 * deltaTime;
+	Vec2 nextTL1 = box1.getTopL() + box1.getOffSet() + vel1 * deltaTime;
+	Vec2 nextTR1 = box1.getTopR() + box1.getOffSet() + vel1 * deltaTime;
+	Vec2 nextBR1 = box1.getBtmR() + box1.getOffSet() + vel1 * deltaTime;
+	Vec2 nextBL1 = box1.getBtmL() + box1.getOffSet() + vel1 * deltaTime;
 
-	Vec2 nextTL2 = box2.getTopL() + vel2 * deltaTime;
-	Vec2 nextTR2 = box2.getTopR() + vel2 * deltaTime;
-	Vec2 nextBR2 = box2.getBtmR() + vel2 * deltaTime;
-	Vec2 nextBL2 = box2.getBtmL() + vel2 * deltaTime;
+	Vec2 nextTL2 = box2.getTopL() + box2.getOffSet() + vel2 * deltaTime;
+	Vec2 nextTR2 = box2.getTopR() + box2.getOffSet() + vel2 * deltaTime;
+	Vec2 nextBR2 = box2.getBtmR() + box2.getOffSet() + vel2 * deltaTime;
+	Vec2 nextBL2 = box2.getBtmL() + box2.getOffSet() + vel2 * deltaTime;
 
 	std::vector<Vec2> axes;
 

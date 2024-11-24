@@ -44,7 +44,7 @@ void CircleColliderSystem::Update() {
 		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity->entityID);
 
-		if(!entityRb) continue;	// No rb = not moving
+		if(!entityRb || entityRb->isStatic) continue;	// No rb = not moving
 
 		// Update Collider to current position
 		entityCircle->setCenter(entityTrans->GetPosition());

@@ -27,23 +27,18 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 Entity* duck;
 TransformComponent* duckTrans;
-RigidbodyComponent* duckRb;
-AnimatorComponent* duckAnimator;
 SoundComponent* duckSound;
-BoundingCircle* duckCircleCollider;
-BoundingBox* duckBoxCollider;
-bool holdingObject = false;
-
-// Object infront of player
-Entity* frontObject;
-bool collision = false;
+//bool holdingObject = false;
+//
+//// Object infront of player
+//Entity* frontObject;
 
 // player's holding object
-Entity* carryObject;
-TransformComponent* carryTrans;
-RigidbodyComponent* carryRb;
-SpriteRendererComponent* carrySprite;
-Vec2 carryOffSet{ 0.f, 1.5f };
+//Entity* carryObject;
+//TransformComponent* carryTrans;
+//RigidbodyComponent* carryRb;
+//SpriteRendererComponent* carrySprite;
+//Vec2 carryOffSet{ 0.f, 1.5f };
 
 ////Test Messaging System
 //InputEventManager inputEventManager;
@@ -64,28 +59,12 @@ void GameScene::Load()
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
-	duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duck->entityID);
-	duckAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(duck->entityID);
-	duckCircleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
-	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
-	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
-	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
-		{
-			frontObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
-			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
-			{
-				std::cout << "R is pressed!\n";
-				playerInteraction();
-				holdingObject = !holdingObject;
-			}
-		});
-	
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 
-	carryObject = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Carry_Object");
-	carryTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(carryObject->entityID);
-	carryRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(carryObject->entityID);
-	carrySprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(carryObject->entityID);
+	//carryObject = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Carry_Object");
+	//carryTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(carryObject->entityID);
+	//carryRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(carryObject->entityID);
+	//carrySprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(carryObject->entityID);
 	
 }
 
@@ -105,58 +84,6 @@ void GameScene::Start()
 /// </summary>
 void GameScene::Update() 
 {	
-	float moveSpeed = 10.0f;
-
-	// Reset the player's velocity at the start of each fixed update
-	duckRb->velocity = Vec2(0.f, 0.f);
-
-	// Store input state - don't directly modify velocity
-	Vector2D inputDirection(0.0f, 0.0f);
-
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
-	{
-		inputDirection.y += 1.0f;
-		duckBoxCollider->setOffSet(0.f, 1.f);
-		//playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
-	{
-		inputDirection.y -= 1.0f;
-		duckBoxCollider->setOffSet(0.f, -1.f);
-		//playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
-	{
-		inputDirection.x -= 1.0f;
-		duckBoxCollider->setOffSet(-1.f, 0.f);
-		//playerAnimator->PlayAnimation("WalkAnimation");
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
-	{
-		inputDirection.x += 1.0f;
-		duckBoxCollider->setOffSet(1.f, 0.f);
-		//playerAnimator->PlayAnimation("WalkAnimation");
-	}
-
-	// Normalize the input direction if it's not zero
-	if (inputDirection.x != 0.0f || inputDirection.y != 0.0f)
-	{
-		float length = std::sqrt(inputDirection.x * inputDirection.x + inputDirection.y * inputDirection.y);
-		inputDirection.x /= length;
-		inputDirection.y /= length;
-	}
-
-	// Set velocity based on normalized input
-	duckRb->velocity = inputDirection * moveSpeed;
-
-	//inputEventManager.notifyScrollEvent(static_cast<int>(DuckEngine_Input::GetScrollOffsetY()));
-
-	if (duckRb->velocity.x == 0.0f && duckRb->velocity.y == 0.0f)
-	{
-		//playerAnimator->PlayAnimation("IdleAnimation");
-	}
-
-
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -171,13 +98,6 @@ void GameScene::Update()
 			soundComponent->Play();
 		}
 	}
-
-	// Set Carry Object to follow player
-	if (carryObject) {
-		carryTrans->SetPosition(duckTrans->GetPosition() + carryOffSet);
-	}
-
-	collision = false;
 }
 
 /// <summary>
@@ -226,37 +146,37 @@ void GameScene::Unload()
 
 void playerInteraction()
 {
-	if (holdingObject) {
-		if (frontObject->name == "Bun_Box") {
-			carrySprite->texture = AssetManager::GetTextureByName("bun");
-		}
-		else if (frontObject->name == "Cheese_Fridge") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("cheese");
-		}
-		else if (frontObject->name == "Lettuce_Box") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("lettuce");
-		}
-		else if (frontObject->name == "Mushroom_Box") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("mushroom");
-		}
-		else if (frontObject->name == "Shrimp_Fridge") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("shrimp");
-		}
-		else if (frontObject->name == "Steak_Fridge") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("steak");
-		}
-		else if (frontObject->name == "Tomato_Box") 
-		{
-			carrySprite->texture = AssetManager::GetTextureByName("tomato");
-		}
-	}
-	else {
-		carrySprite->texture = AssetManager::GetTextureByName("Empty");
-	}
+	//if (holdingObject) {
+	//	if (frontObject->name == "Bun_Box") {
+	//		carrySprite->texture = AssetManager::GetTextureByName("bun");
+	//	}
+	//	else if (frontObject->name == "Cheese_Fridge") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("cheese");
+	//	}
+	//	else if (frontObject->name == "Lettuce_Box") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("lettuce");
+	//	}
+	//	else if (frontObject->name == "Mushroom_Box") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("mushroom");
+	//	}
+	//	else if (frontObject->name == "Shrimp_Fridge") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("shrimp");
+	//	}
+	//	else if (frontObject->name == "Steak_Fridge") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("steak");
+	//	}
+	//	else if (frontObject->name == "Tomato_Box") 
+	//	{
+	//		carrySprite->texture = AssetManager::GetTextureByName("tomato");
+	//	}
+	//}
+	//else {
+	//	carrySprite->texture = AssetManager::GetTextureByName("Empty");
+	//}
 
 }

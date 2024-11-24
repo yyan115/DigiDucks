@@ -26,6 +26,12 @@
     <ClCompile Include="..\src\GameScene.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PlayerLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HoldingLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -88,6 +94,12 @@
       <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\MovementLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoldingLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PlayerLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>

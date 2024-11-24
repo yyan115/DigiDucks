@@ -2,8 +2,6 @@
 #include <iostream>
 #include <cmath>
 
-BoundingCircle* circleCollider;
-
 void MovementLogic::Start()
 {
 	// Initialize the components from the GameLogicComponent's owner entity
@@ -19,7 +17,7 @@ void MovementLogic::Update()
 
 void MovementLogic::FixedUpdate()
 {
-	if (!transform || !rigidbody || !animator)
+	if (!transform || !rigidbody)
 	{
 		return;
 	}
@@ -35,22 +33,34 @@ void MovementLogic::FixedUpdate()
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		inputDirection.y += 1.0f;
-		animator->PlayAnimation("WalkAnimation");
+		if (animator) 
+		{
+			animator->PlayAnimation("WalkAnimation");
+		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		inputDirection.y -= 1.0f;
-		animator->PlayAnimation("WalkAnimation");
+		if (animator)
+		{
+			animator->PlayAnimation("WalkAnimation");
+		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
 		inputDirection.x -= 1.0f;
-		animator->PlayAnimation("WalkAnimation");
+		if (animator)
+		{
+			animator->PlayAnimation("WalkAnimation");
+		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		inputDirection.x += 1.0f;
-		animator->PlayAnimation("WalkAnimation");
+		if (animator)
+		{
+			animator->PlayAnimation("WalkAnimation");
+		}
 	}
 
 	// Normalize the input direction if it's not zero
@@ -65,8 +75,11 @@ void MovementLogic::FixedUpdate()
 	rigidbody->velocity = inputDirection * moveSpeed;
 
 
-	if (rigidbody->velocity.x == 0.0f && rigidbody->velocity.y == 0.0f)
+	if (animator)
 	{
-		animator->PlayAnimation("IdleAnimation");
+		if (rigidbody->velocity.x == 0.0f && rigidbody->velocity.y == 0.0f)
+		{
+			animator->PlayAnimation("IdleAnimation");
+		}
 	}
 }

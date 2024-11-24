@@ -43,7 +43,7 @@ void BoxColliderSystem::Update()
 		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity->entityID);
 
-		if (!entityRb) continue;	// No rb = not moving
+		if (!entityRb || entityRb->isStatic) continue;	// No rb = not moving
 
 		// Update Collider to current position
 		entityBox->setCenter(entityTrans->GetPosition());
@@ -71,7 +71,10 @@ void BoxColliderSystem::Update()
 			{	
 				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity)) 
 				{
-					if (entity->name == "Player" || entity2->name == "Player") { continue; }
+					if (entity->name == "Player" || entity2->name == "Player") 
+					{ 
+						continue; 
+					}
 
 					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
@@ -80,7 +83,10 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity, entityRb2->velocity)) 
 				{
-					if (entity->name == "Player" || entity2->name == "Player") { continue; }
+					if (entity->name == "Player" || entity2->name == "Player")
+					{
+						continue;
+					}
 
 					// If there is a collision
 					if (entityRb2->isStatic)	// If the box is static
@@ -181,7 +187,11 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity)) 
 				{
-					if (entity->name == "Player") { continue; }
+					if (entity->name == "Player")
+					{
+						std::cout << "Player Collision\n";
+						continue;
+					}
 					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
@@ -189,7 +199,11 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity, entityRb2->velocity)) 
 				{
-					if (entity->name == "Player") { continue; }
+					if (entity->name == "Player")
+					{
+						std::cout << "Player Collision\n";
+						continue;
+					}
 
 					if (entityRb2->isStatic) {
 						entityRb->velocity = Vec2(0.0f, 0.0f);
