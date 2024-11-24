@@ -26,7 +26,10 @@ void Scene::Load() {}
 /**************************************************************************
 @brief Called at the start of the scene to initialize components or settings.
 **************************************************************************/
-void Scene::Start() {}
+void Scene::Start() 
+{
+    DuckEngine::DUCKENGINE_SystemManager.StartAll();
+}
 
 /**************************************************************************
 @brief Updates the scene every frame.

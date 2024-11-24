@@ -59,7 +59,6 @@ Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
 Vector2D DuckEngine::editorContentRegion;
 //TextRenderingSystem textRenderingSystem;
-bool startUp = false;
 
 double DuckEngine::accumulatedTime = 0.0;
 int DuckEngine::currentSteps = 0;
@@ -136,6 +135,7 @@ void DuckEngine::SetupSystems()
 
 
     // start all systems
+    DuckEngine::DUCKENGINE_SystemManager.StartAll();
 
     DuckEngine::DUCKENGINE_AssetManager.LoadAllSounds("Resources/Sounds");
 }
@@ -177,17 +177,8 @@ void DuckEngine::Update()
 
     if (isEditor && isPlaying || !isEditor)
     {
-        if (startUp)
-        {
-            DUCKENGINE_SystemManager.StartAll();
-            startUp = false;
-        }
         DUCKENGINE_SceneManager.Update();
         DUCKENGINE_SystemManager.UpdateAll();
-    }
-    else
-    {
-        startUp = true;
     }
 
     // Update in fixed timesteps

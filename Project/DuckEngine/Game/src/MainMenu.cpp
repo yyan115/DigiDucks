@@ -33,7 +33,6 @@ SoundComponent* duckSound1;
 void MainMenu ::Load()
 {
 	DuckEngine::EnableLogging(false);
-
 	DuckEngine::SetCameraHeight(20);
 }
 
@@ -43,8 +42,8 @@ void MainMenu ::Load()
 /// </summary>
 void MainMenu ::Start()
 {
-	
-		DuckEngine::showDebugDraw = false;
+	Scene::Start();
+	DuckEngine::showDebugDraw = false;
 }
 
 /// <summary>

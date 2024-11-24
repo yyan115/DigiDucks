@@ -57,7 +57,7 @@ void MaxLoadScene::Load()
 /// </summary>
 void MaxLoadScene::Start()
 {
-
+    Scene::Start();
 }
 
 /// <summary>

@@ -95,6 +95,7 @@ void GameScene::Load()
 /// </summary>
 void GameScene::Start() 
 {
+	Scene::Start();
 	DuckEngine::showDebugDraw = false;
 }
 

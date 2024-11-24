@@ -186,6 +186,7 @@ void SpriteMovementScene::Load()
 *************************************************************************/
 void SpriteMovementScene::Start()
 {
+	Scene::Start();
 	//DuckEngine_Sound::PlaySounds("TestSound");
 	DuckEngine::showDebugDraw = false;
 }

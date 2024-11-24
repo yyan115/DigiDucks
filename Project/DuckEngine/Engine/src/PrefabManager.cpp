@@ -61,7 +61,7 @@ const std::unordered_map<std::string, std::shared_ptr<Prefab>>& PrefabManager::G
 Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
-    
+	
 	if (prefab)
 	{
 		return prefab->Instantiate(newPosition);
@@ -76,60 +76,60 @@ Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPositi
 *************************************************************************/
 void PrefabManager::LoadPrefabsFromDirectory(const std::string& directoryPath)
 {
-    std::cout << "Loading prefabs from directory: " << directoryPath << std::endl;
+	std::filesystem::path absolutePath = std::filesystem::absolute(directoryPath);
+	std::cout << "Loading prefabs from directory: " << absolutePath << std::endl;
 
-    std::filesystem::path absolutePath = std::filesystem::absolute(directoryPath);
-    for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
-    {
-        if (entry.is_regular_file() && entry.path().extension() == ".json")
-        {
-            std::string prefabName = entry.path().stem().string();
-            std::string filePath = entry.path().string();
+	for (const auto& entry : std::filesystem::directory_iterator(directoryPath))
+	{
+		if (entry.is_regular_file() && entry.path().extension() == ".json")
+		{
+			std::string prefabName = entry.path().stem().string();
+			std::string filePath = entry.path().string();
 
-            std::cout << "Found prefab file: " << filePath << std::endl;
+			//std::cout << "Found prefab file: " << filePath << std::endl;
 
-            nlohmann::json prefabData = Serialization::LoadJsonFile(filePath.c_str());
-            if (prefabData.is_null())
-            {
-                std::cerr << "Error: Failed to parse JSON file: " << filePath << std::endl;
-                continue;
-            }
+			nlohmann::json prefabData = Serialization::LoadJsonFile(filePath.c_str());
+			if (prefabData.is_null())
+			{
+				std::cerr << "Error: Failed to parse JSON file: " << filePath << std::endl;
+				continue;
+			}
 
-            if (prefabData.contains("components"))
-            {
-                std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
-                prefab->componentsData = prefabData["components"];
+			if (prefabData.contains("components"))
+			{
+				std::shared_ptr<Prefab> prefab = std::make_shared<Prefab>(prefabName);
+				prefab->componentsData = prefabData["components"];
 
-                for (const auto& componentJson : prefab->componentsData)
-                {
-                    std::shared_ptr<Component> component = ComponentFactory::CreateComponentFromJson(componentJson);
-                    if (component)
-                    {
-                        prefab->AddComponent(component);
+				for (const auto& componentJson : prefab->componentsData)
+				{
+					std::shared_ptr<Component> component = ComponentFactory::CreateComponentFromJson(componentJson);
+					if (component)
+					{
+						prefab->AddComponent(component);
 
-                        if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
-                        {
-                            prefab->texturePath = spriteRenderer->texturePath;
-                        }
-                    }
-                }
+						if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
+						{
+							prefab->texturePath = spriteRenderer->texturePath;
+						}
+					}
+				}
 
-                AddPrefab(prefabName, prefab);
-                std::cout << "Successfully loaded prefab: " << prefabName << std::endl;
-            }
-            else
-            {
-                std::cerr << "Error: Missing 'components' key in prefab JSON: " << prefabName << std::endl;
-                continue;
-            }
-        }
-    }
+				AddPrefab(prefabName, prefab);
+				std::cout << "Successfully loaded prefab: " << prefabName << std::endl;
+			}
+			else
+			{
+				std::cerr << "Error: Missing 'components' key in prefab JSON: " << prefabName << std::endl;
+				continue;
+			}
+		}
+	}
 
-    std::cout << "Finished loading prefabs from directory: " << directoryPath << std::endl;
+	std::cout << "Finished loading prefabs from directory: " << directoryPath << std::endl;
 
-    std::cout << "Prefabs loaded into PrefabManager:" << std::endl;
-    for (const auto& [name, prefab] : prefabs)
-    {
-        std::cout << "  - " << name << std::endl;
-    }
+	std::cout << "Prefabs loaded into PrefabManager:" << std::endl;
+	for (const auto& [name, prefab] : prefabs)
+	{
+		std::cout << "  - " << name << std::endl;
+	}
 }
