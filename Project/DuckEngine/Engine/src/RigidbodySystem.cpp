@@ -27,7 +27,7 @@ void RigidbodySystem::Start()
         // Ensure the entity has both RigidbodyComponent and TransformComponent
         if (rigidbody && transform)
         {
-            transform->previousPosition = transform->position;
+            transform->previousPosition = transform->GetPosition();
         }
     }
 }
@@ -56,7 +56,7 @@ void RigidbodySystem::Update()
         // Ensure the entity has both RigidbodyComponent and TransformComponent
         if (rigidbody && transform)
         {
-            transform->previousPosition = transform->position;
+            transform->previousPosition = transform->GetPosition();
 
             // Skip if the rigidbody is static (not affected by physics)
             if (rigidbody->isStatic)
@@ -69,7 +69,7 @@ void RigidbodySystem::Update()
 
 
             // Update the position based on the velocity
-            transform->position += rigidbody->velocity * deltaTime;
+            transform->GetPosition() += rigidbody->velocity * deltaTime;
 
             // Reset acceleration for the next frame
             rigidbody->acceleration = Vec2(0.0f, 0.0f);

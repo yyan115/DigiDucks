@@ -149,7 +149,7 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 				if (transform && gameObjectData.contains("position")) 
 				{
-					transform->position = Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f });
+					transform->SetPosition(Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f }));
 				}
 
 				auto* layer = activeScene->GetLayer(layerName);
@@ -315,8 +315,8 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 
 		if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
 		{
-			gameObjectData["position"]["x"] = transform->position.x;
-			gameObjectData["position"]["y"] = transform->position.y;
+			gameObjectData["position"]["x"] = transform->GetPosition().x;
+			gameObjectData["position"]["y"] = transform->GetPosition().y;
 		}
 
 		std::cout << "Saved prefab entity: " << entity->prefabName << " with position ("

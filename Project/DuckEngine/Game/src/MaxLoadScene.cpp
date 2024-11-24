@@ -97,16 +97,25 @@ void MaxLoadScene::Unload()
 /// </summary>
 void MaxLoadScene::SpawnSquare() 
 {
-    // Generate random position, scale, rotation, and velocity
-    Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
-    float scaleX = randomScale(gen);
-    float scaleY = randomScale(gen);
-    float rotation = randomRotation(gen);
+    //// Generate random position, scale, rotation, and velocity
+    //Vec2 pos = Vec2(randomPosition(gen), randomPosition(gen));
+    //float scaleX = randomScale(gen);
+    //float scaleY = randomScale(gen);
+    //float rotation = randomRotation(gen);
+
+    ////// Add transform component with randomized values
+    ////TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
+    ////
+    ////transform->position = pos;
+    ////transform->angle = rotation;
+    ////transform->scale = { scaleX, scaleY };
+    //// Create a new square entity
+    //Entity* square = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(Resources::TEXTURE_CRATE.c_str(), pos, {1.0f, 1.0f});
 
     //// Add transform component with randomized values
     //TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(square->entityID);
     //
-    //transform->position = pos;
+    //transform->SetPosition(pos);
     //transform->angle = rotation;
     //transform->scale = { scaleX, scaleY };
 }
@@ -124,8 +133,8 @@ void MaxLoadScene::UpdateSquares(float deltaTime)
             // Update position based on velocity and deltaTime
             float velocityX = randomVelocity(gen);
             float velocityY = randomVelocity(gen);
-            transform->position.x += velocityX * deltaTime;   // velocity.first is velocityX
-            transform->position.y += velocityY * deltaTime;  // velocity.second is velocityY
+            transform->GetPosition().x += velocityX * deltaTime;   // velocity.first is velocityX
+            transform->GetPosition().y += velocityY * deltaTime;  // velocity.second is velocityY
         }
     }
 }

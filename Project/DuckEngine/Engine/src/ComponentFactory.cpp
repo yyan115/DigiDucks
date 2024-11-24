@@ -105,8 +105,8 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		transformData["type"] = "TransformComponent";
 		transformData["properties"]["position"] =
 		{
-			{"x", transform->position.x},
-			{"y", transform->position.y}
+			{"x", transform->GetPosition().x},
+			{"y", transform->GetPosition().y}
 		};
 		transformData["properties"]["scale"] =
 		{
@@ -283,7 +283,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		auto transformComponent = std::make_shared<TransformComponent>(position, scale);
 		transformComponent->angle = rotation;
 		transformComponent->relativeToCamera = relativeToCamera;
-		transformComponent->previousPosition = transformComponent->position;
+		transformComponent->previousPosition = transformComponent->GetPosition();
 		return transformComponent;
 	}
 	else if (type == "SpriteRendererComponent")

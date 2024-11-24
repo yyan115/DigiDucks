@@ -22,8 +22,8 @@ namespace {
 	void DrawDebug(TransformComponent* transform, SpriteRendererComponent* spriteRenderer) {
 		// Calculate the rectangle bounds
 		Vector2D halfSize = transform->scale * 0.5f; // Using scale to determine half dimensions
-		Vector2D min = transform->position - halfSize; // Bottom-left corner
-		Vector2D max = transform->position + halfSize; // Top-right corner
+		Vector2D min = transform->GetPosition() - halfSize; // Bottom-left corner
+		Vector2D max = transform->GetPosition() + halfSize; // Top-right corner
 
 		// Optionally apply rotation to corners if needed
 		// This step can vary based on how you want to handle rotation
@@ -124,7 +124,7 @@ void SpriteRendererSystem::Render()
 			{
 				if (!DuckEngine::IsPlaying())
 				{
-					transform->previousPosition = transform->position;
+					transform->previousPosition = transform->GetPosition();
 				}
 				RenderData data;
 				data.transform = transform;
@@ -150,21 +150,21 @@ void SpriteRendererSystem::Render()
 		if (data.transform->relativeToCamera)
 		{
 			// Skip interpolation if the position hasn't changed
-			if (data.transform->previousPosition == data.transform->position)
+			if (data.transform->previousPosition == data.transform->GetPosition())
 			{
-				drawOptions.translation = data.transform->position;
+				drawOptions.translation = data.transform->GetPosition();
 			}
 			else
 			{
 				// Interpolate position
 				Vector2D interpolatedPosition = data.transform->previousPosition +
-					(data.transform->position - data.transform->previousPosition) * alpha;
+					(data.transform->GetPosition() - data.transform->previousPosition) * alpha;
 				drawOptions.translation = interpolatedPosition;
 			}
 		}
 		else
 		{
-			drawOptions.translation = data.transform->position;
+			drawOptions.translation = data.transform->GetPosition();
 		}
 
 		drawOptions.scale = data.transform->scale;

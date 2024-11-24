@@ -46,7 +46,7 @@ void BoxColliderSystem::Update()
 		if (!entityRb) continue;	// No rb = not moving
 
 		// Update Collider to current position
-		entityBox->setCenter(entityTrans->position);
+		entityBox->setCenter(entityTrans->GetPosition());
 
 		/****************************************************************
 		* @brief Check collisions between this box and other boxes
@@ -269,7 +269,7 @@ void BoxColliderSystem::Update()
 
 		}
 
-		entityBox->setCenter(entityTrans->position+entityBox->getOffSet());
+		entityBox->setCenter(entityTrans->GetPosition() + entityBox->getOffSet());
 	}
 }
 

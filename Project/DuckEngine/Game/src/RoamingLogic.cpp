@@ -266,7 +266,7 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
     switch (state.state) {
     case Idle:
 		// Check if player is within range
-        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+        if (Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition()) < state.objectRange) { state.state = Chasing; }
 
         if (state.reachedPos) {
             if (state.timer >= state.waitTime) {
@@ -285,28 +285,28 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
 
     case Moving:
         // Check if player is within range
-        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+        if (Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition()) < state.objectRange) { state.state = Chasing; }
 
         if (state.firstToSecond) {
-            if (Vec2Dist(objTrf->position, secondPos) <= 0.1f) {
+            if (Vec2Dist(objTrf->GetPosition(), secondPos) <= 0.1f) {
                 state.reachedPos = true;
                 state.firstToSecond = false;
                 state.state = Idle;
             }
-            objRb->velocity = getSpeed(objTrf->position, secondPos, state.objectSpeed);
+            objRb->velocity = getSpeed(objTrf->GetPosition(), secondPos, state.objectSpeed);
         }
         else {
-            if (Vec2Dist(objTrf->position, firstPos) <= 0.1f) {
+            if (Vec2Dist(objTrf->GetPosition(), firstPos) <= 0.1f) {
                 state.reachedPos = true;
                 state.firstToSecond = true;
                 state.state = Idle;
             }
-            objRb->velocity = getSpeed(objTrf->position, firstPos, state.objectSpeed);
+            objRb->velocity = getSpeed(objTrf->GetPosition(), firstPos, state.objectSpeed);
         }
         break;
 
     case Chasing:
-        float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
+        float distFromPlayer = Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition());
         if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Idle; }
 
         // Check if object has a circle or box collider
@@ -326,7 +326,7 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
             }
         }
 
-        objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+        objRb->velocity = getSpeed(objTrf->GetPosition(), playerTrf->GetPosition(), state.objectSpeed);
 
         break;
     }
@@ -409,7 +409,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
     switch (state.state) {
     case Idle:
         // Check if player is within range
-        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+        if (Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition()) < state.objectRange) { state.state = Chasing; }
 
         if (state.reachedPos) {
             if (state.timer >= state.waitTime) {
@@ -428,7 +428,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
 
     case Moving:
         // Check if player is within range
-        if (Vec2Dist(objTrf->position, playerTrf->position) < state.objectRange) { state.state = Chasing; }
+        if (Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition()) < state.objectRange) { state.state = Chasing; }
 
         if (state.firstToSecond) {
             if (state.timer >= time) {
@@ -453,7 +453,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
         break;
 
     case Chasing:
-        float distFromPlayer = Vec2Dist(objTrf->position, playerTrf->position);
+        float distFromPlayer = Vec2Dist(objTrf->GetPosition(), playerTrf->GetPosition());
         if (distFromPlayer > (state.objectRange * 1.5f)) { state.state = Idle; }
 
         // Check if object has a circle or box collider
@@ -474,7 +474,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
         }
 
         
-        objRb->velocity = getSpeed(objTrf->position, playerTrf->position, state.objectSpeed);
+        objRb->velocity = getSpeed(objTrf->GetPosition(), playerTrf->GetPosition(), state.objectSpeed);
 
         
         

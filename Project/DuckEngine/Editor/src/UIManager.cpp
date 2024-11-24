@@ -121,7 +121,7 @@ void UIManager::Render()
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
     if (transform)
     {
-        GraphicsManager::gizmoData = { transform->position, 3.f };
+        GraphicsManager::gizmoData = { transform->GetPosition(), 3.f };
         GraphicsManager::entityIsSelected = true;
     }
     else {

@@ -150,7 +150,7 @@ void SpriteMovementScene::Load()
 	buttonTransform->scale = { buttonWidth, buttonHeight };
 
 	// Set Transform position as the center of the converted min and max positions
-	buttonTransform->position = (centeredMinPos + centeredMaxPos) / 2.0f;
+	buttonTransform->SetPosition((centeredMinPos + centeredMaxPos) / 2.0f);
 
 	buttonTransform->relativeToCamera = false;
 
@@ -201,7 +201,7 @@ void SpriteMovementScene::Update()
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
-	DuckEngine::SetCameraPosition(playerTransform->position.x, playerTransform->position.y);
+	DuckEngine::SetCameraPosition(playerTransform->GetPosition().x, playerTransform->GetPosition().y);
 
 	//DuckEngine::RenderText("TEST SCENE", { 20.f , DuckEngine::GetWindowHeight() - 200.f }, 1.f, { 255.f, 50.f, 100.f, 250.f });
 

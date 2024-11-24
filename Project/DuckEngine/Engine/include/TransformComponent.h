@@ -28,7 +28,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 class DUCKENGINE_API TransformComponent : public Component
 {
   public:
-	Vec2 position;
 	float angle;
 	Vec2 scale;
 	bool relativeToCamera;
@@ -96,6 +95,14 @@ class DUCKENGINE_API TransformComponent : public Component
 			position = newPos;
 		}
 	}
+
+	Vec2& GetPosition()
+	{
+		return position;
+	}
+
+private:
+	Vec2 position;
 
 
 };

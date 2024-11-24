@@ -25,17 +25,17 @@ void Gizmos::RenderGizmoForSelectedEntity(Entity* selectedEntity)
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
     if (!transform) return;
 
-    Vector2D entityScreenPos = SceneWindow::ConvertWorldToScreen(transform->position);
+    Vector2D entityScreenPos = SceneWindow::ConvertWorldToScreen(transform->GetPosition());
 
     if (DrawMoveHandle(entityScreenPos, { 1.0f, 0.0f }, ImVec4(1, 0, 0, 1))) // X Axis handle
     {
-        transform->position.x += ImGui::GetMouseDragDelta().x * SceneWindow::GetWorldScale().x;
+        transform->GetPosition().x += ImGui::GetMouseDragDelta().x * SceneWindow::GetWorldScale().x;
         ImGui::ResetMouseDragDelta();
     }
 
     if (DrawMoveHandle(entityScreenPos, { 0.0f, 1.0f }, ImVec4(0, 1, 0, 1))) // Y Axis handle
     {
-        transform->position.y -= ImGui::GetMouseDragDelta().y * SceneWindow::GetWorldScale().y;
+        transform->GetPosition().y -= ImGui::GetMouseDragDelta().y * SceneWindow::GetWorldScale().y;
         ImGui::ResetMouseDragDelta();
     }
 }

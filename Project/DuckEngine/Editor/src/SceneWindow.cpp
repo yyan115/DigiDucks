@@ -133,7 +133,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
             if (transform)
             {
-                initialEntityPos = transform->position;
+                initialEntityPos = transform->GetPosition();
             }
         }
         else
@@ -160,7 +160,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
             if (transform)
             {
-                initialEntityPos = transform->position;
+                initialEntityPos = transform->GetPosition();
             }
         }
     }
@@ -326,10 +326,10 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
     {
         auto* transform = std::static_pointer_cast<TransformComponent>(component).get();
 
-        float left = transform->position.x - transform->scale.x / 2;
-        float right = transform->position.x + transform->scale.x / 2;
-        float top = transform->position.y - transform->scale.y / 2;
-        float bottom = transform->position.y + transform->scale.y / 2;
+        float left = transform->GetPosition().x - transform->scale.x / 2;
+        float right = transform->GetPosition().x + transform->scale.x / 2;
+        float top = transform->GetPosition().y - transform->scale.y / 2;
+        float bottom = transform->GetPosition().y + transform->scale.y / 2;
 
         if (worldPos.x >= left && worldPos.x <= right &&
             worldPos.y >= top && worldPos.y <= bottom)

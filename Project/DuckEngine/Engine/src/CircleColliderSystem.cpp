@@ -47,7 +47,7 @@ void CircleColliderSystem::Update() {
 		if(!entityRb) continue;	// No rb = not moving
 
 		// Update Collider to current position
-		entityCircle->setCenter(entityTrans->position);
+		entityCircle->setCenter(entityTrans->GetPosition());
 
 		/****************************************************************
 		* @brief Check collisions between this circle and other circles
@@ -250,7 +250,7 @@ void CircleColliderSystem::Update() {
 			}
 		}
 		// Update Collider's position based on velocity
-		entityCircle->setCenter(entityTrans->position + entityCircle->getOffSet());
+		entityCircle->setCenter(entityTrans->GetPosition() + entityCircle->getOffSet());
 	}
 }
 
