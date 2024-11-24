@@ -44,6 +44,8 @@ class SceneManager {
         **************************************************************************/
         DUCKENGINE_API void SetActiveScene(const std::string& name);
 
+        DUCKENGINE_API void ReloadScene();
+
         /**************************************************************************
         @brief Updates the currently active scene.
         **************************************************************************/

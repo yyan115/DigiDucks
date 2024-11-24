@@ -33,6 +33,11 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
     scene->sceneName = name;
 }
 
+void SceneManager::ReloadScene()
+{
+    SetActiveScene(SceneManager::GetActiveSceneName());
+}
+
 /**************************************************************************
 @brief Sets the specified scene as active, unloading the previous scene and
        loading the new one.

@@ -612,6 +612,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 		if (ImGui::Button("Overwrite Prefab"))
 		{
 			LevelManager::OverwritePrefab(entityID);
+			LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+			DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
 			hasChanged = false; 
 		}
 	}

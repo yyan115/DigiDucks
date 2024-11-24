@@ -125,10 +125,16 @@
                         },
                         "layer": 0,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Ingredients/Empty.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": []
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"

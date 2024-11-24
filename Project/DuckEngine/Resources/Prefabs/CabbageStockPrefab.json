@@ -1,53 +1,50 @@
 {
-  "components": [
-    {
-      "properties": {
-        "position": {
-          "x": -5,
-          "y": 0
+    "components": [
+        {
+            "properties": {
+                "position": {
+                    "x": -6.041375160217285,
+                    "y": -0.8929424285888672
+                },
+                "relativeToCamera": true,
+                "rotation": 0.0,
+                "scale": {
+                    "x": 2.0,
+                    "y": 2.799999952316284
+                }
+            },
+            "type": "TransformComponent"
         },
-        "relativeToCamera": true,
-        "scale": {
-          "x": 2.0,
-          "y": 2.8
+        {
+            "properties": {
+                "color": {
+                    "a": 255.0,
+                    "b": 255.0,
+                    "g": 255.0,
+                    "r": 255.0
+                },
+                "sortingOrder": 0,
+                "sprite": true,
+                "texture": "Resources/Sprites/Stations/cabbage_stock.png",
+                "useColor": false
+            },
+            "type": "SpriteRendererComponent"
         },
-        "velocity": {
-          "x": 0,
-          "y": 0
+        {
+            "properties": {
+                "center": {
+                    "x": -5.0,
+                    "y": 0.0
+                },
+                "radius": 1.0
+            },
+            "type": "BoundingCircle"
+        },
+        {
+            "properties": {
+                "isStatic": false
+            },
+            "type": "RigidbodyComponent"
         }
-      },
-      "type": "TransformComponent"
-    },
-    {
-      "properties": {
-        "color": {
-          "a": 255,
-          "b": 255,
-          "g": 255,
-          "r": 255
-        },
-        "layer": 1,
-        "sprite": true,
-        "texture": "Resources/Sprites/Stations/cabbage_stock.png",
-        "useColor": false
-      },
-      "type": "SpriteRendererComponent"
-    },
-    {
-      "properties": {
-        "center": {
-          "x": -5.0,
-          "y": 0.0
-        },
-        "radius": 1.0
-      },
-      "type": "BoundingCircle"
-    },
-    {
-      "properties": {
-        "isStatic": false
-      },
-      "type": "RigidbodyComponent"
-    }
-  ]
+    ]
 }

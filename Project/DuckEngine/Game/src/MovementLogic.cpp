@@ -2,13 +2,14 @@
 #include <iostream>
 #include <cmath>
 
+BoundingCircle* circleCollider;
+
 void MovementLogic::Start()
 {
 	// Initialize the components from the GameLogicComponent's owner entity
 	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-
 }
 
 void MovementLogic::Update()
