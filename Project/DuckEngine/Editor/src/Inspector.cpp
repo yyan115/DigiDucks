@@ -55,6 +55,7 @@ void ComponentMenu(int entityID)
 		{
 			DuckEngine::DUCKENGINE_ComponentManager.RemoveComponent<ComponentName>(entityID);
 			ImGui::CloseCurrentPopup();
+			ImGui::EndPopup();
 			return;
 		}
 		ImGui::EndPopup();
@@ -591,6 +592,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 					hasChanged = true;
 				}
 			}
+
+			ComponentMenu<GameLogicComponent>(entityID);
 		}
 	}
 
