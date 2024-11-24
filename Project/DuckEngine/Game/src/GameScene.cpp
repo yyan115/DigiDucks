@@ -71,7 +71,7 @@ void GameScene::Load()
 	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 		{
 			frontObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
-			if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R))
+			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
 			{
 				playerInteraction();
 				holdingObject = !holdingObject;
@@ -224,18 +224,35 @@ void GameScene::Unload()
 void playerInteraction()
 {
 	if (holdingObject) {
-		if (frontObject->name == "Lettuce_Box") {
-			std::cout << "Player interacted with Lettuce_Box\n";
-			carrySprite->sprite = true;
-			carrySprite->useColor = true;
-			//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/lettuce_low.png");
+		if (frontObject->name == "Bun_Box") {
+			carrySprite->texture = AssetManager::GetTextureByName("bun_low");
+		}
+		else if (frontObject->name == "Cheese_Fridge") 
+		{
+			carrySprite->texture = AssetManager::GetTextureByName("cheese_low");
+		}
+		else if (frontObject->name == "Lettuce_Box") 
+		{
 			carrySprite->texture = AssetManager::GetTextureByName("lettuce_low");
+		}
+		else if (frontObject->name == "Mushroom_Box") 
+		{
+			carrySprite->texture = AssetManager::GetTextureByName("mushroom_low");
+		}
+		else if (frontObject->name == "Shrimp_Fridge") 
+		{
+			carrySprite->texture = AssetManager::GetTextureByName("shrimp_low");
+		}
+		else if (frontObject->name == "Steak_Fridge") 
+		{
+			carrySprite->texture = AssetManager::GetTextureByName("steak_low");
+		}
+		else if (frontObject->name == "Tomato_Box") 
+		{
+			carrySprite->texture = AssetManager::GetTextureByName("tomato_low");
 		}
 	}
 	else {
-		carrySprite->sprite = false;
-		carrySprite->useColor = false;
-		//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/board.png");
 		carrySprite->texture = AssetManager::GetTextureByName("board");
 	}
 
