@@ -9,7 +9,7 @@ int main(void)
     gManager.DuckEngine.Initialize();
 
     gManager.InitScenes();
-    gManager.SetActiveScene("SpriteMovementScene");
+    gManager.SetActiveScene("GameScene");
     gManager.DuckEngine.SetupSystems();
 
     // load all assets before game loop starts
