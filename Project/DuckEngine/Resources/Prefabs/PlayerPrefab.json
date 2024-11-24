@@ -3,8 +3,8 @@
         {
             "properties": {
                 "position": {
-                    "x": -2.7769999504089355,
-                    "y": 0.0
+                    "x": -1.7728158235549927,
+                    "y": 1.379309892654419
                 },
                 "relativeToCamera": true,
                 "rotation": 0.0,
@@ -23,7 +23,7 @@
                     "g": 255.0,
                     "r": 255.0
                 },
-                "layer": 1,
+                "sortingOrder": 1,
                 "sprite": true,
                 "texture": "Resources/characteridle.png",
                 "useColor": false

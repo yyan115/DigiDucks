@@ -278,6 +278,8 @@ void AssetManager::PreloadScenes(const std::string& directoryPath)
 
 nlohmann::json AssetManager::GetLevelData(const std::string& levelName)
 {
+	PrefabManager::LoadPrefabsFromDirectory("Resources/Prefabs");
+
 	std::string filePath = "Resources/Scenes/" + levelName + ".json";
 
 	if (std::filesystem::exists(filePath))
