@@ -102,8 +102,6 @@ void UIManager::StartRender()
 
 void UIManager::Render() 
 {
-    GizmoManager::Update();
-
     // Show the main menu bar
     ShowMenuBar();
 
@@ -126,8 +124,6 @@ void UIManager::Render()
     //else {
     //    GraphicsManager::entityIsSelected = false;
     //}
-
-    GizmoManager::Render();
 }
 
 void UIManager::EndRender()

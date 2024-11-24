@@ -143,6 +143,8 @@ public:
     /// </summary>
     DUCKENGINE_API static GLuint GetFBOTexture();
 
+    DUCKENGINE_API static int currentGizmo;
+
     DUCKENGINE_API static void DrawGizmo();
 
     DUCKENGINE_API static bool entityIsSelected;

@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "EditorInputManager.h"
 #include "TimeManager.h"
+#include "GizmoManager.h"
 
 static DuckEngine engine;
 static UIManager uiManager;
@@ -54,6 +55,8 @@ int main(void)
             
             if (!engine.isPaused) engine.Update();
 
+            GizmoManager::Update();
+
             engine.StartDraw();
             
             engine.Draw();
@@ -61,6 +64,8 @@ int main(void)
             uiManager.StartRender();
             
             uiManager.Render();
+
+            GizmoManager::Render();
 
             SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
             

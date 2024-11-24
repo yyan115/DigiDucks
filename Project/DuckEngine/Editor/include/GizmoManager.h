@@ -10,15 +10,21 @@
 /******************************************************************************/
 
 #pragma once
-
 #include "Vector2.h"
 #include "Color.h"
-#include "GraphicsManager.h"
-#include "InputManager.h"
-#include "DuckEngine.h"
+
+struct GizmoData;
+
+enum CurrentGizmo {
+    TRANSLATE = 1,
+    SCALE,
+    ROTATE
+};
 
 class GizmoManager {
 public:
+    static CurrentGizmo currentGizmo;
+
     static void Initialize();
     static void Update();
     static void Render();

@@ -1,14 +1,4 @@
-/******************************************************************************/
-/*!
-\file       GizmoManager.cpp
-\author     Your Name
-\brief      Implements the GizmoManager class responsible for handling gizmo interaction,
-            including drawing gizmos and processing user input for moving, scaling,
-            and rotating game objects.
-
-*/
-/******************************************************************************/
-
+#include "GraphicsManager.h"
 #include "GizmoManager.h"
 #include "CameraManager.h"
 #include "ComponentManager.h"
@@ -16,6 +6,7 @@
 #include "WindowManager.h"
 #include "InputManager.h"
 #include "DuckEngine.h"
+#include "DuckEngine_Input.h"
 #include "UIManager.h" // Include to access selectedEntityID
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
@@ -28,12 +19,26 @@ Vector2D GizmoManager::initialMouseWorldPosition;
 Vector2D GizmoManager::initialObjectPosition;
 Vector2D GizmoManager::initialScale;
 float GizmoManager::initialRotation = 0.0f;
+CurrentGizmo GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
 
 void GizmoManager::Initialize() {
     // Initialization code if needed
 }
 
 void GizmoManager::Update() {
+
+    if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_7)) {
+        GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
+    }
+    else if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_8)) {
+        GizmoManager::currentGizmo = CurrentGizmo::SCALE;
+    }
+    else if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_9)) {
+        GizmoManager::currentGizmo = CurrentGizmo::ROTATE;
+    }
+
+    GraphicsManager::currentGizmo = GizmoManager::currentGizmo;
+
     selectedEntityID = UIManager::selectedEntityID;
 
     if (selectedEntityID == -1)
@@ -58,7 +63,7 @@ void GizmoManager::Render() {
 
     GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
     GraphicsManager::entityIsSelected = true;
-    //GraphicsManager::DrawGizmo();
+    //GraphicsManager::DrawGizmo(currentGizmo);
 }
 
 void GizmoManager::SetSelectedEntity(int entityID) {
@@ -75,9 +80,10 @@ void GizmoManager::HandleGizmoInteraction() {
     double mouseY = InputManager::GetMouseY();
 
     // Convert to world space
-    Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(mouseX, mouseY));
+    Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
     if (InputManager::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
+        std::cout << "mouse pressed\n";
         // Check if mouse is over gizmo handle
         if (IsMouseOverGizmoHandle(mouseWorldPosition, GraphicsManager::gizmoData, activeGizmoHandle)) {
             isDraggingGizmo = true;
@@ -85,6 +91,8 @@ void GizmoManager::HandleGizmoInteraction() {
             initialObjectPosition = transform->GetPosition();
             initialScale = transform->scale;
             initialRotation = transform->angle;
+
+            std::cout << "mouse over gizmo handle\n";
         }
     }
 
@@ -92,6 +100,8 @@ void GizmoManager::HandleGizmoInteraction() {
         isDraggingGizmo = false;
         activeGizmoHandle = -1;
     }
+
+    std::cout << "gizmo handle: " << activeGizmoHandle << "\n";
 
     if (isDraggingGizmo && activeGizmoHandle != -1 && InputManager::IsMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
         Vector2D delta = mouseWorldPosition - initialMouseWorldPosition;
@@ -204,7 +214,7 @@ float GizmoManager::DistancePointToLineSegment(const Vector2D& point, const Vect
     }
 
     float t = ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / (dx * dx + dy * dy);
-    t = fmax(0, fmin(1, t));
+    t = static_cast<float>(fmax(0, fmin(1, t)));
 
     float closestX = lineStart.x + t * dx;
     float closestY = lineStart.y + t * dy;

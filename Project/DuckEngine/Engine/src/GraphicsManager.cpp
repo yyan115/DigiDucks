@@ -31,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "DuckEngine.h"
 #include "ShaderManager.h"
+#include "GizmoManager.h"
 
 
 
@@ -62,6 +63,8 @@ std::vector<DebugDrawCommand> GraphicsManager::circleCommands;
 
 bool GraphicsManager::entityIsSelected = 0;
 GizmoData GraphicsManager::gizmoData;
+
+int GraphicsManager::currentGizmo = 1;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -373,21 +376,32 @@ void GraphicsManager::DrawGizmo() {
         glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
         glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
 
-        // Draw X axis arrow (red)
-        DrawArrow(position, Vector2D(size, 0.0f), Color(255, 0, 0, 255), cameraViewMatrix);
+        if (currentGizmo == 1) {
+            // Draw X axis arrow (red)
+            DrawArrow(position, Vector2D(size, 0.0f), Color(255, 0, 0, 255), cameraViewMatrix);
+            // Draw Y axis arrow (green)
+            DrawArrow(position, Vector2D(0.0f, size), Color(0, 255, 0, 255), cameraViewMatrix);
+        }
+        else if (currentGizmo == 2) {
+            // Draw X axis line
+            Vector2D end = position + Vector2D(size, 0.0f);
+            DrawLine(position, end, 0.05f, Color(255, 0, 0, 255), true, cameraViewMatrix);
+            // Draw Y axis line
+            end = position + Vector2D(0.0f, size);
+            DrawLine(position, end, 0.05f, Color(0, 255, 0, 255), true, cameraViewMatrix);
 
-        // Draw Y axis arrow (green)
-        DrawArrow(position, Vector2D(0.0f, size), Color(0, 255, 0, 255), cameraViewMatrix);
+            float scaleHandleSize = 0.2f * size;
 
-        // Draw scaling handles (yellow squares)
-        float scaleHandleSize = 0.2f * size;
-        DrawSquare(position + Vector2D(size, 0.0f), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // x-axis scale handle
-        DrawSquare(position + Vector2D(0.0f, size), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // y-axis scale handle
+            // Draw scaling handles (yellow squares)
+            DrawSquare(position + Vector2D(size, 0.0f), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // x-axis scale handle
+            DrawSquare(position + Vector2D(0.0f, size), scaleHandleSize, Color(255, 255, 0, 255), cameraViewMatrix); // y-axis scale handle
+        }
+        else if (currentGizmo == 3) {
+            // Draw rotation gizmo (blue circle)
+            DrawCircle(position, size * 1.2f, Color(0, 0, 255, 255), true, cameraViewMatrix);
+        }
 
-        // Draw rotation gizmo (blue circle)
-        DrawCircle(position, size * 1.2f, Color(0, 0, 255, 255), true, cameraViewMatrix);
-
-        // Re-enable depth testing if needed
+        // Re-enable depth testing
         glEnable(GL_DEPTH_TEST);
 
         UnbindFBO();
