@@ -189,6 +189,24 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const st
 	return texturePtrs;
 }
 
+Texture AssetManager::GetTextureByName(const std::string& textureName) 
+{
+	for (const auto& [filePath, textures] : textureMap) 
+	{
+		std::string fileName = std::filesystem::path(filePath).filename().stem().string();
+		if (fileName == textureName) 
+		{
+			if (!textures.empty())
+			{
+				return *textures[0];
+			}
+		}
+	}
+	std::cerr << "Error: Texture with name '" << textureName << "' not found." << std::endl;
+	return Texture();
+}
+
+
 FMOD::System*& AssetManager::GetFMODSystem() {
 	return fmodSystem;
 }

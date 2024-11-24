@@ -54,6 +54,7 @@ public:
 	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
 	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
 	static DUCKENGINE_API const std::vector<std::string>& GetFontNames();
+	static DUCKENGINE_API Texture GetTextureByName(const std::string& textureName);
 
 
 	// unload all textures

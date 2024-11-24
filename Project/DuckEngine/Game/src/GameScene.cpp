@@ -84,6 +84,8 @@ void GameScene::Load()
 	carryTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(carryObject->entityID);
 	carryRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(carryObject->entityID);
 	carrySprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(carryObject->entityID);
+	
+	carrySprite->texture = AssetManager::GetTextureByName("board");
 
 }
 
@@ -227,13 +229,14 @@ void playerInteraction()
 			carrySprite->sprite = true;
 			carrySprite->useColor = true;
 			//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/lettuce_low.png");
+			carrySprite->texture = AssetManager::GetTextureByName("lettuce_low");
 		}
 	}
 	else {
 		carrySprite->sprite = false;
 		carrySprite->useColor = false;
 		//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/board.png");
-
+		carrySprite->texture = AssetManager::GetTextureByName("board");
 	}
 
 }
