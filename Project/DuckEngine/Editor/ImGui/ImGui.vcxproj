@@ -44,9 +44,9 @@
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
+    <ClCompile Include="..\src\SnapshotManager.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
     <ClCompile Include="..\src\UIManager.cpp" />
-    <ClCompile Include="..\src\SnapshotManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\DuckEngine\DuckEngine.vcxproj">
@@ -66,9 +66,9 @@
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
+    <ClInclude Include="..\include\SnapshotManager.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />
     <ClInclude Include="..\include\UIManager.h" />
-    <ClInclude Include="..\include\SnapshotManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

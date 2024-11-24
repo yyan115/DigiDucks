@@ -83,11 +83,10 @@
     <ClInclude Include="..\include\LoggerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
     <ClInclude Include="..\include\FileExtensions.h">
-=======
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\SnapshotManager.h">
->>>>>>> Stashed changes
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
