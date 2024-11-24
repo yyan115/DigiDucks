@@ -113,3 +113,11 @@ void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 
     std::cout << "Scene snapshot applied successfully." << std::endl;
 }
+
+void SnapshotManager::RemoveLatestUndoState()
+{
+    if (!undoStack.empty())
+    {
+        undoStack.pop();
+    }
+}

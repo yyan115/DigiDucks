@@ -35,7 +35,7 @@ int main(void)
 
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
-    GameManager::SetActiveScene("GameScene");
+    GameManager::SetActiveScene("SpriteMovementScene");
     SceneWindow::Initialize();
     uiManager.Initialize();
     EditorInputManager::Initialize();

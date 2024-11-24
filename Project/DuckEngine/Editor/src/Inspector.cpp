@@ -23,6 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundComponent.h"
 #include "DuckEngine.h"
 #include "GameManager.h"
+#include "SnapshotManager.h"
 
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
@@ -42,6 +43,9 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
 	"ButtonComponent",
 	"GameLogicComponent"
 };
+
+bool isEditing = false;
+
 
 template <typename ComponentName>
 void ComponentMenu(int entityID)
@@ -137,17 +141,38 @@ void InspectorRenderer::RenderComponents(int entityID)
 			if (ImGui::DragFloat2("##Position", &transform->GetPosition().x, 0.1f, -10000.0f, 10000.0f)) {
 				transform->SetPosition(transform->GetPosition());
 				hasChanged = true;
+				if (!isEditing)
+				{
+					SnapshotManager::SaveUndoState();
+					isEditing = true;
+				}
 			}
 
 			// Rotation
 			ImGui::Text("Rotation");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f)) 
+			{
+				hasChanged = true;
+				if (!isEditing)
+				{
+					SnapshotManager::SaveUndoState();
+					isEditing = true;
+				}
+			}
 
 			// Scale
 			ImGui::Text("Scale");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##Scale", &transform->scale.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##Scale", &transform->scale.x, 0.1f, 0.1f, 10000.0f))
+			{
+				hasChanged = true;
+				if (!isEditing)
+				{
+					SnapshotManager::SaveUndoState();
+					isEditing = true;
+				}
+			}
 
 		}
 	}
@@ -597,7 +622,11 @@ void InspectorRenderer::RenderComponents(int entityID)
 		}
 	}
 
-
+	if (isEditing && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+	{
+		//SnapshotManager::SaveUndoState(); 
+		isEditing = false;
+	}
    
 
 	// Display Save and Overwrite buttons if changes were detected

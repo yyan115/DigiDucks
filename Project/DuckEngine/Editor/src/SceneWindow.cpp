@@ -40,6 +40,8 @@ std::vector<Entity*> SceneWindow::entitiesUnderMouse;
 int SceneWindow::currentEntityIndex = -1;
 Vector2D SceneWindow::lastMousePos;
 
+Vector2D draggedEntityOriginalPos;
+
 /**************************************************************************
 @brief Initializes the scene window by setting up the FBO dimensions.
 **************************************************************************/
@@ -146,7 +148,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         if (!entitiesUnderMouse.empty())
         {
             SnapshotManager::SaveUndoState();
-
             selectedEntity = entitiesUnderMouse[0];
             currentEntityIndex = 0;
 
@@ -160,6 +161,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             if (transform)
             {
                 initialEntityPos = transform->GetPosition();
+                draggedEntityOriginalPos = initialEntityPos;
             }
         }
         else
@@ -203,10 +205,16 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
     {
-        if (EditorInputManager::GetIsDragging())
+        if (selectedEntity)
         {
-            SnapshotManager::SaveUndoState(); // Save state after dragging ends
+            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
+            if (transform && transform->GetPosition() == draggedEntityOriginalPos)
+            {
+                std::cout << "Object didn't moved! so dont save state" << std::endl;
+                SnapshotManager::RemoveLatestUndoState();
+            }
         }
+
         selectedEntity = nullptr;
         EditorInputManager::SetIsDragging(false);
     }

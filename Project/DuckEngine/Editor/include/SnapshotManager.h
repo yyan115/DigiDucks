@@ -6,16 +6,17 @@
 class SnapshotManager
 {
 public:
-    static void SaveUndoState();               // Save the current state of the scene
-    static void Undo();                        // Undo the last action
-    static void Redo();                        // Redo the previously undone action
-    static void ClearHistory();                // Clear all undo/redo states
+    static void SaveUndoState();           
+    static void Undo();                       
+    static void Redo();                       
+    static void ClearHistory();             
+    static void RemoveLatestUndoState();
 
 private:
-    static nlohmann::json TakeSceneSnapshot(); // Capture the current scene state
-    static void ApplySceneSnapshot(const nlohmann::json& snapshot); // Restore scene state
+    static nlohmann::json TakeSceneSnapshot();
+    static void ApplySceneSnapshot(const nlohmann::json& snapshot); 
 
-    static std::stack<nlohmann::json> undoStack; // Stores undo states
-    static std::stack<nlohmann::json> redoStack; // Stores redo states
-    static const size_t MAX_UNDO_STEPS = 20;     // Limit number of undo steps
+    static std::stack<nlohmann::json> undoStack; 
+    static std::stack<nlohmann::json> redoStack; 
+    static const size_t MAX_UNDO_STEPS = 20;   
 };
