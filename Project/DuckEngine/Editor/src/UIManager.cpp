@@ -114,16 +114,6 @@ void UIManager::Render()
     ShowExplorer();
     ShowHierarchy();
     ShowInspector();
-
-    //auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    //if (transform)
-    //{
-    //    GraphicsManager::gizmoData = { transform->GetPosition(), 3.f };
-    //    GraphicsManager::entityIsSelected = true;
-    //}
-    //else {
-    //    GraphicsManager::entityIsSelected = false;
-    //}
 }
 
 void UIManager::EndRender()

@@ -21,6 +21,8 @@ Vector2D GizmoManager::initialScale;
 float GizmoManager::initialRotation = 0.0f;
 CurrentGizmo GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
 
+static bool alreadyClicked = false;
+
 void GizmoManager::Initialize() {
     // Initialization code if needed
 }
@@ -38,32 +40,30 @@ void GizmoManager::Update() {
     }
 
     GraphicsManager::currentGizmo = GizmoManager::currentGizmo;
-
-    selectedEntityID = UIManager::selectedEntityID;
-
-    if (selectedEntityID == -1)
-        return;
-
-    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    if (!transform)
-        return;
-
-    HandleGizmoInteraction();
 }
 
 void GizmoManager::Render() {
+
+    //if (!alreadyClicked) {
+    //    if (selectedEntityID != -1) {
+    //        alreadyClicked = true;
+    //    }
+
+    //    selectedEntityID = UIManager::selectedEntityID;
+    //}
+
     selectedEntityID = UIManager::selectedEntityID;
 
-    if (selectedEntityID == -1)
-        return;
-
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    if (!transform)
-        return;
+    if (!transform) {
+        GraphicsManager::entityIsSelected = false;
+    }
+    else {
+        //HandleGizmoInteraction();
 
-    GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
-    GraphicsManager::entityIsSelected = true;
-    //GraphicsManager::DrawGizmo(currentGizmo);
+        GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
+        GraphicsManager::entityIsSelected = true;
+    }
 }
 
 void GizmoManager::SetSelectedEntity(int entityID) {
@@ -72,8 +72,6 @@ void GizmoManager::SetSelectedEntity(int entityID) {
 
 void GizmoManager::HandleGizmoInteraction() {
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    if (!transform)
-        return;
 
     // Get mouse position in screen space
     double mouseX = InputManager::GetMouseX();
@@ -82,9 +80,8 @@ void GizmoManager::HandleGizmoInteraction() {
     // Convert to world space
     Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
-    if (InputManager::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT)) {
-        std::cout << "mouse pressed\n";
-        // Check if mouse is over gizmo handle
+    if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+        // Check if mouse is over the currently active gizmo handle
         if (IsMouseOverGizmoHandle(mouseWorldPosition, GraphicsManager::gizmoData, activeGizmoHandle)) {
             isDraggingGizmo = true;
             initialMouseWorldPosition = mouseWorldPosition;
@@ -92,18 +89,16 @@ void GizmoManager::HandleGizmoInteraction() {
             initialScale = transform->scale;
             initialRotation = transform->angle;
 
-            std::cout << "mouse over gizmo handle\n";
+            std::cout << "Mouse over gizmo handle. Active handle: " << activeGizmoHandle << "\n";
         }
     }
 
-    if (InputManager::IsMouseButtonReleased(GLFW_MOUSE_BUTTON_LEFT)) {
+    if (DuckEngine_Input::IsMouseButtonReleased(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
         isDraggingGizmo = false;
         activeGizmoHandle = -1;
     }
 
-    std::cout << "gizmo handle: " << activeGizmoHandle << "\n";
-
-    if (isDraggingGizmo && activeGizmoHandle != -1 && InputManager::IsMouseButtonDown(GLFW_MOUSE_BUTTON_LEFT)) {
+    if (isDraggingGizmo && activeGizmoHandle != -1 && DuckEngine_Input::IsMouseButtonDown(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
         Vector2D delta = mouseWorldPosition - initialMouseWorldPosition;
 
         switch (activeGizmoHandle) {
@@ -135,6 +130,7 @@ void GizmoManager::HandleGizmoInteraction() {
             float angleDelta = glm::degrees(currentAngle - startAngle);
 
             transform->angle = initialRotation + angleDelta;
+            //std::cout << "angle: " << transform->angle << "\n";
             break;
         }
         default:
@@ -144,53 +140,63 @@ void GizmoManager::HandleGizmoInteraction() {
 }
 
 bool GizmoManager::IsMouseOverGizmoHandle(const Vector2D& mouseWorldPosition, const GizmoData& gizmoData, int& outHandleIndex) {
-    float handleThickness = 0.2f; // Adjust as needed
+    float handleThickness = 50.f; // Adjust as needed
 
-    // X-axis move handle (line)
-    Vector2D xStart = gizmoData.position;
-    Vector2D xEnd = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
-    if (IsPointNearLine(mouseWorldPosition, xStart, xEnd, handleThickness)) {
-        outHandleIndex = 0; // x-axis move handle
-        return true;
+    if (currentGizmo == CurrentGizmo::TRANSLATE) {
+        // X-axis move handle (line)
+        Vector2D xStart = gizmoData.position;
+        Vector2D xEnd = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
+        if (IsPointNearLine(mouseWorldPosition, xStart, xEnd, handleThickness)) {
+            outHandleIndex = 0; // x-axis move handle
+            return true;
+        }
+
+        // Y-axis move handle (line)
+        Vector2D yStart = gizmoData.position;
+        Vector2D yEnd = gizmoData.position + Vector2D(0.0f, gizmoData.size);
+        if (IsPointNearLine(mouseWorldPosition, yStart, yEnd, handleThickness)) {
+            outHandleIndex = 1; // y-axis move handle
+            return true;
+        }
     }
+    else if (currentGizmo == CurrentGizmo::SCALE) {
+        float scaleHandleSize = 50.f * gizmoData.size;
 
-    // Y-axis move handle (line)
-    Vector2D yStart = gizmoData.position;
-    Vector2D yEnd = gizmoData.position + Vector2D(0.0f, gizmoData.size);
-    if (IsPointNearLine(mouseWorldPosition, yStart, yEnd, handleThickness)) {
-        outHandleIndex = 1; // y-axis move handle
-        return true;
+        // X-axis scaling handle visualization
+        Vector2D scaleXHandlePosTEST = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
+        Vector2D scaleXHandleMin = scaleXHandlePosTEST - Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
+        Vector2D scaleXHandleMax = scaleXHandlePosTEST + Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
+
+        DuckEngine::DrawRectangle(scaleXHandleMin, scaleXHandleMax, 0.f, Color(255.f, 0.f, 0.f, 128.f), true);
+
+        // X-axis scaling handle
+        Vector2D scaleXHandlePos = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
+        if (IsPointInSquare(mouseWorldPosition, scaleXHandlePos, scaleHandleSize)) {
+            outHandleIndex = 2; // x-axis scale handle
+            return true;
+        }
+
+        // Y-axis scaling handle
+        Vector2D scaleYHandlePos = gizmoData.position + Vector2D(0.0f, gizmoData.size);
+        if (IsPointInSquare(mouseWorldPosition, scaleYHandlePos, scaleHandleSize)) {
+            outHandleIndex = 3; // y-axis scale handle
+            return true;
+        }
     }
+    else if (currentGizmo == CurrentGizmo::ROTATE) {
+        // Rotation handle (circle)
+        float rotationRadius = gizmoData.size * 1.2f;
+        float rotationHandleThickness = 50.f;
 
-    // Scaling handles (squares)
-    float scaleHandleSize = 0.2f * gizmoData.size;
+        // Calculate distance manually
+        float dx = mouseWorldPosition.x - gizmoData.position.x;
+        float dy = mouseWorldPosition.y - gizmoData.position.y;
+        float distanceToCenter = sqrt(dx * dx + dy * dy);
 
-    // X-axis scaling handle
-    Vector2D scaleXHandlePos = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
-    if (IsPointInSquare(mouseWorldPosition, scaleXHandlePos, scaleHandleSize)) {
-        outHandleIndex = 2; // x-axis scale handle
-        return true;
-    }
-
-    // Y-axis scaling handle
-    Vector2D scaleYHandlePos = gizmoData.position + Vector2D(0.0f, gizmoData.size);
-    if (IsPointInSquare(mouseWorldPosition, scaleYHandlePos, scaleHandleSize)) {
-        outHandleIndex = 3; // y-axis scale handle
-        return true;
-    }
-
-    // Rotation handle (circle)
-    float rotationRadius = gizmoData.size * 1.2f;
-    float rotationHandleThickness = 0.2f; // Adjust as needed
-
-    // Calculate distance manually
-    float dx = mouseWorldPosition.x - gizmoData.position.x;
-    float dy = mouseWorldPosition.y - gizmoData.position.y;
-    float distanceToCenter = sqrt(dx * dx + dy * dy);
-
-    if (fabs(distanceToCenter - rotationRadius) <= rotationHandleThickness) {
-        outHandleIndex = 4; // rotation handle
-        return true;
+        if (fabs(distanceToCenter - rotationRadius) <= rotationHandleThickness) {
+            outHandleIndex = 4; // rotation handle
+            return true;
+        }
     }
 
     return false;
