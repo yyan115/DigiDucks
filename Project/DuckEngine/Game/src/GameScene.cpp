@@ -36,6 +36,7 @@ bool holdingObject = false;
 
 // Object infront of player
 Entity* frontObject;
+bool collision = false;
 
 // player's holding object
 Entity* carryObject;
@@ -70,12 +71,8 @@ void GameScene::Load()
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
 	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 		{
+			collision = true;
 			frontObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
-			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
-			{
-				playerInteraction();
-				holdingObject = !holdingObject;
-			}
 		});
 	
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
@@ -176,6 +173,7 @@ void GameScene::Update()
 		carryTrans->SetPosition(duckTrans->GetPosition() + carryOffSet);
 	}
 
+	collision = false;
 }
 
 /// <summary>
@@ -193,6 +191,15 @@ void GameScene::PostUpdate()
 		if (duckSound) {
 			std::cout << "Sound stopped\n";
 			duckSound->Stop();
+		}
+	}
+
+	if (collision) {
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
+		{
+			std::cout << "R is pressed!\n";
+			playerInteraction();
+			holdingObject = !holdingObject;
 		}
 	}
 
