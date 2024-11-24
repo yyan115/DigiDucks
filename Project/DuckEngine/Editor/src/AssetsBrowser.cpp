@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "imgui.h"
 #include "DuckEngine.h"
 #include "LevelManager.h"
+#include "FileExtensions.h"
 
 #include <filesystem>
 #include <iostream>
@@ -93,13 +94,6 @@ std::string NormalizePath(const std::string& path) {
 // Render the assets in the right pane as a grid
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     if (!fs::exists(path)) return;
-
-    std::unordered_map<std::string, std::vector<std::string>> folderAllowedExtensions = {
-        {"Sprites", {".png", ".jpg", ".jpeg"}},
-        {"Sounds", {".ogg", ".mp3", ".wav"}},
-        {"Scripts", {".txt", ".json", ".lua"}},
-        // Add other folders and their extensions as needed
-    };
 
     auto allowedExtensions = folderAllowedExtensions.find(selectedFolderName);
 
@@ -194,6 +188,9 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
                 ImGui::Text("Drag %s", fileName.c_str());
                 ImGui::EndDragDropSource();
             }
+        }
+        else if (selectedFolderName == "Scenes") {
+
         }
         else {
             // Non-texture files displayed as buttons

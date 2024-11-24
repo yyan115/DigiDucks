@@ -80,5 +80,8 @@
     <ClInclude Include="..\include\LoggerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\FileExtensions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

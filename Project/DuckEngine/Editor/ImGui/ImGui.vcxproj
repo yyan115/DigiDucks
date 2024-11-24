@@ -59,6 +59,7 @@
     <ClInclude Include="..\include\AssetsBrowser.h" />
     <ClInclude Include="..\include\EditorInputManager.h" />
     <ClInclude Include="..\include\EditorTheme.h" />
+    <ClInclude Include="..\include\FileExtensions.h" />
     <ClInclude Include="..\include\Gizmos.h" />
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />

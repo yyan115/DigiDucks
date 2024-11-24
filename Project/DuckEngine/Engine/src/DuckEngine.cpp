@@ -55,7 +55,7 @@ bool DuckEngine::showDebugDraw = false;
 
 bool DuckEngine::isEditor = false;
 bool isPlaying = false;
-bool isPaused = false;
+bool DuckEngine::isPaused = false;
 Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
 Vector2D DuckEngine::editorContentRegion;
@@ -185,28 +185,23 @@ void DuckEngine::Update()
 
     CameraManager::Update();
 
-    if (!isPaused)
+    if (isEditor && isPlaying || !isEditor)
     {
-        if (isEditor && isPlaying || !isEditor)
-        {
-            DUCKENGINE_SceneManager.Update();
-            DUCKENGINE_SystemManager.UpdateAll();
-        }
+        DUCKENGINE_SceneManager.Update();
+        DUCKENGINE_SystemManager.UpdateAll();
     }
+  
 
     TimeManager::StartManagerTimer("Systems Update");
     // Update in fixed timesteps
     while (accumulatedTime >= FIXED_TIMESTEP)
     {
-        // Fixed update step
-        if (!isPaused) {
-            if (isEditor && isPlaying || !isEditor)
-            {
-                DUCKENGINE_SceneManager.Update();
-                DUCKENGINE_SystemManager.FixedUpdateAll();
-            }
-        }  
-
+        // Fixed update step    
+        if (isEditor && isPlaying || !isEditor)
+        {
+            DUCKENGINE_SystemManager.FixedUpdateAll();
+        }
+        
         accumulatedTime -= FIXED_TIMESTEP;
         currentSteps++;
 

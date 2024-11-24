@@ -51,9 +51,9 @@ int main(void)
             TimeManager::StartTotalTimer();  
             
             EditorInputManager::Update();
-
-            engine.Update();
             
+            if (!engine.isPaused) engine.Update();
+
             engine.StartDraw();
             
             engine.Draw();
