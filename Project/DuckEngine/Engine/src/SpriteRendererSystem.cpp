@@ -138,7 +138,11 @@ void SpriteRendererSystem::Render()
 
 	// Sort the render queue by layer order
 	std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
-		return a.layer < b.layer;
+		if (a.layer != b.layer)
+		{
+			return a.layer < b.layer;
+		}
+		return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
 		});
 
 	// Add entities to the graphics draw queue

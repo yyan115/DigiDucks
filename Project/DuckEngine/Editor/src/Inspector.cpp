@@ -178,9 +178,13 @@ void InspectorRenderer::RenderComponents(int entityID)
 				hasChanged = true;
 			}
 
-			ImGui::Text("Layer");
-			ImGui::SameLine(100);
-			if (ImGui::DragInt("##Layer", &spriteRenderer->layer, 1, 0, 1000)) hasChanged = true;
+			ImGui::Text("Sorting Order");
+			ImGui::SameLine(110);
+			ImGui::PushItemWidth(130);
+			if (ImGui::InputInt("##SortingOrder", &spriteRenderer->sortingOrder))
+			{
+				hasChanged = true;
+			}
 
 			// Display the current texture as a preview if it exists
 			if (!spriteRenderer->texturePath.empty()) {

@@ -124,7 +124,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		json spriteData;
 		spriteData["type"] = "SpriteRendererComponent";
 		spriteData["properties"]["sprite"] = spriteRenderer->sprite;
-		spriteData["properties"]["layer"] = spriteRenderer->layer;
+		spriteData["properties"]["sortingOrder"] = spriteRenderer->sortingOrder;
 		spriteData["properties"]["texture"] = spriteRenderer->GetFilePath();
 		spriteData["properties"]["useColor"] = spriteRenderer->useColor;
 		spriteData["properties"]["color"] =
@@ -289,7 +289,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 	else if (type == "SpriteRendererComponent")
 	{
 		bool sprite = componentJson["properties"].value("sprite", true);
-		int layer = componentJson["properties"].value("layer", 0);
+		int layer = componentJson["properties"].value("sortingOrder", 0);
 		std::string texturePath = componentJson["properties"].value("texture", "");
 		bool useColor = componentJson["properties"].value("useColor", false);
 

@@ -57,9 +57,9 @@ void playerInteraction();
 /// </summary>
 void GameScene::Load() 
 {
-    DuckEngine::EnableLogging(false);
+	DuckEngine::EnableLogging(false);
 
-    DuckEngine::SetCameraHeight(20);
+	DuckEngine::SetCameraHeight(20);
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
