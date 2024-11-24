@@ -26,7 +26,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 
 Entity* duck;
-TransformComponent* duckTrfm;
+TransformComponent* duckTrans;
 RigidbodyComponent* duckRb;
 AnimatorComponent* duckAnimator;
 SoundComponent* duckSound;
@@ -36,6 +36,13 @@ bool holdingObject = false;
 
 // Object infront of player
 Entity* frontObject;
+
+// player's holding object
+Entity* carryObject;
+TransformComponent* carryTrans;
+RigidbodyComponent* carryRb;
+SpriteRendererComponent* carrySprite;
+Vec2 carryOffSet{ 0.f, 1.5f };
 
 ////Test Messaging System
 //InputEventManager inputEventManager;
@@ -55,15 +62,11 @@ void GameScene::Load()
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
-	duckTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
+	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(duck->entityID);
 	duckAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(duck->entityID);
 	duckCircleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(duck->entityID);
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
-	//duckCircleCollider->SetCollisionCallback([](int otherEntityID)
-	//	{
-	//		std::cout << "Player collided with Entity ID: " << otherEntityID << std::endl;
-	//	});
 	duckBoxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(duck->entityID);
 	duckBoxCollider->SetCollisionCallback([](int otherEntityID)
 		{
@@ -77,8 +80,11 @@ void GameScene::Load()
 	
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 
+	carryObject = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Carry_Object");
+	carryTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(carryObject->entityID);
+	carryRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(carryObject->entityID);
+	carrySprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(carryObject->entityID);
 
-	//inputEventManager.addListener(&message);
 }
 
 /// <summary>
@@ -152,7 +158,7 @@ void GameScene::Update()
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
-	DuckEngine::SetCameraPosition(duckTrfm->GetPosition().x, duckTrfm->GetPosition().y);
+	DuckEngine::SetCameraPosition(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
 
 	// For each sound component, play the sound if it is set to play on start
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
@@ -161,6 +167,11 @@ void GameScene::Update()
 		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
 			soundComponent->Play();
 		}
+	}
+
+	// Set Carry Object to follow player
+	if (carryObject) {
+		carryTrans->SetPosition(duckTrans->GetPosition() + carryOffSet);
 	}
 
 }
@@ -213,7 +224,16 @@ void playerInteraction()
 	if (holdingObject) {
 		if (frontObject->name == "Lettuce_Box") {
 			std::cout << "Player interacted with Lettuce_Box\n";
+			carrySprite->sprite = true;
+			carrySprite->useColor = true;
+			//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/lettuce_low.png");
 		}
+	}
+	else {
+		carrySprite->sprite = false;
+		carrySprite->useColor = false;
+		//carrySprite->texture = *DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Sprites/Ingredient/board.png");
+
 	}
 
 }

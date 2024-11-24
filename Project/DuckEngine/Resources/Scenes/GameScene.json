@@ -36,7 +36,7 @@
                     "properties": {
                         "loop": false,
                         "playOnStart": true,
-                        "soundID": "Resources/Sounds/gameplay bgm.wav",
+                        "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
                         "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"
@@ -94,6 +94,41 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Carry_Object": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "layer": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"

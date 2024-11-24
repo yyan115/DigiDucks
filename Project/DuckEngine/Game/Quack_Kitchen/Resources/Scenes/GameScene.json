@@ -36,7 +36,7 @@
                     "properties": {
                         "loop": false,
                         "playOnStart": true,
-                        "soundID": "Resources/Sounds/gameplay bgm.wav",
+                        "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
                         "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"

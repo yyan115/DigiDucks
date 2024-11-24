@@ -20,11 +20,11 @@
     <ClCompile Include="..\src\MainMenu.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\GameScene.cpp">
-      <Filter>src\Scenes\TestingScenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\MovementLogic.cpp">
       <Filter>src\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameScene.cpp">
+      <Filter>src\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
