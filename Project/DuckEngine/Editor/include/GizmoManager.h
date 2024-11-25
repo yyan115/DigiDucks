@@ -25,6 +25,7 @@ class GizmoManager {
 public:
     static CurrentGizmo currentGizmo;
     static int activeGizmoHandle; // -1: none, 0: x-move, 1: y-move, 2: x-scale, 3: y-scale, 4: rotate
+    static bool isDraggingGizmo;
 
     static void Initialize();
     static void Update();
@@ -36,14 +37,10 @@ public:
 private:
     static int selectedEntityID;
 
-    static bool isDraggingGizmo;
     static Vector2D initialMouseWorldPosition;
     static Vector2D initialObjectPosition;
     static Vector2D initialScale;
     static float initialRotation;
 
     static void HandleGizmoInteraction();
-    static bool IsPointNearLine(const Vector2D& point, const Vector2D& lineStart, const Vector2D& lineEnd, float thickness);
-    static float DistancePointToLineSegment(const Vector2D& point, const Vector2D& lineStart, const Vector2D& lineEnd);
-    static bool IsPointInSquare(const Vector2D& point, const Vector2D& center, float size);
 };

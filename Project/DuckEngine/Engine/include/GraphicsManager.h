@@ -106,7 +106,7 @@ public:
     /// Adds a drawing command to the draw queue, which will be rendered during the next call to Render().
     /// </summary>
     /// <param name="drawOptions">A set of options specifying how the object should be drawn.</param>
-    static void AddToDrawQueue(const DrawOptions& drawOptions);
+    DUCKENGINE_API static void AddToDrawQueue(const DrawOptions& drawOptions);
 
     /// <summary>
     /// Adds a debugging draw command to the debug draw queue, which will be rendered in the next call to RenderDebug().

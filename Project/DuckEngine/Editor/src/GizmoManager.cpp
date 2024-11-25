@@ -10,6 +10,7 @@
 #include "UIManager.h" // Include to access selectedEntityID
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_inverse.hpp>
+#include "SceneWindow.h"
 
 // Initialize static member variables
 int GizmoManager::selectedEntityID = -1;
@@ -22,6 +23,9 @@ float GizmoManager::initialRotation = 0.0f;
 CurrentGizmo GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
 
 static bool alreadyClicked = false;
+
+DrawOptions xAxisLineArrow;       // X-axis line arrow
+DrawOptions yAxisLineArrow;       // Y-axis line arrow
 
 void GizmoManager::Initialize() {
     // Initialization code if needed
@@ -54,6 +58,15 @@ void GizmoManager::Render() {
         GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
         GraphicsManager::entityIsSelected = true;
 
+        if (currentGizmo == CurrentGizmo::TRANSLATE) {
+            GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+            GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+        }
+        else if (currentGizmo == CurrentGizmo::SCALE) {
+            GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+            GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+        }
+
         HandleGizmoInteraction();
     }
 }
@@ -65,12 +78,19 @@ void GizmoManager::SetSelectedEntity(int entityID) {
 void GizmoManager::HandleGizmoInteraction() {
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
 
-    // Get mouse position in screen space
-    double mouseX = InputManager::GetMouseX();
-    double mouseY = InputManager::GetMouseY();
+    Vector2D mouseWorldPosition = DuckEngine::editorMouseWorldPos;
 
-    // Convert to world space
-    Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+    DrawOptions drawoptionMousePos;
+
+    drawoptionMousePos.color = Color(255.f, 255.f, 255.f, 255.f); // Red color
+    drawoptionMousePos.relativeToCamera = true;
+    drawoptionMousePos.rotation = 0.f;
+    drawoptionMousePos.scale = 1.f; // Set thickness
+    drawoptionMousePos.useColor = true;
+    drawoptionMousePos.useTexture = false;
+    drawoptionMousePos.translation = mouseWorldPosition;
+
+    GraphicsManager::AddToDrawQueue(drawoptionMousePos);
 
     if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
         // Check if mouse is over the currently active gizmo handle
@@ -80,8 +100,9 @@ void GizmoManager::HandleGizmoInteraction() {
             initialObjectPosition = transform->GetPosition();
             initialScale = transform->scale;
             initialRotation = transform->angle;
-
-            std::cout << "Mouse over gizmo handle. Active handle: " << activeGizmoHandle << "\n";
+        }
+        else {
+            // DO NOTHING
         }
     }
 
@@ -132,54 +153,152 @@ void GizmoManager::HandleGizmoInteraction() {
 }
 
 bool GizmoManager::IsMouseOverGizmoHandle(const Vector2D& mouseWorldPosition, const GizmoData& gizmoData, int& outHandleIndex) {
-    float handleThickness = 50.f; // Adjust as needed
+
+    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
+    if (!transform) return false;
+
+    Vector2D transformSize = transform->scale; // Size of the game object
+
+    float THICKNESS = 1.5f; // Adjust thickness as needed
+    Vector2D halfTransformSize = transformSize * 0.5f;
+
+    //// Calculate half sizes of the transform
+    //float halfEntityWidth = transformSize.x * 0.5f;
+    //float halfEntityHeight = transformSize.y * 0.5f;
+
+    // NOTE: SCALE'S LENGTH IS 0.5F LONGER!!!!!
+
+    //// ------------------------------
+    //// X-Axis Translate Handle Rectangle
+    //// ------------------------------
+    //{
+    //    // Length of the protruding part
+    //    float xHandleLength = gizmoData.size - halfEntityWidth;
+    //    float halfXHandleLength = xHandleLength * 0.5f;
+
+    //    // Set scale (length and thickness)
+    //    xAxisLineArrow.scale = Vector2D(xHandleLength, THICKNESS);
+
+    //    // Set translation (center of the protruding part)
+    //    xAxisLineArrow.translation = gizmoData.position + Vector2D(halfEntityWidth + halfXHandleLength, 0.0f);
+
+    //    xAxisLineArrow.color = Color(255.f, 0.f, 0.f, 255.f); // Red color for X-axis
+    //    xAxisLineArrow.relativeToCamera = true;
+    //    xAxisLineArrow.rotation = 0.f; // No rotation needed
+    //    xAxisLineArrow.useColor = true;
+    //    xAxisLineArrow.useTexture = false;
+    //}
+
+    //// ------------------------------
+    //// Y-Axis Translate Handle Rectangle
+    //// ------------------------------
+    //{
+    //    // Length of the protruding part
+    //    float yHandleLength = gizmoData.size - halfEntityHeight;
+    //    float halfYHandleLength = yHandleLength * 0.5f;
+
+    //    // Set scale (thickness and length)
+    //    yAxisLineArrow.scale = Vector2D(THICKNESS, yHandleLength);
+
+    //    // Set translation (center of the protruding part)
+    //    yAxisLineArrow.translation = gizmoData.position + Vector2D(0.0f, halfEntityHeight + halfYHandleLength);
+
+    //    yAxisLineArrow.color = Color(0.f, 255.f, 0.f, 255.f); // Green color for Y-axis
+    //    yAxisLineArrow.relativeToCamera = true;
+    //    yAxisLineArrow.rotation = 0.f; // No rotation needed
+    //    yAxisLineArrow.useColor = true;
+    //    yAxisLineArrow.useTexture = false;
+    //}
+
 
     if (currentGizmo == CurrentGizmo::TRANSLATE) {
-        // X-axis move handle (line)
-        Vector2D xStart = gizmoData.position;
-        Vector2D xEnd = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
-        if (IsPointNearLine(mouseWorldPosition, xStart, xEnd, handleThickness)) {
-            outHandleIndex = 0; // x-axis move handle
-            return true;
+        // X-axis move handle (rectangle for protruding line)
+        {
+            Vector2D xStart = gizmoData.position + Vector2D(halfTransformSize.x, 0.0f); // Start at the edge of the object
+            Vector2D xEnd = gizmoData.position + Vector2D(gizmoData.size, 0.0f);       // End of the handle
+
+            // Define rectangle bounds
+            float halfThickness = THICKNESS / 2.0f;
+
+            float minX = xStart.x;
+            float maxX = xEnd.x;
+            float minY = xStart.y - halfThickness;
+            float maxY = xStart.y + halfThickness;
+
+            // Check if mouse is within rectangle
+            if (mouseWorldPosition.x >= minX && mouseWorldPosition.x <= maxX &&
+                mouseWorldPosition.y >= minY && mouseWorldPosition.y <= maxY) {
+                outHandleIndex = 0; // x-axis move handle
+                return true;
+            }
         }
 
-        // Y-axis move handle (line)
-        Vector2D yStart = gizmoData.position;
-        Vector2D yEnd = gizmoData.position + Vector2D(0.0f, gizmoData.size);
-        if (IsPointNearLine(mouseWorldPosition, yStart, yEnd, handleThickness)) {
-            outHandleIndex = 1; // y-axis move handle
-            return true;
+        // Y-axis move handle (rectangle for protruding line)
+        {
+            Vector2D yStart = gizmoData.position + Vector2D(0.0f, halfTransformSize.y); // Start at the edge of the object
+            Vector2D yEnd = gizmoData.position + Vector2D(0.0f, gizmoData.size);        // End of the handle
+
+            // Define rectangle bounds
+            float halfThickness = THICKNESS / 2.0f;
+
+            float minX = yStart.x - halfThickness;
+            float maxX = yStart.x + halfThickness;
+            float minY = yStart.y;
+            float maxY = yEnd.y;
+
+            // Check if mouse is within rectangle
+            if (mouseWorldPosition.x >= minX && mouseWorldPosition.x <= maxX &&
+                mouseWorldPosition.y >= minY && mouseWorldPosition.y <= maxY) {
+                outHandleIndex = 1; // y-axis move handle
+                return true;
+            }
         }
     }
     else if (currentGizmo == CurrentGizmo::SCALE) {
-        float scaleHandleSize = 50.f * gizmoData.size;
+        // X-axis scaling handle (rectangle for protruding line)
+        {
+            Vector2D xStart = gizmoData.position + Vector2D(halfTransformSize.x, 0.0f); // Start at the edge of the object
+            Vector2D xEnd = gizmoData.position + Vector2D(gizmoData.size + 0.5f, 0.0f);       // End of the handle
 
-        // X-axis scaling handle visualization
-        Vector2D scaleXHandlePosTEST = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
-        Vector2D scaleXHandleMin = scaleXHandlePosTEST - Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
-        Vector2D scaleXHandleMax = scaleXHandlePosTEST + Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
+            float halfThickness = THICKNESS / 2.0f;
 
-        DuckEngine::DrawRectangle({ 0, 0 }, {5000, 5000 }, 0.f, Color(255.f, 0.f, 0.f, 255.f), true);
-        std::cout << "rect drawn\n";
+            float minX = xStart.x;
+            float maxX = xEnd.x;
+            float minY = xStart.y - halfThickness;
+            float maxY = xStart.y + halfThickness;
 
-        // X-axis scaling handle
-        Vector2D scaleXHandlePos = gizmoData.position + Vector2D(gizmoData.size, 0.0f);
-        if (IsPointInSquare(mouseWorldPosition, scaleXHandlePos, scaleHandleSize)) {
-            outHandleIndex = 2; // x-axis scale handle
-            return true;
+            // Check if mouse is within rectangle
+            if (mouseWorldPosition.x >= minX && mouseWorldPosition.x <= maxX &&
+                mouseWorldPosition.y >= minY && mouseWorldPosition.y <= maxY) {
+                outHandleIndex = 2; // x-axis scale handle
+                return true;
+            }
         }
 
-        // Y-axis scaling handle
-        Vector2D scaleYHandlePos = gizmoData.position + Vector2D(0.0f, gizmoData.size);
-        if (IsPointInSquare(mouseWorldPosition, scaleYHandlePos, scaleHandleSize)) {
-            outHandleIndex = 3; // y-axis scale handle
-            return true;
+        // Y-axis scaling handle (rectangle for protruding line)
+        {
+            Vector2D yStart = gizmoData.position + Vector2D(0.0f, halfTransformSize.y); // Start at the edge of the object
+            Vector2D yEnd = gizmoData.position + Vector2D(0.0f, gizmoData.size + 0.5f);        // End of the handle
+
+            float halfThickness = THICKNESS / 2.0f;
+
+            float minX = yStart.x - halfThickness;
+            float maxX = yStart.x + halfThickness;
+            float minY = yStart.y;
+            float maxY = yEnd.y;
+
+            // Check if mouse is within rectangle
+            if (mouseWorldPosition.x >= minX && mouseWorldPosition.x <= maxX &&
+                mouseWorldPosition.y >= minY && mouseWorldPosition.y <= maxY) {
+                outHandleIndex = 3; // y-axis scale handle
+                return true;
+            }
         }
     }
     else if (currentGizmo == CurrentGizmo::ROTATE) {
         // Rotation handle (circle)
         float rotationRadius = gizmoData.size * 1.2f;
-        float rotationHandleThickness = 50.f;
+        float rotationHandleThickness = 0.8f;
 
         // Calculate distance manually
         float dx = mouseWorldPosition.x - gizmoData.position.x;
@@ -193,37 +312,4 @@ bool GizmoManager::IsMouseOverGizmoHandle(const Vector2D& mouseWorldPosition, co
     }
 
     return false;
-}
-
-
-bool GizmoManager::IsPointNearLine(const Vector2D& point, const Vector2D& lineStart, const Vector2D& lineEnd, float thickness) {
-    float distance = DistancePointToLineSegment(point, lineStart, lineEnd);
-    return distance <= thickness;
-}
-
-float GizmoManager::DistancePointToLineSegment(const Vector2D& point, const Vector2D& lineStart, const Vector2D& lineEnd) {
-    float dx = lineEnd.x - lineStart.x;
-    float dy = lineEnd.y - lineStart.y;
-
-    if (dx == 0 && dy == 0) {
-        // It's a point, not a line segment
-        dx = point.x - lineStart.x;
-        dy = point.y - lineStart.y;
-        return sqrt(dx * dx + dy * dy);
-    }
-
-    float t = ((point.x - lineStart.x) * dx + (point.y - lineStart.y) * dy) / (dx * dx + dy * dy);
-    t = static_cast<float>(fmax(0, fmin(1, t)));
-
-    float closestX = lineStart.x + t * dx;
-    float closestY = lineStart.y + t * dy;
-
-    dx = point.x - closestX;
-    dy = point.y - closestY;
-
-    return sqrt(dx * dx + dy * dy);
-}
-
-bool GizmoManager::IsPointInSquare(const Vector2D& point, const Vector2D& center, float size) {
-    return fabs(point.x - center.x) <= size / 2.0f && fabs(point.y - center.y) <= size / 2.0f;
 }

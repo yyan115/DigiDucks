@@ -183,7 +183,13 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 			UIManager::selectedEntityID = selectedEntity->entityID;
 			UIManager::windowStates[WindowType::Inspector] = true;
 
-			EditorInputManager::SetIsDragging(true);
+			if (GizmoManager::isDraggingGizmo) {
+				EditorInputManager::SetIsDragging(false);
+			}
+			else {
+				EditorInputManager::SetIsDragging(true);
+			}
+
 			initialMousePos = worldPos;
 
 			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
@@ -204,7 +210,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 			double mouseY = InputManager::GetMouseY();
 
 			// Convert to world space
-			Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+			Vector2D mouseWorldPosition = DuckEngine::editorMouseWorldPos;
 
 			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
 				// Check if mouse is over the currently active gizmo handle
@@ -225,6 +231,8 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		}
 	}
 
+	GizmoManager::Render();
+
 	if (inSceneFBO && !isPlaying && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 	{
 		if (!entitiesUnderMouse.empty())
@@ -235,7 +243,13 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 			UIManager::selectedEntityID = selectedEntity->entityID;
 			UIManager::windowStates[WindowType::Inspector] = true;
 
-			EditorInputManager::SetIsDragging(true);
+			if (GizmoManager::isDraggingGizmo) {
+				EditorInputManager::SetIsDragging(false);
+			}
+			else {
+				EditorInputManager::SetIsDragging(true);
+			}
+
 			initialMousePos = worldPos;
 
 			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
@@ -251,7 +265,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		Gizmos::RenderGizmoForSelectedEntity(selectedEntity);
 	}*/
 
-	if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
+	if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left) && !GizmoManager::isDraggingGizmo)
 	{
 		HandleEntityDragging();
 	}

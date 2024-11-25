@@ -65,8 +65,6 @@ int main(void)
             
             uiManager.Render();
 
-            GizmoManager::Render();
-
             SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
             
             uiManager.EndRender();
