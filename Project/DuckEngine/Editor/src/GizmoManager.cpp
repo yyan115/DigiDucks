@@ -8,8 +8,6 @@
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "UIManager.h" // Include to access selectedEntityID
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_inverse.hpp>
 #include "SceneWindow.h"
 
 // Initialize static member variables
@@ -27,8 +25,13 @@ static bool alreadyClicked = false;
 DrawOptions xAxisLineArrow;       // X-axis line arrow
 DrawOptions yAxisLineArrow;       // Y-axis line arrow
 
+const float PI = 3.14159265f;
+const float RAD2DEG = 180.0f / PI;
+const float DEG2RAD = PI / 180.0f;
+
+
 void GizmoManager::Initialize() {
-    // Initialization code if needed
+
 }
 
 void GizmoManager::Update() {
@@ -58,14 +61,14 @@ void GizmoManager::Render() {
         GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
         GraphicsManager::entityIsSelected = true;
 
-        if (currentGizmo == CurrentGizmo::TRANSLATE) {
-            GraphicsManager::AddToDrawQueue(xAxisLineArrow);
-            GraphicsManager::AddToDrawQueue(yAxisLineArrow);
-        }
-        else if (currentGizmo == CurrentGizmo::SCALE) {
-            GraphicsManager::AddToDrawQueue(xAxisLineArrow);
-            GraphicsManager::AddToDrawQueue(yAxisLineArrow);
-        }
+        //if (currentGizmo == CurrentGizmo::TRANSLATE) {
+        //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+        //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+        //}
+        //else if (currentGizmo == CurrentGizmo::SCALE) {
+        //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+        //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+        //}
 
         HandleGizmoInteraction();
     }
@@ -80,17 +83,18 @@ void GizmoManager::HandleGizmoInteraction() {
 
     Vector2D mouseWorldPosition = DuckEngine::editorMouseWorldPos;
 
-    DrawOptions drawoptionMousePos;
+    // DRAWS MOUSE POS, FOR DEBUGGING ONLY
+    //DrawOptions drawoptionMousePos;
 
-    drawoptionMousePos.color = Color(255.f, 255.f, 255.f, 255.f); // Red color
-    drawoptionMousePos.relativeToCamera = true;
-    drawoptionMousePos.rotation = 0.f;
-    drawoptionMousePos.scale = 1.f; // Set thickness
-    drawoptionMousePos.useColor = true;
-    drawoptionMousePos.useTexture = false;
-    drawoptionMousePos.translation = mouseWorldPosition;
+    //drawoptionMousePos.color = Color(255.f, 255.f, 255.f, 255.f); // Red color
+    //drawoptionMousePos.relativeToCamera = true;
+    //drawoptionMousePos.rotation = 0.f;
+    //drawoptionMousePos.scale = 1.f; // Set thickness
+    //drawoptionMousePos.useColor = true;
+    //drawoptionMousePos.useTexture = false;
+    //drawoptionMousePos.translation = mouseWorldPosition;
 
-    GraphicsManager::AddToDrawQueue(drawoptionMousePos);
+    //GraphicsManager::AddToDrawQueue(drawoptionMousePos);
 
     if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
         // Check if mouse is over the currently active gizmo handle
@@ -140,9 +144,12 @@ void GizmoManager::HandleGizmoInteraction() {
 
             float startAngle = atan2(startDir.y, startDir.x);
             float currentAngle = atan2(currentDir.y, currentDir.x);
-            float angleDelta = glm::degrees(currentAngle - startAngle);
 
-            transform->angle = initialRotation + angleDelta;
+            float angleDeltaRadians = currentAngle - startAngle;
+            // Convert radians to degrees
+            float angleDeltaDegrees = angleDeltaRadians * RAD2DEG;
+
+            transform->angle = initialRotation + angleDeltaDegrees;
             //std::cout << "angle: " << transform->angle << "\n";
             break;
         }
