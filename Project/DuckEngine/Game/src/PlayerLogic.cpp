@@ -7,6 +7,7 @@ void PlayerLogic::Start()
 	// Initialize the components from the GameLogicComponent's owner entity
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
+	boxCollider->isKinematic = false;
 	boxCollider->SetCollisionCallback([this](int otherEntityID)
 		{
 			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);

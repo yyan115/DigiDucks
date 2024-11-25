@@ -3,14 +3,14 @@
         {
             "properties": {
                 "position": {
-                    "x": -3.5409998893737793,
-                    "y": -0.8929424285888672
+                    "x": 0.0,
+                    "y": 0.0
                 },
                 "relativeToCamera": true,
-                "rotation": 0.0,
+                "rotation": 60.0,
                 "scale": {
-                    "x": 2.0,
-                    "y": 2.799999952316284
+                    "x": 1.0,
+                    "y": 1.0
                 }
             },
             "type": "TransformComponent"
@@ -34,6 +34,10 @@
             "properties": {
                 "center": {
                     "x": -5.0,
+                    "y": 0.0
+                },
+                "offset": {
+                    "x": 0.0,
                     "y": 0.0
                 },
                 "radius": 1.0

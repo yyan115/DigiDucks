@@ -322,13 +322,13 @@ namespace {
 bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2& interceptPt, const float& deltaTime, const Vec2& cir_vel, const Vec2& box_vel) {
 
 	// Calculate next position of box
-	Vec2 topRight = box.getTopR() + box_vel * deltaTime;
-	Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
-	Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
-	Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
+	Vec2 topRight = box.getTopR() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 btmRight = box.getBtmR() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 topLeft = box.getTopL() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 btmLeft = box.getBtmL() + box.getOffSet() + box_vel * deltaTime;
 
 	// Calculate next position of circle
-	Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
+	Vec2 nextPos = circle.getCenter() + circle.getOffSet() + cir_vel * deltaTime;
 
 	// Dynamic collision check    
 	if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
@@ -371,13 +371,13 @@ bool checkCollisionCB(const BoundingCircle& circle, const BoundingBox& box, Vec2
 bool checkCollisionBC(const BoundingBox& box,const BoundingCircle& circle, Vec2& interceptPt, const float& deltaTime, const Vec2& box_vel, const Vec2& cir_vel) {
 
 	// Calculate next position of box
-	Vec2 topRight = box.getTopR() + box_vel * deltaTime;
-	Vec2 btmRight = box.getBtmR() + box_vel * deltaTime;
-	Vec2 topLeft = box.getTopL() + box_vel * deltaTime;
-	Vec2 btmLeft = box.getBtmL() + box_vel * deltaTime;
+	Vec2 topRight = box.getTopR() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 btmRight = box.getBtmR() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 topLeft = box.getTopL() + box.getOffSet() + box_vel * deltaTime;
+	Vec2 btmLeft = box.getBtmL() + box.getOffSet() + box_vel * deltaTime;
 
 	// Calculate next position of circle
-	Vec2 nextPos = circle.getCenter() + cir_vel * deltaTime;
+	Vec2 nextPos = circle.getCenter() + circle.getOffSet() + cir_vel * deltaTime;
 
 	// Dynamic collision check
 	if (checkCollisionCL(circle, nextPos, btmLeft, btmRight, interceptPt) ||
@@ -503,8 +503,8 @@ bool checkCollisionBB(const BoundingBox& box1, const BoundingBox& box2, const fl
 ****************************************************************/
 bool checkCollisionCC(const BoundingCircle& circle, const BoundingCircle& circle2, const float& deltaTime, const Vec2& vel1, const Vec2& vel2) {
 	//// Calculate Next Position
-	Vec2 nextPos1 = circle.getCenter() + vel1 * deltaTime;
-	Vec2 nextPos2 = circle2.getCenter() + vel2 * deltaTime;
+	Vec2 nextPos1 = circle.getCenter() + circle.getOffSet() + vel1 * deltaTime;
+	Vec2 nextPos2 = circle2.getCenter() + circle2.getOffSet() + vel2 * deltaTime;
 
 	// Get the distance between the two circles
 	Vec2 centerDiff = nextPos1 - nextPos2;

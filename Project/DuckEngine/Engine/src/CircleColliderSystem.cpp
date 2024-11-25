@@ -37,12 +37,10 @@ void CircleColliderSystem::Update() {
 	// Find player's circle collider
 	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 	{
-		Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityId);
-
 		// Only 1 circle collider in this scene
-		BoundingCircle* entityCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity->entityID);
-		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity->entityID);
+		BoundingCircle* entityCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
 		if(!entityRb || entityRb->isStatic) continue;	// No rb = not moving
 
@@ -69,12 +67,22 @@ void CircleColliderSystem::Update() {
 
 			if (!entityRb2) { // Consider static
 				if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb->velocity)) {
+					if (!entityCircle->isKinematic || !entityCircle2->isKinematic)
+					{
+						continue;
+					}
+
 					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
 			else {
 				// Check collision
 				if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb->velocity, entityRb2->velocity)) {
+					if (!entityCircle->isKinematic || !entityCircle2->isKinematic)
+					{
+						continue;
+					}
+
 					// If there is a collision
 					if (!entityRb2 || entityRb2->isStatic) {	// If the circle is static
 						entityRb->velocity = Vec2(0.0f, 0.0f);
@@ -101,21 +109,25 @@ void CircleColliderSystem::Update() {
 						{
 							if (entity3Id == entity2Id || entity3Id == entityId) continue;
 
-							Entity* entity3 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
-							if (entity3->name == "Player") continue;
-
 							BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
-							//TransformComponent* boxTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 							RigidbodyComponent* boxRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 							if (!boxRb) {	// One of the box is moving
 								if (checkCollisionCB(*entityCircle2, *box, interceptPoint, deltaTime, entityRb2->velocity)) {
+									if(!box->isKinematic)
+									{
+										continue;
+									}
 									entityRb2->velocity = Vec2(0.0f, 0.0f);
 									entityRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
 							else {
 								if (checkCollisionCB(*entityCircle2, *box, interceptPoint, deltaTime, entityRb2->velocity, boxRb->velocity)) {
+									if (!box->isKinematic)
+									{
+										continue;
+									}
 									// If there is a collision
 									if (boxRb->isStatic) {	// If the box is static
 										entityRb2->velocity = Vec2(0.0f, 0.0f);
@@ -154,9 +166,6 @@ void CircleColliderSystem::Update() {
 		{
 			if(entityId == entity2Id) continue;
 
-			Entity* entity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
-			if (entity2->name == "Player") continue;
-
 			BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
 			TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
 			RigidbodyComponent* entityRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
@@ -168,11 +177,19 @@ void CircleColliderSystem::Update() {
 			// Check collision
 			if (!entityRb2) {
 				if (checkCollisionCB(*entityCircle, *entityBox, interceptPoint, deltaTime, entityRb->velocity)) {
+					if (!entityCircle->isKinematic || !entityBox->isKinematic)
+					{
+						continue;
+					}
 					calculateNewVelocity(entityCircle->getCenter(), entityRb->velocity, interceptPoint, entityCircle->getRadius(), deltaTime);
 				}
 			}
 			else{
 				if (checkCollisionCB(*entityCircle, *entityBox, interceptPoint,  deltaTime, entityRb->velocity, entityRb2->velocity)) {
+					if (!entityCircle->isKinematic || !entityBox->isKinematic)
+					{
+						continue;
+					}
 					// If there is a collision
 					if (entityRb2->isStatic) {	// If the box is static
 						entityRb->velocity = Vec2(0.0f, 0.0f);
@@ -212,18 +229,26 @@ void CircleColliderSystem::Update() {
 						for (const auto& [entity3Id, _boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
+
 							BoundingBox* box2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity3Id);
-							//TransformComponent* boxTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 							RigidbodyComponent* boxRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
 							if (!boxRb2) {	// One of the box is moving
 								if (checkCollisionBB(*entityBox, *box2, deltaTime, entityRb2->velocity)) {
+									if (!box2->isKinematic)
+									{
+										continue;
+									}
 									entityRb2->velocity = Vec2(0.0f, 0.0f);
 									entityRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
 							else {
 								if (checkCollisionBB(*entityBox, *box2, deltaTime, entityRb2->velocity, boxRb2->velocity)) {
+									if (!box2->isKinematic)
+									{
+										continue;
+									}
 									// If there is a collision
 									if (boxRb2->isStatic) {	// If the box is static
 										entityRb2->velocity = Vec2(0.0f, 0.0f);

@@ -34,6 +34,8 @@ private:
 	Vec2 offSet{};
 
 public:
+	bool isKinematic = true;
+
 	// Constructor
 	/****************************************************************
 	* @brief Default constructor for BoundingCollider

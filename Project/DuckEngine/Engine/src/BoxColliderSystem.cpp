@@ -71,7 +71,7 @@ void BoxColliderSystem::Update()
 			{	
 				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity)) 
 				{
-					if (entity->name == "Player" || entity2->name == "Player") 
+					if (!entityBox->isKinematic || !entityBox2->isKinematic) 
 					{ 
 						continue; 
 					}
@@ -83,7 +83,7 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity, entityRb2->velocity)) 
 				{
-					if (entity->name == "Player" || entity2->name == "Player")
+					if (!entityBox->isKinematic || !entityBox2->isKinematic)
 					{
 						continue;
 					}
@@ -128,6 +128,11 @@ void BoxColliderSystem::Update()
 							{
 								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity)) 
 								{
+									if (!circle->isKinematic)
+									{
+										continue;
+									}
+
 									entityRb->velocity = Vec2(0.0f, 0.0f);
 									entityRb2->velocity = Vec2(0.0f, 0.0f);
 								}
@@ -136,6 +141,11 @@ void BoxColliderSystem::Update()
 							{
 								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity, circleRb->velocity)) 
 								{
+									if (!circle->isKinematic)
+									{
+										continue;
+									}
+
 									if (circleRb->isStatic) {
 										entityRb->velocity = Vec2(0.0f, 0.0f);
 										entityRb2->velocity = Vec2(0.0f, 0.0f);
@@ -187,9 +197,8 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity)) 
 				{
-					if (entity->name == "Player")
+					if (!entityBox->isKinematic || !entityCircle->isKinematic)
 					{
-						std::cout << "Player Collision\n";
 						continue;
 					}
 					entityRb->velocity = Vec2(0.0f, 0.0f);
@@ -199,9 +208,8 @@ void BoxColliderSystem::Update()
 			{
 				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity, entityRb2->velocity)) 
 				{
-					if (entity->name == "Player")
+					if (!entityBox->isKinematic || !entityCircle->isKinematic)
 					{
-						std::cout << "Player Collision\n";
 						continue;
 					}
 
@@ -233,7 +241,7 @@ void BoxColliderSystem::Update()
 						{
 							if (entity2Id == entity3Id || entity3Id == entityId) continue;
 
-							BoundingCircle* circle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity3Id);
+							BoundingCircle* entityCircle2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entity3Id);
 							TransformComponent* circleTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity3Id);
 							RigidbodyComponent* circleRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity3Id);
 
@@ -241,16 +249,24 @@ void BoxColliderSystem::Update()
 
 							if (!circleRb2) 
 							{
-								if (checkCollisionCC(*entityCircle, *circle2, deltaTime, entityRb2->velocity)) 
+								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity)) 
 								{
+									if (!entityCircle2->isKinematic)
+									{
+										continue;
+									}
 									entityRb2->velocity = Vec2(0.0f, 0.0f);
 									entityRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
 							else 
 							{
-								if (checkCollisionCC(*entityCircle, *circle2, deltaTime, entityRb2->velocity, circleRb2->velocity)) 
+								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity, circleRb2->velocity)) 
 								{
+									if (!entityCircle2->isKinematic)
+									{
+										continue;
+									}
 									// If there is a collision
 									if (circleRb2->isStatic)	// If the circle is static
 									{
