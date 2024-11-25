@@ -44,6 +44,22 @@
             ],
             "layer": "Background"
         },
+        "CabbageStockPrefab (26)": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -2.3904519081115723,
+                "y": -9.163349151611328
+            },
+            "prefab": "CabbageStockPrefab"
+        },
+        "CabbageStockPrefab (27)": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 0.2501791715621948,
+                "y": -3.683255195617676
+            },
+            "prefab": "CabbageStockPrefab"
+        },
         "CabbageStockPrefab (28)": {
             "components": [
                 {
@@ -274,8 +290,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 12.0,
-                            "y": 5.0
+                            "x": 11.962808609008789,
+                            "y": 4.90632438659668
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -802,8 +818,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
-                            "y": -5.0
+                            "x": 9.888422966003418,
+                            "y": -5.093677520751953
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,

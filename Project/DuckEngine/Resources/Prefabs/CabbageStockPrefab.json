@@ -3,7 +3,7 @@
         {
             "properties": {
                 "position": {
-                    "x": -6.041375160217285,
+                    "x": -3.5409998893737793,
                     "y": -0.8929424285888672
                 },
                 "relativeToCamera": true,
@@ -23,7 +23,7 @@
                     "g": 255.0,
                     "r": 255.0
                 },
-                "sortingOrder": 0,
+                "sortingOrder": 3,
                 "sprite": true,
                 "texture": "Resources/Sprites/Stations/cabbage_stock.png",
                 "useColor": false

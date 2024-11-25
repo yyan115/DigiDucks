@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "LevelManager.h"
 #include "FileExtensions.h"
+#include "PrefabEditor.h"
 
 #include <filesystem>
 #include <iostream>
@@ -71,6 +72,8 @@ void AssetsBrowser::ShowAssets() {
     if (selectedFolderName.compare("Prefabs") == 0) RenderPrefabsGrid();
 	else RenderAssetGrid(selectedFolderPath);
     ImGui::EndChild();
+
+    PrefabEditor::Render();
 }
 
 // Renders top-level directories in the Resources folder
@@ -349,6 +352,12 @@ void AssetsBrowser::RenderPrefabsGrid() {
             ImGui::Text("Drag %s", prefabName.c_str());
             ImGui::EndDragDropSource();
         }
+
+        if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+        {
+            PrefabEditor::OpenPrefabEditor(prefabName); 
+        }
+
 		std::string truncatedPrefabName = prefabName;
         if (truncatedPrefabName.length() > 12) truncatedPrefabName = truncatedPrefabName.substr(0, 9) + "...";
         float textWidth = ImGui::CalcTextSize((truncatedPrefabName + "/").c_str()).x;

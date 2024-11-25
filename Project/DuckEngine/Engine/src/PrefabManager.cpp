@@ -133,3 +133,27 @@ void PrefabManager::LoadPrefabsFromDirectory(const std::string& directoryPath)
 		std::cout << "  - " << name << std::endl;
 	}
 }
+
+void PrefabManager::SavePrefab(const std::string& name)
+{
+	auto prefab = GetPrefab(name);
+	if (!prefab)
+	{
+		std::cerr << "Error: Prefab not found: " << name << std::endl;
+		return;
+	}
+
+	nlohmann::json prefabData;
+	prefabData["components"] = prefab->componentsData;
+
+	std::string filePath = "Resources/Prefabs/" + name + ".json";
+	try
+	{
+		Serialization::SaveJsonFile(filePath, prefabData);
+		std::cout << "Prefab saved successfully: " << filePath << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Error saving prefab: " << e.what() << std::endl;
+	}
+}

@@ -44,6 +44,7 @@
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
+    <ClCompile Include="..\src\PrefabEditor.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
     <ClCompile Include="..\src\SnapshotManager.cpp" />
     <ClCompile Include="..\src\UIDebugConsole.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
+    <ClInclude Include="..\include\PrefabEditor.h" />
     <ClInclude Include="..\include\SceneWindow.h" />
     <ClInclude Include="..\include\SnapshotManager.h" />
     <ClInclude Include="..\include\UIDebugConsole.h" />
