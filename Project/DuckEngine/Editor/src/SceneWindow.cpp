@@ -27,6 +27,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include <iostream>
 #include "SnapshotManager.h"
+#include "DuckEngine_Input.h"
+#include "GizmoManager.h"
 
 bool SceneWindow::isPlaying = false;
 bool SceneWindow::isPaused = false;
@@ -194,9 +196,33 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
         else
         {
-            selectedEntity = nullptr;
-            UIManager::selectedEntityID = -1;
-            UIManager::windowStates[WindowType::Inspector] = false;
+            // CODE TO CHECK IF GIZMO IS SELECTED. IF GIZMO IS SELECTED, DO NOT DESELECT CURRENT ENTITY!!!
+
+            bool gizmoSelected = false;
+
+            // Get mouse position in screen space
+            double mouseX = InputManager::GetMouseX();
+            double mouseY = InputManager::GetMouseY();
+
+            // Convert to world space
+            Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+
+            if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+                // Check if mouse is over the currently active gizmo handle
+                if (GizmoManager::IsMouseOverGizmoHandle(mouseWorldPosition, GraphicsManager::gizmoData, GizmoManager::activeGizmoHandle)) {
+                    gizmoSelected = true;
+                }
+            }
+
+            // Do nothing if gizmo selected
+            if (gizmoSelected) {
+
+            }
+            else {
+                selectedEntity = nullptr;
+                UIManager::selectedEntityID = -1;
+                UIManager::windowStates[WindowType::Inspector] = false;
+            }
         }
     }
 

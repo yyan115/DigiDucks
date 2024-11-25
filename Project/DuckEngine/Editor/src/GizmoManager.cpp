@@ -59,10 +59,10 @@ void GizmoManager::Render() {
         GraphicsManager::entityIsSelected = false;
     }
     else {
-        //HandleGizmoInteraction();
-
         GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
         GraphicsManager::entityIsSelected = true;
+
+        HandleGizmoInteraction();
     }
 }
 
