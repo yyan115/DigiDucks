@@ -59,6 +59,19 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
 
         bool nodeOpen;
 
+        // Display prefab icon
+        ImGui::PushID(entity.entityID);
+        auto prefabIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("prefab_icon");
+        if (!entity.prefabName.empty() && prefabIconTexture) {
+            ImGui::Image((void*)(intptr_t)prefabIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render prefab icon
+            ImGui::SameLine();
+        }
+        else {
+            auto gameobjectIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("gameobject_icon");
+            ImGui::Image((void*)(intptr_t)gameobjectIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render prefab icon
+            ImGui::SameLine();
+        }
+
         // Display a renaming input field for the selected entity
         if (entity.entityID == renamingEntityID) {
             ImGui::SetKeyboardFocusHere();
@@ -89,6 +102,8 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
             ImGui::Text("Prefab name: %s", entity.prefabName.c_str());
             ImGui::TreePop();
         }
+
+        ImGui::PopID();
     }
 }
 

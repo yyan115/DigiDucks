@@ -273,9 +273,6 @@
     <ClInclude Include="..\include\DuckEngine_Input.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\DuckEngine_Sound.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Vector2.h">
       <Filter>include\Math</Filter>
     </ClInclude>

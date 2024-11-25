@@ -1,8 +1,8 @@
 /******************************************************************************/
 /*!
 \file     Inspector.cpp
-\author   Lucas Yee JunJie, l.yee, 2301212 (70%)
-		  Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (30%)
+\author   Lucas Yee JunJie, l.yee, 2301212 (50%)
+		  Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (50%)
 \par      l.yee@digipen.edu, muhammadzikry.b@digipen.edu
 \brief    This file contains the implementation of the InspectorRenderer class
 		  which is responsible for rendering the inspector UI in the editor.
