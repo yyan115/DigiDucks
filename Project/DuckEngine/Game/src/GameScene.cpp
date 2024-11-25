@@ -28,21 +28,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 Entity* duck;
 TransformComponent* duckTrans;
 SoundComponent* duckSound;
-//bool holdingObject = false;
-//
-//// Object infront of player
-//Entity* frontObject;
-
-// player's holding object
-//Entity* carryObject;
-//TransformComponent* carryTrans;
-//RigidbodyComponent* carryRb;
-//SpriteRendererComponent* carrySprite;
-//Vec2 carryOffSet{ 0.f, 1.5f };
-
-////Test Messaging System
-//InputEventManager inputEventManager;
-//Player message;
 
 void playerInteraction();
 
@@ -60,12 +45,6 @@ void GameScene::Load()
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
-
-	//carryObject = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Carry_Object");
-	//carryTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(carryObject->entityID);
-	//carryRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(carryObject->entityID);
-	//carrySprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(carryObject->entityID);
-	
 }
 
 /// <summary>

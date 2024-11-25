@@ -37,11 +37,9 @@ void BoxColliderSystem::Update()
 
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 	{
-		Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityId);
-
-		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity->entityID);
-		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity->entityID);
+		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
 		if (!entityRb || entityRb->isStatic) continue;	// No rb = not moving
 
@@ -58,8 +56,6 @@ void BoxColliderSystem::Update()
 		for (const auto& [entity2Id, boxColliderComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 		{
 			if (entity2Id == entityId) continue;
-
-			Entity* entity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entity2Id);
 
 			BoundingBox* entityBox2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
 			TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
