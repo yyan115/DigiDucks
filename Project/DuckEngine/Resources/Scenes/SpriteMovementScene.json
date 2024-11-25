@@ -55,7 +55,7 @@
         "CabbageStockPrefab (27)": {
             "layer": "Gameplay",
             "position": {
-                "x": 0.2501791715621948,
+                "x": 0.2129879891872406,
                 "y": -3.683255195617676
             },
             "prefab": "CabbageStockPrefab"
@@ -214,8 +214,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
-                            "y": 0.0
+                            "x": 11.190143585205078,
+                            "y": -0.2386629581451416
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,

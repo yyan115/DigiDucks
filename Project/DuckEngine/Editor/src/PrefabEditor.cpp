@@ -375,9 +375,7 @@ void PrefabEditor::RenderPrefabPreview()
         if (texture)
         {
             ImVec2 availableSpace = ImGui::GetContentRegionAvail();
-
             ImVec2 windowPos = ImGui::GetCursorScreenPos();
-
             ImVec2 textureSize = ImVec2(128.0f, 128.0f);
 
             ImVec2 scaledTextureSize = ImVec2(
@@ -392,7 +390,7 @@ void PrefabEditor::RenderPrefabPreview()
 
             ImVec2 adjustedPos = ImVec2(
                 centerPos.x + position.x,
-                centerPos.y - position.y 
+                centerPos.y - position.y
             );
 
             ImVec2 textureOffset = ImVec2(
@@ -403,13 +401,13 @@ void PrefabEditor::RenderPrefabPreview()
             float rotationRadians = rotation * (IM_PI / 180.0f);
 
             ImVec2 corners[4];
-            float sinTheta = sin(rotationRadians);
-            float cosTheta = cos(rotationRadians);
+            float sinTheta = sin(-rotationRadians);
+            float cosTheta = cos(-rotationRadians);
 
-            corners[0] = ImVec2(-textureOffset.x, -textureOffset.y); 
+            corners[0] = ImVec2(-textureOffset.x, -textureOffset.y);
             corners[1] = ImVec2(textureOffset.x, -textureOffset.y);
-            corners[2] = ImVec2(textureOffset.x, textureOffset.y);  
-            corners[3] = ImVec2(-textureOffset.x, textureOffset.y);  
+            corners[2] = ImVec2(textureOffset.x, textureOffset.y);
+            corners[3] = ImVec2(-textureOffset.x, textureOffset.y);
 
             for (int i = 0; i < 4; i++)
             {
@@ -422,7 +420,7 @@ void PrefabEditor::RenderPrefabPreview()
             drawList->AddImageQuad(
                 (void*)(intptr_t)*texture,
                 corners[0], corners[1], corners[2], corners[3],
-                ImVec2(0, 1), ImVec2(1, 1), ImVec2(1, 0), ImVec2(0, 0)
+                ImVec2(1, 0), ImVec2(0, 0), ImVec2(0, 1), ImVec2(1, 1)
             );
         }
         else
