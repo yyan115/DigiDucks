@@ -21,6 +21,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <string>
 #include "System.h"
 
+
+#ifdef DUCKENGINE_EXPORTS
+#define DUCKENGINE_API __declspec(dllexport)
+#else
+#define DUCKENGINE_API __declspec(dllimport)
+#endif
+
 /************************************************************************
 @brief The SystemManager class is responsible for managing and orchestrating
        multiple systems in the game engine. It provides methods to add, start,
@@ -41,7 +48,7 @@ public:
     @brief Starts all systems managed by the SystemManager by calling their
            Start method.
     *************************************************************************/
-    void StartAll();
+    void DUCKENGINE_API StartAll();
 
     /************************************************************************
     @brief Updates all systems managed by the SystemManager by calling their
