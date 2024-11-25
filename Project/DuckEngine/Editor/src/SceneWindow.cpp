@@ -42,6 +42,10 @@ Vector2D SceneWindow::lastMousePos;
 
 Vector2D draggedEntityOriginalPos;
 
+Texture playIconTexture = 0;
+Texture pauseIconTexture = 0;
+Texture stopIconTexture = 0;
+
 /**************************************************************************
 @brief Initializes the scene window by setting up the FBO dimensions.
 **************************************************************************/
@@ -50,6 +54,10 @@ void SceneWindow::Initialize()
     width = WindowManager::GetWindowWidth();
     height = WindowManager::GetWindowHeight();
     GraphicsManager::InitializeFBO(width, height);
+
+    playIconTexture = AssetManager::GetTextureByName("PlayIcon");
+    pauseIconTexture = AssetManager::GetTextureByName("PauseIcon");
+    stopIconTexture = AssetManager::GetTextureByName("StopIcon");
 }
 
 /**************************************************************************
@@ -70,7 +78,14 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 
     isPlaying = DuckEngine::IsPlaying();
     isPaused = DuckEngine::IsPaused();
-    if (ImGui::Button(isPlaying ? "Stop" : "Play"))
+
+    GLuint currentIcon = isPlaying ? stopIconTexture : playIconTexture;
+
+    ImVec2 toolbarSize(ImGui::GetContentRegionAvail().x, 50.0f); 
+    ImGui::SetCursorPosX((toolbarSize.x / 2.0f) - 15.0f); 
+    ImGui::SetCursorPosY(30.0f);
+
+    if (ImGui::ImageButton("##PlayPauseButton", (void*)(intptr_t)currentIcon, ImVec2(30, 30)))
     {
         isPlaying = !isPlaying;
         DuckEngine::SetPlaying(isPlaying);

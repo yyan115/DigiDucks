@@ -49,15 +49,15 @@ void AssetManager::LoadAll()
 }
 
 void AssetManager::LoadAllFonts(const std::string& directoryPath) {
-    for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) {
-        if (entry.is_regular_file() && entry.path().extension() == ".ttf") {
-            std::string fontName = entry.path().stem().string();  // Gets the filename without extension
-            std::string fontPath = entry.path().string();
-            FontManager::LoadFont(fontName, fontPath, 48);  // Adjust font size as needed
+	for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) {
+		if (entry.is_regular_file() && entry.path().extension() == ".ttf") {
+			std::string fontName = entry.path().stem().string();  // Gets the filename without extension
+			std::string fontPath = entry.path().string();
+			FontManager::LoadFont(fontName, fontPath, 48);  // Adjust font size as needed
 			fontNames.push_back(fontName);
 			std::cout << "loaded font: " << fontName << ", path: " << fontPath << "\n";
-        }
-    }
+		}
+	}
 }
 
 const std::vector<std::string>& AssetManager::GetFontNames() {

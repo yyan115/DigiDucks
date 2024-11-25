@@ -45,28 +45,25 @@ void SceneManager::ReloadScene()
 **************************************************************************/
 void SceneManager::SetActiveScene(const std::string& name)
 {
-    // Check if the scene being set is already the active scene
     if (activeSceneName == name)
     {
-        // Reset the current active scene
         std::cout << "Scene '" << name << "' is already active. Resetting the scene." << std::endl;
 
         if (activeScene)
         {
-            activeScene->Unload(); // Unload all entities and resources
+            activeScene->Unload(); 
         }
 
-        LevelManager::LoadLevel(name); // Reload the level data
+        LevelManager::LoadLevel(name); 
         if (activeScene)
         {
-            activeScene->Load();  // Reload the active scene
-            activeScene->Start(); // Restart the scene
+            activeScene->Load();
+            activeScene->Start(); 
         }
 
         return;
     }
 
-    // Handle switching to a new scene
     auto it = scenes.find(name);
     if (it == scenes.end())
     {
@@ -76,13 +73,12 @@ void SceneManager::SetActiveScene(const std::string& name)
 
     if (activeScene)
     {
-        activeScene->Unload(); // Unload the previous scene
+        activeScene->Unload(); 
     }
 
     activeScene = scenes[name];
     activeSceneName = name;
 
-    // Load level data and set up the new scene
     LevelManager::LoadLevel(name);
     activeScene->Load();
     activeScene->Start();
