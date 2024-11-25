@@ -98,6 +98,7 @@ void SpriteMovementScene::Load()
 
 
 
+
 	//background entity
 	//Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
 
@@ -232,6 +233,8 @@ void SpriteMovementScene::PostUpdate()
 {
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
+		auto movementLogic = GameLogicManager::GetLogicForEntity<MovementLogic>(player->entityID);
+		movementLogic->TestTest();
 		std::cout << "Left mouse button pressed!\n";
 	}
 

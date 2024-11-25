@@ -18,11 +18,11 @@ void GameLogicSystem::Start()
             {
                 logic->SetComponent(logicComponent);
                 logic->Start();
+                GameLogicManager::AddLogicToEntity(entityID, logic);
             }
         }
     }
 }
-
 
 void GameLogicSystem::Update()
 {
@@ -30,11 +30,9 @@ void GameLogicSystem::Update()
 
     for (auto& [entityID, component] : components)
     {
-        auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
-
-        for (const auto& logicName : logicComponent->logicNames)
+        auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
+        for (auto& logic : logics)
         {
-            auto logic = GameLogicManager::GetLogic(logicName);
             if (logic)
             {
                 logic->Update();
@@ -42,18 +40,15 @@ void GameLogicSystem::Update()
         }
     }
 }
-
 void GameLogicSystem::FixedUpdate()
 {
     auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
 
     for (auto& [entityID, component] : components)
     {
-        auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
-
-        for (const auto& logicName : logicComponent->logicNames)
+        auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
+        for (auto& logic : logics)
         {
-            auto logic = GameLogicManager::GetLogic(logicName);
             if (logic)
             {
                 logic->FixedUpdate();
