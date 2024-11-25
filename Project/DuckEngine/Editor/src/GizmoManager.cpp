@@ -159,7 +159,8 @@ bool GizmoManager::IsMouseOverGizmoHandle(const Vector2D& mouseWorldPosition, co
         Vector2D scaleXHandleMin = scaleXHandlePosTEST - Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
         Vector2D scaleXHandleMax = scaleXHandlePosTEST + Vector2D(scaleHandleSize / 2.0f, scaleHandleSize / 2.0f);
 
-        DuckEngine::DrawRectangle({ 0, 0 }, {5000, 5000}, 0.f, Color(255.f, 0.f, 0.f, 255.f), true);
+        DuckEngine::DrawRectangle({ 0, 0 }, {5000, 5000 }, 0.f, Color(255.f, 0.f, 0.f, 255.f), true);
+        std::cout << "rect drawn\n";
 
         // X-axis scaling handle
         Vector2D scaleXHandlePos = gizmoData.position + Vector2D(gizmoData.size, 0.0f);

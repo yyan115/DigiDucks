@@ -22,7 +22,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CameraManager.h"
 #include "EditorInputManager.h"
 #include "UIManager.h"
-#include "Gizmos.h"
 #include "imgui.h"
 #include "SoundSystem.h"
 #include <iostream>

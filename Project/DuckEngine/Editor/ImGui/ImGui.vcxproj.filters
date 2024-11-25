@@ -42,9 +42,6 @@
     <ClCompile Include="..\src\EditorTheme.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Gizmos.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\LoggerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\EditorTheme.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Gizmos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\LoggerManager.h">
