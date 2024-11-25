@@ -420,8 +420,9 @@ void PrefabEditor::RenderPrefabPreview()
             drawList->AddImageQuad(
                 (void*)(intptr_t)*texture,
                 corners[0], corners[1], corners[2], corners[3],
-                ImVec2(1, 0), ImVec2(0, 0), ImVec2(0, 1), ImVec2(1, 1)
+                ImVec2(0, 1), ImVec2(1, 1), ImVec2(1, 0), ImVec2(0, 0)
             );
+
         }
         else
         {

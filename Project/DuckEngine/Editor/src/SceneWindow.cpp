@@ -6,8 +6,8 @@
 \par        muhammadzikry.b@digipen.edu
 \date       November 6, 2024
 \brief      Implementation of the SceneWindow class, which manages scene rendering,
-            FBO and world coordinate transformations, and entity interaction within
-            the editor viewport.
+			FBO and world coordinate transformations, and entity interaction within
+			the editor viewport.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -53,14 +53,14 @@ Texture continueIconTexture = 0;
 **************************************************************************/
 void SceneWindow::Initialize()
 {
-    width = WindowManager::GetWindowWidth();
-    height = WindowManager::GetWindowHeight();
-    GraphicsManager::InitializeFBO(width, height);
+	width = WindowManager::GetWindowWidth();
+	height = WindowManager::GetWindowHeight();
+	GraphicsManager::InitializeFBO(width, height);
 
-    playIconTexture = AssetManager::GetTextureByName("PlayIcon");
-    pauseIconTexture = AssetManager::GetTextureByName("PauseIcon");
-    stopIconTexture = AssetManager::GetTextureByName("StopIcon");
-    continueIconTexture = AssetManager::GetTextureByName("ContinueIcon");
+	playIconTexture = AssetManager::GetTextureByName("PlayIcon");
+	pauseIconTexture = AssetManager::GetTextureByName("PauseIcon");
+	stopIconTexture = AssetManager::GetTextureByName("StopIcon");
+	continueIconTexture = AssetManager::GetTextureByName("ContinueIcon");
 }
 
 /**************************************************************************
@@ -70,214 +70,214 @@ void SceneWindow::Initialize()
 **************************************************************************/
 void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 {
-    if (newWidth != width || newHeight != height)
-    {
-        width = newWidth;
-        height = newHeight;
-        GraphicsManager::InitializeFBO(width, height);
-    }
+	if (newWidth != width || newHeight != height)
+	{
+		width = newWidth;
+		height = newHeight;
+		GraphicsManager::InitializeFBO(width, height);
+	}
 
-    ImGui::Begin("Scene Window");
+	ImGui::Begin("Scene Window");
 
-    isPlaying = DuckEngine::IsPlaying();
-    isPaused = DuckEngine::IsPaused();
+	isPlaying = DuckEngine::IsPlaying();
+	isPaused = DuckEngine::IsPaused();
 
-    ImVec2 toolbarSize(ImGui::GetContentRegionAvail().x, 40.0f);
-    ImGui::BeginChild("Toolbar", ImVec2(toolbarSize.x, toolbarSize.y), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground);
+	ImVec2 toolbarSize(ImGui::GetContentRegionAvail().x, 40.0f);
+	ImGui::BeginChild("Toolbar", ImVec2(toolbarSize.x, toolbarSize.y), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground);
 
-    // Center the button vertically in the toolbar
-    float buttonSize = 32.0f;
-    float verticalPadding = (toolbarSize.y - buttonSize) * 0.1f;
+	// Center the button vertically in the toolbar
+	float buttonSize = 32.0f;
+	float verticalPadding = (toolbarSize.y - buttonSize) * 0.1f;
 	ImGui::SetCursorPosY(verticalPadding);
-    ImGui::SetCursorPosX((toolbarSize.x * 0.5f) - (buttonSize * 0.5f));
+	ImGui::SetCursorPosX((toolbarSize.x * 0.5f) - (buttonSize * 0.5f));
 
-    // Play/Stop Button
-    GLuint currentIcon = isPlaying ? stopIconTexture : playIconTexture;
-    if (ImGui::ImageButton("##PlayStopButton", (void*)(intptr_t)currentIcon, ImVec2(32, 32)))
-    {
-        isPlaying = !isPlaying;
-        DuckEngine::SetPlaying(isPlaying);
+	// Play/Stop Button
+	GLuint currentIcon = isPlaying ? stopIconTexture : playIconTexture;
+	if (ImGui::ImageButton("##PlayStopButton", (void*)(intptr_t)currentIcon, ImVec2(32, 32)))
+	{
+		isPlaying = !isPlaying;
+		DuckEngine::SetPlaying(isPlaying);
 
-        if (!isPlaying)
-        {
-            SoundSystem::StopAllSounds();
-            GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
-            DuckEngine::SetPaused(false);
-            CameraManager::ResetToDefault();
-        }
-        else
-        {
-            LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
-            DuckEngine::DUCKENGINE_SystemManager.StartAll();
-            GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
-            SoundSystem::ResumeAllSounds();
-            DuckEngine::SetPaused(false);
-        }
-    }
+		if (!isPlaying)
+		{
+			SoundSystem::StopAllSounds();
+			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			DuckEngine::SetPaused(false);
+			CameraManager::ResetToDefault();
+		}
+		else
+		{
+			LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			DuckEngine::DUCKENGINE_SystemManager.StartAll();
+			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			SoundSystem::ResumeAllSounds();
+			DuckEngine::SetPaused(false);
+		}
+	}
 
-    // Pause/Continue Button (only when playing)
-    if (isPlaying)
-    {
-        ImGui::SameLine();
-        GLuint currentPauseIcon = isPaused ? continueIconTexture : pauseIconTexture;
-        if (ImGui::ImageButton("##ContinuePauseButton", (void*)(intptr_t)currentPauseIcon, ImVec2(32, 32)))
-        {
-            isPaused = !isPaused;
-            DuckEngine::SetPaused(isPaused);
+	// Pause/Continue Button (only when playing)
+	if (isPlaying)
+	{
+		ImGui::SameLine();
+		GLuint currentPauseIcon = isPaused ? continueIconTexture : pauseIconTexture;
+		if (ImGui::ImageButton("##ContinuePauseButton", (void*)(intptr_t)currentPauseIcon, ImVec2(32, 32)))
+		{
+			isPaused = !isPaused;
+			DuckEngine::SetPaused(isPaused);
 
-            if (isPaused)
-            {
-                SoundSystem::PauseAllSounds();  // Pause all sounds
-            }
-            else
-            {
-                SoundSystem::ResumeAllSounds();  // Resume all sounds
-            }
-        }
-    }
-    ImGui::EndChild();
+			if (isPaused)
+			{
+				SoundSystem::PauseAllSounds();  // Pause all sounds
+			}
+			else
+			{
+				SoundSystem::ResumeAllSounds();  // Resume all sounds
+			}
+		}
+	}
+	ImGui::EndChild();
 
-    GLuint fboTexture = GraphicsManager::GetFBOTexture();
-    ImVec2 windowSize = ImGui::GetContentRegionAvail();
-    ImGui::Image((void*)(intptr_t)fboTexture, windowSize, ImVec2(0, 1), ImVec2(1, 0));
+	GLuint fboTexture = GraphicsManager::GetFBOTexture();
+	ImVec2 windowSize = ImGui::GetContentRegionAvail();
+	ImGui::Image((void*)(intptr_t)fboTexture, windowSize, ImVec2(0, 1), ImVec2(1, 0));
 
-    inSceneFBO = IsMouseInFBO();
-    Vector2D worldPos = ConvertScreenToWorld();
+	inSceneFBO = IsMouseInFBO();
+	Vector2D worldPos = ConvertScreenToWorld();
 
-    DuckEngine::editorContentRegion = { windowSize.x, windowSize.y };
-    DuckEngine::editorMouseWorldPos = worldPos;
-    DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
+	DuckEngine::editorContentRegion = { windowSize.x, windowSize.y };
+	DuckEngine::editorMouseWorldPos = worldPos;
+	DuckEngine::editorMouseScreenPos = ConvertScreenToFBO();
 
-    // Handle drag-and-drop from AssetsBrowser
-    if (ImGui::BeginDragDropTarget())
-    {
-        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PREFAB_PAYLOAD"))
-        {
-            const char* prefabName = static_cast<const char*>(payload->Data);
-            if (prefabName)
-            {
-                OnPrefabDraggedIntoScene(prefabName, worldPos);
-            }
-        }
-        ImGui::EndDragDropTarget();
-    }
+	// Handle drag-and-drop from AssetsBrowser
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PREFAB_PAYLOAD"))
+		{
+			const char* prefabName = static_cast<const char*>(payload->Data);
+			if (prefabName)
+			{
+				OnPrefabDraggedIntoScene(prefabName, worldPos);
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
    
 
-    if (worldPos.x != lastMousePos.x || worldPos.y != lastMousePos.y)
-    {
-        entitiesUnderMouse.clear();
-        currentEntityIndex = -1;
-        lastMousePos = worldPos;
+	if (worldPos.x != lastMousePos.x || worldPos.y != lastMousePos.y)
+	{
+		entitiesUnderMouse.clear();
+		currentEntityIndex = -1;
+		lastMousePos = worldPos;
 
-        entitiesUnderMouse = GetEntitiesAtPosition(worldPos);
-    }
+		entitiesUnderMouse = GetEntitiesAtPosition(worldPos);
+	}
 
-    if (inSceneFBO && !isPlaying && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-    {
-        if (!entitiesUnderMouse.empty())
-        {
-            SnapshotManager::SaveUndoState();
-            selectedEntity = entitiesUnderMouse[0];
-            currentEntityIndex = 0;
+	if (inSceneFBO && !isPlaying && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+	{
+		if (!entitiesUnderMouse.empty())
+		{
+			SnapshotManager::SaveUndoState();
+			selectedEntity = entitiesUnderMouse[0];
+			currentEntityIndex = 0;
 
-            UIManager::selectedEntityID = selectedEntity->entityID;
-            UIManager::windowStates[WindowType::Inspector] = true;
+			UIManager::selectedEntityID = selectedEntity->entityID;
+			UIManager::windowStates[WindowType::Inspector] = true;
 
-            EditorInputManager::SetIsDragging(true);
-            initialMousePos = worldPos;
+			EditorInputManager::SetIsDragging(true);
+			initialMousePos = worldPos;
 
-            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
-            if (transform)
-            {
-                initialEntityPos = transform->GetPosition();
-                draggedEntityOriginalPos = initialEntityPos;
-            }
-        }
-        else
-        {
-            // CODE TO CHECK IF GIZMO IS SELECTED. IF GIZMO IS SELECTED, DO NOT DESELECT CURRENT ENTITY!!!
+			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
+			if (transform)
+			{
+				initialEntityPos = transform->GetPosition();
+				draggedEntityOriginalPos = initialEntityPos;
+			}
+		}
+		else
+		{
+			// CODE TO CHECK IF GIZMO IS SELECTED. IF GIZMO IS SELECTED, DO NOT DESELECT CURRENT ENTITY!!!
 
-            bool gizmoSelected = false;
+			bool gizmoSelected = false;
 
-            // Get mouse position in screen space
-            double mouseX = InputManager::GetMouseX();
-            double mouseY = InputManager::GetMouseY();
+			// Get mouse position in screen space
+			double mouseX = InputManager::GetMouseX();
+			double mouseY = InputManager::GetMouseY();
 
-            // Convert to world space
-            Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
+			// Convert to world space
+			Vector2D mouseWorldPosition = GraphicsManager::ScreenToWorld(Vector2D(static_cast<float>(mouseX), static_cast<float>(mouseY)));
 
-            if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
-                // Check if mouse is over the currently active gizmo handle
-                if (GizmoManager::IsMouseOverGizmoHandle(mouseWorldPosition, GraphicsManager::gizmoData, GizmoManager::activeGizmoHandle)) {
-                    gizmoSelected = true;
-                }
-            }
+			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+				// Check if mouse is over the currently active gizmo handle
+				if (GizmoManager::IsMouseOverGizmoHandle(mouseWorldPosition, GraphicsManager::gizmoData, GizmoManager::activeGizmoHandle)) {
+					gizmoSelected = true;
+				}
+			}
 
-            // Do nothing if gizmo selected
-            if (gizmoSelected) {
+			// Do nothing if gizmo selected
+			if (gizmoSelected) {
 
-            }
-            else {
-                selectedEntity = nullptr;
-                UIManager::selectedEntityID = -1;
-                UIManager::windowStates[WindowType::Inspector] = false;
-            }
-        }
-    }
+			}
+			else {
+				selectedEntity = nullptr;
+				UIManager::selectedEntityID = -1;
+				UIManager::windowStates[WindowType::Inspector] = false;
+			}
+		}
+	}
 
-    if (inSceneFBO && !isPlaying && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
-    {
-        if (!entitiesUnderMouse.empty())
-        {
-            currentEntityIndex = (currentEntityIndex + 1) % entitiesUnderMouse.size();
-            selectedEntity = entitiesUnderMouse[currentEntityIndex];
+	if (inSceneFBO && !isPlaying && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+	{
+		if (!entitiesUnderMouse.empty())
+		{
+			currentEntityIndex = (currentEntityIndex + 1) % entitiesUnderMouse.size();
+			selectedEntity = entitiesUnderMouse[currentEntityIndex];
 
-            UIManager::selectedEntityID = selectedEntity->entityID;
-            UIManager::windowStates[WindowType::Inspector] = true;
+			UIManager::selectedEntityID = selectedEntity->entityID;
+			UIManager::windowStates[WindowType::Inspector] = true;
 
-            EditorInputManager::SetIsDragging(true);
-            initialMousePos = worldPos;
+			EditorInputManager::SetIsDragging(true);
+			initialMousePos = worldPos;
 
-            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
-            if (transform)
-            {
-                initialEntityPos = transform->GetPosition();
-            }
-        }
-    }
+			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
+			if (transform)
+			{
+				initialEntityPos = transform->GetPosition();
+			}
+		}
+	}
 
-    // If an entity is selected, render gizmos
-    /*if (selectedEntity && !isPlaying) {
-        Gizmos::RenderGizmoForSelectedEntity(selectedEntity);
-    }*/
+	// If an entity is selected, render gizmos
+	/*if (selectedEntity && !isPlaying) {
+		Gizmos::RenderGizmoForSelectedEntity(selectedEntity);
+	}*/
 
-    if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
-    {
-        HandleEntityDragging();
-    }
+	if (selectedEntity && ImGui::IsMouseDown(ImGuiMouseButton_Left))
+	{
+		HandleEntityDragging();
+	}
 
-    if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
-    {
-        if (selectedEntity)
-        {
-            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
-            if (transform && transform->GetPosition() == draggedEntityOriginalPos)
-            {
-                std::cout << "Object didn't moved! so dont save state" << std::endl;
-                SnapshotManager::RemoveLatestUndoState();
-            }
-        }
+	if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+	{
+		if (selectedEntity)
+		{
+			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
+			if (transform && transform->GetPosition() == draggedEntityOriginalPos)
+			{
+				std::cout << "Object didn't moved! so dont save state" << std::endl;
+				SnapshotManager::RemoveLatestUndoState();
+			}
+		}
 
-        selectedEntity = nullptr;
-        EditorInputManager::SetIsDragging(false);
-    }
+		selectedEntity = nullptr;
+		EditorInputManager::SetIsDragging(false);
+	}
 
-    if (selectedEntity) {
-        //GraphicsManager::AddToDebugDrawQueue();
-        //std::cout << "selected";
-    }
+	if (selectedEntity) {
+		//GraphicsManager::AddToDebugDrawQueue();
+		//std::cout << "selected";
+	}
 
-    ImGui::End();
+	ImGui::End();
 }
 
 /**************************************************************************
@@ -286,67 +286,67 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 **************************************************************************/
 bool SceneWindow::IsMouseInFBO()
 {
-    ImVec2 mousePos = ImGui::GetMousePos();
-    ImVec2 fboPos = ImGui::GetItemRectMin();
-    ImVec2 fboSize = ImGui::GetItemRectSize();
+	ImVec2 mousePos = ImGui::GetMousePos();
+	ImVec2 fboPos = ImGui::GetItemRectMin();
+	ImVec2 fboSize = ImGui::GetItemRectSize();
 
-    return mousePos.x >= fboPos.x &&
-        mousePos.x <= fboPos.x + fboSize.x &&
-        mousePos.y >= fboPos.y &&
-        mousePos.y <= fboPos.y + fboSize.y;
+	return mousePos.x >= fboPos.x &&
+		mousePos.x <= fboPos.x + fboSize.x &&
+		mousePos.y >= fboPos.y &&
+		mousePos.y <= fboPos.y + fboSize.y;
 }
 
 /**************************************************************************
 @brief Converts the current mouse position on the screen to FBO coordinates.
 @return The converted FBO coordinates as a Vector2D. Returns {-999.0f, -999.0f}
-        if the mouse is outside the FBO area.
+		if the mouse is outside the FBO area.
 **************************************************************************/
 Vector2D SceneWindow::ConvertScreenToFBO()
 {
-    if (!IsMouseInFBO())
-    {
-        return { -999.0f, -999.0f };
-    }
-    ImVec2 mousePos = ImGui::GetMousePos();
-    ImVec2 fboPos = ImGui::GetItemRectMin();
-    ImVec2 fboSize = ImGui::GetItemRectSize();
+	if (!IsMouseInFBO())
+	{
+		return { -999.0f, -999.0f };
+	}
+	ImVec2 mousePos = ImGui::GetMousePos();
+	ImVec2 fboPos = ImGui::GetItemRectMin();
+	ImVec2 fboSize = ImGui::GetItemRectSize();
 
-    // Calculate the relative position within the FBO
-    float fboX = mousePos.x - fboPos.x;
-    float fboY = mousePos.y - fboPos.y;
+	// Calculate the relative position within the FBO
+	float fboX = mousePos.x - fboPos.x;
+	float fboY = mousePos.y - fboPos.y;
 
-    fboX = std::clamp(fboX, 0.0f, fboSize.x);
-    fboY = std::clamp(fboY, 0.0f, fboSize.y);
+	fboX = std::clamp(fboX, 0.0f, fboSize.x);
+	fboY = std::clamp(fboY, 0.0f, fboSize.y);
 
-    return Vector2D(fboX, fboY);
+	return Vector2D(fboX, fboY);
 }
 
 /**************************************************************************
 @brief Converts the mouse position on the screen to world coordinates based on
-       camera settings.
+	   camera settings.
 @return The world coordinates as a Vector2D.
 **************************************************************************/
 Vector2D SceneWindow::ConvertScreenToWorld()
 {
-    ImVec2 mousePos = ImGui::GetMousePos();
-    ImVec2 fboPos = ImGui::GetItemRectMin();
-    ImVec2 fboSize = ImGui::GetItemRectSize();
+	ImVec2 mousePos = ImGui::GetMousePos();
+	ImVec2 fboPos = ImGui::GetItemRectMin();
+	ImVec2 fboSize = ImGui::GetItemRectSize();
 
-    float relativeX = mousePos.x - fboPos.x;
-    float relativeY = mousePos.y - fboPos.y;
-    float flippedY = fboSize.y - relativeY;
-    float normalizedX = (relativeX / fboSize.x) * 2.0f - 1.0f;
-    float normalizedY = (flippedY / fboSize.y) * 2.0f - 1.0f;
+	float relativeX = mousePos.x - fboPos.x;
+	float relativeY = mousePos.y - fboPos.y;
+	float flippedY = fboSize.y - relativeY;
+	float normalizedX = (relativeX / fboSize.x) * 2.0f - 1.0f;
+	float normalizedY = (flippedY / fboSize.y) * 2.0f - 1.0f;
 
-    Vector2D cameraPos = CameraManager::GetPosition();
-    float cameraHeight = static_cast<float>(CameraManager::GetHeight());
-    float aspectRatio = CameraManager::GetAR();
-    float cameraWidth = cameraHeight * aspectRatio;
+	Vector2D cameraPos = CameraManager::GetPosition();
+	float cameraHeight = static_cast<float>(CameraManager::GetHeight());
+	float aspectRatio = CameraManager::GetAR();
+	float cameraWidth = cameraHeight * aspectRatio;
 
-    float worldX = normalizedX * (cameraWidth / 2.0f) + cameraPos.x;
-    float worldY = normalizedY * (cameraHeight / 2.0f) + cameraPos.y;
+	float worldX = normalizedX * (cameraWidth / 2.0f) + cameraPos.x;
+	float worldY = normalizedY * (cameraHeight / 2.0f) + cameraPos.y;
 
-    return Vector2D(worldX, worldY);
+	return Vector2D(worldX, worldY);
 }
 
 /**************************************************************************
@@ -356,96 +356,96 @@ Vector2D SceneWindow::ConvertScreenToWorld()
 **************************************************************************/
 Vector2D SceneWindow::ConvertWorldToScreen(const Vector2D& worldPos)
 {
-    Vector2D cameraPos = CameraManager::GetPosition();
-    float cameraHeight = static_cast<float>(CameraManager::GetHeight());
-    float aspectRatio = CameraManager::GetAR();
-    float cameraWidth = cameraHeight * aspectRatio;
+	Vector2D cameraPos = CameraManager::GetPosition();
+	float cameraHeight = static_cast<float>(CameraManager::GetHeight());
+	float aspectRatio = CameraManager::GetAR();
+	float cameraWidth = cameraHeight * aspectRatio;
 
-    ImVec2 fboSize = ImGui::GetContentRegionAvail();
-    float normalizedX = (worldPos.x - cameraPos.x) / (cameraWidth / 2.0f);
-    float normalizedY = (worldPos.y - cameraPos.y) / (cameraHeight / 2.0f);
+	ImVec2 fboSize = ImGui::GetContentRegionAvail();
+	float normalizedX = (worldPos.x - cameraPos.x) / (cameraWidth / 2.0f);
+	float normalizedY = (worldPos.y - cameraPos.y) / (cameraHeight / 2.0f);
 
-    float screenX = (normalizedX + 1.0f) * fboSize.x / 2.0f;
-    float screenY = (1.0f - normalizedY) * fboSize.y / 2.0f;
+	float screenX = (normalizedX + 1.0f) * fboSize.x / 2.0f;
+	float screenY = (1.0f - normalizedY) * fboSize.y / 2.0f;
 
-    ImVec2 fboPos = ImGui::GetItemRectMin();
-    return Vector2D(fboPos.x + screenX, fboPos.y + screenY);
+	ImVec2 fboPos = ImGui::GetItemRectMin();
+	return Vector2D(fboPos.x + screenX, fboPos.y + screenY);
 }
 
 /**************************************************************************
 @brief Calculates the scale factor between the world and the FBO based on
-       the current camera settings and FBO dimensions.
+	   the current camera settings and FBO dimensions.
 @return The world scale as a Vector2D.
 **************************************************************************/
 Vector2D SceneWindow::GetWorldScale()
 {
-    ImVec2 fboSize = ImGui::GetContentRegionAvail();
-    Vector2D worldScale((CameraManager::GetHeight() * CameraManager::GetAR()) / fboSize.x, CameraManager::GetHeight() / fboSize.y);
-    return worldScale;
+	ImVec2 fboSize = ImGui::GetContentRegionAvail();
+	Vector2D worldScale((CameraManager::GetHeight() * CameraManager::GetAR()) / fboSize.x, CameraManager::GetHeight() / fboSize.y);
+	return worldScale;
 }
 
 /**************************************************************************
 @brief Handles the dragging action for an entity by updating its position
-       based on the initial and current mouse positions in world space.
+	   based on the initial and current mouse positions in world space.
 **************************************************************************/
 void SceneWindow::HandleEntityDragging()
 {
-    Vector2D currentMousePos = ConvertScreenToWorld();
-    Vector2D delta = currentMousePos - initialMousePos;
+	Vector2D currentMousePos = ConvertScreenToWorld();
+	Vector2D delta = currentMousePos - initialMousePos;
 
-    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
+	auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntity->entityID);
 
-    if (transform)
-    {
-        transform->SetPosition(initialEntityPos + delta);
-    }
+	if (transform)
+	{
+		transform->SetPosition(initialEntityPos + delta);
+	}
 }
 
 /**************************************************************************
 @brief Retrieves a list of entities at a specific position in the world,
-       typically based on the mouse cursor's location.
+	   typically based on the mouse cursor's location.
 @param worldPos The position in the world to check for entities.
 @return A vector of pointers to entities at the specified world position.
 **************************************************************************/
 std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos)
 {
-    std::vector<Entity*> foundEntities;
+	std::vector<Entity*> foundEntities;
 
-    auto& transformComponents = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TransformComponent>();
+	auto& transformComponents = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TransformComponent>();
 
-    for (auto& [entityID, component] : transformComponents)
-    {
-        auto* transform = std::static_pointer_cast<TransformComponent>(component).get();
+	for (auto& [entityID, component] : transformComponents)
+	{
+		auto* transform = std::static_pointer_cast<TransformComponent>(component).get();
 
-        float left = transform->GetPosition().x - transform->scale.x / 2;
-        float right = transform->GetPosition().x + transform->scale.x / 2;
-        float top = transform->GetPosition().y - transform->scale.y / 2;
-        float bottom = transform->GetPosition().y + transform->scale.y / 2;
+		float left = transform->GetPosition().x - transform->scale.x / 2;
+		float right = transform->GetPosition().x + transform->scale.x / 2;
+		float top = transform->GetPosition().y - transform->scale.y / 2;
+		float bottom = transform->GetPosition().y + transform->scale.y / 2;
 
-        if (worldPos.x >= left && worldPos.x <= right &&
-            worldPos.y >= top && worldPos.y <= bottom)
-        {
-            // Skip entities with the "Background" layer
-            Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
-            if (entity && entity->layerName == "Background")
-            {
-                continue; 
-            }
+		if (worldPos.x >= left && worldPos.x <= right &&
+			worldPos.y >= top && worldPos.y <= bottom)
+		{
+			// Skip entities with the "Background" layer
+			Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+			if (entity && entity->layerName == "Background")
+			{
+				continue; 
+			}
 
-            foundEntities.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID));
-        }
-    }
+			foundEntities.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID));
+		}
+	}
 
-    return foundEntities;
+	return foundEntities;
 }
 
 /**************************************************************************
 @brief Handles the event of a prefab being dragged and dropped into the scene,
-       instantiating it at the specified world position.
+	   instantiating it at the specified world position.
 @param prefabName The name of the prefab being dragged into the scene.
 @param position The position in the world where the prefab will be instantiated.
 **************************************************************************/
 void SceneWindow::OnPrefabDraggedIntoScene(const std::string& prefabName, Vec2 position)
 {
-    DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab(prefabName, position);
+	DuckEngine::DUCKENGINE_PrefabManager.InstantiatePrefab(prefabName, position);
 }
