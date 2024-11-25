@@ -1,6 +1,7 @@
 #include "PrefabEditor.h"
 #include "DuckEngine.h"
 #include "GameManager.h"
+#include <imgui_internal.h>
 
 bool PrefabEditor::isOpen = false;
 std::string PrefabEditor::currentPrefabName = "";
@@ -22,6 +23,16 @@ void PrefabEditor::Render()
 
     if (currentPrefab)
     {
+        ImGui::Columns(2, nullptr, true);
+
+        ImGui::BeginChild("PrefabPreview", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
+        RenderPrefabPreview();
+        ImGui::EndChild();
+
+        // Move to the next column
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
         ImGui::Text("Editing Prefab: %s", currentPrefabName.c_str());
         RenderPrefabProperties();
 
@@ -33,12 +44,14 @@ void PrefabEditor::Render()
             currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
         }
 
-
         ImGui::SameLine();
         if (ImGui::Button("Close"))
         {
             isOpen = false;
         }
+        ImGui::EndChild();
+
+        ImGui::Columns(1);
     }
     else
     {
@@ -51,6 +64,7 @@ void PrefabEditor::Render()
 
     ImGui::End();
 }
+
 
 void PrefabEditor::RenderPrefabProperties()
 {
@@ -190,24 +204,30 @@ void PrefabEditor::RenderPrefabProperties()
         // Handle Bounding Circle Component
         else if (type == "BoundingCircle")
         {
-            if (properties.contains("center") && properties.contains("radius"))
+            if (properties.contains("offset") || properties.contains("radius"))
             {
-                auto& center = properties["center"];
+                // Default the offset to (0, 0) if it is not present
+                auto& offset = properties["offset"];
+                if (!offset.is_object())
+                {
+                    offset = { { "x", 0.0f }, { "y", 0.0f } };
+                }
+
                 float radius = properties.value("radius", 1.0f);
 
-                float centerValues[2] = {
-                    center.value("x", 0.0f),
-                    center.value("y", 0.0f)
+                float offsetValues[2] = {
+                    offset.value("x", 0.0f),
+                    offset.value("y", 0.0f)
                 };
 
                 if (ImGui::CollapsingHeader("Bounding Circle"))
                 {
-                    ImGui::Text("Center");
+                    ImGui::Text("Offset");
                     ImGui::SameLine(100);
-                    if (ImGui::DragFloat2("##Center", centerValues, 0.1f))
+                    if (ImGui::DragFloat2("##Offset", offsetValues, 0.1f))
                     {
-                        center["x"] = centerValues[0];
-                        center["y"] = centerValues[1];
+                        offset["x"] = offsetValues[0];
+                        offset["y"] = offsetValues[1];
                     }
 
                     ImGui::Text("Radius");
@@ -218,7 +238,14 @@ void PrefabEditor::RenderPrefabProperties()
                     }
                 }
             }
+            else
+            {
+                properties["offset"] = { { "x", 0.0f }, { "y", 0.0f } };
+                properties["radius"] = 1.0f;
+            }
         }
+
+
         // Handle Rigidbody Component
         else if (type == "RigidbodyComponent")
         {
@@ -297,5 +324,112 @@ void PrefabEditor::AddComponent()
         }
 
         currentPrefab->componentsData.push_back(newComponent);
+    }
+}
+
+void PrefabEditor::RenderPrefabPreview()
+{
+    if (!currentPrefab)
+        return;
+
+    std::string texturePath;
+    ImVec2 scale = { 1.0f, 1.0f };
+    float rotation = 0.0f;
+    ImVec2 position = { 0.0f, 0.0f };
+
+    for (const auto& component : currentPrefab->componentsData)
+    {
+        if (component["type"] == "SpriteRendererComponent")
+        {
+            texturePath = component["properties"].value("texture", "");
+        }
+        else if (component["type"] == "TransformComponent")
+        {
+            if (component["properties"].contains("scale"))
+            {
+                const auto& scaleJson = component["properties"]["scale"];
+                scale = ImVec2(
+                    scaleJson.value("x", 1.0f),
+                    scaleJson.value("y", 1.0f)
+                );
+            }
+
+            rotation = component["properties"].value("rotation", 0.0f);
+
+            if (component["properties"].contains("position"))
+            {
+                const auto& positionJson = component["properties"]["position"];
+                position = ImVec2(
+                    positionJson.value("x", 0.0f),
+                    positionJson.value("y", 0.0f)
+                );
+            }
+        }
+    }
+
+    if (!texturePath.empty())
+    {
+        auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(texturePath);
+        if (texture)
+        {
+            ImVec2 availableSpace = ImGui::GetContentRegionAvail();
+
+            ImVec2 windowPos = ImGui::GetCursorScreenPos();
+
+            ImVec2 textureSize = ImVec2(128.0f, 128.0f);
+
+            ImVec2 scaledTextureSize = ImVec2(
+                textureSize.x * scale.x,
+                textureSize.y * scale.y
+            );
+
+            ImVec2 centerPos = ImVec2(
+                (availableSpace.x * 0.5f) + windowPos.x,
+                (availableSpace.y * 0.5f) + windowPos.y
+            );
+
+            ImVec2 adjustedPos = ImVec2(
+                centerPos.x + position.x,
+                centerPos.y - position.y 
+            );
+
+            ImVec2 textureOffset = ImVec2(
+                scaledTextureSize.x * 0.5f,
+                scaledTextureSize.y * 0.5f
+            );
+
+            float rotationRadians = rotation * (IM_PI / 180.0f);
+
+            ImVec2 corners[4];
+            float sinTheta = sin(rotationRadians);
+            float cosTheta = cos(rotationRadians);
+
+            corners[0] = ImVec2(-textureOffset.x, -textureOffset.y); 
+            corners[1] = ImVec2(textureOffset.x, -textureOffset.y);
+            corners[2] = ImVec2(textureOffset.x, textureOffset.y);  
+            corners[3] = ImVec2(-textureOffset.x, textureOffset.y);  
+
+            for (int i = 0; i < 4; i++)
+            {
+                float x = corners[i].x * cosTheta - corners[i].y * sinTheta;
+                float y = corners[i].x * sinTheta + corners[i].y * cosTheta;
+                corners[i] = ImVec2(x + adjustedPos.x, y + adjustedPos.y);
+            }
+
+            ImDrawList* drawList = ImGui::GetWindowDrawList();
+            drawList->AddImageQuad(
+                (void*)(intptr_t)*texture,
+                corners[0], corners[1], corners[2], corners[3],
+                ImVec2(0, 1), ImVec2(1, 1), ImVec2(1, 0), ImVec2(0, 0)
+            );
+        }
+        else
+        {
+            ImGui::Text("Failed to load texture.");
+        }
+    }
+    else
+    {
+        ImGui::Text("No texture available.");
     }
 }

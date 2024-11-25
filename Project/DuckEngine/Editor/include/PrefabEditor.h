@@ -16,5 +16,6 @@ private:
     static std::shared_ptr<Prefab> currentPrefab;
 
     static void RenderPrefabProperties();
+    static void RenderPrefabPreview();
     static void AddComponent();
 };
