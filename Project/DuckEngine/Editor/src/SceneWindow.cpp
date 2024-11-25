@@ -45,6 +45,7 @@ Vector2D draggedEntityOriginalPos;
 Texture playIconTexture = 0;
 Texture pauseIconTexture = 0;
 Texture stopIconTexture = 0;
+Texture continueIconTexture = 0;
 
 /**************************************************************************
 @brief Initializes the scene window by setting up the FBO dimensions.
@@ -58,6 +59,7 @@ void SceneWindow::Initialize()
     playIconTexture = AssetManager::GetTextureByName("PlayIcon");
     pauseIconTexture = AssetManager::GetTextureByName("PauseIcon");
     stopIconTexture = AssetManager::GetTextureByName("StopIcon");
+    continueIconTexture = AssetManager::GetTextureByName("ContinueIcon");
 }
 
 /**************************************************************************
@@ -79,13 +81,18 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
     isPlaying = DuckEngine::IsPlaying();
     isPaused = DuckEngine::IsPaused();
 
+    ImVec2 toolbarSize(ImGui::GetContentRegionAvail().x, 40.0f);
+    ImGui::BeginChild("Toolbar", ImVec2(toolbarSize.x, toolbarSize.y), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground);
+
+    // Center the button vertically in the toolbar
+    float buttonSize = 32.0f;
+    float verticalPadding = (toolbarSize.y - buttonSize) * 0.1f;
+	ImGui::SetCursorPosY(verticalPadding);
+    ImGui::SetCursorPosX((toolbarSize.x * 0.5f) - (buttonSize * 0.5f));
+
+    // Play/Stop Button
     GLuint currentIcon = isPlaying ? stopIconTexture : playIconTexture;
-
-    ImVec2 toolbarSize(ImGui::GetContentRegionAvail().x, 50.0f); 
-    ImGui::SetCursorPosX((toolbarSize.x / 2.0f) - 15.0f); 
-    ImGui::SetCursorPosY(30.0f);
-
-    if (ImGui::ImageButton("##PlayPauseButton", (void*)(intptr_t)currentIcon, ImVec2(30, 30)))
+    if (ImGui::ImageButton("##PlayStopButton", (void*)(intptr_t)currentIcon, ImVec2(32, 32)))
     {
         isPlaying = !isPlaying;
         DuckEngine::SetPlaying(isPlaying);
@@ -107,10 +114,12 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
         }
     }
 
+    // Pause/Continue Button (only when playing)
     if (isPlaying)
     {
         ImGui::SameLine();
-        if (ImGui::Button(isPaused ? "Continue" : "Pause"))
+        GLuint currentPauseIcon = isPaused ? continueIconTexture : pauseIconTexture;
+        if (ImGui::ImageButton("##ContinuePauseButton", (void*)(intptr_t)currentPauseIcon, ImVec2(32, 32)))
         {
             isPaused = !isPaused;
             DuckEngine::SetPaused(isPaused);
@@ -125,6 +134,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
             }
         }
     }
+    ImGui::EndChild();
 
     GLuint fboTexture = GraphicsManager::GetFBOTexture();
     ImVec2 windowSize = ImGui::GetContentRegionAvail();

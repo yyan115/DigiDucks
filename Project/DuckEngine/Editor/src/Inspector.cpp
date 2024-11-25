@@ -286,6 +286,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 			Vec2 size = box->getSize();
 			Vec2 Offset = box->getOffSet();
 
+			ImGui::Checkbox("Is Kinematic", &box->isKinematic);
+			if (ImGui::IsItemEdited()) hasChanged = true;
+
 			ImGui::Text("Size");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat2("##Size", &size.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
@@ -319,6 +322,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 			Vec2 center = circle->getCenter();
 			float radius = circle->getRadius();
 			Vec2 Offset = circle->getOffSet();
+
+			ImGui::Checkbox("Is Kinematic", &circle->isKinematic);
+			if (ImGui::IsItemEdited()) hasChanged = true;
 
 			ImGui::Text("Radius");
 			ImGui::SameLine(100);
