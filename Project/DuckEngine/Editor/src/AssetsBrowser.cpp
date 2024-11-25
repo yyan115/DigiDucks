@@ -41,6 +41,23 @@ void AssetsBrowser::ShowAssets() {
     std::transform(queryLower.begin(), queryLower.end(), queryLower.begin(), 
         [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
 
+    ImGui::SameLine(ImGui::GetContentRegionAvail().x - ImGui::CalcTextSize("Open in Explorer").x - ImGui::GetStyle().FramePadding.x * 2);
+
+    // Render the File Explorer button
+    if (ImGui::Button("Open in Explorer")) {
+        // Open the selected folder path in File Explorer
+        std::string pathToOpen = selectedFolderPath;
+        std::replace(pathToOpen.begin(), pathToOpen.end(), '/', '\\');
+
+        // Ensure the path exists before trying to open it
+        if (fs::exists(pathToOpen)) {
+            ShellExecuteA(nullptr, "open", pathToOpen.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+        }
+        else {
+            std::cerr << "Error: Path does not exist - " << pathToOpen << std::endl;
+        }
+    }
+
     // Left pane for folder structure
     ImGui::BeginChild("LeftPane", ImVec2(200, 0), true);
     RenderDirectoryTree(); 
@@ -49,16 +66,10 @@ void AssetsBrowser::ShowAssets() {
     ImGui::SameLine();
 
     // Right pane for displaying assets within the selected folder
-    ImGui::BeginChild("RightPane", ImVec2(0, 0), true);
-    
-    if (selectedFolderName.compare("Prefabs") == 0) {
-        // Display all loaded prefabs
-		RenderPrefabsGrid(); 
-	}
-	else {
-        // Display other assets in a grid
-		RenderAssetGrid(selectedFolderPath);  
-	}
+    ImGui::BeginChild("RightPane", ImVec2(0, 0), true);    
+	// Render the assets grid based on the selected folder
+    if (selectedFolderName.compare("Prefabs") == 0) RenderPrefabsGrid();
+	else RenderAssetGrid(selectedFolderPath);
     ImGui::EndChild();
 }
 
@@ -78,7 +89,7 @@ void AssetsBrowser::RenderDirectoryTree() {
             std::string folderName = entry.path().filename().string();
             std::string folderPath = entry.path().string();
 
-			if (folderName == "Icons") continue; // Skip the "Icons" directory
+			if (folderName == "EditorIcons") continue; // Skip the "EditorIcons" directory
 
             // Display each folder as a selectable item
             if (ImGui::Selectable(folderName.c_str(), selectedFolderPath == folderPath)) {
@@ -101,7 +112,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
     // Calculate how many items can fit in one row
     float contentWidth = ImGui::GetContentRegionAvail().x;
-    float itemWidth = 120.0f; // Width of each asset cell
+    float itemWidth = 128.0f; // Width of each asset cell
     float itemPadding = 20.0f; // Padding between items
     int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
     if (itemsPerRow < 1) itemsPerRow = 1;
@@ -131,27 +142,19 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         ImGui::BeginGroup();
 
         // Load the folder icon
-        auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Icons/duck_folder_icon.png");
-
+        auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("duck_folder_icon");
         if (texture) {
             // Render the icon as a clickable image button
-            if (ImGui::ImageButton(("folder_" + fileName).c_str(), (void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0))) {
+            if (ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0))) {
                 // Navigate into the subfolder when clicked
                 selectedFolderPath = normalizedPath;
                 selectedFolderName = fileName;
             }
         }
-        else {
-            // Fallback if the icon is not loaded
-            DuckEngine::DUCKENGINE_AssetManager.LoadTexture("Resources/Icons/duck_folder_icon.png");
-            if (ImGui::Button(("folder_fallback_" + fileName).c_str(), ImVec2(120, 120))) {
-                selectedFolderPath = normalizedPath;
-                selectedFolderName = fileName;
-            }
-        }
+
         // Calculate text width and center-align
         float textWidth = ImGui::CalcTextSize((fileName + "/").c_str()).x;
-        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
         if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
         // Display the folder name below the icon
@@ -192,15 +195,22 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
             continue; // Skip files that don't match the query
         }
 
-        // Determine the parent directory dynamically
+        // Find the parent directory
         std::string canonicalPath = fs::canonical(entry.path()).string();
         std::string parentDir = "";
         for (const auto& [dir, extensions] : folderAllowedExtensions) {
             std::string canonicalParent = fs::canonical("Resources/" + dir).string();
             if (canonicalPath.find(canonicalParent) == 0) {
-                parentDir = dir; // Found the parent directory
+                parentDir = dir;
                 break;
             }
+        }
+
+        // Find the icon for the file extension
+        std::string iconName = "";
+        auto it = fileIcons.find(fileExtension);
+        if (it != fileIcons.end()) {
+            iconName = it->second;
         }
 
         ImGui::PushID(normalizedPath.c_str());
@@ -214,12 +224,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
                 if (parentDir == "Sprites") {
 					// Load the texture if not already loaded
                     auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
-                    if (texture) {
-                        ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
-                    }
+                    if (texture) ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
                     else {
                         DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath);
-                        ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                        ImGui::Button(fileName.c_str(), ImVec2(128, 128));
                     }
 					// Drag/drop source for the sprite
                     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
@@ -240,15 +248,23 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
                     }
                 }
                 else if (parentDir == "Sounds") {
-                    ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                    auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
+                    if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+
                     if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
                         ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
                         ImGui::Text("Drag %s", fileName.c_str());
                         ImGui::EndDragDropSource();
                     }
                 }
+                else if (parentDir == "Scenes") {
+                    auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
+                    if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+                    
+                }
+
                 else {
-                    ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                    ImGui::Button(fileName.c_str(), ImVec2(128, 128));
                 }
             }
             else {
@@ -260,7 +276,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         // Calculate text width and center-align
         if (truncatedFileName.length() > 12) truncatedFileName = truncatedFileName.substr(0, 9) + "...";
         float textWidth = ImGui::CalcTextSize((truncatedFileName + "/").c_str()).x;
-        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
         if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
         // Truncate file name        
@@ -303,11 +319,11 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 
 
-// Render theprefabs in the right pane as a grid
+// Render the prefabs in the right pane as a grid
 void AssetsBrowser::RenderPrefabsGrid() {
     // Calculate how many items can fit in one row
     float contentWidth = ImGui::GetContentRegionAvail().x;
-    float itemWidth = 120.0f; // Width of each asset cell
+    float itemWidth = 128.0f; // Width of each asset cell
     float itemPadding = 20.0f; // Padding between items
     int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
     if (itemsPerRow < 1) itemsPerRow = 1;
@@ -321,10 +337,10 @@ void AssetsBrowser::RenderPrefabsGrid() {
         ImGui::BeginGroup();
         // Retrieve and display prefab texture
         if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
+            ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
         }
         else {
-            ImGui::Button(prefabName.c_str(), ImVec2(120, 120)); // Fallback button if no texture is found
+            ImGui::Button(prefabName.c_str(), ImVec2(128, 128)); // Fallback button if no texture is found
         }
 
         // Drag-and-drop source for the prefab
@@ -336,7 +352,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 		std::string truncatedPrefabName = prefabName;
         if (truncatedPrefabName.length() > 12) truncatedPrefabName = truncatedPrefabName.substr(0, 9) + "...";
         float textWidth = ImGui::CalcTextSize((truncatedPrefabName + "/").c_str()).x;
-        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
         if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
         ImGui::TextWrapped("%s", truncatedPrefabName.c_str());
         ImGui::EndGroup();

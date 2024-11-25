@@ -95,12 +95,12 @@ void AssetManager::LoadAllTextures(const std::string& directoryPath) {
 				}
 				else {
 					LoadTexture(filePath);
-					std::cout << "Preloaded texture: " << filePath << std::endl;
 				}
 			}
 				
 		}
 	}
+	std::cout << "Loaded all textures in " + directoryPath << std::endl;
 }
 
 
@@ -232,11 +232,13 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 				}
 				else {
 					LoadSound(filePath, filePath);
-					std::cout << "Preloaded sound: " << filePath << std::endl;
+					
 				}
 			}
 		}
 	}
+
+	std::cout << "Loaded all sounds in " + directoryPath << std::endl;
 }
 
 void AssetManager::LoadSound(const std::string& soundID, const std::string& filePath) {

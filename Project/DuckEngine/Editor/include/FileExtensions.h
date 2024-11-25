@@ -30,4 +30,23 @@ std::unordered_map<std::string, std::vector<std::string>> folderAllowedExtension
         // Add other folders and their extensions as needed
 };
 
+// Icon map 
+std::unordered_map<std::string, std::string> fileIcons = {
+    //Sounds
+    {".ogg", "ogg_icon"},
+    {".mp3", "mp3_icon"},
+    {".wav", "wav_icon"},
+    //Font
+    {".ttf", "ttf_icon"},
+    //Scenes
+    {".json", "json_icon"},
+    //Shaders
+    {".vert", "vert_icon"},
+    {".frag", "frag_icon"},
+    //Scripts
+    {".lua", "script_icon"},
+    {".txt", "text_icon"},
+    // Add other extensions and their respective icons
+};
+
 #endif // FILEXTENSIONS_H

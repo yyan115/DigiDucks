@@ -32,6 +32,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "EditorTheme.h"
 #include "HierarchyList.h"
 #include "GizmoManager.h"
+#include "SnapshotManager.h"
 
 #include <Windows.h>
 
@@ -76,6 +77,9 @@ void UIManager::Initialize()
     io.Fonts->Clear();
     io.Fonts->AddFontFromFileTTF("Resources/Inter.ttf", 18.0f);
     ImGui_ImplOpenGL3_CreateFontsTexture(); // Rebuild font atlas
+
+    //Load all editor icons
+    DuckEngine::DUCKENGINE_AssetManager.LoadAllTextures("Resources/EditorIcons");
 }
 
 // Render the ImGui windows with a specific size and position to make it adaptive
@@ -156,8 +160,8 @@ void UIManager::ShowMenuBar()
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Edit")) {
-            if (ImGui::MenuItem("Undo", "Ctrl+Z")) {}
-            if (ImGui::MenuItem("Redo", "Ctrl+Y")) {}
+            if (ImGui::MenuItem("Undo", "Ctrl+Z")) { SnapshotManager::Undo(); }
+            if (ImGui::MenuItem("Redo", "Ctrl+Y")) { SnapshotManager::Redo(); }
             if (ImGui::MenuItem("Copy", "Ctrl+C")) {}
             if (ImGui::MenuItem("Paste", "Ctrl+V")) {}
             ImGui::EndMenu();
