@@ -19,6 +19,8 @@ void PrefabEditor::Render()
     if (!isOpen)
         return;
 
+    ImGui::SetNextWindowSize(ImVec2(600, 400), ImGuiCond_FirstUseEver);
+
     ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoCollapse);
 
     if (currentPrefab)
