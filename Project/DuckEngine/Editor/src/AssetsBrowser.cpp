@@ -78,6 +78,8 @@ void AssetsBrowser::RenderDirectoryTree() {
             std::string folderName = entry.path().filename().string();
             std::string folderPath = entry.path().string();
 
+			if (folderName == "Icons") continue; // Skip the "Icons" directory
+
             // Display each folder as a selectable item
             if (ImGui::Selectable(folderName.c_str(), selectedFolderPath == folderPath)) {
                 selectedFolderPath = folderPath; // Update the selected folder path
@@ -94,121 +96,186 @@ std::string NormalizePath(const std::string& path) {
     return normalizedPath;
 }
 
-// Render the assets in the right pane as a grid
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
     if (!fs::exists(path)) return;
 
-    auto allowedExtensions = folderAllowedExtensions.find(selectedFolderName);
-
-
-	// Calculate how many items can fit in one row
+    // Calculate how many items can fit in one row
     float contentWidth = ImGui::GetContentRegionAvail().x;
     float itemWidth = 120.0f; // Width of each asset cell
     float itemPadding = 20.0f; // Padding between items
     int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
     if (itemsPerRow < 1) itemsPerRow = 1;
 
+    std::vector<fs::directory_entry> directories;
+    std::vector<fs::directory_entry> files;
+
+    // Separate directories and files
+    for (const auto& entry : fs::directory_iterator(path)) {
+        if (entry.is_directory()) {
+            directories.push_back(entry);
+        }
+        else {
+            files.push_back(entry);
+        }
+    }
+
     int itemIndex = 0;
 
-    static std::string selectedAsset = "";
-
-    // Iterate over files in the selected folder
-    for (const auto& entry : fs::recursive_directory_iterator(path)) {
-        if (entry.is_directory()) continue;
-
+    ImGui::Separator();
+    // Render directories first
+    for (const auto& entry : directories) {
         std::string fileName = entry.path().filename().string();
-        std::string fileNameLower = fileName;
-        std::string truncatedFileName = fileName;        
-        std::transform(fileNameLower.begin(), fileNameLower.end(), fileNameLower.begin(), 
-            [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+        std::string normalizedPath = NormalizePath(entry.path().string());
+
+        ImGui::PushID(normalizedPath.c_str());
+        ImGui::BeginGroup();
+
+        // Load the folder icon
+        auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture("Resources/Icons/duck_folder_icon.png");
+
+        if (texture) {
+            // Render the icon as a clickable image button
+            if (ImGui::ImageButton(("folder_" + fileName).c_str(), (void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0))) {
+                // Navigate into the subfolder when clicked
+                selectedFolderPath = normalizedPath;
+                selectedFolderName = fileName;
+            }
+        }
+        else {
+            // Fallback if the icon is not loaded
+            DuckEngine::DUCKENGINE_AssetManager.LoadTexture("Resources/Icons/duck_folder_icon.png");
+            if (ImGui::Button(("folder_fallback_" + fileName).c_str(), ImVec2(120, 120))) {
+                selectedFolderPath = normalizedPath;
+                selectedFolderName = fileName;
+            }
+        }
+        // Calculate text width and center-align
+        float textWidth = ImGui::CalcTextSize((fileName + "/").c_str()).x;
+        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
+
+        // Display the folder name below the icon
+        ImGui::TextWrapped("%s", ("/" + fileName).c_str());
+        ImGui::EndGroup();
+
+        itemIndex++;
+        if (itemIndex % itemsPerRow != 0) {
+            ImGui::SameLine();
+        }
+        else {
+            ImGui::NewLine();
+        }
+
+        ImGui::PopID();
+    }
+    
+    // Reset layout for files
+    if (itemIndex % itemsPerRow != 0) {
+        ImGui::NewLine();
+    }
+    itemIndex = 0;
+    ImGui::Separator();
+
+    // Render files
+    for (const auto& entry : files) {
+        std::string fileName = entry.path().filename().string();
+        std::string truncatedFileName = fileName;
+        std::string fileExtension = entry.path().extension().string();
+        std::string normalizedPath = NormalizePath(entry.path().string());
 
         // Filter assets based on the search query
+        std::string fileNameLower = fileName;
+        std::transform(fileNameLower.begin(), fileNameLower.end(), fileNameLower.begin(),
+            [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+
         if (!queryLower.empty() && fileNameLower.find(queryLower) == std::string::npos) {
             continue; // Skip files that don't match the query
         }
 
-        std::string fileExtension = entry.path().extension().string();
-        std::string normalizedPath = NormalizePath(entry.path().string());
-
-        // Validate file extension
-        if (allowedExtensions != folderAllowedExtensions.end()) {
-            const auto& extensions = allowedExtensions->second;
-            if (std::find(extensions.begin(), extensions.end(), fileExtension) == extensions.end()) {
-                // File extension is not allowed for this folder
-                showErrorPopup = true;
-                errorMessage = "Error: File '" + fileName + "' in folder '" + selectedFolderName +
-                    "' has an invalid extension (" + fileExtension + "). Please delete the file in the folder.";
-                continue; // Skip rendering this file
+        // Determine the parent directory dynamically
+        std::string canonicalPath = fs::canonical(entry.path()).string();
+        std::string parentDir = "";
+        for (const auto& [dir, extensions] : folderAllowedExtensions) {
+            std::string canonicalParent = fs::canonical("Resources/" + dir).string();
+            if (canonicalPath.find(canonicalParent) == 0) {
+                parentDir = dir; // Found the parent directory
+                break;
             }
         }
 
         ImGui::PushID(normalizedPath.c_str());
-
         ImGui::BeginGroup();
 
-        // Check if texture folder
-        if (selectedFolderName == "Sprites") {
-            
-            auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
-
-            // If texture is valid, display it as an image
-            if (texture) {
-                ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0,1), ImVec2(1,0));
-            }
-            else {
-                DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath); // Load the texture if not already loaded
-                ImGui::Button(fileName.c_str(), ImVec2(120, 120));
-            }
-
-            // Set up drag-and-drop source for sprites
-            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
-                ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
-                ImGui::Text("Drag %s", fileName.c_str());
-                ImGui::EndDragDropSource();
-            }
-
-            // Open context menu on right-click
-            if (ImGui::BeginPopupContextItem(("Replace##" + normalizedPath).c_str())) {
-                // Replace the asset with the new file
-                if (ImGui::MenuItem("Replace texture")) {
-                    std::string newFilePath = LevelManager::OpenFileDialog("texture");
-                    if (!newFilePath.empty()) {
-                        ReplaceAsset(normalizedPath, newFilePath); 
+        // Validate file extension based on parent directory
+        if (!parentDir.empty()) {
+            const auto& allowedExtensions = folderAllowedExtensions[parentDir];
+            if (std::find(allowedExtensions.begin(), allowedExtensions.end(), fileExtension) != allowedExtensions.end()) {
+                // Render based on parent directory type
+                if (parentDir == "Sprites") {
+					// Load the texture if not already loaded
+                    auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
+                    if (texture) {
+                        ImGui::Image((void*)(intptr_t)(*texture), ImVec2(120, 120), ImVec2(0, 1), ImVec2(1, 0));
+                    }
+                    else {
+                        DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath);
+                        ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                    }
+					// Drag/drop source for the sprite
+                    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+                        ImGui::SetDragDropPayload("SPRITE_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
+                        ImGui::Text("Drag %s", fileName.c_str());
+                        ImGui::EndDragDropSource();
+                    }
+                    // Open context menu on right-click
+                    if (ImGui::BeginPopupContextItem(("Replace##" + normalizedPath).c_str())) {
+                        // Replace the asset with the new file
+                        if (ImGui::MenuItem("Replace texture")) {
+                            std::string newFilePath = LevelManager::OpenFileDialog("texture");
+                            if (!newFilePath.empty()) {
+                                ReplaceAsset(normalizedPath, newFilePath);
+                            }
+                        }
+                        ImGui::EndPopup();
                     }
                 }
-                ImGui::EndPopup();
+                else if (parentDir == "Sounds") {
+                    ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
+                        ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
+                        ImGui::Text("Drag %s", fileName.c_str());
+                        ImGui::EndDragDropSource();
+                    }
+                }
+                else {
+                    ImGui::Button(fileName.c_str(), ImVec2(120, 120));
+                }
             }
-            
-        }
-        else if (selectedFolderName == "Sounds") {
-
-            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
-
-            if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None)) {
-                ImGui::SetDragDropPayload("SOUND_PAYLOAD", normalizedPath.c_str(), entry.path().string().size() + 1);
-                ImGui::Text("Drag %s", fileName.c_str());
-                ImGui::EndDragDropSource();
+            else {
+                // Invalid file for the folder
+                showErrorPopup = true;
+                errorMessage = "Error: File '" + fileName + "' has an invalid extension (" + fileExtension + ") for folder '" + parentDir + "'.";
             }
         }
-        else if (selectedFolderName == "Scenes") {
-            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
-        }
-        else {
-            // Non-texture files displayed as buttons
-            ImGui::Button(fileName.c_str(), ImVec2(120, 120));
-        }
-
-        // Truncate file name
+        // Calculate text width and center-align
         if (truncatedFileName.length() > 12) truncatedFileName = truncatedFileName.substr(0, 9) + "...";
+        float textWidth = ImGui::CalcTextSize((truncatedFileName + "/").c_str()).x;
+        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
+
+        // Truncate file name        
         ImGui::TextWrapped("%s", truncatedFileName.c_str());
         ImGui::EndGroup();
 
-        if ((itemIndex + 1) % itemsPerRow != 0) {
+        itemIndex++;
+        if (itemIndex % itemsPerRow != 0) {
             ImGui::SameLine();
+        }
+        else {
+            ImGui::NewLine();
         }
 
         ImGui::PopID();
-        itemIndex++;
     }
 
     // Show error popup if an invalid file was detected
@@ -231,8 +298,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
         }
         ImGui::EndPopup();
     }
-    
 }
+
+
+
 
 // Render theprefabs in the right pane as a grid
 void AssetsBrowser::RenderPrefabsGrid() {
@@ -266,6 +335,9 @@ void AssetsBrowser::RenderPrefabsGrid() {
         }
 		std::string truncatedPrefabName = prefabName;
         if (truncatedPrefabName.length() > 12) truncatedPrefabName = truncatedPrefabName.substr(0, 9) + "...";
+        float textWidth = ImGui::CalcTextSize((truncatedPrefabName + "/").c_str()).x;
+        float offsetX = (120 - textWidth) * 0.5f; // Center within 120px icon width
+        if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
         ImGui::TextWrapped("%s", truncatedPrefabName.c_str());
         ImGui::EndGroup();
 
