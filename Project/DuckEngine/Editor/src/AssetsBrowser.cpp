@@ -142,6 +142,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 	Texture Foldertexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("duck_folder_icon");
 	for (const auto& entry : directories) {
 		std::string fileName = entry.path().filename().string();
+		std::string truncatedFolderName = fileName;
 		std::string normalizedPath = NormalizePath(entry.path().string());
 
 		ImGui::PushID(normalizedPath.c_str());
@@ -159,12 +160,13 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		}
 
 		// Calculate text width and center-align
-		float textWidth = ImGui::CalcTextSize((fileName + "/").c_str()).x;
+		if (truncatedFolderName.length() > 12) truncatedFolderName = truncatedFolderName.substr(0, 9) + "...";
+		float textWidth = ImGui::CalcTextSize((truncatedFolderName + "/").c_str()).x;
 		float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
 		if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
 		// Display the folder name below the icon
-		ImGui::TextWrapped("%s", ("/" + fileName).c_str());
+		ImGui::TextWrapped("%s", ("/" + truncatedFolderName).c_str());
 		ImGui::EndGroup();
 
 		itemIndex++;
