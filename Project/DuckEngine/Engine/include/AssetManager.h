@@ -41,8 +41,12 @@ public:
 	static DUCKENGINE_API void ReloadTexture(const std::string& fileName, const std::string& filePath);
 	static DUCKENGINE_API std::shared_ptr<Texture> GetTexture(const std::string& fileName);
 
+	// Sounds	
 	static DUCKENGINE_API void LoadAllSounds(const std::string& directoryPath);
 	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
+	static DUCKENGINE_API void UnloadSound(const std::string& soundID);
+	static DUCKENGINE_API void ReloadSound(const std::string& soundID, const std::string& filePath);
+
 	static DUCKENGINE_API void LoadAllShaders(const std::string& directoryPath);
 	static DUCKENGINE_API void LoadAllFonts(const std::string& directoryPath);
 
@@ -63,6 +67,7 @@ public:
 private:
 	// Stores all loaded textures with their file paths as keys
 	static std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> textureMap;
+	static std::unordered_map<std::string, std::string> nameToFilePath;
 
 	// Helper function to load a texture from the file
 	static std::shared_ptr<Texture> LoadTextureFromFile(const std::string& filePath);
