@@ -10,27 +10,24 @@ void PlayerLogic::Start()
 	boxCollider->SetCollisionCallback([this](int otherEntityID)
 		{
 			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
+
+			// Pickup Object
 			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
 			{
-				isInteracting = true;
 				InteractPressed();
 			}
-			else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R)) 
+			// Use Object
+			else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_T)) 
 			{
 				InteractHold();
 			}
 		});
-	isInteracting = false;
 	isHolding = false;
 }
 
 
 void PlayerLogic::Update()
 {
-	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_R))
-	{
-		isInteracting = false;
-	}
 }
 
 void PlayerLogic::FixedUpdate()
@@ -67,8 +64,7 @@ void PlayerLogic::FixedUpdate()
 
 
 void PlayerLogic::InteractPressed()
-{
-	
+{	
 	// If player isnt holding anything
 	if (!isHolding)
 	{
@@ -78,9 +74,14 @@ void PlayerLogic::InteractPressed()
 		{
 			// If empty stock or Bin, do nothing
 			if (stockLogic->getType() == IngredientType::BIN || stockLogic->getType() == IngredientType::EMPTY) return;
+
+			// If stock is not empty, create object and set holding
+			if (stockLogic->isEmpty()) return;
+			stockLogic->useStock();
+
 			Entity* newObject = makeObject(stockLogic->getType());
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(newObject->entityID);
+			holdingLogic->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
 			isHolding = true;
 			return;
 		}
@@ -130,14 +131,22 @@ void PlayerLogic::InteractPressed()
 
 void PlayerLogic::InteractHold()
 {
+	// Hold down is for Cutting/Cooking
+	// Player Must Not be Holding Anything
+	if (!isHolding)
+	{
 
+
+
+	}
 }
 
 Entity* PlayerLogic::makeObject(IngredientType type) 
 {
 	Entity* newObject = nullptr;
-	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f,1.5f });
+	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
 	SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
+	spriteRenderer->sortingOrder = 2;
 
 	switch (type)
 	{

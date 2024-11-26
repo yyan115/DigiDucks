@@ -16,28 +16,30 @@ void TableLogic::Update()
 
 void TableLogic::FixedUpdate()
 {
-	if(objectTransform)
-	{
-	}
+
 }
 
 
-void TableLogic::setObject(int EntityID)
+void TableLogic::setObject(std::pair<int, IngredientType> objData)
 {
-	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(EntityID);
-	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(EntityID);
+	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 	objectTransform->SetPosition(tableTransform->GetPosition());
-	//std::cout << "Table ID: " << table->entityID << std::endl;
-	//std::cout << "Table Transform: " << tableTransform->GetPosition().x << ", " << tableTransform->GetPosition().y << std::endl;
-	//std::cout << "Object Transform: " << objectTransform->GetPosition().x << ", " << objectTransform->GetPosition().y << std::endl;
 	isOccupied = true;
+	type = objData.second;
 }
 
-int TableLogic::moveObject()
+
+
+std::pair<int, IngredientType> TableLogic::moveObject()
 {
 	int objectID = objectOnTable->entityID;
 	objectOnTable = nullptr;
 	objectTransform = nullptr;
 	isOccupied = false;
-	return objectID;
+
+	IngredientType temp = type;
+	type = IngredientType::EMPTY;
+
+	return std::make_pair(objectID, temp);
 }

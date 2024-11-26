@@ -1762,6 +1762,44 @@
             ],
             "layer": "Gameplay"
         },
+        "Timer": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1,
+                        "position": {
+                            "x": 467.3999938964844,
+                            "y": 377.1000061035156
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Tomato_Box": {
             "components": [
                 {

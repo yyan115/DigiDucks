@@ -29,7 +29,11 @@ Entity* duck;
 TransformComponent* duckTrans;
 SoundComponent* duckSound;
 
-void playerInteraction();
+
+Entity* timer;
+TextComponent* timerText;
+float timeLeft{};
+
 
 /// <summary>
 /// Loads all necessary resources for the scene.
@@ -45,6 +49,11 @@ void GameScene::Load()
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
+
+	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer");
+	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
+	timerText->position = Vec2(DuckEngine::GetViewportWidth() / 10.f * 4.5f, DuckEngine::GetViewportHeight() / 10.f * 9.f);
+	timeLeft = 600.f;
 }
 
 /// <summary>
@@ -77,6 +86,19 @@ void GameScene::Update()
 			soundComponent->Play();
 		}
 	}
+
+	// Update the timer
+	if (timeLeft > 0.f) {
+		timeLeft -= DuckEngine::DeltaTime()/3.f;
+		int minutes = static_cast<int>(timeLeft) / 60;
+		int seconds = static_cast<int>(timeLeft) % 60;
+		timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+	}
+	else {
+		timerText->text = "Time's up!";
+	}
+
+
 }
 
 /// <summary>
@@ -120,42 +142,5 @@ void GameScene::Unload()
 {
 	// base unload
 	Scene::Unload();
-
-}
-
-void playerInteraction()
-{
-	//if (holdingObject) {
-	//	if (frontObject->name == "Bun_Box") {
-	//		carrySprite->texture = AssetManager::GetTextureByName("bun");
-	//	}
-	//	else if (frontObject->name == "Cheese_Fridge") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("cheese");
-	//	}
-	//	else if (frontObject->name == "Lettuce_Box") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("lettuce");
-	//	}
-	//	else if (frontObject->name == "Mushroom_Box") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("mushroom");
-	//	}
-	//	else if (frontObject->name == "Shrimp_Fridge") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("shrimp");
-	//	}
-	//	else if (frontObject->name == "Steak_Fridge") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("steak");
-	//	}
-	//	else if (frontObject->name == "Tomato_Box") 
-	//	{
-	//		carrySprite->texture = AssetManager::GetTextureByName("tomato");
-	//	}
-	//}
-	//else {
-	//	carrySprite->texture = AssetManager::GetTextureByName("Empty");
-	//}
 
 }

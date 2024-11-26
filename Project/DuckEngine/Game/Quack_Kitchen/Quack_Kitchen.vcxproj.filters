@@ -138,5 +138,11 @@
     <ClInclude Include="..\include\TableLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\PanLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ChopBoardLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

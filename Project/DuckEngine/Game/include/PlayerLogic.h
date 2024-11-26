@@ -17,9 +17,7 @@ private:
     Entity* interactObject;
 
 public:
-    bool isInteracting = false;
     bool isHolding = false;
-	IngredientType currHolding = IngredientType::EMPTY;
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
@@ -43,6 +41,6 @@ public:
 
 	void InteractHold();
 
-    Entity* PlayerLogic::makeObject(IngredientType type);
+    Entity* makeObject(IngredientType type);
     
 };

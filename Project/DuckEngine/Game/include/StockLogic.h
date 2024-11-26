@@ -8,15 +8,23 @@
 enum class IngredientType
 {
 	EMPTY,
+	BIN,
 	BUN,
 	CHEESE,
+	C_CHEESE,	// Cut Cheese
 	LETTUCE,
+	C_LETTUCE,	// Cut Lettuce
 	MUSHROOM,
+	C_MUSHROOM,	// Cut Mushroom
 	SHRIMP,
+	C_SHRIMP,	// Cut Shrimp
 	STEAK,
+	R_PATTY,	// Raw Patty
+	C_PATTY,	// Cooked Patty
 	TOMATO,
-	BIN
+	C_TOMATO	// Cut Tomato
 };
+
 
 class StockLogic : public GameLogic
 {
@@ -56,7 +64,7 @@ public:
 		}
 	}
 
-	virtual void returnStock() { stock++; }
+	bool isEmpty() const { return stock == 0; }
 
 	virtual IngredientType getType() { return type; }
 

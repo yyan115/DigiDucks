@@ -2,22 +2,25 @@
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
+#include "StockLogic.h"
 
 class TableLogic : public GameLogic
 {
 private:
+	Entity* table;
 	TransformComponent* tableTransform;
 	Entity* objectOnTable;
 	TransformComponent* objectTransform;
+	IngredientType type;
 
 public:
-	Entity* table;
 	bool isOccupied = false;
 
-	TableLogic() : GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr) {}
+	TableLogic() : 
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
 
 	TableLogic(GameLogicComponent* component) : 
-		GameLogic(component), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr) {}
+		GameLogic(component), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
 
 
 	std::shared_ptr<GameLogic> Clone() const override
@@ -33,7 +36,7 @@ public:
 
 	void FixedUpdate() override;
 
-	void setObject(int EntityID);
+	void setObject(std::pair<int,IngredientType> objData);
 
-	int moveObject();
+	std::pair<int, IngredientType> moveObject();
 };
