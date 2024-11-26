@@ -52,6 +52,7 @@ void SceneManager::SetActiveScene(const std::string& name)
         if (activeScene)
         {
             activeScene->Unload(); 
+            GameLogicManager::Clear();
         }
 
         LevelManager::LoadLevel(name); 
