@@ -5,6 +5,8 @@
 #include <iostream>
 
 #include "StockLogic.h"
+#include "TableLogic.h"
+#include "HoldingLogic.h"
 
 
 class PlayerLogic : public GameLogic
@@ -18,6 +20,7 @@ public:
     bool isInteracting = false;
     bool isHolding = false;
 	IngredientType currHolding = IngredientType::EMPTY;
+	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
         : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
@@ -32,4 +35,7 @@ public:
     void InteractPressed();
 
 	void InteractHold();
+
+    Entity* PlayerLogic::makeObject(IngredientType type);
+    
 };

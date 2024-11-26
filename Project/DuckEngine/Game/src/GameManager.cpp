@@ -11,6 +11,7 @@
 #include "SteakStockLogic.h"
 #include "TomatoStockLogic.h"
 #include "BinLogic.h"
+#include "TableLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -37,6 +38,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("SteakStockLogic", std::make_shared<SteakStockLogic>());
 	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
 	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());
+	GameLogicManager::AddLogic("TableLogic", std::make_shared<TableLogic>());
 
 }
 

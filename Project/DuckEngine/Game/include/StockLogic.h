@@ -14,7 +14,8 @@ enum class IngredientType
 	MUSHROOM,
 	SHRIMP,
 	STEAK,
-	TOMATO
+	TOMATO,
+	BIN
 };
 
 class StockLogic : public GameLogic

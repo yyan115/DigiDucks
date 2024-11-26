@@ -32,6 +32,9 @@
     <ClCompile Include="..\src\HoldingLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TableLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="..\include\BinLogic.h">
       <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TableLogic.h">
+      <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

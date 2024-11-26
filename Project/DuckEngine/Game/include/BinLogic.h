@@ -9,8 +9,8 @@ class BinLogic : public StockLogic
 {
 public:
 
-	BinLogic() : StockLogic(IngredientType::EMPTY, 5) {}
+	BinLogic() : StockLogic(IngredientType::BIN, 5) {}
 
-	BinLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::EMPTY, 5) {}
+	BinLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::BIN, 5) {}
 
 };

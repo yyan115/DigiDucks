@@ -200,6 +200,7 @@
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
+    <ClCompile Include="..\src\TableLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BinLogic.h" />
@@ -220,6 +221,7 @@
     <ClInclude Include="..\include\SpriteMovementScene.h" />
     <ClInclude Include="..\include\SteakStockLogic.h" />
     <ClInclude Include="..\include\StockLogic.h" />
+    <ClInclude Include="..\include\TableLogic.h" />
     <ClInclude Include="..\include\TomatoStockLogic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

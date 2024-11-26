@@ -993,13 +993,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -2.5910398960113525,
-                            "y": 0.8275866508483887
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.5,
+                            "x": 2.5,
                             "y": 3.0
                         }
                     },
@@ -1010,15 +1010,28 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 255.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Duck/idle/idle1.png",
-                        "useColor": false
+                        "texture": "Resources/Sprites/Duck/duck_front1.png",
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224
+                        }
+                    },
+                    "type": "BoundingBox"
                 },
                 {
                     "properties": {
@@ -1038,32 +1051,10 @@
                 },
                 {
                     "properties": {
-                        "animations": [
-                            {
-                                "frameDuration": 0.20000000298023224,
-                                "name": "WalkAnimation",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.6000000238418579,
-                                "name": "IdleAnimation",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png"
-                                ]
-                            }
-                        ]
-                    },
-                    "type": "AnimatorComponent"
-                },
-                {
-                    "properties": {
                         "logicNames": [
-                            "MovementLogic"
+                            "MovementLogic",
+                            "PlayerLogic",
+                            "HoldingLogic"
                         ]
                     },
                     "type": "GameLogicComponent"

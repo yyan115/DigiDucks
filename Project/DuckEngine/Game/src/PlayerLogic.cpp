@@ -20,6 +20,8 @@ void PlayerLogic::Start()
 				InteractHold();
 			}
 		});
+	isInteracting = false;
+	isHolding = false;
 }
 
 
@@ -66,30 +68,101 @@ void PlayerLogic::FixedUpdate()
 
 void PlayerLogic::InteractPressed()
 {
-	auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
-	if (stockLogic)
+	
+	// If player isnt holding anything
+	if (!isHolding)
 	{
-		if (isHolding)
+		// Check if Stock Object
+		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
+		if (stockLogic)
 		{
-			// If Same type of ingredient, or Bin, Put ingredient away.
-			if (currHolding == stockLogic->getType()) {
-				stockLogic->returnStock();
-				currHolding = IngredientType::EMPTY;
-			}
-			else if (stockLogic->getType() == IngredientType::EMPTY)
-			{
-				currHolding = IngredientType::EMPTY;
-			}
+			// If empty stock or Bin, do nothing
+			if (stockLogic->getType() == IngredientType::BIN || stockLogic->getType() == IngredientType::EMPTY) return;
+			Entity* newObject = makeObject(stockLogic->getType());
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->setObject(newObject->entityID);
+			isHolding = true;
+			return;
 		}
-		else
+
+		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(interactObject->entityID);
+		if (tableLogic)
 		{
-			currHolding = stockLogic->getType();
-			stockLogic->useStock();
+			// If Table is occupied, take object from table
+			if (tableLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				holdingLogic->setObject(tableLogic->moveObject());
+				isHolding = true;
+				return;
+			}
 		}
 	}
+	else if (isHolding) // If player is already holding something
+	{
+		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
+		if (stockLogic)
+		{
+			// If Object is Not BIN, do nothing
+			if(stockLogic->getType() != IngredientType::BIN) return;
+			// If Object is BIN, Destroy Object
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->deleteObject();
+			isHolding = false;
+			return;
+		}
+
+		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(interactObject->entityID);
+		if (tableLogic)
+		{
+			// If Table is occupied, take object from table
+			if (!tableLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				tableLogic->setObject(holdingLogic->moveObject());
+				isHolding = false;
+				return;
+			}
+		}
+	}
+	
 }
 
 void PlayerLogic::InteractHold()
 {
 
+}
+
+Entity* PlayerLogic::makeObject(IngredientType type) 
+{
+	Entity* newObject = nullptr;
+	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f,1.5f });
+	SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
+
+	switch (type)
+	{
+	case IngredientType::BUN:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bun");
+		break;
+	case IngredientType::CHEESE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("cheese");
+		break;
+	case IngredientType::LETTUCE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("lettuce");
+		break;
+	case IngredientType::MUSHROOM:
+		spriteRenderer->texture = AssetManager::GetTextureByName("mushroom");
+		break;
+	case IngredientType::SHRIMP:
+		spriteRenderer->texture = AssetManager::GetTextureByName("shrimp");
+		break;
+	case IngredientType::STEAK:
+		spriteRenderer->texture = AssetManager::GetTextureByName("steak");
+		break;
+	case IngredientType::TOMATO:
+		spriteRenderer->texture = AssetManager::GetTextureByName("tomato");
+		break;
+	};
+
+	return newObject;
 }
