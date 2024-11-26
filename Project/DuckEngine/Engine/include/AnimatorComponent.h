@@ -29,28 +29,27 @@ written consent of DigiPen Institute of Technology is prohibited.
 /************************************************************************
 @brief Represents an animation consisting of multiple frames and their duration.
 *************************************************************************/
-class Animation 
+class Animation
 {
-private:
-
 public:
-    std::string name;
-    int currentFrame;        // Keeps track of the current frame
-    float frameTimer;        // Timer to track how long the current frame has been displayed
-    float frameDuration;     // Duration for each frame in seconds
-    std::vector<Texture> Frames;  // List of frames for the animation
-    std::string animationFilePath;
+    std::string name;                     // Name of the animation
+    int currentFrame;                     // Current frame index
+    float frameTimer;                     // Timer for frame duration
+    float frameDuration;                  // Duration for each frame
+    std::vector<std::shared_ptr<Texture>> Frames;  // Loaded textures for each frame
+    std::vector<std::string> texturePaths;         // File paths for the textures
 
     Animation(float durationPerFrame = 0.2f)
-        : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {}
+        : currentFrame(0), frameTimer(0.0f), frameDuration(durationPerFrame) {
+    }
 
-    void Reset() 
+    void Reset()
     {
         currentFrame = 0;
         frameTimer = 0.0f;
     }
-
 };
+
 
 /************************************************************************
 @brief Manages animations for an entity and provides functions to play and add animations.
@@ -69,55 +68,12 @@ public:
         return std::make_shared<AnimatorComponent>(*this);
     }
 
-    // add 1 texture animation
-/************************************************************************
-@brief Adds a single-frame animation to the animator component.
-@param name The name of the animation (used as the key in the animations map).
-@param animation A `shared_ptr` to the texture that will be used as the single frame of the animation.
-@param frameDuration The duration (in seconds) for which the frame will be displayed (default is 0.2f).
-@return nothing
-*************************************************************************/
-    DUCKENGINE_API void AddAnimation(const std::string& name, const std::shared_ptr<Texture>& animation, float frameDuration = 0.2f)
+    DUCKENGINE_API void AddAnimation(const std::string& name, const std::vector<std::string>& texturePaths, float frameDuration = 0.2f)
     {
         Animation animationToAdd(frameDuration);
-        animationToAdd.Frames.push_back(*animation);
+        animationToAdd.name = name;
+        animationToAdd.texturePaths = texturePaths;
         animations[name] = animationToAdd;
-    }
-
-    DUCKENGINE_API void AddAnimation(const std::string& name, const std::vector<std::shared_ptr<Texture>>& frames, float frameDuration = 0.2f)
-    {
-        Animation animationToAdd(frameDuration);
-
-        for (const auto& frame : frames)
-        {
-            animationToAdd.Frames.push_back(*frame);
-        }
-
-        animations[name] = animationToAdd;
-    }
-
-
-
-    // add multiple textures animation
-/************************************************************************
-@brief Adds a multi-frame animation to the animator component.
-@param animationName The name of the animation (used as the key in the animations map).
-@param animation A vector of `shared_ptr` to textures that will be used as the frames of the animation.
-@param frameDuration The duration (in seconds) for which each frame will be displayed (default is 0.2f).
-@return nothing
-*************************************************************************/
-    DUCKENGINE_API void AddAnimation(std::string animationName, const std::vector<std::shared_ptr<Texture>>& animation, const std::string filePath, float frameDuration = 0.2f)
-    {
-        Animation animationToAdd(frameDuration);
-
-        animationToAdd.animationFilePath = filePath;
-        
-        for (std::shared_ptr<Texture> texturePtr : animation)
-        {
-            animationToAdd.Frames.push_back(*texturePtr);
-        }
-
-        animations[animationName] = animationToAdd;
     }
 
     //play animation

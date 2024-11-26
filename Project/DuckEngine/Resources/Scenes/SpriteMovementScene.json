@@ -1015,7 +1015,7 @@
                         },
                         "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/characteridle.png",
+                        "texture": "Resources/Sprites/Duck/idle/idle1.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -1042,12 +1042,19 @@
                             {
                                 "frameDuration": 0.20000000298023224,
                                 "name": "WalkAnimation",
-                                "texture": "Resources/characterwalk.png"
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png"
+                                ]
                             },
                             {
                                 "frameDuration": 0.6000000238418579,
                                 "name": "IdleAnimation",
-                                "texture": "Resources/characteridle.png"
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png"
+                                ]
                             }
                         ]
                     },

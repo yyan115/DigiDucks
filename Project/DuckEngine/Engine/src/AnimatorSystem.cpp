@@ -49,6 +49,6 @@ void AnimatorSystem::Update()
             animator->currentAnimation->currentFrame = (animator->currentAnimation->currentFrame + 1) % animator->currentAnimation->Frames.size();
         }
 
-        spriteRenderer->texture = animator->currentAnimation->Frames[animator->currentAnimation->currentFrame];
+        spriteRenderer->texture = *(animator->currentAnimation->Frames[animator->currentAnimation->currentFrame]);
     }
 }

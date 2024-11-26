@@ -29,31 +29,36 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
 		std::shared_ptr<Component> component = CreateComponentFromJson(componentData);
 		if (component)
 		{
-			// Add the component to the entity
-			// Handle special cases if necessary
 			if (auto transform = std::dynamic_pointer_cast<TransformComponent>(component))
 			{
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->entityID, *transform);
 			}
 			else if (auto spriteRenderer = std::dynamic_pointer_cast<SpriteRendererComponent>(component))
 			{
-				// Load the texture
 				if (!spriteRenderer->texturePath.empty())
 				{
-					spriteRenderer->texture = *DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath.c_str())[0];
+					auto loadedTextures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(spriteRenderer->texturePath);
+					if (!loadedTextures.empty())
+					{
+						spriteRenderer->texture = *loadedTextures[0];
+					}
 				}
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, *spriteRenderer);
-
-				// Check for AnimatorComponent dependency
-				AnimatorComponent* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity->entityID);
-				if (animator && animator->currentAnimation)
-				{
-					// If the AnimatorComponent is present and it has a current animation, use the first frame
-					spriteRenderer->texture = animator->currentAnimation->Frames[0];
-				}
 			}
 			else if (auto animator = std::dynamic_pointer_cast<AnimatorComponent>(component))
 			{
+				for (auto& [name, animation] : animator->animations)
+				{
+					for (const auto& texturePath : animation.texturePaths)
+					{
+						auto loadedTextures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(texturePath);
+						if (!loadedTextures.empty())
+						{
+							animation.Frames.push_back(loadedTextures[0]);
+						}
+					}
+				}
+
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entity->entityID, *animator);
 			}
 			else if (auto soundComponent = std::dynamic_pointer_cast<SoundComponent>(component))
@@ -193,16 +198,21 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 	// Save AnimatorComponent.
 	if (auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entityID))
 	{
-		json animatorData;
+		nlohmann::json animatorData;
 		animatorData["type"] = "AnimatorComponent";
-		animatorData["properties"]["animations"] = json::array();
+		animatorData["properties"]["animations"] = nlohmann::json::array();
 
 		for (const auto& [animName, animation] : animator->animations)
 		{
-			json animationData;
+			nlohmann::json animationData;
 			animationData["name"] = animName;
 			animationData["frameDuration"] = animation.frameDuration;
-			animationData["texture"] = animation.animationFilePath;
+
+			animationData["textures"] = nlohmann::json::array();
+			for (const auto& texturePath : animation.texturePaths)
+			{
+				animationData["textures"].push_back(texturePath);
+			}
 
 			animatorData["properties"]["animations"].push_back(animationData);
 		}
@@ -336,13 +346,18 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 			for (const auto& animData : componentJson["properties"]["animations"])
 			{
 				std::string animName = animData["name"];
-				std::string textureResource = animData["texture"];
 				float frameDuration = animData["frameDuration"];
+				std::vector<std::string> texturePaths;
 
-				// Load textures for animation
-				std::vector<std::shared_ptr<Texture>> textures = DuckEngine::DUCKENGINE_AssetManager.LoadTexture(textureResource.c_str(), 19, 24);
+				if (animData.contains("textures") && animData["textures"].is_array())
+				{
+					for (const auto& texturePath : animData["textures"])
+					{
+						texturePaths.push_back(texturePath.get<std::string>());
+					}
+				}
 
-				animator->AddAnimation(animName, textures, textureResource, frameDuration);
+				animator->AddAnimation(animName, texturePaths, frameDuration);
 			}
 		}
 		return animator;

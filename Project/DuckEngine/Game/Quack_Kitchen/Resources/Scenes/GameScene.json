@@ -94,6 +94,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "BinLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -148,6 +156,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "BinLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -225,8 +241,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.0,
-                            "y": 1.0
+                            "x": 2.0,
+                            "y": 2.0
                         }
                     },
                     "type": "TransformComponent"
@@ -239,7 +255,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Empty.png",
                         "useColor": true
@@ -508,8 +524,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.0,
-                            "y": 2.5
+                            "x": 2.5,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -536,8 +552,8 @@
                             "y": 0.0
                         },
                         "size": {
-                            "x": 0.10000000149011612,
-                            "y": 0.10000000149011612
+                            "x": 0.20000000298023224,
+                            "y": 0.20000000298023224
                         }
                     },
                     "type": "BoundingBox"

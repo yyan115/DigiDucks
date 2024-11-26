@@ -137,7 +137,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     if (ImGui::Button("Add Frame"))
     {
         // Add a new frame (default frame or allow file selection)
-        animation.Frames.push_back(Texture()); // Placeholder texture
+        //animation.Frames.push_back(Texture()); // Placeholder texture
     }
     ImGui::SameLine();
     if (ImGui::Button("Remove Last Frame") && !animation.Frames.empty())
