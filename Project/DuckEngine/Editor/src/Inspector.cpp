@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "GameManager.h"
 #include "SnapshotManager.h"
+#include "AnimationEditor.h"
 
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
@@ -377,6 +378,12 @@ void InspectorRenderer::RenderComponents(int entityID)
 					animator->SetAnimation(name);
 					hasChanged = true;
 				}
+			}
+
+			// button to open the Animation Editor
+			if (ImGui::Button("Open Animation Editor"))
+			{
+				AnimationEditor::Open(entityID);
 			}
 
 			// Remove component button
