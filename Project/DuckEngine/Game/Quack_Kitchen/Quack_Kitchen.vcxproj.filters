@@ -35,6 +35,12 @@
     <ClCompile Include="..\src\TableLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ChopBoardLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PanLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

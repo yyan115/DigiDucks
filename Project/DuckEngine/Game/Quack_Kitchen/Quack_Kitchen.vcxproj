@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\src\ChopBoardLogic.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />
     <ClCompile Include="..\src\HoldingLogic.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
     <ClCompile Include="..\src\MovementLogic.cpp" />
+    <ClCompile Include="..\src\PanLogic.cpp" />
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
