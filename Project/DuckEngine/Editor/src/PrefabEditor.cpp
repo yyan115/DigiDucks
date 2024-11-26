@@ -19,17 +19,16 @@ void PrefabEditor::Render()
     if (!isOpen)
         return;
 
-    ImGui::OpenPopup(("Prefab Editor - " + currentPrefabName).c_str());
-    // Calculate the center position of the viewport
-    ImVec2 viewportSize = ImGui::GetMainViewport()->Size;
-    ImVec2 windowSize = ImVec2(1000, 500);
-    ImVec2 centerPos = ImVec2((viewportSize.x - windowSize.x) / 2, (viewportSize.y - windowSize.y) / 2);
+    ImGui::SetNextWindowSize(ImVec2(1000, 500), ImGuiCond_Appearing);
 
-    // Set the next window's position and size
-    ImGui::SetNextWindowPos(centerPos, ImGuiCond_Always);
-    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(
+        ImVec2(viewport->Pos.x + viewport->Size.x * 0.5f, viewport->Pos.y + viewport->Size.y * 0.5f),
+        ImGuiCond_Appearing,
+        ImVec2(0.5f, 0.5f)
+    );
 
-    if (ImGui::BeginPopupModal(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
+    if (ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
     {
         if (currentPrefab)
         {
@@ -39,7 +38,6 @@ void PrefabEditor::Render()
             RenderPrefabPreview();
             ImGui::EndChild();
 
-            // Move to the next column
             ImGui::NextColumn();
 
             ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
@@ -71,10 +69,11 @@ void PrefabEditor::Render()
                 isOpen = false;
             }
         }
-    }
 
-    ImGui::EndPopup();
+        ImGui::End();
+    }
 }
+
 
 
 void PrefabEditor::RenderPrefabProperties()
