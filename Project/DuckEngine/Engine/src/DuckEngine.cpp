@@ -145,7 +145,15 @@ void DuckEngine::SetupSystems()
 void DuckEngine::SetPlaying(bool playing)
 {
     isPlaying = playing;
-    if (!playing) isPaused = false;
+    if (!playing)
+    {
+        isPaused = false;
+        GameLogicManager::Clear();
+    }
+    else
+    {
+        DuckEngine::DUCKENGINE_SystemManager.StartAll();
+    }
 
 }
 

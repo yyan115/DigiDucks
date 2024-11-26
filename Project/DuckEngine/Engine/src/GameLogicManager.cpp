@@ -11,14 +11,15 @@ void GameLogicManager::AddLogic(const std::string& name, std::shared_ptr<GameLog
 void GameLogicManager::AddLogicToEntity(int entityID, std::shared_ptr<GameLogic> logic)
 {
     auto& logics = entityLogicMap[entityID];
-    auto it = std::find(logics.begin(), logics.end(), logic);
 
-    if (it == logics.end())
+    if (std::find(logics.begin(), logics.end(), logic) == logics.end())
     {
         logics.push_back(logic);
     }
+    else
+    {
+    }
 }
-
 
 std::shared_ptr<GameLogic> GameLogicManager::GetLogic(const std::string& name)
 {
@@ -68,9 +69,10 @@ void GameLogicManager::Clear()
     {
         for (auto& logic : logics)
         {
+            std::cout << "Clearing logic for Entity ID: " << entityID << std::endl;
             logic.reset();
         }
     }
     entityLogicMap.clear();
-}
 
+}
