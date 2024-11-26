@@ -69,7 +69,7 @@ void GameLogicManager::Clear()
     {
         for (auto& logic : logics)
         {
-            std::cout << "Clearing logic for Entity ID: " << entityID << std::endl;
+            //std::cout << "Clearing logic for Entity ID: " << entityID << std::endl;
             logic.reset();
         }
     }
