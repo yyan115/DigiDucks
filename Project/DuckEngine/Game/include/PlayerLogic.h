@@ -7,6 +7,8 @@
 #include "StockLogic.h"
 #include "TableLogic.h"
 #include "HoldingLogic.h"
+#include "PanLogic.h"
+#include "ChopBoardLogic.h"
 
 
 class PlayerLogic : public GameLogic

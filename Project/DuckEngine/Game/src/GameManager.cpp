@@ -12,6 +12,8 @@
 #include "TomatoStockLogic.h"
 #include "BinLogic.h"
 #include "TableLogic.h"
+#include "PanLogic.h"
+#include "ChopBoardLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -39,6 +41,8 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
 	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());
 	GameLogicManager::AddLogic("TableLogic", std::make_shared<TableLogic>());
+	GameLogicManager::AddLogic("PanLogic", std::make_shared<PanLogic>());
+	GameLogicManager::AddLogic("ChopBoardLogic", std::make_shared<ChopBoardLogic>());
 
 }
 

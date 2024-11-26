@@ -135,8 +135,19 @@ void PlayerLogic::InteractHold()
 	// Player Must Not be Holding Anything
 	if (!isHolding)
 	{
+		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
+		if (chopBoardLogic)
+		{
 
+			return;
+		}
 
+		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
+		if (panLogic)
+		{
+
+			return;
+		}
 
 	}
 }

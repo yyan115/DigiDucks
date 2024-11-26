@@ -7,29 +7,25 @@ void TableLogic::Start()
 	objectOnTable = nullptr;
 	objectTransform = nullptr;
 	isOccupied = false;
+
 }
 
 void TableLogic::Update()
 {
-
 }
 
 void TableLogic::FixedUpdate()
 {
-
 }
-
 
 void TableLogic::setObject(std::pair<int, IngredientType> objData)
 {
 	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 	objectTransform->SetPosition(tableTransform->GetPosition());
-	isOccupied = true;
 	type = objData.second;
+	isOccupied = true;
 }
-
-
 
 std::pair<int, IngredientType> TableLogic::moveObject()
 {
