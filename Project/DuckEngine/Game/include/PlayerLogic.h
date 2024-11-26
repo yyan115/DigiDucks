@@ -4,6 +4,9 @@
 #include "DuckEngine_Input.h"
 #include <iostream>
 
+#include "StockLogic.h"
+
+
 class PlayerLogic : public GameLogic
 {
 private:
@@ -24,7 +27,7 @@ public:
     void Update() override;
     void FixedUpdate() override;
 
-    void InteractPressed() const;
+    void InteractPressed();
 
-	void InteractHold() const;
+	void InteractHold();
 };

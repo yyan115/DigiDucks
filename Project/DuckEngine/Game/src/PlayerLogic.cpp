@@ -1,10 +1,10 @@
 #include "PlayerLogic.h"
+#include <vector>
 
 std::string currHolding;
 
 void PlayerLogic::Start()
 {
-	// Initialize the components from the GameLogicComponent's owner entity
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	boxCollider->isKinematic = false;
@@ -13,26 +13,12 @@ void PlayerLogic::Start()
 			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
 			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
 			{
-				isInteracting = true;
-				if (isHolding) 
-				{
-					if (interactObject->name == currHolding || interactObject->name == "Bin_1" || interactObject->name == "Bin_2")
-					{
-						InteractPressed();
-						isHolding = !isHolding;
-					}
-					else {
-						std::cout << "Player is already holding " << currHolding << std::endl;
-					}
-				}
-				else {
-					InteractPressed();
-					isHolding = !isHolding;
-				}
+				//isInteracting = true;
+				InteractPressed();
 			}
 			else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R)) 
 			{
-				isInteracting = true;
+				//isInteracting = true;
 				InteractHold();
 			}
 		});
@@ -43,7 +29,7 @@ void PlayerLogic::Update()
 {
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_R))
 	{
-		isInteracting = false;
+		//isInteracting = false;
 	}
 }
 
@@ -80,20 +66,43 @@ void PlayerLogic::FixedUpdate()
 }
 
 
-void PlayerLogic::InteractPressed() const
+void PlayerLogic::InteractPressed()
 {
-	if (isHolding)
+	auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
+	std::cout << "Interacting with: ";
+	
+	if(stockLogic)
 	{
-		std::cout << "Player is no longer holding " << currHolding << std::endl;;
+		switch (stockLogic->getType())
+		{
+		case IngredientType::BUN:
+			std::cout << "Bun" << std::endl;
+			break;
+		case IngredientType::CHEESE:
+			std::cout << "Cheese" << std::endl;
+			break;
+		case IngredientType::LETTUCE:
+			std::cout << "Lettuce" << std::endl;
+			break;
+		case IngredientType::MUSHROOM:
+			std::cout << "Mushroom" << std::endl;
+			break;
+		case IngredientType::SHRIMP:
+			std::cout << "Shrimp" << std::endl;
+			break;
+		case IngredientType::STEAK:
+			std::cout << "Steak" << std::endl;
+			break;
+		case IngredientType::TOMATO:
+			std::cout << "Tomato" << std::endl;
+			break;
+
+		};
 	}
-	else
-	{
-		currHolding = interactObject->name;
-		std::cout << "Player is holding object " << currHolding << std::endl;
-	}
+	std::cout << '\n';
 }
 
-void PlayerLogic::InteractHold() const
+void PlayerLogic::InteractHold()
 {
 
 }

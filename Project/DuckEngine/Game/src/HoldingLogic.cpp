@@ -17,13 +17,41 @@ void HoldingLogic::Start()
 
 void HoldingLogic::Update()
 {
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
-	{
 
-	}
 }
 
 void HoldingLogic::FixedUpdate()
 {
 	transform->SetPosition(holderTransform->GetPosition() + offSet);
+}
+
+
+void HoldingLogic::changeIngredient(IngredientType type) {
+	switch (type)
+	{
+	case IngredientType::EMPTY:
+		spriteRenderer->texture = AssetManager::GetTextureByName("Empty");
+		break;
+	case IngredientType::BUN:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bun");
+		break;
+	case IngredientType::CHEESE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("cheese");
+		break;
+	case IngredientType::LETTUCE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("lettuce");
+		break;
+	case IngredientType::MUSHROOM:
+		spriteRenderer->texture = AssetManager::GetTextureByName("mushroom");
+		break;
+	case IngredientType::SHRIMP:
+		spriteRenderer->texture = AssetManager::GetTextureByName("shrimp");
+		break;
+	case IngredientType::STEAK:
+		spriteRenderer->texture = AssetManager::GetTextureByName("steak");
+		break;
+	case IngredientType::TOMATO:
+		spriteRenderer->texture = AssetManager::GetTextureByName("tomato");
+		break;
+	};
 }

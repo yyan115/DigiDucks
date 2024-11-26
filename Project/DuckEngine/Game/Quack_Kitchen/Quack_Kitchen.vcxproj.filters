@@ -70,6 +70,9 @@
     <Filter Include="src\Logic">
       <UniqueIdentifier>{a773759f-e0a6-4bcb-bf91-0dd451495bed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Logic\Ingredient">
+      <UniqueIdentifier>{68042585-030c-4081-a3a2-b0228557d11d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\MaxLoadScene.h">
@@ -101,6 +104,30 @@
     </ClInclude>
     <ClInclude Include="..\include\PlayerLogic.h">
       <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BunStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\StockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SteakStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\LettuceStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CheeseStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MushroomStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ShrimpStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TomatoStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

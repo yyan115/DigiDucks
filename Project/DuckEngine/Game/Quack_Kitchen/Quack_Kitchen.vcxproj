@@ -202,16 +202,24 @@
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\BunStockLogic.h" />
+    <ClInclude Include="..\include\CheeseStockLogic.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
     <ClInclude Include="..\include\HoldingLogic.h" />
+    <ClInclude Include="..\include\LettuceStockLogic.h" />
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
     <ClInclude Include="..\include\MovementLogic.h" />
+    <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />
+    <ClInclude Include="..\include\ShrimpStockLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
+    <ClInclude Include="..\include\SteakStockLogic.h" />
+    <ClInclude Include="..\include\StockLogic.h" />
+    <ClInclude Include="..\include\TomatoStockLogic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

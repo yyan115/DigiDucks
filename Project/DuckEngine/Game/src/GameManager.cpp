@@ -17,6 +17,7 @@ void GameManager::InitScenes()
 
 
     // add game logic
+	GameLogicManager::AddLogic("StockLogic", std::make_shared<StockLogic>());
     GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
 	GameLogicManager::AddLogic("PlayerLogic", std::make_shared<PlayerLogic>());
 	GameLogicManager::AddLogic("HoldingLogic", std::make_shared<HoldingLogic>());

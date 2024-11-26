@@ -202,6 +202,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "BunStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -299,6 +307,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CheeseStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -407,6 +423,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "LettuceStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -461,6 +485,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "MushroomStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -588,6 +620,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "ShrimpStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -642,6 +682,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "SteakStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -1662,6 +1710,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TomatoStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
