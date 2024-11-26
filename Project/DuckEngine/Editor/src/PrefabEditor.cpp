@@ -19,52 +19,61 @@ void PrefabEditor::Render()
     if (!isOpen)
         return;
 
-    ImGui::SetNextWindowSize(ImVec2(600, 400), ImGuiCond_FirstUseEver);
+    ImGui::OpenPopup(("Prefab Editor - " + currentPrefabName).c_str());
+    // Calculate the center position of the viewport
+    ImVec2 viewportSize = ImGui::GetMainViewport()->Size;
+    ImVec2 windowSize = ImVec2(1000, 500);
+    ImVec2 centerPos = ImVec2((viewportSize.x - windowSize.x) / 2, (viewportSize.y - windowSize.y) / 2);
 
-    ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoCollapse);
+    // Set the next window's position and size
+    ImGui::SetNextWindowPos(centerPos, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
 
-    if (currentPrefab)
+    if (ImGui::BeginPopupModal(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
     {
-        ImGui::Columns(2, nullptr, true);
-
-        ImGui::BeginChild("PrefabPreview", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
-        RenderPrefabPreview();
-        ImGui::EndChild();
-
-        // Move to the next column
-        ImGui::NextColumn();
-
-        ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
-        ImGui::Text("Editing Prefab: %s", currentPrefabName.c_str());
-        RenderPrefabProperties();
-
-        if (ImGui::Button("Save Prefab"))
+        if (currentPrefab)
         {
-            PrefabManager::SavePrefab(currentPrefabName);
-            LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
-            DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
-            currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
-        }
+            ImGui::Columns(2, nullptr, true);
 
-        ImGui::SameLine();
-        if (ImGui::Button("Close"))
+            ImGui::BeginChild("PrefabPreview", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
+            RenderPrefabPreview();
+            ImGui::EndChild();
+
+            // Move to the next column
+            ImGui::NextColumn();
+
+            ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
+            ImGui::Text("Editing Prefab: %s", currentPrefabName.c_str());
+            RenderPrefabProperties();
+
+            if (ImGui::Button("Save Prefab"))
+            {
+                PrefabManager::SavePrefab(currentPrefabName);
+                LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+                DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
+                currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
+            }
+
+            ImGui::SameLine();
+            if (ImGui::Button("Close"))
+            {
+                isOpen = false;
+            }
+            ImGui::EndChild();
+
+            ImGui::Columns(1);
+        }
+        else
         {
-            isOpen = false;
+            ImGui::Text("Prefab not found!");
+            if (ImGui::Button("Close"))
+            {
+                isOpen = false;
+            }
         }
-        ImGui::EndChild();
-
-        ImGui::Columns(1);
     }
-    else
-    {
-        ImGui::Text("Prefab not found!");
-        if (ImGui::Button("Close"))
-        {
-            isOpen = false;
-        }
-    }
 
-    ImGui::End();
+    ImGui::EndPopup();
 }
 
 

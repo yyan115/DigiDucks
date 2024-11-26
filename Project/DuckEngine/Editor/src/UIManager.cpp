@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HierarchyList.h"
 #include "GizmoManager.h"
 #include "SnapshotManager.h"
+#include "AnimationEditor.h"
 
 #include <Windows.h>
 
@@ -369,6 +370,7 @@ void UIManager::ShowInspector()
     // Use InspectorRenderer to render components of the selected entity
     InspectorRenderer::RenderLayer(selectedEntityID);
     InspectorRenderer::RenderComponents(selectedEntityID);
+    AnimationEditor::Render();
     ImGui::End();   
 }
 
