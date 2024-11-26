@@ -26,6 +26,7 @@
 namespace fs = std::filesystem;
 
 std::unordered_map<std::string, std::vector<std::shared_ptr<Texture>>> AssetManager::textureMap;
+std::unordered_map<std::string, std::string> AssetManager::nameToFilePath;
 std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
 std::vector<std::string> AssetManager::fontNames;
@@ -115,7 +116,8 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTexture(const std::strin
 	textures.push_back(LoadTextureFromFile(filePath));
 
 	textureMap[filePath] = textures;
-
+	std::string textureName = std::filesystem::path(filePath).stem().string();
+	nameToFilePath[textureName] = filePath;
 	return textures;
 }
 
@@ -139,7 +141,15 @@ void AssetManager::UnloadTexture(const std::string& fileName) {
 	if (it != textureMap.end()) {
 		it->second.clear();  // Clear texture data
 		textureMap.erase(it);  // Remove from textureMap
-		std::cout << "Texture unloaded: " << fileName << std::endl;
+
+		for (auto nameIt = nameToFilePath.begin(); nameIt != nameToFilePath.end(); ++nameIt)
+		{
+			if (nameIt->second == fileName)
+			{
+				nameToFilePath.erase(nameIt);
+				break;
+			}
+		}
 	}
 	else {
 		std::cout << "Texture not found: " << fileName << std::endl;
@@ -191,15 +201,13 @@ std::vector<std::shared_ptr<Texture>> AssetManager::LoadTextureFromFile(const st
 
 Texture AssetManager::GetTextureByName(const std::string& textureName) 
 {
-	for (const auto& [filePath, textures] : textureMap) 
+	auto it = nameToFilePath.find(textureName);
+	if (it != nameToFilePath.end())
 	{
-		std::string fileName = std::filesystem::path(filePath).filename().stem().string();
-		if (fileName == textureName) 
+		const std::string& filePath = it->second;
+		if (textureMap.find(filePath) != textureMap.end() && !textureMap[filePath].empty())
 		{
-			if (!textures.empty())
-			{
-				return *textures[0];
-			}
+			return *textureMap[filePath][0];
 		}
 	}
 	std::cerr << "Error: Texture with name '" << textureName << "' not found." << std::endl;
@@ -263,6 +271,19 @@ FMOD::Sound* AssetManager::GetSounds(const std::string& soundID) {
 	return it != soundMap.end() ? it->second : nullptr;
 }
 
+void AssetManager::UnloadSound(const std::string& soundID) {
+	auto it = soundMap.find(soundID);
+	if (it != soundMap.end()) {
+		it->second->release(); // Release the FMOD sound
+		soundMap.erase(it);
+	}
+}
+
+void AssetManager::ReloadSound(const std::string& soundID, const std::string& filePath) {
+	UnloadSound(soundID); // Unload the existing sound
+	LoadSound(soundID, filePath); // Reload the sound
+}
+
 void AssetManager::PreloadScenes(const std::string& directoryPath) 
 {
 	for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) 
@@ -316,6 +337,7 @@ nlohmann::json AssetManager::GetLevelData(const std::string& levelName)
 void AssetManager::UnloadAll()
 {
 	textureMap.clear();
+	nameToFilePath.clear();
 
 	// sound
 	for (auto& [id, sound] : soundMap) {

@@ -34,6 +34,9 @@ std::string AssetsBrowser::selectedFolderName = "Scenes";
 static bool showErrorPopup = false;
 static std::string errorMessage = "";
 
+static std::unordered_map<std::string, std::filesystem::file_time_type> fileModificationTimes;
+
+
 // Main function to display the assets explorer UI
 void AssetsBrowser::ShowAssets() {
 	// Render the search bar at the top
@@ -135,8 +138,8 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 	int itemIndex = 0;
 
-	ImGui::Separator();
 	// Render directories first
+	Texture Foldertexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("duck_folder_icon");
 	for (const auto& entry : directories) {
 		std::string fileName = entry.path().filename().string();
 		std::string normalizedPath = NormalizePath(entry.path().string());
@@ -145,10 +148,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		ImGui::BeginGroup();
 
 		// Load the folder icon
-		auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("duck_folder_icon");
-		if (texture) {
+		
+		if (Foldertexture) {
 			// Render the icon as a clickable image button
-			if (ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0))) {
+			if (ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)Foldertexture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0))) {
 				// Navigate into the subfolder when clicked
 				selectedFolderPath = normalizedPath;
 				selectedFolderName = fileName;
@@ -199,11 +202,12 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		}
 
 		// Find the parent directory
-		std::string canonicalPath = fs::canonical(entry.path()).string();
+		std::string absolutePath = fs::absolute(entry.path()).string();
 		std::string parentDir = "";
+
 		for (const auto& [dir, extensions] : folderAllowedExtensions) {
-			std::string canonicalParent = fs::canonical("Resources/" + dir).string();
-			if (canonicalPath.find(canonicalParent) == 0) {
+			std::string absoluteParent = fs::absolute("Resources/" + dir).string();
+			if (absolutePath.find(absoluteParent) == 0) {
 				parentDir = dir;
 				break;
 			}
@@ -211,9 +215,9 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 		// Find the icon for the file extension
 		std::string iconName = "";
-		auto it = fileIcons.find(fileExtension);
-		if (it != fileIcons.end()) {
-			iconName = it->second;
+		auto Iconit = fileIcons.find(fileExtension);
+		if (Iconit != fileIcons.end()) {
+			iconName = Iconit->second;
 		}
 
 		ImGui::PushID(normalizedPath.c_str());
@@ -225,8 +229,20 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 			if (std::find(allowedExtensions.begin(), allowedExtensions.end(), fileExtension) != allowedExtensions.end()) {
 				// Render based on parent directory type
 				if (parentDir == "Sprites") {
-					// Load the texture if not already loaded
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(normalizedPath);
+
+					// Check if the texture needs reloading
+					auto currentWriteTime = std::filesystem::last_write_time(normalizedPath);
+					auto it = fileModificationTimes.find(normalizedPath);
+					bool needsReload = (it == fileModificationTimes.end() || it->second != currentWriteTime);
+
+					if (needsReload) {
+						// Update the modification time
+						fileModificationTimes[normalizedPath] = currentWriteTime;
+						DuckEngine::DUCKENGINE_AssetManager.UnloadTexture(normalizedPath);
+						DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath);
+					}
+
 					if (texture) ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 					else {
 						DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath);
@@ -252,6 +268,18 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 				}
 				else if (parentDir == "Sounds") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
+
+					// Check if the sound needs reloading
+					auto currentWriteTime = std::filesystem::last_write_time(normalizedPath);
+					auto it = fileModificationTimes.find(normalizedPath);
+					bool needsReload = (it == fileModificationTimes.end() || it->second != currentWriteTime);
+
+					if (needsReload) {
+						// Update the modification time
+						fileModificationTimes[normalizedPath] = currentWriteTime;
+						DuckEngine::DUCKENGINE_AssetManager.ReloadSound(normalizedPath, normalizedPath);
+					}
+
 					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 
 					if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
