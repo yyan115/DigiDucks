@@ -138,3 +138,33 @@ std::vector<GLuint> ImageLoader::LoadSpriteSheet(const std::string& filePath, in
 
     return textures;
 }
+
+float ImageLoader::GetTextureWidth(const std::string& filePath)
+{
+    int width, height, nrChannels;
+
+    stbi_info(filePath.c_str(), &width, &height, &nrChannels);
+
+    if (width == 0 || height == 0)
+    {
+        std::cerr << "Failed to get texture dimensions: " << filePath << std::endl;
+        return 1.0f;
+    }
+
+    return static_cast<float>(width);
+}
+
+float ImageLoader::GetTextureHeight(const std::string& filePath)
+{
+    int width, height, nrChannels;
+
+    stbi_info(filePath.c_str(), &width, &height, &nrChannels);
+
+    if (width == 0 || height == 0)
+    {
+        std::cerr << "Failed to get texture dimensions: " << filePath << std::endl;
+        return 1.0f;
+    }
+
+    return static_cast<float>(height);
+}

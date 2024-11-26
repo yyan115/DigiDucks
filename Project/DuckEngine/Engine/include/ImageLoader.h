@@ -54,5 +54,9 @@ public:
     @return A vector of OpenGL texture IDs for each sprite in the sheet.
     *************************************************************************/
     static std::vector<GLuint> LoadSpriteSheet(const std::string& filePath, int spriteWidth, int spriteHeight);
+    
+    static float GetTextureWidth(const std::string& filePath);
+    static float GetTextureHeight(const std::string& filePath);
+
 };
 

@@ -2,6 +2,7 @@
 #include "DuckEngine.h"
 #include "GameManager.h"
 #include <imgui_internal.h>
+#include "ImageLoader.h"
 
 bool PrefabEditor::isOpen = false;
 std::string PrefabEditor::currentPrefabName = "";
@@ -28,7 +29,7 @@ void PrefabEditor::Render()
         ImVec2(0.5f, 0.5f)
     );
 
-    if (ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
+    if (ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking))
     {
         if (currentPrefab)
         {
@@ -382,10 +383,11 @@ void PrefabEditor::RenderPrefabPreview()
         auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(texturePath);
         if (texture)
         {
+            float scaleDownFromOriginalSize = 5.0f;
             ImVec2 availableSpace = ImGui::GetContentRegionAvail();
             ImVec2 windowPos = ImGui::GetCursorScreenPos();
-            ImVec2 textureSize = ImVec2(128.0f, 128.0f);
-
+            ImVec2 textureSize = ImVec2(ImageLoader::GetTextureWidth(texturePath) / scaleDownFromOriginalSize, ImageLoader::GetTextureHeight(texturePath) / scaleDownFromOriginalSize);
+            //std::cout << "Width: " << textureSize.x << ", Height: " << textureSize.y << std::endl;
             ImVec2 scaledTextureSize = ImVec2(
                 textureSize.x * scale.x,
                 textureSize.y * scale.y

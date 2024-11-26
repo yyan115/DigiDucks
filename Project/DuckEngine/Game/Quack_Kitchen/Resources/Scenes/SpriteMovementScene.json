@@ -179,8 +179,8 @@
         "CabbageStockPrefab (27)": {
             "layer": "Gameplay",
             "position": {
-                "x": 0.2129879891872406,
-                "y": -3.683255195617676
+                "x": 1.5890913009643555,
+                "y": -3.3968591690063477
             },
             "prefab": "CabbageStockPrefab"
         },
@@ -269,6 +269,14 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "CuttingTablePrefab (30)": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -14.393305778503418,
+                "y": 0.7875902652740479
+            },
+            "prefab": "CuttingTablePrefab"
         },
         "Duck": {
             "components": [
@@ -380,7 +388,7 @@
                     "properties": {
                         "position": {
                             "x": 12.0,
-                            "y": 0.0
+                            "y": -0.2863961458206177
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -700,8 +708,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": 0.0
+                            "x": 7.851231098175049,
+                            "y": -0.4773271083831787
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
