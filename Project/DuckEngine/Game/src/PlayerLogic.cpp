@@ -1,7 +1,6 @@
 #include "PlayerLogic.h"
 #include <vector>
 
-std::string currHolding;
 
 void PlayerLogic::Start()
 {
@@ -13,12 +12,11 @@ void PlayerLogic::Start()
 			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
 			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
 			{
-				//isInteracting = true;
+				isInteracting = true;
 				InteractPressed();
 			}
 			else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R)) 
 			{
-				//isInteracting = true;
 				InteractHold();
 			}
 		});
@@ -29,7 +27,7 @@ void PlayerLogic::Update()
 {
 	if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_R))
 	{
-		//isInteracting = false;
+		isInteracting = false;
 	}
 }
 
@@ -69,37 +67,26 @@ void PlayerLogic::FixedUpdate()
 void PlayerLogic::InteractPressed()
 {
 	auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
-	std::cout << "Interacting with: ";
-	
-	if(stockLogic)
+	if (stockLogic)
 	{
-		switch (stockLogic->getType())
+		if (isHolding)
 		{
-		case IngredientType::BUN:
-			std::cout << "Bun" << std::endl;
-			break;
-		case IngredientType::CHEESE:
-			std::cout << "Cheese" << std::endl;
-			break;
-		case IngredientType::LETTUCE:
-			std::cout << "Lettuce" << std::endl;
-			break;
-		case IngredientType::MUSHROOM:
-			std::cout << "Mushroom" << std::endl;
-			break;
-		case IngredientType::SHRIMP:
-			std::cout << "Shrimp" << std::endl;
-			break;
-		case IngredientType::STEAK:
-			std::cout << "Steak" << std::endl;
-			break;
-		case IngredientType::TOMATO:
-			std::cout << "Tomato" << std::endl;
-			break;
-
-		};
+			// If Same type of ingredient, or Bin, Put ingredient away.
+			if (currHolding == stockLogic->getType()) {
+				stockLogic->returnStock();
+				currHolding = IngredientType::EMPTY;
+			}
+			else if (stockLogic->getType() == IngredientType::EMPTY)
+			{
+				currHolding = IngredientType::EMPTY;
+			}
+		}
+		else
+		{
+			currHolding = stockLogic->getType();
+			stockLogic->useStock();
+		}
 	}
-	std::cout << '\n';
 }
 
 void PlayerLogic::InteractHold()

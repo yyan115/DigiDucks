@@ -11,13 +11,26 @@ void HoldingLogic::Start()
 		holder = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	}
 	holderTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(holder->entityID);
-	//holderLogic
 }
 
 
 void HoldingLogic::Update()
 {
-
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R)) {
+		auto playerLogic = GameLogicManager::GetLogicForEntity<PlayerLogic>(holder->entityID);
+		if (playerLogic->isInteracting)
+		{
+			if (!playerLogic->isHolding)
+			{
+				changeIngredient(playerLogic->currHolding);
+			}
+			else
+			{
+				changeIngredient(IngredientType::EMPTY);
+			}
+			playerLogic->isHolding = !playerLogic->isHolding;
+		}
+	}
 }
 
 void HoldingLogic::FixedUpdate()

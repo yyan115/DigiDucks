@@ -5,12 +5,12 @@
 #include "StockLogic.h"
 #include <iostream>
 
-class MushroomStock : public StockLogic
+class MushroomStockLogic : public StockLogic
 {
 public:
 
-	MushroomStock() : StockLogic(IngredientType::MUSHROOM, 5) {}
+	MushroomStockLogic() : StockLogic(IngredientType::MUSHROOM, 5) {}
 
-	MushroomStock(GameLogicComponent* component) : StockLogic(component, IngredientType::MUSHROOM, 5) {}
+	MushroomStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::MUSHROOM, 5) {}
 
 };

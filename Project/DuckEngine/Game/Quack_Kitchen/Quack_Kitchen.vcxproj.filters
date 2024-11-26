@@ -129,5 +129,8 @@
     <ClInclude Include="..\include\TomatoStockLogic.h">
       <Filter>include\Logic\Ingredient</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\BinLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

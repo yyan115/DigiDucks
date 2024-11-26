@@ -25,19 +25,19 @@ private:
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(IngredientType::BUN), stock(5) {}
+	StockLogic() : GameLogic(nullptr), type(IngredientType::EMPTY), stock(5) {}
 
 	StockLogic(IngredientType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
 
 	StockLogic(GameLogicComponent* component, IngredientType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
 
-	void Start() override{}
+	void Start() override {}
 
 	void Update() override {}
 
 	void FixedUpdate() override {}
 
-	virtual void Restock() { std::cout << "RESTOCKING "; stock = 5; }
+	virtual void restock() { std::cout << "RESTOCKING "; stock = 5; }
 
 	virtual void useStock() 
 	{ 
@@ -46,12 +46,12 @@ public:
 			stock--; 
 			std::cout << "Left with " << stock << " worth of stock" << std::endl; 
 		}
-		else 
-		{ 
-			Restock(); 
-		}
 	}
 
+	virtual void returnStock() { stock++; }
+
 	virtual IngredientType getType() { return type; }
+
+	void changeType(IngredientType type_) { type = type_; }
 
 };

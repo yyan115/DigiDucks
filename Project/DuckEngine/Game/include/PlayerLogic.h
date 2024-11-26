@@ -13,15 +13,17 @@ private:
     BoundingCircle* circleCollider;
     BoundingBox* boxCollider;
     Entity* interactObject;
-	bool isInteracting;
-    bool isHolding;
 
 public:
+    bool isInteracting = false;
+    bool isHolding = false;
+	IngredientType currHolding = IngredientType::EMPTY;
+
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr), isInteracting(false), isHolding(false) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr), isInteracting(false), isHolding(false) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
 
     void Start() override;
     void Update() override;

@@ -3,6 +3,14 @@
 #include "MovementLogic.h"
 #include "PlayerLogic.h"
 #include "HoldingLogic.h"
+#include "BunStockLogic.h"
+#include "CheeseStockLogic.h"
+#include "LettuceStockLogic.h"
+#include "MushroomStockLogic.h"
+#include "ShrimpStockLogic.h"
+#include "SteakStockLogic.h"
+#include "TomatoStockLogic.h"
+#include "BinLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -17,10 +25,19 @@ void GameManager::InitScenes()
 
 
     // add game logic
-	GameLogicManager::AddLogic("StockLogic", std::make_shared<StockLogic>());
     GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
 	GameLogicManager::AddLogic("PlayerLogic", std::make_shared<PlayerLogic>());
 	GameLogicManager::AddLogic("HoldingLogic", std::make_shared<HoldingLogic>());
+	GameLogicManager::AddLogic("StockLogic", std::make_shared<StockLogic>());
+	GameLogicManager::AddLogic("BunStockLogic", std::make_shared<BunStockLogic>());
+	GameLogicManager::AddLogic("CheeseStockLogic", std::make_shared<CheeseStockLogic>());
+	GameLogicManager::AddLogic("LettuceStockLogic", std::make_shared<LettuceStockLogic>());
+	GameLogicManager::AddLogic("MushroomStockLogic", std::make_shared<MushroomStockLogic>());
+	GameLogicManager::AddLogic("ShrimpStockLogic", std::make_shared<ShrimpStockLogic>());
+	GameLogicManager::AddLogic("SteakStockLogic", std::make_shared<SteakStockLogic>());
+	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
+	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());
+
 }
 
 void GameManager::SetActiveScene(std::string sceneName)

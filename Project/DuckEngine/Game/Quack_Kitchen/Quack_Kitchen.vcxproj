@@ -202,6 +202,7 @@
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\BinLogic.h" />
     <ClInclude Include="..\include\BunStockLogic.h" />
     <ClInclude Include="..\include\CheeseStockLogic.h" />
     <ClInclude Include="..\include\GameManager.h" />
