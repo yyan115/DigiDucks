@@ -13,4 +13,12 @@ public:
 
 	BinLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::BIN, 5) {}
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<BinLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
+
 };

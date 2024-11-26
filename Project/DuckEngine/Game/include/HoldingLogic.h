@@ -19,6 +19,13 @@ public:
 
     HoldingLogic(GameLogicComponent* component, Entity* holder_) :
         GameLogic(nullptr), holder(nullptr), holderTransform(nullptr), object(nullptr), objectTransform(nullptr) {}
+    
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<HoldingLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
 
     void Start() override;
     void Update() override;

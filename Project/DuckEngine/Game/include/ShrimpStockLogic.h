@@ -13,4 +13,11 @@ public:
 
 	ShrimpStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::SHRIMP, 5) {}
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<ShrimpStockLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
 };

@@ -27,9 +27,9 @@ void TableLogic::setObject(int EntityID)
 	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(EntityID);
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(EntityID);
 	objectTransform->SetPosition(tableTransform->GetPosition());
-	std::cout << "Table ID: " << table->entityID << std::endl;
-	std::cout << "Table Transform: " << tableTransform->GetPosition().x << ", " << tableTransform->GetPosition().y << std::endl;
-	std::cout << "Object Transform: " << objectTransform->GetPosition().x << ", " << objectTransform->GetPosition().y << std::endl;
+	//std::cout << "Table ID: " << table->entityID << std::endl;
+	//std::cout << "Table Transform: " << tableTransform->GetPosition().x << ", " << tableTransform->GetPosition().y << std::endl;
+	//std::cout << "Object Transform: " << objectTransform->GetPosition().x << ", " << objectTransform->GetPosition().y << std::endl;
 	isOccupied = true;
 }
 

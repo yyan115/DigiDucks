@@ -13,4 +13,11 @@ public:
 
 	TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::TOMATO, 5) {}
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<TomatoStockLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
 };

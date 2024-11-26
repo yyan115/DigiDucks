@@ -146,6 +146,7 @@ void DuckEngine::SetPlaying(bool playing)
 {
     isPlaying = playing;
     if (!playing) isPaused = false;
+
 }
 
 bool DuckEngine::IsPlaying()
@@ -286,6 +287,7 @@ void DuckEngine::Exit()
     //PrefabManager::Exit();
     InputManager::Exit();
     ShaderManager::Exit();
+    
 
     DUCKENGINE_SceneManager.Shutdown();
     

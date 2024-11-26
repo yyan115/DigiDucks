@@ -4,6 +4,7 @@
 #include <memory>
 #include "GameLogic.h"
 #include "GameLogicComponent.h"
+#include <iostream>
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
@@ -28,6 +29,8 @@ public:
     template <typename T>
     static std::shared_ptr<T> GetLogicForEntity(int entityID)
     {
+        std::cout << "Looking For GameLogic with Component ID: " << entityID << std::endl;
+
         static_assert(std::is_base_of<GameLogic, T>::value, "T must inherit from GameLogic");
 
         if (entityLogicMap.find(entityID) != entityLogicMap.end())
@@ -35,12 +38,15 @@ public:
             for (const auto& logic : entityLogicMap[entityID])
             {
                 auto typedLogic = std::dynamic_pointer_cast<T>(logic);
-                if (typedLogic)
+                if (typedLogic && typedLogic->GetComponentID() == entityID)
                 {
+                    std::cout << "Found GameLogic with Component ID: " << typedLogic->GetComponentID() << std::endl;
                     return typedLogic;
                 }
             }
         }
+
+        std::cout << "No matching GameLogic found for Component ID: " << entityID << std::endl;
         return nullptr;
     }
 
@@ -48,6 +54,7 @@ public:
 
     static void StartAll();
     static void UpdateAll();
+    static void Clear();
 
 
 };

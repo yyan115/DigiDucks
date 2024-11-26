@@ -13,4 +13,11 @@ public:
 
 	BunStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::BUN, 5) {}
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<BunStockLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
 };

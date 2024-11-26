@@ -17,6 +17,14 @@ public:
         component = newComponent;
     }
 
+    int GetComponentID() const
+    {
+        return component ? component->GetEntityID() : -1;
+    }
+
+    virtual std::shared_ptr<GameLogic> Clone() const = 0;
+
+
 protected:
     GameLogicComponent* component;
 };

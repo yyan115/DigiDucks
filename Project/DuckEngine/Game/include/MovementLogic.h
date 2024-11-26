@@ -21,6 +21,13 @@ public:
         : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(speed) {
     }
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<MovementLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
     void Start() override;
     void Update() override;
     void FixedUpdate() override;

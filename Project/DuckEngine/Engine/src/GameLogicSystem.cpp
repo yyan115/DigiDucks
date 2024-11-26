@@ -13,9 +13,11 @@ void GameLogicSystem::Start()
 
         for (const auto& logicName : logicComponent->logicNames)
         {
-            auto logic = GameLogicManager::GetLogic(logicName);
-            if (logic)
+            auto baseLogic = GameLogicManager::GetLogic(logicName);
+            if (baseLogic)
             {
+                auto logic = baseLogic->Clone();
+
                 logic->SetComponent(logicComponent);
                 logic->Start();
                 GameLogicManager::AddLogicToEntity(entityID, logic);

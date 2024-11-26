@@ -28,6 +28,13 @@ public:
     PlayerLogic(GameLogicComponent* component)
         : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
 
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<PlayerLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
     void Start() override;
     void Update() override;
     void FixedUpdate() override;
