@@ -21,9 +21,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 int renamingEntityID = -1;
 char nameBuffer[128] = {};
 
+
 void Hierarchy::ShowHierarchy(int& selectedEntityID) {
     // Get all entities
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    Texture prefabIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("prefab_icon");
+    Texture gameobjectIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("gameobject_icon");
 
     for (auto& entity : entities) {
         std::string entityLabel;
@@ -59,16 +62,14 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
 
         bool nodeOpen;
 
-        // Display prefab icon
+        // Display prefab icon       
         ImGui::PushID(entity.entityID);
-        auto prefabIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("prefab_icon");
         if (!entity.prefabName.empty() && prefabIconTexture) {
             ImGui::Image((void*)(intptr_t)prefabIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render prefab icon
             ImGui::SameLine();
         }
         else {
-            auto gameobjectIconTexture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("gameobject_icon");
-            ImGui::Image((void*)(intptr_t)gameobjectIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render prefab icon
+            ImGui::Image((void*)(intptr_t)gameobjectIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render gameobject icon
             ImGui::SameLine();
         }
 
