@@ -260,6 +260,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 				}
 				ImGui::EndDragDropTarget();
 			}
+
+			ComponentMenu<SpriteRendererComponent>(entityID);
 		}
 	}
 
