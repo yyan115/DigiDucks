@@ -25,7 +25,7 @@ private:
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(IngredientType::EMPTY), stock(5) {}
+	StockLogic() : GameLogic(nullptr), type(IngredientType::BUN), stock(5) {}
 
 	StockLogic(IngredientType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
 
