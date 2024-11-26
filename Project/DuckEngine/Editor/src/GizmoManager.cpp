@@ -9,6 +9,7 @@
 #include "DuckEngine_Input.h"
 #include "UIManager.h" // Include to access selectedEntityID
 #include "SceneWindow.h"
+#include "SnapshotManager.h"
 
 // Initialize static member variables
 int GizmoManager::selectedEntityID = -1;
@@ -29,12 +30,15 @@ const float PI = 3.14159265f;
 const float RAD2DEG = 180.0f / PI;
 const float DEG2RAD = PI / 180.0f;
 
+CurrentGizmo previousGizmo;
 
 void GizmoManager::Initialize() {
 
 }
 
 void GizmoManager::Update() {
+
+    previousGizmo = GizmoManager::currentGizmo;
 
     if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_7)) {
         GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
@@ -51,32 +55,40 @@ void GizmoManager::Update() {
 
 void GizmoManager::Render() {
 
-    selectedEntityID = UIManager::selectedEntityID;
+    if (!SceneWindow::GetIsPlaying()) {
+        selectedEntityID = UIManager::selectedEntityID;
 
-    auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-    if (!transform) {
-        GraphicsManager::entityIsSelected = false;
+        auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
+        if (!transform) {
+            GraphicsManager::entityIsSelected = false;
+        }
+        else {
+            float biggestScale = transform->scale.x > transform->scale.y ? transform->scale.x : transform->scale.y;
+            GraphicsManager::gizmoData = { transform->GetPosition(), biggestScale }; // Adjust size as needed
+            GraphicsManager::entityIsSelected = true;
+
+            //if (currentGizmo == CurrentGizmo::TRANSLATE) {
+            //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+            //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+            //}
+            //else if (currentGizmo == CurrentGizmo::SCALE) {
+            //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
+            //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
+            //}
+
+            HandleGizmoInteraction();
+        }
     }
     else {
-        GraphicsManager::gizmoData = { transform->GetPosition(), 3.0f }; // Adjust size as needed
-        GraphicsManager::entityIsSelected = true;
-
-        //if (currentGizmo == CurrentGizmo::TRANSLATE) {
-        //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
-        //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
-        //}
-        //else if (currentGizmo == CurrentGizmo::SCALE) {
-        //    GraphicsManager::AddToDrawQueue(xAxisLineArrow);
-        //    GraphicsManager::AddToDrawQueue(yAxisLineArrow);
-        //}
-
-        HandleGizmoInteraction();
+        GraphicsManager::entityIsSelected = false;
     }
 }
 
 void GizmoManager::SetSelectedEntity(int entityID) {
     selectedEntityID = entityID;
 }
+
+//Vector2D previousPosition;
 
 void GizmoManager::HandleGizmoInteraction() {
     auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
@@ -104,6 +116,8 @@ void GizmoManager::HandleGizmoInteraction() {
             initialObjectPosition = transform->GetPosition();
             initialScale = transform->scale;
             initialRotation = transform->angle;
+
+            SnapshotManager::SaveUndoState();
         }
         else {
             // DO NOTHING
@@ -111,6 +125,17 @@ void GizmoManager::HandleGizmoInteraction() {
     }
 
     if (DuckEngine_Input::IsMouseButtonReleased(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+
+        if (isDraggingGizmo) {
+            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
+            if (transform) {
+                if (transform->GetPosition() == initialObjectPosition && transform->scale == initialScale && transform->angle == initialRotation) {
+                    std::cout << "Object didn't moved! so dont save state" << std::endl;
+                    SnapshotManager::RemoveLatestUndoState();
+                }
+            }
+        }
+
         isDraggingGizmo = false;
         activeGizmoHandle = -1;
     }
