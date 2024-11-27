@@ -303,7 +303,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 			else {
 				// Invalid file for the folder
 				showErrorPopup = true;
-				errorMessage = "Error: File '" + fileName + "' has an invalid extension (" + fileExtension + ") for folder '" + parentDir + "'.";
+				errorMessage = "Error: File '" + fileName + "' has an invalid extension (" + fileExtension + ") for folder '" + parentDir + "'. Please delete the file.";
 			}
 		}
 		// Calculate text width and center-align
@@ -438,23 +438,40 @@ void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& 
 }
 
 // Handle file drag/drop into the asset browser
-void AssetsBrowser::HandleFileDrop(GLFWwindow * window, int count, const char** paths) {
+void AssetsBrowser::HandleFileDrop(GLFWwindow* window, int count, const char** paths) {
 	UNREFERENCED_PARAMETER(window);
 
 	for (int i = 0; i < count; ++i) {
 		std::string filePath = paths[i];
 		std::string extension = fs::path(filePath).extension().string();
 		std::string fileName = fs::path(filePath).filename().string();
+		std::string absolutePath = fs::absolute(selectedFolderPath).string();
 
-		// Validate if the file extension is allowed in the current folder
-		auto allowedExtensions = folderAllowedExtensions.find(selectedFolderName);
-		if (allowedExtensions != folderAllowedExtensions.end()) {
-			if (std::find(allowedExtensions->second.begin(), allowedExtensions->second.end(), extension) == allowedExtensions->second.end()) {
+		// Determine the parent directory dynamically
+		std::string parentDir = "";
+		for (const auto& [dir, extensions] : folderAllowedExtensions) {
+			std::string absoluteParent = fs::absolute("Resources/" + dir).string();
+			if (absolutePath.find(absoluteParent) == 0) {
+				parentDir = dir;
+				break;
+			}
+		}
+
+		if (!parentDir.empty()) {
+			// Validate file extension
+			const auto& allowedExtensions = folderAllowedExtensions.at(parentDir);
+			if (std::find(allowedExtensions.begin(), allowedExtensions.end(), extension) == allowedExtensions.end()) {
 				// Set the popup state and error message
 				showErrorPopup = true;
-				errorMessage = "Error: Unsupported file type '" + extension + "' for folder '" + selectedFolderName + "'.";
+				errorMessage = "Error: Unsupported file type '" + extension + "' for folder '" + parentDir + "'.";
 				continue; // Skip this file
 			}
+		}
+		else {
+			// Unknown folder type
+			showErrorPopup = true;
+			errorMessage = "Error: Unknown folder type for path '" + selectedFolderPath + "'.";
+			continue; // Skip this file
 		}
 
 		// Ensure the destination folder exists
