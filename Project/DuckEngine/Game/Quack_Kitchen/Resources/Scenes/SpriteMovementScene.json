@@ -396,8 +396,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.964954376220703,
-                            "y": -7.264243125915527
+                            "x": -9.336874961853027,
+                            "y": -6.023192882537842
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1367,14 +1367,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
-                            "y": 400.0
+                            "x": 12.013017654418945,
+                            "y": -8.496419906616211
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
                     "type": "TransformComponent"
@@ -1488,14 +1488,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
-                            "y": 400.0
+                            "x": 0.0,
+                            "y": -6.1575188636779785
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
                     "type": "TransformComponent"
@@ -1589,14 +1589,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
-                            "y": 400.0
+                            "x": -9.707115173339844,
+                            "y": -8.830548286437988
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
                     "type": "TransformComponent"

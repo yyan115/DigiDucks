@@ -47,6 +47,9 @@
     <ClCompile Include="..\src\CombineLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SubmitLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -172,6 +175,9 @@
       <Filter>include\Logic\Ingredient</Filter>
     </ClInclude>
     <ClInclude Include="..\include\RestockLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SubmitLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>

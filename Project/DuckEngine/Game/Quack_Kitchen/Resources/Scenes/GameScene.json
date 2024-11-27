@@ -1895,13 +1895,13 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 0.0
+                            "y": 8.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 5.0
+                            "x": 1.0,
+                            "y": 1.0
                         }
                     },
                     "type": "TransformComponent"
@@ -1917,10 +1917,10 @@
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
-                            "x": 430.1999816894531,
-                            "y": 377.1000061035156
+                            "x": 0.0,
+                            "y": 0.0
                         },
-                        "text": ""
+                        "text": "Time: 9:17"
                     },
                     "type": "TextComponent"
                 }
