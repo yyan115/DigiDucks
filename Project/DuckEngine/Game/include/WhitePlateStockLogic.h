@@ -23,9 +23,9 @@ class WhitePlateStockLogic : public StockLogic
 {
 public:
 
-    WhitePlateStockLogic() : StockLogic(ItemType::GREY_PLATE, 10000) {}
+    WhitePlateStockLogic() : StockLogic(ItemType::WHITE_PLATE, 10000) {}
 
-    WhitePlateStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::GREY_PLATE, 10000) {}
+    WhitePlateStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::WHITE_PLATE, 10000) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

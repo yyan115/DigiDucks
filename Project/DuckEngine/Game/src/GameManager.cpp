@@ -18,6 +18,7 @@
 #include "TableLogic.h"
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
+#include "SubmitLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -51,6 +52,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("TableLogic", std::make_shared<TableLogic>());
 	GameLogicManager::AddLogic("PanLogic", std::make_shared<PanLogic>());
 	GameLogicManager::AddLogic("ChopBoardLogic", std::make_shared<ChopBoardLogic>());
+	GameLogicManager::AddLogic("SubmitLogic", std::make_shared<SubmitLogic>());
 
 }
 

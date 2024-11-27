@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "PlayerLogic.h"
 #include "CombineLogic.h"
+#include "SubmitLogic.h"
 
 void PlayerLogic::Start()
 {
@@ -209,6 +210,17 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
+		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
+		if (submitLogic)
+		{
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			if (holdingLogic->getType() == ItemType::SALAD_PLATE || holdingLogic->getType() == ItemType::CHEESE_BURGER_PLATE)
+			{
+				submitLogic->removeObject(holdingLogic->moveObject());
+				isHolding = false;
+			}
+			return;
+		}
 	}
 	
 }
