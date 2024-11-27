@@ -46,6 +46,12 @@ public:
     /// <param name="posX">The new x-coordinate of the camera in world space.</param>
     /// <param name="posY">The new y-coordinate of the camera in world space.</param>
     static void SetPosition(const float posX, const float posY);
+
+    /// <summary>
+    /// Lerps the camera.
+    /// </summary>
+    /// <param name="posX">The new x-coordinate of the camera in world space.</param>
+    /// <param name="posY">The new y-coordinate of the camera in world space.</param>
     static void LerpCameraTo(const float posX, const float posY);
 
     /// <summary>
@@ -59,6 +65,11 @@ public:
     /// </summary>
     /// <returns>The camera's position as a 2D vector.</returns>
     static inline Vector2D GetPosition() { return position; };
+
+    /// <summary>
+    /// Gets the previous position of the camera in world space.
+    /// </summary>
+    /// <returns>The camera's previous position as a 2D vector.</returns>
     static Vector2D GetPreviousPosition() { return previousPosition; };
 
     /// <summary>
@@ -91,6 +102,9 @@ public:
     /// </summary>
     static void Update();
 
+    /// <summary>
+    /// Sets camera height back to default.
+    /// </summary>
     static void ResetToDefault();
 private:
     /// <summary>

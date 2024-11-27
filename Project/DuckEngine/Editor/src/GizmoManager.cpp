@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       GizmoManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       November 28 2024
+\brief      Implements the GizmoManager class, managing gizmo interactions
+            such as translation, scaling, and rotation of game objects.
+            Handles user input, rendering of gizmos, and maintaining state
+            for active gizmo handles and dragging operations.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+
+/******************************************************************************/
+
 #include "GraphicsManager.h"
 #include "GizmoManager.h"
 #include "CameraManager.h"

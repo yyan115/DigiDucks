@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       ButtonSystem.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       November 28 2024
+\brief      Implements the ButtonSystem class, providing functionality for
+            managing button interactions such as detecting clicks and handling
+            events in both editor and game modes. Includes utilities for
+            determining whether a point is within button bounds.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "GraphicsManager.h"
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"

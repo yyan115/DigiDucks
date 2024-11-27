@@ -40,6 +40,9 @@ public:
 	/// </summary>
 	void Update() override;
 
+	/// <summary>
+	/// Renders the buttons.
+	/// </summary>
 	void Render() override;
 
 };

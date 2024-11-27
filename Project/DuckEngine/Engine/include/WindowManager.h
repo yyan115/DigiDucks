@@ -110,6 +110,9 @@ public:
     /// <param name="title">The new title of the window.</param>
     static void SetWindowTitle(const char* title);
 
+    /// <summary>
+    /// Toggle on and off full screen mode.
+    /// </summary>
     static void ToggleFullscreen();
 
 private:
