@@ -10,7 +10,7 @@
 #include "GameManager.h"
 
 Entity* QuitButton;
-ButtonComponent* quit;
+//ButtonComponent* quit;
 
 
 void EndScene::Load()
@@ -19,7 +19,8 @@ void EndScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
-	quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
+	auto quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
+	quit->onClick = []() { std::cout << "Button clicked!\n"; };
 }
 
 void EndScene::Start()
@@ -30,10 +31,7 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
-	/*if (quit)
-	{
-		GameManager::SetActiveScene("MainMenu");
-	}*/
+	
 }
 
 void EndScene::PostUpdate()

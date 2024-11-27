@@ -35,18 +35,18 @@
             ],
             "layer": "Background"
         },
-        "GameObject 7": {
+        "Quit": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 5.0,
-                            "y": 2.0
+                            "x": 0.0,
+                            "y": -4.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
+                            "x": 6.0,
                             "y": 3.0
                         }
                     },
@@ -62,27 +62,40 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
-                        "useColor": true
+                        "texture": "Resources/Sprites/EndScene/quit.png",
+                        "useColor": false
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 6.0,
+                            "y": 3.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "Gameplay"
         },
-        "Quit": {
+        "Score": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": -4.0
+                            "x": 650.0,
+                            "y": 375.0
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.0,
-                            "y": 2.0
+                            "x": 100.0,
+                            "y": 100.0
                         }
                     },
                     "type": "TransformComponent"
@@ -91,19 +104,22 @@
                     "properties": {
                         "color": {
                             "a": 255.0,
-                            "b": 255.0,
+                            "b": 0.0,
                             "g": 0.0,
-                            "r": 255.0
+                            "r": 0.0
                         },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/quit.png",
-                        "useColor": true
+                        "fontName": "Kenney Future Narrow",
+                        "fontSize": 1,
+                        "position": {
+                            "x": 650.0,
+                            "y": 375.0
+                        },
+                        "text": "Score:"
                     },
-                    "type": "SpriteRendererComponent"
+                    "type": "TextComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Background"
         },
         "Star_1": {
             "components": [
@@ -111,7 +127,7 @@
                     "properties": {
                         "position": {
                             "x": -5.0,
-                            "y": 2.0
+                            "y": 2.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -146,7 +162,7 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 2.0
+                            "y": 2.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -175,19 +191,19 @@
             ],
             "layer": "Gameplay"
         },
-        "TestText2": {
+        "Star_3": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
-                            "y": 400.0
+                            "x": 5.0,
+                            "y": 2.5
                         },
-                        "relativeToCamera": false,
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 3.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -195,99 +211,20 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 250.0,
-                            "b": 0.0,
-                            "g": 50.0,
-                            "r": 250.0
-                        },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2,
-                        "position": {
-                            "x": 600.0,
-                            "y": 100.0
-                        },
-                        "text": "Second Font!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "buttonText": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 400.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 100.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
+                            "a": 255.0,
                             "b": 255.0,
-                            "g": 50.0,
-                            "r": 100.0
-                        },
-                        "fontName": "Kenney Rocket",
-                        "fontSize": 1,
-                        "position": {
-                            "x": 1200.0,
-                            "y": 50.0
-                        },
-                        "text": "More Text!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "textBox": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 400.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 100.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 100.0,
-                            "g": 50.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
-                        "fontName": "Kenney Mini",
-                        "fontSize": 1,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": "TEST TEXT COMPONENT"
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "useColor": true
                     },
-                    "type": "TextComponent"
+                    "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         }
     },
     "layers": {

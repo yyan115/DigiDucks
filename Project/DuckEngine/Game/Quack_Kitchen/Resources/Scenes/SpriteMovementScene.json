@@ -1179,6 +1179,92 @@
             ],
             "layer": "Gameplay"
         },
+        "Quit": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -4.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 6.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/quit.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 6.0,
+                            "y": 3.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Score": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 650.0,
+                            "y": 375.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 100.0,
+                            "y": 100.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "fontName": "Kenney Future Narrow",
+                        "fontSize": 1,
+                        "position": {
+                            "x": 650.0,
+                            "y": 375.0
+                        },
+                        "text": "Score:"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Background"
+        },
         "TestText2": {
             "components": [
                 {
