@@ -9,10 +9,17 @@
 #include "Scene.h"
 #include "GameManager.h"
 
+Entity* QuitButton;
+ButtonComponent* quit;
+
+
 void EndScene::Load()
 {
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
+
+	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
+	quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
 }
 
 void EndScene::Start()
@@ -23,7 +30,10 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
-
+	/*if (quit)
+	{
+		GameManager::SetActiveScene("MainMenu");
+	}*/
 }
 
 void EndScene::PostUpdate()
