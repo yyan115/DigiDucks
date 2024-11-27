@@ -29,7 +29,7 @@ public:
     template <typename T>
     static std::shared_ptr<T> GetLogicForEntity(int entityID)
     {
-        std::cout << "Looking For GameLogic with Component ID: " << entityID << std::endl;
+        //std::cout << "Looking For GameLogic with Component ID: " << entityID << std::endl;
 
         static_assert(std::is_base_of<GameLogic, T>::value, "T must inherit from GameLogic");
 
@@ -40,13 +40,13 @@ public:
                 auto typedLogic = std::dynamic_pointer_cast<T>(logic);
                 if (typedLogic && typedLogic->GetComponentID() == entityID)
                 {
-                    std::cout << "Found GameLogic with Component ID: " << typedLogic->GetComponentID() << std::endl;
+                    //std::cout << "Found GameLogic with Component ID: " << typedLogic->GetComponentID() << std::endl;
                     return typedLogic;
                 }
             }
         }
 
-        std::cout << "No matching GameLogic found for Component ID: " << entityID << std::endl;
+        //std::cout << "No matching GameLogic found for Component ID: " << entityID << std::endl;
         return nullptr;
     }
 
