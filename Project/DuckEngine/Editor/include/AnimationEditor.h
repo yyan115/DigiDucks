@@ -18,4 +18,5 @@ private:
     static void RenderAnimationList(AnimatorComponent* animator);
     static void RenderTimeline(AnimatorComponent* animator);
     static void RenderAnimationProperties(AnimatorComponent* animator);
+    static void RenderAnimationPreview(AnimatorComponent* animator);
 };

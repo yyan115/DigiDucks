@@ -7,6 +7,12 @@ bool AnimationEditor::isOpen = false;
 int AnimationEditor::selectedEntityID = -1;
 std::string AnimationEditor::currentAnimationName = "";
 
+// Preview animation variables
+bool isPreviewing = false;
+float previewElapsedTime = 0.0f;
+int previewCurrentFrame = 0;
+std::string previousAnimationName = "";
+
 void AnimationEditor::Open(int entityId)
 {
     selectedEntityID = entityId;
@@ -44,8 +50,17 @@ void AnimationEditor::Render()
         ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true);
         if (!currentAnimationName.empty())
         {
+            if (previousAnimationName != currentAnimationName)
+            {
+                isPreviewing = false;
+                previewElapsedTime = 0.0f;
+                previewCurrentFrame = 0;
+                previousAnimationName = currentAnimationName;
+            }
+
             RenderTimeline(animator);
             RenderAnimationProperties(animator);
+            RenderAnimationPreview(animator);
         }
         else
         {
@@ -58,7 +73,6 @@ void AnimationEditor::Render()
         ImGui::End();
     }
 }
-
 
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 {
@@ -128,9 +142,9 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
             if (ImGui::ImageButton(
                 ("##Frame" + std::to_string(i)).c_str(),
                 (void*)(uintptr_t)*texture,
-                ImVec2(64.0f, 64.0f),
-                ImVec2(0.0f, 1.0f),
-                ImVec2(1.0f, 0.0f),
+                ImVec2(64.0f, 64.0f), // Button size
+                ImVec2(0.0f, 1.0f),   // UV top-left
+                ImVec2(1.0f, 0.0f),   // UV bottom-right
                 ImVec4(0, 0, 0, 0),
                 ImVec4(1, 1, 1, 1)
             ))
@@ -157,7 +171,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
         {
             if (ImGui::Button(("Empty##Frame" + std::to_string(i)).c_str(), ImVec2(64.0f, 64.0f)))
             {
-                
+
             }
 
             if (ImGui::BeginPopupContextItem())
@@ -246,7 +260,6 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     ImGui::PopID();
 }
 
-
 void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
@@ -259,21 +272,88 @@ void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
         animation.frameTimer = 0.0f;
     }
 
-    if (ImGui::Button("Preview Animation"))
+    // Change the button label based on the preview state
+    if (ImGui::Button(isPreviewing ? "Pause Animation" : "Play Animation"))
     {
-        animator->SetAnimation(currentAnimationName);
-        animator->Resume();
+        isPreviewing = !isPreviewing;
     }
 
     ImGui::SameLine();
-
-    if (ImGui::Button("Pause Preview"))
-    {
-        animator->Pause();
-    }
 
     if (ImGui::Button("Save Animation"))
     {
         LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
     }
+}
+
+void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
+{
+    auto& animation = animator->animations[currentAnimationName];
+
+    ImGui::Separator();
+
+    ImGui::BeginChild("AnimationPreview", ImVec2(0, 200), true);
+
+    ImGui::Text("Animation Preview");
+    ImGui::Separator();
+
+    if (isPreviewing)
+    {
+        previewElapsedTime += DuckEngine::DeltaTime();
+
+        float totalDuration = animation.frameDuration * animation.Frames.size();
+
+        if (totalDuration > 0.0f)
+        {
+            float animationTime = fmod(previewElapsedTime, totalDuration);
+
+            int frameIndex = static_cast<int>(animationTime / animation.frameDuration) % animation.Frames.size();
+
+            previewCurrentFrame = frameIndex;
+        }
+        else
+        {
+            previewCurrentFrame = 0;
+        }
+    }
+    else
+    {
+        previewCurrentFrame = 0;
+    }
+
+    if (animation.Frames.size() > 0)
+    {
+        auto texture = animation.Frames[previewCurrentFrame];
+
+        ImVec2 contentRegion = ImGui::GetContentRegionAvail();
+        ImVec2 imageSize(128.0f, 128.0f);
+
+        float padX = (contentRegion.x - imageSize.x) / 2.0f;
+        float padY = (contentRegion.y - imageSize.y) / 2.0f;
+
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + padX);
+        ImGui::SetCursorPosY(ImGui::GetCursorPosY() + padY);
+
+        if (texture && *texture != 0)
+        {
+            ImGui::Image(
+                (void*)(uintptr_t)*texture,
+                imageSize,
+                ImVec2(0.0f, 1.0f),
+                ImVec2(1.0f, 0.0f),
+                ImVec4(1, 1, 1, 1),
+                ImVec4(0, 0, 0, 1)
+            );
+        }
+        else
+        {
+            ImGui::Text("No texture for current frame.");
+        }
+    }
+    else
+    {
+        ImGui::Text("Animation has no frames.");
+    }
+
+    ImGui::EndChild();
 }
