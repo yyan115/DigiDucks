@@ -1,22 +1,7 @@
-/******************************************************************************
-\file       AnimationEditor.cpp
-\author     Lucas Yee 2301212 (60%)
-\par        l.yee@digipen.edu
-\author     Muhammad Zikry Bin Zakaria , 2201751 (40%)
-\par        muhammadzikry.b@digipen.edu
-
-\brief      Definition of the AnimationEditor class, which provides functionalities
-            for managing the animation editor GUI, including rendering the animation
-            list, timeline, and properties.
-
-Copyright (C) 2024 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-******************************************************************************/
-
 #include "AnimationEditor.h"
 #include "DuckEngine.h"
-#include "imgui.h"
+#include "AssetManager.h"
+#include "Inspector.h"
 
 bool AnimationEditor::isOpen = false;
 int AnimationEditor::selectedEntityID = -1;
@@ -41,27 +26,26 @@ void AnimationEditor::Render()
         return;
     }
 
-    ImGui::OpenPopup("Animation Editor");
-    ImVec2 viewportSize = ImGui::GetMainViewport()->Size;
-    ImVec2 windowSize = ImVec2(1200, 600);
-    ImVec2 centerPos = ImVec2((viewportSize.x - windowSize.x) / 2, (viewportSize.y - windowSize.y) / 2);
+    // Set window position and size before Begin()
+    ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
-    ImGui::SetNextWindowPos(centerPos, ImGuiCond_Always);
-    ImGui::SetNextWindowSize(windowSize, ImGuiCond_Always);
-
-    if (ImGui::BeginPopupModal("Animation Editor", &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove))
+    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse))
     {
-        ImGui::Columns(2, nullptr, true);
+        // Adjust column width to 20% on the left and 80% on the right
+        float columnWidth = ImGui::GetContentRegionAvail().x;
+        ImGui::Columns(2, nullptr, false);
+        ImGui::SetColumnWidth(0, columnWidth * 0.2f); // Left column 20%
 
         // Left Panel: Animation List
-        ImGui::BeginChild("AnimationList", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
+        ImGui::BeginChild("AnimationList", ImVec2(0, 0), true);
         RenderAnimationList(animator);
         ImGui::EndChild();
 
         ImGui::NextColumn();
 
         // Right Panel: Timeline and Properties
-        ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
+        ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true);
         if (!currentAnimationName.empty())
         {
             RenderTimeline(animator);
@@ -75,9 +59,10 @@ void AnimationEditor::Render()
 
         ImGui::Columns(1);
 
-        ImGui::EndPopup();
+        ImGui::End();
     }
 }
+
 
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 {
@@ -86,12 +71,28 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 
     auto& animations = animator->GetAnimations();
 
-    // List all existing animations
+    // List all existing animations with right-click context menu
     for (const auto& [name, animation] : animations)
     {
         if (ImGui::Selectable(name.c_str(), currentAnimationName == name))
         {
             currentAnimationName = name; // Set the selected animation
+        }
+
+        // Right-click context menu for animation removal
+        if (ImGui::BeginPopupContextItem())
+        {
+            if (ImGui::MenuItem("Remove Animation"))
+            {
+                animator->animations.erase(name); // Remove the selected animation
+                if (currentAnimationName == name)
+                {
+                    currentAnimationName = ""; // Clear selection if removed
+                }
+                ImGui::EndPopup();
+                break; // Exit the loop since the iterator is invalidated
+            }
+            ImGui::EndPopup();
         }
     }
 
@@ -113,7 +114,6 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
     }
 }
 
-
 void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
@@ -121,30 +121,139 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     ImGui::Text("Timeline - %s", currentAnimationName.c_str());
     ImGui::Separator();
 
-    int numFrames = animation.Frames.size();
+    int numFrames = static_cast<int>(animation.Frames.size());
+    int framesPerRow = 5; // Adjust this number as needed
+    int framesRendered = 0;
+
     for (int i = 0; i < numFrames; ++i)
     {
         ImGui::PushID(i);
-        if (ImGui::Button(std::to_string(i).c_str(), ImVec2(32, 32)))
+
+        auto texture = animation.Frames[i];
+
+        if (texture && *texture != 0)
         {
-            animation.currentFrame = i; // Set preview frame
+            if (ImGui::ImageButton(
+                ("##Frame" + std::to_string(i)).c_str(),
+                (void*)(uintptr_t)*texture,
+                ImVec2(64.0f, 64.0f),
+                ImVec2(0.0f, 1.0f),
+                ImVec2(1.0f, 0.0f),
+                ImVec4(0, 0, 0, 0),
+                ImVec4(1, 1, 1, 1)
+            ))
+            {
+                animation.currentFrame = i;
+            }
+
+            if (ImGui::BeginPopupContextItem())
+            {
+                if (ImGui::MenuItem("Remove Frame"))
+                {
+                    animation.Frames.erase(animation.Frames.begin() + i);
+                    animation.texturePaths.erase(animation.texturePaths.begin() + i); // Remove from texturePaths
+                    --i;
+                    --numFrames;
+                    ImGui::EndPopup();
+                    ImGui::PopID();
+                    continue;
+                }
+                ImGui::EndPopup();
+            }
         }
-        if (i < numFrames - 1)
-            ImGui::SameLine();
+        else
+        {
+            if (ImGui::Button(("Empty##Frame" + std::to_string(i)).c_str(), ImVec2(64.0f, 64.0f)))
+            {
+                // Handle empty frame click if needed
+            }
+
+            if (ImGui::BeginPopupContextItem())
+            {
+                if (ImGui::MenuItem("Remove Frame"))
+                {
+                    animation.Frames.erase(animation.Frames.begin() + i);
+                    animation.texturePaths.erase(animation.texturePaths.begin() + i); // Remove from texturePaths
+                    --i;
+                    --numFrames;
+                    ImGui::EndPopup();
+                    ImGui::PopID();
+                    continue;
+                }
+                ImGui::EndPopup();
+            }
+        }
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SPRITE_PAYLOAD"))
+            {
+                const char* path = static_cast<const char*>(payload->Data);
+                if (InspectorRenderer::IsAllowedExtension(path, InspectorRenderer::GetAllowedImageExtensions()))
+                {
+                    DuckEngine::DUCKENGINE_AssetManager.LoadTexture(path);
+                    auto newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(path);
+
+                    if (newTexture)
+                    {
+                        animation.Frames[i] = newTexture;
+                        if (i < animation.texturePaths.size())
+                        {
+                            animation.texturePaths[i] = path; // Update texture path
+                        }
+                        else
+                        {
+                            animation.texturePaths.push_back(path); // Add texture path if new
+                        }
+                    }
+                }
+            }
+            ImGui::EndDragDropTarget();
+        }
+
         ImGui::PopID();
+
+        framesRendered++;
+        if (framesRendered % framesPerRow != 0)
+        {
+            ImGui::SameLine();
+        }
     }
 
-    if (ImGui::Button("Add Frame"))
+    if (numFrames == 0 || framesRendered % framesPerRow != 0)
     {
-        // Add a new frame (default frame or allow file selection)
-        //animation.Frames.push_back(Texture()); // Placeholder texture
+        ImGui::NewLine();
     }
-    ImGui::SameLine();
-    if (ImGui::Button("Remove Last Frame") && !animation.Frames.empty())
+
+    ImGui::PushID("AddFrameButton");
+    if (ImGui::Button("Add Frame", ImVec2(85.0f, 50.0f)))
     {
-        animation.Frames.pop_back();
+        animation.Frames.push_back(nullptr);
+        animation.texturePaths.push_back("");
     }
+
+    if (ImGui::BeginDragDropTarget())
+    {
+        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SPRITE_PAYLOAD"))
+        {
+            const char* path = static_cast<const char*>(payload->Data);
+            if (InspectorRenderer::IsAllowedExtension(path, InspectorRenderer::GetAllowedImageExtensions()))
+            {
+                DuckEngine::DUCKENGINE_AssetManager.LoadTexture(path);
+                auto newTexture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(path);
+
+                if (newTexture)
+                {
+                    animation.Frames.push_back(newTexture);
+                    animation.texturePaths.push_back(path);
+                }
+            }
+        }
+        ImGui::EndDragDropTarget();
+    }
+    ImGui::PopID();
 }
+
 
 void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
 {
@@ -155,7 +264,7 @@ void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
 
     if (ImGui::DragFloat("Frame Duration", &animation.frameDuration, 0.01f, 0.01f, 5.0f))
     {
-        animation.frameTimer = 0.0f; // Reset frame timer if duration changes
+        animation.frameTimer = 0.0f;
     }
 
     if (ImGui::Button("Preview Animation"))
@@ -165,9 +274,14 @@ void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
     }
 
     ImGui::SameLine();
+
     if (ImGui::Button("Pause Preview"))
     {
         animator->Pause();
     }
-}
 
+    if (ImGui::Button("Save Animation"))
+    {
+        LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+    }
+}

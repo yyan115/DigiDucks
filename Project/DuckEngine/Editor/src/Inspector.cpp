@@ -352,25 +352,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 	{
 		if (ImGui::CollapsingHeader("Animator Component"))
 		{
-			if (animator->currentAnimation)
-			{
-				ImGui::Text("Current Animation: %s", animator->currentAnimation->name.c_str());
-			}
+			ImGui::Text("Animation List");
 
-			if (ImGui::Button("Play"))
-			{
-				if (animator->currentAnimation)
-				{
-					animator->PlayAnimation(animator->currentAnimation->name);
-					hasChanged = true;
-				}
-			}
-			ImGui::SameLine();
-			if (ImGui::Button("Pause"))
-			{
-				animator->Pause();
-				hasChanged = true;
-			}
 
 			// List all available animations
 			for (const auto& [name, animation] : animator->animations)
@@ -696,6 +679,11 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 std::vector<std::string> InspectorRenderer::GetComponentTypes()
 {
 	return componentTypes;
+}
+
+std::unordered_set<std::string> InspectorRenderer::GetAllowedImageExtensions()
+{
+	return allowedImageExtensions;
 }
 
 bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions) {

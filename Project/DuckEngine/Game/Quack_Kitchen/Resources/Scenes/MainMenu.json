@@ -87,27 +87,19 @@
             ],
             "layer": "Background"
         },
-        "Player": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 3.6944098472595215,
-                "y": -3.2458231449127197
-            },
-            "prefab": "PlayerPrefab"
-        },
-        "TestText2": {
+        "GameObject 8": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 400.0,
-                            "y": 400.0
+                            "x": 10.204129219055176,
+                            "y": -2.1570920944213867
                         },
-                        "relativeToCamera": false,
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 3.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -115,30 +107,70 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 250.0,
-                            "b": 0.0,
-                            "g": 50.0,
-                            "r": 250.0
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
                         },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2,
-                        "position": {
-                            "x": 600.0,
-                            "y": 100.0
-                        },
-                        "text": "Second Font!"
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/start.png",
+                        "useColor": true
                     },
-                    "type": "TextComponent"
+                    "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
+        },
+        "GameObject 9": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.225006103515625,
+                            "y": -5.627198696136475
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/quit.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Player": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 3.7500810623168945,
+                "y": -3.2692699432373047
+            },
+            "prefab": "PlayerPrefab"
         },
         "buttonBox": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": -700.0,
+                            "x": 0.0,
                             "y": 400.0
                         },
                         "relativeToCamera": false,
@@ -177,82 +209,6 @@
                         }
                     },
                     "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "buttonText": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 400.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 100.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 255.0,
-                            "g": 50.0,
-                            "r": 100.0
-                        },
-                        "fontName": "Kenney Rocket",
-                        "fontSize": 1,
-                        "position": {
-                            "x": 1200.0,
-                            "y": 50.0
-                        },
-                        "text": "More Text!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "textBox": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 400.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 100.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 100.0,
-                            "g": 50.0,
-                            "r": 255.0
-                        },
-                        "fontName": "Kenney Mini",
-                        "fontSize": 1,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": "TEST TEXT COMPONENT"
-                    },
-                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"

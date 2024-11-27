@@ -50,7 +50,7 @@
                     "properties": {
                         "position": {
                             "x": 10.0,
-                            "y": 4.5
+                            "y": 4.547732830047607
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -71,7 +71,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/trash_bin.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -133,7 +133,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/trash_bin.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -169,20 +169,106 @@
             "layer": "Gameplay"
         },
         "CabbageStockPrefab (26)": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -2.3904519081115723,
-                "y": -9.163349151611328
-            },
-            "prefab": "CabbageStockPrefab"
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -2.3904519081115723,
+                            "y": -9.115616798400879
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 73.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 3.0999999046325684
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/waste.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -5.0,
+                            "y": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "CabbageStockPrefab (27)": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 0.2129879891872406,
-                "y": -3.683255195617676
-            },
-            "prefab": "CabbageStockPrefab"
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -14.440661430358887,
+                            "y": -4.781107425689697
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 73.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 3.0999999046325684
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/waste.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -5.0,
+                            "y": 0.0
+                        },
+                        "radius": 1.0
+                    },
+                    "type": "BoundingCircle"
+                },
+                {
+                    "properties": {
+                        "isStatic": false
+                    },
+                    "type": "RigidbodyComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "CabbageStockPrefab (28)": {
             "components": [
@@ -211,7 +297,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/cabbage_stock.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -262,7 +348,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -695,118 +781,13 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 5": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 13.714287757873535
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 10.0,
-                            "y": 10.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 6": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.4012451171875,
-                            "y": -14.933332443237305
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 17.5,
-                            "y": 10.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/quit.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 7": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 5.0,
-                            "y": 2.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 3.0,
-                            "y": 3.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "GameObject 9": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": 0.0
+                            "x": 10.938169479370117,
+                            "y": -0.09546399116516113
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -894,7 +875,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -6.041375160217285,
+                            "x": -6.078567028045654,
                             "y": -0.8929424285888672
                         },
                         "relativeToCamera": true,
@@ -916,7 +897,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/cabbage_stock.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -967,7 +948,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/tomato_stock.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -1018,7 +999,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/tomato_stock.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -1047,8 +1028,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 9.888422966003418,
-                            "y": -5.093677520751953
+                            "x": 9.925616264343262,
+                            "y": -5.0459442138671875
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1069,7 +1050,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/tomato_stock.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -1145,7 +1126,7 @@
                     "properties": {
                         "animations": [
                             {
-                                "frameDuration": 0.20000000298023224,
+                                "frameDuration": 0.9700000286102295,
                                 "name": "WalkAnimation",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -1179,54 +1160,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Quit": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": -5.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 4.0,
-                            "y": 2.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/quit.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "TestText2": {
             "components": [
                 {
@@ -1253,7 +1186,7 @@
                             "r": 250.0
                         },
                         "fontName": "Kenney High Square",
-                        "fontSize": 2,
+                        "fontSize": 2.0,
                         "position": {
                             "x": 600.0,
                             "y": 100.0
@@ -1339,7 +1272,7 @@
                             "r": 100.0
                         },
                         "fontName": "Kenney Rocket",
-                        "fontSize": 1,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 1200.0,
                             "y": 50.0
@@ -1440,7 +1373,7 @@
                             "r": 255.0
                         },
                         "fontName": "Kenney Mini",
-                        "fontSize": 1,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0

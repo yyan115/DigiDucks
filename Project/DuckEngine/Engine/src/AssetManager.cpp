@@ -356,3 +356,15 @@ void AssetManager::UnloadAll()
 		fmodSystem->close();
 	}
 }
+
+std::string AssetManager::GetTexturePath(Texture textureID)
+{
+	for (const auto& [path, textures] : textureMap)
+	{
+		if (!textures.empty() && *textures[0] == textureID)
+		{
+			return path;
+		}
+	}
+	return "";
+}

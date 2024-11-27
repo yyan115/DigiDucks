@@ -49,21 +49,26 @@ public:
     ***************************************************************/
     static void AddComponents(int entityID, bool& hasChanged);
 
+    /****************************************************************
+    * @brief Checks if the file extension is allowed
+    *
+    * @param filePath The path to the file
+    * @param allowedExtensions The set of allowed extensions
+    * @return bool
+    ***************************************************************/
+    static bool IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions);
+
+
     static std::vector<std::string> GetComponentTypes();
+    static std::unordered_set<std::string> GetAllowedImageExtensions();
+
+
 
 private:
     // List of available component types for adding
     static const std::vector<std::string> componentTypes;
 
-    /****************************************************************
-	* @brief Checks if the file extension is allowed
-    *
-	* @param filePath The path to the file
-	* @param allowedExtensions The set of allowed extensions
-	* @return bool
-    ***************************************************************/
-    static bool IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions);
-
+ 
     /****************************************************************
 	* @brief Adds a component to the entity
     *
