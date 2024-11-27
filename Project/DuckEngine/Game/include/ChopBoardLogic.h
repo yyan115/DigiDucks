@@ -19,13 +19,14 @@ private:
 	float chopTime;
 
 public:
+	bool isChopped = false;
 	bool isOccupied = false;
 
 	ChopBoardLogic() : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(IngredientType::EMPTY), chopTime(3.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(IngredientType::EMPTY), chopTime(2.f) {}
 
 	ChopBoardLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(IngredientType::EMPTY), chopTime(3.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(IngredientType::EMPTY), chopTime(2.f) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
@@ -43,4 +44,6 @@ public:
 	std::pair<int, IngredientType> moveObject();
 
 	void chopObject();
+
+	IngredientType getType() const { return type; }
 };

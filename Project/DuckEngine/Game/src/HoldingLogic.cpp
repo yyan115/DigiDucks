@@ -8,6 +8,7 @@ void HoldingLogic::Start()
 	// Set Object ptr only when player is holding something
 	object = nullptr;
 	objectTransform = nullptr;
+	type = IngredientType::EMPTY;
 }
 
 
@@ -48,6 +49,7 @@ std::pair<int,IngredientType> HoldingLogic::moveObject()
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;
+
 	IngredientType temp = type;
 	type = IngredientType::EMPTY;
 	

@@ -18,6 +18,7 @@ private:
 	float cookTime;
 
 public:
+	bool isCooked = false;
 	bool isOccupied = false;
 
 	PanLogic() :
@@ -42,4 +43,8 @@ public:
 	std::pair<int, IngredientType> moveObject();
 
 	void cookObject();
+
+	IngredientType getType() const { return type; }
+
+	void makeEmptyPan();
 };

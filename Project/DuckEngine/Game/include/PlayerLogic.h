@@ -43,6 +43,5 @@ public:
 
 	void InteractHold();
 
-    Entity* makeObject(IngredientType type);
-    
+    Entity* makeObject(IngredientType type);    
 };

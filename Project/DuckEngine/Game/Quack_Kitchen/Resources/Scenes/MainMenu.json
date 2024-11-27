@@ -5,13 +5,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.1759277582168579,
-                            "y": 4.706301212310791
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
+                        "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 36.0,
+                            "y": 20.0
                         }
                     },
                     "type": "TransformComponent"
@@ -24,24 +25,9 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "layer": 0,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/mainmenu.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "layer": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/LOGO_1.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -61,16 +47,51 @@
         "Duck": {
             "layer": "Gameplay",
             "position": {
-                "x": 7.957408905029297,
-                "y": 7.586331367492676
+                "x": 0.7049679756164551,
+                "y": -3.1535253524780273
             },
             "prefab": "DuckPrefab"
+        },
+        "GameObject 7": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.0,
+                            "y": 5.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 10.0,
+                            "y": 10.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/LOGO_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Background"
         },
         "Player": {
             "layer": "Gameplay",
             "position": {
-                "x": -2.7769999504089355,
-                "y": 0.0
+                "x": 3.6944098472595215,
+                "y": -3.2458231449127197
             },
             "prefab": "PlayerPrefab"
         },
@@ -83,6 +104,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0
@@ -120,6 +142,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 200.0,
                             "y": 100.0
@@ -135,7 +158,7 @@
                             "g": 255.0,
                             "r": 0.0
                         },
-                        "layer": 1,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -167,6 +190,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0
@@ -204,6 +228,7 @@
                             "y": 400.0
                         },
                         "relativeToCamera": false,
+                        "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
                             "y": 100.0

@@ -95,9 +95,36 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(tableLogic->moveObject());
 				isHolding = true;
-				return;
 			}
+			return;
 		}
+
+		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
+		if (chopBoardLogic)
+		{
+			// If Board is occupied, take object from board
+			if (chopBoardLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				holdingLogic->setObject(chopBoardLogic->moveObject());
+				isHolding = true;
+			}
+			return;
+		}
+
+		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
+		if (panLogic)
+		{
+			// If Pan is occupied, take object from pan
+			if (panLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				holdingLogic->setObject(panLogic->moveObject());
+				isHolding = true;
+			}
+			return;
+		}
+
 	}
 	else if (isHolding) // If player is already holding something
 	{
@@ -122,9 +149,31 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				tableLogic->setObject(holdingLogic->moveObject());
 				isHolding = false;
-				return;
 			}
+			return;
 		}
+
+
+		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
+		if (chopBoardLogic)
+		{
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			chopBoardLogic->setObject(holdingLogic->moveObject());
+			isHolding = false;
+			return;
+		}
+
+		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
+		if (panLogic)
+		{
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			if (holdingLogic->getType() != IngredientType::R_PATTY) return;
+
+			panLogic->setObject(holdingLogic->moveObject());
+			isHolding = false;
+			return;
+		}
+
 	}
 	
 }
@@ -138,6 +187,11 @@ void PlayerLogic::InteractHold()
 		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
 		if (chopBoardLogic)
 		{
+			// Something on the board
+			if (chopBoardLogic->isOccupied)
+			{
+				chopBoardLogic->chopObject();
+			}
 
 			return;
 		}
@@ -145,6 +199,10 @@ void PlayerLogic::InteractHold()
 		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
 		if (panLogic)
 		{
+			if (panLogic->isOccupied)
+			{
+				panLogic->cookObject();
+			}
 
 			return;
 		}

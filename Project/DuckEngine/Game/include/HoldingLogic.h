@@ -38,4 +38,6 @@ public:
 	void deleteObject();
 
     std::pair<int, IngredientType> moveObject();
+
+	IngredientType getType() const { return type; }
 };
