@@ -151,7 +151,6 @@ void UIManager::ShowMenuBar()
         if (ImGui::BeginMenu("File")) {
             if (ImGui::MenuItem("New Scene", "Ctrl+N")) {
                 windowStates[WindowType::NewScene] = true;
-                std::cout << "wtfd" << std::endl;
             }
             if (ImGui::MenuItem("Open Scene", "Ctrl+O")) { LevelManager::OpenLevelDialog(); }
             if (ImGui::MenuItem("Save Scene", "Ctrl+S")) 
@@ -176,6 +175,15 @@ void UIManager::ShowMenuBar()
         if (ImGui::BeginMenu("Game Object")) {
             if (ImGui::MenuItem("Spawn GameObject")) { 
                 DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
+            }
+            if (ImGui::MenuItem("Spawn Text UI")) {
+                auto Ent = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 5.0f, 5.0f });
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(Ent->entityID);
+            }
+            if (ImGui::MenuItem("Spawn Button UI")) {
+                auto Ent = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(Ent->entityID);
+                DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(Ent->entityID);
             }
             ImGui::EndMenu();
         }

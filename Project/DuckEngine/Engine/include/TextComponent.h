@@ -37,7 +37,7 @@ public:
 
     Vector2D position;
 
-    int fontSize;
+    float fontSize;
 
     Color color;
 
@@ -57,7 +57,7 @@ public:
         const std::string& fontName = "Kenney High Square",
         const std::string& text = "",
         const Vector2D& position = Vector2D(),
-        int fontSize = 1,
+        float fontSize = 1.f,
         const Color& color = Color(255, 255, 255),
         //std::shared_ptr<Font> font = nullptr,
         bool enabled = true

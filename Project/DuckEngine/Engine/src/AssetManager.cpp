@@ -87,6 +87,10 @@ void AssetManager::LoadAllTextures(const std::string& directoryPath) {
 		if (entry.is_regular_file()) {
 			std::string filePath = NormalizePath(entry.path().string());
 			std::string fileExtension = entry.path().extension().string();
+			// Convert to lowercase for fileExtension
+			for (char& c : fileExtension) {
+				c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+			}
 
 			// Check for valid image extensions
 			if (fileExtension == ".png" || fileExtension == ".jpg" || fileExtension == ".jpeg") {
@@ -231,6 +235,10 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 		if (entry.is_regular_file()) {
 			std::string filePath = NormalizePath(entry.path().string());
 			std::string fileExtension = entry.path().extension().string();
+			// Convert to lowercase for fileExtension
+			for (char& c : fileExtension) {
+				c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+			}
 
 			// Load the sound if it has a valid audio extension
 			if (fileExtension == ".wav" || fileExtension == ".mp3" || fileExtension == ".ogg") {

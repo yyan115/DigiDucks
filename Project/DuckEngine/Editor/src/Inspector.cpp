@@ -294,15 +294,15 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 			ImGui::Text("Size");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##Size", &size.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingBoxSize", &size.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
 
 			ImGui::Text("Rotation");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Rotation", &box->rotation, 1.0f, 0.0f, 360.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##BoundingBoxRotation", &box->rotation, 1.0f, 0.0f, 360.0f)) hasChanged = true;
 
 			ImGui::Text("Offset");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##Offset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingBoxOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
 
 			// Update component with modified values
 			box->setCenter(center);
@@ -331,11 +331,11 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 			ImGui::Text("Radius");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Radius", &radius, 0.1f, 0.0f, 360.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##BoundingCircleRadius", &radius, 0.1f, 0.0f, 360.0f)) hasChanged = true;
 
 			ImGui::Text("Offset");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##Offset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingCircleOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
 
 			// Update component with modified values
 			circle->setCenter(center);
@@ -490,14 +490,14 @@ void InspectorRenderer::RenderComponents(int entityID)
 			// Position
 			ImGui::Text("Position");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##Position", &text->position.x, 0.1f, -10000.0f, 10000.0f)) {
+			if (ImGui::DragFloat2("##TextPosition", &text->position.x, 0.1f, -10000.0f, 10000.0f)) {
 				hasChanged = true;
 			}
 
 			// Font size
 			ImGui::Text("Font Size");
 			ImGui::SameLine(100);
-			if (ImGui::DragInt("##FontSize", &text->fontSize, 1, 1, 1000)) {
+			if (ImGui::DragFloat("##FontSize", &text->fontSize, 0.1f, 0.1f, 1000.f)) {
 				hasChanged = true;
 			}
 
@@ -536,7 +536,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Text("Position");
 			ImGui::SameLine(100);
 			Vec2 position = button->minPos;
-			if (ImGui::DragFloat2("##Position", &position.x, 0.1f, -10000.0f, 10000.0f)) {
+			if (ImGui::DragFloat2("##ButtonPosition", &position.x, 0.1f, -10000.0f, 10000.0f)) {
 				Vec2 size = button->maxPos - button->minPos;
 				button->minPos = position;
 				button->maxPos = position + size;
@@ -547,7 +547,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Text("Size");
 			ImGui::SameLine(100);
 			Vec2 size = button->maxPos - button->minPos;
-			if (ImGui::DragFloat2("##Size", &size.x, 0.1f, 0.1f, 10000.0f)) {
+			if (ImGui::DragFloat2("##ButtonSize", &size.x, 0.1f, 0.1f, 10000.0f)) {
 				button->maxPos = button->minPos + size;
 				hasChanged = true;
 			}
@@ -702,9 +702,10 @@ bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const st
 	// Extract the file extension
 	std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
 
-	// Convert extension to lowercase for case-insensitive comparison
-	std::transform(extension.begin(), extension.end(), extension.begin(),
-		[](unsigned char c) { return static_cast<char>(std::tolower(c)); });
+	// Convert to lowercase for fileExtension
+	for (char& c : extension) {
+		c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+	}
 
 	// Check if the extension is in the allowed set
 	return allowedExtensions.find(extension) != allowedExtensions.end();

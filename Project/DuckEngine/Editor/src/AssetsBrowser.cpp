@@ -194,6 +194,11 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		std::string fileExtension = entry.path().extension().string();
 		std::string normalizedPath = NormalizePath(entry.path().string());
 
+		// Convert to lowercase for fileExtension
+		for (char& c : fileExtension) {
+			c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+		}
+
 		// Filter assets based on the search query
 		std::string fileNameLower = fileName;
 		std::transform(fileNameLower.begin(), fileNameLower.end(), fileNameLower.begin(),
@@ -446,6 +451,10 @@ void AssetsBrowser::HandleFileDrop(GLFWwindow* window, int count, const char** p
 		std::string extension = fs::path(filePath).extension().string();
 		std::string fileName = fs::path(filePath).filename().string();
 		std::string absolutePath = fs::absolute(selectedFolderPath).string();
+		// Convert to lowercase for fileExtension
+		for (char& c : extension) {
+			c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+		}
 
 		// Determine the parent directory dynamically
 		std::string parentDir = "";
