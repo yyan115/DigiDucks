@@ -20,7 +20,7 @@ void EndScene::Load()
 
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
 	auto quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
-	quit->onClick = []() { std::cout << "Button clicked!\n"; };
+	quit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; };
 }
 
 void EndScene::Start()

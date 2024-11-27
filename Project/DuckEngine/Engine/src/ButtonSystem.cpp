@@ -1,18 +1,4 @@
-/******************************************************************************/
-/*!
-\file       ButtonSystem.cpp
-\author     Yan Yu, y.yan, 2301213
-\par        y.yan@digipen.edu
-\date       November 7 2024
-\brief      Implements the ButtonSystem class, managing button components for
-			detecting and handling clicks, hover states, and rendering.
-
-Copyright (C) 2024 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
-
+#include "GraphicsManager.h"
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
 #include "DuckEngine_Input.h"
@@ -20,62 +6,83 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CameraManager.h"
 
 // Utility function to check if a point is within button bounds
-bool IsPointInside(const Vector2D& point, const Vector2D& min, const Vector2D& max)
+bool IsPointInside(const Vector2D& point, const Vector2D& position, const Vector2D& scale)
 {
-	return point.x >= min.x && point.x <= max.x && point.y >= min.y && point.y <= max.y;
+    Vector2D min = position - scale * 0.5f; // Calculate the minimum boundary
+    Vector2D max = position + scale * 0.5f; // Calculate the maximum boundary
+
+    //std::cout << "Not inside. Mouse pos: " << point.x << ", " << point.y << ". min:" << min.x << ", " << min.x << ". max: " << max.x << ", " << max.y << ".\n";
+
+    return point.x >= min.x && point.x <= max.x && point.y >= min.y && point.y <= max.y;
 }
 
 void ButtonSystem::Start()
 {
-
 }
 
 void ButtonSystem::Update()
 {
 }
 
-
-// temporary in render until i add fixedupdate and update for next milestone
+// Temporary render function until FixedUpdate and Update are implemented
 void ButtonSystem::Render()
 {
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
-	{
-		ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+    {
+        ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+        //TransformComponent* sprite = static_cast<TransformComponent*>(component.get());
+        TransformComponent* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+        if (!sprite) continue;
 
-		// Skip if disabled
-		if (!button->isEnabled)
-		{
-			continue;
-		}
+        // Retrieve position and scale from TransformComponent
+        Vector2D position = sprite->GetPosition();
+        Vector2D scale = sprite->scale;
 
-		if (DuckEngine::isEditor)
-		{
-			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
-			{
-				Vector2D mousePosWorld = DuckEngine::editorMouseScreenPos;
-				if (IsPointInside(mousePosWorld, button->minPos, button->maxPos))
-				{
-					if (button->onClick) {
-						button->onClick();
-					}
-				}
-			}
-		}
+        // Skip if disabled
+        if (!button->isEnabled)
+        {
+            continue;
+        }
 
-		else
-		{
-			if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
+        // Editor mode handling
+        if (DuckEngine::isEditor)
+        {
+            if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
+            {
+                Vector2D mousePosWorld = DuckEngine::editorMouseWorldPos;
+                if (IsPointInside(mousePosWorld, position, scale))
+                {
+                    if (button->onClick)
+                    {
+                        button->onClick();
+                    }
+                }
+            }
+        }
+        else // Game mode handling
+        {
+            if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
+            {
+                Vector2D mousePosScreen = { static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) };
 
-				if (IsPointInside({ static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) }, button->minPos, button->maxPos)) {
-					std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
-					if (button->onClick) {
+                Vector2D mousePosWorld = GraphicsManager::ScreenToWorld(mousePosScreen);
 
-						button->onClick();
-					}
-				}
-			}
-		}
+                //std::cout << "pos: " << position.x << ", " << position.y << ". scale: " << scale.x << ", " << scale.y << "\n";
 
-		// on hover MIA for now
-	}
+                if (IsPointInside(mousePosWorld, position, scale))
+                {
+                    //std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
+                    if (button->onClick)
+                    {
+                        button->onClick();
+                    }
+                }
+                else {
+
+                }
+            }
+        }
+
+        // On-hover functionality could be added here in the future
+    }
 }
