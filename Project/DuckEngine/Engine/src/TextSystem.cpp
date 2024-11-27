@@ -40,6 +40,13 @@ void TextSystem::Render()
 			continue;
 		}
 
-		DuckEngine::RenderText(text->fontName, text->text, text->position, static_cast<float>(text->fontSize), text->color);
+		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		if (!transform) continue;
+
+		// Retrieve position and scale from TransformComponent
+		Vector2D position = transform->GetPosition();
+		Vector2D scale = transform->scale;
+
+		DuckEngine::RenderText(text->fontName, text->text, position, static_cast<float>(text->fontSize), text->color);
 	}
 }
