@@ -26,25 +26,21 @@ void AnimationEditor::Render()
         return;
     }
 
-    // Set window position and size before Begin()
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
     if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse))
     {
-        // Adjust column width to 20% on the left and 80% on the right
         float columnWidth = ImGui::GetContentRegionAvail().x;
         ImGui::Columns(2, nullptr, false);
-        ImGui::SetColumnWidth(0, columnWidth * 0.2f); // Left column 20%
+        ImGui::SetColumnWidth(0, columnWidth * 0.2f);
 
-        // Left Panel: Animation List
         ImGui::BeginChild("AnimationList", ImVec2(0, 0), true);
         RenderAnimationList(animator);
         ImGui::EndChild();
 
         ImGui::NextColumn();
 
-        // Right Panel: Timeline and Properties
         ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true);
         if (!currentAnimationName.empty())
         {
@@ -71,46 +67,42 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 
     auto& animations = animator->GetAnimations();
 
-    // List all existing animations with right-click context menu
     for (const auto& [name, animation] : animations)
     {
         if (ImGui::Selectable(name.c_str(), currentAnimationName == name))
         {
-            currentAnimationName = name; // Set the selected animation
+            currentAnimationName = name;
         }
 
-        // Right-click context menu for animation removal
         if (ImGui::BeginPopupContextItem())
         {
             if (ImGui::MenuItem("Remove Animation"))
             {
-                animator->animations.erase(name); // Remove the selected animation
+                animator->animations.erase(name);
                 if (currentAnimationName == name)
                 {
-                    currentAnimationName = ""; // Clear selection if removed
+                    currentAnimationName = "";
                 }
                 ImGui::EndPopup();
-                break; // Exit the loop since the iterator is invalidated
+                break;
             }
             ImGui::EndPopup();
         }
     }
 
-    // Add animation button logic
     if (ImGui::Button("Add Animation"))
     {
         static int newAnimationIndex = 1;
         std::string newName = "NewAnimation" + std::to_string(newAnimationIndex++);
 
-        // Ensure the name is unique
         while (animations.find(newName) != animations.end())
         {
             newName = "NewAnimation" + std::to_string(newAnimationIndex++);
         }
 
-        Animation newAnimation(0.2f); // Default frame duration
-        animator->animations[newName] = newAnimation; // Add to animations
-        currentAnimationName = newName; // Set the new animation as selected
+        Animation newAnimation(0.2f);
+        animator->animations[newName] = newAnimation;
+        currentAnimationName = newName;
     }
 }
 
@@ -122,7 +114,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     ImGui::Separator();
 
     int numFrames = static_cast<int>(animation.Frames.size());
-    int framesPerRow = 5; // Adjust this number as needed
+    int framesPerRow = 10;
     int framesRendered = 0;
 
     for (int i = 0; i < numFrames; ++i)
@@ -151,7 +143,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
                 if (ImGui::MenuItem("Remove Frame"))
                 {
                     animation.Frames.erase(animation.Frames.begin() + i);
-                    animation.texturePaths.erase(animation.texturePaths.begin() + i); // Remove from texturePaths
+                    animation.texturePaths.erase(animation.texturePaths.begin() + i);
                     --i;
                     --numFrames;
                     ImGui::EndPopup();
@@ -165,7 +157,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
         {
             if (ImGui::Button(("Empty##Frame" + std::to_string(i)).c_str(), ImVec2(64.0f, 64.0f)))
             {
-                // Handle empty frame click if needed
+                
             }
 
             if (ImGui::BeginPopupContextItem())
@@ -173,7 +165,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
                 if (ImGui::MenuItem("Remove Frame"))
                 {
                     animation.Frames.erase(animation.Frames.begin() + i);
-                    animation.texturePaths.erase(animation.texturePaths.begin() + i); // Remove from texturePaths
+                    animation.texturePaths.erase(animation.texturePaths.begin() + i);
                     --i;
                     --numFrames;
                     ImGui::EndPopup();
@@ -199,11 +191,11 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
                         animation.Frames[i] = newTexture;
                         if (i < animation.texturePaths.size())
                         {
-                            animation.texturePaths[i] = path; // Update texture path
+                            animation.texturePaths[i] = path;
                         }
                         else
                         {
-                            animation.texturePaths.push_back(path); // Add texture path if new
+                            animation.texturePaths.push_back(path);
                         }
                     }
                 }
