@@ -121,9 +121,15 @@ void FontManager::Render() {
     float virtualWidth = virtualHeight * ar;
 
     // Create the projection matrix
+    //glm::mat4 projection = glm::ortho(
+    //    0.0f, virtualWidth,
+    //    0.0f, virtualHeight
+    //);
+
+    // Create a centered orthographic projection matrix
     glm::mat4 projection = glm::ortho(
-        0.0f, virtualWidth,
-        0.0f, virtualHeight
+        -virtualWidth * 0.5f, virtualWidth * 0.5f,  // Left, Right
+        -virtualHeight * 0.5f, virtualHeight * 0.5f // Bottom, Top
     );
 
     // Get the shader used by game objects
@@ -145,6 +151,7 @@ void FontManager::Render() {
     float pixelsPerUnit = WindowManager::GetWindowHeight() / virtualHeight;
 
     for (auto& text : drawQueue) {
+
         // Set the text color
         glUniform4f(
             glGetUniformLocation(shader->GetProgram(), "textColor"),
@@ -156,16 +163,36 @@ void FontManager::Render() {
         glActiveTexture(GL_TEXTURE0);
 
         const auto& font = Fonts[text.fontName];
-        float x = text.position.x / pixelsPerUnit;
-        float y = text.position.y / pixelsPerUnit;
+        float x = text.position.x;
+        float y = text.position.y;
 
-        for (const char& c : text.text) {
+        // Calculate total ascent and descent for vertical centering
+        float maxAscent = 0.0f;
+        float maxDescent = 0.0f;
+        for (const char& c : text.text)
+        {
+            const auto& ch = font.at(c);
+            float ascent = ch.Bearing.y * text.scale;
+            float descent = (ch.Size.y - ch.Bearing.y) * text.scale;
+
+            if (ascent > maxAscent)
+                maxAscent = ascent;
+            if (descent > maxDescent)
+                maxDescent = descent;
+        }
+
+        // Adjust y position to align vertically
+        //y -= (maxDescent - (maxAscent + maxDescent) * 0.5f);
+
+        // Now render each character
+        for (const char& c : text.text)
+        {
             Character ch = font.at(c);
 
-            float xpos = x + (ch.Bearing.x * text.scale) / pixelsPerUnit;
-            float ypos = y - ((ch.Size.y - ch.Bearing.y) * text.scale) / pixelsPerUnit;
-            float w = (ch.Size.x * text.scale) / pixelsPerUnit;
-            float h = (ch.Size.y * text.scale) / pixelsPerUnit;
+            float xpos = x + ch.Bearing.x * text.scale;
+            float ypos = y - (ch.Size.y - ch.Bearing.y) * text.scale;
+            float w = ch.Size.x * text.scale;
+            float h = ch.Size.y * text.scale;
 
             // Update VBO for each character
             GLfloat vertices[6][4] = {
@@ -188,8 +215,8 @@ void FontManager::Render() {
             // Render quad
             glDrawArrays(GL_TRIANGLES, 0, 6);
 
-            // Advance cursors for next glyph
-            x += (ch.Advance >> 6) * text.scale / pixelsPerUnit;
+            // Advance cursor for next glyph
+            x += (ch.Advance >> 6) * text.scale;
         }
 
         glBindVertexArray(0);
