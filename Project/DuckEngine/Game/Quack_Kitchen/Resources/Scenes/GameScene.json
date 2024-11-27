@@ -354,19 +354,19 @@
             ],
             "layer": "Gameplay"
         },
-        "Entity_31": {
+        "Drone": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": -8.0
+                            "x": 12.229182243347168,
+                            "y": 2.0726490020751953
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.5,
-                            "y": 1.5
+                            "x": 2.0,
+                            "y": 2.5
                         }
                     },
                     "type": "TransformComponent"
@@ -376,20 +376,20 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 255.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
                         "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone/drone.png",
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
         },
-        "Entity_33": {
+        "Frying_Pan": {
             "components": [
                 {
                     "properties": {
@@ -411,26 +411,26 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 255.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
         },
-        "Entity_36": {
+        "Grey_Plate_Station": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": -8.0
+                            "x": -10.0,
+                            "y": -0.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -446,433 +446,13 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 255.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Entity_38": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Entity_40": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Entity_42": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Entity_44": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 32": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 34": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 35": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 37": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 39": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 41": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 43": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 45": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": false
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/stack_plate_grey.png",
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
                 }
@@ -1008,7 +588,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": -0.8999999761581421,
                             "y": 0.0
                         },
                         "relativeToCamera": true,
@@ -1873,7 +1453,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic"
+                            "WhitePlateStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -1935,7 +1515,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic"
+                            "GreyPlateStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -2405,6 +1985,41 @@
                         ]
                     },
                     "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "White_Plate_Station": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 1,
+                        "sprite": false,
+                        "texture": "Resources/Sprites/Ingredients/stack_plate.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
