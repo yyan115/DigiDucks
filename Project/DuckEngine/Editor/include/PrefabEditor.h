@@ -18,4 +18,6 @@ private:
     static void RenderPrefabProperties();
     static void RenderPrefabPreview();
     static void AddComponent();
+    static void ComponentMenu(int componentIndex);
+
 };
