@@ -37,6 +37,15 @@ written consent of DigiPen Institute of Technology is prohibited.
 /// </summary>
 class FontManager {
 public:
+    /// <summary>
+    /// Represents information about a single character glyph, including its texture ID, size, bearing, and advance offset.
+    /// </summary>
+    struct Character {
+        unsigned int TextureID;  ///< The OpenGL texture ID for the glyph texture.
+        glm::ivec2 Size;         ///< The size of the glyph in pixels.
+        glm::ivec2 Bearing;      ///< The offset from baseline to left/top of glyph.
+        unsigned int Advance;    ///< The horizontal offset to advance to the next glyph.
+    };
 
     /// <summary>
     /// Loads a font from the specified file and stores it under the given font name.
@@ -69,21 +78,12 @@ public:
     /// <param name="drawOptions">The TextRenderCommand object containing the text, position, scale, color, and font name.</param>
     static void AddToDrawQueue(TextRenderCommand& drawOptions);
 
-private:
-    /// <summary>
-    /// Represents information about a single character glyph, including its texture ID, size, bearing, and advance offset.
-    /// </summary>
-    struct Character {
-        unsigned int TextureID;  ///< The OpenGL texture ID for the glyph texture.
-        glm::ivec2 Size;         ///< The size of the glyph in pixels.
-        glm::ivec2 Bearing;      ///< The offset from baseline to left/top of glyph.
-        unsigned int Advance;    ///< The horizontal offset to advance to the next glyph.
-    };
-
     /// <summary>
     /// A map storing all loaded fonts, each identified by a unique name, with each font storing its character glyphs.
     /// </summary>
     static std::map<std::string, std::map<GLchar, Character>> Fonts;
+
+private:
 
     /// <summary>
     /// A queue that stores text render commands to be processed and rendered each frame.
