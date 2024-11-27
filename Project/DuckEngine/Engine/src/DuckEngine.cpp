@@ -484,3 +484,7 @@ float DuckEngine::GetViewportHeight()
 {
     return static_cast<float>(WindowManager::GetViewportHeight());
 } 
+
+void DuckEngine::ToggleFullScreen() {
+    WindowManager::ToggleFullscreen();
+}

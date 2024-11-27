@@ -150,6 +150,9 @@ public:
     static const int KEY_BACKSPACE;
     static const int KEY_DEL;
     static const int KEY_CTRL;
+    static const int KEY_LEFT_ALT;
+    static const int KEY_RIGHT_ALT;
+
 
     // Constants for mouse buttons
     static const int MOUSE_BUTTON_LEFT;

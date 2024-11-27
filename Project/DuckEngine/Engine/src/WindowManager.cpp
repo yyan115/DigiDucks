@@ -28,6 +28,12 @@ GLint WindowManager::viewportWidth;
 GLint WindowManager::viewportHeight;
 const char* WindowManager::title;
 
+bool WindowManager::isFullscreen = false;
+GLint WindowManager::windowedWidth = 1600;   // Default windowed size
+GLint WindowManager::windowedHeight = 900;  // Default windowed size
+GLint WindowManager::windowedPosX = 0;      // Default window position
+GLint WindowManager::windowedPosY = 0;      // Default window position
+
 /// <summary>
 /// Initializes the window manager by creating a GLFW window with the specified dimensions and title.
 /// Also sets up OpenGL context and GLFW callbacks.
@@ -42,6 +48,9 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     WindowManager::viewportWidth = _width;
     WindowManager::viewportHeight = _height;
     title = _title;
+
+    windowedWidth = _width;
+    windowedHeight = _height;
 
     // Check if glfw init success
     if (!glfwInit()) {
@@ -78,6 +87,28 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
 
     return true;
 }
+
+void WindowManager::ToggleFullscreen() {
+    if (isFullscreen) {
+        // Restore to windowed mode
+        glfwSetWindowMonitor(ptrWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
+    }
+    else {
+        // Save current window position and size
+        glfwGetWindowPos(ptrWindow, &windowedPosX, &windowedPosY);
+        glfwGetWindowSize(ptrWindow, &windowedWidth, &windowedHeight);
+
+        // Get the primary monitor and its video mode
+        GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+        const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
+
+        // Switch to fullscreen
+        glfwSetWindowMonitor(ptrWindow, primaryMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+    }
+    isFullscreen = !isFullscreen; // Toggle fullscreen state
+}
+
+
 
 void WindowManager::UpdateViewportDimensions() {
     if (DuckEngine::isEditor) {
@@ -148,6 +179,8 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
 #endif
     WindowManager::width = _width;
     WindowManager::height = _height;
+
+    glViewport(0, 0, _width, _height);
 }
 
 /// <summary>

@@ -212,6 +212,7 @@ public:
     static float DUCKENGINE_API GetViewportWidth();
     static float DUCKENGINE_API GetViewportHeight();
 
+    static void DUCKENGINE_API ToggleFullScreen();
     
     static DUCKENGINE_API bool showDebugDraw;
     static bool isEditor;

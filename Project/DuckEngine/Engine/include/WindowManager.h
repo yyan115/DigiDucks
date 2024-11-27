@@ -110,7 +110,17 @@ public:
     /// <param name="title">The new title of the window.</param>
     static void SetWindowTitle(const char* title);
 
+    static void ToggleFullscreen();
+
 private:
+
+
+    static bool isFullscreen;      // Tracks whether the window is fullscreen
+    static GLint windowedWidth;    // Saved width for windowed mode
+    static GLint windowedHeight;   // Saved height for windowed mode
+    static GLint windowedPosX;     // Saved X position for windowed mode
+    static GLint windowedPosY;     // Saved Y position for windowed mode
+
     /// <summary>
     /// Pointer to the GLFW window managed by this class.
     /// </summary>
