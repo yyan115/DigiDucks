@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       SteakStockLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 25 2024
+\brief      Declartion of all Steak Stock Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -9,9 +23,9 @@ class SteakStockLogic : public StockLogic
 {
 public:
 
-	SteakStockLogic() : StockLogic(IngredientType::STEAK, 5) {}
+	SteakStockLogic() : StockLogic(ItemType::STEAK, 5) {}
 
-	SteakStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::STEAK, 5) {}
+	SteakStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::STEAK, 5) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

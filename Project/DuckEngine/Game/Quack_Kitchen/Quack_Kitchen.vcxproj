@@ -191,6 +191,7 @@
   <ItemGroup>
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\ChopBoardLogic.cpp" />
+    <ClCompile Include="..\src\CombineLogic.cpp" />
     <ClCompile Include="..\src\EndGame.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />
@@ -210,10 +211,12 @@
     <ClInclude Include="..\include\BunStockLogic.h" />
     <ClInclude Include="..\include\CheeseStockLogic.h" />
     <ClInclude Include="..\include\ChopBoardLogic.h" />
+    <ClInclude Include="..\include\CombineLogic.h" />
     <ClInclude Include="..\include\EndGame.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
     <ClInclude Include="..\include\HoldingLogic.h" />
+    <ClInclude Include="..\include\IngredientType.h" />
     <ClInclude Include="..\include\LettuceStockLogic.h" />
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
@@ -221,7 +224,9 @@
     <ClInclude Include="..\include\MovementLogic.h" />
     <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\PanLogic.h" />
+    <ClInclude Include="..\include\GreyPlateStockLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />
+    <ClInclude Include="..\include\RestockLogic.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />
     <ClInclude Include="..\include\ShrimpStockLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
@@ -229,6 +234,7 @@
     <ClInclude Include="..\include\StockLogic.h" />
     <ClInclude Include="..\include\TableLogic.h" />
     <ClInclude Include="..\include\TomatoStockLogic.h" />
+    <ClInclude Include="..\include\WhitePlateStockLogic.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

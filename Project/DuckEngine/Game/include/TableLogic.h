@@ -1,8 +1,22 @@
+/******************************************************************************/
+/*!
+\file       TableLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 26 2024
+\brief      Declaration of all Table logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
-#include "StockLogic.h"
+#include "IngredientType.h"
 
 class TableLogic : public GameLogic
 {
@@ -11,16 +25,16 @@ private:
 	TransformComponent* tableTransform;
 	Entity* objectOnTable;
 	TransformComponent* objectTransform;
-	IngredientType type;
+	ItemType type;
 
 public:
 	bool isOccupied = false;
 
 	TableLogic() : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
 
 	TableLogic(GameLogicComponent* component) : 
-		GameLogic(component), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
 
 
 	std::shared_ptr<GameLogic> Clone() const override
@@ -36,7 +50,9 @@ public:
 
 	void FixedUpdate() override;
 
-	void setObject(std::pair<int,IngredientType> objData);
+	void setObject(std::pair<int,ItemType> objData);
 
-	std::pair<int, IngredientType> moveObject();
+	std::pair<int, ItemType> moveObject();
+
+	ItemType getType() { return type; }
 };

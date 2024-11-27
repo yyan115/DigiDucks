@@ -3,6 +3,8 @@
 #include "MovementLogic.h"
 #include "PlayerLogic.h"
 #include "HoldingLogic.h"
+
+#include "StockLogic.h"
 #include "BunStockLogic.h"
 #include "CheeseStockLogic.h"
 #include "LettuceStockLogic.h"
@@ -10,10 +12,13 @@
 #include "ShrimpStockLogic.h"
 #include "SteakStockLogic.h"
 #include "TomatoStockLogic.h"
+#include "GreyPlateStockLogic.h"
+#include "WhitePlateStockLogic.h"
 #include "BinLogic.h"
 #include "TableLogic.h"
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
+
 
 DuckEngine GameManager::DuckEngine;
 
@@ -40,6 +45,8 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("ShrimpStockLogic", std::make_shared<ShrimpStockLogic>());
 	GameLogicManager::AddLogic("SteakStockLogic", std::make_shared<SteakStockLogic>());
 	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
+	GameLogicManager::AddLogic("GreyPlateStockLogic", std::make_shared<GreyPlateStockLogic>());
+	GameLogicManager::AddLogic("WhitePlateStockLogic", std::make_shared<WhitePlateStockLogic>());
 	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());
 	GameLogicManager::AddLogic("TableLogic", std::make_shared<TableLogic>());
 	GameLogicManager::AddLogic("PanLogic", std::make_shared<PanLogic>());

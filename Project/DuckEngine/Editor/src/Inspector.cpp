@@ -212,12 +212,14 @@ void InspectorRenderer::RenderComponents(int entityID)
 			{
 				hasChanged = true;
 			}
+			ImGui::PopItemWidth();
 
 			// Display the current texture as a preview if it exists
 			if (!spriteRenderer->texturePath.empty()) {
 				auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(spriteRenderer->texturePath);
 				if (texture) {
 					ImGui::Text("Current Texture:");
+					ImGui::Text(spriteRenderer->texturePath.c_str());
 					ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64), ImVec2(0, 1), ImVec2(1, 0));
 				}
 			}
@@ -398,7 +400,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 			
 			// Display current sound path, if it exists
 			if (!sound->soundID.empty()) {
-				ImGui::Text("Current Sound: %s", sound->soundID.c_str());
+				ImGui::Text("Current Sound:");
+				ImGui::Text(sound->soundID.c_str());
 			}
 			else {
 				ImGui::Text("Current Sound: None");
@@ -470,13 +473,6 @@ void InspectorRenderer::RenderComponents(int entityID)
 				hasChanged = true;
 			}
 
-			// Position
-			ImGui::Text("Position");
-			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##TextPosition", &text->position.x, 0.1f, -10000.0f, 10000.0f)) {
-				hasChanged = true;
-			}
-
 			// Font size
 			ImGui::Text("Font Size");
 			ImGui::SameLine(100);
@@ -514,27 +510,6 @@ void InspectorRenderer::RenderComponents(int entityID)
 	// Render ButtonComponent if it exists
 	if (auto* button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(entityID)) {
 		if (ImGui::CollapsingHeader("Button Component")) {
-
-			// Position
-			ImGui::Text("Position");
-			ImGui::SameLine(100);
-			Vec2 position = button->minPos;
-			if (ImGui::DragFloat2("##ButtonPosition", &position.x, 0.1f, -10000.0f, 10000.0f)) {
-				Vec2 size = button->maxPos - button->minPos;
-				button->minPos = position;
-				button->maxPos = position + size;
-				hasChanged = true;
-			}
-
-			// Size
-			ImGui::Text("Size");
-			ImGui::SameLine(100);
-			Vec2 size = button->maxPos - button->minPos;
-			if (ImGui::DragFloat2("##ButtonSize", &size.x, 0.1f, 0.1f, 10000.0f)) {
-				button->maxPos = button->minPos + size;
-				hasChanged = true;
-			}
-
 			// Enabled checkbox
 			if (ImGui::Checkbox("Enabled", &button->isEnabled)) {
 				hasChanged = true;
@@ -650,7 +625,6 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 {
-	// Add a separator and a dropdown to add new components
 	ImGui::Separator();
 	ImGui::Text("Add Component");
 
@@ -687,10 +661,8 @@ std::unordered_set<std::string> InspectorRenderer::GetAllowedImageExtensions()
 }
 
 bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions) {
-	// Extract the file extension
-	std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
-
 	// Convert to lowercase for fileExtension
+	std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
 	for (char& c : extension) {
 		c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
 	}

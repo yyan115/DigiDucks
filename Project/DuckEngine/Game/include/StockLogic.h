@@ -1,44 +1,39 @@
+/******************************************************************************/
+/*!
+\file       StockLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 25 2024
+\brief      Declartion of all Chopping Board Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include <iostream>
 
-
-enum class IngredientType
-{
-	EMPTY,
-	BIN,
-	BUN,
-	CHEESE,
-	C_CHEESE,	// Cut Cheese
-	LETTUCE,
-	C_LETTUCE,	// Cut Lettuce
-	MUSHROOM,
-	C_MUSHROOM,	// Cut Mushroom
-	SHRIMP,
-	C_SHRIMP,	// Cut Shrimp
-	STEAK,
-	R_PATTY,	// Raw Patty
-	C_PATTY,	// Cooked Patty
-	TOMATO,
-	C_TOMATO	// Cut Tomato
-};
+#include "IngredientType.h"
 
 
 class StockLogic : public GameLogic
 {
 private:
-	IngredientType type;
+	ItemType type;
 	int stock;
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(IngredientType::EMPTY), stock(5) {}
+	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), stock(5) {}
 
-	StockLogic(IngredientType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
+	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, IngredientType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
@@ -66,8 +61,8 @@ public:
 
 	bool isEmpty() const { return stock == 0; }
 
-	virtual IngredientType getType() { return type; }
+	virtual ItemType getType() { return type; }
 
-	void changeType(IngredientType type_) { type = type_; }
+	void changeType(ItemType type_) { type = type_; }
 
 };

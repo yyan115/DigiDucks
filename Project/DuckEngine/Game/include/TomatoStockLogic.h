@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       TomatoStockLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 25 2024
+\brief      Declartion of all Tomato Stock Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -9,9 +23,9 @@ class TomatoStockLogic : public StockLogic
 {
 public:
 
-	TomatoStockLogic() : StockLogic(IngredientType::TOMATO, 5) {}
+	TomatoStockLogic() : StockLogic(ItemType::TOMATO, 5) {}
 
-	TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::TOMATO, 5) {}
+	TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::TOMATO, 5) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

@@ -41,7 +41,11 @@ void BoxColliderSystem::Update()
 		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
-		if (!entityRb || entityRb->isStatic) continue;	// No rb = not moving
+		if (!entityRb || entityRb->isStatic) 
+		{
+			entityBox->setCenter(entityTrans->GetPosition() + entityBox->getOffSet());
+			continue;	// No rb = not moving
+		}
 
 		// Update Collider to current position
 		entityBox->setCenter(entityTrans->GetPosition());

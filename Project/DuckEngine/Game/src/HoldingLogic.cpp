@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       HoldingLogic.cpp
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Definition of all Holding Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "HoldingLogic.h"
 #include <iostream>
 
@@ -8,7 +22,7 @@ void HoldingLogic::Start()
 	// Set Object ptr only when player is holding something
 	object = nullptr;
 	objectTransform = nullptr;
-	type = IngredientType::EMPTY;
+	type = ItemType::EMPTY;
 }
 
 
@@ -27,7 +41,7 @@ void HoldingLogic::FixedUpdate()
 }
 
 
-void HoldingLogic::setObject(std::pair<int, IngredientType> objData)
+void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 {
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
@@ -40,18 +54,18 @@ void HoldingLogic::deleteObject()
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;
-	type = IngredientType::EMPTY;
+	type = ItemType::EMPTY;
 	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
 }
 
-std::pair<int,IngredientType> HoldingLogic::moveObject()
+std::pair<int,ItemType> HoldingLogic::moveObject()
 {
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;
 
-	IngredientType temp = type;
-	type = IngredientType::EMPTY;
+	ItemType temp = type;
+	type = ItemType::EMPTY;
 	
 	return std::make_pair(objectID, temp);
 }

@@ -1,8 +1,22 @@
+/******************************************************************************/
+/*!
+\file       HoldingLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Declartion of all Holding Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
-#include "StockLogic.h"
+#include "IngredientType.h"
 
 class HoldingLogic : public GameLogic
 {
@@ -11,16 +25,16 @@ private:
     TransformComponent* holderTransform;
     Entity* object;
 	TransformComponent* objectTransform;
-	IngredientType type;
+	ItemType type;
 
 public:
     Vec2 offSet{ 0.f, 1.5f };
 
     HoldingLogic() :
-        GameLogic(nullptr), holder(nullptr), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
+        GameLogic(nullptr), holder(nullptr), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
 
     HoldingLogic(GameLogicComponent* component, Entity* holder_) :
-        GameLogic(nullptr), holder(nullptr), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(IngredientType::EMPTY) {}
+        GameLogic(nullptr), holder(holder_), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
     
     std::shared_ptr<GameLogic> Clone() const override
     {
@@ -33,11 +47,11 @@ public:
     void Update() override;
     void FixedUpdate() override;
 
-    void setObject(std::pair<int, IngredientType> objData);
+    void setObject(std::pair<int, ItemType> objData);
 
 	void deleteObject();
 
-    std::pair<int, IngredientType> moveObject();
+    std::pair<int, ItemType> moveObject();
 
-	IngredientType getType() const { return type; }
+	ItemType getType() const { return type; }
 };
