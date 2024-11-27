@@ -41,6 +41,9 @@
     <ClCompile Include="..\src\PanLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EndGame.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="..\include\ChopBoardLogic.h">
       <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EndGame.h">
+      <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

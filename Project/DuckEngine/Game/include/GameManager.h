@@ -5,6 +5,7 @@
 #include "SpriteMovementScene.h"
 #include "GameScene.h"
 #include "MainMenu.h"
+#include "EndGame.h"
 
 class GameManager
 {
