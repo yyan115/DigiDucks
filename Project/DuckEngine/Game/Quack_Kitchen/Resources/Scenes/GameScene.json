@@ -71,7 +71,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/trash_bin.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -133,7 +133,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/trash_bin.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -564,6 +564,41 @@
             ],
             "layer": "Gameplay"
         },
+        "Entity_44": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameObject 32": {
             "components": [
                 {
@@ -740,6 +775,76 @@
             "layer": "Gameplay"
         },
         "GameObject 41": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 43": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.5,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject 45": {
             "components": [
                 {
                     "properties": {
@@ -2230,7 +2335,7 @@
                             "r": 255.0
                         },
                         "fontName": "Kenney High Square",
-                        "fontSize": 1,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 430.1999816894531,
                             "y": 377.1000061035156

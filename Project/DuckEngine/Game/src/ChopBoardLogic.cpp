@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       ChopBoardLogic.cpp
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Definition of all Chopping Board Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "ChopBoardLogic.h"
 
 void ChopBoardLogic::Start()
@@ -7,7 +21,7 @@ void ChopBoardLogic::Start()
 	object = nullptr;
 	objectTransform = nullptr;
 	objectSprite = nullptr;
-	type = IngredientType::EMPTY;
+	type = ItemType::EMPTY;
 	chopTime = 2.f;
 	isOccupied = false;
 	isChopped = false;
@@ -20,29 +34,29 @@ void ChopBoardLogic::Update()
 	{
 		switch (type)
 		{
-		case IngredientType::CHEESE:
+		case ItemType::CHEESE:
 			objectSprite->texture = AssetManager::GetTextureByName("cheese_chop");
-			type = IngredientType::C_CHEESE;
+			type = ItemType::C_CHEESE;
 			break;
-		case IngredientType::LETTUCE:
+		case ItemType::LETTUCE:
 			objectSprite->texture = AssetManager::GetTextureByName("lettuce_chop");
-			type = IngredientType::C_LETTUCE;
+			type = ItemType::C_LETTUCE;
 			break;
-		case IngredientType::MUSHROOM:
+		case ItemType::MUSHROOM:
 			objectSprite->texture = AssetManager::GetTextureByName("mushroom_chop");
-			type = IngredientType::C_MUSHROOM;
+			type = ItemType::C_MUSHROOM;
 			break;
-		case IngredientType::SHRIMP:
+		case ItemType::SHRIMP:
 			objectSprite->texture = AssetManager::GetTextureByName("shrimp_chop");
-			type = IngredientType::C_SHRIMP;
+			type = ItemType::C_SHRIMP;
 			break;
-		case IngredientType::STEAK:
+		case ItemType::STEAK:
 			objectSprite->texture = AssetManager::GetTextureByName("patty");
-			type = IngredientType::R_PATTY;
+			type = ItemType::R_PATTY;
 			break;
-		case IngredientType::TOMATO:
+		case ItemType::TOMATO:
 			objectSprite->texture = AssetManager::GetTextureByName("tomato_chop");
-			type = IngredientType::C_TOMATO;
+			type = ItemType::C_TOMATO;
 			break;
 		default:
 			break;
@@ -54,7 +68,7 @@ void ChopBoardLogic::FixedUpdate()
 {
 }
 
-void ChopBoardLogic::setObject(std::pair<int, IngredientType> objData)
+void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 {
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
@@ -67,7 +81,7 @@ void ChopBoardLogic::setObject(std::pair<int, IngredientType> objData)
 	chopTime = 3.f;
 }
 
-std::pair<int, IngredientType> ChopBoardLogic::moveObject()
+std::pair<int, ItemType> ChopBoardLogic::moveObject()
 {
 	int objectID = object->entityID;
 	object = nullptr;
@@ -75,8 +89,8 @@ std::pair<int, IngredientType> ChopBoardLogic::moveObject()
 	objectSprite = nullptr;
 	isOccupied = false;
 
-	IngredientType temp = type;
-	type = IngredientType::EMPTY;
+	ItemType temp = type;
+	type = ItemType::EMPTY;
 
 	return std::make_pair(objectID, temp);
 }

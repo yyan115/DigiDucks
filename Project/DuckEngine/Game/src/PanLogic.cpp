@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       PanLogic.cpp
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Definition of all Pan Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "PanLogic.h"
 
 void PanLogic::Start()
@@ -5,7 +19,18 @@ void PanLogic::Start()
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 
-	makeEmptyPan();
+	object = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Frying_Pan");
+	if (object) {
+		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(object->entityID);
+		objectTransform->SetPosition(tableTransform->GetPosition());
+		objectTransform->scale = Vec2(1.5f, 1.5f);
+		objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(object->entityID);
+		objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
+		type = ItemType::EMPTY;
+	}
+	isOccupied = false;
+	isCooked = false;
+	cookTime = 2.f;
 }
 
 void PanLogic::Update()
@@ -14,9 +39,9 @@ void PanLogic::Update()
 	{
 		switch (type)
 		{
-		case IngredientType::R_PATTY:
+		case ItemType::R_PATTY:
 			objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
-			type = IngredientType::C_PATTY;
+			type = ItemType::C_PATTY;
 			break;
 		default: 
 			break;
@@ -29,10 +54,10 @@ void PanLogic::FixedUpdate()
 {
 }
 
-void PanLogic::setObject(std::pair<int, IngredientType> objData)
+void PanLogic::setObject(std::pair<int, ItemType> objData)
 {
 	// Delete Empty Pan Object
-	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(object->entityID);
+	int objectID = object->entityID;
 
 	// Assign new object
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
@@ -46,18 +71,20 @@ void PanLogic::setObject(std::pair<int, IngredientType> objData)
 	isOccupied = true;
 	isCooked = false;
 	cookTime = 2.f;
+
+	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
 }
 
-std::pair<int, IngredientType> PanLogic::moveObject()
+std::pair<int, ItemType> PanLogic::moveObject()
 {
 	int objectID = object->entityID;
-	IngredientType temp = type;
+	ItemType temp = type;
 
-	if (type == IngredientType::R_PATTY)
+	if (type == ItemType::R_PATTY)
 	{
 		objectSprite->texture = AssetManager::GetTextureByName("patty");
 	}
-	else if (type == IngredientType::C_PATTY)
+	else if (type == ItemType::C_PATTY)
 	{
 		objectSprite->texture = AssetManager::GetTextureByName("cooked_patty");
 	}
@@ -91,6 +118,6 @@ void PanLogic::makeEmptyPan()
 	isOccupied = false;
 	isCooked = false;
 
-	type = IngredientType::EMPTY;
+	type = ItemType::EMPTY;
 	cookTime = 2.f;
 }

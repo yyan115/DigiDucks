@@ -1,6 +1,19 @@
-#include "PlayerLogic.h"
-#include <vector>
+/******************************************************************************/
+/*!
+\file       PlayerLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Definition of all Player Logic functions
 
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+#include "PlayerLogic.h"
+#include "CombineLogic.h"
 
 void PlayerLogic::Start()
 {
@@ -73,7 +86,7 @@ void PlayerLogic::InteractPressed()
 		if (stockLogic)
 		{
 			// If empty stock or Bin, do nothing
-			if (stockLogic->getType() == IngredientType::BIN || stockLogic->getType() == IngredientType::EMPTY) return;
+			if (stockLogic->getType() == ItemType::BIN || stockLogic->getType() == ItemType::EMPTY) return;
 
 			// If stock is not empty, create object and set holding
 			if (stockLogic->isEmpty()) return;
@@ -132,7 +145,7 @@ void PlayerLogic::InteractPressed()
 		if (stockLogic)
 		{
 			// If Object is Not BIN, do nothing
-			if(stockLogic->getType() != IngredientType::BIN) return;
+			if(stockLogic->getType() != ItemType::BIN) return;
 			// If Object is BIN, Destroy Object
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 			holdingLogic->deleteObject();
@@ -150,27 +163,49 @@ void PlayerLogic::InteractPressed()
 				tableLogic->setObject(holdingLogic->moveObject());
 				isHolding = false;
 			}
+			else if (tableLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				if (canCombine(holdingLogic->getType(), tableLogic->getType()))
+				{
+					std::pair<int, ItemType> combined = combineObjects(holdingLogic->moveObject(), tableLogic->moveObject());
+					holdingLogic->setObject(combined);
+					isHolding = true;
+				}
+			}
 			return;
 		}
-
 
 		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
 		if (chopBoardLogic)
 		{
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			chopBoardLogic->setObject(holdingLogic->moveObject());
-			isHolding = false;
+			if (!chopBoardLogic->isOccupied) {
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				chopBoardLogic->setObject(holdingLogic->moveObject());
+				isHolding = false;
+			}
+			else if (chopBoardLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			}
 			return;
 		}
 
 		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
 		if (panLogic)
 		{
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			if (holdingLogic->getType() != IngredientType::R_PATTY) return;
+			if (!panLogic->isOccupied) {
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				if (holdingLogic->getType() != ItemType::R_PATTY) return;
 
-			panLogic->setObject(holdingLogic->moveObject());
-			isHolding = false;
+				panLogic->setObject(holdingLogic->moveObject());
+				isHolding = false;
+			}
+			else if (panLogic->isOccupied)
+			{
+				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+
+			}
 			return;
 		}
 
@@ -210,7 +245,7 @@ void PlayerLogic::InteractHold()
 	}
 }
 
-Entity* PlayerLogic::makeObject(IngredientType type) 
+Entity* PlayerLogic::makeObject(ItemType type) 
 {
 	Entity* newObject = nullptr;
 	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
@@ -219,26 +254,32 @@ Entity* PlayerLogic::makeObject(IngredientType type)
 
 	switch (type)
 	{
-	case IngredientType::BUN:
+	case ItemType::BUN:
 		spriteRenderer->texture = AssetManager::GetTextureByName("bun");
 		break;
-	case IngredientType::CHEESE:
+	case ItemType::CHEESE:
 		spriteRenderer->texture = AssetManager::GetTextureByName("cheese");
 		break;
-	case IngredientType::LETTUCE:
+	case ItemType::LETTUCE:
 		spriteRenderer->texture = AssetManager::GetTextureByName("lettuce");
 		break;
-	case IngredientType::MUSHROOM:
+	case ItemType::MUSHROOM:
 		spriteRenderer->texture = AssetManager::GetTextureByName("mushroom");
 		break;
-	case IngredientType::SHRIMP:
+	case ItemType::SHRIMP:
 		spriteRenderer->texture = AssetManager::GetTextureByName("shrimp");
 		break;
-	case IngredientType::STEAK:
+	case ItemType::STEAK:
 		spriteRenderer->texture = AssetManager::GetTextureByName("steak");
 		break;
-	case IngredientType::TOMATO:
+	case ItemType::TOMATO:
 		spriteRenderer->texture = AssetManager::GetTextureByName("tomato");
+		break;
+	case ItemType::GREY_PLATE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("grey_plate");
+		break;
+	case ItemType::WHITE_PLATE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("white_plate");
 		break;
 	};
 

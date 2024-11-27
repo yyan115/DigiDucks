@@ -786,8 +786,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": 0.0
+                            "x": 10.938169479370117,
+                            "y": -0.09546399116516113
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1126,7 +1126,7 @@
                     "properties": {
                         "animations": [
                             {
-                                "frameDuration": 0.20000000298023224,
+                                "frameDuration": 0.9700000286102295,
                                 "name": "WalkAnimation",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -1144,11 +1144,6 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png"
                                 ]
-                            },
-                            {
-                                "frameDuration": 0.20000000298023224,
-                                "name": "NewAnimation1",
-                                "textures": []
                             }
                         ]
                     },

@@ -1,9 +1,24 @@
+/******************************************************************************/
+/*!
+\file       PlayerLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Declartion of all Player Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include <iostream>
 
+#include "IngredientType.h"
 #include "StockLogic.h"
 #include "TableLogic.h"
 #include "HoldingLogic.h"
@@ -43,5 +58,5 @@ public:
 
 	void InteractHold();
 
-    Entity* makeObject(IngredientType type);    
+    Entity* makeObject(ItemType type);    
 };

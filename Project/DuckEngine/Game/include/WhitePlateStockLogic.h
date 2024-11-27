@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-\file       CheeseStockLogic.h
+\file       WhitePlateStockLogic.h
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
 \date       November 25 2024
-\brief      Declartion of all Cheese Stock Logic functions
+\brief      Declartion of all White Plate Stock Logic functions
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -19,17 +19,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "StockLogic.h"
 #include <iostream>
 
-class CheeseStockLogic : public StockLogic
+class WhitePlateStockLogic : public StockLogic
 {
 public:
 
-	CheeseStockLogic() : StockLogic(ItemType::CHEESE, 5) {}
+    WhitePlateStockLogic() : StockLogic(ItemType::GREY_PLATE, 10000) {}
 
-	CheeseStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::CHEESE, 5) {}
+    WhitePlateStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::GREY_PLATE, 10000) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {
-        auto clone = std::make_shared<CheeseStockLogic>(*this);
+        auto clone = std::make_shared<WhitePlateStockLogic>(*this);
         clone->component = nullptr;
         return clone;
     }

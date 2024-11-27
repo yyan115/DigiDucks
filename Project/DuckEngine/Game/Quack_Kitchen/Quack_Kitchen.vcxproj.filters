@@ -44,6 +44,9 @@
     <ClCompile Include="..\src\EndGame.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CombineLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -155,6 +158,21 @@
     </ClInclude>
     <ClInclude Include="..\include\EndGame.h">
       <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CombineLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IngredientType.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GreyPlateStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\WhitePlateStockLogic.h">
+      <Filter>include\Logic\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RestockLogic.h">
+      <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

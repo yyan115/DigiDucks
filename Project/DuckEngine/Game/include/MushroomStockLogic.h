@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       MushroomStockLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 25 2024
+\brief      Declartion of all Mushroom Stock Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -9,9 +23,9 @@ class MushroomStockLogic : public StockLogic
 {
 public:
 
-	MushroomStockLogic() : StockLogic(IngredientType::MUSHROOM, 5) {}
+	MushroomStockLogic() : StockLogic(ItemType::MUSHROOM, 5) {}
 
-	MushroomStockLogic(GameLogicComponent* component) : StockLogic(component, IngredientType::MUSHROOM, 5) {}
+	MushroomStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::MUSHROOM, 5) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {
