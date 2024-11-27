@@ -765,6 +765,41 @@
             ],
             "layer": "Gameplay"
         },
+        "GameObject 7": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 5.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameObject 9": {
             "components": [
                 {

@@ -5,14 +5,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.1759277582168579,
-                            "y": 4.706301212310791
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 36.0,
+                            "y": 20.0
                         }
                     },
                     "type": "TransformComponent"
@@ -35,19 +35,19 @@
             ],
             "layer": "Background"
         },
-        "Star": {
+        "GameObject 7": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 13.714287757873535
+                            "x": 5.0,
+                            "y": 2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 10.0,
-                            "y": 10.0
+                            "x": 3.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -75,14 +75,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4012451171875,
-                            "y": -14.933332443237305
+                            "x": 0.0,
+                            "y": -4.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 17.5,
-                            "y": 10.0
+                            "x": 4.0,
+                            "y": 2.0
                         }
                     },
                     "type": "TransformComponent"
@@ -98,6 +98,76 @@
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/quit.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -5.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Star_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/star.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -139,54 +209,6 @@
                         "text": "Second Font!"
                     },
                     "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "buttonBox": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -700.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 200.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 200.0,
-                            "y": 100.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
