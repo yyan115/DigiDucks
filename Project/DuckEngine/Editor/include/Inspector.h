@@ -48,6 +48,9 @@ public:
     * @return void
     ***************************************************************/
     static void AddComponents(int entityID, bool& hasChanged);
+
+    static std::vector<std::string> GetComponentTypes();
+
 private:
     // List of available component types for adding
     static const std::vector<std::string> componentTypes;

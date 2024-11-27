@@ -693,6 +693,11 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 	}
 }
 
+std::vector<std::string> InspectorRenderer::GetComponentTypes()
+{
+	return componentTypes;
+}
+
 bool InspectorRenderer::IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions) {
 	// Extract the file extension
 	std::string extension = filePath.substr(filePath.find_last_of('.') + 1);
