@@ -36,10 +36,10 @@ public:
 	bool isOccupied = false;
 
 	ChopBoardLogic() : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(2.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(1.f) {}
 
 	ChopBoardLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(2.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(1.f) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{

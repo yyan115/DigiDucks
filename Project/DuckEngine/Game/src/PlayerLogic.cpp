@@ -36,6 +36,7 @@ void PlayerLogic::Start()
 				InteractHold();
 			}
 		});
+	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	isHolding = false;
 }
 
@@ -216,7 +217,6 @@ void PlayerLogic::InteractPressed()
 			{
 				submitLogic->removeObject(holdingLogic->moveObject());
 				isHolding = false;
-				std::cout << "Not Holding\n";
 			}
 			return;
 		}
@@ -237,6 +237,10 @@ void PlayerLogic::InteractHold()
 			if (chopBoardLogic->isOccupied)
 			{
 				chopBoardLogic->chopObject();
+				if (animator)
+				{
+					animator->PlayAnimation("CHOP");
+				}
 			}
 
 			return;
@@ -248,6 +252,10 @@ void PlayerLogic::InteractHold()
 			if (panLogic->isOccupied)
 			{
 				panLogic->cookObject();
+				if (animator)
+				{
+					//animator->PlayAnimation("Cook");
+				}
 			}
 
 			return;

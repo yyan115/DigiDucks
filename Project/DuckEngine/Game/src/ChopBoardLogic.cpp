@@ -22,7 +22,7 @@ void ChopBoardLogic::Start()
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 	type = ItemType::EMPTY;
-	chopTime = 2.f;
+	chopTime = 1.f;
 	isOccupied = false;
 	isChopped = false;
 

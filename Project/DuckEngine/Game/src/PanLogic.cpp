@@ -30,7 +30,7 @@ void PanLogic::Start()
 	}
 	isOccupied = false;
 	isCooked = false;
-	cookTime = 2.f;
+	cookTime = 1.f;
 }
 
 void PanLogic::Update()
@@ -69,8 +69,6 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	type = objData.second;
 	isOccupied = true;
-	isCooked = false;
-	cookTime = 2.f;
 
 	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
 }
@@ -119,5 +117,5 @@ void PanLogic::makeEmptyPan()
 	isCooked = false;
 
 	type = ItemType::EMPTY;
-	cookTime = 2.f;
+	cookTime = 1.f;
 }

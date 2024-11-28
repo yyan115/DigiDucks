@@ -9,6 +9,7 @@ void MovementLogic::Start()
 	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	moveSpeed = 30.f;
+	dir = FRONT;
 }
 
 void MovementLogic::Update()
@@ -34,7 +35,8 @@ void MovementLogic::FixedUpdate()
 		inputDirection.y += 1.0f;
 		if (animator) 
 		{
-			animator->PlayAnimation("WalkAnimation");
+			animator->PlayAnimation("BACK_WALK");
+			dir = BACK;
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
@@ -42,7 +44,8 @@ void MovementLogic::FixedUpdate()
 		inputDirection.y -= 1.0f;
 		if (animator)
 		{
-			animator->PlayAnimation("WalkAnimation");
+			animator->PlayAnimation("FRONT_WALK");
+			dir = FRONT;
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
@@ -50,7 +53,8 @@ void MovementLogic::FixedUpdate()
 		inputDirection.x -= 1.0f;
 		if (animator)
 		{
-			animator->PlayAnimation("WalkAnimation");
+			animator->PlayAnimation("LEFT_WALK");
+			dir = LEFT;
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
@@ -58,7 +62,8 @@ void MovementLogic::FixedUpdate()
 		inputDirection.x += 1.0f;
 		if (animator)
 		{
-			animator->PlayAnimation("WalkAnimation");
+			animator->PlayAnimation("RIGHT_WALK");
+			dir = RIGHT;
 		}
 	}
 
@@ -73,7 +78,14 @@ void MovementLogic::FixedUpdate()
 	{
 		if (rigidbody->velocity.x == 0.0f && rigidbody->velocity.y == 0.0f)
 		{
-			animator->PlayAnimation("IdleAnimation");
+			if (dir == FRONT)
+				animator->PlayAnimation("FRONT_IDLE");
+			else if (dir == BACK)
+				animator->PlayAnimation("BACK_IDLE");
+			else if (dir == LEFT)
+				animator->PlayAnimation("LEFT_IDLE");
+			else if (dir == RIGHT)
+				animator->PlayAnimation("RIGHT_IDLE");
 		}
 	}
 }

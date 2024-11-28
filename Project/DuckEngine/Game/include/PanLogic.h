@@ -36,10 +36,10 @@ public:
 	bool isOccupied = false;
 
 	PanLogic() :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(3.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
 
 	PanLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(3.f) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{

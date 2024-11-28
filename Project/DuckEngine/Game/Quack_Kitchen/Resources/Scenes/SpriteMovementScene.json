@@ -356,13 +356,13 @@
             ],
             "layer": "Gameplay"
         },
-        "Drone": {
+        "Cutting_Station_01": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 12.229182243347168,
-                            "y": 2.0726490020751953
+                            "x": 4.0,
+                            "y": -8.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -381,9 +381,9 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone/drone.png",
+                        "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -391,8 +391,70 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 12.229182243347168,
-                            "y": 2.0726490020751953
+                            "x": 4.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "ChopBoardLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Drone": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone/drone_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.0,
+                            "y": 2.0
                         },
                         "size": {
                             "x": 1.0,
@@ -500,7 +562,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
                         "useColor": true
@@ -1325,7 +1387,7 @@
                     "properties": {
                         "animations": [
                             {
-                                "frameDuration": 0.9700000286102295,
+                                "frameDuration": 0.09000000357627869,
                                 "name": "WalkAnimation",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -1343,6 +1405,11 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png"
                                 ]
+                            },
+                            {
+                                "frameDuration": 0.20000000298023224,
+                                "name": "NewAnimation1",
+                                "textures": []
                             }
                         ]
                     },
@@ -1397,6 +1464,68 @@
             ],
             "layer": "Gameplay"
         },
+        "Stove_02": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/stove.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 8.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "PanLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Submit_Station": {
             "components": [
                 {
@@ -1432,8 +1561,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -10.0,
+                            "y": -4.0
                         },
                         "size": {
                             "x": 1.0,
@@ -1446,6 +1575,316 @@
                     "properties": {
                         "logicNames": [
                             "SubmitLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_01": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 10.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_02": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_03": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -5.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_back.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.0,
+                            "y": -5.5
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_04": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -3.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_back.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.0,
+                            "y": -3.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_05": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -0.572702169418335
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_back.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.0,
+                            "y": -0.572702169418335
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -1508,6 +1947,130 @@
                     "properties": {
                         "logicNames": [
                             "PlateStockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_13": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 2.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_14": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 6.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 6.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -1631,8 +2194,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -700.0,
-                            "y": 400.0
+                            "x": -1180.0,
+                            "y": 658.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,

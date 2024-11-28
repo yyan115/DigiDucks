@@ -3,6 +3,14 @@
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 
+enum FacingDirection
+{
+	FRONT,
+	BACK,
+	LEFT,
+	RIGHT
+};
+
 class MovementLogic : public GameLogic
 {
 private:
@@ -13,6 +21,8 @@ private:
     float moveSpeed;
 
 public:
+    FacingDirection dir = FRONT;
+
     MovementLogic()
         : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(10.0f) {
     }

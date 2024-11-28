@@ -131,7 +131,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
@@ -317,7 +317,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
@@ -359,8 +359,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 12.229182243347168,
-                            "y": 2.0726490020751953
+                            "x": 12.0,
+                            "y": 2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -379,9 +379,9 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone/drone.png",
+                        "texture": "Resources/Sprites/Drone/drone_1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -389,8 +389,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 12.229182243347168,
-                            "y": 2.0726490020751953
+                            "x": 12.0,
+                            "y": 2.0
                         },
                         "size": {
                             "x": 1.0,
@@ -435,7 +435,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
                         "useColor": true
@@ -470,7 +470,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/stack_plate_grey.png",
                         "useColor": true
@@ -505,7 +505,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -610,7 +610,7 @@
                     "properties": {
                         "position": {
                             "x": -6.0,
-                            "y": 4.5
+                            "y": 4.519960403442383
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -640,7 +640,7 @@
                     "properties": {
                         "center": {
                             "x": -6.0,
-                            "y": 4.5
+                            "y": 4.519960403442383
                         },
                         "size": {
                             "x": 1.0,
@@ -691,7 +691,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Duck/duck_front1.png",
                         "useColor": true
@@ -702,7 +702,7 @@
                     "properties": {
                         "center": {
                             "x": 0.10000000149011612,
-                            "y": 0.0
+                            "y": 2.2002766132354736
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -715,7 +715,7 @@
                     "properties": {
                         "center": {
                             "x": 0.10000000149011612,
-                            "y": 0.0
+                            "y": 2.2002766132354736
                         },
                         "radius": 1.0
                     },
@@ -726,6 +726,37 @@
                         "isStatic": false
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "animations": [
+                            {
+                                "frameDuration": 0.20000000298023224,
+                                "name": "NewAnimation3",
+                                "textures": [
+                                    "",
+                                    "",
+                                    "",
+                                    ""
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "WalkAnimation",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_front1.png",
+                                    "Resources/Sprites/Duck/duck_front3.png",
+                                    "Resources/Sprites/Duck/duck_front2..png",
+                                    "Resources/Sprites/Duck/duck_front3.png",
+                                    "Resources/Sprites/Duck/duck_front4.png",
+                                    "Resources/Sprites/Duck/duck_front6.png",
+                                    "Resources/Sprites/Duck/duck_front5.png",
+                                    "Resources/Sprites/Duck/duck_front6.png"
+                                ]
+                            }
+                        ]
+                    },
+                    "type": "AnimatorComponent"
                 },
                 {
                     "properties": {
@@ -927,7 +958,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -981,7 +1012,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -1053,12 +1084,12 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -10.0,
+                            "y": -4.0
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 2.0
+                            "y": 2.25
                         }
                     },
                     "type": "BoundingBox"
@@ -1099,7 +1130,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1161,7 +1192,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1223,7 +1254,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1285,7 +1316,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1328,7 +1359,7 @@
                     "properties": {
                         "position": {
                             "x": 12.0,
-                            "y": -0.5477325916290283
+                            "y": -0.572702169418335
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1347,7 +1378,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": -1,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -1358,7 +1389,7 @@
                     "properties": {
                         "center": {
                             "x": 12.0,
-                            "y": -0.5477325916290283
+                            "y": -0.572702169418335
                         },
                         "size": {
                             "x": 1.0,
@@ -1570,7 +1601,7 @@
             ],
             "layer": "Gameplay"
         },
-        "Table_11": {
+        "Table_09": {
             "components": [
                 {
                     "properties": {
@@ -1595,7 +1626,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1606,6 +1637,130 @@
                     "properties": {
                         "center": {
                             "x": -4.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_10": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -8.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -8.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Table_11": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -10.0,
                             "y": -8.0
                         },
                         "size": {
@@ -1637,7 +1792,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.0,
+                            "x": 0.0,
                             "y": -8.0
                         },
                         "relativeToCamera": true,
@@ -1657,7 +1812,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1667,7 +1822,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -8.0,
+                            "x": 0.0,
                             "y": -8.0
                         },
                         "size": {
@@ -1676,6 +1831,12 @@
                         }
                     },
                     "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
                 },
                 {
                     "properties": {
@@ -1693,7 +1854,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -10.0,
+                            "x": 2.0,
                             "y": -8.0
                         },
                         "relativeToCamera": true,
@@ -1713,7 +1874,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1723,7 +1884,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -10.0,
+                            "x": 2.0,
                             "y": -8.0
                         },
                         "size": {
@@ -1755,130 +1916,6 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 0.0,
-                            "y": -8.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.25
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "TableLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Table_15": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 2.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 2.0,
-                            "y": -8.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.25
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "TableLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Table_16": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
                             "x": 6.0,
                             "y": -8.0
                         },
@@ -1899,7 +1936,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1967,7 +2004,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "text": "Time: 9:17"
+                        "text": "Time: 10:00"
                     },
                     "type": "TextComponent"
                 }
@@ -2061,7 +2098,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": false,
                         "texture": "Resources/Sprites/Ingredients/stack_plate.png",
                         "useColor": false
@@ -2096,7 +2133,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true

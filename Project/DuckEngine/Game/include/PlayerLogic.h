@@ -31,17 +31,20 @@ class PlayerLogic : public GameLogic
 private:
     BoundingCircle* circleCollider;
     BoundingBox* boxCollider;
+    AnimatorComponent* animator;
+
     Entity* interactObject;
+
 
 public:
     bool isHolding = false;
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {
