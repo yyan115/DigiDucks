@@ -177,6 +177,8 @@ bool DuckEngine::IsPaused() {
 *************************************************************************/
 void DuckEngine::Update()
 {
+    if (IsPaused()) return;
+
     static float timer = 0;
     // Look for inputs first   
     TimeManager::StartManagerTimer("Input System");
