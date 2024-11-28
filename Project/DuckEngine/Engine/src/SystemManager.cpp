@@ -59,6 +59,14 @@ void SystemManager::UpdateAll()
     }
 }
 
+void SystemManager::EditorUpdateAll()
+{
+    for (std::shared_ptr<System>& system : systems)
+    {
+        system->EditorUpdate();
+    }
+}
+
 void SystemManager::FixedUpdateAll()
 {
     for (std::shared_ptr<System>& system : systems)

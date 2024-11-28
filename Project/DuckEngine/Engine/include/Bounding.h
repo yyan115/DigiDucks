@@ -137,6 +137,7 @@ private:
 	Vec2 topL{};
 	Vec2 btmR{};
 	Vec2 btmL{};
+	Vec2 initialSize{0.5f, 0.5f};
 
 	/****************************************************************
 	* @brief Set the Corners of the box
@@ -212,6 +213,8 @@ public:
 	****************************************************************/
 	DUCKENGINE_API Vec2 getCenter() const { return getCenterPos(); }
 
+	DUCKENGINE_API Vec2 getInitialSize() const { return initialSize; }
+
 	/****************************************************************
 	* @brief Get the size of the bounding box
 	*
@@ -277,6 +280,7 @@ public:
 class BoundingCircle : public BoundingCollider, public Component {
 private:
 	float radius{};
+	float initialRadius = 0.5f;
 
 public:
 	/****************************************************************
@@ -354,6 +358,8 @@ public:
 	* @return The center of the circle as a Vec2
 	****************************************************************/
 	DUCKENGINE_API Vec2 getCenter() const;
+
+	DUCKENGINE_API float getInitialRadius() const { return initialRadius; }
 
 	/****************************************************************
 	* @brief Get the radius of the bounding circle

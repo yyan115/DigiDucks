@@ -40,6 +40,7 @@ public:
            This must be implemented by any derived class.
     *************************************************************************/
     virtual void Update() = 0;
+    virtual void EditorUpdate() {}
     virtual void FixedUpdate() {}
 
     virtual void Render() {}

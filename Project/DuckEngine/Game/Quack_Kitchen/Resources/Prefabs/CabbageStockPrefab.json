@@ -7,7 +7,7 @@
                     "y": -3.683255195617676
                 },
                 "relativeToCamera": true,
-                "rotation": 73.0,
+                "rotation": 2.0,
                 "scale": {
                     "x": 2.200000047683716,
                     "y": 3.0999999046325684
@@ -25,7 +25,7 @@
                 },
                 "sortingOrder": 3,
                 "sprite": true,
-                "texture": "Resources/Sprites/Stations/cabbage_stock.png",
+                "texture": "Resources/Sprites/foodstash stuff/lettuce_box.png",
                 "useColor": false
             },
             "type": "SpriteRendererComponent"

@@ -30,6 +30,7 @@ class DUCKENGINE_API BoxColliderSystem : public System
 {
 public:
 	void Start() override;
+	void EditorUpdate() override;
 	void Update() override;
 	void Render() override;
 }; 

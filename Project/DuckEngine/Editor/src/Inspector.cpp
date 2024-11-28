@@ -690,10 +690,36 @@ void InspectorRenderer::AddComponentToEntity(const std::string& componentName, i
 		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RigidbodyComponent>(entityID);
 	}
 	else if (componentName == "BoundingBox" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingBox>(entityID)) {
-		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entityID);
+		auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
+		if (transform) 
+		{
+			Vec2 position = transform->GetPosition();
+			Vec2 size = transform->scale;
+			auto entityBox = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entityID, position, size);
+
+			Vec2 initialSize = entityBox->getInitialSize();
+			Vec2 scaledSize = Vec2(initialSize.x * transform->scale.x,
+				initialSize.y * transform->scale.y);
+			entityBox->setSize(scaledSize);
+		}
+		else {
+			DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingBox>(entityID);
+		}
 	}
 	else if (componentName == "BoundingCircle" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingCircle>(entityID)) {
-		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entityID);
+		auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
+		if (transform) 
+		{
+			Vec2 position = transform->GetPosition();
+			auto entityCircle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entityID, position, 0.5f);
+
+			float averageScale = (transform->scale.x + transform->scale.y) * 0.5f;
+			entityCircle->setRadius(entityCircle->getInitialRadius() * averageScale);
+
+		}
+		else {
+			DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entityID);
+		}
 	}
 	else if (componentName == "AnimatorComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<AnimatorComponent>(entityID)) {
 		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<AnimatorComponent>(entityID);

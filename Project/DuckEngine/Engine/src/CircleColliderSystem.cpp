@@ -287,3 +287,18 @@ void CircleColliderSystem::Render() {
 		DuckEngine::DrawCircle(circle->getCenter() + circle->getOffSet(), circle->getRadius());
 	}
 }
+
+void CircleColliderSystem::EditorUpdate()
+{
+	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+	{
+		BoundingCircle* entityCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+
+		if (entityCircle && entityTrans && entityRb)
+		{
+			entityCircle->setCenter(entityTrans->GetPosition());
+		}
+	}
+}

@@ -313,3 +313,24 @@ void BoxColliderSystem::Render()
 		DuckEngine::DrawRectangle(box->getBtmL() + box->getOffSet(), box->getTopR() + box->getOffSet(), box->rotation);
 	}
 }
+
+void BoxColliderSystem::EditorUpdate()
+{
+	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+	{
+		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+
+		if (entityBox && entityTrans)
+		{
+			entityBox->setCenter(entityTrans->GetPosition() + entityBox->getOffSet());
+
+			//Vec2 initialSize = entityBox->getInitialSize();
+			//Vec2 scaledSize = Vec2(initialSize.x * entityTrans->scale.x,
+			//	initialSize.y * entityTrans->scale.y);
+			//entityBox->setSize(scaledSize);
+
+			entityBox->setRotation(entityTrans->angle);
+		}
+	}
+}

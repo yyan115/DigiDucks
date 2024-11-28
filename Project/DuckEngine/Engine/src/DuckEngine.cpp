@@ -202,6 +202,8 @@ void DuckEngine::Update()
 
     CameraManager::Update();
 
+    DuckEngine::DUCKENGINE_SystemManager.EditorUpdateAll();
+
     if (isEditor && isPlaying || !isEditor)
     {
         DUCKENGINE_SceneManager.Update();
