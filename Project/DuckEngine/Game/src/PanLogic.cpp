@@ -96,7 +96,7 @@ std::pair<int, ItemType> PanLogic::moveObject()
 
 void PanLogic::cookObject()
 {
-	cookTime -= DuckEngine::DeltaTime() / 3.f;
+	cookTime -= DuckEngine::DeltaTime();
 	if (cookTime <= 0.f)
 	{
 		isCooked = true;
