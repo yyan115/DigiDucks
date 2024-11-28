@@ -109,7 +109,7 @@
                             "r": 0.0
                         },
                         "fontName": "Kenney Future Narrow",
-                        "fontSize": 1,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 650.0,
                             "y": 375.0

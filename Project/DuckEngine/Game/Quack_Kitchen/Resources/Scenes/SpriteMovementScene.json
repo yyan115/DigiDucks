@@ -361,8 +361,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 12.0362548828125,
-                            "y": 2.136751651763916
+                            "x": 12.229182243347168,
+                            "y": 2.0726490020751953
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -381,12 +381,33 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 1,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Drone/drone.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 12.229182243347168,
+                            "y": 2.0726490020751953
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "RestockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -886,6 +907,44 @@
             ],
             "layer": "Gameplay"
         },
+        "GameObject 36": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameObject 47": {
             "components": [
                 {
@@ -1300,6 +1359,100 @@
             ],
             "layer": "Gameplay"
         },
+        "Score_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 3.0,
+                            "y": 8.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "Score: 0"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Submit_Station": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": -4.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 4.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/serving.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "SubmitLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Table_10": {
             "components": [
                 {
@@ -1399,6 +1552,44 @@
                 }
             ],
             "layer": "UI"
+        },
+        "Timer": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "Time: 9:17"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "White_Plate_Station": {
             "components": [
