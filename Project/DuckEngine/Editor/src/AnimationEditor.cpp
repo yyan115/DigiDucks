@@ -35,7 +35,7 @@ void AnimationEditor::Render()
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse || ImGuiWindowFlags_NoDocking))
+    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking))
     {
         float columnWidth = ImGui::GetContentRegionAvail().x;
         ImGui::Columns(2, nullptr, false);
