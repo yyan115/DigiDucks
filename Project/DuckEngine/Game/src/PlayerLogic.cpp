@@ -75,7 +75,31 @@ void PlayerLogic::FixedUpdate()
 			boxCollider->setOffSet(1.5f, 0.f);
 		}
 	}
+
+
+	// Cheats
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_B))
+	{
+		if (!isHolding) {
+			ItemType cheatType = ItemType::SALAD_PLATE;
+			Entity* newObject = makeObject(cheatType);
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			isHolding = true;
+		}
+	}
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
+	{
+		if (!isHolding) {
+			ItemType cheatType = ItemType::CHEESE_BURGER_PLATE;
+			Entity* newObject = makeObject(cheatType);
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			isHolding = true;
+		}
+	}
 }
+
 
 
 void PlayerLogic::InteractPressed()
@@ -299,6 +323,14 @@ Entity* PlayerLogic::makeObject(ItemType type)
 		break;
 	case ItemType::WHITE_PLATE:
 		spriteRenderer->texture = AssetManager::GetTextureByName("white_plate");
+		break;
+
+	/*Cheats*/
+	case ItemType::SALAD_PLATE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("salad_plate");
+		break;
+	case ItemType::CHEESE_BURGER_PLATE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("cheese_burger_plate");
 		break;
 	};
 

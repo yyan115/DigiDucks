@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "MessagingSystem.h"
 #include "GameManager.h"
 #include "Scene.h"
+#include "SubmitLogic.h"
 
 
 Entity* duck;
@@ -32,6 +33,10 @@ SoundComponent* duckSound;
 Entity* timer;
 TextComponent* timerText;
 float timeLeft{};
+
+Entity* score;
+TextComponent* scoreText;
+int scoreValue{};
 
 
 /// <summary>
@@ -49,9 +54,19 @@ void GameScene::Load()
 	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 
-	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer");
+	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text");
 	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
-	timeLeft = 600.f;
+	if (timerText) {
+		timerText->text = "Time: 10:00";
+		timeLeft = 600.f;
+	}
+
+	score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text");
+	scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
+	if (scoreText) {
+		scoreText->text = "Score: 0";
+		scoreValue = 0;
+	}
 }
 
 /// <summary>
@@ -85,20 +100,37 @@ void GameScene::Update()
 		}
 	}
 
-	// Update the timer
-	if (timeLeft > 0.f) {
-		timeLeft -= DuckEngine::DeltaTime();
-		int minutes = static_cast<int>(timeLeft) / 60;
-		int seconds = static_cast<int>(timeLeft) % 60;
-		timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+	if (timerText) {
+		// Update the timer
+		if (timeLeft > 0.f) {
+			timeLeft -= DuckEngine::DeltaTime();
+			int minutes = static_cast<int>(timeLeft) / 60;
+			int seconds = static_cast<int>(timeLeft) % 60;
+			timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+		}
+		else {
+			timerText->text = "Time's up!";
+			// Change to End Scene.
+			GameManager::SetActiveScene("EndScene");
+		}
 	}
-	else {
-		timerText->text = "Time's up!";
-		// Change to End Scene.
+
+
+	// Cheats
+
+	// End the Game
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_H))
+	{
+		std::cout << "H is pressed!\n";
 		GameManager::SetActiveScene("EndScene");
 	}
-
-
+	// Add Score
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_G))
+	{
+		Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
+		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+		submitLogic->increaseScore(10);
+	}
 }
 
 /// <summary>
