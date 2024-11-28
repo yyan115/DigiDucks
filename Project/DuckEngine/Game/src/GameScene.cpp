@@ -20,9 +20,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ImageLoader.h"
 #include "RoamingLogic.h"
 #include "MessagingSystem.h"
-#include <random>
-#include <chrono>
-#include <map>
+#include "GameManager.h"
+#include "Scene.h"
 
 
 Entity* duck;
@@ -52,7 +51,7 @@ void GameScene::Load()
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer");
 	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
-	timeLeft = 600.f;
+	timeLeft = 10.f;
 }
 
 /// <summary>
@@ -95,6 +94,8 @@ void GameScene::Update()
 	}
 	else {
 		timerText->text = "Time's up!";
+		// Change to End Scene.
+		GameManager::SetActiveScene("EndScene");
 	}
 
 
