@@ -51,7 +51,7 @@ public:
     }
 
     template <typename T>
-    std::vector<int> GetAllEntitiesWithLogic()
+    static std::vector<int> GetAllEntitiesWithLogic()
     {
         static_assert(std::is_base_of<GameLogic, T>::value, "T must inherit from GameLogic");
 
