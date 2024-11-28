@@ -171,8 +171,8 @@ public:
 
         if (key == 'K') {
             std::cout << "K is pressed!\n";
-            // Assume showDebugDraw is a static member to toggle debug display
-            DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
+            // Assume showDebugColliders is a static member to toggle debug display
+            DuckEngine::ToggleShowDebugColliders();
         }
     }
 

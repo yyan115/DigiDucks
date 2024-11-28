@@ -54,7 +54,7 @@ void MainMenu ::Load()
 void MainMenu ::Start()
 {
 	Scene::Start();
-	DuckEngine::showDebugDraw = false;
+	//DuckEngine::showDebugColliders = false;
 }
 
 /// <summary>
@@ -98,7 +98,7 @@ void MainMenu::PostUpdate()
 	//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
 	//{
 	//	std::cout << "K is pressed!\n";
-	//	DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
+	//	DuckEngine::showDebugColliders = !DuckEngine::showDebugColliders;
 	//}
 }
 

@@ -51,7 +51,7 @@ EntityFactory DuckEngine::DUCKENGINE_EntityFactory;
 PrefabManager DuckEngine::DUCKENGINE_PrefabManager;
 LevelManager DuckEngine::DUCKENGINE_LevelManager;
 
-bool DuckEngine::showDebugDraw = false;
+//bool DuckEngine::showDebugColliders = false;
 
 bool DuckEngine::isEditor = false;
 bool isPlaying = false;
@@ -496,4 +496,21 @@ float DuckEngine::GetViewportHeight()
 
 void DuckEngine::ToggleFullScreen() {
     WindowManager::ToggleFullscreen();
+}
+
+void DuckEngine::ToggleShowDebugColliders() {
+
+    for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+    {
+        BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
+
+        if (circle) circle->showDebugCollider = !circle->showDebugCollider;
+    }
+
+    for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+    {
+        BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
+
+        if (box) box->showDebugCollider = !box->showDebugCollider;
+    }
 }

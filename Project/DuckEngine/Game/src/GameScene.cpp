@@ -76,7 +76,7 @@ void GameScene::Load()
 void GameScene::Start() 
 {
 	Scene::Start();
-	DuckEngine::showDebugDraw = false;
+	//DuckEngine::showDebugColliders = false;
 }
 
 /// <summary>
@@ -155,7 +155,7 @@ void GameScene::PostUpdate()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
 	{
 		std::cout << "K is pressed!\n";
-		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
+		DuckEngine::ToggleShowDebugColliders();
 	}
 }
 

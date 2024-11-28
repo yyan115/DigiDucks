@@ -26,7 +26,7 @@ void EndScene::Load()
 void EndScene::Start()
 {
 	Scene::Start();
-	DuckEngine::showDebugDraw = false;
+	//DuckEngine::showDebugColliders = false;
 }
 
 void EndScene::Update()

@@ -235,38 +235,36 @@ void GraphicsManager::Render() {
 /// </summary>
 void GraphicsManager::RenderDebug()
 {
-    if (DuckEngine::showDebugDraw) {
-        BindFBO();
+    BindFBO();
 
-        // Get camera matrices
-        Vector2D cameraPosition = CameraManager::GetPosition();
-        float ar = CameraManager::GetAR();
-        float height = CameraManager::GetHeight();
-        // Combine camera-to-NDC and view matrix into one
-        glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
-        glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
-        glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
-        // Iterate through the queue and process each draw command
-        for (const DebugDrawCommand& command : debugDrawQueue) {
-            bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
-            switch (command.type) {
-            case DebugDrawCommand::POINT:
-                DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-                break;
-            case DebugDrawCommand::LINE:
-                DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-                break;
-            case DebugDrawCommand::RECTANGLE:
-                DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
-                break;
-            case DebugDrawCommand::CIRCLE:
-                DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-                break;
-            }
+    // Get camera matrices
+    Vector2D cameraPosition = CameraManager::GetPosition();
+    float ar = CameraManager::GetAR();
+    float height = CameraManager::GetHeight();
+    // Combine camera-to-NDC and view matrix into one
+    glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
+    glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
+    glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
+    // Iterate through the queue and process each draw command
+    for (const DebugDrawCommand& command : debugDrawQueue) {
+        bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
+        switch (command.type) {
+        case DebugDrawCommand::POINT:
+            DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+            break;
+        case DebugDrawCommand::LINE:
+            DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+            break;
+        case DebugDrawCommand::RECTANGLE:
+            DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
+            break;
+        case DebugDrawCommand::CIRCLE:
+            DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
+            break;
         }
-
-        UnbindFBO();
     }
+
+    UnbindFBO();
 
     // Clear the debug draw queue after rendering
     debugDrawQueue.clear();

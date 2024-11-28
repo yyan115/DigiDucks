@@ -310,7 +310,7 @@ void BoxColliderSystem::Render()
 	{
 		BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
 
-		DuckEngine::DrawRectangle(box->getBtmL() + box->getOffSet(), box->getTopR() + box->getOffSet(), box->rotation);
+		if (box->showDebugCollider) DuckEngine::DrawRectangle(box->getBtmL() + box->getOffSet(), box->getTopR() + box->getOffSet(), box->rotation);
 	}
 }
 

@@ -214,7 +214,7 @@ public:
 
     static void DUCKENGINE_API ToggleFullScreen();
     
-    static DUCKENGINE_API bool showDebugDraw;
+    static DUCKENGINE_API void ToggleShowDebugColliders();
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;

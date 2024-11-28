@@ -284,7 +284,7 @@ void CircleColliderSystem::Render() {
 	{
 		BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
 
-		DuckEngine::DrawCircle(circle->getCenter() + circle->getOffSet(), circle->getRadius());
+		if (circle->showDebugCollider) DuckEngine::DrawCircle(circle->getCenter() + circle->getOffSet(), circle->getRadius());
 	}
 }
 

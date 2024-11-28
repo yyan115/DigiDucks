@@ -274,6 +274,7 @@ public:
 	****************************************************************/
 	DUCKENGINE_API void rotate(float angle);
 
+	bool showDebugCollider = false;
 };
 
 
@@ -382,6 +383,8 @@ public:
 	* @param radius The new radius of the circle as a float
 	****************************************************************/
 	DUCKENGINE_API void setRadius(float radius);
+
+	bool showDebugCollider = false;
 };
 
 // Check collision

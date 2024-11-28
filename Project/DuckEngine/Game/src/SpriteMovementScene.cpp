@@ -189,7 +189,7 @@ void SpriteMovementScene::Start()
 {
 	Scene::Start();
 	//DuckEngine_Sound::PlaySounds("TestSound");
-	DuckEngine::showDebugDraw = false;
+	//DuckEngine::showDebugColliders = false;
 }
 
 /************************************************************************
@@ -258,7 +258,7 @@ void SpriteMovementScene::PostUpdate()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
 	{
 		std::cout << "K is pressed!\n";
-		DuckEngine::showDebugDraw = !DuckEngine::showDebugDraw;
+		DuckEngine::ToggleShowDebugColliders();
 	}
 }
 
