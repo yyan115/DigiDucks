@@ -51,7 +51,7 @@ void GameScene::Load()
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer");
 	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
-	timeLeft = 10.f;
+	timeLeft = 60.f;
 }
 
 /// <summary>
@@ -87,7 +87,7 @@ void GameScene::Update()
 
 	// Update the timer
 	if (timeLeft > 0.f) {
-		timeLeft -= DuckEngine::DeltaTime()/3.f;
+		timeLeft -= DuckEngine::DeltaTime();
 		int minutes = static_cast<int>(timeLeft) / 60;
 		int seconds = static_cast<int>(timeLeft) % 60;
 		timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);

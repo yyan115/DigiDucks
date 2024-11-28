@@ -177,6 +177,7 @@ bool DuckEngine::IsPaused() {
 *************************************************************************/
 void DuckEngine::Update()
 {
+    static float timer = 0;
     // Look for inputs first   
     TimeManager::StartManagerTimer("Input System");
     TimeManager::EndManagerTimer("Input System");
@@ -214,7 +215,6 @@ void DuckEngine::Update()
         accumulatedTime -= FIXED_TIMESTEP;
         currentSteps++;
 
-        // Safety check to prevent spiral of death
         if (currentSteps > 5)
         {
             accumulatedTime = 0.0;
@@ -349,7 +349,7 @@ int DuckEngine::GetWindowHeight()
 *************************************************************************/
 float DuckEngine::DeltaTime()
 {
-    return static_cast<float>(FIXED_TIMESTEP);
+    return TimeManager::DT();
 }
 
 /************************************************************************

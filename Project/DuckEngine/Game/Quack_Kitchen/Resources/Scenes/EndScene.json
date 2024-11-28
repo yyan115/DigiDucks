@@ -35,44 +35,6 @@
             ],
             "layer": "Background"
         },
-        "Score": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -2.0,
-                            "y": -1.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "fontName": "Kenney Future",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": "Score :"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "Quit": {
             "components": [
                 {
@@ -126,14 +88,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 650.0,
-                            "y": 375.0
+                            "x": -2.0,
+                            "y": -1.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 100.0,
-                            "y": 100.0
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
                     "type": "TransformComponent"
@@ -149,12 +111,25 @@
                         "fontName": "Kenney Future Narrow",
                         "fontSize": 1.0,
                         "position": {
-                            "x": 650.0,
-                            "y": 375.0
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "text": "Score:"
                     },
                     "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "Background"

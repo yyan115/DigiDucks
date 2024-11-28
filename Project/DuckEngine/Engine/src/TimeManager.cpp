@@ -51,6 +51,7 @@ double TimeManager::DT() {
 /// </summary>
 /// <param name="fps_calc_interval">The interval (in seconds) at which FPS is recalculated. Defaults to 1.0 second.</param>
 void TimeManager::UpdateTime(double fps_calc_interval) {
+
     // get elapsed time (in seconds) between previous and current frames
     static double prev_time = glfwGetTime();
     double curr_time = glfwGetTime();

@@ -52,7 +52,55 @@
             },
             "prefab": "DuckPrefab"
         },
-        "GameObject 7": {
+        "Exit": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.225006103515625,
+                            "y": -5.627198696136475
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/quit.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Logo": {
             "components": [
                 {
                     "properties": {
@@ -87,7 +135,7 @@
             ],
             "layer": "Background"
         },
-        "GameObject 8": {
+        "Start": {
             "components": [
                 {
                     "properties": {
@@ -118,41 +166,19 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 9": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 10.225006103515625,
-                            "y": -5.627198696136475
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 3.0,
-                            "y": 3.0
-                        }
-                    },
-                    "type": "TransformComponent"
                 },
                 {
                     "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/quit.png",
-                        "useColor": true
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
                     },
-                    "type": "SpriteRendererComponent"
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "Gameplay"
