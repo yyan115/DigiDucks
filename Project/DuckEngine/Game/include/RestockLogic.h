@@ -17,6 +17,9 @@ public:
 	RestockLogic(GameLogicComponent* component) :
 		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr) {}
 
+	void Start() override;
+	void Update() override;
+
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
