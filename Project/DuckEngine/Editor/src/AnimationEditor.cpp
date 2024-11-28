@@ -116,7 +116,7 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
             newName = "NewAnimation" + std::to_string(newAnimationIndex++);
         }
 
-        Animation newAnimation(0.2f);
+        Animation newAnimation(0.1f);
         animator->animations[newName] = newAnimation;
         currentAnimationName = newName;
     }
