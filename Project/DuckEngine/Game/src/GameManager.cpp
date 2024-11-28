@@ -24,6 +24,7 @@
 DuckEngine GameManager::DuckEngine;
 
 std::string GameManager::ActiveSceneName = "SpriteMovementScene";
+bool GameManager::ShouldChangeScene = false;
 
 void GameManager::InitScenes()
 {
@@ -56,8 +57,19 @@ void GameManager::InitScenes()
 
 }
 
+void GameManager::Update()
+{
+	if (ShouldChangeScene)
+	{
+		DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+		ShouldChangeScene = false;
+	}
+}
+
+
+
 void GameManager::SetActiveScene(std::string sceneName)
 {
-    ActiveSceneName = sceneName;
-    DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(sceneName);
+	ActiveSceneName = sceneName;
+	ShouldChangeScene = true;
 }

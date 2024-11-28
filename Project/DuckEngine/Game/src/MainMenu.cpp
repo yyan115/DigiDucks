@@ -17,7 +17,7 @@
 //TransformComponent* duckTrfm;
 //RigidbodyComponent* duckRb;
 //AnimatorComponent* duckAnimator;
-SoundComponent* duckSound1;
+//SoundComponent* duckSound1;
 //BoundingCircle* duckCollider;
 
 ////Test Messaging System
@@ -54,13 +54,13 @@ void MainMenu ::Update()
 {
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 	// For each sound component, play the sound if it is set to play on start
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+	//for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+	//	SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
 
-		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-			soundComponent->Play();
-		}
-	}
+	//	if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+	//		soundComponent->Play();
+	//	}
+	//}
 	//if (DuckEngine::DUCKENGINE_AssetManager.LoadTexture("Resources/Sprites/MainMenu/mainmenu.png")) {
 	//	std::cerr << "Failed to load background texture!" << std::endl;
 	//}

@@ -25,6 +25,7 @@ int main(void)
             DuckEngine::ToggleFullScreen();
         }
 
+        gManager.Update();
         gManager.DuckEngine.Update();
         
         gManager.DuckEngine.StartDraw();

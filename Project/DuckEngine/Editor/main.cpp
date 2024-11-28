@@ -36,7 +36,7 @@ int main(void)
 
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
-    GameManager::SetActiveScene("SpriteMovementScene");
+    GameManager::SetActiveScene("MainMenu");
     uiManager.Initialize();
     SceneWindow::Initialize();
     EditorInputManager::Initialize();
@@ -53,7 +53,11 @@ int main(void)
             
             EditorInputManager::Update();
             
-            if (!engine.isPaused) engine.Update();
+            if (!engine.isPaused)
+            {
+                engine.Update();
+                GameManager::Update();
+            }
 
             GizmoManager::Update();
 
