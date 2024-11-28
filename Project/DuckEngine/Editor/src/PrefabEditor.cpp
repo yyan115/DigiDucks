@@ -191,6 +191,7 @@ void PrefabEditor::RenderPrefabProperties()
                     if (texture)
                     {
                         ImGui::Text("Current Texture:");
+                        ImGui::Text(texturePath.c_str());
                         ImGui::Image((void*)(intptr_t)*texture, ImVec2(64, 64), ImVec2(0, 1), ImVec2(1, 0));
                     }
                 }

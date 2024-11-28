@@ -49,11 +49,10 @@ void AssetsBrowser::ShowAssets() {
 
 	// Render the File Explorer button
 	if (ImGui::Button("Open in Explorer")) {
-		// Open the selected folder path in File Explorer
 		std::string pathToOpen = selectedFolderPath;
 		std::replace(pathToOpen.begin(), pathToOpen.end(), '/', '\\');
 
-		// Ensure the path exists before trying to open it
+		// Ensure the path exists
 		if (fs::exists(pathToOpen)) {
 			ShellExecuteA(nullptr, "open", pathToOpen.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
 		}
@@ -71,7 +70,6 @@ void AssetsBrowser::ShowAssets() {
 
 	// Right pane for displaying assets within the selected folder
 	ImGui::BeginChild("RightPane", ImVec2(0, 0), true);    
-	// Render the assets grid based on the selected folder
 	if (selectedFolderName.compare("Prefabs") == 0) RenderPrefabsGrid();
 	else RenderAssetGrid(selectedFolderPath);
 	ImGui::EndChild();
@@ -159,10 +157,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 			}
 		}
 
-		// Calculate text width and center-align
+		// Calculate text width and centeralign
 		if (truncatedFolderName.length() > 12) truncatedFolderName = truncatedFolderName.substr(0, 9) + "...";
 		float textWidth = ImGui::CalcTextSize((truncatedFolderName + "/").c_str()).x;
-		float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
+		float offsetX = (128 - textWidth) * 0.5f;
 		if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
 		// Display the folder name below the icon
@@ -211,7 +209,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		// Find the parent directory
 		std::string absolutePath = fs::absolute(entry.path()).string();
 		std::string parentDir = "";
-
 		for (const auto& [dir, extensions] : folderAllowedExtensions) {
 			std::string absoluteParent = fs::absolute("Resources/" + dir).string();
 			if (absolutePath.find(absoluteParent) == 0) {
@@ -229,7 +226,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 		ImGui::PushID(normalizedPath.c_str());
 		ImGui::BeginGroup();
-
 		// Validate file extension based on parent directory
 		if (!parentDir.empty()) {
 			const auto& allowedExtensions = folderAllowedExtensions[parentDir];
@@ -297,8 +293,19 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 				}
 				else if (parentDir == "Scenes") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
-					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
-					
+					if (texture) {
+						ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+						// Handle double-click for loading the scene
+						if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+							// Get the file name without extension
+							std::string sceneName = entry.path().stem().string(); 
+							if (sceneName != DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName())
+							{
+								LevelManager::LoadLevelEditor(normalizedPath);
+								std::cout << "Loading scene: " << sceneName << std::endl;
+							}
+						}
+					}					
 				}
 
 				else {
@@ -311,10 +318,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 				errorMessage = "Error: File '" + fileName + "' has an invalid extension (" + fileExtension + ") for folder '" + parentDir + "'. Please delete the file.";
 			}
 		}
-		// Calculate text width and center-align
+		// Calculate text width and centeralign
 		if (truncatedFileName.length() > 12) truncatedFileName = truncatedFileName.substr(0, 9) + "...";
 		float textWidth = ImGui::CalcTextSize((truncatedFileName + "/").c_str()).x;
-		float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
+		float offsetX = (128 - textWidth) * 0.5f;
 		if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 
 		// Truncate file name        
@@ -344,10 +351,10 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 	if (ImGui::BeginPopupModal("Invalid File Error", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
 		ImGui::TextWrapped("%s", errorMessage.c_str());
 		float buttonWidth = ImGui::CalcTextSize("Close").x + ImGui::GetStyle().FramePadding.x * 2.0f;
-		ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - buttonWidth); // Align to the right
+		ImGui::SetCursorPosX(ImGui::GetWindowContentRegionMax().x - buttonWidth);
 
 		if (ImGui::Button("Close")) {
-			showErrorPopup = false; // Reset the popup flag
+			showErrorPopup = false;
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
@@ -378,7 +385,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 			ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 		}
 		else {
-			ImGui::Button(prefabName.c_str(), ImVec2(128, 128)); // Fallback button if no texture is found
+			ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
 		}
 
 		// Drag-and-drop source for the prefab
@@ -390,13 +397,13 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
 		{
-			PrefabEditor::OpenPrefabEditor(prefabName); 
+			PrefabEditor::OpenPrefabEditor(prefabName);
 		}
 
 		std::string truncatedPrefabName = prefabName;
 		if (truncatedPrefabName.length() > 12) truncatedPrefabName = truncatedPrefabName.substr(0, 9) + "...";
 		float textWidth = ImGui::CalcTextSize((truncatedPrefabName + "/").c_str()).x;
-		float offsetX = (128 - textWidth) * 0.5f; // Center within 128px icon width
+		float offsetX = (128 - textWidth) * 0.5f;
 		if (offsetX > 0) ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
 		ImGui::TextWrapped("%s", truncatedPrefabName.c_str());
 		ImGui::EndGroup();
@@ -408,6 +415,77 @@ void AssetsBrowser::RenderPrefabsGrid() {
 		ImGui::PopID();
 		itemIndex++;
 	}
+
+	// Flag to track whether the popup was triggered
+	static bool openCreatePrefabPopup = false;
+
+	// Rightclick context menu for creating a new prefab
+	if (ImGui::BeginPopupContextWindow("PrefabContextMenu", ImGuiPopupFlags_MouseButtonRight)) {
+		if (ImGui::MenuItem("Create Prefab")) {
+			openCreatePrefabPopup = true;
+		}
+		ImGui::EndPopup();
+	}
+
+	// Check if the popup should be opened
+	if (openCreatePrefabPopup) {
+		ImGui::OpenPopup("Create New Prefab");
+		openCreatePrefabPopup = false;
+	}
+
+	// Center the popup
+	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+
+	// Handle the popup for creating a new prefab
+	if (ImGui::BeginPopupModal("Create New Prefab", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
+		static char newPrefabName[64] = "";
+
+		// Display input text with a hint
+		ImGui::PushItemWidth(-1);
+		ImGui::InputTextWithHint("##PrefabInput", "Enter prefab name...", newPrefabName, IM_ARRAYSIZE(newPrefabName));
+		ImGui::PopItemWidth();
+		ImGui::Spacing();
+
+		// Create button
+		if (ImGui::Button("Create", ImVec2(100, 0))) {
+			if (std::strlen(newPrefabName) > 0) {
+				std::string prefabName(newPrefabName);
+
+				// Create and register the new prefab
+				std::shared_ptr<Prefab> newPrefab = std::make_shared<Prefab>(prefabName);				
+				// Add a default TransformComponent
+				nlohmann::json defaultTransformComponent = {
+					{"type", "TransformComponent"},
+					{"properties", {
+						{"position", {{"x", 0.0f}, {"y", 0.0f}}},
+						{"scale", {{"x", 1.0f}, {"y", 1.0f}}},
+						{"rotation", 0.0f}
+					}}
+				};
+				newPrefab->componentsData.push_back(defaultTransformComponent);
+
+				PrefabManager::AddPrefab(prefabName, newPrefab);
+				PrefabManager::SavePrefab(prefabName);
+
+				// Open the prefab in the PrefabEditor
+				PrefabEditor::OpenPrefabEditor(prefabName);
+
+				// Reset the name and close the popup
+				std::fill(std::begin(newPrefabName), std::end(newPrefabName), '\0');
+				ImGui::CloseCurrentPopup();
+			}
+		}
+
+		ImGui::SameLine();
+
+		// Cancel button
+		if (ImGui::Button("Cancel", ImVec2(100, 0))) ImGui::CloseCurrentPopup();
+
+		ImGui::EndPopup();
+	}
+
+
 }
 
 void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& newPath) {
