@@ -50,6 +50,9 @@
     <ClCompile Include="..\src\SubmitLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\RestockLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
