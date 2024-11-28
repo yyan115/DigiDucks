@@ -28,7 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Component.h"
 #include "Entity.h"
 
-class DUCKENGINE_API BoundingCollider {
+class BoundingCollider {
 private:
 	Vec2 centerPos{};
 	Vec2 offSet{};
@@ -42,21 +42,21 @@ public:
 	*
 	* Initializes the center position of the collider to (0, 0).
 	****************************************************************/
-	BoundingCollider() : centerPos(0.f, 0.f), offSet(0.f,0.f) {}
+	DUCKENGINE_API BoundingCollider() : centerPos(0.f, 0.f), offSet(0.f,0.f) {}
 
 	/****************************************************************
 	* @brief Constructor with center position
 	*
 	* @param pos The initial center position of the collider as a Vec2
 	****************************************************************/
-	BoundingCollider(const Vec2& pos, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(pos), offSet(offSet_) {}
+	DUCKENGINE_API BoundingCollider(const Vec2& pos, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(pos), offSet(offSet_) {}
 	/****************************************************************
 	* @brief Constructor with x and y coordinates
 	*
 	* @param x The x-coordinate of the center position
 	* @param y The y-coordinate of the center position
 	****************************************************************/
-	BoundingCollider(float x, float y, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(x, y), offSet(offSet_) {}
+	DUCKENGINE_API BoundingCollider(float x, float y, const Vec2& offSet_ = Vec2{ 0.f, 0.f }) : centerPos(x, y), offSet(offSet_) {}
 
 	using OnCollisionCallback = std::function<void(int)>;
 	OnCollisionCallback onCollisionCallback;
@@ -68,7 +68,7 @@ public:
 	* Allows for proper cleanup when objects are deleted through a pointer
 	* to the base class.
 	****************************************************************/
-	virtual ~BoundingCollider() = default;
+	DUCKENGINE_API virtual ~BoundingCollider() = default;
 
 	// Getters
 	/****************************************************************
@@ -76,14 +76,14 @@ public:
 	* 
 	* @return The center position of the collider
 	* ***************************************************************/
-	Vec2 getCenterPos() const;
+	DUCKENGINE_API Vec2 getCenterPos() const;
 
 	/****************************************************************
 	* @brief Get the offset of the collider
 	* 
 	* @return The offset of the collider
 	* ***************************************************************/
-	Vec2 getOffSet() const;
+	DUCKENGINE_API Vec2 getOffSet() const;
 
 	// Setters
 	/****************************************************************
@@ -91,7 +91,7 @@ public:
 	* 
 	* @param pos - The center position of the collider
 	* ***************************************************************/
-	void setCenterPos(const Vec2& pos);
+	DUCKENGINE_API void setCenterPos(const Vec2& pos);
 
 	/****************************************************************
 	* @brief Set the center position of the collider
@@ -100,14 +100,14 @@ public:
 	* 
 	* @param y - The y position of the collider
 	* ***************************************************************/
-	void setCenterPos(float x, float y);
+	DUCKENGINE_API void setCenterPos(float x, float y);
 
 	/****************************************************************
 	* @brief Set the offset of the collider
 	*	
 	* @param offSet_ - The offset of the collider
 	* ***************************************************************/
-	void setOffSet(const Vec2& offSet_);
+	DUCKENGINE_API void setOffSet(const Vec2& offSet_);
 
 	/****************************************************************
 	* @brief Set the offset of the collider
@@ -116,21 +116,21 @@ public:
 	* 
 	* @param y - The y offset of the collider
 	* ***************************************************************/
-	void setOffSet(float x, float y);
+	DUCKENGINE_API void setOffSet(float x, float y);
 
 	/****************************************************************
 	* @brief Set the collision callback function
 	*
 	* @param callback The function to be called upon collision
 	****************************************************************/
-	void SetCollisionCallback(OnCollisionCallback callback)
+	DUCKENGINE_API void SetCollisionCallback(OnCollisionCallback callback)
 	{
 		onCollisionCallback = callback;
 	}
 };
 
 
-class DUCKENGINE_API BoundingBox : public BoundingCollider, public Component {
+class BoundingBox : public BoundingCollider, public Component {
 private:
 	Vec2 size{};
 	Vec2 topR{};
@@ -147,7 +147,7 @@ public:
 	float rotation{};
 
 	// No default constructor
-	BoundingBox() :BoundingCollider() {}
+	DUCKENGINE_API BoundingBox() :BoundingCollider() {}
 
 	// Constructor
 	/****************************************************************
@@ -159,7 +159,7 @@ public:
 	* @param _size The size of the bounding box as a Vec2
 	* @param _rotation The rotation of the bounding box in degrees (default is 0)
 	****************************************************************/
-	BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation = 0.f);
+	DUCKENGINE_API BoundingBox(const Vec2& _center, const Vec2& _size, float _rotation = 0.f);
 	/****************************************************************
 	* @brief Constructor for BoundingBox with explicit coordinates for center and size
 	*
@@ -169,7 +169,7 @@ public:
 	* @param sizeY The height of the bounding box
 	* @param _rotation The rotation of the bounding box in degrees (default is 0)
 	****************************************************************/
-	BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation = 0.f);
+	DUCKENGINE_API BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation = 0.f);
 
 	// Copy Constructor
 	/****************************************************************
@@ -179,7 +179,7 @@ public:
 	*
 	* @param box The BoundingBox object to copy from
 	****************************************************************/
-	BoundingBox(BoundingBox& box) : 
+	DUCKENGINE_API BoundingBox(BoundingBox& box) :
 		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
 	/****************************************************************
 	* @brief Copy constructor for BoundingBox (const version)
@@ -188,7 +188,7 @@ public:
 	*
 	* @param box The constant BoundingBox object to copy from
 	****************************************************************/
-	BoundingBox(const BoundingBox& box):
+	DUCKENGINE_API BoundingBox(const BoundingBox& box):
 		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
 
 	// Destructor
@@ -197,7 +197,7 @@ public:
 	*
 	* Performs necessary cleanup of the BoundingBox object.
 	****************************************************************/
-	~BoundingBox() = default;
+	DUCKENGINE_API ~BoundingBox() = default;
 
 	std::shared_ptr<Component> Clone() const override
 	{
@@ -210,42 +210,42 @@ public:
 	*
 	* @return The center position of the box as a Vec2
 	****************************************************************/
-	Vec2 getCenter() const { return getCenterPos(); }
+	DUCKENGINE_API Vec2 getCenter() const { return getCenterPos(); }
 
 	/****************************************************************
 	* @brief Get the size of the bounding box
 	*
 	* @return The size of the box as a Vec2
 	****************************************************************/
-	Vec2 getSize() const { return size; }
+	DUCKENGINE_API Vec2 getSize() const { return size; }
 	
 	/****************************************************************
 	* @brief Get the top right corner of the bounding box
 	*
 	* @return The top right corner of the box as a Vec2
 	****************************************************************/
-	Vec2 getTopR() const { return topR; }
+	DUCKENGINE_API Vec2 getTopR() const { return topR; }
 
 	/****************************************************************
 	* @brief Get the top left corner of the bounding box
 	*
 	* @return The top left corner of the box as a Vec2
 	****************************************************************/
-	Vec2 getTopL() const { return topL; }
+	DUCKENGINE_API Vec2 getTopL() const { return topL; }
 
 	/****************************************************************
 	* @brief Get the bottom right corner of the bounding box
 	*
 	* @return The bottom right corner of the box as a Vec2
 	****************************************************************/
-	Vec2 getBtmR() const { return btmR; }
+	DUCKENGINE_API Vec2 getBtmR() const { return btmR; }
 
 	/****************************************************************
 	* @brief Get the bottom left corner of the bounding box
 	*
 	* @return The bottom left corner of the box as a Vec2
 	****************************************************************/
-	Vec2 getBtmL() const { return btmL; }
+	DUCKENGINE_API Vec2 getBtmL() const { return btmL; }
 	
 	// Setters
 	/****************************************************************
@@ -253,28 +253,28 @@ public:
 	*
 	* @param pos The new center position of the bounding box as a Vec2
 	****************************************************************/
-	void setCenter(Vec2 pos);
+	DUCKENGINE_API void setCenter(Vec2 pos);
 
 	/****************************************************************
 	* @brief Set the size of the bounding box
 	*
 	* @param _size The new size of the bounding box as a Vec2
 	****************************************************************/
-	void setSize(Vec2 _size);
+	DUCKENGINE_API void setSize(Vec2 _size);
 
-	void setRotation(float angle);
+	DUCKENGINE_API void setRotation(float angle);
 
 	/****************************************************************
 	* @brief Rotate the bounding box by a given angle
 	*
 	* @param angle The rotation angle in degrees
 	****************************************************************/
-	void rotate(float angle);
+	DUCKENGINE_API void rotate(float angle);
 
 };
 
 
-class DUCKENGINE_API BoundingCircle : public BoundingCollider, public Component {
+class BoundingCircle : public BoundingCollider, public Component {
 private:
 	float radius{};
 
@@ -285,7 +285,7 @@ public:
 	* Initializes a bounding circle with a default radius of 2.0f and a
 	* default center position set to (0, 0).
 	****************************************************************/
-	BoundingCircle() :BoundingCollider(), radius(2.f) {}
+	DUCKENGINE_API BoundingCircle() :BoundingCollider(), radius(2.f) {}
 
 	// Constructor
 	/****************************************************************
@@ -296,7 +296,7 @@ public:
 	* @param center The center position of the bounding circle as a Vec2
 	* @param _radius The radius of the bounding circle
 	****************************************************************/
-	BoundingCircle(const Vec2& center, float _radius) : BoundingCollider(center), radius(_radius) {};
+	DUCKENGINE_API BoundingCircle(const Vec2& center, float _radius) : BoundingCollider(center), radius(_radius) {};
 	/****************************************************************
 	* @brief Constructor for BoundingCircle with explicit coordinates
 	*
@@ -307,7 +307,7 @@ public:
 	* @param y The y-coordinate of the center of the circle
 	* @param _radius The radius of the bounding circle
 	****************************************************************/
-	BoundingCircle(float x, float y, float _radius) : BoundingCollider(x, y), radius(_radius) {}
+	DUCKENGINE_API BoundingCircle(float x, float y, float _radius) : BoundingCollider(x, y), radius(_radius) {}
 
 	// Copy Constructor
 	/****************************************************************
@@ -317,7 +317,7 @@ public:
 	*
 	* @param circle The BoundingCircle object to copy from
 	****************************************************************/
-	BoundingCircle(BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
+	DUCKENGINE_API BoundingCircle(BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
 	/****************************************************************
 	* @brief Const copy constructor for BoundingCircle
 	*
@@ -325,7 +325,7 @@ public:
 	*
 	* @param circle The constant BoundingCircle object to copy from
 	****************************************************************/
-	BoundingCircle(const BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
+	DUCKENGINE_API BoundingCircle(const BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
 
 	// Destructor
 	/****************************************************************
@@ -333,7 +333,7 @@ public:
 	*
 	* Cleans up resources used by the BoundingCircle object.
 	****************************************************************/
-	~BoundingCircle() = default;
+	DUCKENGINE_API ~BoundingCircle() = default;
 
 	/****************************************************************
 	* @brief Clone method for BoundingCircle
@@ -353,14 +353,14 @@ public:
 	*
 	* @return The center of the circle as a Vec2
 	****************************************************************/
-	Vec2 getCenter() const;
+	DUCKENGINE_API Vec2 getCenter() const;
 
 	/****************************************************************
 	* @brief Get the radius of the bounding circle
 	*
 	* @return The radius of the circle as a float
 	****************************************************************/
-	float getRadius() const;
+	DUCKENGINE_API float getRadius() const;
 
 	// Setters
 	/****************************************************************
@@ -368,14 +368,14 @@ public:
 	*
 	* @param center The new center position of the circle as a Vec2
 	****************************************************************/
-	void setCenter(Vec2 center);
+	DUCKENGINE_API void setCenter(Vec2 center);
 
 	/****************************************************************
 	* @brief Set the radius of the bounding circle
 	*
 	* @param radius The new radius of the circle as a float
 	****************************************************************/
-	void setRadius(float radius);
+	DUCKENGINE_API void setRadius(float radius);
 };
 
 // Check collision
