@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <vector>
 #include "Scene.h"
 #include "DuckEngine.h"
+#include "SoundSystem.h"
 
 /**************************************************************************
 @brief Loads resources and initializes the scene.
@@ -59,7 +60,7 @@ void Scene::Unload()
         entityIDs.push_back(entity.entityID);
         //entity.Release();
     }
-
+    SoundSystem::StopAllSounds();
     for (int entityID : entityIDs)
     {
         DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);

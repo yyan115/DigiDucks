@@ -114,6 +114,24 @@ std::string NormalizePath(const std::string& path) {
 void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 	if (!fs::exists(path)) return;
 
+	// Get second directory from path
+	std::string mainFolder = "";
+	fs::path relativePath = fs::relative(path, "Resources");
+	auto SecondFolderit = relativePath.begin();
+	if (SecondFolderit != relativePath.end()) ++SecondFolderit;
+	if (SecondFolderit != relativePath.end()) mainFolder = SecondFolderit->string();
+
+
+	// Back button if not in the main folder
+	if (!mainFolder.empty() && path != "Resources/" + mainFolder) {
+		if (ImGui::Button("< Back")) {
+			selectedFolderPath = fs::path(path).parent_path().string();
+			selectedFolderName = fs::path(selectedFolderPath).filename().string();
+			return;
+		}
+		ImGui::Separator();
+	}
+
 	// Calculate how many items can fit in one row
 	float contentWidth = ImGui::GetContentRegionAvail().x;
 	float itemWidth = 128.0f; // Width of each asset cell
@@ -146,10 +164,8 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		ImGui::PushID(normalizedPath.c_str());
 		ImGui::BeginGroup();
 
-		// Load the folder icon
-		
+		// Load the folder icon		
 		if (Foldertexture) {
-			// Render the icon as a clickable image button
 			if (ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)Foldertexture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0))) {
 				// Navigate into the subfolder when clicked
 				selectedFolderPath = normalizedPath;
@@ -201,9 +217,9 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		std::string fileNameLower = fileName;
 		std::transform(fileNameLower.begin(), fileNameLower.end(), fileNameLower.begin(),
 			[](unsigned char c) { return static_cast<char>(std::tolower(c)); });
-
+		// Skip files that don't match the query
 		if (!queryLower.empty() && fileNameLower.find(queryLower) == std::string::npos) {
-			continue; // Skip files that don't match the query
+			continue; 
 		}
 
 		// Find the parent directory
@@ -441,7 +457,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 	if (ImGui::BeginPopupModal("Create New Prefab", NULL, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove)) {
 		static char newPrefabName[64] = "";
 
-		// Display input text with a hint
+		// Display input text
 		ImGui::PushItemWidth(-1);
 		ImGui::InputTextWithHint("##PrefabInput", "Enter prefab name...", newPrefabName, IM_ARRAYSIZE(newPrefabName));
 		ImGui::PopItemWidth();
@@ -454,7 +470,6 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
 				// Create and register the new prefab
 				std::shared_ptr<Prefab> newPrefab = std::make_shared<Prefab>(prefabName);				
-				// Add a default TransformComponent
 				nlohmann::json defaultTransformComponent = {
 					{"type", "TransformComponent"},
 					{"properties", {
@@ -470,22 +485,14 @@ void AssetsBrowser::RenderPrefabsGrid() {
 
 				// Open the prefab in the PrefabEditor
 				PrefabEditor::OpenPrefabEditor(prefabName);
-
-				// Reset the name and close the popup
 				std::fill(std::begin(newPrefabName), std::end(newPrefabName), '\0');
 				ImGui::CloseCurrentPopup();
 			}
 		}
-
 		ImGui::SameLine();
-
-		// Cancel button
 		if (ImGui::Button("Cancel", ImVec2(100, 0))) ImGui::CloseCurrentPopup();
-
 		ImGui::EndPopup();
 	}
-
-
 }
 
 void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& newPath) {
@@ -516,7 +523,6 @@ void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& 
 			}
 		}
 	}
-
 	std::cout << "Asset replaced successfully: " << oldPath << " with " << newPath << std::endl;
 }
 
