@@ -17,7 +17,7 @@
 //TransformComponent* duckTrfm;
 //RigidbodyComponent* duckRb;
 //AnimatorComponent* duckAnimator;
-//SoundComponent* duckSound1;
+SoundComponent* duckSound1;
 //BoundingCircle* duckCollider;
 
 ////Test Messaging System
