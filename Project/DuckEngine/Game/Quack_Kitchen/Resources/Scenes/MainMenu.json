@@ -157,14 +157,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Player": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 3.7500810623168945,
-                "y": -3.2692699432373047
-            },
-            "prefab": "PlayerPrefab"
-        },
         "buttonBox": {
             "components": [
                 {

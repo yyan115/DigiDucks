@@ -29,11 +29,22 @@ SoundComponent* duckSound1;
 /// This function is called before the scene starts.
 /// </summary>
 /// 
+/// 
+
+Entity* StartButton;
+Entity* ExitButton;
 
 void MainMenu ::Load()
 {
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
+
+	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start");
+	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
+	start->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
+	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
+	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
+	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.Exit(); };
 }
 
 /// <summary>
