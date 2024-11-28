@@ -28,6 +28,8 @@ double TimeManager::total_time = 0.0;
 std::unordered_map<std::string, double> Manager_start_time;
 std::unordered_map<std::string, double> TimeManager::managerData;
 
+double TimeManager::prev_time = glfwGetTime();
+
 /// <summary>
 /// Returns the current frames per second (FPS).
 /// </summary>
@@ -53,9 +55,9 @@ double TimeManager::DT() {
 void TimeManager::UpdateTime(double fps_calc_interval) {
 
     // get elapsed time (in seconds) between previous and current frames
-    static double prev_time = glfwGetTime();
     double curr_time = glfwGetTime();
     delta_time = curr_time - prev_time;
+    std::cout << "DELTA TIME: " << delta_time << std::endl;
     prev_time = curr_time;
 
     // fps calculations
@@ -140,4 +142,9 @@ double TimeManager::GetTotalTime() {
 /// <returns> A vector of pairs, where each pair contains the name of a system manager and the time taken by that manager.</returns>
 const std::unordered_map<std::string, double>& TimeManager::GetManagerData() {
     return managerData;
+}
+
+void TimeManager::ResetPrevTime() 
+{
+    prev_time = glfwGetTime();
 }

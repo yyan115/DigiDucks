@@ -48,7 +48,7 @@ public:
     /// Updates the time manager's internal state, calculating FPS and delta time. This should be called every frame.
     /// </summary>
     /// <param name="fpsCalcInt">Optional interval for calculating FPS, default is 1 second.</param>
-    static void UpdateTime(double fpsCalcInt = 1.0);
+    static DUCKENGINE_API void UpdateTime(double fpsCalcInt = 1.0);
 
     /// <summary>
     /// Starts the system timer for measuring elapsed time in a specific system or process.
@@ -84,6 +84,8 @@ public:
     /// <returns>A vector of pairs containing the name of the manager and the time taken by the manager.</returns>
     static DUCKENGINE_API const std::unordered_map<std::string, double>& GetManagerData();
 
+    static DUCKENGINE_API void ResetPrevTime();
+
 
 private:
     /// <summary>
@@ -114,4 +116,6 @@ private:
     /// Stores the data for all system managers.
     /// </summary>
     static std::unordered_map<std::string, double> managerData;
+
+    static double prev_time;
 };

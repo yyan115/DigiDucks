@@ -162,8 +162,13 @@ bool DuckEngine::IsPlaying()
     return isPlaying;
 }
 
-void DuckEngine::SetPaused(bool paused) {
+void DuckEngine::SetPaused(bool paused) 
+{
     isPaused = paused;
+    if (!IsPaused())
+    {
+        TimeManager::ResetPrevTime();
+    }
 }
 
 bool DuckEngine::IsPaused() {
