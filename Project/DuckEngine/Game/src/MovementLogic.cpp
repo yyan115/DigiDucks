@@ -8,7 +8,7 @@ void MovementLogic::Start()
 	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-	moveSpeed = 30.f;
+	moveSpeed = 2000.f;
 }
 
 void MovementLogic::Update()
@@ -66,7 +66,7 @@ void MovementLogic::FixedUpdate()
 	inputDirection = inputDirection.normalized();
 
 	// Set velocity based on normalized input
-	rigidbody->velocity = inputDirection * moveSpeed;
+	rigidbody->velocity = (inputDirection * moveSpeed) * DuckEngine::FixedDeltaTime();
 
 
 	if (animator)

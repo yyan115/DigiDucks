@@ -50,8 +50,10 @@ void CameraManager::Initialize(const float posX, const float posY, const int hei
 /// </summary>
 /// <param name="x">The new x-coordinate of the camera in world space.</param>
 /// <param name="y">The new y-coordinate of the camera in world space.</param>
-void CameraManager::SetPosition(const float x, const float y) {
-	CameraManager::position = { x, y };
+void CameraManager::SetPosition(const float x, const float y) 
+{
+	position = { x, y };
+	targetCameraPosition = position;
 }
 
 void CameraManager::LerpCameraTo(const float posX, const float posY)

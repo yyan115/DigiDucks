@@ -46,6 +46,7 @@ public:
 		   update tasks.
 	**************************************************************************/
 	DUCKENGINE_API virtual void PostUpdate() = 0;
+	DUCKENGINE_API virtual void FixedUpdate();
 
 	/**************************************************************************
 	@brief Pure virtual function to handle exit procedures for the scene.

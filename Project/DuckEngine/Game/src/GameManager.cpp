@@ -72,9 +72,9 @@ void GameManager::Update()
 
 void GameManager::SetActiveScene(std::string sceneName, bool transition)
 {
+	ActiveSceneName = sceneName;
 	if (transition)
 	{
-		ActiveSceneName = sceneName;
 		ShouldChangeScene = true;
 	}
 	else
