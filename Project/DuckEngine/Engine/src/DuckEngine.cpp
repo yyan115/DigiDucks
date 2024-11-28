@@ -219,7 +219,6 @@ void DuckEngine::Update()
         if (isEditor && isPlaying || !isEditor)
         {
             DUCKENGINE_SystemManager.FixedUpdateAll();
-            DUCKENGINE_SceneManager.FixedUpdate();
         }
         
         accumulatedTime -= FIXED_TIMESTEP;
@@ -497,9 +496,4 @@ float DuckEngine::GetViewportHeight()
 
 void DuckEngine::ToggleFullScreen() {
     WindowManager::ToggleFullscreen();
-}
-
-float DuckEngine::FixedDeltaTime()
-{
-    return static_cast<float>(FIXED_TIMESTEP);
 }

@@ -107,7 +107,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		}
 		else
 		{
-			std::cout << "PLAYING SCENE: " << DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() << std::endl;
 			LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
 			DuckEngine::DUCKENGINE_SystemManager.StartAll();
 			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName(), false);

@@ -36,8 +36,6 @@ class GameScene : public  Scene{
     /// </summary>
     void Update() override;
 
-    void FixedUpdate() override;
-
     /// <summary>
     /// Performs any operations after the main update logic, such as cleanup or post-processing.
     /// This function is called every frame, after the Update() method.

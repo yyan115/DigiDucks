@@ -74,6 +74,7 @@ void GameScene::Update()
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
+	DuckEngine::SetCameraPosition(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
 
 	// For each sound component, play the sound if it is set to play on start
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
@@ -98,11 +99,6 @@ void GameScene::Update()
 	}
 
 
-}
-
-void GameScene::FixedUpdate()
-{
-	CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
 }
 
 /// <summary>

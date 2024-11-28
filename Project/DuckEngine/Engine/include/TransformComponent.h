@@ -91,7 +91,7 @@ class DUCKENGINE_API TransformComponent : public Component
 	{
 		if (position != newPos)
 		{
-			previousPosition = position; 
+			previousPosition = newPos; 
 			position = newPos;
 		}
 	}

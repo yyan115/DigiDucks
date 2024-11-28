@@ -97,14 +97,6 @@ void SceneManager::Update()
     }
 }
 
-void SceneManager::FixedUpdate()
-{
-    if (activeScene)
-    {
-        activeScene->FixedUpdate();
-    }
-}
-
 /**************************************************************************
 @brief Renders the currently active scene. Placeholder function.
 **************************************************************************/
