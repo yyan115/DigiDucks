@@ -50,6 +50,30 @@ public:
         return nullptr;
     }
 
+    template <typename T>
+    std::vector<int> GetAllEntitiesWithLogic()
+    {
+        static_assert(std::is_base_of<GameLogic, T>::value, "T must inherit from GameLogic");
+
+        std::vector<int> entitiesWithLogic;
+
+        for (const auto& [entityID, logics] : entityLogicMap)
+        {
+            for (const auto& logic : logics)
+            {
+                auto typedLogic = std::dynamic_pointer_cast<T>(logic);
+                if (typedLogic)
+                {
+                    entitiesWithLogic.push_back(entityID);
+                    break; // Found the logic for this entity, move to the next entity
+                }
+            }
+        }
+
+        return entitiesWithLogic;
+    }
+
+
     static DUCKENGINE_API void RemoveLogicsForEntity(int entityID);
 
     static void StartAll();
