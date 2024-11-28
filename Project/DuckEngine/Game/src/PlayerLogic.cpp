@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PlayerLogic.h"
 #include "CombineLogic.h"
 #include "SubmitLogic.h"
+#include "RestockLogic.h"
 
 void PlayerLogic::Start()
 {
@@ -24,7 +25,6 @@ void PlayerLogic::Start()
 	boxCollider->SetCollisionCallback([this](int otherEntityID)
 		{
 			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
-
 			// Pickup Object
 			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
 			{
@@ -50,28 +50,28 @@ void PlayerLogic::FixedUpdate()
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(0.f, 1.f);
+			boxCollider->setOffSet(0.f, 1.5f);
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(0.f, -1.f);
+			boxCollider->setOffSet(0.f, -1.5f);
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(-1.f, 0.f);
+			boxCollider->setOffSet(-1.5f, 0.f);
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(1.f, 0.f);
+			boxCollider->setOffSet(1.5f, 0.f);
 		}
 	}
 }
@@ -139,6 +139,13 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
+		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(interactObject->entityID);
+		if (restockLogic)
+		{
+			restockLogic->restockAll();
+			return;
+		}
+
 	}
 	else if (isHolding) // If player is already holding something
 	{
@@ -185,10 +192,6 @@ void PlayerLogic::InteractPressed()
 				chopBoardLogic->setObject(holdingLogic->moveObject());
 				isHolding = false;
 			}
-			else if (chopBoardLogic->isOccupied)
-			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			}
 			return;
 		}
 
@@ -202,11 +205,6 @@ void PlayerLogic::InteractPressed()
 				panLogic->setObject(holdingLogic->moveObject());
 				isHolding = false;
 			}
-			else if (panLogic->isOccupied)
-			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-
-			}
 			return;
 		}
 
@@ -218,6 +216,7 @@ void PlayerLogic::InteractPressed()
 			{
 				submitLogic->removeObject(holdingLogic->moveObject());
 				isHolding = false;
+				std::cout << "Not Holding\n";
 			}
 			return;
 		}

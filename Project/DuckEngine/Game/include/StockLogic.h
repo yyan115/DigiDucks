@@ -25,15 +25,16 @@ class StockLogic : public GameLogic
 {
 private:
 	ItemType type;
+	SpriteRendererComponent* spriteRenderer;
 	int stock;
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), stock(5) {}
+	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), stock(5) {}
 
-	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
+	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), stock(stock_) {}
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
@@ -42,20 +43,61 @@ public:
 		return clone;
 	}
 
-	void Start() override {}
+	void Start() override 
+	{
+		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
+	}
 
-	void Update() override {}
+	void Update() override 
+	{
+		if (type == ItemType::BIN) return;
+		if (stock <= 0)
+		{
+			if (type == ItemType::STEAK || type == ItemType::SHRIMP || type == ItemType::CHEESE)
+			{
+				spriteRenderer->texture = AssetManager::GetTextureByName("empty_fridge");
+			}
+			else {
+				spriteRenderer->texture = AssetManager::GetTextureByName("empty_box");
+			}
+		}
+		else {
+			switch (type)
+			{
+			case ItemType::BUN:
+				spriteRenderer->texture = AssetManager::GetTextureByName("bun_box");
+				break;
+			case ItemType::CHEESE:
+				spriteRenderer->texture = AssetManager::GetTextureByName("cheese_fridge");
+				break;
+			case ItemType::LETTUCE:
+				spriteRenderer->texture = AssetManager::GetTextureByName("lettuce_box");
+				break;
+			case ItemType::MUSHROOM:
+				spriteRenderer->texture = AssetManager::GetTextureByName("mushroom_box");
+				break;
+			case ItemType::SHRIMP:
+				spriteRenderer->texture = AssetManager::GetTextureByName("shrimp_fridge");
+				break;
+			case ItemType::STEAK:
+				spriteRenderer->texture = AssetManager::GetTextureByName("steak_fridge");
+				break;
+			case ItemType::TOMATO:
+				spriteRenderer->texture = AssetManager::GetTextureByName("tomato_box");
+				break;
+			};
+		}
+	}
 
 	void FixedUpdate() override {}
 
-	virtual void restock() { std::cout << "RESTOCKING "; stock = 5; }
+	virtual void restock() { stock = 5; }
 
 	virtual void useStock() 
 	{ 
 		if (stock > 0) 
 		{ 
 			stock--; 
-			std::cout << "Left with " << stock << " worth of stock" << std::endl; 
 		}
 	}
 
