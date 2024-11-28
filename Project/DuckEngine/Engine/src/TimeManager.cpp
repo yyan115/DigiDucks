@@ -57,7 +57,6 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
     // get elapsed time (in seconds) between previous and current frames
     double curr_time = glfwGetTime();
     delta_time = curr_time - prev_time;
-    std::cout << "DELTA TIME: " << delta_time << std::endl;
     prev_time = curr_time;
 
     // fps calculations

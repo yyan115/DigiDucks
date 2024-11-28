@@ -35,7 +35,7 @@ void AnimationEditor::Render()
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse))
+    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse || ImGuiWindowFlags_NoDocking))
     {
         float columnWidth = ImGui::GetContentRegionAvail().x;
         ImGui::Columns(2, nullptr, false);
@@ -80,6 +80,8 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
     ImGui::Separator();
 
     auto& animations = animator->GetAnimations();
+    static std::string renameBuffer;
+    static std::string animationToRename;
 
     for (const auto& [name, animation] : animations)
     {
@@ -123,8 +125,44 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
+    static char renameBuffer[128] = "";
+    static std::string originalName = ""; 
+
+    if (originalName.empty() || originalName != currentAnimationName)
+    {
+        strncpy_s(renameBuffer, sizeof(renameBuffer), currentAnimationName.c_str(), _TRUNCATE);
+        renameBuffer[sizeof(renameBuffer) - 1] = '\0';
+        originalName = currentAnimationName;
+    }
 
     ImGui::Text("Timeline - %s", currentAnimationName.c_str());
+    ImGui::Separator();
+
+    if (ImGui::InputText("##AnimationName", renameBuffer, sizeof(renameBuffer)))
+    {
+    }
+
+    ImGui::SameLine();
+    if (ImGui::Button("Apply##RenameAnimation"))
+    {
+        std::string newName(renameBuffer);
+        if (!newName.empty() && newName != currentAnimationName && animator->animations.find(newName) == animator->animations.end())
+        {
+            auto animationData = animator->animations[currentAnimationName];
+            animator->animations.erase(currentAnimationName);
+            animator->animations[newName] = animationData;
+
+            currentAnimationName = newName;
+            originalName = newName;
+
+            std::cout << "Animation renamed to: " << newName << std::endl;
+        }
+        else
+        {
+            std::cerr << "Error: Animation name must be unique and non-empty!" << std::endl;
+        }
+    }
+
     ImGui::Separator();
 
     int numFrames = static_cast<int>(animation.Frames.size());
