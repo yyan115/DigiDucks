@@ -32,23 +32,24 @@
         },
         {
             "properties": {
-                "center": {
-                    "x": -5.0,
-                    "y": 0.0
-                },
+                "isStatic": false
+            },
+            "type": "RigidbodyComponent"
+        },
+        {
+            "properties": {
+                "isKinematic": false,
                 "offset": {
                     "x": 0.0,
                     "y": 0.0
                 },
-                "radius": 1.0
+                "rotation": 0.0,
+                "size": {
+                    "x": 1.100000023841858,
+                    "y": 1.5499999523162842
+                }
             },
-            "type": "BoundingCircle"
-        },
-        {
-            "properties": {
-                "isStatic": false
-            },
-            "type": "RigidbodyComponent"
+            "type": "BoundingBox"
         }
     ]
 }

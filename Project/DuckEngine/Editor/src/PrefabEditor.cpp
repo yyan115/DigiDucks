@@ -531,10 +531,38 @@ void PrefabEditor::AddComponent()
         ImGui::EndCombo();
     }
 
+    const std::string& selectedType = componentTypes[selectedComponentIndex];
+    bool componentExists = false;
+
+    for (const auto& comp : currentPrefab->componentsData)
+    {
+        if (comp["type"] == selectedType)
+        {
+            componentExists = true;
+            break;
+        }
+    }
+
+    if (componentExists)
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+        ImGui::Button("Add Component");
+        ImGui::PopStyleVar();
+
+        if (ImGui::IsItemHovered())
+        {
+            ImGui::SetTooltip("This component type already exists on the prefab");
+        }
+        return;
+    }
+
+
     if (ImGui::Button("Add Component"))
     {
         const std::string& selectedType = componentTypes[selectedComponentIndex];
         nlohmann::json newComponent = { { "type", selectedType }, { "properties", {} } };
+
+        std::cout << "Selected Type: " << selectedType << std::endl;
 
         if (selectedType == "TransformComponent")
         {
@@ -561,21 +589,37 @@ void PrefabEditor::AddComponent()
         }
         else if (selectedType == "BoundingBox")
         {
+            Vec2 scale(0.5f, 0.5f);
+            Vec2 position(0.0f, 0.0f);
+
+            for (const auto& comp : currentPrefab->componentsData)
+            {
+                if (comp["type"] == "TransformComponent")
+                {
+                    float transformScaleX = comp["properties"]["scale"].value("x", 1.0f);
+                    float transformScaleY = comp["properties"]["scale"].value("y", 1.0f);
+
+                    scale = Vec2(transformScaleX * 0.5f, transformScaleY * 0.5f);
+
+                    position = Vec2(
+                        comp["properties"]["position"].value("x", 0.0f),
+                        comp["properties"]["position"].value("y", 0.0f)
+                    );
+                    break;
+                }
+            }
+
             newComponent["properties"] = {
                 { "offset", { { "x", 0.0f }, { "y", 0.0f } } },
-                { "size", { { "x", 1.0f }, { "y", 1.0f } } },
+                { "size", {
+                    { "x", scale.x },
+                    { "y", scale.y }
+                }},
                 { "rotation", 0.0f },
                 { "isKinematic", false }
             };
         }
-        else if (selectedType == "BoundingCircle")
-        {
-            newComponent["properties"] = {
-                { "offset", { { "x", 0.0f }, { "y", 0.0f } } },
-                { "radius", 1.0f },
-                { "isKinematic", false }
-            };
-        }
+
         else if (selectedType == "AnimatorComponent")
         {
             newComponent["properties"] = {

@@ -635,7 +635,6 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 	ImGui::Separator();
 	ImGui::Text("Add Component");
 
-	// Dropdown for selecting components to add
 	static int selectedComponentIndex = 0;
 	if (ImGui::BeginCombo("##AddComponent", componentTypes[selectedComponentIndex].c_str())) {
 		for (int i = 0; i < componentTypes.size(); i++) {
@@ -650,8 +649,45 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 		ImGui::EndCombo();
 	}
 
-	// Button to add the selected component
-	if (ImGui::Button("Add Component")) {
+	// Check if the selected component already exists
+	bool componentExists = false;
+	const std::string& selectedType = componentTypes[selectedComponentIndex];
+
+	if (selectedType == "TransformComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<TransformComponent>(entityID);
+	else if (selectedType == "SpriteRendererComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SpriteRendererComponent>(entityID);
+	else if (selectedType == "RigidbodyComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<RigidbodyComponent>(entityID);
+	else if (selectedType == "BoundingBox")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingBox>(entityID);
+	else if (selectedType == "BoundingCircle")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingCircle>(entityID);
+	else if (selectedType == "AnimatorComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<AnimatorComponent>(entityID);
+	else if (selectedType == "SoundComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(entityID);
+	else if (selectedType == "TextComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<TextComponent>(entityID);
+	else if (selectedType == "ButtonComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<ButtonComponent>(entityID);
+	else if (selectedType == "GameLogicComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<GameLogicComponent>(entityID);
+
+	// Disable the Add Component button if component exists
+	if (componentExists)
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+		ImGui::Button("Add Component");
+		ImGui::PopStyleVar();
+
+		if (ImGui::IsItemHovered())
+		{
+			ImGui::SetTooltip("This component type already exists on the entity");
+		}
+	}
+
+	else if (ImGui::Button("Add Component")) {
 		AddComponentToEntity(componentTypes[selectedComponentIndex], entityID);
 		hasChanged = true;
 	}
