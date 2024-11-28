@@ -83,7 +83,7 @@ bool canCombine(ItemType lhs, ItemType rhs)
 std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<int, ItemType> rhs)
 {
     DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(rhs.first);
-    ItemType newItem;
+    ItemType newItem = ItemType::EMPTY;
     int ObjectID = lhs.first;
 	SpriteRendererComponent* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ObjectID);
 

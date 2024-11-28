@@ -671,7 +671,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.8999999761581421,
+                            "x": 0.0,
                             "y": 0.0
                         },
                         "relativeToCamera": true,
@@ -705,8 +705,8 @@
                             "y": 0.0
                         },
                         "size": {
-                            "x": 0.20000000298023224,
-                            "y": 0.20000000298023224
+                            "x": 0.10000000149011612,
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "BoundingBox"
@@ -952,12 +952,6 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": []
-                    },
-                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -1064,7 +1058,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 2.5
+                            "y": 2.0
                         }
                     },
                     "type": "BoundingBox"

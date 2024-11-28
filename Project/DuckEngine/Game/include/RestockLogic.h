@@ -18,7 +18,8 @@ public:
 		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr) {}
 
 	void Start() override;
-	void Update() override;
+	void Update() override {}
+	void FixedUpdate() override {}
 
 
 	std::shared_ptr<GameLogic> Clone() const override

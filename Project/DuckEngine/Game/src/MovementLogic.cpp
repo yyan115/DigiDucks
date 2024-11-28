@@ -8,6 +8,7 @@ void MovementLogic::Start()
 	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+	moveSpeed = 30.f;
 }
 
 void MovementLogic::Update()
@@ -21,8 +22,6 @@ void MovementLogic::FixedUpdate()
 	{
 		return;
 	}
-
-	float moveSpeed = 10.0f;
 
 	// Reset the player's velocity at the start of each fixed update
 	rigidbody->velocity = Vec2(0.f, 0.f);
@@ -64,12 +63,7 @@ void MovementLogic::FixedUpdate()
 	}
 
 	// Normalize the input direction if it's not zero
-	if (inputDirection.x != 0.0f || inputDirection.y != 0.0f)
-	{
-		float length = std::sqrt(inputDirection.x * inputDirection.x + inputDirection.y * inputDirection.y);
-		inputDirection.x /= length;
-		inputDirection.y /= length;
-	}
+	inputDirection = inputDirection.normalized();
 
 	// Set velocity based on normalized input
 	rigidbody->velocity = inputDirection * moveSpeed;
