@@ -16,7 +16,7 @@ public:
 
 
 	static void InitScenes();
-	static void SetActiveScene(std::string sceneName);
+	static void SetActiveScene(std::string sceneName, bool transition = true);
 	static void Update();
 };
 

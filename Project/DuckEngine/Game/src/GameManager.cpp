@@ -68,8 +68,15 @@ void GameManager::Update()
 
 
 
-void GameManager::SetActiveScene(std::string sceneName)
+void GameManager::SetActiveScene(std::string sceneName, bool transition)
 {
-	ActiveSceneName = sceneName;
-	ShouldChangeScene = true;
+	if (transition)
+	{
+		ActiveSceneName = sceneName;
+		ShouldChangeScene = true;
+	}
+	else
+	{
+		DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+	}
 }

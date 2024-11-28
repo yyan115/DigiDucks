@@ -101,7 +101,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		if (!isPlaying)
 		{
 			SoundSystem::StopAllSounds();
-			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName(), false);
 			DuckEngine::SetPaused(false);
 			CameraManager::ResetToDefault();
 		}
@@ -109,7 +109,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		{
 			LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
 			DuckEngine::DUCKENGINE_SystemManager.StartAll();
-			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName(), false);
 			SoundSystem::ResumeAllSounds();
 			DuckEngine::SetPaused(false);
 		}

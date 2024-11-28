@@ -99,6 +99,7 @@ void EntityManager::RemoveAllEntities()
         DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entity.entityID);
     }
 
+
     entities.clear();
 
     ResetEntityID();
