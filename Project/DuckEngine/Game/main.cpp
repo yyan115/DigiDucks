@@ -39,9 +39,12 @@ int WINAPI WinMain(
     // load all assets before game loop starts
     AssetManager::LoadAll();
 
+    DuckEngine::ToggleFullScreen();
+
 
     while (gManager.DuckEngine.Running())
     {
+
         if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
             || DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
             ) {
