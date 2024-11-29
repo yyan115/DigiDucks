@@ -17,6 +17,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
 
+float actionCooldown = 0.5f;
+float actionCounter = 0.5f;
+
 void PlayerLogic::Start()
 {
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
@@ -28,9 +31,10 @@ void PlayerLogic::Start()
 			{
 				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
 				// Pickup Object
-				if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
+				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R) && actionCounter <= 0)
 				{
 					InteractPressed();
+					actionCounter = actionCooldown;
 				}
 				// Use Object
 				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_T))
@@ -42,11 +46,17 @@ void PlayerLogic::Start()
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	dir = FRONT;
 	isHolding = false;
+
+	actionCounter = actionCooldown;
 }
 
 
 void PlayerLogic::Update()
 {
+	if (actionCounter >= 0)
+	{
+		actionCounter -= DuckEngine::DeltaTime();
+	}
 	if (animator)
 	{
 		if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_D)
@@ -147,6 +157,8 @@ void PlayerLogic::FixedUpdate()
 
 void PlayerLogic::InteractPressed()
 {	
+	std::cout << "Interact Pressed" << std::endl;
+
 	// If player isnt holding anything
 	if (!isHolding)
 	{

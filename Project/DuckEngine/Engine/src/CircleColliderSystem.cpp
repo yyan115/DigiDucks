@@ -31,7 +31,23 @@ void CircleColliderSystem::Start()
  * @return void
  ****************************************************************/
 void CircleColliderSystem::Update() {
+	//float deltaTime = DuckEngine::DeltaTime();
+	//Vec2 interceptPoint;
+	//for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+	//{
+	//	BoundingCircle* entityCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
+	//	TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+	//	RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+	//	for (const auto& [entity2Id, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+	//	{
+	//		if (entityId == entity2Id) continue;
 
+	//		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entity2Id);
+	//		TransformComponent* entityTrans2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity2Id);
+	//		RigidbodyComponent* entityRb2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entity2Id);
+	//		checkCollisionCB(*entityCircle, *entityBox, interceptPoint, deltaTime, entityRb->velocity);
+	//	}
+	//}
 }
 
 void CircleColliderSystem::FixedUpdate()
