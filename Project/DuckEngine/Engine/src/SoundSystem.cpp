@@ -50,7 +50,7 @@ void SoundSystem::StopAllSounds() {
             soundComponent->Stop();  // Stop each sound
 		}
     }
-    std::cout << "All sounds stopped." << std::endl;
+    //std::cout << "All sounds stopped." << std::endl;
 }
 
 void SoundSystem::PauseAllSounds() {
@@ -60,7 +60,7 @@ void SoundSystem::PauseAllSounds() {
             soundComponent->Pause();
         }
     }
-    std::cout << "All sounds paused." << std::endl;
+    //std::cout << "All sounds paused." << std::endl;
 }
 
 void SoundSystem::ResumeAllSounds() {
@@ -70,6 +70,6 @@ void SoundSystem::ResumeAllSounds() {
             soundComponent->Resume();
         }
     }
-    std::cout << "All sounds resumed." << std::endl;
+    //std::cout << "All sounds resumed." << std::endl;
 }
 

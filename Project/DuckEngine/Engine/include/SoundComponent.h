@@ -62,6 +62,7 @@ public:
     * @return void
     ***************************************************************/
     DUCKENGINE_API void Play();
+    DUCKENGINE_API void PlayHold();
 
     /****************************************************************
 	* @brief Stop the sound if it is playing

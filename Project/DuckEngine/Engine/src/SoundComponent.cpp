@@ -33,7 +33,24 @@ void SoundComponent::Play() {
     // Stop the current sound on this channel if playing
     if (channel) {
         channel->stop();
+    }  
+
+    sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
+
+    // Play the new sound on a fresh channel
+    FMOD::Channel* newChannel = nullptr;
+    DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()->playSound(sound, nullptr, false, &newChannel);
+    if (newChannel) {
+        newChannel->setVolume(volume);
     }
+    channel = newChannel;
+}
+
+void SoundComponent::PlayHold() {
+    FMOD::Sound* sound = DuckEngine::DUCKENGINE_AssetManager.GetSounds(soundID);
+    if (!sound || !DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()) return;
+
+    if (IsSoundPlaying()) return;
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
 

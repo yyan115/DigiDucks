@@ -79,6 +79,7 @@ void PlayerLogic::Update()
 
 void PlayerLogic::FixedUpdate()
 {
+
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		if (boxCollider)
@@ -156,14 +157,16 @@ void PlayerLogic::FixedUpdate()
 
 
 void PlayerLogic::InteractPressed()
-{	
-	std::cout << "Interact Pressed" << std::endl;
-
+{
+	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
+		sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(interactObject->entityID);
+	}
+	
 	// If player isnt holding anything
 	if (!isHolding)
 	{
 		// Check if Stock Object
-		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
+		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);		
 		if (stockLogic)
 		{
 			// If empty stock or Bin, do nothing
@@ -176,6 +179,7 @@ void PlayerLogic::InteractPressed()
 			Entity* newObject = makeObject(stockLogic->getType());
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 			holdingLogic->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
+			sound->Play();
 			isHolding = true;
 			return;
 		}
@@ -188,6 +192,7 @@ void PlayerLogic::InteractPressed()
 			{
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(tableLogic->moveObject());
+				sound->Play();
 				isHolding = true;
 			}
 			return;
@@ -201,6 +206,7 @@ void PlayerLogic::InteractPressed()
 			{
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(chopBoardLogic->moveObject());
+
 				isHolding = true;
 			}
 			return;
@@ -305,6 +311,10 @@ void PlayerLogic::InteractPressed()
 
 void PlayerLogic::InteractHold()
 {
+	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
+		sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(interactObject->entityID);
+	}
+
 	// Hold down is for Cutting/Cooking
 	// Player Must Not be Holding Anything
 	if (!isHolding)
@@ -314,11 +324,12 @@ void PlayerLogic::InteractHold()
 		{
 			// Something on the board
 			if (chopBoardLogic->isOccupied)
-			{
+			{				
 				chopBoardLogic->chopObject();
 				if (animator)
 				{
-					animator->PlayAnimation("CHOP");
+					sound->PlayHold();
+					animator->PlayAnimation("CHOP");					
 				}
 			}
 
@@ -333,6 +344,7 @@ void PlayerLogic::InteractHold()
 				panLogic->cookObject();
 				if (animator)
 				{
+					sound->Play();
 					//animator->PlayAnimation("Cook");
 				}
 			}

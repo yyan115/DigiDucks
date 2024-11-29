@@ -112,6 +112,7 @@ void PanLogic::makeEmptyPan()
 
 	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(object->entityID);
 	objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
+	objectSprite->sortingOrder = 2;
 
 	isOccupied = false;
 	isCooked = false;

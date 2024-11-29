@@ -231,7 +231,7 @@ void AssetManager::LoadAllSounds(const std::string& directoryPath) {
 	}
 
 	// Iterate over sound files in the specified directory
-	for (const auto& entry : fs::directory_iterator(directoryPath)) {
+	for (const auto& entry : fs::recursive_directory_iterator(directoryPath)) {
 		if (entry.is_regular_file()) {
 			std::string filePath = NormalizePath(entry.path().string());
 			std::string fileExtension = entry.path().extension().string();
