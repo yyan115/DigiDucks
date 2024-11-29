@@ -88,6 +88,7 @@ void ButtonSystem::Update()
                     {
                         button->onClick();
                     }
+                    button->onHover();
                 }
                 else {
 
