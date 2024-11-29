@@ -389,7 +389,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 			color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
 		}
 
-		auto textComponent = std::make_shared<TextComponent>(fontName, text, position, fontSize, color);
+		auto textComponent = std::make_shared<TextComponent>(fontName, text, position, static_cast<float>(fontSize), color);
 		return textComponent;
 	}
 	else if (type == "ButtonComponent")

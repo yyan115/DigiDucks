@@ -501,7 +501,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/duck.png",
+                        "texture": "Resources/Sprites/Duck/duck_walk4.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -1302,8 +1302,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.11347562074661255,
-                            "y": -0.08733630180358887
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1332,8 +1332,21 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -0.11347562074661255,
-                            "y": -0.08733630180358887
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 0.10000000149011612,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "radius": 1.0
                     },
@@ -1350,7 +1363,44 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "IdleAnimation",
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "RIGHT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
                                 "textures": [
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
@@ -1359,32 +1409,58 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FowardAnimation",
+                                "name": "LEFT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/duck_front1.png",
-                                    "Resources/Sprites/Duck/duck_front3.png",
-                                    "Resources/Sprites/Duck/duck_front2..png",
-                                    "Resources/Sprites/Duck/duck_front3.png",
-                                    "Resources/Sprites/Duck/duck_front4.png",
-                                    "Resources/Sprites/Duck/duck_front6.png",
-                                    "Resources/Sprites/Duck/duck_front5.png",
-                                    "Resources/Sprites/Duck/duck_front6.png"
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
-                                "frameDuration": 0.20000000298023224,
-                                "name": "BackAnimation",
-                                "textures": []
+                                "frameDuration": 0.10000000149011612,
+                                "name": "RIGHT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_right3.png",
+                                    "Resources/Sprites/Duck/duck_right2.png",
+                                    "Resources/Sprites/Duck/duck_right1.png",
+                                    "Resources/Sprites/Duck/duck_right2.png",
+                                    "Resources/Sprites/Duck/duck_right3.png",
+                                    "Resources/Sprites/Duck/duck_right5.png",
+                                    "Resources/Sprites/Duck/duck_right4.png",
+                                    "Resources/Sprites/Duck/duck_right5.png"
+                                ]
                             },
                             {
-                                "frameDuration": 0.20000000298023224,
-                                "name": "LeftAnimation",
-                                "textures": []
+                                "frameDuration": 0.10000000149011612,
+                                "name": "BACK_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_back1.png",
+                                    "Resources/Sprites/Duck/duck_back3.png",
+                                    "Resources/Sprites/Duck/duck_back2.png",
+                                    "Resources/Sprites/Duck/duck_back3.png",
+                                    "Resources/Sprites/Duck/duck_back4.png",
+                                    "Resources/Sprites/Duck/duck_back6.png",
+                                    "Resources/Sprites/Duck/duck_back5.png",
+                                    "Resources/Sprites/Duck/duck_back6.png"
+                                ]
                             },
                             {
-                                "frameDuration": 0.20000000298023224,
-                                "name": "RightAnimation",
-                                "textures": []
+                                "frameDuration": 0.10000000149011612,
+                                "name": "BACK_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_back_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_back_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_back_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "CHOP",
+                                "textures": [
+                                    "Resources/Sprites/Duck/cut/cut1.png",
+                                    "Resources/Sprites/Duck/cut/cut2.png",
+                                    "Resources/Sprites/Duck/cut/cut3.png"
+                                ]
                             }
                         ]
                     },

@@ -75,7 +75,7 @@ void DuckEngine::Initialize(bool _isEditor)
     isEditor = _isEditor;
     // need to grab width and height from XML for rubrics in the future
     // Init Window, then Graphics, then Input
-    Serialization::InitJson("Resources/windows_init.json");
+    //Serialization::InitJson("Resources/windows_init.json");
     WindowInit window = Serialization::GetWindowInit();
     WindowManager::Initialize(1600, 900, "HEHE");
     GraphicsManager::Initialize();
