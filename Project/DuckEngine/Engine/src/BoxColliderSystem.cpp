@@ -32,7 +32,12 @@ void BoxColliderSystem::Start()
 ****************************************************************/
 void BoxColliderSystem::Update() 
 {
-	float deltaTime = DuckEngine::DeltaTime();
+
+}
+
+void BoxColliderSystem::FixedUpdate()
+{
+	float deltaTime = DuckEngine::FixedDeltaTime();
 	Vec2 intercepPt;
 
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
@@ -41,7 +46,7 @@ void BoxColliderSystem::Update()
 		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 		RigidbodyComponent* entityRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
 
-		if (!entityRb || entityRb->isStatic) 
+		if (!entityRb || entityRb->isStatic)
 		{
 			entityBox->setCenter(entityTrans->GetPosition() + entityBox->getOffSet());
 			continue;	// No rb = not moving
@@ -68,20 +73,20 @@ void BoxColliderSystem::Update()
 			if (!entityTrans2) continue;
 
 			if (!entityRb2) // One of the box is moving
-			{	
-				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity)) 
+			{
+				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity))
 				{
-					if (!entityBox->isKinematic || !entityBox2->isKinematic) 
-					{ 
-						continue; 
+					if (!entityBox->isKinematic || !entityBox2->isKinematic)
+					{
+						continue;
 					}
 
 					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
-			else 
+			else
 			{
-				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity, entityRb2->velocity)) 
+				if (checkCollisionBB(*entityBox, *entityBox2, deltaTime, entityRb->velocity, entityRb2->velocity))
 				{
 					if (!entityBox->isKinematic || !entityBox2->isKinematic)
 					{
@@ -96,12 +101,12 @@ void BoxColliderSystem::Update()
 					else	// If the box is not static
 					{
 						Vec2 combinedVelocity = entityRb->velocity + entityRb2->velocity;
-						if (entityRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared()) 
+						if (entityRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared())
 						{
 							entityRb2->velocity = Vec2(0.f, 0.f);
 							entityRb->velocity = 3 * combinedVelocity / 4;
 						}
-						else 
+						else
 						{
 							entityRb2->velocity = 3 * combinedVelocity / 4;
 							entityRb->velocity = Vec2(0.f, 0.f);
@@ -124,9 +129,9 @@ void BoxColliderSystem::Update()
 
 							if (!circleTrans) continue;
 
-							if (!circleRb) 
+							if (!circleRb)
 							{
-								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity)) 
+								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity))
 								{
 									if (!circle->isKinematic)
 									{
@@ -137,9 +142,9 @@ void BoxColliderSystem::Update()
 									entityRb2->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
-							else 
+							else
 							{
-								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity, circleRb->velocity)) 
+								if (checkCollisionBC(*entityBox2, *circle, intercepPt, deltaTime, entityRb2->velocity, circleRb->velocity))
 								{
 									if (!circle->isKinematic)
 									{
@@ -150,15 +155,15 @@ void BoxColliderSystem::Update()
 										entityRb->velocity = Vec2(0.0f, 0.0f);
 										entityRb2->velocity = Vec2(0.0f, 0.0f);
 									}
-									else 
+									else
 									{
 										combinedVelocity = circleRb->velocity + entityRb2->velocity;
-										if (circleRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared()) 
+										if (circleRb->velocity.lengthSquared() < entityRb2->velocity.lengthSquared())
 										{
 											entityRb2->velocity = Vec2(0.f, 0.f);
 											circleRb->velocity = 3 * combinedVelocity / 4;
 										}
-										else 
+										else
 										{
 											entityRb2->velocity = 3 * combinedVelocity / 4;
 											circleRb->velocity = Vec2(0.f, 0.f);
@@ -193,9 +198,9 @@ void BoxColliderSystem::Update()
 
 			if (!entityTrans2) continue;
 
-			if (!entityRb2) 
+			if (!entityRb2)
 			{
-				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity)) 
+				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity))
 				{
 					if (!entityBox->isKinematic || !entityCircle->isKinematic)
 					{
@@ -204,9 +209,9 @@ void BoxColliderSystem::Update()
 					entityRb->velocity = Vec2(0.0f, 0.0f);
 				}
 			}
-			else 
+			else
 			{
-				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity, entityRb2->velocity)) 
+				if (checkCollisionBC(*entityBox, *entityCircle, intercepPt, deltaTime, entityRb->velocity, entityRb2->velocity))
 				{
 					if (!entityBox->isKinematic || !entityCircle->isKinematic)
 					{
@@ -216,15 +221,15 @@ void BoxColliderSystem::Update()
 					if (entityRb2->isStatic) {
 						entityRb->velocity = Vec2(0.0f, 0.0f);
 					}
-					else 
+					else
 					{
 						Vec2 combinedVelocity = entityRb2->velocity + entityRb->velocity;
-						if (entityRb2->velocity.lengthSquared() < entityRb->velocity.lengthSquared()) 
+						if (entityRb2->velocity.lengthSquared() < entityRb->velocity.lengthSquared())
 						{
 							entityRb->velocity = Vec2(0.f, 0.f);
 							entityRb2->velocity = 3 * combinedVelocity / 4;
 						}
-						else 
+						else
 						{
 							// If circle velocity is greater, box will gain more velocity
 							entityRb->velocity = 3 * combinedVelocity / 4;
@@ -247,9 +252,9 @@ void BoxColliderSystem::Update()
 
 							if (!circleTrans2) continue;
 
-							if (!circleRb2) 
+							if (!circleRb2)
 							{
-								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity)) 
+								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity))
 								{
 									if (!entityCircle2->isKinematic)
 									{
@@ -259,9 +264,9 @@ void BoxColliderSystem::Update()
 									entityRb->velocity = Vec2(0.0f, 0.0f);
 								}
 							}
-							else 
+							else
 							{
-								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity, circleRb2->velocity)) 
+								if (checkCollisionCC(*entityCircle, *entityCircle2, deltaTime, entityRb2->velocity, circleRb2->velocity))
 								{
 									if (!entityCircle2->isKinematic)
 									{
@@ -274,14 +279,14 @@ void BoxColliderSystem::Update()
 										entityRb->velocity = Vec2(0.0f, 0.0f);
 									}
 									else // If the circle is not static
-									{ 
+									{
 										combinedVelocity = entityRb2->velocity + circleRb2->velocity;
-										if (entityRb2->velocity.lengthSquared() < circleRb2->velocity.lengthSquared()) 
+										if (entityRb2->velocity.lengthSquared() < circleRb2->velocity.lengthSquared())
 										{
 											circleRb2->velocity = Vec2(0.f, 0.f);
 											entityRb2->velocity = 3 * combinedVelocity / 4;
 										}
-										else 
+										else
 										{
 											// If circle velocity is greater, box will gain more velocity
 											circleRb2->velocity = 3 * combinedVelocity / 4;

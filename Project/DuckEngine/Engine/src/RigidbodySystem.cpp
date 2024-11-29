@@ -50,7 +50,7 @@ void RigidbodySystem::Update()
 void RigidbodySystem::FixedUpdate()
 {
     // Get deltaTime (elapsed time between frames)
-    float deltaTime = DuckEngine::DeltaTime();
+    float deltaTime = DuckEngine::FixedDeltaTime();
 
     // Loop through all entities that have RigidbodyComponent
     for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())

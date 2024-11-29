@@ -59,7 +59,7 @@ int WINAPI WinMain(
 
     DuckEngine::SetCameraHeight(20);
     GameManager::InitScenes();
-    GameManager::SetActiveScene("SpriteMovementScene");
+    GameManager::SetActiveScene("GameScene");
     uiManager.Initialize();
     SceneWindow::Initialize();
     EditorInputManager::Initialize();

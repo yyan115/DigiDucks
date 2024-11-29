@@ -8,7 +8,7 @@ void MovementLogic::Start()
 	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-	moveSpeed = 30.f;
+	moveSpeed = 10.f;
 	dir = FRONT;
 }
 

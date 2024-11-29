@@ -32,5 +32,6 @@ public:
 	void Start() override;
 	void EditorUpdate() override;
 	void Update() override;
+	void FixedUpdate() override;
 	void Render() override;
 }; 

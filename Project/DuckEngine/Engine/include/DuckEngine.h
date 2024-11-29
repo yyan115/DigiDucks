@@ -127,6 +127,7 @@ public:
     @return The time in seconds between frames.
     *************************************************************************/
     static DUCKENGINE_API float DeltaTime();
+    static DUCKENGINE_API float FixedDeltaTime() { return static_cast<float>(FIXED_TIMESTEP); };
 
     /************************************************************************
     @brief Retrieves the current frames per second (FPS).

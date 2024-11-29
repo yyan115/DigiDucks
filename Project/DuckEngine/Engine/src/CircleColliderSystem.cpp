@@ -31,7 +31,12 @@ void CircleColliderSystem::Start()
  * @return void
  ****************************************************************/
 void CircleColliderSystem::Update() {
-	float deltaTime = DuckEngine::DeltaTime();
+
+}
+
+void CircleColliderSystem::FixedUpdate()
+{
+	float deltaTime = DuckEngine::FixedDeltaTime();
 	Vec2 interceptPoint;
 
 	// Find player's circle collider
