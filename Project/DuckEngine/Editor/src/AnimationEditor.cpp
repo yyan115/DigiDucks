@@ -1,8 +1,10 @@
 /******************************************************************************/
 /*!
 \file       AnimationEditor.cpp
-\author     Lucas Yee JunJie, l.yee, 2301212
+\author     Lucas Yee 2301212 (70%)
 \par        l.yee@digipen.edu
+\author     Muhammad Zikry Bin Zakaria , 2201751 (30%)
+\par        muhammadzikry.b@digipen.edu
 \date       November 30 2024
 \brief      Implements the AnimationEditor class, which provides an editor
             interface for managing animations of game entities. This includes

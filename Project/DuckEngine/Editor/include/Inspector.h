@@ -58,8 +58,18 @@ public:
     ***************************************************************/
     static bool IsAllowedExtension(const std::string& filePath, const std::unordered_set<std::string>& allowedExtensions);
 
-
+    /****************************************************************
+	* @brief Gets the list of available component types
+    *
+	* @return std::vector<std::string>
+    ***************************************************************/
     static std::vector<std::string> GetComponentTypes();
+
+    /****************************************************************
+    * @brief Gets the list of allowed image extensions
+    *
+    * @return std::unordered_set<std::string>
+    ***************************************************************/
     static std::unordered_set<std::string> GetAllowedImageExtensions();
 
 

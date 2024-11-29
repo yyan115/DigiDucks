@@ -22,7 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <filesystem>
 #include <iostream>
-#include <algorithm> // For std::transform
+#include <algorithm>
 
 static char searchQuery[128] = ""; // Buffer to store the search query
 std::string queryLower = ""; // Lowercase version of the search query
@@ -82,7 +82,7 @@ void AssetsBrowser::RenderDirectoryTree() {
 	const std::string rootPath = "Resources";
 	const std::string prefabsPath = rootPath + "/Prefabs";
 
-	// Ensure "Prefabs" directory exists
+	// Ensure Prefabs directory exists
 	if (!fs::exists(prefabsPath)) {
 		fs::create_directory(prefabsPath);
 	}
@@ -167,7 +167,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 		// Load the folder icon		
 		if (Foldertexture) {
 			ImGui::Image((void*)(intptr_t)Foldertexture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
-			// Check if the user clicks on the image
 			if (ImGui::IsItemClicked(ImGuiMouseButton_Left)) {
 				selectedFolderPath = normalizedPath;
 				selectedFolderName = fileName;
@@ -255,9 +254,8 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 					auto currentWriteTime = std::filesystem::last_write_time(normalizedPath);
 					auto it = fileModificationTimes.find(normalizedPath);
 					bool needsReload = (it == fileModificationTimes.end() || it->second != currentWriteTime);
-
-					if (needsReload) {
-						// Update the modification time
+					// Update the modification time
+					if (needsReload) {	
 						fileModificationTimes[normalizedPath] = currentWriteTime;
 						DuckEngine::DUCKENGINE_AssetManager.UnloadTexture(normalizedPath);
 						DuckEngine::DUCKENGINE_AssetManager.LoadTexture(normalizedPath);
@@ -293,9 +291,8 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 					auto currentWriteTime = std::filesystem::last_write_time(normalizedPath);
 					auto it = fileModificationTimes.find(normalizedPath);
 					bool needsReload = (it == fileModificationTimes.end() || it->second != currentWriteTime);
-
-					if (needsReload) {
-						// Update the modification time
+					// Update the modification time
+					if (needsReload) {						
 						fileModificationTimes[normalizedPath] = currentWriteTime;
 						DuckEngine::DUCKENGINE_AssetManager.ReloadSound(normalizedPath, normalizedPath);
 					}
@@ -312,7 +309,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
 					if (texture) {
 						ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
-						// Handle double-click for loading the scene
+						// Handle doubleclick for loading the scene
 						if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
 							// Get the file name without extension
 							std::string sceneName = entry.path().stem().string(); 
@@ -386,9 +383,6 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 	}
 }
 
-
-
-
 // Render the prefabs in the right pane as a grid
 void AssetsBrowser::RenderPrefabsGrid() {
 	// Calculate how many items can fit in one row
@@ -413,7 +407,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 			ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
 		}
 
-		// Drag-and-drop source for the prefab
+		// Drag/drop source for the prefab
 		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
 			ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);
 			ImGui::Text("Drag %s", prefabName.c_str());

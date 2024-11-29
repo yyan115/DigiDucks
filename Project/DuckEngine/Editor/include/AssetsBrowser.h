@@ -24,6 +24,15 @@ public:
     * @return void
     ***************************************************************/
     static void ShowAssets();
+
+    /****************************************************************
+   * @brief Handles file drop events
+   *
+   * @param window The window that received the event
+   * @param count The number of files dropped
+   * @param paths The paths to the files
+   * @return void
+   ***************************************************************/
     static void HandleFileDrop(GLFWwindow* window, int count, const char** paths);
 private:
     /****************************************************************
@@ -55,7 +64,7 @@ private:
     ***************************************************************/
     static void ReplaceAsset(const std::string& oldPath, const std::string& newPath);
 
-    
+	// Variables
     static std::string selectedFolderPath;
     static std::string selectedFolderName;
 };
