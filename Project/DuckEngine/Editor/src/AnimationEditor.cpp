@@ -27,51 +27,61 @@ void AnimationEditor::Render()
     auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(selectedEntityID);
     if (!animator)
     {
-        ImGui::Text("No Animator Component found on this entity.");
-        if (ImGui::Button("Close")) isOpen = false;
+        if (ImGui::Begin("Animation Editor", &isOpen)) {
+            ImGui::Text("No Animator Component found on this entity.");
+            if (ImGui::Button("Close")) isOpen = false;
+        }
+        ImGui::End();
         return;
     }
 
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse))
+    bool windowOpen = true;
+    if (ImGui::Begin("Animation Editor", &windowOpen, ImGuiWindowFlags_NoCollapse))
     {
         float columnWidth = ImGui::GetContentRegionAvail().x;
         ImGui::Columns(2, nullptr, false);
         ImGui::SetColumnWidth(0, columnWidth * 0.2f);
 
-        ImGui::BeginChild("AnimationList", ImVec2(0, 0), true);
-        RenderAnimationList(animator);
+        if (ImGui::BeginChild("AnimationList", ImVec2(0, 0), true))
+        {
+            RenderAnimationList(animator);
+        }
         ImGui::EndChild();
 
         ImGui::NextColumn();
 
-        ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true);
-        if (!currentAnimationName.empty())
+        if (ImGui::BeginChild("AnimationDetails", ImVec2(0, 0), true))
         {
-            if (previousAnimationName != currentAnimationName)
+            if (!currentAnimationName.empty())
             {
-                isPreviewing = false;
-                previewElapsedTime = 0.0f;
-                previewCurrentFrame = 0;
-                previousAnimationName = currentAnimationName;
-            }
+                if (previousAnimationName != currentAnimationName)
+                {
+                    isPreviewing = false;
+                    previewElapsedTime = 0.0f;
+                    previewCurrentFrame = 0;
+                    previousAnimationName = currentAnimationName;
+                }
 
-            RenderTimeline(animator);
-            RenderAnimationProperties(animator);
-            RenderAnimationPreview(animator);
-        }
-        else
-        {
-            ImGui::Text("Select an animation to edit.");
+                RenderTimeline(animator);
+                RenderAnimationProperties(animator);
+                RenderAnimationPreview(animator);
+            }
+            else
+            {
+                ImGui::Text("Select an animation to edit.");
+            }
         }
         ImGui::EndChild();
 
         ImGui::Columns(1);
-
-        ImGui::End();
     }
+    ImGui::End();
+
+    if (!windowOpen)
+        isOpen = false;
 }
 
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
