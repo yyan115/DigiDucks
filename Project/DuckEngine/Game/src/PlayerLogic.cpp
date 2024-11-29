@@ -192,7 +192,7 @@ void PlayerLogic::InteractPressed()
 			{
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(tableLogic->moveObject());
-				//sound->Play();
+				if (sound) sound->Play();
 				isHolding = true;
 			}
 			return;
@@ -328,7 +328,7 @@ void PlayerLogic::InteractHold()
 				chopBoardLogic->chopObject();
 				if (animator)
 				{
-					//sound->PlayHold();
+					if (sound) sound->PlayHold();
 					animator->PlayAnimation("CHOP");					
 				}
 			}
@@ -344,7 +344,7 @@ void PlayerLogic::InteractHold()
 				panLogic->cookObject();
 				if (animator)
 				{
-					//sound->Play();
+					if (sound) sound->Play();
 					//animator->PlayAnimation("Cook");
 				}
 			}
