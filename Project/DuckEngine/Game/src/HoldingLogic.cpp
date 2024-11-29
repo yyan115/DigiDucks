@@ -57,6 +57,7 @@ void HoldingLogic::FixedUpdate()
 * ****************************************************************/
 void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 {
+	std::cout << " Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	if (!object)
 	{
 		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);

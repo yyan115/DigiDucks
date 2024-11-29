@@ -42,3 +42,77 @@ enum class ItemType
     TOMATO_SHRIMP_PLATE,   // Plate with Tomato and Shrimp
     SALAD_PLATE // Plate with Lettuce, Tomato, and Shrimp
 };
+
+
+inline std::string whatType(ItemType type)
+{
+    switch (type)
+    {
+	case ItemType::EMPTY:
+		return "EMPTY";
+	case ItemType::BIN:
+		return "BIN";
+	case ItemType::BUN:
+		return "BUN";
+	case ItemType::CHEESE:
+		return "CHEESE";
+	case ItemType::LETTUCE:
+		return "LETTUCE";
+	case ItemType::MUSHROOM:
+		return "MUSHROOM";
+	case ItemType::SHRIMP:
+		return "SHRIMP";
+	case ItemType::STEAK:
+		return "STEAK";
+	case ItemType::TOMATO:
+		return "TOMATO";
+	case ItemType::C_CHEESE:    
+		return "C_CHEESE";
+	case ItemType::C_LETTUCE:
+		return "C_LETTUCE";
+	case ItemType::C_MUSHROOM:
+		return "C_MUSHROOM";
+	case ItemType::C_SHRIMP:
+		return "C_SHRIMP";
+	case ItemType::R_PATTY:
+		return "R_PATTY";
+	case ItemType::C_PATTY:
+		return "C_PATTY";
+	case ItemType::C_TOMATO:
+		return "C_TOMATO";
+	case ItemType::GREY_PLATE:
+		return "GREY_PLATE";
+	case ItemType::BUN_PLATE:
+		return "BUN_PLATE";
+	case ItemType::CHEESE_PLATE:
+		return "CHEESE_PLATE";
+	case ItemType::PATTY_PLATE:
+		return "PATTY_PLATE";
+	case ItemType::BUN_CHEESE_PLATE:
+		return "BUN_CHEESE_PLATE";
+	case ItemType::BURGER_PLATE:
+		return "BURGER_PLATE";
+	case ItemType::CHEESE_PATTY_PLATE:
+		return "CHEESE_PATTY_PLATE";
+	case ItemType::CHEESE_BURGER_PLATE:
+		return "CHEESE_BURGER_PLATE";
+	case ItemType::WHITE_PLATE:
+		return "WHITE_PLATE";
+	case ItemType::LETTUCE_PLATE:
+		return "LETTUCE_PLATE";
+	case ItemType::SHRIMP_PLATE:
+		return "SHRIMP_PLATE";
+	case ItemType::TOMATO_PLATE:
+		return "TOMATO_PLATE";
+	case ItemType::LETTUCE_SHRIMP_PLATE:
+		return "LETTUCE_SHRIMP_PLATE";
+	case ItemType::LETTUCE_TOMATO_PLATE:
+		return "LETTUCE_TOMATO_PLATE";
+	case ItemType::TOMATO_SHRIMP_PLATE:
+		return "TOMATO_SHRIMP_PLATE";
+	case ItemType::SALAD_PLATE:
+		return "SALAD_PLATE";
+	default:
+		return "UNKNOWN";
+    };
+}
