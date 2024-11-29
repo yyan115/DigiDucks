@@ -83,7 +83,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -145,7 +145,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -156,6 +156,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/trash.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -207,7 +216,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -218,6 +227,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -269,7 +287,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -280,6 +298,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -331,7 +358,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -342,6 +369,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/chopping.mp3",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -398,6 +434,15 @@
                         }
                     },
                     "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/drone/beeps/beep sound 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -520,7 +565,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -530,6 +575,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/plate/plate 2.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -581,7 +635,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -592,6 +646,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -643,7 +706,7 @@
                             "y": 4.519960403442383
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -654,6 +717,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -671,8 +743,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 0.3742694854736328,
+                            "y": -0.3741808235645294
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -701,8 +773,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 0.3742694854736328,
+                            "y": -0.3741808235645294
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -714,8 +786,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 0.3742694854736328,
+                            "y": -0.3741808235645294
                         },
                         "radius": 1.0
                     },
@@ -726,6 +798,15 @@
                         "isStatic": false
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/footstep.mp3",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -925,7 +1006,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -936,6 +1017,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -987,7 +1077,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -998,6 +1088,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -1049,7 +1148,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1103,7 +1202,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1114,6 +1213,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/sizzle.mp3",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -1221,7 +1329,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1283,8 +1391,8 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
-                            "y": 1.25
+                            "x": 0.699999988079071,
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1346,7 +1454,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1408,7 +1516,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1470,7 +1578,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1531,7 +1639,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1593,7 +1701,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1656,7 +1764,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1717,7 +1825,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1767,7 +1875,7 @@
                         },
                         "sortingOrder": 4,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1779,7 +1887,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1794,7 +1902,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic"
+                            "BinLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -1842,7 +1950,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -1903,7 +2011,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -1965,7 +2073,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -2027,7 +2135,7 @@
                             "y": -8.0
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -2127,7 +2235,7 @@
                             "y": 4.5
                         },
                         "size": {
-                            "x": 1.0,
+                            "x": 0.699999988079071,
                             "y": 1.25
                         }
                     },
@@ -2138,6 +2246,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -2225,7 +2342,7 @@
                         },
                         "size": {
                             "x": 1.0,
-                            "y": 1.25
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "BoundingBox"
@@ -2235,6 +2352,15 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/plate/plate 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {

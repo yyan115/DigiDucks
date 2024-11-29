@@ -929,54 +929,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Quit": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": -4.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.900000095367432,
-                            "y": 2.4000000953674316
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/quit.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 6.0,
-                            "y": 3.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "Score_Text": {
             "components": [
                 {
