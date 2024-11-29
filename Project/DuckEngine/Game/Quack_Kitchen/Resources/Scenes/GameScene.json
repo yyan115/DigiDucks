@@ -37,7 +37,7 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": "Resources/Sounds/gameplay bgm.wav",
-                        "volume": 0.0
+                        "volume": 0.2
                     },
                     "type": "SoundComponent"
                 }
@@ -1278,6 +1278,15 @@
                         }
                     },
                     "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/orders/correct order sfx.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
