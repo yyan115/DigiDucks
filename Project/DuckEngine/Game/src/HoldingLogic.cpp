@@ -61,7 +61,6 @@ void HoldingLogic::deleteObject()
 
 std::pair<int,ItemType> HoldingLogic::moveObject()
 {
-	if (!object) return;
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;
