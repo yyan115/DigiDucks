@@ -214,13 +214,6 @@ void CircleColliderSystem::FixedUpdate()
 					// If there is a collision
 					if (entityRb2->isStatic) {	// If the box is static
 						entityRb->velocity = Vec2(0.0f, 0.0f);
-
-						// Trigger sound on collision
-						if (auto* soundComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(entity2Id)) {
-							if (!soundComponent->IsSoundPlaying()) {
-								soundComponent->Play();
-							}
-						}
 					}
 					else { // If the box is not static
 						Vec2 combinedVelocity = entityRb->velocity + entityRb2->velocity;
@@ -232,13 +225,6 @@ void CircleColliderSystem::FixedUpdate()
 							// If circle velocity is greater, box will gain more velocity
 							entityRb2->velocity = 3 * combinedVelocity / 4;
 							entityRb->velocity = Vec2(0.f, 0.f);
-						}
-
-						// Trigger sound on collision
-						if (auto* soundComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(entity2Id)) {
-							if (!soundComponent->IsSoundPlaying()) {
-								soundComponent->Play();
-							}
 						}
 
 						/****************************************************************

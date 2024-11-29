@@ -43,6 +43,7 @@ private:
     AnimatorComponent* animator;
     FacingDirection dir;
     Entity* interactObject;
+    SoundComponent* sound;
 
 
 public:
@@ -51,10 +52,10 @@ public:
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), interactObject(nullptr)
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }
