@@ -206,8 +206,8 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 			bool gizmoSelected = false;
 
 			// Get mouse position in screen space
-			double mouseX = InputManager::GetMouseX();
-			double mouseY = InputManager::GetMouseY();
+			//double mouseX = InputManager::GetMouseX();
+			//double mouseY = InputManager::GetMouseY();
 
 			// Convert to world space
 			Vector2D mouseWorldPosition = DuckEngine::editorMouseWorldPos;

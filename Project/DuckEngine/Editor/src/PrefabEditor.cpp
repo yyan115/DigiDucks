@@ -497,12 +497,12 @@ void PrefabEditor::RenderPrefabProperties()
 
     if (!componentsToRemove.empty())
     {
-        std::sort(componentsToRemove.rbegin(), componentsToRemove.rend()); // Sort in reverse order
+        std::sort(componentsToRemove.rbegin(), componentsToRemove.rend());
         for (int removeIndex : componentsToRemove)
         {
             currentPrefab->componentsData.erase(currentPrefab->componentsData.begin() + removeIndex);
         }
-        componentsToRemove.clear(); // Clear the list after removing components
+        componentsToRemove.clear();
     }
 
     ImGui::Separator();
@@ -559,12 +559,12 @@ void PrefabEditor::AddComponent()
 
     if (ImGui::Button("Add Component"))
     {
-        const std::string& selectedType = componentTypes[selectedComponentIndex];
-        nlohmann::json newComponent = { { "type", selectedType }, { "properties", {} } };
+        const std::string& selectedComponentType = componentTypes[selectedComponentIndex];
+        nlohmann::json newComponent = { { "type", selectedComponentType }, { "properties", {} } };
 
-        std::cout << "Selected Type: " << selectedType << std::endl;
+        std::cout << "Selected Type: " << selectedComponentType << std::endl;
 
-        if (selectedType == "TransformComponent")
+        if (selectedComponentType == "TransformComponent")
         {
             newComponent["properties"] = {
                 { "position", { { "x", 0.0f }, { "y", 0.0f } } },
@@ -572,7 +572,7 @@ void PrefabEditor::AddComponent()
                 { "rotation", 0.0f }
             };
         }
-        else if (selectedType == "SpriteRendererComponent")
+        else if (selectedComponentType == "SpriteRendererComponent")
         {
             newComponent["properties"] = {
                 { "useColor", false },
@@ -581,13 +581,13 @@ void PrefabEditor::AddComponent()
                 { "texture", "" }
             };
         }
-        else if (selectedType == "RigidbodyComponent")
+        else if (selectedComponentType == "RigidbodyComponent")
         {
             newComponent["properties"] = {
                 { "isStatic", false }
             };
         }
-        else if (selectedType == "BoundingBox")
+        else if (selectedComponentType == "BoundingBox")
         {
             Vec2 scale(0.5f, 0.5f);
             Vec2 position(0.0f, 0.0f);
@@ -620,14 +620,14 @@ void PrefabEditor::AddComponent()
             };
         }
 
-        else if (selectedType == "AnimatorComponent")
+        else if (selectedComponentType == "AnimatorComponent")
         {
             newComponent["properties"] = {
                 { "currentAnimation", "" },
                 { "animations", nlohmann::json::array() }
             };
         }
-        else if (selectedType == "SoundComponent")
+        else if (selectedComponentType == "SoundComponent")
         {
             newComponent["properties"] = {
                 { "soundID", "" },
@@ -636,7 +636,7 @@ void PrefabEditor::AddComponent()
                 { "playOnStart", false }
             };
         }
-        else if (selectedType == "TextComponent")
+        else if (selectedComponentType == "TextComponent")
         {
             newComponent["properties"] = {
                 { "text", "" },
@@ -647,7 +647,7 @@ void PrefabEditor::AddComponent()
                 { "isEnabled", true }
             };
         }
-        else if (selectedType == "ButtonComponent")
+        else if (selectedComponentType == "ButtonComponent")
         {
             newComponent["properties"] = {
                 { "minPos", { { "x", 0.0f }, { "y", 0.0f } } },
@@ -655,7 +655,7 @@ void PrefabEditor::AddComponent()
                 { "isEnabled", true }
             };
         }
-        else if (selectedType == "GameLogicComponent")
+        else if (selectedComponentType == "GameLogicComponent")
         {
             newComponent["properties"] = {
                 { "logicNames", nlohmann::json::array() }
@@ -713,7 +713,7 @@ void PrefabEditor::RenderPrefabPreview()
         auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(texturePath);
         if (texture)
         {
-            float scaleDownFromOriginalSize = 5.0f;
+            //float scaleDownFromOriginalSize = 5.0f;
             ImVec2 availableSpace = ImGui::GetContentRegionAvail();
             ImVec2 windowPos = ImGui::GetCursorScreenPos();
             //ImVec2 textureSize = ImVec2(ImageLoader::GetTextureWidth(texturePath) / scaleDownFromOriginalSize, ImageLoader::GetTextureHeight(texturePath) / scaleDownFromOriginalSize);

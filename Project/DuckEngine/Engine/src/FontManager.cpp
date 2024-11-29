@@ -148,7 +148,7 @@ void FontManager::Render() {
     glDisable(GL_DEPTH_TEST);
 
     // Conversion factor from pixels to world units
-    float pixelsPerUnit = WindowManager::GetWindowHeight() / virtualHeight;
+    //float pixelsPerUnit = WindowManager::GetWindowHeight() / virtualHeight;
 
     for (auto& text : drawQueue) {
 

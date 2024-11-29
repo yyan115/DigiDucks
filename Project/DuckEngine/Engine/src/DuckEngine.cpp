@@ -358,7 +358,7 @@ int DuckEngine::GetWindowHeight()
 *************************************************************************/
 float DuckEngine::DeltaTime()
 {
-    return TimeManager::DT();
+    return static_cast<float>(TimeManager::DT());
 }
 
 /************************************************************************

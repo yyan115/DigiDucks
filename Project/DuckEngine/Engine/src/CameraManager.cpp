@@ -74,8 +74,8 @@ void CameraManager::SetHeight(const int height) {
 void CameraManager::Update() {
 	previousPosition = position;
 
-	position.x += (targetCameraPosition.x - position.x) * cameraLerpSpeed * TimeManager::DT();
-	position.y += (targetCameraPosition.y - position.y) * cameraLerpSpeed * TimeManager::DT();
+	position.x += (targetCameraPosition.x - position.x) * cameraLerpSpeed * static_cast<float>(TimeManager::DT());
+	position.y += (targetCameraPosition.y - position.y) * cameraLerpSpeed * static_cast<float>(TimeManager::DT());
 }
 
 

@@ -145,9 +145,9 @@ void GizmoManager::HandleGizmoInteraction() {
     if (DuckEngine_Input::IsMouseButtonReleased(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
 
         if (isDraggingGizmo) {
-            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
-            if (transform) {
-                if (transform->GetPosition() == initialObjectPosition && transform->scale == initialScale && transform->angle == initialRotation) {
+            auto* transformComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(selectedEntityID);
+            if (transformComponent) {
+                if (transformComponent->GetPosition() == initialObjectPosition && transformComponent->scale == initialScale && transformComponent->angle == initialRotation) {
                     std::cout << "Object didn't moved! so dont save state" << std::endl;
                     SnapshotManager::RemoveLatestUndoState();
                 }
