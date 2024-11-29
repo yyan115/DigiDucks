@@ -49,6 +49,7 @@ public:
     // Callback functions
     std::function<void()> onClick;
     std::function<void()> onHover;
+    std::function<void()> onFinishHover;
 
     /// <summary>
     /// Constructs a ButtonComponent with specified minimum and maximum positions 

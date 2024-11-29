@@ -81,6 +81,10 @@ void ButtonSystem::Update()
         }
         else if (!isCurrentlyHovered && button->isHovered)
         {
+            if (button->onFinishHover)
+            {
+                button->onFinishHover();
+            }
             button->isHovered = false;
         }
 
@@ -99,13 +103,20 @@ void ButtonSystem::Update()
         }
 
         // On-hover functionality could be added here in the future
-        if (IsPointInside(mousePosWorld, position, scale))
-        {
-            if (button->onHover)
-            {
-                button->onHover();
-            }
-        }
+        //if (IsPointInside(mousePosWorld, position, scale))
+        //{
+        //    if (button->onHover)
+        //    {
+        //        button->onHover();
+        //    }
+        //}
+        //else
+        //{
+        //    if (button->onFinishHover)
+        //    {
+        //        button->onFinishHover();
+        //    }
+        //}
     }
 }
 
