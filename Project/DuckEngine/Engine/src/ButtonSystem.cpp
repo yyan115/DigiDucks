@@ -73,12 +73,10 @@ void ButtonSystem::Update()
         }
         else // Game mode handling
         {
+            Vector2D mousePosScreen = { static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) };
+            Vector2D mousePosWorld = GraphicsManager::ScreenToWorld(mousePosScreen);
             if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
             {
-                Vector2D mousePosScreen = { static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) };
-
-                Vector2D mousePosWorld = GraphicsManager::ScreenToWorld(mousePosScreen);
-
                 //std::cout << "pos: " << position.x << ", " << position.y << ". scale: " << scale.x << ", " << scale.y << "\n";
 
                 if (IsPointInside(mousePosWorld, position, scale))
@@ -88,15 +86,20 @@ void ButtonSystem::Update()
                     {
                         button->onClick();
                     }
-                    button->onHover();
-                }
-                else {
-
                 }
             }
         }
 
         // On-hover functionality could be added here in the future
+        Vector2D mousePosScreen = { static_cast<float>(DuckEngine_Input::GetMouseX()), static_cast<float>(DuckEngine_Input::GetMouseY()) };
+        Vector2D mousePosWorld = GraphicsManager::ScreenToWorld(mousePosScreen);
+        if (IsPointInside(mousePosWorld, position, scale))
+        {
+            if (button->onHover)
+            {
+                button->onHover();
+            }
+        }
     }
 }
 
