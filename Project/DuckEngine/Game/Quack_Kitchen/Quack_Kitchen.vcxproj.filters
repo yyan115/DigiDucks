@@ -53,6 +53,9 @@
     <ClCompile Include="..\src\RestockLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\HowToPlay.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="..\include\SubmitLogic.h">
       <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HowToPlay.h">
+      <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

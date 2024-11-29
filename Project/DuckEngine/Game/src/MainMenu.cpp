@@ -33,6 +33,7 @@ SoundComponent* duckSound1;
 
 Entity* StartButton;
 Entity* ExitButton;
+Entity* JournalBookButton;
 
 bool shouldClose = false;
 
@@ -47,6 +48,9 @@ void MainMenu ::Load()
 	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
 	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
+	JournalBookButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay");
+	auto book = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(JournalBookButton->entityID);
+	book->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
 }
 
 /// <summary>
