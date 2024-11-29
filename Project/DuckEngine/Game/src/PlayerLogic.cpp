@@ -161,7 +161,7 @@ void PlayerLogic::InteractPressed()
 	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
 		sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(interactObject->entityID);
 	}
-	
+
 	// If player isnt holding anything
 	if (!isHolding)
 	{
@@ -191,6 +191,7 @@ void PlayerLogic::InteractPressed()
 			if (tableLogic->isOccupied)
 			{
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+				
 				holdingLogic->setObject(tableLogic->moveObject());
 				if (sound) sound->Play();
 				isHolding = true;

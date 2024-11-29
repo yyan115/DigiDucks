@@ -70,15 +70,17 @@ void ChopBoardLogic::FixedUpdate()
 
 void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 {
-	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
-	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
-	objectTransform->SetPosition(tableTransform->GetPosition());
+	if (!object) {
+		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
+		objectTransform->SetPosition(tableTransform->GetPosition());
 
-	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
-	type = objData.second;
-	isOccupied = true;
-	isChopped = false;
-	chopTime = 1.f;
+		objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
+		type = objData.second;
+		isOccupied = true;
+		isChopped = false;
+		chopTime = 1.f;
+	}
 }
 
 std::pair<int, ItemType> ChopBoardLogic::moveObject()

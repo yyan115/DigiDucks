@@ -43,19 +43,24 @@ void HoldingLogic::FixedUpdate()
 
 void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 {
-	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
-	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
-	type = objData.second;
+	if (!object)
+	{
+		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
+		type = objData.second;		
+	}
 }
 
 
 void HoldingLogic::deleteObject()
 {
-	int objectID = object->entityID;
-	object = nullptr;
-	objectTransform = nullptr;
-	type = ItemType::EMPTY;
-	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
+	if (object) {
+		int objectID = object->entityID;
+		DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
+		object = nullptr;
+		objectTransform = nullptr;
+		type = ItemType::EMPTY;
+	}
 }
 
 std::pair<int,ItemType> HoldingLogic::moveObject()

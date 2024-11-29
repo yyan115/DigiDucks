@@ -65,19 +65,19 @@ void EndScene::Start()
 void EndScene::Update()
 {
 	
-	if (scoreValue > 150) {
+	if (scoreValue > 50) {
 
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (scoreValue > 300) {
+	if (scoreValue > 100) {
 
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		Star2->texture = AssetManager::GetTextureByName("star");
 
 	}
 	
-	if (scoreValue > 450) {
+	if (scoreValue > 150) {
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		//Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");

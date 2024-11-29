@@ -56,8 +56,17 @@ void PanLogic::FixedUpdate()
 
 void PanLogic::setObject(std::pair<int, ItemType> objData)
 {
-	// Delete Empty Pan Object
-	int objectID = object->entityID;
+	int objectID{};
+	if (object) {
+		// Delete Empty Pan Object
+		objectID = object->entityID;
+		DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
+		object = nullptr;
+		objectTransform = nullptr;
+		objectSprite = nullptr;
+		type = ItemType::EMPTY;
+		isOccupied = false;
+	}
 
 	// Assign new object
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
@@ -70,7 +79,6 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 	type = objData.second;
 	isOccupied = true;
 
-	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
 }
 
 std::pair<int, ItemType> PanLogic::moveObject()
