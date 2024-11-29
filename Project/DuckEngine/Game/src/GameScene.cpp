@@ -58,7 +58,7 @@ void GameScene::Load()
 	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 	if (timerText) {
 		timerText->text = "Time: 10:00";
-		timeLeft = 600.f;
+		timeLeft = 300.f;
 	}
 
 	score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text");
