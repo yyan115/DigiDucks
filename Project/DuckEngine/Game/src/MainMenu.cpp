@@ -34,6 +34,8 @@ SoundComponent* menusound;
 Entity* StartButton;
 Entity* ExitButton;
 Entity* JournalBookButton;
+SoundComponent* startsound;
+SoundComponent* mainmenuquitsound;
 
 SpriteRendererComponent* startButtonSpriteRenderer;
 SpriteRendererComponent* exitButtonSpriteRenderer;
@@ -63,6 +65,8 @@ void MainMenu ::Load()
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
 	exitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ExitButton->entityID);
+	startsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
+	mainmenuquitsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(ExitButton->entityID);
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
 	startHoverTexture = AssetManager::GetTextureByName("start_click");
@@ -73,6 +77,7 @@ void MainMenu ::Load()
 	start->onHover = []()
 		{
 			startButtonSpriteRenderer->texture = startHoverTexture;
+			startsound->PlayHold();
 		};
 
 	start->onFinishHover = []()
@@ -83,6 +88,7 @@ void MainMenu ::Load()
 	exit->onHover = []()
 		{
 			exitButtonSpriteRenderer->texture = quitHoverTexture;
+			mainmenuquitsound->PlayHold();
 		};
 
 	exit->onFinishHover = []()
