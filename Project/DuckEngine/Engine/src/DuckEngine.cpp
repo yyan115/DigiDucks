@@ -190,7 +190,7 @@ void DuckEngine::Update()
         pausedOrMinimized = true;
         return;
     }
-    else if(pausedOrMinimized && (IsPaused() || WindowManager::IsWindowMinimized()))
+    else if(pausedOrMinimized && (!IsPaused() || !WindowManager::IsWindowMinimized()))
     {
         SoundSystem::ResumeAllSounds();
         pausedOrMinimized = false;
