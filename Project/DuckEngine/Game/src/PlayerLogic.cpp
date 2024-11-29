@@ -83,6 +83,30 @@ void PlayerLogic::Update()
 				animator->PlayAnimation("RIGHT_IDLE");
 		}
 	}
+
+
+
+	// Cheats
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_B))
+	{
+		if (!isHolding) {
+			ItemType cheatType = ItemType::SALAD_PLATE;
+			Entity* newObject = makeObject(cheatType);
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			isHolding = true;
+		}
+	}
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
+	{
+		if (!isHolding) {
+			ItemType cheatType = ItemType::CHEESE_BURGER_PLATE;
+			Entity* newObject = makeObject(cheatType);
+			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
+			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			isHolding = true;
+		}
+	}
 }
 
 /****************************************************************
@@ -145,28 +169,6 @@ void PlayerLogic::FixedUpdate()
 	}
 
 
-	// Cheats
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_B))
-	{
-		if (!isHolding) {
-			ItemType cheatType = ItemType::SALAD_PLATE;
-			Entity* newObject = makeObject(cheatType);
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
-			isHolding = true;
-		}
-	}
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
-	{
-		if (!isHolding) {
-			ItemType cheatType = ItemType::CHEESE_BURGER_PLATE;
-			Entity* newObject = makeObject(cheatType);
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
-			isHolding = true;
-		}
-	}
-
 }
 
 
@@ -210,7 +212,6 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				
 				holdingLogic->setObject(tableLogic->moveObject());
-				if (sound) sound->Play();
 				isHolding = true;
 			}
 			return;
@@ -320,6 +321,7 @@ void PlayerLogic::InteractPressed()
 			if (holdingLogic->getType() == ItemType::SALAD_PLATE || holdingLogic->getType() == ItemType::CHEESE_BURGER_PLATE)
 			{
 				submitLogic->removeObject(holdingLogic->moveObject());
+				if (sound) sound->Play();
 				isHolding = false;
 			}
 			return;
@@ -333,9 +335,7 @@ void PlayerLogic::InteractPressed()
 * ****************************************************************/
 void PlayerLogic::InteractHold()
 {
-	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
-		sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(interactObject->entityID);
-	}
+	
 
 	// Hold down is for Cutting/Cooking
 	// Player Must Not be Holding Anything

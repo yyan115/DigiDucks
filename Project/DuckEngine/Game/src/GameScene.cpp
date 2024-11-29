@@ -125,13 +125,13 @@ void GameScene::Update()
 		GameManager::SetActiveScene("EndScene");
 	}
 	// Add Score
+	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
+	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_G))
 	{
-		Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
-		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 		submitLogic->increaseScore(10);
-		scoreValue = submitLogic->getScore();
 	}
+	scoreValue = submitLogic->getScore();
 }
 
 /// <summary>
