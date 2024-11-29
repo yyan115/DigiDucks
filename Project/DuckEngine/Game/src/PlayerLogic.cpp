@@ -34,13 +34,13 @@ void PlayerLogic::Start()
 			{
 				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
 				// Pickup Object
-				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_R) && actionCounter <= 0)
+				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) && actionCounter <= 0)
 				{
 					InteractPressed();
 					actionCounter = actionCooldown;
 				}
 				// Use Object
-				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_T))
+				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_K))
 				{
 					InteractHold();
 				}
@@ -87,7 +87,7 @@ void PlayerLogic::Update()
 
 
 	// Cheats
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_B))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_V))
 	{
 		if (!isHolding) {
 			ItemType cheatType = ItemType::SALAD_PLATE;
@@ -97,7 +97,7 @@ void PlayerLogic::Update()
 			isHolding = true;
 		}
 	}
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_B))
 	{
 		if (!isHolding) {
 			ItemType cheatType = ItemType::CHEESE_BURGER_PLATE;

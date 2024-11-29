@@ -121,7 +121,7 @@ void GameScene::Update()
 	// Cheats
 
 	// End the Game
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_H))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M))
 	{
 		std::cout << "H is pressed!\n";
 		GameManager::SetActiveScene("EndScene");
@@ -129,7 +129,7 @@ void GameScene::Update()
 	// Add Score
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
 	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_G))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
 	{
 		submitLogic->increaseScore(10);
 	}
@@ -156,7 +156,7 @@ void GameScene::PostUpdate()
 	}
 
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_P))
 	{
 		std::cout << "K is pressed!\n";
 		DuckEngine::ToggleShowDebugColliders();

@@ -167,7 +167,6 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
         // BURGER INGREDIENTS
         // Single Ingredient combine with empty or partial plates
     case ItemType::BUN:
-    {
         if (rhs.second == ItemType::GREY_PLATE)
         {
             sprite->texture = AssetManager::GetTextureByName("bun_plate");
@@ -188,10 +187,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
         break;
+
     case ItemType::C_CHEESE:
-    {
         if (rhs.second == ItemType::GREY_PLATE)
         {
             sprite->texture = AssetManager::GetTextureByName("cheese_plate");
@@ -212,10 +210,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
         break;
+
     case ItemType::C_PATTY:
-    {
         if (rhs.second == ItemType::GREY_PLATE)
         {
             sprite->texture = AssetManager::GetTextureByName("patty_plate");
@@ -236,12 +233,10 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
 		break;
 
         // Partial plate combine with single ingredients
     case ItemType::BUN_PLATE:
-    {
         if (rhs.second == ItemType::C_CHEESE)
         {
             sprite->texture = AssetManager::GetTextureByName("bun_cheese_plate");
@@ -252,11 +247,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("burger_plate");
             newItem = ItemType::BURGER_PLATE;
         }
-    }
         break;
 
     case ItemType::CHEESE_PLATE:
-    {
         if (rhs.second == ItemType::BUN)
         {
             sprite->texture = AssetManager::GetTextureByName("bun_cheese_plate");
@@ -266,13 +259,10 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
         {
             sprite->texture = AssetManager::GetTextureByName("cheese_patty_plate");
             newItem = ItemType::CHEESE_PATTY_PLATE;
-            newItem = ItemType::CHEESE_PATTY_PLATE;
         }
-    }
         break;
 
     case ItemType::PATTY_PLATE:
-    {
         if (rhs.second == ItemType::BUN)
         {
             sprite->texture = AssetManager::GetTextureByName("burger_plate");
@@ -283,42 +273,36 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("cheese_patty_plate");
             newItem = ItemType::CHEESE_PATTY_PLATE;
         }
-    }
         break;
 
     case ItemType::BUN_CHEESE_PLATE:
-    {
         if (rhs.second == ItemType::C_PATTY)
         {
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
         break;
 
     case ItemType::BURGER_PLATE:
-    {
-        if (rhs.second == ItemType::C_CHEESE) {
+        if (rhs.second == ItemType::C_CHEESE) 
+        {
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
         break;
 
     case ItemType::CHEESE_PATTY_PLATE:
-    {
-        if (rhs.second == ItemType::BUN) {
+        if (rhs.second == ItemType::BUN) 
+        {
             sprite->texture = AssetManager::GetTextureByName("cheese_burger_plate");
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
-    }
         break;
 
 
         // SALAD INGREDIENTS
         // Single ingredients can combine with empty or partial plates
     case ItemType::C_LETTUCE:
-    {
         if (rhs.second == ItemType::WHITE_PLATE)
         {
             sprite->texture = AssetManager::GetTextureByName("lettuce_plate");
@@ -339,11 +323,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("salad_plate");
             newItem = ItemType::SALAD_PLATE;
         }
-    }
         break;
 
     case ItemType::C_TOMATO:
-    {
         if (rhs.second == ItemType::WHITE_PLATE)
         {
             sprite->texture = AssetManager::GetTextureByName("tomato_plate");
@@ -364,11 +346,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("salad_plate");
             newItem = ItemType::SALAD_PLATE;
         }
-    }
 		break;
 
     case ItemType::C_SHRIMP:
-	{
 		if (rhs.second == ItemType::WHITE_PLATE)
 		{
 			sprite->texture = AssetManager::GetTextureByName("shrimp_plate");
@@ -389,12 +369,10 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
 			sprite->texture = AssetManager::GetTextureByName("salad_plate");
 			newItem = ItemType::SALAD_PLATE;
 		}
-	}
 	    break;
 
         // Partial plate combine with single ingredients
     case ItemType::LETTUCE_PLATE:
-    {
         if (rhs.second == ItemType::C_TOMATO)
         {
             sprite->texture = AssetManager::GetTextureByName("lettuce_tomato_plate");
@@ -405,11 +383,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("lettuce_shrimp_plate");
             newItem = ItemType::LETTUCE_SHRIMP_PLATE;
         }
-    }
         break;
 
     case ItemType::TOMATO_PLATE:
-    {
         if (rhs.second == ItemType::C_LETTUCE)
         {
             sprite->texture = AssetManager::GetTextureByName("lettuce_tomato_plate");
@@ -420,11 +396,9 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("tomato_shrimp_plate");
             newItem = ItemType::TOMATO_SHRIMP_PLATE;
         }
-    }
 		break;
 
     case ItemType::SHRIMP_PLATE:
-    {
         if (rhs.second == ItemType::C_LETTUCE)
         {
             sprite->texture = AssetManager::GetTextureByName("lettuce_shrimp_plate");
@@ -435,34 +409,30 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("tomato_shrimp_plate");
             newItem = ItemType::TOMATO_SHRIMP_PLATE;
         }
-    }
 		break;
 
     case ItemType::LETTUCE_TOMATO_PLATE:
-    {
-        if (rhs.second == ItemType::C_SHRIMP) {
+        if (rhs.second == ItemType::C_SHRIMP) 
+        {
             sprite->texture = AssetManager::GetTextureByName("salad_plate");
             newItem = ItemType::SALAD_PLATE;
         }
-    }
 		break;
 
     case ItemType::LETTUCE_SHRIMP_PLATE:
-    {
-        if (rhs.second == ItemType::C_TOMATO) {
+        if (rhs.second == ItemType::C_TOMATO) 
+        {
             sprite->texture = AssetManager::GetTextureByName("salad_plate");
             newItem = ItemType::SALAD_PLATE;
         }
-    }
         break;
 
     case ItemType::TOMATO_SHRIMP_PLATE:
-    {
-        if (rhs.second == ItemType::C_LETTUCE) {
+        if (rhs.second == ItemType::C_LETTUCE) 
+        {
             sprite->texture = AssetManager::GetTextureByName("salad_plate");
             newItem = ItemType::SALAD_PLATE;
         }
-    }
         break;
 
     default:
