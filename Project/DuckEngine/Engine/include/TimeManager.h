@@ -88,7 +88,6 @@ public:
 
 
 private:
-    static constexpr double MAX_DELTA_TIME = 1.0 / 60.0;
     /// <summary>
     /// Stores the frames per second (FPS) value.
     /// </summary>

@@ -59,7 +59,7 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
 
     double raw_delta = curr_time - prev_time;
 
-    delta_time = std::min(raw_delta, MAX_DELTA_TIME);
+    delta_time = std::min(raw_delta, 1/fps);
 
     prev_time = curr_time;
 
