@@ -44,7 +44,10 @@ public:
         : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr)
+    {
+        UNREFERENCED_PARAMETER(component);
+    }
 
     std::shared_ptr<GameLogic> Clone() const override
     {

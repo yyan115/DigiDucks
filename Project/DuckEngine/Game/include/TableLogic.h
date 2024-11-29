@@ -34,7 +34,10 @@ public:
 		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
 
 	TableLogic(GameLogicComponent* component) : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
+		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) 
+	{
+		UNREFERENCED_PARAMETER(component);
+	}
 
 
 	std::shared_ptr<GameLogic> Clone() const override

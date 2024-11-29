@@ -34,7 +34,10 @@ public:
         GameLogic(nullptr), holder(nullptr), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
 
     HoldingLogic(GameLogicComponent* component, Entity* holder_) :
-        GameLogic(nullptr), holder(holder_), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
+        GameLogic(nullptr), holder(holder_), holderTransform(nullptr), object(nullptr), objectTransform(nullptr), type(ItemType::EMPTY)
+    {
+        UNREFERENCED_PARAMETER(component);
+    }
     
     std::shared_ptr<GameLogic> Clone() const override
     {

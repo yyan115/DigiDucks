@@ -34,7 +34,10 @@ public:
 
 	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_) {}
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_)
+	{
+		UNREFERENCED_PARAMETER(component);
+	}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
@@ -48,7 +51,9 @@ public:
 		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
 	}
 
-	void Update() override 
+	void Update() override {}
+
+	void FixedUpdate() override 
 	{
 		if (type == ItemType::BIN) return;
 		if (stock <= 0)
@@ -89,17 +94,9 @@ public:
 		}
 	}
 
-	void FixedUpdate() override {}
-
 	virtual void restock() { stock = 5; }
 
-	virtual void useStock() 
-	{ 
-		if (stock > 0) 
-		{ 
-			stock--; 
-		}
-	}
+	virtual void useStock() { if (stock > 0) { stock--; } }
 
 	bool isEmpty() const { return stock == 0; }
 

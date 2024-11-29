@@ -15,7 +15,10 @@ public:
 		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr) {}
 
 	RestockLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr) {}
+		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr)
+	{
+		UNREFERENCED_PARAMETER(component);
+	}
 
 	void Start() override;
 	void Update() override {}

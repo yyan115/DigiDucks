@@ -18,7 +18,10 @@ public:
 		GameLogic(nullptr), submit_Station(nullptr), submit_Transform(nullptr), scoreText(nullptr), score_Text(nullptr), totalScore(0) {}
 
 	SubmitLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), submit_Station(nullptr), submit_Transform(nullptr), scoreText(nullptr), score_Text(nullptr), totalScore(0) {}
+		GameLogic(nullptr), submit_Station(nullptr), submit_Transform(nullptr), scoreText(nullptr), score_Text(nullptr), totalScore(0)
+	{
+		UNREFERENCED_PARAMETER(component);
+	}
 
 
 	std::shared_ptr<GameLogic> Clone() const override

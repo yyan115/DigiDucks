@@ -25,7 +25,7 @@ public:
 
 	TomatoStockLogic() : StockLogic(ItemType::TOMATO, 5) {}
 
-	TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::TOMATO, 5) {}
+    TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::TOMATO, 5) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

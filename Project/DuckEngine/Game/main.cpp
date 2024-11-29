@@ -10,7 +10,7 @@ int main(void)
     gManager.DuckEngine.Initialize();
 
     gManager.InitScenes();
-    gManager.SetActiveScene("EndScene");
+    gManager.SetActiveScene("MainMenu");
     gManager.DuckEngine.SetupSystems();
 
     // load all assets before game loop starts

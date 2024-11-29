@@ -73,8 +73,6 @@ bool canCombine(ItemType lhs, ItemType rhs)
     default:
         return false;
     }
-
-	return false;
 }
 
 

@@ -24,11 +24,12 @@ public:
     FacingDirection dir = FRONT;
 
     MovementLogic()
-        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(10.0f) {
-    }
+        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(10.0f) {}
 
     MovementLogic(GameLogicComponent* component, float speed = 10.0f)
-        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(speed) {
+        : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(speed)
+    {
+        UNREFERENCED_PARAMETER(component);
     }
 
     std::shared_ptr<GameLogic> Clone() const override
