@@ -114,6 +114,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
 	SpriteRendererComponent* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ObjectID);
     if (!sprite)
     {
+        std::cout << "NO SPRITE\n";
         return std::pair<int, ItemType>();
     }
 

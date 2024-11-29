@@ -51,6 +51,7 @@ void PanLogic::FixedUpdate()
 * ****************************************************************/
 void PanLogic::setObject(std::pair<int, ItemType> objData)
 {
+	std::cout << "Pan Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	// Assign new object
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
 
@@ -73,7 +74,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 std::pair<int, ItemType> PanLogic::moveObject()
 {
 
-	std::cout << "Moving Object from Pan" << std::endl;
+	std::cout << "Moving Object from Pan";
 	if (!object)
 	{
 		std::cout << "OBJ is NULLPTR" << std::endl;
@@ -88,6 +89,8 @@ std::pair<int, ItemType> PanLogic::moveObject()
 	{
 		objectSprite->texture = AssetManager::GetTextureByName("cooked_patty");
 	}
+
+	std::cout << "Object ID: " << object->entityID << " Type: " << whatType(type) << std::endl;
 	int objectID = object->entityID;
 	ItemType temp = type;
 

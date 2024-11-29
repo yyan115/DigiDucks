@@ -57,7 +57,7 @@ void HoldingLogic::FixedUpdate()
 * ****************************************************************/
 void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 {
-	std::cout << " Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
+	std::cout << "Hand Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	if (!object)
 	{
 		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
@@ -88,12 +88,13 @@ void HoldingLogic::deleteObject()
 * ****************************************************************/
 std::pair<int,ItemType> HoldingLogic::moveObject()
 {
-	std::cout << "Moving Object from hand" << std::endl;
+	std::cout << "Moving Object from hand";
 	if (!object)
 	{
 		std::cout << "OBJ is NULLPTR" << std::endl;
 		return std::pair<int, ItemType>();
 	}
+	std::cout << "Object ID: " << object->entityID << " Type: " << whatType(type) << std::endl;
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;

@@ -86,6 +86,7 @@ void ChopBoardLogic::FixedUpdate()
 * ***************************************************************/
 void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 {
+	std::cout << "Chop Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	if (!object) {
 		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
 		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
@@ -108,12 +109,13 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 std::pair<int, ItemType> ChopBoardLogic::moveObject()
 {
 
-	std::cout << "Moving Object from Chopboard" << std::endl;
+	std::cout << "Moving Object from Chopboard";
 	if (!object)
 	{
 		std::cout << "OBJ is NULLPTR" << std::endl;
 		return std::pair<int, ItemType>();
 	}
+	std::cout << "Object ID: " << object->entityID << " Type: " << whatType(type) << std::endl;
 
 	int objectID = object->entityID;
 	ItemType temp = type;
