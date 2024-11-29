@@ -70,7 +70,7 @@ void PlayerLogic::Update()
 			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_A)
 			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_S)
 			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
-			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_T))
+			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_J))
 		{
 			
 			if (dir == FRONT)
