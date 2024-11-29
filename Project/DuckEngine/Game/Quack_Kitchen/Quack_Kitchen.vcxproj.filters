@@ -189,5 +189,12 @@
     <ClInclude Include="..\include\HowToPlay.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Quack_Kitchen.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Resources\GameIcon.ico" />
   </ItemGroup>
 </Project>
