@@ -130,6 +130,7 @@ void GameScene::Update()
 		Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 		submitLogic->increaseScore(10);
+		scoreValue = submitLogic->getScore();
 	}
 }
 

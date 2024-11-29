@@ -88,7 +88,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -2.0,
+                            "x": 0.0,
                             "y": -1.0
                         },
                         "relativeToCamera": false,
@@ -114,7 +114,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "text": "Score:"
+                        "text": "Score: 0"
                     },
                     "type": "TextComponent"
                 },
@@ -140,7 +140,7 @@
                     "properties": {
                         "position": {
                             "x": -5.0,
-                            "y": 2.5
+                            "y": 3.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -157,11 +157,11 @@
                             "a": 255.0,
                             "b": 255.0,
                             "g": 0.0,
-                            "r": 255.0
+                            "r": 254.9998779296875
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -175,7 +175,7 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 2.5
+                            "y": 3.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -196,7 +196,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -210,7 +210,7 @@
                     "properties": {
                         "position": {
                             "x": 5.0,
-                            "y": 2.5
+                            "y": 3.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -231,7 +231,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/star.png",
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
