@@ -1,0 +1,145 @@
+{
+    "gameObjects": {
+        "Back": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.435961723327637,
+                            "y": -7.80063533782959
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 4.0,
+                            "y": 4.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/xbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "BackgroundGameObject": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 36.0,
+                            "y": 20.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/background.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": true,
+                        "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
+                        "volume": 0.30000001192092896
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Background"
+        },
+        "How To Play Journal": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0803799629211426,
+                            "y": 0.2183396816253662
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 30.0,
+                            "y": 20.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/journal_controls.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        }
+    },
+    "layers": {
+        "Background": {
+            "order": 0,
+            "visible": true
+        },
+        "Gameplay": {
+            "order": 1,
+            "visible": true
+        },
+        "UI": {
+            "order": 2,
+            "visible": true
+        }
+    }
+}

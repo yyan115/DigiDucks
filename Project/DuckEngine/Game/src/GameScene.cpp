@@ -159,6 +159,11 @@ void GameScene::PostUpdate()
 		DuckEngine::ToggleShowDebugColliders();
 	}
 
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
+	{
+		GameManager::SetActiveScene("MainMenu");
+	}
+
 
 }
 
