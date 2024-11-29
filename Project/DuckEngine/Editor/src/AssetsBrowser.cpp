@@ -166,8 +166,9 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 
 		// Load the folder icon		
 		if (Foldertexture) {
-			if (ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)Foldertexture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0))) {
-				// Navigate into the subfolder when clicked
+			ImGui::Image((void*)(intptr_t)Foldertexture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+			// Check if the user clicks on the image
+			if (ImGui::IsItemClicked(ImGuiMouseButton_Left)) {
 				selectedFolderPath = normalizedPath;
 				selectedFolderName = fileName;
 			}
@@ -310,7 +311,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 				else if (parentDir == "Scenes") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
 					if (texture) {
-						ImGui::ImageButton(fileName.c_str(), (void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+						ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 						// Handle double-click for loading the scene
 						if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
 							// Get the file name without extension
@@ -322,6 +323,14 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 							}
 						}
 					}					
+				}
+				else if (parentDir == "Fonts") {
+					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
+					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+				}
+				else if (parentDir == "Shaders") {
+					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
+					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 				}
 
 				else {
