@@ -6,6 +6,7 @@
 #include "GameScene.h"
 #include "MainMenu.h"
 #include "EndGame.h"
+#include "HowToPlay.h"
 
 class GameManager
 {

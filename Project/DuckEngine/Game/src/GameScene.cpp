@@ -158,6 +158,8 @@ void GameScene::PostUpdate()
 		std::cout << "K is pressed!\n";
 		DuckEngine::ToggleShowDebugColliders();
 	}
+
+
 }
 
 /// <summary>
