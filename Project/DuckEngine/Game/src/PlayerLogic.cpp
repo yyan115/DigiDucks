@@ -179,7 +179,7 @@ void PlayerLogic::InteractPressed()
 			Entity* newObject = makeObject(stockLogic->getType());
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 			holdingLogic->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
-			sound->Play();
+			if (sound) sound->Play();
 			isHolding = true;
 			return;
 		}
@@ -192,7 +192,7 @@ void PlayerLogic::InteractPressed()
 			{
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(tableLogic->moveObject());
-				sound->Play();
+				//sound->Play();
 				isHolding = true;
 			}
 			return;
@@ -328,7 +328,7 @@ void PlayerLogic::InteractHold()
 				chopBoardLogic->chopObject();
 				if (animator)
 				{
-					sound->PlayHold();
+					//sound->PlayHold();
 					animator->PlayAnimation("CHOP");					
 				}
 			}
@@ -344,7 +344,7 @@ void PlayerLogic::InteractHold()
 				panLogic->cookObject();
 				if (animator)
 				{
-					sound->Play();
+					//sound->Play();
 					//animator->PlayAnimation("Cook");
 				}
 			}
