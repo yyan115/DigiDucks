@@ -37,7 +37,7 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": "Resources/Sounds/gameplay bgm.wav",
-                        "volume": 0.30000001192092896
+                        "volume": 0.0
                     },
                     "type": "SoundComponent"
                 }
@@ -437,6 +437,15 @@
                 },
                 {
                     "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/drone/beeps/beep sound 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "logicNames": [
                             "RestockLogic"
                         ]
@@ -789,6 +798,15 @@
                         "isStatic": false
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/footstep.mp3",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
