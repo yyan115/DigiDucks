@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       SubmitLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 29 2024
+\brief      Declaration of the Submit Station Logic.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -32,15 +46,39 @@ public:
 	}
 
 
+	/****************************************************************
+	* @brief Start function for the Submit Station Logic.
+	* ****************************************************************/
 	void Start() override;
 	
+	/****************************************************************
+	* @brief Update function for the Submit Station Logic.
+	* ****************************************************************/
 	void Update() override {}
 
+	/****************************************************************
+	* @brief FixedUpdate function for the Submit Station Logic.
+	* ****************************************************************/
 	void FixedUpdate() override {}
 
+	/****************************************************************
+	* @brief Shutdown function for the Submit Station Logic.
+	* 
+	* @param objData - The object data to remove.
+	* ****************************************************************/
 	void removeObject(std::pair<int, ItemType> objData);
 
+	/****************************************************************
+	* @brief Increase the score of the player.
+	* 
+	* @param score - The score to increase by.
+	* ****************************************************************/
 	void increaseScore(int score = 10);
 
-	int getScore() { return totalScore; }
+	/****************************************************************
+	* @brief Get the score of the player.
+	* 
+	* @return int - The score of the player.
+	* ****************************************************************/
+	int getScore() const { return totalScore; }
 };

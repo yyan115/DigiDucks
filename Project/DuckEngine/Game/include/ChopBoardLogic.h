@@ -51,15 +51,45 @@ public:
 		return clone;
 	}
 
+
+	/****************************************************************
+	* @brief Start function for the ChopBoardLogic
+	* ***************************************************************/
 	void Start() override;
+
+	/****************************************************************
+	* @brief Update function for the ChopBoardLogic
+	* ***************************************************************/
 	void Update() override;
+
+	/****************************************************************
+	* @brief FixedUpdate function for the ChopBoardLogic
+	* ***************************************************************/
 	void FixedUpdate() override;
 
+	/****************************************************************
+	* @brief Set the object on the chopping board
+	* 
+	* @param objData - the object data to be set
+	* ***************************************************************/
 	void setObject(std::pair<int, ItemType> objData);
 
+	/****************************************************************
+	* @brief Move the object on the chopping board
+	* 
+	* @return std::pair<int, ItemType> - the object data to be moved
+	* ***************************************************************/
 	std::pair<int, ItemType> moveObject();
 
+	/****************************************************************
+	* @brief Chop the object on the chopping board
+	* ***************************************************************/
 	void chopObject();
 
+	/****************************************************************
+	* @brief Get the type of the object on the chopping board
+	*	
+	* @return ItemType - the type of the object
+	* ***************************************************************/
 	ItemType getType() const { return type; }
 };

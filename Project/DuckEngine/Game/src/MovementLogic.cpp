@@ -1,7 +1,24 @@
+/******************************************************************************/
+/*!
+\file       MovementLogic.cpp
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Declartion of all Movement Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "MovementLogic.h"
 #include <iostream>
 #include <cmath>
 
+/****************************************************************
+* @brief Start function for the Movement Logic
+* ****************************************************************/
 void MovementLogic::Start()
 {
 	// Initialize the components from the GameLogicComponent's owner entity
@@ -11,11 +28,17 @@ void MovementLogic::Start()
 	moveSpeed = 10.f;
 }
 
+/****************************************************************
+* @brief Update function for the Movement Logic
+* ****************************************************************/
 void MovementLogic::Update()
 {
 	
 }
 
+/****************************************************************
+* @brief FixedUpdate function for the Movement Logic
+* ****************************************************************/
 void MovementLogic::FixedUpdate()
 {
 	if (!transform || !rigidbody)

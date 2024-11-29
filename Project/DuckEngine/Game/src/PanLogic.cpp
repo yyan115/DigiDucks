@@ -14,6 +14,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "PanLogic.h"
 
+
+/****************************************************************
+* @brief Start function for the Pan Logic
+* ****************************************************************/
 void PanLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
@@ -33,6 +37,9 @@ void PanLogic::Start()
 	cookTime = 1.f;
 }
 
+/****************************************************************
+* @brief Update function for the Pan Logic
+* ****************************************************************/
 void PanLogic::Update()
 {
 	if (isCooked)
@@ -50,10 +57,18 @@ void PanLogic::Update()
 
 }
 
+/****************************************************************
+* @brief FixedUpdate function for the Pan Logic
+* ****************************************************************/
 void PanLogic::FixedUpdate()
 {
 }
 
+/****************************************************************
+* @brief Set the object in the pan
+*
+* @param objData - the object to be set in the pan
+* ****************************************************************/
 void PanLogic::setObject(std::pair<int, ItemType> objData)
 {
 	int objectID{};
@@ -81,6 +96,11 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 }
 
+/****************************************************************
+* @brief Get the object in the pan
+*
+* @return - the object in the pan
+* ****************************************************************/
 std::pair<int, ItemType> PanLogic::moveObject()
 {
 	int objectID = object->entityID;
@@ -100,6 +120,9 @@ std::pair<int, ItemType> PanLogic::moveObject()
 	return std::make_pair(objectID, temp);
 }
 
+/****************************************************************
+* @brief Cook the object in the pan
+* ****************************************************************/
 void PanLogic::cookObject()
 {
 	cookTime -= DuckEngine::DeltaTime();
@@ -109,7 +132,10 @@ void PanLogic::cookObject()
 	}
 }
 
-// Make the pan empty
+
+/****************************************************************
+* @brief Make the pan empty
+* ****************************************************************/
 void PanLogic::makeEmptyPan()
 {
 	object = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity();

@@ -46,13 +46,23 @@ public:
 		return clone;
 	}
 
+
+	/****************************************************************
+	* @brief Start function for the StockLogic
+	* ***************************************************************/
 	void Start() override 
 	{
 		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
 	}
 
+	/****************************************************************
+	* @brief Update function for the StockLogic	*
+	* ***************************************************************/
 	void Update() override {}
 
+	/****************************************************************
+	* @brief FixedUpdate function for the StockLogic
+	* ***************************************************************/
 	void FixedUpdate() override 
 	{
 		if (type == ItemType::BIN) return;
@@ -94,14 +104,31 @@ public:
 		}
 	}
 
+	/****************************************************************
+	* @brief Restock function for the StockLogic
+	* ***************************************************************/
 	virtual void restock() { stock = 5; }
 
+	/****************************************************************
+	* @brief Use Stock function for the StockLogic
+	* ***************************************************************/
 	virtual void useStock() { if (stock > 0) { stock--; } }
 
+	/****************************************************************
+	* @brief Get Stock function for the StockLogic
+	* ***************************************************************/
 	bool isEmpty() const { return stock == 0; }
 
+	/****************************************************************
+	* @brief Get Stock function for the StockLogic
+	* ***************************************************************/
 	virtual ItemType getType() { return type; }
 
+	/****************************************************************
+	* @brief Get Stock function for the StockLogic
+	* 
+	* @type_ - ItemType to change to
+	* ***************************************************************/
 	void changeType(ItemType type_) { type = type_; }
 
 };

@@ -20,6 +20,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
 
+/****************************************************************
+* @brief Start function for the Player Logic
+* ****************************************************************/
 void PlayerLogic::Start()
 {
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
@@ -51,6 +54,9 @@ void PlayerLogic::Start()
 }
 
 
+/****************************************************************
+* @brief Update function for the Player Logic
+* ****************************************************************/
 void PlayerLogic::Update()
 {
 	
@@ -79,6 +85,9 @@ void PlayerLogic::Update()
 	}
 }
 
+/****************************************************************
+* @brief FixedUpdate function for the Player Logic
+* ****************************************************************/
 void PlayerLogic::FixedUpdate()
 {
 	auto playersound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
@@ -161,7 +170,9 @@ void PlayerLogic::FixedUpdate()
 }
 
 
-
+/****************************************************************
+* @brief Function to handle when player press a key
+* ****************************************************************/
 void PlayerLogic::InteractPressed()
 {
 	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
@@ -317,6 +328,9 @@ void PlayerLogic::InteractPressed()
 	
 }
 
+/****************************************************************
+* @brief Function to handle when player hold a key
+* ****************************************************************/
 void PlayerLogic::InteractHold()
 {
 	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
@@ -363,6 +377,13 @@ void PlayerLogic::InteractHold()
 	}
 }
 
+/****************************************************************
+* @brief Function that makes a new object based on the type
+*
+* @param type - the type of object to be made
+*
+* @return - Pointer to the object
+* ****************************************************************/
 Entity* PlayerLogic::makeObject(ItemType type) 
 {
 	Entity* newObject = nullptr;

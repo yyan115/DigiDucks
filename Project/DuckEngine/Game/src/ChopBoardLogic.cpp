@@ -14,6 +14,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "ChopBoardLogic.h"
 
+
+/****************************************************************
+* @brief Start function for the ChopBoardLogic
+* ***************************************************************/
 void ChopBoardLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
@@ -28,6 +32,10 @@ void ChopBoardLogic::Start()
 
 }
 
+
+/****************************************************************
+* @brief Update function for the ChopBoardLogic
+* ***************************************************************/
 void ChopBoardLogic::Update()
 {
 	if (isChopped)
@@ -64,10 +72,18 @@ void ChopBoardLogic::Update()
 	}
 }
 
+/****************************************************************
+* @brief FixedUpdate function for the ChopBoardLogic
+* ***************************************************************/
 void ChopBoardLogic::FixedUpdate()
 {
 }
 
+/****************************************************************
+* @brief Set the object on the chopping board
+*
+* @param objData - the object data to be set
+* ***************************************************************/
 void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 {
 	if (!object) {
@@ -83,6 +99,12 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 	}
 }
 
+
+/****************************************************************
+* @brief Move the object on the chopping board
+*
+* @return std::pair<int, ItemType> - the object data to be moved
+* ***************************************************************/
 std::pair<int, ItemType> ChopBoardLogic::moveObject()
 {
 	int objectID = object->entityID;
@@ -98,6 +120,9 @@ std::pair<int, ItemType> ChopBoardLogic::moveObject()
 }
 
 
+/****************************************************************
+* @brief Chop the object on the chopping board
+* ***************************************************************/
 void ChopBoardLogic::chopObject()
 {
 	

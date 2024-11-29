@@ -14,6 +14,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "TableLogic.h"
 
+/****************************************************************
+* @brief Start function for the Table Logic.
+* ****************************************************************/
 void TableLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
@@ -24,14 +27,11 @@ void TableLogic::Start()
 
 }
 
-void TableLogic::Update()
-{
-}
-
-void TableLogic::FixedUpdate()
-{
-}
-
+/****************************************************************
+* @brief Shutdown function for the Table Logic.
+*
+* @param objData - The object data to set.
+* ****************************************************************/
 void TableLogic::setObject(std::pair<int, ItemType> objData)
 {
 	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
@@ -41,6 +41,11 @@ void TableLogic::setObject(std::pair<int, ItemType> objData)
 	isOccupied = true;
 }
 
+/****************************************************************
+* @brief Move the object from the table.
+*
+* @return The object data to move.
+* ****************************************************************/
 std::pair<int, ItemType> TableLogic::moveObject()
 {
 	int objectID = objectOnTable->entityID;

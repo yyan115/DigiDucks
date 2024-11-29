@@ -47,15 +47,40 @@ public:
 		return clone;
 	}
 
+
+	/****************************************************************
+	* @brief Start function for the Table Logic.
+	* ****************************************************************/
 	void Start() override;
 
-	void Update() override;
+	/****************************************************************
+	* @brief Update function for the Table Logic.
+	* ****************************************************************/
+	void Update() override {}
 
-	void FixedUpdate() override;
+	/****************************************************************
+	* @brief FixedUpdate function for the Table Logic.
+	* ****************************************************************/
+	void FixedUpdate() override {}
 
+	/****************************************************************
+	* @brief Shutdown function for the Table Logic.
+	* 
+	* @param objData - The object data to set.
+	* ****************************************************************/
 	void setObject(std::pair<int,ItemType> objData);
 
+	/****************************************************************
+	* @brief Move the object from the table.
+	* 
+	* @return The object data to move.
+	* ****************************************************************/
 	std::pair<int, ItemType> moveObject();
 
-	ItemType getType() { return type; }
+	/****************************************************************
+	* @brief Get the object type on the table.
+	* 
+	* @return The object type.
+	* ****************************************************************/
+	ItemType getType() const { return type; }
 };

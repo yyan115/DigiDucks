@@ -51,17 +51,50 @@ public:
 		return clone;
 	}
 
+
+	/****************************************************************
+	* @brief Start function for the Pan Logic
+	* ****************************************************************/
 	void Start() override;
+
+	/****************************************************************
+	* @brief Update function for the Pan Logic
+	* ****************************************************************/
 	void Update() override;
+	
+	/****************************************************************
+	* @brief FixedUpdate function for the Pan Logic
+	* ****************************************************************/
 	void FixedUpdate() override;
 
+	/****************************************************************
+	* @brief Set the object in the pan
+	* 
+	* @param objData - the object to be set in the pan
+	* ****************************************************************/
 	void setObject(std::pair<int, ItemType> objData);
 
+	/****************************************************************
+	* @brief Get the object in the pan
+	* 
+	* @return - the object in the pan
+	* ****************************************************************/
 	std::pair<int, ItemType> moveObject();
 
+	/****************************************************************
+	* @brief Cook the object in the pan
+	* ****************************************************************/
 	void cookObject();
 
+	/****************************************************************
+	* @brief Get the type of the object in the pan
+	* 
+	* @return - the type of the object in the pan
+	* ****************************************************************/
 	ItemType getType() const { return type; }
 
+	/****************************************************************
+	* @brief Make the pan empty
+	* ****************************************************************/
 	void makeEmptyPan();
 };

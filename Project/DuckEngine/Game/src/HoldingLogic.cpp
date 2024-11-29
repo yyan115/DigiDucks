@@ -15,6 +15,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HoldingLogic.h"
 #include <iostream>
 
+/****************************************************************
+* @brief Start function for HoldingLogic
+* ****************************************************************/
 void HoldingLogic::Start()
 {
 	holder = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
@@ -26,12 +29,18 @@ void HoldingLogic::Start()
 }
 
 
+/****************************************************************
+* @brief Update function for HoldingLogic
+* ****************************************************************/
 void HoldingLogic::Update()
 {
 
 }
 
 
+/****************************************************************
+* @brief FixedUpdate function for HoldingLogic
+* ****************************************************************/
 void HoldingLogic::FixedUpdate()
 {
 	if (objectTransform)
@@ -41,6 +50,11 @@ void HoldingLogic::FixedUpdate()
 }
 
 
+/****************************************************************
+* @brief setObject function for HoldingLogic
+*
+* @param objData - pair of object ID and ItemType
+* ****************************************************************/
 void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 {
 	if (!object)
@@ -52,6 +66,9 @@ void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 }
 
 
+/****************************************************************
+* @brief deleteObject function for HoldingLogic
+* ****************************************************************/
 void HoldingLogic::deleteObject()
 {
 	if (object) {
@@ -63,6 +80,11 @@ void HoldingLogic::deleteObject()
 	}
 }
 
+/****************************************************************
+* @brief moveObject function for HoldingLogic
+*
+* @return pair of object ID and ItemType
+* ****************************************************************/
 std::pair<int,ItemType> HoldingLogic::moveObject()
 {
 	if (!object)

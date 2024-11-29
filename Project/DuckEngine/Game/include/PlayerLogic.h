@@ -67,13 +67,37 @@ public:
         return clone;
     }
 
+    /****************************************************************
+	* @brief Start function for the Player Logic
+    * ****************************************************************/
     void Start() override;
+
+	/****************************************************************
+	* @brief Update function for the Player Logic
+	* ****************************************************************/
     void Update() override;
+
+	/****************************************************************
+	* @brief FixedUpdate function for the Player Logic
+	* ****************************************************************/
     void FixedUpdate() override;
 
+	/****************************************************************
+	* @brief Function to handle when player press a key
+	* ****************************************************************/
     void InteractPressed();
 
+	/****************************************************************
+	* @brief Function to handle when player hold a key
+	* ****************************************************************/
 	void InteractHold();
 
+	/****************************************************************
+	* @brief Function that makes a new object based on the type
+    * 
+	* @param type - the type of object to be made
+    * 
+	* @return - Pointer to the object
+	* ****************************************************************/
     Entity* makeObject(ItemType type);    
 };

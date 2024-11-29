@@ -46,15 +46,45 @@ public:
         return clone;
     }
 
+
+    /****************************************************************
+	* @brief Start function for HoldingLogic
+    * ****************************************************************/
     void Start() override;
+
+	/****************************************************************
+	* @brief Update function for HoldingLogic
+	* ****************************************************************/
     void Update() override;
+
+	/****************************************************************
+	* @brief FixedUpdate function for HoldingLogic
+	* ****************************************************************/
     void FixedUpdate() override;
 
+	/****************************************************************
+	* @brief setObject function for HoldingLogic
+    * 
+	* @param objData - pair of object ID and ItemType
+	* ****************************************************************/
     void setObject(std::pair<int, ItemType> objData);
 
+	/****************************************************************
+	* @brief deleteObject function for HoldingLogic
+	* ****************************************************************/
 	void deleteObject();
-
+    
+	/****************************************************************
+	* @brief moveObject function for HoldingLogic
+    * 
+	* @return pair of object ID and ItemType
+	* ****************************************************************/
     std::pair<int, ItemType> moveObject();
 
+	/****************************************************************
+	* @brief getType function for HoldingLogic
+    * 
+	* @return ItemType - type of object
+	* ****************************************************************/
 	ItemType getType() const { return type; }
 };

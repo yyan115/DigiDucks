@@ -19,6 +19,22 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "IngredientType.h"
 
 
+/****************************************************************
+* @brief Check if two items can be combined
+* 
+* @param lhs - the first item
+* @param rhs - the second item
+* 
+* @return true if the two items can be combined, false otherwise*
+* ****************************************************************/
 bool canCombine(ItemType lhs, ItemType rhs);
 
+/****************************************************************
+* @brief Combine two items
+* 
+* @param lhs - the first item
+* @param rhs - the second item
+*	
+* @return the combined item
+* ****************************************************************/
 std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<int, ItemType> rhs);

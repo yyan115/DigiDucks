@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       MovementLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Declartion of all Movement Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -30,11 +44,19 @@ public:
         return clone;
     }
 
+
+    /****************************************************************
+	* @brief Start function for the Movement Logic
+    * ****************************************************************/
     void Start() override;
+
+	/****************************************************************
+	* @brief Update function for the Movement Logic
+	* ****************************************************************/
     void Update() override;
+
+	/****************************************************************
+	* @brief FixedUpdate function for the Movement Logic
+	* ****************************************************************/
     void FixedUpdate() override;
-    void TestTest()
-    {
-        std::cout << "test successful" << std::endl;
-    }
 };
