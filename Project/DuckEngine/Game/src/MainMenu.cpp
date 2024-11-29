@@ -35,6 +35,15 @@ Entity* StartButton;
 Entity* ExitButton;
 Entity* JournalBookButton;
 
+SpriteRendererComponent* startButtonSpriteRenderer;
+SpriteRendererComponent* exitButtonSpriteRenderer;
+
+Texture startNormalTexture;
+Texture startHoverTexture;
+
+Texture quitNormalTexture;
+Texture quitHoverTexture;
+
 bool shouldClose = false;
 
 void MainMenu ::Load()
@@ -51,6 +60,36 @@ void MainMenu ::Load()
 	JournalBookButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay");
 	auto book = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(JournalBookButton->entityID);
 	book->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
+
+	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
+	exitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ExitButton->entityID);
+
+	startNormalTexture = AssetManager::GetTextureByName("start");
+	startHoverTexture = AssetManager::GetTextureByName("start_click");
+
+	quitNormalTexture = AssetManager::GetTextureByName("quit");
+	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
+
+	start->onHover = []()
+		{
+			startButtonSpriteRenderer->texture = startHoverTexture;
+		};
+
+	start->onFinishHover = []()
+		{
+			startButtonSpriteRenderer->texture = startNormalTexture;
+		};
+
+	exit->onHover = []()
+		{
+			exitButtonSpriteRenderer->texture = quitHoverTexture;
+		};
+
+	exit->onFinishHover = []()
+		{
+			exitButtonSpriteRenderer->texture = quitNormalTexture;
+		};
+
 }
 
 /// <summary>

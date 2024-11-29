@@ -71,7 +71,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/quit_click.png",
+                        "texture": "Resources/Sprites/MainMenu/quit.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
