@@ -50,7 +50,7 @@ void RigidbodySystem::Update()
 void RigidbodySystem::FixedUpdate()
 {
     // Get deltaTime (elapsed time between frames)
-    float deltaTime = DuckEngine::DeltaTime();
+    //float deltaTime = DuckEngine::DeltaTime();
 
     // Loop through all entities that have RigidbodyComponent
     for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
@@ -70,17 +70,17 @@ void RigidbodySystem::FixedUpdate()
             }
 
             // Update velocity based on acceleration and deltaTime
-            rigidbody->velocity += rigidbody->acceleration * deltaTime;
+            rigidbody->velocity += rigidbody->acceleration;
 
 
             // Update the position based on the velocity
-            transform->GetPosition() += rigidbody->velocity * deltaTime;
+            transform->GetPosition() += rigidbody->velocity;
 
             // Reset acceleration for the next frame
             rigidbody->acceleration = Vec2(0.0f, 0.0f);
 
             // Apply damping to the velocity based on mass
-            rigidbody->velocity -= rigidbody->mass * (rigidbody->velocity * deltaTime);
+            rigidbody->velocity -= rigidbody->mass * (rigidbody->velocity);
         }
     }
 }
