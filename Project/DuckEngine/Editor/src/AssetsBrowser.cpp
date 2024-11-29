@@ -105,7 +105,7 @@ void AssetsBrowser::RenderDirectoryTree() {
 	}
 }
 
-std::string NormalizePath(const std::string& path) {
+std::string static NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;
 	std::replace(normalizedPath.begin(), normalizedPath.end(), '\\', '/');
 	return normalizedPath;
@@ -400,7 +400,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 	int itemIndex = 0;
 
 	// Retrieve all prefabs loaded in PrefabManager
-	auto prefabs = PrefabManager::GetAllPrefabs();
+	auto &prefabs = PrefabManager::GetAllPrefabs();
 	for (const auto& [prefabName, prefab] : prefabs) {
 		ImGui::PushID(itemIndex);
 

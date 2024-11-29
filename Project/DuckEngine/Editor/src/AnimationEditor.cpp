@@ -35,7 +35,7 @@ void AnimationEditor::Render()
     ImGui::SetNextWindowPos(ImVec2(200, 200), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(1200, 600), ImGuiCond_FirstUseEver);
 
-    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking))
+    if (ImGui::Begin("Animation Editor", &isOpen, ImGuiWindowFlags_NoCollapse))
     {
         float columnWidth = ImGui::GetContentRegionAvail().x;
         ImGui::Columns(2, nullptr, false);
@@ -148,7 +148,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
         std::string newName(renameBuffer);
         if (!newName.empty() && newName != currentAnimationName && animator->animations.find(newName) == animator->animations.end())
         {
-            auto animationData = animator->animations[currentAnimationName];
+            auto& animationData = animator->animations[currentAnimationName];
             animator->animations.erase(currentAnimationName);
             animator->animations[newName] = animationData;
 
@@ -173,7 +173,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     {
         ImGui::PushID(i);
 
-        auto texture = animation.Frames[i];
+        auto &texture = animation.Frames[i];
 
         if (texture && *texture != 0)
         {
@@ -361,7 +361,7 @@ void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
 
     if (animation.Frames.size() > 0)
     {
-        auto texture = animation.Frames[previewCurrentFrame];
+        auto& texture = animation.Frames[previewCurrentFrame];
 
         ImVec2 contentRegion = ImGui::GetContentRegionAvail();
         ImVec2 imageSize(128.0f, 128.0f);

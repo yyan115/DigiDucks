@@ -237,7 +237,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 	{
 		if (!entitiesUnderMouse.empty())
 		{
-			currentEntityIndex = (currentEntityIndex + 1) % entitiesUnderMouse.size();
+			currentEntityIndex = static_cast<size_t>(currentEntityIndex + 1) % entitiesUnderMouse.size();
 			selectedEntity = entitiesUnderMouse[currentEntityIndex];
 
 			UIManager::selectedEntityID = selectedEntity->entityID;
