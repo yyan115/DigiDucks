@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "TimeManager.h"
 #include <iostream>
 #include <unordered_map>
-#include <algorithm>
 
 // Define static members
 GLdouble TimeManager::fps = 0.0;
@@ -55,23 +54,25 @@ double TimeManager::DT() {
 /// <param name="fps_calc_interval">The interval (in seconds) at which FPS is recalculated. Defaults to 1.0 second.</param>
 void TimeManager::UpdateTime(double fps_calc_interval) {
 
+    // get elapsed time (in seconds) between previous and current frames
     double curr_time = glfwGetTime();
-
-    double raw_delta = curr_time - prev_time;
-
-    delta_time = std::min(raw_delta, 1/fps);
-
+    delta_time = curr_time - prev_time;
     prev_time = curr_time;
 
-    static double count = 0.0;
+    // fps calculations
+    static double count = 0.0; // number of game loop iterations
     static double start_time = glfwGetTime();
+
+    // get elapsed time since very beginning (in seconds) ...
     double elapsed_time = curr_time - start_time;
 
     ++count;
 
-    fps_calc_interval = std::clamp(fps_calc_interval, 0.0, 10.0);
+    // update fps at least every 10 seconds ...
+    fps_calc_interval = (fps_calc_interval < 0.0) ? 0.0 : fps_calc_interval;
+    fps_calc_interval = (fps_calc_interval > 10.0) ? 10.0 : fps_calc_interval;
     if (elapsed_time > fps_calc_interval) {
-        fps = count / elapsed_time;
+        TimeManager::fps = count / elapsed_time;
         start_time = curr_time;
         count = 0.0;
     }
@@ -142,7 +143,7 @@ const std::unordered_map<std::string, double>& TimeManager::GetManagerData() {
     return managerData;
 }
 
-void TimeManager::ResetPrevTime() 
+void TimeManager::ResetPrevTime()
 {
     prev_time = glfwGetTime();
 }
