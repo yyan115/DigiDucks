@@ -51,7 +51,6 @@ void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 
 void HoldingLogic::deleteObject()
 {
-	if (!object) return;
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;
@@ -61,7 +60,10 @@ void HoldingLogic::deleteObject()
 
 std::pair<int,ItemType> HoldingLogic::moveObject()
 {
-	if (!object) return;
+	if (!object)
+	{
+		return std::pair<int, ItemType>();
+	}
 	int objectID = object->entityID;
 	object = nullptr;
 	objectTransform = nullptr;

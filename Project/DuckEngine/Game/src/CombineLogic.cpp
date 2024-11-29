@@ -84,6 +84,10 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
     ItemType newItem = ItemType::EMPTY;
     int ObjectID = lhs.first;
 	SpriteRendererComponent* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ObjectID);
+    if (!sprite)
+    {
+        return std::pair<int, ItemType>();
+    }
 
     // Define the possible combinations for lhs
     switch (lhs.second)
