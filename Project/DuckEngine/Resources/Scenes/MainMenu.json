@@ -49,14 +49,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 9.869002342224121,
-                            "y": -5.224215507507324
+                            "x": 10.0,
+                            "y": -5.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 2.5999999046325684
+                            "x": 7.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -97,14 +97,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.4964547157287598,
-                            "y": -5.240175247192383
+                            "x": 0.0,
+                            "y": -8.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 5.0
+                            "x": 7.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -119,28 +119,10 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/journalbookasset.png",
+                        "texture": "Resources/Sprites/MainMenu/howtoplay.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": ""
-                    },
-                    "type": "TextComponent"
                 },
                 {
                     "properties": {
@@ -198,7 +180,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.018712997436523,
+                            "x": 10.0,
                             "y": -2.0
                         },
                         "relativeToCamera": true,
