@@ -115,6 +115,8 @@ public:
     /// </summary>
     static void ToggleFullscreen();
 
+    static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
+
 private:
 
 

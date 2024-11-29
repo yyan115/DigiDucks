@@ -40,6 +40,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ButtonSystem.h"
 #include "TextSystem.h"
 #include "GameLogicSystem.h"
+#include "SoundSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -182,7 +183,10 @@ bool DuckEngine::IsPaused() {
 *************************************************************************/
 void DuckEngine::Update()
 {
-    if (IsPaused()) return;
+    if (IsPaused() || WindowManager::IsWindowMinimized())
+    {
+        return;
+    }
 
     static float timer = 0;
     // Look for inputs first   
