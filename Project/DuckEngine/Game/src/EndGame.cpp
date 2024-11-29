@@ -13,7 +13,8 @@
 
 
 Entity* QuitButton;
-//ButtonComponent* quit;
+SoundComponent* quitsound;
+ButtonComponent* quit;
 
 Entity* Star_1;
 SpriteRendererComponent* Star1;
@@ -28,7 +29,11 @@ Entity* Score;
 TextComponent* ScoreText;
 extern int scoreValue;
 
+Entity* Background;
+SoundComponent* BGMSound;
 
+bool isQuitButtonClicked = false;
+bool isHover = false;
 
 void EndScene::Load()
 {
@@ -36,8 +41,20 @@ void EndScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
-	auto quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
-	quit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::SetActiveScene("MainMenu"); };
+	quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
+	quitsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);
+	quit->onClick = []() 
+		{ 
+			std::cout << "Button clicked QUIT!!!!!!\n"; 
+			quitsound->Play(); 
+			isQuitButtonClicked = true;
+		};
+
+	quit->onHover = []()
+		{
+			std::cout << "hover" << std::endl;
+			quitsound->PlayHold();
+		};
 
 	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score");
 	ScoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(Score->entityID);
@@ -53,7 +70,10 @@ void EndScene::Load()
 	Star1 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_1->entityID);
 	Star2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_2->entityID);
 	Star3 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_3->entityID);
-	
+
+	Background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject");
+	BGMSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(Background->entityID);
+
 }
 
 void EndScene::Start()
@@ -64,8 +84,24 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
-	
-	if (scoreValue > 50) {
+	if (isQuitButtonClicked && !quitsound->IsSoundPlaying())
+	{
+		GameManager::SetActiveScene("MainMenu");
+		isQuitButtonClicked = false;
+	}
+	 
+
+
+
+	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+
+		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+			soundComponent->Play();
+		}
+	}
+
+	if (scoreValue > 150) {
 
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
@@ -82,7 +118,6 @@ void EndScene::Update()
 		//Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");
 	}
-	
 	
 }
 
