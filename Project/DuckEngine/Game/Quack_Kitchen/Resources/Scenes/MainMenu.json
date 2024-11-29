@@ -44,27 +44,19 @@
             ],
             "layer": "Background"
         },
-        "Duck": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 0.7049679756164551,
-                "y": -3.1535253524780273
-            },
-            "prefab": "DuckPrefab"
-        },
         "Exit": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 10.073704719543457,
-                            "y": -5.758203029632568
+                            "x": 9.869002342224121,
+                            "y": -5.224215507507324
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 5.0,
+                            "y": 2.5999999046325684
                         }
                     },
                     "type": "TransformComponent"
@@ -111,7 +103,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 10.0,
+                            "x": 15.0,
                             "y": 10.0
                         }
                     },
@@ -140,14 +132,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.204129219055176,
-                            "y": -2.1570920944213867
+                            "x": 10.018712997436523,
+                            "y": -2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 6.0,
+                            "y": 2.0
                         }
                     },
                     "type": "TransformComponent"

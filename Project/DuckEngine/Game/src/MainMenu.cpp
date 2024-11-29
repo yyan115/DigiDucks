@@ -43,7 +43,7 @@ void MainMenu ::Load()
 
 	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start");
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
-	start->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
+	start->onClick = []() { std::cout << "Button clicked START!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
 	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
 	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
