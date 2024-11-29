@@ -53,6 +53,7 @@ void PlayerLogic::Start()
 
 void PlayerLogic::Update()
 {
+	
 	if (actionCounter >= 0)
 	{
 		actionCounter -= DuckEngine::DeltaTime();
@@ -65,6 +66,7 @@ void PlayerLogic::Update()
 			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
 			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_T))
 		{
+			
 			if (dir == FRONT)
 				animator->PlayAnimation("FRONT_IDLE");
 			else if (dir == BACK)
@@ -79,7 +81,7 @@ void PlayerLogic::Update()
 
 void PlayerLogic::FixedUpdate()
 {
-
+	auto playersound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		if (boxCollider)
@@ -88,6 +90,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
+			playersound->PlayHold();
 			animator->PlayAnimation("BACK_WALK");
 			dir = BACK;
 		}
@@ -100,6 +103,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
+			playersound->PlayHold();
 			animator->PlayAnimation("FRONT_WALK");
 			dir = FRONT;
 		}
@@ -112,6 +116,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
+			playersound->PlayHold();
 			animator->PlayAnimation("LEFT_WALK");
 			dir = LEFT;
 		}
@@ -124,6 +129,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
+			playersound->PlayHold();
 			animator->PlayAnimation("RIGHT_WALK");
 			dir = RIGHT;
 		}
@@ -228,6 +234,7 @@ void PlayerLogic::InteractPressed()
 		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(interactObject->entityID);
 		if (restockLogic)
 		{
+			if (sound) sound->Play();
 			restockLogic->restockAll();
 			return;
 		}
