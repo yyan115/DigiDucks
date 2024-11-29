@@ -25,6 +25,15 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
 
+enum FacingDirection
+{
+    FRONT,
+    BACK,
+    LEFT,
+    RIGHT,
+    CHOP,
+    COOK
+};
 
 class PlayerLogic : public GameLogic
 {
@@ -32,19 +41,20 @@ private:
     BoundingCircle* circleCollider;
     BoundingBox* boxCollider;
     AnimatorComponent* animator;
-
+    FacingDirection dir;
     Entity* interactObject;
 
 
 public:
     bool isHolding = false;
+    bool isIdle = false;
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), interactObject(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), interactObject(nullptr)
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), interactObject(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }

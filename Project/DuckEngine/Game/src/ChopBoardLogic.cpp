@@ -78,7 +78,7 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 	type = objData.second;
 	isOccupied = true;
 	isChopped = false;
-	chopTime = 3.f;
+	chopTime = 1.f;
 }
 
 std::pair<int, ItemType> ChopBoardLogic::moveObject()

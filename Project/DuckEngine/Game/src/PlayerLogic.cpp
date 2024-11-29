@@ -40,12 +40,31 @@ void PlayerLogic::Start()
 			});
 	}
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+	dir = FRONT;
 	isHolding = false;
 }
 
 
 void PlayerLogic::Update()
 {
+	if (animator)
+	{
+		if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_D)
+			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_A)
+			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_S)
+			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
+			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_T))
+		{
+			if (dir == FRONT)
+				animator->PlayAnimation("FRONT_IDLE");
+			else if (dir == BACK)
+				animator->PlayAnimation("BACK_IDLE");
+			else if (dir == LEFT)
+				animator->PlayAnimation("LEFT_IDLE");
+			else if (dir == RIGHT)
+				animator->PlayAnimation("RIGHT_IDLE");
+		}
+	}
 }
 
 void PlayerLogic::FixedUpdate()
@@ -56,12 +75,22 @@ void PlayerLogic::FixedUpdate()
 		{
 			boxCollider->setOffSet(0.f, 1.5f);
 		}
+		if (animator)
+		{
+			animator->PlayAnimation("BACK_WALK");
+			dir = BACK;
+		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 	{
 		if (boxCollider)
 		{
 			boxCollider->setOffSet(0.f, -1.5f);
+		}
+		if (animator)
+		{
+			animator->PlayAnimation("FRONT_WALK");
+			dir = FRONT;
 		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
@@ -70,12 +99,22 @@ void PlayerLogic::FixedUpdate()
 		{
 			boxCollider->setOffSet(-1.5f, 0.f);
 		}
+		if (animator)
+		{
+			animator->PlayAnimation("LEFT_WALK");
+			dir = LEFT;
+		}
 	}
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 	{
 		if (boxCollider)
 		{
 			boxCollider->setOffSet(1.5f, 0.f);
+		}
+		if (animator)
+		{
+			animator->PlayAnimation("RIGHT_WALK");
+			dir = RIGHT;
 		}
 	}
 
@@ -101,6 +140,7 @@ void PlayerLogic::FixedUpdate()
 			isHolding = true;
 		}
 	}
+
 }
 
 
