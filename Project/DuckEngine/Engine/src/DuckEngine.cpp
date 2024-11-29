@@ -184,13 +184,16 @@ bool DuckEngine::IsPaused() {
 void DuckEngine::Update()
 {
     static bool pausedOrMinimized = false;
-    if (IsPaused() || WindowManager::IsWindowMinimized())
+    if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
     {
-        SoundSystem::PauseAllSounds();
-        pausedOrMinimized = true;
+        if (!pausedOrMinimized)
+        {
+            SoundSystem::PauseAllSounds();
+            pausedOrMinimized = true;
+        }
         return;
     }
-    else if(pausedOrMinimized && (IsPaused() || WindowManager::IsWindowMinimized()))
+    else if (pausedOrMinimized)
     {
         SoundSystem::ResumeAllSounds();
         pausedOrMinimized = false;

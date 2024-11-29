@@ -118,10 +118,12 @@ public:
     static void ToggleFullscreen();
 
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
+    static bool IsWindowFocused() { return isFocused; } 
+    static void window_focus_callback(GLFWwindow* window, int focused);
 
 private:
 
-
+    static bool isFocused;
     static bool isFullscreen;      // Tracks whether the window is fullscreen
     static GLint windowedWidth;    // Saved width for windowed mode
     static GLint windowedHeight;   // Saved height for windowed mode

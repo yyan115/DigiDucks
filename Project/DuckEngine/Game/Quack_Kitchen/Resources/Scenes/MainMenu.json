@@ -71,10 +71,19 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/quit_click.png",
+                        "texture": "Resources/Sprites/MainMenu/quit.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/clicks/click 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -224,6 +233,15 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/clicks/click 1.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
