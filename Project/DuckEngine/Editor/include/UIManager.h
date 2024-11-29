@@ -140,15 +140,10 @@ private:
     static void SaveScene(const std::string& sceneName);
 
     /****************************************************************
-	* @brief function to handle file drop callback from the window
+	* @brief Creates a new scene and saves it to a JSON file
     *
-	* @param window - the window that the file was dropped on
-	* @param count - the number of files dropped
-	* @param paths - the paths of the files dropped
     * @return void
     ***************************************************************/
-    static void FileDropCallback(GLFWwindow* window, int count, const char** paths);
-
     static void CreateNewSceneDialog();
 
 };
