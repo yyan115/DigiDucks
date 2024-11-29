@@ -46,13 +46,13 @@ bool canCombine(ItemType lhs, ItemType rhs)
 
 		// Partial plate combine with single ingredients
     case ItemType::BUN_PLATE:
-        return (rhs == ItemType::CHEESE || rhs == ItemType::C_PATTY);
+        return (rhs == ItemType::C_CHEESE || rhs == ItemType::C_PATTY);
 
     case ItemType::CHEESE_PLATE:
         return (rhs == ItemType::BUN || rhs == ItemType::C_PATTY);
 
     case ItemType::PATTY_PLATE:
-        return (rhs == ItemType::BUN || rhs == ItemType::CHEESE);
+        return (rhs == ItemType::BUN || rhs == ItemType::C_CHEESE);
 
     case ItemType::BUN_CHEESE_PLATE:
         return (rhs == ItemType::C_PATTY);
@@ -241,7 +241,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
         // Partial plate combine with single ingredients
     case ItemType::BUN_PLATE:
     {
-        if (rhs.second == ItemType::CHEESE)
+        if (rhs.second == ItemType::C_CHEESE)
         {
             sprite->texture = AssetManager::GetTextureByName("bun_cheese_plate");
             newItem = ItemType::BUN_CHEESE_PLATE;
@@ -265,6 +265,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
         {
             sprite->texture = AssetManager::GetTextureByName("cheese_patty_plate");
             newItem = ItemType::CHEESE_PATTY_PLATE;
+            newItem = ItemType::CHEESE_PATTY_PLATE;
         }
     }
         break;
@@ -276,7 +277,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             sprite->texture = AssetManager::GetTextureByName("burger_plate");
             newItem = ItemType::BURGER_PLATE;
         }
-        else if (rhs.second == ItemType::CHEESE)
+        else if (rhs.second == ItemType::C_CHEESE)
         {
             sprite->texture = AssetManager::GetTextureByName("cheese_patty_plate");
             newItem = ItemType::CHEESE_PATTY_PLATE;

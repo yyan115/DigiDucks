@@ -48,6 +48,12 @@ void TableLogic::setObject(std::pair<int, ItemType> objData)
 * ****************************************************************/
 std::pair<int, ItemType> TableLogic::moveObject()
 {
+	std::cout << "Moving Object from Table" << std::endl;
+	if (!objectOnTable)
+	{
+		std::cout << "OBJ is NULLPTR" << std::endl;
+		return std::pair<int, ItemType>();
+	}
 	int objectID = objectOnTable->entityID;
 	objectOnTable = nullptr;
 	objectTransform = nullptr;

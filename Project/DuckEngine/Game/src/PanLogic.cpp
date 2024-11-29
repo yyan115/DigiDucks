@@ -23,17 +23,10 @@ void PanLogic::Start()
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 
-	object = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Frying_Pan");
-	if (object) {
-		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(object->entityID);
-		objectTransform->SetPosition(tableTransform->GetPosition());
-		objectTransform->scale = Vec2(1.5f, 1.5f);
-		objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(object->entityID);
-		objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
-		type = ItemType::EMPTY;
-	}
+	object = nullptr;
+	objectTransform = nullptr;
+	objectSprite = nullptr;
 	isOccupied = false;
-	isCooked = false;
 	cookTime = 1.f;
 }
 
@@ -42,19 +35,6 @@ void PanLogic::Start()
 * ****************************************************************/
 void PanLogic::Update()
 {
-	if (isCooked)
-	{
-		switch (type)
-		{
-		case ItemType::R_PATTY:
-			objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
-			type = ItemType::C_PATTY;
-			break;
-		default: 
-			break;
-		};
-	}
-
 }
 
 /****************************************************************
@@ -71,20 +51,9 @@ void PanLogic::FixedUpdate()
 * ****************************************************************/
 void PanLogic::setObject(std::pair<int, ItemType> objData)
 {
-	int objectID{};
-	if (object) {
-		// Delete Empty Pan Object
-		objectID = object->entityID;
-		DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objectID);
-		object = nullptr;
-		objectTransform = nullptr;
-		objectSprite = nullptr;
-		type = ItemType::EMPTY;
-		isOccupied = false;
-	}
-
 	// Assign new object
 	object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 	objectTransform->SetPosition(tableTransform->GetPosition());
 
@@ -93,7 +62,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	type = objData.second;
 	isOccupied = true;
-
+	cookTime = 1.f;
 }
 
 /****************************************************************
@@ -103,8 +72,13 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 * ****************************************************************/
 std::pair<int, ItemType> PanLogic::moveObject()
 {
-	int objectID = object->entityID;
-	ItemType temp = type;
+
+	std::cout << "Moving Object from Pan" << std::endl;
+	if (!object)
+	{
+		std::cout << "OBJ is NULLPTR" << std::endl;
+		return std::pair<int, ItemType>();
+	}
 
 	if (type == ItemType::R_PATTY)
 	{
@@ -114,8 +88,14 @@ std::pair<int, ItemType> PanLogic::moveObject()
 	{
 		objectSprite->texture = AssetManager::GetTextureByName("cooked_patty");
 	}
+	int objectID = object->entityID;
+	ItemType temp = type;
 
-	makeEmptyPan();
+	object = nullptr;
+	objectTransform = nullptr;
+	objectSprite = nullptr;
+	type = ItemType::EMPTY;
+	isOccupied = false;
 
 	return std::make_pair(objectID, temp);
 }
@@ -128,29 +108,10 @@ void PanLogic::cookObject()
 	cookTime -= DuckEngine::DeltaTime();
 	if (cookTime <= 0.f)
 	{
-		isCooked = true;
+		if (objectSprite)
+		{
+			objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
+			type = ItemType::C_PATTY;
+		}
 	}
-}
-
-
-/****************************************************************
-* @brief Make the pan empty
-* ****************************************************************/
-void PanLogic::makeEmptyPan()
-{
-	object = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity();
-
-	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(object->entityID);
-	objectTransform->SetPosition(tableTransform->GetPosition());
-	objectTransform->scale = Vec2(1.5f, 1.5f);
-
-	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(object->entityID);
-	objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
-	objectSprite->sortingOrder = 2;
-
-	isOccupied = false;
-	isCooked = false;
-
-	type = ItemType::EMPTY;
-	cookTime = 1.f;
 }

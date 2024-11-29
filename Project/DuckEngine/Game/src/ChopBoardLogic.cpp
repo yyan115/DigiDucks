@@ -107,13 +107,21 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 * ***************************************************************/
 std::pair<int, ItemType> ChopBoardLogic::moveObject()
 {
+
+	std::cout << "Moving Object from Chopboard" << std::endl;
+	if (!object)
+	{
+		std::cout << "OBJ is NULLPTR" << std::endl;
+		return std::pair<int, ItemType>();
+	}
+
 	int objectID = object->entityID;
+	ItemType temp = type;
+
 	object = nullptr;
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 	isOccupied = false;
-
-	ItemType temp = type;
 	type = ItemType::EMPTY;
 
 	return std::make_pair(objectID, temp);

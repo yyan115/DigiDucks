@@ -87,8 +87,10 @@ void HoldingLogic::deleteObject()
 * ****************************************************************/
 std::pair<int,ItemType> HoldingLogic::moveObject()
 {
+	std::cout << "Moving Object from hand" << std::endl;
 	if (!object)
 	{
+		std::cout << "OBJ is NULLPTR" << std::endl;
 		return std::pair<int, ItemType>();
 	}
 	int objectID = object->entityID;

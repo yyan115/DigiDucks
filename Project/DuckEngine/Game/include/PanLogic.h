@@ -92,9 +92,4 @@ public:
 	* @return - the type of the object in the pan
 	* ****************************************************************/
 	ItemType getType() const { return type; }
-
-	/****************************************************************
-	* @brief Make the pan empty
-	* ****************************************************************/
-	void makeEmptyPan();
 };

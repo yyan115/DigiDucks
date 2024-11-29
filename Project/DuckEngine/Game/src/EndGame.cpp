@@ -101,19 +101,19 @@ void EndScene::Update()
 		}
 	}
 
-	if (scoreValue > 150) {
+	if (scoreValue > 10) {
 
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (scoreValue > 100) {
+	if (scoreValue > 30) {
 
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		Star2->texture = AssetManager::GetTextureByName("star");
 
 	}
 	
-	if (scoreValue > 150) {
+	if (scoreValue > 50) {
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		//Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");
