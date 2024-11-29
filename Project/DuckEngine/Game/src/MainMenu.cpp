@@ -33,16 +33,20 @@ SoundComponent* menusound;
 
 Entity* StartButton;
 Entity* ExitButton;
-Entity* JournalBookButton;
+Entity* HtpButton;
 
 SpriteRendererComponent* startButtonSpriteRenderer;
 SpriteRendererComponent* exitButtonSpriteRenderer;
+SpriteRendererComponent* htpButtonSpriteRenderer;
 
 Texture startNormalTexture;
 Texture startHoverTexture;
 
 Texture quitNormalTexture;
 Texture quitHoverTexture;
+
+Texture htpNormalTexture;
+Texture htpHoverTexture;
 
 bool shouldClose = false;
 
@@ -57,18 +61,22 @@ void MainMenu ::Load()
 	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
 	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
-	JournalBookButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay");
-	auto book = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(JournalBookButton->entityID);
-	book->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
+	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay");
+	auto htp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(HtpButton->entityID);
+	htp->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
 	exitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ExitButton->entityID);
+	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
 	startHoverTexture = AssetManager::GetTextureByName("start_click");
 
 	quitNormalTexture = AssetManager::GetTextureByName("quit");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
+
+	htpNormalTexture = AssetManager::GetTextureByName("howtoplay");
+	htpHoverTexture = AssetManager::GetTextureByName("howtoplay_click");
 
 	start->onHover = []()
 		{
@@ -90,6 +98,15 @@ void MainMenu ::Load()
 			exitButtonSpriteRenderer->texture = quitNormalTexture;
 		};
 
+	htp->onHover = []()
+		{
+			htpButtonSpriteRenderer->texture = htpHoverTexture;
+		};
+
+	htp->onFinishHover = []()
+		{
+			htpButtonSpriteRenderer->texture = htpNormalTexture;
+		};
 }
 
 /// <summary>
