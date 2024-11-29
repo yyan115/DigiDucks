@@ -34,6 +34,8 @@ SoundComponent* duckSound1;
 Entity* StartButton;
 Entity* ExitButton;
 
+bool shouldClose = false;
+
 void MainMenu ::Load()
 {
 	DuckEngine::EnableLogging(false);
@@ -44,7 +46,7 @@ void MainMenu ::Load()
 	start->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
 	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
-	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.Exit(); };
+	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
 }
 
 /// <summary>

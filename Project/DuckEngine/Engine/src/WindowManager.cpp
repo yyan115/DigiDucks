@@ -131,6 +131,11 @@ GLFWwindow* WindowManager::getWindow() {
     return ptrWindow;
 }
 
+void WindowManager::SetWindowShouldClose()
+{
+    glfwSetWindowShouldClose(ptrWindow, 1);
+}
+
 /// <summary>
 /// Checks if the window should close, typically when the user presses a close button.
 /// </summary>

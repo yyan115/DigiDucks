@@ -183,14 +183,17 @@ bool DuckEngine::IsPaused() {
 *************************************************************************/
 void DuckEngine::Update()
 {
+    static bool pausedOrMinimized = false;
     if (IsPaused() || WindowManager::IsWindowMinimized())
     {
         SoundSystem::PauseAllSounds();
+        pausedOrMinimized = true;
         return;
     }
-    else
+    else if(pausedOrMinimized && (IsPaused() || WindowManager::IsWindowMinimized()))
     {
         SoundSystem::ResumeAllSounds();
+        pausedOrMinimized = false;
     }
 
     static float timer = 0;
@@ -522,4 +525,9 @@ void DuckEngine::ToggleShowDebugColliders() {
 
         if (box) box->showDebugCollider = !box->showDebugCollider;
     }
+}
+
+void DuckEngine::CloseWindow()
+{
+    WindowManager::SetWindowShouldClose();
 }

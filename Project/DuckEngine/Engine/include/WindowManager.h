@@ -59,6 +59,8 @@ public:
     /// <returns>A pointer to the GLFWwindow object.</returns>
     static GLFWwindow* getWindow();
 
+    static void SetWindowShouldClose();
+
     /// <summary>
     /// Checks if the window should close, typically when the user closes the window or presses a close button.
     /// </summary>

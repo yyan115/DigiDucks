@@ -212,6 +212,8 @@ public:
     static float DUCKENGINE_API GetViewportWidth();
     static float DUCKENGINE_API GetViewportHeight();
 
+    static void DUCKENGINE_API CloseWindow();
+
     static void DUCKENGINE_API ToggleFullScreen();
     
     static DUCKENGINE_API void ToggleShowDebugColliders();
