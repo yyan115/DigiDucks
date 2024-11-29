@@ -39,10 +39,10 @@ TextComponent* scoreText;
 int scoreValue{};
 
 
-/// <summary>
-/// Loads all necessary resources for the scene.
-/// This function is called before the scene starts.
-/// </summary>
+/****************************************************************
+* @brief Load all necessary resources for the scene.
+* This function is called before the scene starts.
+* ****************************************************************/
 void GameScene::Load() 
 {
 	DuckEngine::EnableLogging(false);
@@ -69,20 +69,22 @@ void GameScene::Load()
 	}
 }
 
-/// <summary>
-/// Starts the scene, initializing game objects and setting up the initial state.
-/// This function is called when the scene begins running.
-/// </summary>
+/****************************************************************
+* @brief Start the scene, initializing game objects and
+* setting up the initial state. This function is called when
+* the scene begins running.
+* ****************************************************************/
 void GameScene::Start() 
 {
 	Scene::Start();
 	//DuckEngine::showDebugColliders = false;
 }
 
-/// <summary>
-/// Updates the scene logic each frame, including processing input and updating game objects.
-/// This function is called every frame.
-/// </summary>
+/****************************************************************
+* @brief Update the scene logic each frame, including processing
+* input and updating game objects. This function is called
+* every frame.
+* ****************************************************************/
 void GameScene::Update() 
 {	
 
@@ -134,10 +136,11 @@ void GameScene::Update()
 	scoreValue = submitLogic->getScore();
 }
 
-/// <summary>
-/// Performs any operations after the main update logic, such as cleanup or post-processing.
-/// This function is called every frame, after the Update() method.
-/// </summary>
+/****************************************************************
+* @brief PostUpdate function performs any operations after the
+* main update logic, such as cleanup or post-processing. This
+* function is called every frame, after the Update() method.
+* ****************************************************************/
 void GameScene::PostUpdate() 
 {
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
@@ -167,17 +170,19 @@ void GameScene::PostUpdate()
 
 }
 
-/// <summary>
-/// Exits the scene, performing any cleanup necessary before the scene is unloaded.
-/// </summary>
+/****************************************************************
+* @brief Exit the scene, performing any cleanup necessary before
+* the scene is unloaded.
+* ****************************************************************/
 void GameScene::Exit() 
 {
 
 }
 
-/// <summary>
-/// Unloads the scene and frees any resources that were loaded during the Load() phase.
-/// </summary>
+/****************************************************************
+* @brief Unload the scene and free any resources that were loaded
+* during the Load() phase.
+* ****************************************************************/
 void GameScene::Unload() 
 {
 	// base unload

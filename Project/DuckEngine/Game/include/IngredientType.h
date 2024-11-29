@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       IngredientType.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       November 27 2024
+\brief      Holds the ItemType enum class, which defines all the types of
+			ingredients and dishes in the game. This enum is used to identify
+			the type of an object in the game, such as a burger, salad, or
+			individual ingredient.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 enum class ItemType
