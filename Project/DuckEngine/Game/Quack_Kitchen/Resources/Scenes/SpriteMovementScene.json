@@ -969,44 +969,6 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 36": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": ""
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "GameObject 47": {
             "components": [
                 {
@@ -1340,8 +1302,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -0.11347562074661255,
+                            "y": -0.08733630180358887
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1370,21 +1332,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "size": {
-                            "x": 0.10000000149011612,
-                            "y": 0.10000000149011612
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -0.11347562074661255,
+                            "y": -0.08733630180358887
                         },
                         "radius": 1.0
                     },

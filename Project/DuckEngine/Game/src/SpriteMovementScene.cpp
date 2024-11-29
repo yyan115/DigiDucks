@@ -96,9 +96,6 @@ void SpriteMovementScene::Load()
 		});
 	playerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(player->entityID);
 
-
-
-
 	//background entity
 	//Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Background");
 

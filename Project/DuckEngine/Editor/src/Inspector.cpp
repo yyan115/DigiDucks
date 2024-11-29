@@ -51,10 +51,15 @@ bool isEditing = false;
 template <typename ComponentName>
 void ComponentMenu(int entityID)
 {
+	std::string popupId = std::string("ComponentMenu_") + typeid(ComponentName).name();
+
 	ImVec2 contentRegion = ImGui::GetContentRegionAvail();
 	ImGui::SetCursorPosX(ImGui::GetCursorPosX() + contentRegion.x - 30);
-	if (ImGui::Button("...")) ImGui::OpenPopup("ComponentMenu");
-	if (ImGui::BeginPopup("ComponentMenu"))
+
+	if (ImGui::Button(("...##" + popupId).c_str()))
+		ImGui::OpenPopup(popupId.c_str());
+
+	if (ImGui::BeginPopup(popupId.c_str()))
 	{
 		if (ImGui::MenuItem("Remove Component"))
 		{
@@ -312,10 +317,16 @@ void InspectorRenderer::RenderComponents(int entityID)
 			box->setOffSet(Offset);
 			//box->setRotation(box->rotation);
 
+			box->showDebugCollider = true;
+
 			// Remove component button
 			ComponentMenu<BoundingBox>(entityID);
 		}
 
+		else
+		{
+			box->showDebugCollider = false;
+		}
 		
 	}
 
@@ -344,8 +355,14 @@ void InspectorRenderer::RenderComponents(int entityID)
 			circle->setRadius(radius);
 			circle->setOffSet(Offset);
 
+			circle->showDebugCollider = true;
+
 			// Remove component button
 			ComponentMenu<BoundingCircle>(entityID);
+		}
+		else
+		{
+			circle->showDebugCollider = false;
 		}
 	}
 

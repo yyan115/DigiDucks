@@ -21,21 +21,24 @@ void PlayerLogic::Start()
 {
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
-	boxCollider->isKinematic = false;
-	boxCollider->SetCollisionCallback([this](int otherEntityID)
-		{
-			interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
-			// Pickup Object
-			if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
+	if (boxCollider)
+	{
+		boxCollider->isKinematic = false;
+		boxCollider->SetCollisionCallback([this](int otherEntityID)
 			{
-				InteractPressed();
-			}
-			// Use Object
-			else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_T)) 
-			{
-				InteractHold();
-			}
-		});
+				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
+				// Pickup Object
+				if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_R))
+				{
+					InteractPressed();
+				}
+				// Use Object
+				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_T))
+				{
+					InteractHold();
+				}
+			});
+	}
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	isHolding = false;
 }

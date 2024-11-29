@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "TimeManager.h"
 #include <iostream>
 #include <unordered_map>
+#include <algorithm>
 
 // Define static members
 GLdouble TimeManager::fps = 0.0;
@@ -54,25 +55,23 @@ double TimeManager::DT() {
 /// <param name="fps_calc_interval">The interval (in seconds) at which FPS is recalculated. Defaults to 1.0 second.</param>
 void TimeManager::UpdateTime(double fps_calc_interval) {
 
-    // get elapsed time (in seconds) between previous and current frames
     double curr_time = glfwGetTime();
-    delta_time = curr_time - prev_time;
+
+    double raw_delta = curr_time - prev_time;
+
+    delta_time = std::min(raw_delta, MAX_DELTA_TIME);
+
     prev_time = curr_time;
 
-    // fps calculations
-    static double count = 0.0; // number of game loop iterations
+    static double count = 0.0;
     static double start_time = glfwGetTime();
-
-    // get elapsed time since very beginning (in seconds) ...
     double elapsed_time = curr_time - start_time;
 
     ++count;
 
-    // update fps at least every 10 seconds ...
-    fps_calc_interval = (fps_calc_interval < 0.0) ? 0.0 : fps_calc_interval;
-    fps_calc_interval = (fps_calc_interval > 10.0) ? 10.0 : fps_calc_interval;
+    fps_calc_interval = std::clamp(fps_calc_interval, 0.0, 10.0);
     if (elapsed_time > fps_calc_interval) {
-        TimeManager::fps = count / elapsed_time;
+        fps = count / elapsed_time;
         start_time = curr_time;
         count = 0.0;
     }
