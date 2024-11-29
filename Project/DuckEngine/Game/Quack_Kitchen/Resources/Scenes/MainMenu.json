@@ -57,8 +57,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.225006103515625,
-                            "y": -5.627198696136475
+                            "x": 10.073704719543457,
+                            "y": -5.758203029632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -79,7 +79,7 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/quit.png",
+                        "texture": "Resources/Sprites/MainMenu/quit_click.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -182,54 +182,6 @@
                 }
             ],
             "layer": "Gameplay"
-        },
-        "buttonBox": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 400.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 200.0,
-                            "y": 100.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 200.0,
-                            "y": 100.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
         }
     },
     "layers": {
