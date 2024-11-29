@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       GameLogicManager.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       November 30 2024
+\brief      Declares the GameLogicManager class, which manages global and
+            entity-specific game logic objects. Provides functionality to
+            add, retrieve, and remove game logic, as well as utilities for
+            handling logic across all entities.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 #include <unordered_map>
 #include <string>
@@ -19,13 +36,40 @@ private:
     static DUCKENGINE_API std::unordered_map<int, std::vector<std::shared_ptr<GameLogic>>> entityLogicMap;
 
 public:
+    /**************************************************************************
+    * @brief Adds a logic object to the global logic map.
+    * @param name The name of the logic to add.
+    * @param logic A shared pointer to the GameLogic instance.
+    **************************************************************************/
     static DUCKENGINE_API void AddLogic(const std::string& name, std::shared_ptr<GameLogic> logic);
+
+    /**************************************************************************
+    * @brief Associates a logic object with a specific entity.
+    * @param entityID The ID of the entity.
+    * @param logic A shared pointer to the GameLogic instance.
+    **************************************************************************/
     static DUCKENGINE_API void AddLogicToEntity(int entityID, std::shared_ptr<GameLogic> logic);
 
+    /**************************************************************************
+    * @brief Retrieves a logic object by its name.
+    * @param name The name of the logic to retrieve.
+    * @return A shared pointer to the GameLogic instance, or nullptr if not found.
+    **************************************************************************/
     static DUCKENGINE_API std::shared_ptr<GameLogic> GetLogic(const std::string& name);
 
+    /**************************************************************************
+    * @brief Retrieves all logic objects associated with a specific entity.
+    * @param entityID The ID of the entity.
+    * @return A vector of shared pointers to the GameLogic instances.
+    **************************************************************************/
     static DUCKENGINE_API std::vector<std::shared_ptr<GameLogic>> GetAllLogicsForEntity(int entityID);
 
+    /**************************************************************************
+    * @brief Retrieves a specific type of logic object associated with an entity.
+    * @tparam T The type of logic to retrieve.
+    * @param entityID The ID of the entity.
+    * @return A shared pointer to the logic object, or nullptr if not found.
+    **************************************************************************/
     template <typename T>
     static std::shared_ptr<T> GetLogicForEntity(int entityID)
     {
@@ -50,6 +94,11 @@ public:
         return nullptr;
     }
 
+    /**************************************************************************
+    * @brief Retrieves all entities that have a specific type of logic.
+    * @tparam T The type of logic to search for.
+    * @return A vector of entity IDs that have the specified logic type.
+    **************************************************************************/
     template <typename T>
     static std::vector<int> GetAllEntitiesWithLogic()
     {
@@ -74,6 +123,10 @@ public:
     }
 
 
+    /**************************************************************************
+    * @brief Removes all logic objects associated with a specific entity.
+    * @param entityID The ID of the entity.
+    **************************************************************************/
     static DUCKENGINE_API void RemoveLogicsForEntity(int entityID);
 
     static void StartAll();

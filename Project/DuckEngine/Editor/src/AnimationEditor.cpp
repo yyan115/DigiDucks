@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file       AnimationEditor.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       November 30 2024
+\brief      Implements the AnimationEditor class, which provides an editor
+            interface for managing animations of game entities. This includes
+            rendering animation lists, timelines, properties, and previews.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "AnimationEditor.h"
 #include "DuckEngine.h"
 #include "AssetManager.h"
@@ -13,12 +29,19 @@ float previewElapsedTime = 0.0f;
 int previewCurrentFrame = 0;
 std::string previousAnimationName = "";
 
+/**************************************************************************
+* @brief Opens the animation editor for a specific entity.
+* @param entityId The ID of the entity to edit animations for.
+**************************************************************************/
 void AnimationEditor::Open(int entityId)
 {
     selectedEntityID = entityId;
     isOpen = true;
 }
 
+/**************************************************************************
+* @brief Renders the Animation Editor window and its components.
+**************************************************************************/
 void AnimationEditor::Render()
 {
     if (!isOpen || selectedEntityID == -1)
@@ -84,6 +107,10 @@ void AnimationEditor::Render()
         isOpen = false;
 }
 
+/**************************************************************************
+* @brief Renders the list of animations in the editor.
+* @param animator The animator component of the current entity.
+**************************************************************************/
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 {
     ImGui::Text("Animations");
@@ -132,6 +159,10 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
     }
 }
 
+/**************************************************************************
+* @brief Renders the timeline section for the selected animation.
+* @param animator The animator component of the current entity.
+**************************************************************************/
 void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
@@ -308,6 +339,10 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     ImGui::PopID();
 }
 
+/**************************************************************************
+* @brief Renders the properties section for the selected animation.
+* @param animator The animator component of the current entity.
+**************************************************************************/
 void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
@@ -334,6 +369,10 @@ void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
     }
 }
 
+/**************************************************************************
+* @brief Renders the preview section for the selected animation.
+* @param animator The animator component of the current entity.
+**************************************************************************/
 void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];

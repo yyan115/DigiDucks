@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       PrefabEditor.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       November 30 2024
+\brief      Implements the PrefabEditor class, which provides a graphical
+            interface for editing prefab objects in the game engine. This
+            includes functionality for rendering prefab properties,
+            components, and previewing prefabs.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "PrefabEditor.h"
 #include "DuckEngine.h"
 #include "GameManager.h"
@@ -12,7 +29,10 @@ std::vector<int> componentsToRemove;
 
 int selectedComponentIndex = 0;
 
-
+/**************************************************************************
+* @brief Opens the Prefab Editor for the specified prefab.
+* @param prefabName The name of the prefab to edit.
+**************************************************************************/
 void PrefabEditor::OpenPrefabEditor(const std::string& prefabName)
 {
     currentPrefabName = prefabName;
@@ -20,6 +40,9 @@ void PrefabEditor::OpenPrefabEditor(const std::string& prefabName)
     isOpen = true;
 }
 
+/**************************************************************************
+* @brief Renders the Prefab Editor window and its components.
+**************************************************************************/
 void PrefabEditor::Render()
 {
     if (!isOpen)
@@ -87,6 +110,9 @@ void PrefabEditor::Render()
         isOpen = false;
 }
 
+/**************************************************************************
+* @brief Renders the properties of the selected prefab, including components.
+**************************************************************************/
 void PrefabEditor::RenderPrefabProperties()
 {
     if (!currentPrefab || !currentPrefab->componentsData.is_array())
@@ -514,6 +540,9 @@ void PrefabEditor::RenderPrefabProperties()
     AddComponent();
 }
 
+/**************************************************************************
+* @brief Adds a new component to the selected prefab.
+**************************************************************************/
 void PrefabEditor::AddComponent()
 {
     const std::vector<std::string> componentTypes = InspectorRenderer::GetComponentTypes();
@@ -671,8 +700,9 @@ void PrefabEditor::AddComponent()
     }
 }
 
-
-
+/**************************************************************************
+* @brief Renders the preview of the selected prefab.
+**************************************************************************/
 void PrefabEditor::RenderPrefabPreview()
 {
     if (!currentPrefab)
@@ -782,6 +812,10 @@ void PrefabEditor::RenderPrefabPreview()
     }
 }
 
+/**************************************************************************
+* @brief Displays a context menu for a specific component.
+* @param componentIndex The index of the component in the prefab's data.
+**************************************************************************/
 void PrefabEditor::ComponentMenu(int componentIndex)
 {
     ImVec2 contentRegion = ImGui::GetContentRegionAvail();
