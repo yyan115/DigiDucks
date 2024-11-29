@@ -34,34 +34,39 @@ void PrefabEditor::Render()
         ImVec2(0.5f, 0.5f)
     );
 
-    if (ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &isOpen, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking))
+    bool windowOpen = true;
+    if (ImGui::Begin(("Prefab Editor - " + currentPrefabName).c_str(), &windowOpen, ImGuiWindowFlags_NoCollapse))
     {
         if (currentPrefab)
         {
             ImGui::Columns(2, nullptr, true);
 
-            ImGui::BeginChild("PrefabPreview", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
-            RenderPrefabPreview();
+            if (ImGui::BeginChild("PrefabPreview", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse))
+            {
+                RenderPrefabPreview();
+            }
             ImGui::EndChild();
 
             ImGui::NextColumn();
 
-            ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse);
-            ImGui::Text("Editing Prefab: %s", currentPrefabName.c_str());
-            RenderPrefabProperties();
-
-            if (ImGui::Button("Save Prefab"))
+            if (ImGui::BeginChild("PrefabProperties", ImVec2(0, 0), true, ImGuiWindowFlags_NoCollapse))
             {
-                PrefabManager::SavePrefab(currentPrefabName);
-                LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
-                DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
-                currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
-            }
+                ImGui::Text("Editing Prefab: %s", currentPrefabName.c_str());
+                RenderPrefabProperties();
 
-            ImGui::SameLine();
-            if (ImGui::Button("Close"))
-            {
-                isOpen = false;
+                if (ImGui::Button("Save Prefab"))
+                {
+                    PrefabManager::SavePrefab(currentPrefabName);
+                    LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+                    DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
+                    currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
+                }
+
+                ImGui::SameLine();
+                if (ImGui::Button("Close"))
+                {
+                    isOpen = false;
+                }
             }
             ImGui::EndChild();
 
@@ -75,12 +80,12 @@ void PrefabEditor::Render()
                 isOpen = false;
             }
         }
-
-        ImGui::End();
     }
+    ImGui::End();
+
+    if (!windowOpen)
+        isOpen = false;
 }
-
-
 
 void PrefabEditor::RenderPrefabProperties()
 {
