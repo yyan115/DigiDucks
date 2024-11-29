@@ -185,7 +185,12 @@ void DuckEngine::Update()
 {
     if (IsPaused() || WindowManager::IsWindowMinimized())
     {
+        SoundSystem::PauseAllSounds();
         return;
+    }
+    else
+    {
+        SoundSystem::ResumeAllSounds();
     }
 
     static float timer = 0;
