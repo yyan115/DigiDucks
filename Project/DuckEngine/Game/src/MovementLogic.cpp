@@ -71,7 +71,7 @@ void MovementLogic::FixedUpdate()
 	inputDirection = inputDirection.normalized();
 
 	// Set velocity based on normalized input
-	rigidbody->velocity = (inputDirection * moveSpeed) * DuckEngine::DeltaTime();
+	rigidbody->velocity = inputDirection * moveSpeed;
 
 
 	if (animator)
