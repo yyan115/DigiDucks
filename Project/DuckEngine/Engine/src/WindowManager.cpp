@@ -28,6 +28,7 @@ GLint WindowManager::viewportWidth;
 GLint WindowManager::viewportHeight;
 const char* WindowManager::title;
 
+bool WindowManager::isFocused = true;
 bool WindowManager::isFullscreen = false;
 GLint WindowManager::windowedWidth = 1600;   // Default windowed size
 GLint WindowManager::windowedHeight = 900;  // Default windowed size
@@ -47,7 +48,7 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     WindowManager::height = _height;
     WindowManager::viewportWidth = _width;
     WindowManager::viewportHeight = _height;
-    title = _title;
+    title = _title; 
 
     windowedWidth = _width;
     windowedHeight = _height;
@@ -84,6 +85,7 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
 
     // Set callback for FB size change
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
+    glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
 
     return true;
 }
@@ -223,4 +225,9 @@ GLint WindowManager::GetViewportHeight()
 /// <param name="_title">The new title of the window.</param>
 void WindowManager::SetWindowTitle(const char* _title) {
     glfwSetWindowTitle(ptrWindow, _title);
+}
+
+void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
+    UNREFERENCED_PARAMETER(window);
+    isFocused = focused != 0;
 }
