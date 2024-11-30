@@ -121,6 +121,15 @@ void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
     debugDrawQueue.emplace_back(drawCommand);
 }
 
+glm::mat3 OrthographicProjectionMatrix(float left, float right, float bottom, float top) {
+    return glm::mat3(
+        glm::vec3(2.0f / (right - left), 0.0f, 0.0f),
+        glm::vec3(0.0f, 2.0f / (bottom - top), 0.0f),
+        glm::vec3(-(right + left) / (right - left), -(top + bottom) / (top - bottom), 1.0f)
+    );
+}
+
+
 /// <summary>
 /// Renders all objects in the draw queue using the default shader and configured matrices. 
 /// Handles both textured and color-based rendering, setting up necessary OpenGL states.
@@ -164,10 +173,23 @@ void GraphicsManager::Render() {
         if (drawItem.relativeToCamera) {
             finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
         }
-        else {
-            glm::mat3x3 uiProjection = CameraToNDCMatrix(static_cast<float>(WindowManager::GetWindowWidth()), static_cast<float>(WindowManager::GetWindowHeight()));
-            finalMatrix = uiProjection * modelToWorld;
-        }
+    else {
+        float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
+        float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());
+
+        float left = 0.0f;
+        float right = windowWidth;
+        float bottom = windowHeight;
+        float top = 0.0f;
+
+        glm::mat3 projection = OrthographicProjectionMatrix(left, right, bottom, top);
+
+        // Ensure drawItem positions are in screen coordinates
+        glm::mat3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+
+        finalMatrix = projection * modelToWorld;
+    }
+
 
         // Send matrix to vert shader
         GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uModelToNDC");
