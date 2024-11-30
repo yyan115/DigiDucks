@@ -78,7 +78,7 @@ void DuckEngine::Initialize(bool _isEditor)
     // Init Window, then Graphics, then Input
     //Serialization::InitJson("Resources/windows_init.json");
     WindowInit window = Serialization::GetWindowInit();
-    WindowManager::Initialize(1600, 900, "HEHE");
+    WindowManager::Initialize(1600, 900, "DigiDucks");
     GraphicsManager::Initialize();
     InputManager::Initialize(WindowManager::getWindow());
     CameraManager::Initialize(0.f, 0.f, 10);
@@ -253,7 +253,7 @@ void DuckEngine::Update()
     FontManager::Update();
     TimeManager::EndManagerTimer("Font System");
 
-    DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
+    //DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 }
 
 /************************************************************************

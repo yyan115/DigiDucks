@@ -31,6 +31,7 @@ int WINAPI WinMain(
 {
 #ifdef EDITOR_DEBUG
     EnableConsole();
+    DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 #endif
 
     (void)hInstance;
@@ -81,6 +82,12 @@ int WINAPI WinMain(
                 engine.Update();
                 GameManager::Update();
             }
+
+#ifdef EDITOR_DEBUG
+            DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
+#else
+            DuckEngine::SetWindowTitle("Quack Kitchen");
+#endif
 
             GizmoManager::Update();
 

@@ -53,6 +53,11 @@ int WINAPI WinMain(
 
         gManager.Update();
         gManager.DuckEngine.Update();
+#ifdef _DEBUG
+        DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
+#else
+        DuckEngine::SetWindowTitle("Quack Kitchen");
+#endif
         
         gManager.DuckEngine.StartDraw();
 
