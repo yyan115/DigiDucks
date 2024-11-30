@@ -150,7 +150,7 @@ void GameScene::UpdateOrderTexture() {
 	std::string newOrderTexture = "Resources/Sprites/Ingredients/Dishes/Dish_" + std::to_string((rand() % 3) + 1) + ".png";
 	auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
 	if (spriteRenderer) {
-		spriteRenderer->texturePath = newOrderTexture; // Update the SpriteRendererComponent texture
+		spriteRenderer->texture = *AssetManager::GetTexture(newOrderTexture).get(); // Update the SpriteRendererComponent texture
 	}
 }
 

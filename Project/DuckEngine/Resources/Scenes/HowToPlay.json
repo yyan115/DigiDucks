@@ -8,7 +8,6 @@
                             "x": -10.0,
                             "y": -6.300000190734863
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 3.0,
@@ -25,6 +24,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/arrow.png",
@@ -56,7 +56,6 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 36.0,
@@ -73,6 +72,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/background.png",
@@ -100,7 +100,6 @@
                             "x": -15.435961723327637,
                             "y": -7.80063533782959
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 4.0,
@@ -117,6 +116,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/xbutton.png",
@@ -148,7 +148,6 @@
                             "x": 2.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 30.0,
@@ -165,6 +164,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/journal_1.png",
@@ -196,7 +196,6 @@
                             "x": 14.5,
                             "y": -6.300000190734863
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 3.0,
@@ -213,6 +212,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/arrow_right.png",
