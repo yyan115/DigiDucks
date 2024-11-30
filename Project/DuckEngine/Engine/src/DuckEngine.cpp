@@ -166,8 +166,13 @@ bool DuckEngine::IsPlaying()
 void DuckEngine::SetPaused(bool paused) 
 {
     isPaused = paused;
-    if (!IsPaused())
+    if (isPaused)
     {
+        SoundSystem::PauseAllSounds();
+    }
+    else
+    {
+        SoundSystem::ResumeAllSounds();
         TimeManager::ResetPrevTime();
     }
 }
@@ -188,6 +193,7 @@ void DuckEngine::Update()
     {
         if (!pausedOrMinimized)
         {
+            std::cout << "Paused" << std::endl;
             SoundSystem::PauseAllSounds();
             pausedOrMinimized = true;
         }

@@ -113,27 +113,28 @@ void SpriteRendererSystem::Render()
             auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
             auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
 
-            if (spriteRenderer && transform)
+            if (!spriteRenderer || !transform || !spriteRenderer->isVisible)
             {
-                if (!spriteRenderer->isVisible) continue;
-                if (!DuckEngine::IsPlaying())
-                {
-                    transform->previousPosition = transform->GetPosition();
-                }
-
-                RenderData data;
-                data.transform = transform;
-                data.spriteRenderer = spriteRenderer;
-                data.layer = layerOrder;
-                data.entityID = entityID;
-
-                if (isUILayer)
-                {
-                    transform->relativeToCamera = false;
-                }
-
-                renderQueue.push_back(data);
+                continue;
             }
+ 
+            if (!DuckEngine::IsPlaying())
+            {
+                transform->previousPosition = transform->GetPosition();
+            }
+
+            RenderData data;
+            data.transform = transform;
+            data.spriteRenderer = spriteRenderer;
+            data.layer = layerOrder;
+            data.entityID = entityID;
+
+            if (isUILayer)
+            {
+                transform->relativeToCamera = false;
+            }
+
+            renderQueue.push_back(data);
         }
     }
 

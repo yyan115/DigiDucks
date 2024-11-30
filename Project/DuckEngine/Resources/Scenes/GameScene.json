@@ -521,14 +521,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.5,
-                            "y": 0.0
+                            "x": 0.3790000081062317,
+                            "y": -0.4000000059604645
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.699999988079071,
-                            "y": 1.5
+                            "x": 0.30000001192092896,
+                            "y": 0.800000011920929
                         }
                     },
                     "type": "TransformComponent"
@@ -544,7 +544,7 @@
                         "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/journal_controls.png",
+                        "texture": "Resources/Sprites/HowToPlay/journalbookasset.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2407,7 +2407,7 @@
                             "x": -10.0,
                             "y": 2.0
                         },
-                        "relativeToCamera": false,
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
