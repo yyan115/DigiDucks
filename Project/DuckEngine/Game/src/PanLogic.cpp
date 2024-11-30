@@ -60,6 +60,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
 	objectSprite->texture = AssetManager::GetTextureByName("fryingpan_raw");
+	objectSprite->sortingOrder = 5;
 
 	type = objData.second;
 	isOccupied = true;
