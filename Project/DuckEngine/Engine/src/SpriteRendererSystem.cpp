@@ -133,6 +133,10 @@ void SpriteRendererSystem::Render()
             {
                 transform->relativeToCamera = false;
             }
+            else
+            {
+                transform->relativeToCamera = true;
+            }
 
             renderQueue.push_back(data);
         }
