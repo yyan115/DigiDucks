@@ -81,5 +81,11 @@ public:
 	* @return int - The score of the player.
 	* ****************************************************************/
 	int getScore() const { return totalScore; }
+
+	/****************************************************************
+	* @brief Check if a new order has been generated.
+	*
+	* @return bool - True if a new order has been generated.
+	* ****************************************************************/
 	bool CheckNewOrder();
 };
