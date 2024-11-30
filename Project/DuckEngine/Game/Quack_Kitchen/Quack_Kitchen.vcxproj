@@ -90,6 +90,7 @@
     <IntDir>$(SolutionDir)Build\$(Configuration)\</IntDir>
     <LibraryPath>$(OutDir);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
     <ExternalIncludePath>$(SolutionDir)extern\dotnet\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <TargetName>Quack Kitchen</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='EditorDebug|x64'">
     <OutDir>$(SolutionDir)\Game\lib\$(Configuration)\</OutDir>
