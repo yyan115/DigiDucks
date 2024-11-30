@@ -1,3 +1,16 @@
+/******************************************************************************/
+/*!
+\file       EndGame.h
+\author     Tan Yan Kai, yankai.tan, 2301312
+\par        yankai.tan@digipen.edu
+\date       November 30 2024
+\brief      Definition of the EndScene class, it loads up the necessary assets needed for the UI and display of the game score before going back to main menu.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include "Scene.h"
 
