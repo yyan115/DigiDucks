@@ -39,6 +39,15 @@ Entity* score;
 TextComponent* scoreText;
 int scoreValue{};
 
+/*Pause Menu*/
+Entity* pauseBG;
+SpriteRendererComponent* pauseBgSprite;
+Entity* pauseTxt;
+SpriteRendererComponent* pauseTxtSprite;
+Entity* resumeBtn;
+SpriteRendererComponent* resumeBtnSprite;
+ButtonComponent* resumeButton;
+bool isPause = false;
 
 
 /****************************************************************
@@ -53,23 +62,68 @@ void GameScene::Load()
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
-	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
-	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
+	if(duck)
+	{
+		duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
+		duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
+	}
 
 	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab");
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text");
-	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
-	if (timerText) {
-		timerText->text = "Time: 10:00";
-		timeLeft = 60.f;
+	if(timer)
+	{
+		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
+		if (timerText) {
+			timerText->text = "Time: 10:00";
+			timeLeft = 60.f;
+		}
 	}
 
 	score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text");
-	scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
-	if (scoreText) {
-		scoreText->text = "Score: 0";
-		scoreValue = 0;
+	if(score)
+	{
+		scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
+		if (scoreText) 
+		{
+			scoreText->text = "Score: 0";
+			scoreValue = 0;
+		}
+	}
+
+	pauseBG = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg");
+	if (pauseBG)
+	{
+		pauseBgSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(pauseBG->entityID);
+		if (pauseBgSprite)
+		{
+			pauseBgSprite->isVisible = false;
+		}
+	}
+
+	pauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text");
+	if (pauseTxt)
+	{
+		pauseTxtSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(pauseTxt->entityID);
+		if (pauseTxtSprite)
+		{
+			pauseTxtSprite->isVisible = false;
+		}
+	}
+
+	resumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn");
+	if (resumeBtn)
+	{
+		resumeBtnSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(resumeBtn->entityID);
+		if (resumeBtnSprite)
+		{
+			resumeBtnSprite->isVisible = false;
+		}
+		resumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(resumeBtn->entityID);
+		if (resumeButton)
+		{
+			resumeButton->onClick = []() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying) { DuckEngine::SetPaused(false); } };
+		}
 	}
 }
 
@@ -182,7 +236,20 @@ void GameScene::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
-		GameManager::SetActiveScene("MainMenu");
+		std::cout << "Escape is pressed!\n";
+		if (pauseBgSprite)
+		{
+			pauseBgSprite->isVisible = true;
+		}
+		if (pauseTxtSprite)
+		{
+			pauseTxtSprite->isVisible = true;
+		}
+		if (resumeBtnSprite)
+		{
+			resumeBtnSprite->isVisible = true;
+		}
+		DuckEngine::SetPaused(true);
 	}
 
 
