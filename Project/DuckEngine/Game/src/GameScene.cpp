@@ -68,6 +68,7 @@ SpriteRendererComponent* gameHTPNextBtnSpt;
 ButtonComponent* gameHTPNextButton;
 
 int pageNumb = 1;
+bool isPaused = false;
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -118,6 +119,9 @@ void GameScene::Load()
 		}
 	}
 
+	isPaused = false;
+	pageNumb = 1;
+
 	// Pause Menu
 	{
 		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg");
@@ -151,7 +155,7 @@ void GameScene::Load()
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
-				gameResumeButton->onClick = [this]() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying()) { PauseGame(false); } };
+				gameResumeButton->onClick = [this]() { std::cout << "RESUME\n"; if (isPaused) { PauseGame(false); } };
 			}
 		}
 
@@ -375,7 +379,7 @@ void GameScene::PostUpdate()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
 		std::cout << "Escape is pressed!\n";
-		PauseGame(DuckEngine::IsPlaying());
+		PauseGame(!isPaused);
 	}
 }
 
@@ -407,6 +411,7 @@ void GameScene::Unload()
 * ****************************************************************/
 void GameScene::PauseGame(bool state) 
 {
+	isPaused = state;
 	// Hide Texts
 	if (scoreText)
 	{
