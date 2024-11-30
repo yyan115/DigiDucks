@@ -236,20 +236,21 @@ void GameScene::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
+		bool isPlaying = DuckEngine::IsPlaying;
 		std::cout << "Escape is pressed!\n";
 		if (pauseBgSprite)
 		{
-			pauseBgSprite->isVisible = true;
+			pauseBgSprite->isVisible = isPlaying;
 		}
 		if (pauseTxtSprite)
 		{
-			pauseTxtSprite->isVisible = true;
+			pauseTxtSprite->isVisible = isPlaying;
 		}
 		if (resumeBtnSprite)
 		{
-			resumeBtnSprite->isVisible = true;
+			resumeBtnSprite->isVisible = isPlaying;
 		}
-		DuckEngine::SetPaused(true);
+		DuckEngine::SetPaused(isPlaying);
 	}
 
 
