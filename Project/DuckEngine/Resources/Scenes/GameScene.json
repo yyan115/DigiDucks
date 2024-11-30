@@ -664,12 +664,17 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": -0.05999999865889549
+                            "y": 47.400001525878906
                         },
                         "rotation": 0.0,
                         "scale": {
+<<<<<<< Updated upstream
                             "x": 0.15000000596046448,
                             "y": 0.12999999523162842
+=======
+                            "x": 10.350000381469727,
+                            "y": 2.5
+>>>>>>> Stashed changes
                         }
                     },
                     "type": "TransformComponent"
@@ -683,7 +688,11 @@
                             "r": 255.0
                         },
                         "isVisible": true,
+<<<<<<< Updated upstream
                         "sortingOrder": 1,
+=======
+                        "sortingOrder": 101,
+>>>>>>> Stashed changes
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
                         "useColor": true
@@ -704,7 +713,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "HTP_Exit_Btn": {
             "components": [
@@ -971,7 +980,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.07500000029802322,
+                            "x": 0.07500000029802321,
                             "y": -0.17000000178813934
                         },
                         "rotation": 0.0,
@@ -1034,7 +1043,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Pause_Text": {
             "components": [
@@ -1042,12 +1051,12 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 0.30000001192092896
+                            "y": 4.5
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.30000001192092896,
-                            "y": 0.10000000149011612
+                            "x": 7.400000095367432,
+                            "y": 1.2999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -1061,7 +1070,11 @@
                             "r": 255.0
                         },
                         "isVisible": true,
+<<<<<<< Updated upstream
                         "sortingOrder": 1,
+=======
+                        "sortingOrder": 101,
+>>>>>>> Stashed changes
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
                         "useColor": true
@@ -1069,7 +1082,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Player": {
             "components": [
@@ -1268,12 +1281,16 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
+<<<<<<< Updated upstream
                             "y": -0.23000000417232513
+=======
+                            "y": 0.0
+>>>>>>> Stashed changes
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.10999999940395355
+                            "x": 6.349999904632568,
+                            "y": 2.5199999809265137
                         }
                     },
                     "type": "TransformComponent"
@@ -1326,20 +1343,20 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Resume_Btn": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.10000000149011612
+                            "x": -0.20000000298023224,
+                            "y": 0.0
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.11999999731779099
+                            "x": 6.25,
+                            "y": 1.6200000047683716
                         }
                     },
                     "type": "TransformComponent"
@@ -1353,7 +1370,11 @@
                             "r": 255.0
                         },
                         "isVisible": true,
+<<<<<<< Updated upstream
                         "sortingOrder": 1,
+=======
+                        "sortingOrder": 101,
+>>>>>>> Stashed changes
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumebutton.png",
                         "useColor": true
@@ -1392,7 +1413,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Score_Text": {
             "components": [
