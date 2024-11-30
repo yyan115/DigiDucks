@@ -669,7 +669,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.15000000596046448,
-                            "y": 0.10000000149011612
+                            "y": 0.12999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -682,10 +682,10 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/howtoplay.png",
+                        "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1025,7 +1025,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/patternminigame.png",
@@ -1060,7 +1060,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
@@ -1268,7 +1268,7 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": -0.20000000298023224
+                            "y": -0.23000000417232513
                         },
                         "rotation": 0.0,
                         "scale": {
@@ -1286,10 +1286,10 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/quitbutton.png",
+                        "texture": "Resources/Sprites/Pause/quitgame_button.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1352,7 +1352,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumebutton.png",

@@ -170,7 +170,7 @@ void GameScene::Load()
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
-				gameExitButton->onClick = []() { std::cout << "QUIT\n"; GameManager::SetActiveScene("MainMenu"); };
+				gameExitButton->onClick = []() { std::cout << "QUIT\n"; GameManager::DuckEngine.CloseWindow(); };
 			}
 		}
 
