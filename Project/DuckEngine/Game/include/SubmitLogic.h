@@ -81,4 +81,5 @@ public:
 	* @return int - The score of the player.
 	* ****************************************************************/
 	int getScore() const { return totalScore; }
+	bool CheckNewOrder();
 };

@@ -485,8 +485,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": -8.0
+                            "x": 7.924348831176758,
+                            "y": -7.809975624084473
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -803,6 +803,42 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "Order_Tab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.699999988079071,
+                            "y": 0.699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.699999988079071
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Player": {
             "components": [
@@ -1229,6 +1265,14 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "PanLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
