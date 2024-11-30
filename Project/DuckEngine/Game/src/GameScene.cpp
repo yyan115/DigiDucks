@@ -69,6 +69,14 @@ void GameScene::Load()
 	}
 
 	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab");
+	if (OrderTab)
+	{
+		orderSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
+		if (orderSprite)
+		{
+			orderSprite->isVisible = true;
+		}
+	}
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text");
 	if(timer)
@@ -122,7 +130,7 @@ void GameScene::Load()
 		resumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(resumeBtn->entityID);
 		if (resumeButton)
 		{
-			resumeButton->onClick = []() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying) { DuckEngine::SetPaused(false); } };
+			resumeButton->onClick = []() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying()) { DuckEngine::SetPaused(false); } };
 		}
 	}
 }
@@ -236,7 +244,7 @@ void GameScene::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
-		bool isPlaying = DuckEngine::IsPlaying;
+		bool isPlaying = DuckEngine::IsPlaying();
 		std::cout << "Escape is pressed!\n";
 		if (pauseBgSprite)
 		{
