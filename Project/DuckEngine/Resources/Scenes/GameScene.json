@@ -25,6 +25,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/background.png",
@@ -69,6 +70,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
@@ -131,6 +133,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
@@ -202,6 +205,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/bun_box.png",
@@ -273,6 +277,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/cheese_fridge.png",
@@ -344,6 +349,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
@@ -415,6 +421,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Drone/drone_1.png",
@@ -498,6 +505,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
@@ -507,6 +515,42 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "GameObject 37": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.5,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.699999988079071,
+                            "y": 1.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/journal_controls.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Grey_Plate": {
             "components": [
@@ -533,6 +577,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/stack_plate_grey.png",
@@ -568,6 +613,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
@@ -639,6 +685,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/lettuce_box.png",
@@ -710,6 +757,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/mushroom_box.png",
@@ -781,6 +829,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Duck/duck_walk1.png",
@@ -1010,6 +1059,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/shrimp_fridge.png",
@@ -1081,6 +1131,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/steak_fridge.png",
@@ -1152,6 +1203,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
@@ -1206,6 +1258,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
@@ -1277,6 +1330,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/serving.png",
@@ -1342,6 +1396,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -1404,6 +1459,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -1466,6 +1522,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
@@ -1528,6 +1585,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
@@ -1590,6 +1648,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
@@ -1652,6 +1711,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -1714,6 +1774,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -1776,6 +1837,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
@@ -1838,6 +1900,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -1900,6 +1963,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
@@ -1962,6 +2026,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -2024,6 +2089,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -2086,6 +2152,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -2148,6 +2215,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
@@ -2248,6 +2316,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/foodstash stuff/tomato_box.png",
@@ -2319,6 +2388,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": false,
                         "texture": "Resources/Sprites/Ingredients/stack_plate.png",
@@ -2337,7 +2407,7 @@
                             "x": -10.0,
                             "y": 2.0
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2354,6 +2424,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",

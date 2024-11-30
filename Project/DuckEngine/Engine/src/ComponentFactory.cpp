@@ -132,6 +132,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		spriteData["properties"]["sortingOrder"] = spriteRenderer->sortingOrder;
 		spriteData["properties"]["texture"] = spriteRenderer->GetFilePath();
 		spriteData["properties"]["useColor"] = spriteRenderer->useColor;
+		spriteData["properties"]["isVisible"] = spriteRenderer->isVisible;
 		spriteData["properties"]["color"] =
 		{
 			{"r", spriteRenderer->color.r},
@@ -302,6 +303,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		int layer = componentJson["properties"].value("sortingOrder", 0);
 		std::string texturePath = componentJson["properties"].value("texture", "");
 		bool useColor = componentJson["properties"].value("useColor", false);
+		bool isVisible = componentJson["properties"].value("isVisible", true);
 
 		Color color{ 255, 255, 255, 255 };
 		if (componentJson["properties"].contains("color"))
@@ -312,7 +314,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 			color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
 		}
 
-		auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color);
+		auto spriteRenderer = std::make_shared<SpriteRendererComponent>(sprite, layer, useColor, color, isVisible);
 		spriteRenderer->texturePath = texturePath;
 		return spriteRenderer;
 	}

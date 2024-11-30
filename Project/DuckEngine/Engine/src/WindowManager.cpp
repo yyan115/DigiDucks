@@ -210,7 +210,7 @@ GLint WindowManager::GetWindowHeight()
 
 GLint WindowManager::GetViewportWidth()
 {
-    std::cout << "viewportW: " << viewportWidth << ", normalW: " << width << "\n";
+    //std::cout << "viewportW: " << viewportWidth << ", normalW: " << width << "\n";
     return viewportWidth;
 }
 

@@ -41,6 +41,7 @@ public:
 	std::string texturePath;
 	bool useColor;
 	Color color;
+	bool isVisible;
 
 	/************************************************************************
 	@brief Constructor for the SpriteRendererComponent class. Initializes
@@ -52,7 +53,7 @@ public:
 					instead of a texture (default is false).
 	@param color The color to apply if useColor is true (default is an empty color).
 	*************************************************************************/
-	DUCKENGINE_API SpriteRendererComponent(bool hasSprite = false, int spriteLayer = 0, bool useColor = false, Color color = Color()) : sprite(hasSprite), sortingOrder(spriteLayer), texture(), useColor(useColor), color(color) {}
+	DUCKENGINE_API SpriteRendererComponent(bool hasSprite = false, int spriteLayer = 0, bool useColor = false, Color color = Color(), bool visible = true) : sprite(hasSprite), sortingOrder(spriteLayer), texture(), useColor(useColor), color(color), isVisible(visible) {}
 
 	/************************************************************************
 	@brief Clones the current SpriteRendererComponent instance. This method

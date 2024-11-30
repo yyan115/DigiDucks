@@ -191,6 +191,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
 			if (ImGui::IsItemEdited()) hasChanged = true;
 
+			ImGui::Checkbox("Visible", &spriteRenderer->isVisible);
+			if (ImGui::IsItemEdited()) hasChanged = true;
+
 			// Normalize the color values
 			float color[4] = {
 				spriteRenderer->color.r / 255.0f,

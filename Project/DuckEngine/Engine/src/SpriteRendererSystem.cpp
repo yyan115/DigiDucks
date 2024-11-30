@@ -59,139 +59,154 @@ void SpriteRendererSystem::Update()
 
 void SpriteRendererSystem::Render()
 {
-	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
-	if (!activeScene) return;
+    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+    if (!activeScene) return;
 
-	float totalTime = static_cast<float>(DuckEngine::accumulatedTime);
-	float alpha = static_cast<float>((totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP));
-	alpha = std::min(1.0f, std::max(0.0f, alpha));
+    float totalTime = static_cast<float>(DuckEngine::accumulatedTime);
+    float alpha = static_cast<float>((totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP));
+    alpha = std::min(1.0f, std::max(0.0f, alpha));
 
-	auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-	// Validate and reassign layers if necessary
-	for (Entity& entity : allEntities)
-	{
-		auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID);
+    for (Entity& entity : allEntities)
+    {
+        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID);
+        if (!spriteRenderer) continue;
 
-		// Skip entities without a SpriteRendererComponent
-		if (!spriteRenderer) continue;
+        bool isInCorrectLayer = false;
+        for (const auto& [layerName, layer] : activeScene->GetLayers())
+        {
+            if (layer.HasEntityByID(entity.entityID))
+            {
+                isInCorrectLayer = (layerName == entity.layerName);
+                break;
+            }
+        }
 
-		// Check if the entity is in the correct layer
-		bool isInCorrectLayer = false;
+        if (!isInCorrectLayer)
+        {
+            for (const auto& [layerName, layer] : activeScene->GetLayers())
+            {
+                if (layer.HasEntityByID(entity.entityID))
+                {
+                    activeScene->RemoveEntityFromLayer(layerName, entity.entityID);
+                    break;
+                }
+            }
 
-		for (const auto& [layerName, layer] : activeScene->GetLayers())
-		{
-			if (layer.HasEntityByID(entity.entityID))
-			{
-				// Entity is in the correct layer
-				isInCorrectLayer = (layerName == entity.layerName);
-				break;
-			}
-		}
+            activeScene->AddEntityToLayer(entity.layerName, &entity);
+        }
+    }
 
-		// If the entity is not in the correct layer, reassign it
-		if (!isInCorrectLayer)
-		{
-			// Remove from the old layer
-			for (const auto& [layerName, layer] : activeScene->GetLayers())
-			{
-				if (layer.HasEntityByID(entity.entityID))
-				{
-					activeScene->RemoveEntityFromLayer(layerName, entity.entityID);
-					break;
-				}
-			}
+    std::vector<RenderData> renderQueue;
 
-			// Add to the correct layer
-			activeScene->AddEntityToLayer(entity.layerName, &entity);
-			std::cout << "Entity ID: " << entity.entityID << " reassigned to layer: " << entity.layerName << std::endl;
-		}
-	}
+    float viewportWidth = static_cast<float>(DuckEngine::GetViewportWidth());
+    float viewportHeight = static_cast<float>(DuckEngine::GetViewportHeight());
 
-	// Build the render queue
-	std::vector<RenderData> renderQueue;
+    for (const auto& [layerName, layer] : activeScene->GetLayers())
+    {
+        int layerOrder = layer.GetOrder();
+        bool isUILayer = (layerName == "UI");
 
-	for (const auto& [layerName, layer] : activeScene->GetLayers())
-	{
-		int layerOrder = layer.GetOrder();
+        for (int entityID : layer.GetEntityIDs())
+        {
+            auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
+            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
 
-		for (int entityID : layer.GetEntityIDs())
-		{
-			auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
-			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
-			
-			if (spriteRenderer && transform)
-			{
-				if (!DuckEngine::IsPlaying())
-				{
-					transform->previousPosition = transform->GetPosition();
-				}
-				RenderData data;
-				data.transform = transform;
-				data.spriteRenderer = spriteRenderer;
-				data.layer = layerOrder;
-				data.entityID = entityID;
-				renderQueue.push_back(data);
-			}
-		}
-	}
+            if (spriteRenderer && transform)
+            {
+                if (!spriteRenderer->isVisible) continue;
+                if (!DuckEngine::IsPlaying())
+                {
+                    transform->previousPosition = transform->GetPosition();
+                }
 
-	// Sort the render queue by layer order
-	std::sort(renderQueue.begin(), renderQueue.end(), [](const RenderData& a, const RenderData& b) {
-		if (a.layer != b.layer)
-		{
-			return a.layer < b.layer;
-		}
-		return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
-		});
+                RenderData data;
+                data.transform = transform;
+                data.spriteRenderer = spriteRenderer;
+                data.layer = layerOrder;
+                data.entityID = entityID;
 
-	// Add entities to the graphics draw queue
-	for (const RenderData& data : renderQueue)
-	{
-		DrawOptions drawOptions;
+                if (isUILayer)
+                {
+                    transform->relativeToCamera = false;
+                }
 
-		// Interpolate position between previous and current positions
-		if (data.transform->relativeToCamera)
-		{
-			// Skip interpolation if the position hasn't changed
-			if (data.transform->previousPosition == data.transform->GetPosition())
-			{
-				drawOptions.translation = data.transform->GetPosition();
-			}
-			else
-			{
-				// Interpolate position
-				Vector2D interpolatedPosition = data.transform->previousPosition +
-					(data.transform->GetPosition() - data.transform->previousPosition) * alpha;
-				drawOptions.translation = interpolatedPosition;
-			}
-		}
-		else
-		{
-			drawOptions.translation = data.transform->GetPosition();
-		}
+                renderQueue.push_back(data);
+            }
+        }
+    }
 
-		drawOptions.scale = data.transform->scale;
-		drawOptions.rotation = data.transform->angle;
+    std::sort(renderQueue.begin(), renderQueue.end(),
+        [](const RenderData& a, const RenderData& b) {
+            if (a.layer != b.layer)
+                return a.layer < b.layer;
+            return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
+        });
 
-		if (data.spriteRenderer->texture)
-		{
-			drawOptions.useTexture = true;
-			drawOptions.texture = &data.spriteRenderer->texture;
-		}
-		else if (data.spriteRenderer->useColor)
-		{
-			drawOptions.useColor = true;
-			drawOptions.color = data.spriteRenderer->color;
-		}
-		else
-		{
-			drawOptions.useColor = true;
-			drawOptions.color = { 255.f, 0.f, 255.f, 255.f }; // Magenta for missing texture/color
-		}
+    for (const RenderData& data : renderQueue)
+    {
+        DrawOptions drawOptions;
+        bool isUILayer = !data.transform->relativeToCamera;
 
-		drawOptions.relativeToCamera = data.transform->relativeToCamera;
+        if (isUILayer)
+        {
+            Vector2D uiPos = data.transform->GetPosition();
+            drawOptions.translation = Vector2D(
+                uiPos.x * viewportWidth,
+                uiPos.y * viewportHeight
+            );
+        }
+        else if (data.transform->relativeToCamera)
+        {
+            if (data.transform->previousPosition == data.transform->GetPosition())
+            {
+                drawOptions.translation = data.transform->GetPosition();
+            }
+            else
+            {
+                Vector2D interpolatedPosition = data.transform->previousPosition +
+                    (data.transform->GetPosition() - data.transform->previousPosition) * alpha;
+                drawOptions.translation = interpolatedPosition;
+            }
+        }
+        else
+        {
+            drawOptions.translation = data.transform->GetPosition();
+        }
 
-		GraphicsManager::AddToDrawQueue(drawOptions);
-	}
+        if (isUILayer)
+        {
+            drawOptions.scale = Vector2D(
+                data.transform->scale.x * viewportWidth,
+                data.transform->scale.y * viewportHeight
+            );
+        }
+        else
+        {
+            drawOptions.scale = data.transform->scale;
+        }
+
+        drawOptions.rotation = data.transform->angle;
+
+        if (data.spriteRenderer->texture)
+        {
+            drawOptions.useTexture = true;
+            drawOptions.texture = &data.spriteRenderer->texture;
+        }
+        else if (data.spriteRenderer->useColor)
+        {
+            drawOptions.useColor = true;
+            drawOptions.color = data.spriteRenderer->color;
+        }
+        else
+        {
+            drawOptions.useColor = true;
+            drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+        }
+
+        drawOptions.relativeToCamera = data.transform->relativeToCamera;
+
+        GraphicsManager::AddToDrawQueue(drawOptions);
+    }
 }

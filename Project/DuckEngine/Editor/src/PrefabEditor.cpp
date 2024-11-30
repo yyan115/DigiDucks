@@ -201,6 +201,13 @@ void PrefabEditor::RenderPrefabProperties()
                     properties["useColor"] = useColor;
                 }
 
+
+                bool isVisible = properties.value("isVisible", true);
+                if (ImGui::Checkbox("Visible", &isVisible))
+                {
+                    properties["isVisible"] = isVisible;
+                }
+
                 if (ImGui::ColorEdit4("Color", &color.x))
                 {
                     properties["color"]["r"] = static_cast<int>(color.x * 255);
@@ -612,7 +619,8 @@ void PrefabEditor::AddComponent()
                 { "useColor", false },
                 { "color", { { "r", 255 }, { "g", 255 }, { "b", 255 }, { "a", 255 } } },
                 { "sortingOrder", 0 },
-                { "texture", "" }
+                { "texture", "" },
+                { "isVisible", true }
             };
         }
         else if (selectedComponentType == "RigidbodyComponent")
