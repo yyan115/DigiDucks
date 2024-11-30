@@ -446,6 +446,24 @@
                 },
                 {
                     "properties": {
+                        "animations": [
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "Idle",
+                                "textures": [
+                                    "Resources/Sprites/Drone/drone1.png",
+                                    "Resources/Sprites/Drone/drone2.png",
+                                    "Resources/Sprites/Drone/drone3.png",
+                                    "Resources/Sprites/Drone/drone4.png",
+                                    "Resources/Sprites/Drone/drone5.png"
+                                ]
+                            }
+                        ]
+                    },
+                    "type": "AnimatorComponent"
+                },
+                {
+                    "properties": {
                         "logicNames": [
                             "RestockLogic"
                         ]

@@ -23,6 +23,19 @@ void RestockLogic::Start()
 {
 	restockStation = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
 	restockTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+}
+
+
+/****************************************************************
+* @brief Update function for the Restock Station Logic.
+* ****************************************************************/
+void RestockLogic::Update()
+{
+	if (animator)
+	{
+		animator->PlayAnimation("Idle");
+	}
 }
 
 /****************************************************************

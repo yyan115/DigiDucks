@@ -22,14 +22,15 @@ class RestockLogic : public GameLogic
 private:
 	Entity* restockStation;
 	TransformComponent* restockTransform;
+	AnimatorComponent* animator;
 
 public:
 
 	RestockLogic() :
-		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr) {}
+		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr) {}
 
 	RestockLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr)
+		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -43,7 +44,7 @@ public:
 	/****************************************************************
 	* @brief Update function for the Restock Station Logic.
 	* ****************************************************************/
-	void Update() override {}
+	void Update() override;
 
 	/****************************************************************
 	* @brief Fixed Update function for the Restock Station Logic.
