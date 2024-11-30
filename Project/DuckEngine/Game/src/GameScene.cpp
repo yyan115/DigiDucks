@@ -23,13 +23,14 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "Scene.h"
 #include "SubmitLogic.h"
-
+#include "SpriteRendererComponent.h"
 
 Entity* duck;
 TransformComponent* duckTrans;
 SoundComponent* duckSound;
 
-
+Entity* OrderTab;
+SpriteRendererComponent* orderSprite;
 Entity* timer;
 TextComponent* timerText;
 float timeLeft{};
@@ -37,6 +38,7 @@ float timeLeft{};
 Entity* score;
 TextComponent* scoreText;
 int scoreValue{};
+
 
 
 /****************************************************************
@@ -53,6 +55,8 @@ void GameScene::Load()
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
 	duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 	duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
+
+	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab");
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text");
 	timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
@@ -129,11 +133,25 @@ void GameScene::Update()
 	// Add Score
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
 	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+
+	if (submitLogic && submitLogic->CheckNewOrder()) {
+		UpdateOrderTexture(); // Update the order texture on successful submission
+	}
+
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
 	{
 		submitLogic->increaseScore(10);
 	}
 	scoreValue = submitLogic->getScore();
+}
+
+void GameScene::UpdateOrderTexture() {
+	// Generate a new random texture path
+	std::string newOrderTexture = "Resources/Sprites/Ingredients/Dishes/Dish_" + std::to_string((rand() % 2) + 1) + ".png";
+	auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
+	if (spriteRenderer) {
+		spriteRenderer->texture = *AssetManager::GetTexture(newOrderTexture).get();
+	}
 }
 
 /****************************************************************

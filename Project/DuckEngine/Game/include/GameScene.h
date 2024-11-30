@@ -58,4 +58,6 @@ class GameScene : public  Scene{
 	* ****************************************************************/
     void Unload() override;
 
+	void UpdateOrderTexture();
+
 };

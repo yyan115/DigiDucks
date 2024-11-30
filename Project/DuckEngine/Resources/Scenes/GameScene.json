@@ -8,7 +8,6 @@
                             "x": 0.0,
                             "y": 4.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
@@ -53,7 +52,6 @@
                             "x": 10.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -116,7 +114,6 @@
                             "x": -6.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -188,7 +185,6 @@
                             "x": -8.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -260,7 +256,6 @@
                             "x": 4.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -332,7 +327,6 @@
                             "x": 4.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -404,7 +398,6 @@
                             "x": 12.0,
                             "y": 2.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -488,7 +481,6 @@
                             "x": 8.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -516,42 +508,6 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 37": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.3790000081062317,
-                            "y": -0.4000000059604645
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.30000001192092896,
-                            "y": 0.800000011920929
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/journalbookasset.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "Grey_Plate": {
             "components": [
                 {
@@ -560,7 +516,6 @@
                             "x": -10.0,
                             "y": -0.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -596,7 +551,6 @@
                             "x": -10.0,
                             "y": -0.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -668,7 +622,6 @@
                             "x": -2.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -740,7 +693,6 @@
                             "x": -6.0,
                             "y": 4.519960403442383
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -804,6 +756,41 @@
             ],
             "layer": "Gameplay"
         },
+        "Order_Tab": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.699999988079071,
+                            "y": 0.699999988079071
+                        },
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.699999988079071
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Player": {
             "components": [
                 {
@@ -812,7 +799,6 @@
                             "x": 0.3742694854736328,
                             "y": -0.3741808235645294
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.5,
@@ -1004,7 +990,6 @@
                             "x": 3.0,
                             "y": 8.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -1042,7 +1027,6 @@
                             "x": 2.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1114,7 +1098,6 @@
                             "x": 6.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1186,7 +1169,6 @@
                             "x": -2.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1229,6 +1211,23 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/sizzle.mp3",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "PanLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -1241,7 +1240,6 @@
                             "x": 8.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1313,7 +1311,6 @@
                             "x": -10.0,
                             "y": -4.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1379,7 +1376,6 @@
                             "x": 10.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1442,7 +1438,6 @@
                             "x": 12.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1505,7 +1500,6 @@
                             "x": 12.0,
                             "y": -5.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1568,7 +1562,6 @@
                             "x": 12.0,
                             "y": -3.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1631,7 +1624,6 @@
                             "x": 12.0,
                             "y": -0.572702169418335
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1694,7 +1686,6 @@
                             "x": 8.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1757,7 +1748,6 @@
                             "x": 0.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1820,7 +1810,6 @@
                             "x": -10.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1883,7 +1872,6 @@
                             "x": -4.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1946,7 +1934,6 @@
                             "x": -8.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2009,7 +1996,6 @@
                             "x": -10.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2072,7 +2058,6 @@
                             "x": 0.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2135,7 +2120,6 @@
                             "x": 2.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2198,7 +2182,6 @@
                             "x": 6.0,
                             "y": -8.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2261,7 +2244,6 @@
                             "x": -3.0,
                             "y": 8.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -2299,7 +2281,6 @@
                             "x": -4.0,
                             "y": 4.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2371,7 +2352,6 @@
                             "x": -10.0,
                             "y": 2.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -2407,7 +2387,6 @@
                             "x": -10.0,
                             "y": 2.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,

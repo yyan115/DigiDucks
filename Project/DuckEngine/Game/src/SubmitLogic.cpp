@@ -14,6 +14,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "SubmitLogic.h"
 
+Entity* orderTab = nullptr;
+bool newOrderGenerated = false;
+
 /****************************************************************
 * @brief Start function for the Submit Station Logic.
 * ****************************************************************/
@@ -50,4 +53,13 @@ void SubmitLogic::increaseScore(int score)
 	if (score_Text) {
 		score_Text->text = "Score: " + std::to_string(totalScore);
 	}
+	newOrderGenerated = true;
+}
+
+bool SubmitLogic::CheckNewOrder() {
+	if (newOrderGenerated) {
+		newOrderGenerated = false;
+		return true;
+	}
+	return false;
 }

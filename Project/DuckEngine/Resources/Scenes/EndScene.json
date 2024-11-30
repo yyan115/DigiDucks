@@ -8,7 +8,6 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 36.0,
@@ -25,6 +24,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/DAY1.png",
@@ -52,7 +52,6 @@
                             "x": 0.0,
                             "y": -7.900000095367432
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 6.0,
@@ -69,6 +68,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/quit.png",
@@ -109,7 +109,6 @@
                             "x": 0.0,
                             "y": -3.0999999046325684
                         },
-                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -160,7 +159,6 @@
                             "x": -5.0,
                             "y": 1.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 3.0,
@@ -177,6 +175,7 @@
                             "g": 0.0,
                             "r": 254.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -195,7 +194,6 @@
                             "x": 0.0,
                             "y": 1.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 3.0,
@@ -212,6 +210,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -230,7 +229,6 @@
                             "x": 5.0,
                             "y": 1.5
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 3.0,
@@ -247,6 +245,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",

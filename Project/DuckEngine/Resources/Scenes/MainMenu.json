@@ -8,7 +8,6 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 36.0,
@@ -25,6 +24,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/mainmenu.png",
@@ -52,7 +52,6 @@
                             "x": 10.0,
                             "y": -7.471495628356934
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 8.0,
@@ -69,6 +68,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/quit.png",
@@ -109,7 +109,6 @@
                             "x": 10.0,
                             "y": -4.61757755279541
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 8.5,
@@ -126,6 +125,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/howtoplay.png",
@@ -166,7 +166,6 @@
                             "x": 10.0,
                             "y": 5.0
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 15.0,
@@ -183,6 +182,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/LOGO_1.png",
@@ -201,7 +201,6 @@
                             "x": 10.0,
                             "y": -1.6175775527954102
                         },
-                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 6.0,
@@ -218,6 +217,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/start.png",
