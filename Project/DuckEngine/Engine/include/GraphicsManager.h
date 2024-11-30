@@ -39,8 +39,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #endif
 
 struct GizmoData {
-    Vector2D position;
-    float size;
+    Vector2D position{ 0.0f, 0.0f };
+    float size{ 1.0f };
 };
 
 /// <summary>

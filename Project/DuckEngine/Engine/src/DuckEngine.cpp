@@ -221,7 +221,6 @@ void DuckEngine::Update()
     accumulatedTime += frameTime;
     currentSteps = 0;
 
-    CameraManager::Update();
 
     DuckEngine::DUCKENGINE_SystemManager.EditorUpdateAll();
 
@@ -287,6 +286,7 @@ void DuckEngine::StartDraw(GLint width, GLint height)
 *************************************************************************/
 void DuckEngine::Draw() 
 { 
+    CameraManager::Update();
     //GraphicsManager::OldRender(false);
     TimeManager::StartManagerTimer("Graphics System");
     GraphicsManager::Render();

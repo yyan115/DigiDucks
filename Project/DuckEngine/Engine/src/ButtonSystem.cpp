@@ -39,6 +39,12 @@ void ButtonSystem::Start()
 
 void ButtonSystem::Update()
 {
+  
+}
+
+// Temporary render function until FixedUpdate and Update are implemented
+void ButtonSystem::Render()
+{
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
     {
         ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
@@ -118,10 +124,4 @@ void ButtonSystem::Update()
         //    }
         //}
     }
-}
-
-// Temporary render function until FixedUpdate and Update are implemented
-void ButtonSystem::Render()
-{
-
 }

@@ -272,7 +272,10 @@ void GameScene::Update()
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
-	CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+	if (!isPaused)
+	{
+		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+	}
 
 	// For each sound component, play the sound if it is set to play on start
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
@@ -379,6 +382,7 @@ void GameScene::PostUpdate()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
 		std::cout << "Escape is pressed!\n";
+
 		PauseGame(!isPaused);
 	}
 }
@@ -411,6 +415,15 @@ void GameScene::Unload()
 * ****************************************************************/
 void GameScene::PauseGame(bool state) 
 {
+	if (state)
+	{
+		CameraManager::SetPosition(0.0f, 50.0f);
+	}
+	else
+	{
+		CameraManager::SetPosition(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+	}
+
 	isPaused = state;
 	// Hide Texts
 	if (scoreText)

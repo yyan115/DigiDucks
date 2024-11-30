@@ -173,22 +173,22 @@ void GraphicsManager::Render() {
         if (drawItem.relativeToCamera) {
             finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
         }
-    else {
-        float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
-        float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());
+        else {
+            float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
+            float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());
 
-        float left = 0.0f;
-        float right = windowWidth;
-        float bottom = windowHeight;
-        float top = 0.0f;
+            float left = 0.0f;
+            float right = windowWidth;
+            float bottom = windowHeight;
+            float top = 0.0f;
 
-        glm::mat3 projection = OrthographicProjectionMatrix(left, right, bottom, top);
+            glm::mat3 projection = OrthographicProjectionMatrix(left, right, bottom, top);
 
-        // Ensure drawItem positions are in screen coordinates
-        glm::mat3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+            // Ensure drawItem positions are in screen coordinates
+            glm::mat3 _modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
 
-        finalMatrix = projection * modelToWorld;
-    }
+            finalMatrix = projection * _modelToWorld;
+        }
 
 
         // Send matrix to vert shader
