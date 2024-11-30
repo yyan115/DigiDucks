@@ -31,39 +31,169 @@ typedef unsigned int Texture;
 class AssetManager
 {
 public:
+	/************************************************************************
+	@brief Loads all textures,sounds, shaders from the specified file path for the editor an game
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void LoadAll();
+	/************************************************************************
+	@brief Unloads all textures,sounds, shaders from the specified file path for the editor an game
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void UnloadAll();
 
+
+	// Textures
+	/************************************************************************
+	@brief Loads all textures from the specified file path for the editor an game
+	@param directoryPath The path to the directory containing the textures
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void LoadAllTextures(const std::string& directoryPath);
+
+	/************************************************************************
+	@brief Loads a texture from the specified file path
+	@param filePath The path to the texture file
+	@return vector of shared pointers to the loaded texture
+	*************************************************************************/
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath);
+
+	/************************************************************************
+	@brief Loads a texture from the specified file path with the specified width and height
+	@param filePath The path to the texture file
+	@param textureWidth The width of the texture
+	@param textureHeight The height of the texture
+	@return vector of shared pointers to the loaded texture
+	*************************************************************************/
 	static DUCKENGINE_API std::vector<std::shared_ptr<Texture>> LoadTexture(const std::string& filePath, int textureWidth, int textureHeight);
+
+	/************************************************************************
+	@brief Checks if a texture is loaded
+	@param fileName The name of the texture file
+	@return bool
+	*************************************************************************/
 	static DUCKENGINE_API bool IsTextureLoaded(const std::string& fileName);
+
+	/************************************************************************
+	@brief Unloads a texture from the specified file path
+	@param fileName The name of the texture file
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void UnloadTexture(const std::string& fileName);
+
+	/************************************************************************
+	@brief Reloads a texture from the specified file path
+	@param fileName The name of the texture file
+	@param filePath The path to the texture file
+	@return bool
+	*************************************************************************/
 	static DUCKENGINE_API void ReloadTexture(const std::string& fileName, const std::string& filePath);
+
+	/************************************************************************
+	@brief Gets a texture from the specified file path
+	@param fileName The name of the texture file
+	@return shared pointer to the loaded texture
+	*************************************************************************/
 	static DUCKENGINE_API std::shared_ptr<Texture> GetTexture(const std::string& fileName);
 
-	// Sounds	
-	static DUCKENGINE_API void LoadAllSounds(const std::string& directoryPath);
-	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
-	static DUCKENGINE_API void UnloadSound(const std::string& soundID);
-	static DUCKENGINE_API void ReloadSound(const std::string& soundID, const std::string& filePath);
-
-	static DUCKENGINE_API void LoadAllShaders(const std::string& directoryPath);
-	static DUCKENGINE_API void LoadAllFonts(const std::string& directoryPath);
-
-	// Scenes
-	static DUCKENGINE_API void PreloadScenes(const std::string& directoryPath);
-	static DUCKENGINE_API nlohmann::json GetLevelData(const std::string& levelName);
-
-	// Get
-	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
-	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
-	static DUCKENGINE_API const std::vector<std::string>& GetFontNames();
+	/************************************************************************
+	@brief Gets a texture based on the texture name
+	@param textureName The name of the texture
+	@return Texture
+	*************************************************************************/
 	static DUCKENGINE_API Texture GetTextureByName(const std::string& textureName);
+
+	/************************************************************************
+	@brief Gets the texture path based on the texture ID
+	@param textureID The ID of the texture
+	@return string containing the texture path
+	*************************************************************************/
 	static DUCKENGINE_API std::string GetTexturePath(Texture textureID);
 
 
-	// unload all textures
-	static DUCKENGINE_API void UnloadAll();
+	// Sounds
+	/************************************************************************
+	@brief Loads all sounds from the specified file path
+	@param directoryPath The path to the directory containing the sounds
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void LoadAllSounds(const std::string& directoryPath);
+
+	/************************************************************************
+	@brief Loads a sound from the specified file path
+	@param soundID The ID of the sound
+	@param filePath The path to the sound file
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void LoadSound(const std::string& soundID, const std::string& filePath);
+
+	/************************************************************************
+	@brief Unloads a sound from the specified file path
+	@param soundID The ID of the sound
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void UnloadSound(const std::string& soundID);
+
+	/************************************************************************
+	@brief Reloads a sound from the specified file path
+	@param soundID The ID of the sound
+	@param filePath The path to the sound file
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void ReloadSound(const std::string& soundID, const std::string& filePath);
+
+	/************************************************************************
+	@brief Gets the FMOD system
+	@return FMOD system
+	*************************************************************************/
+	static DUCKENGINE_API FMOD::System*& GetFMODSystem();
+
+	/************************************************************************
+	@brief Gets a sound from the specified SOUNDID
+	@param soundID The ID of the sound
+	@return FMOD sound
+	*************************************************************************/
+	static DUCKENGINE_API FMOD::Sound* GetSounds(const std::string& soundID);
+
+
+	// Shaders
+	/************************************************************************
+	@brief Loads all shaders from the specified file path
+	@param directoryPath The path to the directory containing the shaders
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void LoadAllShaders(const std::string& directoryPath);
+
+
+	// Fonts
+	/************************************************************************
+	@brief Loads all fonts from the specified file path
+	@param directoryPath The path to the directory containing the shaders
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void LoadAllFonts(const std::string& directoryPath);
+
+	/************************************************************************
+	@brief Gets all font names
+	@return vector of strings containing all font names
+	*************************************************************************/
+	static DUCKENGINE_API const std::vector<std::string>& GetFontNames();
+
+
+	// Scenes
+	/************************************************************************
+	@brief Preloads all scenes from the specified file path
+	@param directoryPath The path to the directory containing the shaders
+	@return void
+	*************************************************************************/
+	static DUCKENGINE_API void PreloadScenes(const std::string& directoryPath);
+	/************************************************************************
+	@brief Gets the level data from the specified file path
+	@paraf levelName The name of the level
+	@return json object containing the level data
+	*************************************************************************/
+	static DUCKENGINE_API nlohmann::json GetLevelData(const std::string& levelName);
+
 
 private:
 	// Stores all loaded textures with their file paths as keys
