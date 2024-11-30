@@ -5,14 +5,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -15.435961723327637,
-                            "y": -7.80063533782959
+                            "x": -10.0,
+                            "y": -6.300000190734863
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.0,
-                            "y": 4.0
+                            "x": 3.0,
+                            "y": 3.0
                         }
                     },
                     "type": "TransformComponent"
@@ -25,9 +25,9 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/xbutton.png",
+                        "texture": "Resources/Sprites/HowToPlay/arrow.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -48,7 +48,7 @@
             ],
             "layer": "Gameplay"
         },
-        "BackgroundGameObject": {
+        "Background": {
             "components": [
                 {
                     "properties": {
@@ -92,13 +92,61 @@
             ],
             "layer": "Background"
         },
-        "How To Play Journal": {
+        "Exit": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0803799629211426,
-                            "y": 0.2183396816253662
+                            "x": -15.435961723327637,
+                            "y": -7.80063533782959
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 4.0,
+                            "y": 4.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/xbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Journal": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -119,10 +167,71 @@
                         },
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/journal_controls.png",
+                        "texture": "Resources/Sprites/HowToPlay/journal_1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Next": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 14.5,
+                            "y": -6.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/arrow_right.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "Gameplay"

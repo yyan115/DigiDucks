@@ -12,9 +12,9 @@
 
 
 
-Entity* QuitButton;
-SoundComponent* quitsound;
-ButtonComponent* quit;
+Entity* MainMenuButton;
+SoundComponent* MainMenuSound;
+ButtonComponent* MainMenu;
 
 Entity* Star_1;
 SpriteRendererComponent* Star1;
@@ -40,20 +40,20 @@ void EndScene::Load()
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
-	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
-	quit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
-	quitsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);
-	quit->onClick = []() 
+	MainMenuButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
+	MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
+	MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
+	MainMenu->onClick = []()
 		{ 
 			std::cout << "Button clicked QUIT!!!!!!\n"; 
-			quitsound->Play(); 
+			MainMenuSound->Play();
 			isQuitButtonClicked = true;
 		};
 
-	quit->onHover = []()
+	MainMenu->onHover = []()
 		{
 			std::cout << "hover" << std::endl;
-			quitsound->PlayHold();
+			MainMenuSound->PlayHold();
 		};
 
 	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score");
@@ -84,7 +84,7 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
-	if (isQuitButtonClicked && !quitsound->IsSoundPlaying())
+	if (isQuitButtonClicked && !MainMenuSound->IsSoundPlaying())
 	{
 		GameManager::SetActiveScene("MainMenu");
 		isQuitButtonClicked = false;

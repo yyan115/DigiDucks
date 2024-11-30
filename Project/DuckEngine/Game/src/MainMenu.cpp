@@ -29,11 +29,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 SoundComponent* menusound;
 
 Entity* StartButton;
-Entity* ExitButton;
+Entity* QuitButton;
 Entity* HtpButton;
 
 SpriteRendererComponent* startButtonSpriteRenderer;
-SpriteRendererComponent* exitButtonSpriteRenderer;
+SpriteRendererComponent* quitButtonSpriteRenderer;
 SpriteRendererComponent* htpButtonSpriteRenderer;
 
 Texture startNormalTexture;
@@ -46,7 +46,7 @@ Texture htpNormalTexture;
 Texture htpHoverTexture;
 
 SoundComponent* StartSound;
-SoundComponent* ExitSound;
+SoundComponent* QuitSound;
 SoundComponent* HtpSound;
 
 bool shouldClose = false;
@@ -65,9 +65,9 @@ void MainMenu ::Load()
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
 	start->onClick = []() { std::cout << "Button clicked START!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
-	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
-	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
-	ExitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(ExitButton->entityID);
+	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
+	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
+	QuitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);
 	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay");
 	auto htp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(HtpButton->entityID);
@@ -75,7 +75,7 @@ void MainMenu ::Load()
 	htp->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
-	exitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ExitButton->entityID);
+	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);
 	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
@@ -100,13 +100,13 @@ void MainMenu ::Load()
 
 	exit->onHover = []()
 		{
-			ExitSound->PlayHold();
-			exitButtonSpriteRenderer->texture = quitHoverTexture;
+			QuitSound->PlayHold();
+			quitButtonSpriteRenderer->texture = quitHoverTexture;
 		};
 
 	exit->onFinishHover = []()
 		{
-			exitButtonSpriteRenderer->texture = quitNormalTexture;
+			quitButtonSpriteRenderer->texture = quitNormalTexture;
 		};
 
 	htp->onHover = []()

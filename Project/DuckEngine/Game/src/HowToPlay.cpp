@@ -31,16 +31,46 @@ written consent of DigiPen Institute of Technology is prohibited.
 * This function is called before the scene starts.
 * ****************************************************************/
 
+Entity* ExitButton;
+Entity* NextButton;
 Entity* BackButton;
+int pageNum;
+
+Entity* JournalPage;
+SpriteRendererComponent* JournalSprite;
 
 void HowToPlay::Load()
 {
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
+	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
+	if(ExitButton)
+	{
+		auto back = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
+		back->onClick = []() { std::cout << "Button clicked go back!!!!!!\n"; GameManager::SetActiveScene("MainMenu"); };
+	}
+
+	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next");
+	if(NextButton)
+	{
+		auto next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
+		next->onClick = []() { if (pageNum < 3) { pageNum++; } };
+	}
+
 	BackButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Back");
-	auto back = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(BackButton->entityID);
-	back->onClick = []() { std::cout << "Button clicked go back!!!!!!\n"; GameManager::SetActiveScene("MainMenu"); };
+	if (BackButton) {
+		auto backBtn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(BackButton->entityID);
+		backBtn->onClick = []() { if (pageNum > 1) { pageNum--; } };
+	}
+
+	JournalPage = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal");
+	if(JournalPage)
+	{
+		JournalSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(JournalPage->entityID);
+	}
+
+	pageNum = 1;
 }
 
 /****************************************************************
@@ -59,6 +89,24 @@ void HowToPlay::Start()
 void HowToPlay::Update()
 {
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
+
+	switch (pageNum)
+	{
+	case 1:
+		if (JournalSprite)
+			JournalSprite->texture = AssetManager::GetTextureByName("journal_1");
+		break;
+	case 2:
+		if (JournalSprite)
+			JournalSprite->texture = AssetManager::GetTextureByName("journal_2");
+		break;
+	case 3:
+		if (JournalSprite)
+			JournalSprite->texture = AssetManager::GetTextureByName("journal_3");
+		break;
+	default:
+		break;
+	};
 }
 
 /****************************************************************
