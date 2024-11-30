@@ -67,6 +67,19 @@ Entity* gameHTPNextBtn;
 SpriteRendererComponent* gameHTPNextBtnSpt;
 ButtonComponent* gameHTPNextButton;
 
+/*Exit Confirm*/
+Entity* gameExitCfmBg;
+SpriteRendererComponent* gameExitCfmBgSpt;
+Entity* gameExitCfmTxt;
+TextComponent* gameExitCfmText;
+Entity* gameExitYesBtn;
+SpriteRendererComponent* gameExitYesBtnSpt;
+ButtonComponent* gameExitYesButton;
+Entity* gameExitNoBtn;
+SpriteRendererComponent* gameExitNoBtnSpt;
+ButtonComponent* gameExitNoButton;
+
+
 int pageNumb = 1;
 bool isPaused = false;
 
@@ -170,7 +183,7 @@ void GameScene::Load()
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
-				gameExitButton->onClick = []() { std::cout << "QUIT\n"; GameManager::DuckEngine.CloseWindow(); };
+				gameExitButton->onClick = [this]() { std::cout << "QUIT\n"; ExitConfirm(true); };
 			}
 		}
 
@@ -228,7 +241,7 @@ void GameScene::Load()
 			gameHTPBackButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBackBtn->entityID);
 			if (gameHTPBackButton)
 			{
-				gameHTPBackButton->onClick = [this]() { std::cout << "BACK\n"; if (pageNumb > 1) { pageNumb--; } };
+				gameHTPBackButton->onClick = [this]() { std::cout << "BACK\n"; if (pageNumb > 1) { pageNumb--; changePage(); } };
 			}
 		}
 
@@ -243,10 +256,63 @@ void GameScene::Load()
 			gameHTPNextButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPNextBtn->entityID);
 			if (gameHTPNextButton)
 			{
-				gameHTPNextButton->onClick = [this]() { std::cout << "NEXT\n"; if (pageNumb < 3) { pageNumb++; } };
+				gameHTPNextButton->onClick = [this]() { std::cout << "NEXT\n"; if (pageNumb < 3) { pageNumb++; changePage(); } };
 			}
 		}
 
+	}
+
+	// Exit Confirmation
+	{
+		gameExitCfmBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Bg");
+		if (gameExitCfmBg)
+		{
+			gameExitCfmBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitCfmBg->entityID);
+			if (gameExitCfmBgSpt)
+			{
+				gameExitCfmBgSpt->isVisible = false;
+			}
+		}
+
+		gameExitCfmTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Txt");
+		if (gameExitCfmTxt)
+		{
+			gameExitCfmText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameExitCfmTxt->entityID);
+			if (gameExitCfmText)
+			{
+				gameExitCfmText->isEnabled = false;
+			}
+		}
+
+		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn");
+		if (gameExitYesBtn)
+		{
+			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
+			if (gameExitYesBtnSpt)
+			{
+				gameExitYesBtnSpt->isVisible = false;
+			}
+			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
+			if (gameExitYesButton)
+			{
+				gameExitYesButton->onClick = []() { std::cout << "YES\n"; GameManager::DuckEngine.CloseWindow(); };
+			}
+		}
+
+		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn");
+		if (gameExitNoBtn)
+		{
+			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
+			if (gameExitNoBtnSpt)
+			{
+				gameExitNoBtnSpt->isVisible = false;
+			}
+			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
+			if (gameExitNoButton)
+			{
+				gameExitNoButton->onClick = [this]() { std::cout << "NO\n"; ExitConfirm(false); };
+			}
+		}
 	}
 }
 
@@ -300,26 +366,6 @@ void GameScene::Update()
 			GameManager::SetActiveScene("EndScene");
 		}
 	}
-
-
-	switch (pageNumb)
-	{
-	case 1:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_1");
-		break;
-	case 2:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_2");
-		break;
-	case 3:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_3");
-		break;
-	default:
-		break;
-	};
-
 
 	// Cheats
 
@@ -435,6 +481,12 @@ void GameScene::PauseGame(bool state)
 		timerText->isEnabled = !state;
 	}
 
+	// Hide Order Tab
+	if (orderSprite)
+	{
+		orderSprite->isVisible = !state;
+	}
+
 	// Show Pause Menu
 	if (gamePauseBgSpt)
 	{
@@ -456,6 +508,7 @@ void GameScene::PauseGame(bool state)
 	{
 		gameHTPBtnSpt->isVisible = state;
 	}
+	HTPShow(false);
 	DuckEngine::SetPaused(state);
 }
 
@@ -481,4 +534,61 @@ void GameScene::HTPShow(bool state)
 	{
 		gameHTPNextBtnSpt->isVisible = state;
 	}
+}
+
+
+
+/****************************************************************
+* @brief Display Comfirmation to exit the game.
+* ****************************************************************/
+void GameScene::ExitConfirm(bool state)
+{
+
+	if (gameExitCfmBg)
+	{
+		gameExitCfmBgSpt->isVisible = state;
+	}
+	if (gameExitCfmTxt)
+	{
+		gameExitCfmText->isEnabled = state;
+	}
+	if (gameExitYesBtn)
+	{
+		gameExitYesBtnSpt->isVisible = state;
+	}
+	if (gameExitNoBtn)
+	{
+		gameExitNoBtnSpt->isVisible = state;
+	}
+
+	// Disable HTP Btn
+	if (gameHTPButton)
+	{
+		gameHTPButton->isEnabled = !state;
+	}
+}
+
+
+/****************************************************************
+* @brief Change the current page of the How To Play menu.
+* ****************************************************************/
+void GameScene::changePage() 
+{
+	switch (pageNumb)
+	{
+	case 1:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_1");
+		break;
+	case 2:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_2");
+		break;
+	case 3:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_3");
+		break;
+	default:
+		break;
+	};
 }
