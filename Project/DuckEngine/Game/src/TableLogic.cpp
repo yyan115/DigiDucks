@@ -32,14 +32,27 @@ void TableLogic::Start()
 *
 * @param objData - The object data to set.
 * ****************************************************************/
-void TableLogic::setObject(std::pair<int, ItemType> objData)
-{
-	std::cout << "Table Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
-	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
-	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
-	objectTransform->SetPosition(tableTransform->GetPosition());
-	type = objData.second;
-	isOccupied = true;
+void TableLogic::setObject(std::pair<int, ItemType> objData) {
+
+    if (objData.first < 0) {
+        std::cerr << "Attempted to set invalid object ID: " << objData.first << std::endl;
+        return;
+    }
+
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+    if (!entity) {
+        std::cerr << "Entity not found for ID: " << objData.first << std::endl;
+        return;
+    }
+
+    std::cout << "Table Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
+    objectOnTable = entity;
+    objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
+    if (objectTransform) {
+        objectTransform->SetPosition(tableTransform->GetPosition());
+    }
+    type = objData.second;
+    isOccupied = true;
 }
 
 /****************************************************************
@@ -47,22 +60,31 @@ void TableLogic::setObject(std::pair<int, ItemType> objData)
 *
 * @return The object data to move.
 * ****************************************************************/
-std::pair<int, ItemType> TableLogic::moveObject()
-{
-	std::cout << "Moving Object from Table";
-	if (!objectOnTable)
-	{
-		std::cout << "OBJ is NULLPTR" << std::endl;
-		return std::pair<int, ItemType>();
-	}
-	std::cout << "Object ID: " << objectOnTable->entityID << " Type: " << whatType(type) << std::endl;
-	int objectID = objectOnTable->entityID;
-	objectOnTable = nullptr;
-	objectTransform = nullptr;
-	isOccupied = false;
+std::pair<int, ItemType> TableLogic::moveObject() {
+    std::cout << "Moving Object from Table";
+    if (!objectOnTable) {
+        std::cout << "OBJ is NULLPTR" << std::endl;
+        return std::pair<int, ItemType>();
+    }
 
-	ItemType temp = type;
-	type = ItemType::EMPTY;
+    int objectID = objectOnTable->entityID;
+    if (objectID < 0 || !DuckEngine::DUCKENGINE_EntityManager.GetEntity(objectID)) {
+        std::cout << "Invalid entity ID: " << objectID << std::endl;
+        objectOnTable = nullptr;
+        objectTransform = nullptr;
+        isOccupied = false;
+        type = ItemType::EMPTY;
+        return std::pair<int, ItemType>();
+    }
 
-	return std::make_pair(objectID, temp);
+    std::cout << "Object ID: " << objectOnTable->entityID << " Type: " << whatType(type) << std::endl;
+
+    ItemType tempType = type;
+
+    objectOnTable = nullptr;
+    objectTransform = nullptr;
+    isOccupied = false;
+    type = ItemType::EMPTY;
+
+    return std::make_pair(objectID, tempType);
 }
