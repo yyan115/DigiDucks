@@ -60,4 +60,16 @@ class GameScene : public  Scene{
 
 	void UpdateOrderTexture();
 
+	/****************************************************************
+	* @brief Pause the game and display the pause menu.
+	* @param isPaused - true if the game is paused, false if the game
+	* is unpaused.
+	* ****************************************************************/
+	void PauseGame(bool);
+
+	/****************************************************************
+	* @brief Display the How To Play menu.
+	* ****************************************************************/
+	void HTPShow(bool);
+
 };

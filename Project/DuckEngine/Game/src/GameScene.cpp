@@ -40,15 +40,34 @@ TextComponent* scoreText;
 int scoreValue{};
 
 /*Pause Menu*/
-Entity* pauseBG;
-SpriteRendererComponent* pauseBgSprite;
-Entity* pauseTxt;
-SpriteRendererComponent* pauseTxtSprite;
-Entity* resumeBtn;
-SpriteRendererComponent* resumeBtnSprite;
-ButtonComponent* resumeButton;
-bool isPause = false;
+Entity* gamePauseBg;
+SpriteRendererComponent* gamePauseBgSpt;
+Entity* gamePauseTxt;
+SpriteRendererComponent* gamePauseTxtSpt;
+Entity* gameResumeBtn;
+SpriteRendererComponent* gameResumeBtnSpt;
+ButtonComponent* gameResumeButton;
+Entity* gameExitBtn;
+SpriteRendererComponent* gameExitBtnSpt;
+ButtonComponent* gameExitButton;
+Entity* gameHTPBtn;
+SpriteRendererComponent* gameHTPBtnSpt;
+ButtonComponent* gameHTPButton;
 
+/*HTP Menu*/
+Entity* gameJournal;
+SpriteRendererComponent* gameJournalSpt;
+Entity* gameHTPExitBtn;
+SpriteRendererComponent* gameHTPExitBtnSpt;
+ButtonComponent* gameHTPExitButton;
+Entity* gameHTPBackBtn;
+SpriteRendererComponent* gameHTPBackBtnSpt;
+ButtonComponent* gameHTPBackButton;
+Entity* gameHTPNextBtn;
+SpriteRendererComponent* gameHTPNextBtnSpt;
+ButtonComponent* gameHTPNextButton;
+
+int pageNumb = 1;
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -99,39 +118,131 @@ void GameScene::Load()
 		}
 	}
 
-	pauseBG = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg");
-	if (pauseBG)
+	// Pause Menu
 	{
-		pauseBgSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(pauseBG->entityID);
-		if (pauseBgSprite)
+		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg");
+		if (gamePauseBg)
 		{
-			pauseBgSprite->isVisible = false;
+			gamePauseBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseBg->entityID);
+			if (gamePauseBgSpt)
+			{
+				gamePauseBgSpt->isVisible = false;
+			}
+		}
+
+		gamePauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text");
+		if (gamePauseTxt)
+		{
+			gamePauseTxtSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseTxt->entityID);
+			if (gamePauseTxtSpt)
+			{
+				gamePauseTxtSpt->isVisible = false;
+			}
+		}
+
+		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn");
+		if (gameResumeBtn)
+		{
+			gameResumeBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameResumeBtn->entityID);
+			if (gameResumeBtnSpt)
+			{
+				gameResumeBtnSpt->isVisible = false;
+			}
+			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
+			if (gameResumeButton)
+			{
+				gameResumeButton->onClick = [this]() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying()) { PauseGame(false); } };
+			}
+		}
+
+		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn");
+		if (gameExitBtn)
+		{
+			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
+			if (gameExitBtnSpt)
+			{
+				gameExitBtnSpt->isVisible = false;
+			}
+			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
+			if (gameExitButton)
+			{
+				gameExitButton->onClick = []() { std::cout << "QUIT\n"; GameManager::SetActiveScene("MainMenu"); };
+			}
+		}
+
+		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn");
+		if (gameHTPBtn)
+		{
+			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
+			if (gameHTPBtnSpt)
+			{
+				gameHTPBtnSpt->isVisible = false;
+			}
+			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
+			if (gameHTPButton)
+			{
+				gameHTPButton->onClick = [this]() { std::cout << "HTP\n"; HTPShow(true); };
+			}
 		}
 	}
 
-	pauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text");
-	if (pauseTxt)
+	// H.T.P Menu
 	{
-		pauseTxtSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(pauseTxt->entityID);
-		if (pauseTxtSprite)
+		gameJournal = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal");
+		if (gameJournal)
 		{
-			pauseTxtSprite->isVisible = false;
+			gameJournalSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameJournal->entityID);
+			if (gameJournalSpt)
+			{
+				gameJournalSpt->isVisible = false;
+			}
 		}
-	}
+		
+		gameHTPExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Exit_Btn");
+		if (gameHTPExitBtn)
+		{
+			gameHTPExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPExitBtn->entityID);
+			if (gameHTPExitBtnSpt)
+			{
+				gameHTPExitBtnSpt->isVisible = false;
+			}
+			gameHTPExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPExitBtn->entityID);
+			if (gameHTPExitButton)
+			{
+				gameHTPExitButton->onClick = [this]() { std::cout << "EXIT\n"; HTPShow(false); };
+			}
+		}
 
-	resumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn");
-	if (resumeBtn)
-	{
-		resumeBtnSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(resumeBtn->entityID);
-		if (resumeBtnSprite)
+		gameHTPBackBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Back_Btn");
+		if (gameHTPBackBtn)
 		{
-			resumeBtnSprite->isVisible = false;
+			gameHTPBackBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBackBtn->entityID);
+			if (gameHTPBackBtnSpt)
+			{
+				gameHTPBackBtnSpt->isVisible = false;
+			}
+			gameHTPBackButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBackBtn->entityID);
+			if (gameHTPBackButton)
+			{
+				gameHTPBackButton->onClick = [this]() { std::cout << "BACK\n"; if (pageNumb > 1) { pageNumb--; } };
+			}
 		}
-		resumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(resumeBtn->entityID);
-		if (resumeButton)
+
+		gameHTPNextBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Next_Btn");
+		if (gameHTPNextBtn)
 		{
-			resumeButton->onClick = []() { std::cout << "RESUME\n"; if (DuckEngine::IsPlaying()) { DuckEngine::SetPaused(false); } };
+			gameHTPNextBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPNextBtn->entityID);
+			if (gameHTPNextBtnSpt)
+			{
+				gameHTPNextBtnSpt->isVisible = false;
+			}
+			gameHTPNextButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPNextBtn->entityID);
+			if (gameHTPNextButton)
+			{
+				gameHTPNextButton->onClick = [this]() { std::cout << "NEXT\n"; if (pageNumb < 3) { pageNumb++; } };
+			}
 		}
+
 	}
 }
 
@@ -184,6 +295,25 @@ void GameScene::Update()
 	}
 
 
+	switch (pageNumb)
+	{
+	case 1:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_1");
+		break;
+	case 2:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_2");
+		break;
+	case 3:
+		if (gameJournalSpt)
+			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_3");
+		break;
+	default:
+		break;
+	};
+
+
 	// Cheats
 
 	// End the Game
@@ -221,7 +351,7 @@ void GameScene::UpdateOrderTexture() {
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void GameScene::PostUpdate() 
+void GameScene::PostUpdate()
 {
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
@@ -244,24 +374,9 @@ void GameScene::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
-		bool isPlaying = DuckEngine::IsPlaying();
 		std::cout << "Escape is pressed!\n";
-		if (pauseBgSprite)
-		{
-			pauseBgSprite->isVisible = isPlaying;
-		}
-		if (pauseTxtSprite)
-		{
-			pauseTxtSprite->isVisible = isPlaying;
-		}
-		if (resumeBtnSprite)
-		{
-			resumeBtnSprite->isVisible = isPlaying;
-		}
-		DuckEngine::SetPaused(isPlaying);
+		PauseGame(DuckEngine::IsPlaying());
 	}
-
-
 }
 
 /****************************************************************
@@ -282,4 +397,70 @@ void GameScene::Unload()
 	// base unload
 	Scene::Unload();
 
+}
+
+
+/****************************************************************
+* @brief Pause the game and display the pause menu.
+* @param isPaused - true if the game is paused, false if the game
+* is unpaused.
+* ****************************************************************/
+void GameScene::PauseGame(bool state) 
+{
+	// Hide Texts
+	if (scoreText)
+	{
+		scoreText->isEnabled = !state;
+	}
+	if (timerText)
+	{
+		timerText->isEnabled = !state;
+	}
+
+	// Show Pause Menu
+	if (gamePauseBgSpt)
+	{
+		gamePauseBgSpt->isVisible = state;
+	}
+	if (gamePauseTxtSpt)
+	{
+		gamePauseTxtSpt->isVisible = state;
+	}
+	if (gameResumeBtnSpt)
+	{
+		gameResumeBtnSpt->isVisible = state;
+	}
+	if (gameExitBtnSpt)
+	{
+		gameExitBtnSpt->isVisible = state;
+	}
+	if (gameHTPBtnSpt)
+	{
+		gameHTPBtnSpt->isVisible = state;
+	}
+	DuckEngine::SetPaused(state);
+}
+
+
+/****************************************************************
+* @brief Display the How To Play menu.
+* ****************************************************************/
+void GameScene::HTPShow(bool state) 
+{
+	if (gameJournalSpt)
+	{
+		gameJournalSpt->isVisible = state;
+	}
+	if (gameHTPExitBtnSpt)
+	{
+		gameHTPExitBtnSpt->isVisible = state;
+	}
+	if (gameHTPBackBtnSpt)
+	{
+		gameHTPBackBtnSpt->isVisible = state;
+	}
+	if (gameHTPNextBtnSpt)
+	{
+		gameHTPNextBtnSpt->isVisible = state;
+	}
 }
