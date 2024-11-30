@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       GameManager.cpp
+\author     Jovan Chua, c.shengkaijovan, 2301244
+\par        c.shengkaijovan@digipen.edu
+\date       November 30 2024
+\brief      Implementation of the GameManager class, it handles the changing of scenes whenever it is called.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "GameManager.h"
 #include "GameLogicComponent.h"
 #include "MovementLogic.h"
@@ -27,6 +41,11 @@ DuckEngine GameManager::DuckEngine;
 std::string GameManager::ActiveSceneName = "SpriteMovementScene";
 bool GameManager::ShouldChangeScene = false;
 
+
+ /****************************************************************
+ * @brief Initializes all the scenes and gameplay logic for the game and is responsible for setting up all the scenes and game logic components that
+ * will be used throughout the game.
+ * ****************************************************************/
 void GameManager::InitScenes()
 {
     DuckEngine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
@@ -60,6 +79,9 @@ void GameManager::InitScenes()
 
 }
 
+ /****************************************************************
+ * @brief Updates the game state and handles scene transitions.
+ * ****************************************************************/
 void GameManager::Update()
 {
 	if (ShouldChangeScene)
@@ -70,7 +92,9 @@ void GameManager::Update()
 }
 
 
-
+/****************************************************************
+* @brief Sets the active scene for the game, optionally triggering a scene transition.
+* ****************************************************************/
 void GameManager::SetActiveScene(std::string sceneName, bool transition)
 {
 	ActiveSceneName = sceneName;

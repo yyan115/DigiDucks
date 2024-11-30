@@ -1,38 +1,51 @@
+/******************************************************************************/
+/*!
+\file       MainMenu.h
+\author     Jovan Chua, c.shengkaijovan, 2301244
+\par        c.shengkaijovan@digipen.edu
+\date       November 30 2024
+\brief      Definition of the MainMenu class, it loads up the screen to show the instructions on how to play the game whenever it is triggered.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #pragma once
 #include "Scene.h"
 
 class MainMenu : public Scene {
-    /// <summary>
-    /// Loads all necessary resources for the scene.
-    /// This function is called before the scene starts.
-    /// </summary>
+    /****************************************************************
+    * @brief Load all necessary resources for the scene.
+    * This function is called before the scene starts.
+    * ****************************************************************/
     void Load() override;
 
-    /// <summary>
-    /// Starts the scene, initializing game objects and setting up the initial state.
-    /// This function is called when the scene begins running.
-    /// </summary>
+    /****************************************************************
+   * @brief Starts the scene, initializing game objects and setting up the initial state.
+   * This function is called when the scene begins running.
+   * ****************************************************************/
     void Start() override;
 
-    /// <summary>
-    /// Updates the scene logic each frame, including processing input and updating game objects.
-    /// This function is called every frame.
-    /// </summary>
+    /****************************************************************
+    * @brief Updates the scene logic each frame, including processing input and updating game objects.
+    * This function is called every frame.
+    * ****************************************************************/
     void Update() override;
 
-    /// <summary>
-    /// Performs any operations after the main update logic, such as cleanup or post-processing.
-    /// This function is called every frame, after the Update() method.
-    /// </summary>
+    /****************************************************************
+    * @brief Performs any operations after the main update logic, such as cleanup or post-processing.
+    * This function is called every frame, after the Update() method.
+    * ****************************************************************/
     void PostUpdate() override;
 
-    /// <summary>
-    /// Exits the scene, performing any cleanup necessary before the scene is unloaded.
-    /// </summary>
+    /****************************************************************
+    * @brief Exits the scene, performing any cleanup necessary before the scene is unloaded.
+    * ****************************************************************/
     void Exit() override;
 
-    /// <summary>
-    /// Unloads the scene and frees any resources that were loaded during the Load() phase.
-    /// </summary>
+    /****************************************************************
+    * @brief Unloads the scene and frees any resources that were loaded during the Load() phase.
+    * ****************************************************************/
     void Unload() override;
 };

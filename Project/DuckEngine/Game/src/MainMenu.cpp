@@ -1,3 +1,16 @@
+/******************************************************************************/
+/*!
+\file       MainMenu.cpp
+\author     Jovan Chua, c.shengkaijovan, 2301244
+\par        c.shengkaijovan@digipen.edu
+\date       November 30 2024
+\brief      Implementation of the MainMenu class, it loads up the necessary assets needed for the UI before going into the GameScene.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 #include "MainMenu.h"
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
@@ -13,23 +26,7 @@
 #include "GameManager.h"
 
 
-//Entity* duck;
-//TransformComponent* duckTrfm;
-//RigidbodyComponent* duckRb;
-//AnimatorComponent* duckAnimator;
 SoundComponent* menusound;
-//BoundingCircle* duckCollider;
-
-////Test Messaging System
-//InputEventManager inputEventManager;
-//Player message;
-
-/// <summary>
-/// Loads all necessary resources for the scene.
-/// This function is called before the scene starts.
-/// </summary>
-/// 
-/// 
 
 Entity* StartButton;
 Entity* ExitButton;
@@ -53,6 +50,11 @@ SoundComponent* ExitSound;
 SoundComponent* HtpSound;
 
 bool shouldClose = false;
+
+/****************************************************************
+* @brief Load all necessary resources for the scene.
+* This function is called before the scene starts.
+* ****************************************************************/
 
 void MainMenu ::Load()
 {
@@ -119,34 +121,24 @@ void MainMenu ::Load()
 		};
 }
 
-/// <summary>
-/// Starts the scene, initializing game objects and setting up the initial state.
-/// This function is called when the scene begins running.
-/// </summary>
+
+/****************************************************************
+* @brief Starts the scene, initializing game objects and setting up the initial state.
+* This function is called when the scene begins running.
+* ****************************************************************/
 void MainMenu ::Start()
 {
 	Scene::Start();
-	//DuckEngine::showDebugColliders = false;
 }
 
-/// <summary>
-/// Updates the scene logic each frame, including processing input and updating game objects.
-/// This function is called every frame.
-/// </summary>
+/****************************************************************
+* @brief Updates the scene logic each frame, including processing input and updating game objects.
+* This function is called every frame.
+* ****************************************************************/
 void MainMenu ::Update()
 {
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 	// For each sound component, play the sound if it is set to play on start
-	//for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-	//	SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-
-	//	if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-	//		soundComponent->Play();
-	//	}
-	//}
-	//if (DuckEngine::DUCKENGINE_AssetManager.LoadTexture("Resources/Sprites/MainMenu/mainmenu.png")) {
-	//	std::cerr << "Failed to load background texture!" << std::endl;
-	//}
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
 		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
 
@@ -156,10 +148,10 @@ void MainMenu ::Update()
 	}
 }
 
-/// <summary>
-/// Performs any operations after the main update logic, such as cleanup or post-processing.
-/// This function is called every frame, after the Update() method.
-/// </summary>
+/****************************************************************
+* @brief Performs any operations after the main update logic, such as cleanup or post-processing.
+* This function is called every frame, after the Update() method.
+* ****************************************************************/
 void MainMenu::PostUpdate()
 {
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
@@ -173,28 +165,21 @@ void MainMenu::PostUpdate()
 			menusound->Stop();
 		}
 	}
-
-	//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_K))
-	//{
-	//	std::cout << "K is pressed!\n";
-	//	DuckEngine::showDebugColliders = !DuckEngine::showDebugColliders;
-	//}
 }
 
-/// <summary>
-/// Exits the scene, performing any cleanup necessary before the scene is unloaded.
-/// </summary>
+/****************************************************************
+* @brief Exits the scene, performing any cleanup necessary before the scene is unloaded.
+* ****************************************************************/
 void MainMenu::Exit()
 {
 
 }
 
-/// <summary>
-/// Unloads the scene and frees any resources that were loaded during the Load() phase.
-/// </summary>
+/****************************************************************
+* @brief Unloads the scene and frees any resources that were loaded during the Load() phase.
+* ****************************************************************/
 void MainMenu::Unload()
 {
 	// base unload
 	Scene::Unload();
-
 }
