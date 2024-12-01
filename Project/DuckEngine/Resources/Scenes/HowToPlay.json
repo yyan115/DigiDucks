@@ -5,13 +5,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -10.0,
-                            "y": -6.300000190734863
+                            "x": -15.100000381469727,
+                            "y": -7.300000190734863
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 1.5,
+                            "y": 1.5
                         }
                     },
                     "type": "TransformComponent"
@@ -97,13 +97,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -15.435961723327637,
-                            "y": -7.80063533782959
+                            "x": -16.535999298095703,
+                            "y": 8.99899959564209
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.0,
-                            "y": 4.0
+                            "x": 2.0,
+                            "y": 2.0
                         }
                     },
                     "type": "TransformComponent"
@@ -117,7 +117,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 0,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/HowToPlay/xbutton.png",
                         "useColor": true
@@ -145,13 +145,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0,
+                            "x": 0.0,
                             "y": 0.0
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 30.0,
-                            "y": 20.0
+                            "x": 35.20000076293945,
+                            "y": 20.399999618530273
                         }
                     },
                     "type": "TransformComponent"
@@ -193,13 +193,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 14.5,
-                            "y": -6.300000190734863
+                            "x": 14.899999618530273,
+                            "y": -7.300000190734863
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 1.5,
+                            "y": 1.5
                         }
                     },
                     "type": "TransformComponent"
