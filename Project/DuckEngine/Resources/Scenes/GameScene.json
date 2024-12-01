@@ -506,7 +506,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/INPUT.png",
@@ -542,7 +542,7 @@
                             "r": 255.0
                         },
                         "fontName": "Kenney High Square",
-                        "fontSize": 2.0999999046325684,
+                        "fontSize": 2.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -578,7 +578,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/NOBUTTON.png",
@@ -626,7 +626,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/YESBUTTON.png",
@@ -863,7 +863,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
@@ -1184,7 +1184,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
@@ -1219,7 +1219,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 100,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/patternminigame.png",
@@ -1254,7 +1254,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
@@ -1480,7 +1480,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/quitgame_button.png",
@@ -1546,7 +1546,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumebutton.png",

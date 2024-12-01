@@ -314,6 +314,8 @@ void GameScene::Load()
 			}
 		}
 	}
+
+	PauseGame(false);
 }
 
 /****************************************************************
@@ -508,7 +510,9 @@ void GameScene::PauseGame(bool state)
 	{
 		gameHTPBtnSpt->isVisible = state;
 	}
+
 	HTPShow(false);
+	ExitConfirm(false);
 	DuckEngine::SetPaused(state);
 }
 
@@ -533,6 +537,16 @@ void GameScene::HTPShow(bool state)
 	if (gameHTPNextBtnSpt)
 	{
 		gameHTPNextBtnSpt->isVisible = state;
+	}
+
+	// Disable Quit and Resume Btn
+	if (gameResumeButton)
+	{
+		gameResumeButton->isEnabled = !state;
+	}
+	if (gameExitButton)
+	{
+		gameExitButton->isEnabled = !state;
 	}
 }
 
@@ -561,11 +575,16 @@ void GameScene::ExitConfirm(bool state)
 		gameExitNoBtnSpt->isVisible = state;
 	}
 
-	// Disable HTP Btn
+	// Disable HTP  and Quit Btn
 	if (gameHTPButton)
 	{
 		gameHTPButton->isEnabled = !state;
 	}
+	if (gameResumeButton)
+	{
+		gameResumeButton->isEnabled = !state;
+	}
+
 }
 
 
