@@ -864,7 +864,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
@@ -1185,7 +1185,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
@@ -1220,7 +1220,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 100,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/patternminigame.png",
@@ -1255,7 +1255,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
@@ -1481,7 +1481,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/quitgame_button.png",
@@ -1548,7 +1548,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumegame.png",
@@ -1615,7 +1615,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -2870,7 +2870,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
