@@ -242,6 +242,8 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 			{"b", textComponent->color.b},
 			{"a", textComponent->color.a}
 		};
+		textData["properties"]["enabled"] = textComponent->isEnabled;
+
 		componentsArray.push_back(textData);
 	}
 
@@ -381,6 +383,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		std::string text = componentJson["properties"].value("text", "");
 		Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
 		int fontSize = componentJson["properties"].value("fontSize", 12);
+		bool enabled = componentJson["properties"].value("enabled", true);
 
 		Color color{ 255, 255, 255, 255 };
 		if (componentJson["properties"].contains("color"))
@@ -391,7 +394,9 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 			color.a = static_cast<float>(componentJson["properties"]["color"].value("a", 255));
 		}
 
+
 		auto textComponent = std::make_shared<TextComponent>(fontName, text, position, static_cast<float>(fontSize), color);
+		textComponent->isEnabled = enabled;
 		return textComponent;
 	}
 	else if (type == "ButtonComponent")
