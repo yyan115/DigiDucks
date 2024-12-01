@@ -492,8 +492,8 @@
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 16.0,
-                            "y": 9.0
+                            "x": 22.0,
+                            "y": 12.0
                         }
                     },
                     "type": "TransformComponent"
@@ -506,7 +506,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/INPUT.png",
@@ -523,7 +523,7 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 2.0999999046325684
+                            "y": 2.9000000953674316
                         },
                         "rotation": 0.0,
                         "scale": {
@@ -542,7 +542,7 @@
                             "r": 255.0
                         },
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.5,
+                        "fontSize": 2.0999999046325684,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -559,13 +559,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 3.5,
-                            "y": 48.5
+                            "x": 5.599999904632568,
+                            "y": 47.5
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 3.0
+                            "x": 6.5,
+                            "y": 3.5
                         }
                     },
                     "type": "TransformComponent"
@@ -578,10 +578,10 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 102,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/REDBUTTON.png",
+                        "texture": "Resources/Sprites/Pause/NOBUTTON.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -607,13 +607,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -3.5,
-                            "y": 48.5
+                            "x": -5.599999904632568,
+                            "y": 47.5
                         },
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 3.0
+                            "x": 6.5,
+                            "y": 3.5
                         }
                     },
                     "type": "TransformComponent"
@@ -626,10 +626,10 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 102,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/GREENBUTTON.png",
+                        "texture": "Resources/Sprites/Pause/YESBUTTON.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -863,7 +863,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
@@ -1219,7 +1219,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 100,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/patternminigame.png",
@@ -1254,7 +1254,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
@@ -1480,7 +1480,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/quitgame_button.png",
@@ -1546,7 +1546,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumebutton.png",
