@@ -506,7 +506,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/INPUT.png",
@@ -578,7 +578,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/REDBUTTON.png",
@@ -626,7 +626,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/GREENBUTTON.png",
@@ -863,7 +863,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
@@ -1165,8 +1165,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.07500000298023224,
-                            "y": -0.17000000178813934
+                            "x": 0.07999999821186066,
+                            "y": -0.1550000011920929
                         },
                         "rotation": 0.0,
                         "scale": {
@@ -1219,7 +1219,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 100,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/patternminigame.png",
@@ -1254,7 +1254,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/gamepaused.png",
@@ -1480,7 +1480,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/quitgame_button.png",
@@ -1546,7 +1546,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/resumebutton.png",
