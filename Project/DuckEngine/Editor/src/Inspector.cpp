@@ -180,6 +180,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 				}
 			}
 
+			ImGui::Checkbox("Relative To Camera", &transform->relativeToCamera);
+			if (ImGui::IsItemEdited()) hasChanged = true;
+
 		}
 	}
 

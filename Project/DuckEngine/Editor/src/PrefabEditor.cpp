@@ -175,6 +175,12 @@ void PrefabEditor::RenderPrefabProperties()
                     properties["rotation"] = rotation;
                 }
 
+                bool relativeToCamera = properties.value("relativeToCamera", false);
+                if (ImGui::Checkbox("Relative To Camera", &relativeToCamera))
+                {
+                    properties["relativeToCamera"] = relativeToCamera;
+                }
+
                 ComponentMenu(index);
             }
             index++;

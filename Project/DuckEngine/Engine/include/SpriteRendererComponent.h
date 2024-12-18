@@ -60,10 +60,13 @@ public:
 		   is used to create a deep copy of the component.
 	@return A shared pointer to the newly cloned SpriteRendererComponent.
 	*************************************************************************/
-	DUCKENGINE_API std::shared_ptr<Component> Clone() const override
+	std::shared_ptr<Component> Clone() const
 	{
-		return std::make_shared<SpriteRendererComponent>(*this);
+		auto clone = std::make_shared<SpriteRendererComponent>(*this);
+		clone->texture = texture;
+		return clone;
 	}
+
 
 	/************************************************************************
 	@brief Retrieves the file path of the current texture.

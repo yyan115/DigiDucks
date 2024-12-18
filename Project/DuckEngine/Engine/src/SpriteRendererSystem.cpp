@@ -106,7 +106,8 @@ void SpriteRendererSystem::Render()
     for (const auto& [layerName, layer] : activeScene->GetLayers())
     {
         int layerOrder = layer.GetOrder();
-        bool isUILayer = (layerName == "UI");
+        bool isUILayer = false;
+        isUILayer = (layerName == "UI");
 
         for (int entityID : layer.GetEntityIDs())
         {
@@ -128,15 +129,6 @@ void SpriteRendererSystem::Render()
             data.spriteRenderer = spriteRenderer;
             data.layer = layerOrder;
             data.entityID = entityID;
-
-            if (isUILayer)
-            {
-                transform->relativeToCamera = false;
-            }
-            else
-            {
-                transform->relativeToCamera = true;
-            }
 
             renderQueue.push_back(data);
         }
