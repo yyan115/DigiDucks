@@ -38,12 +38,12 @@ void EntityManager::RemoveEntity(int entityID)
 {
     DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
     
-    entities.erase(
-        std::remove_if(entities.begin(), entities.end(),
-            [entityID](const Entity& entity) { return entity.entityID == entityID; }
-        ),
-        entities.end()
-    );
+    //entities.erase(
+    //    std::remove_if(entities.begin(), entities.end(),
+    //        [entityID](const Entity& entity) { return entity.entityID == entityID; }
+    //    ),
+    //    entities.end()
+    //);
 
 }
 
