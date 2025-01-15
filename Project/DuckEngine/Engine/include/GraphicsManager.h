@@ -137,6 +137,8 @@ public:
 
 private:
 
+    static std::vector<DrawOptions*> UIDrawCommands;
+
     /// <summary>
     /// Draws a point at the specified position with the given size and color.
     /// </summary>
