@@ -83,6 +83,14 @@ public:
     DUCKENGINE_API static void AddToDrawQueue(const DrawOptions& drawOptions);
 
     /// <summary>
+    /// Adds a drawing command to the camera draw queue, which will be checked and resized if window resizes.
+    /// </summary>
+    /// <param name="drawOptions">A set of options specifying how the object should be drawn.</param>
+    DUCKENGINE_API static void AddToCameraDrawQueue(const DrawOptions& drawOptions);
+
+    DUCKENGINE_API static void OnWindowResize(int newWidth, int newHeight);
+
+    /// <summary>
     /// Adds a debugging draw command to the debug draw queue, which will be rendered in the next call to RenderDebug().
     /// </summary>
     /// <param name="drawCommand">The draw command specifying how the debug element should be rendered.</param>
@@ -137,7 +145,7 @@ public:
 
 private:
 
-    static std::vector<DrawOptions*> UIDrawCommands;
+    static std::vector<DrawOptions*> CameraDrawCommands;
 
     /// <summary>
     /// Draws a point at the specified position with the given size and color.

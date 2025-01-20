@@ -45,6 +45,8 @@ void ButtonSystem::Update()
 // Temporary render function until FixedUpdate and Update are implemented
 void ButtonSystem::Render()
 {
+    std::vector<ButtonComponent> ClickedButtons;
+
     for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
     {
         ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
@@ -103,9 +105,25 @@ void ButtonSystem::Render()
                 //std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
                 if (button->onClick)
                 {
-                    button->onClick();
+                    //button->onClick();
+                    ClickedButtons.push_back(*button);
                 }
             }
+        }
+
+        // Check for highest layer button and click it
+        if (!ClickedButtons.empty()) {
+            int buttonIndexToClick = 0;
+
+            for (auto button : ClickedButtons) {
+                auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(button.GetEntityID());
+
+                if (spriteRenderer && buttonIndexToClick < spriteRenderer->sortingOrder) {
+                    buttonIndexToClick = spriteRenderer->sortingOrder;
+                }
+            }
+
+            ClickedButtons[buttonIndexToClick].onClick();
         }
 
         // On-hover functionality could be added here in the future

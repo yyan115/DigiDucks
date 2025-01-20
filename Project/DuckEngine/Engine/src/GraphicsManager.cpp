@@ -66,6 +66,8 @@ GizmoData GraphicsManager::gizmoData;
 
 int GraphicsManager::currentGizmo = 1;
 
+std::vector<DrawOptions*> GraphicsManager::CameraDrawCommands;
+
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
 /// </summary>
@@ -112,6 +114,31 @@ namespace {
 void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
     drawQueue.emplace_back(drawOptions);
 }
+
+void GraphicsManager::AddToCameraDrawQueue(const DrawOptions& drawOptions) {
+    drawQueue.emplace_back(drawOptions);
+
+    if (!drawOptions.relativeToCamera) {
+        // Add a pointer to the newly added element in drawQueue to CameraDrawCommands
+        CameraDrawCommands.emplace_back(&drawQueue.back());
+    }
+}
+
+void GraphicsManager::OnWindowResize(int newWidth, int newHeight) {
+    for (auto& drawCmdPtr : CameraDrawCommands) {
+        if (drawCmdPtr && !drawCmdPtr->relativeToCamera) {
+            // Recalculate position based on normalized UI coordinates
+            drawCmdPtr->translation.x = drawCmdPtr->translation.x / WindowManager::GetWindowWidth() * newWidth;
+            drawCmdPtr->translation.y = drawCmdPtr->translation.y / WindowManager::GetWindowHeight() * newHeight;
+        }
+    }
+
+    // Update stored dimensions
+    //WindowManager::SetWindowSize(newWidth, newHeight);
+}
+
+
+
 
 /// <summary>
 /// Adds a new debug draw command to the debug queue that will be rendered on the next call to RenderDebug().

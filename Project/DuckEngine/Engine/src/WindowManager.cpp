@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <iostream>
 
+#include "GraphicsManager.h"
 #include "WindowManager.h"
 #include "DuckEngine.h"
 
@@ -188,6 +189,9 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
     WindowManager::height = _height;
 
     glViewport(0, 0, _width, _height);
+
+    // Call GraphicsManager to update UI positions based on new window size
+    GraphicsManager::OnWindowResize(_width, _height);
 }
 
 /// <summary>
