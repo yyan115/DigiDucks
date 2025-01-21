@@ -99,39 +99,8 @@ void EntityManager::RemoveAllEntities()
         DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entity.entityID);
     }
 
+
     entities.clear();
 
     ResetEntityID();
-}
-
-void EntityManager::SetParent(Entity& child, Entity& parent)
-{
-    if (child.parent)
-    {
-        if (child.parent == &parent)
-        {
-            std::cerr << "Warning: Child already has the same parent." << std::endl;
-            return;
-        }
-        child.parent->RemoveChild(&child);
-    }
-
-    auto& siblings = parent.children;
-    if (std::find(siblings.begin(), siblings.end(), &child) != siblings.end())
-    {
-        std::cerr << "Warning: Child is already in the parent's children list." << std::endl;
-        return;
-    }
-
-    parent.AddChild(&child);
-}
-
-
-void EntityManager::RemoveParent(Entity& child)
-{
-    if (child.parent)
-    {
-        child.parent->RemoveChild(&child);
-        child.parent = nullptr;
-    }
 }

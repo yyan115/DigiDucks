@@ -91,10 +91,10 @@ void LevelManager::LoadLevelGame(const std::string& levelFile)
 @brief Loads a level from a JSON file and initializes its entities and layers.
 @param levelFile The path to the JSON file containing level data.
 *************************************************************************/
-void LevelManager::LoadLevel(const std::string& levelName)
+void LevelManager::LoadLevel(const std::string& levelName) 
 {
 	nlohmann::json levelData = AssetManager::GetLevelData(levelName);
-	if (levelData.empty())
+	if (levelData.empty()) 
 	{
 		std::cerr << "Failed to load level: " << levelName << std::endl;
 		return;
@@ -102,11 +102,10 @@ void LevelManager::LoadLevel(const std::string& levelName)
 
 	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
 
-	// Load layers
-	if (levelData.contains("layers"))
+	// Add layers to the scene
+	if (levelData.contains("layers")) 
 	{
-		for (auto& [layerName, layerData] : levelData["layers"].items())
-		{
+		for (auto& [layerName, layerData] : levelData["layers"].items()) {
 			Layer layer;
 			layer.SetOrder(layerData.value("order", 0));
 			layer.SetVisible(layerData.value("visible", true));
@@ -114,23 +113,19 @@ void LevelManager::LoadLevel(const std::string& levelName)
 		}
 	}
 
-	// Map to track entities by ID
-	std::unordered_map<int, Entity*> entitiesById;
-
-	// Load game objects
-	if (levelData.contains("gameObjects"))
+	// Add game objects to the scene
+	if (levelData.contains("gameObjects")) 
 	{
-		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items())
+		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items()) 
 		{
 			std::string prefabName = gameObjectData.value("prefab", "");
 			std::string layerName = gameObjectData.value("layer", "Gameplay");
 
 			Entity* entity = nullptr;
-			if (!prefabName.empty())
+			if (!prefabName.empty()) 
 			{
 				auto prefab = PrefabManager::GetPrefab(prefabName.c_str());
-				if (prefab)
-				{
+				if (prefab) {
 					entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 					entity->name = gameObjectName;
 					entity->prefabName = prefabName;
@@ -139,7 +134,8 @@ void LevelManager::LoadLevel(const std::string& levelName)
 					ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
 				}
 			}
-			else if (gameObjectData.contains("components"))
+
+			else if (gameObjectData.contains("components")) 
 			{
 				entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
 				entity->name = gameObjectName;
@@ -148,58 +144,25 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
 			}
 
-			if (entity)
+			if (entity) 
 			{
-				// Validate and assign ID
-				if (gameObjectData.contains("id") && gameObjectData["id"].is_number_integer())
-				{
-					int entityId = gameObjectData["id"];
-					entitiesById[entityId] = entity;
-				}
-				else
-				{
-					std::cerr << "Error: Missing or invalid 'id' field for game object: " << gameObjectName << std::endl;
-				}
-
-				// Set position
 				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-				if (transform && gameObjectData.contains("position"))
+				if (transform && gameObjectData.contains("position")) 
 				{
 					transform->SetPosition(Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f }));
 				}
 
-				// Add entity to the layer
 				auto* layer = activeScene->GetLayer(layerName);
-				if (layer)
+				if (layer) 
 				{
 					layer->AddEntity(entity);
 				}
 			}
 		}
-
-		// Set parent-child relationships
-		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items())
-		{
-			// Skip if ID is missing or invalid
-			if (!gameObjectData.contains("id") || !gameObjectData["id"].is_number_integer())
-			{
-				continue;
-			}
-
-			int entityId = gameObjectData["id"];
-			Entity* entity = entitiesById[entityId];
-
-			if (entity && gameObjectData.contains("parent") && gameObjectData["parent"].is_number_integer())
-			{
-				int parentId = gameObjectData["parent"];
-				if (entitiesById.count(parentId))
-				{
-					DuckEngine::DUCKENGINE_EntityManager.SetParent(*entity, *entitiesById[parentId]);
-				}
-			}
-		}
 	}
 }
+
+
 
 /****************************************************************
 * @brief Load level using data from json file
@@ -344,8 +307,6 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 		return;
 	}
 
-	gameObjectData["id"] = entity->entityID;
-
 	gameObjectData["layer"] = entity->layerName;
 
 	if (!entity->prefabName.empty())
@@ -357,29 +318,17 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 			gameObjectData["position"]["x"] = transform->GetPosition().x;
 			gameObjectData["position"]["y"] = transform->GetPosition().y;
 		}
+
+		std::cout << "Saved prefab entity: " << entity->prefabName << " with position ("
+			<< gameObjectData["position"]["x"] << ", " << gameObjectData["position"]["y"] << ")" << std::endl;
 	}
 	else
 	{
 		ComponentFactory::SaveComponentsToJson(entity->entityID, gameObjectData["components"]);
-	}
-
-	if (entity->parent)
-	{
-		gameObjectData["parent"] = entity->parent->entityID;
-	}
-
-	if (!entity->children.empty())
-	{
-		gameObjectData["children"] = json::array();
-		for (const auto* child : entity->children)
-		{
-			if (child)
-			{
-				gameObjectData["children"].push_back(child->entityID);
-			}
-		}
+		std::cout << "Saved non-prefab entity: " << (entity->name.empty() ? "Unnamed Entity" : entity->name) << std::endl;
 	}
 }
+
 
 /************************************************************************
 @brief Overwrites an existing prefab file with new component values for an entity.

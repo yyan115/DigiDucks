@@ -25,19 +25,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define DUCKENGINE_API __declspec(dllimport)
 #endif
 
-class Entity;
-
 class DUCKENGINE_API TransformComponent : public Component
 {
   public:
 	float angle;
 	Vec2 scale;
-	Vec2 previousPosition;
-	Vec2 localPosition;
-	Vec2 globalPosition;
 	bool relativeToCamera;
-
-	Entity* owner = nullptr;
+	Vec2 previousPosition;
 
 	/************************************************************************
 	@brief The TransformComponent class holds the position, rotation (angle),
@@ -93,10 +87,19 @@ class DUCKENGINE_API TransformComponent : public Component
 		return std::make_shared<TransformComponent>(*this);
 	}
 
-	void SetLocalPosition(const Vec2& newPos);
-	void UpdateGlobalPosition();
-	void SetPosition(const Vec2& newPos);
-	Vec2& GetPosition();
+	void SetPosition(const Vec2& newPos)
+	{
+		if (position != newPos)
+		{
+			previousPosition = newPos; 
+			position = newPos;
+		}
+	}
+
+	Vec2& GetPosition()
+	{
+		return position;
+	}
 
 private:
 	Vec2 position;

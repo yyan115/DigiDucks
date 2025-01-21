@@ -56,6 +56,7 @@ void SpriteRendererSystem::Update()
 	   SpriteRendererComponent and TransformComponent, sorting them by layer,
 	   and adding them to the graphics draw queue for rendering.
 *************************************************************************/
+
 void SpriteRendererSystem::Render()
 {
     auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
@@ -117,10 +118,10 @@ void SpriteRendererSystem::Render()
             {
                 continue;
             }
-
-            if (transform->owner && transform->owner->parent)
+ 
+            if (!DuckEngine::IsPlaying())
             {
-                transform->UpdateGlobalPosition();
+                transform->previousPosition = transform->GetPosition();
             }
 
             RenderData data;

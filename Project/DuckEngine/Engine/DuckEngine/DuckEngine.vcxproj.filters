@@ -148,9 +148,6 @@
     <ClCompile Include="..\src\GameLogicSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TransformComponent.cpp">
-      <Filter>src\Components</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\SpatialGridSystem.cpp">
       <Filter>src\Collision</Filter>
     </ClCompile>
