@@ -148,13 +148,8 @@
     <ClCompile Include="..\src\GameLogicSystem.cpp">
       <Filter>src\Systems</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
     <ClCompile Include="..\src\TransformComponent.cpp">
       <Filter>src\Components</Filter>
-=======
-    <ClCompile Include="..\src\SpatialGridSystem.cpp">
-      <Filter>src\Collision</Filter>
->>>>>>> Stashed changes
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,9 +359,6 @@
     </ClInclude>
     <ClInclude Include="..\include\GameLogicSystem.h">
       <Filter>include\Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\SpatialGridSystem.h">
-      <Filter>include\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

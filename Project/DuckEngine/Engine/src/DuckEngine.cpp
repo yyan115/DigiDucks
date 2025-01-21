@@ -41,7 +41,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "TextSystem.h"
 #include "GameLogicSystem.h"
 #include "SoundSystem.h"
-#include "SpatialGridSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -240,7 +239,6 @@ void DuckEngine::Update()
         if (isEditor && isPlaying || !isEditor)
         {
             DUCKENGINE_SystemManager.FixedUpdateAll();
-            SpatialGrid::Clear();
         }
         
         accumulatedTime -= FIXED_TIMESTEP;
