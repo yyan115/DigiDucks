@@ -4,6 +4,10 @@
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 4.0
@@ -43,12 +47,17 @@
                     "type": "SoundComponent"
                 }
             ],
+            "id": 0,
             "layer": "Background"
         },
         "Bin_1": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 10.0,
                             "y": 4.5
@@ -115,12 +124,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "id": 1,
+            "layer": "Gameplay",
         },
         "Bin_2": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -6.0,
                             "y": -8.0
@@ -187,12 +201,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 2,
             "layer": "Gameplay"
         },
         "Bun_Box": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -8.0,
                             "y": 4.5
@@ -259,12 +278,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 3,
             "layer": "Gameplay"
         },
         "Cheese_Fridge": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 4.0,
                             "y": 4.5
@@ -331,12 +355,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 4,
             "layer": "Gameplay"
         },
         "Cutting_Station_01": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 4.0,
                             "y": -8.0
@@ -403,12 +432,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 5,
             "layer": "Gameplay"
         },
         "Drone": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 12.0,
                             "y": 2.0
@@ -487,12 +521,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 6,
             "layer": "Gameplay"
         },
         "Exit_Cfm_Bg": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 50.0
@@ -523,12 +562,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 7,
             "layer": "Gameplay"
         },
         "Exit_Cfm_Txt": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 2.9000000953674316
@@ -562,12 +606,17 @@
                     "type": "TextComponent"
                 }
             ],
+            "id": 8,
             "layer": "Gameplay"
         },
         "Exit_No_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 5.599999904632568,
                             "y": 47.5
@@ -611,12 +660,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 9,
             "layer": "Gameplay"
         },
         "Exit_Yes_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -5.599999904632568,
                             "y": 47.5
@@ -660,12 +714,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 10,
             "layer": "Gameplay"
         },
         "Frying_Pan": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 8.0,
                             "y": -8.0
@@ -696,12 +755,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 11,
             "layer": "Gameplay"
         },
         "Grey_Plate": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": -0.5
@@ -732,12 +796,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 12,
             "layer": "Gameplay"
         },
         "Grey_Plate_Station": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": -0.5
@@ -804,12 +873,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 13,
             "layer": "Gameplay"
         },
         "HTP_Back_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -9.718489646911621,
                             "y": 44.5
@@ -853,12 +927,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 14,
             "layer": "Gameplay"
         },
         "HTP_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 48.70000076293945
@@ -902,12 +981,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 15,
             "layer": "Gameplay"
         },
         "HTP_Exit_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.699999809265137,
                             "y": 57.41908645629883
@@ -951,12 +1035,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 16,
             "layer": "Gameplay"
         },
         "HTP_Next_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 9.699999809265137,
                             "y": 44.5
@@ -1000,12 +1089,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 17,
             "layer": "Gameplay"
         },
         "Journal": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 50.0
@@ -1036,12 +1130,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 18,
             "layer": "Gameplay"
         },
         "Lettuce_Box": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -2.0,
                             "y": 4.5
@@ -1108,12 +1207,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 19,
             "layer": "Gameplay"
         },
         "Mushroom_Box": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -6.0,
                             "y": 4.519960403442383
@@ -1180,12 +1284,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 20,
             "layer": "Gameplay"
         },
         "Order_Tab": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.07999999821186066,
                             "y": -0.1550000011920929
@@ -1216,12 +1325,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 21,
             "layer": "UI"
         },
         "Pause_Bg": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.10000000149011612,
                             "y": 50.0
@@ -1252,12 +1366,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 22,
             "layer": "Gameplay"
         },
         "Pause_Text": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 55.400001525878906
@@ -1288,12 +1407,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 23,
             "layer": "Gameplay"
         },
         "Player": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1366,29 +1490,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -1403,11 +1504,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -1417,6 +1532,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -1480,12 +1604,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 24,
             "layer": "Gameplay"
         },
         "Quit_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 45.5
@@ -1548,12 +1677,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 25,
             "layer": "Gameplay"
         },
         "Resume_Btn": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 51.70000076293945
@@ -1616,12 +1750,17 @@
                     "type": "ButtonComponent"
                 }
             ],
+            "id": 26,
             "layer": "Gameplay"
         },
         "Score_Text": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 3.0,
                             "y": 8.5
@@ -1655,12 +1794,17 @@
                     "type": "TextComponent"
                 }
             ],
+            "id": 27,
             "layer": "Gameplay"
         },
         "Shrimp_Fridge": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 2.0,
                             "y": 4.5
@@ -1727,12 +1871,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 28,
             "layer": "Gameplay"
         },
         "Steak_Fridge": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 6.0,
                             "y": 4.5
@@ -1799,12 +1948,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 29,
             "layer": "Gameplay"
         },
         "Stove_01": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -2.0,
                             "y": -8.0
@@ -1871,12 +2025,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 30,
             "layer": "Gameplay"
         },
         "Stove_02": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 8.0,
                             "y": -8.0
@@ -1943,12 +2102,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 31,
             "layer": "Gameplay"
         },
         "Submit_Station": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": -4.0
@@ -2009,12 +2173,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 32,
             "layer": "Gameplay"
         },
         "Table_01": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 10.0,
                             "y": -8.0
@@ -2072,12 +2241,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 33,
             "layer": "Gameplay"
         },
         "Table_02": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 12.0,
                             "y": -8.0
@@ -2135,12 +2309,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 34,
             "layer": "Gameplay"
         },
         "Table_03": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 12.0,
                             "y": -5.5
@@ -2198,12 +2377,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 35,
             "layer": "Gameplay"
         },
         "Table_04": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 12.0,
                             "y": -3.0
@@ -2261,12 +2445,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 36,
             "layer": "Gameplay"
         },
         "Table_05": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 12.0,
                             "y": -0.572702169418335
@@ -2324,12 +2513,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 37,
             "layer": "Gameplay"
         },
         "Table_06": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 8.0,
                             "y": 4.5
@@ -2387,12 +2581,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 38,
             "layer": "Gameplay"
         },
         "Table_07": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": 4.5
@@ -2450,12 +2649,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 39,
             "layer": "Gameplay"
         },
         "Table_08": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": 4.5
@@ -2513,12 +2717,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 40,
             "layer": "Gameplay"
         },
         "Table_09": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -4.0,
                             "y": -8.0
@@ -2576,12 +2785,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 41,
             "layer": "Gameplay"
         },
         "Table_10": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -8.0,
                             "y": -8.0
@@ -2639,12 +2853,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 42,
             "layer": "Gameplay"
         },
         "Table_11": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": -8.0
@@ -2702,12 +2921,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 43,
             "layer": "Gameplay"
         },
         "Table_12": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 0.0,
                             "y": -8.0
@@ -2765,12 +2989,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 44,
             "layer": "Gameplay"
         },
         "Table_13": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 2.0,
                             "y": -8.0
@@ -2828,12 +3057,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 45,
             "layer": "Gameplay"
         },
         "Table_14": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": 6.0,
                             "y": -8.0
@@ -2891,12 +3125,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 46,
             "layer": "Gameplay"
         },
         "Timer_Text": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -3.0,
                             "y": 8.5
@@ -2930,12 +3169,17 @@
                     "type": "TextComponent"
                 }
             ],
+            "id": 47,
             "layer": "Gameplay"
         },
         "Tomato_Box": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -4.0,
                             "y": 4.5
@@ -3002,12 +3246,17 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 48,
             "layer": "Gameplay"
         },
         "White_Plate": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": 2.0
@@ -3038,12 +3287,17 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
+            "id": 49,
             "layer": "Gameplay"
         },
         "White_Plate_Station": {
             "components": [
                 {
                     "properties": {
+                        "localPosition": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "position": {
                             "x": -10.0,
                             "y": 2.0
@@ -3110,6 +3364,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
+            "id": 50,
             "layer": "Gameplay"
         }
     },

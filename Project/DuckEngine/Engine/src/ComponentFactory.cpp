@@ -103,23 +103,25 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 {
 	componentsArray.clear();
 
-	// Save TransformComponent.
 	if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
 	{
 		json transformData;
 		transformData["type"] = "TransformComponent";
-		transformData["properties"]["position"] =
-		{
+		transformData["properties"]["position"] = {
 			{"x", transform->GetPosition().x},
 			{"y", transform->GetPosition().y}
 		};
-		transformData["properties"]["scale"] =
-		{
+		transformData["properties"]["localPosition"] = {
+			{"x", transform->localPosition.x},
+			{"y", transform->localPosition.y}
+		};
+		transformData["properties"]["scale"] = {
 			{"x", transform->scale.x},
 			{"y", transform->scale.y}
 		};
 		transformData["properties"]["rotation"] = transform->angle;
 		transformData["properties"]["relativeToCamera"] = transform->relativeToCamera;
+
 		componentsArray.push_back(transformData);
 	}
 
@@ -289,16 +291,20 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 	if (type == "TransformComponent")
 	{
 		Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
+		Vec2 localPosition = Serialization::GetVec2(componentJson["properties"], "localPosition", Vec2(0.0f, 0.0f));
 		Vec2 scale = Serialization::GetVec2(componentJson["properties"], "scale", Vec2(1.0f, 1.0f));
-		float rotation = componentJson["properties"].value("rotation", 0.0f);
-		bool relativeToCamera = componentJson["properties"].value("relativeToCamera", true);
+		float rotation = componentJson["properties"].value("rotation", 0.0f); // Default to 0.0f if missing
+		bool relativeToCamera = componentJson["properties"].value("relativeToCamera", true); // Default to true if missing
 
 		auto transformComponent = std::make_shared<TransformComponent>(position, scale);
+		transformComponent->localPosition = localPosition;
 		transformComponent->angle = rotation;
 		transformComponent->relativeToCamera = relativeToCamera;
 		transformComponent->previousPosition = transformComponent->GetPosition();
+
 		return transformComponent;
 	}
+
 	else if (type == "SpriteRendererComponent")
 	{
 		bool sprite = componentJson["properties"].value("sprite", true);

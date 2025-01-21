@@ -60,14 +60,12 @@ class EntityManager
     @return A pointer to the entity if found, otherwise nullptr.
     *************************************************************************/
     DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
-
     DUCKENGINE_API Entity* GetEntity(int entityID);
-
     DUCKENGINE_API int GetEntitiesCount();
-
     DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
-
     DUCKENGINE_API void RemoveAllEntities();
+    DUCKENGINE_API void SetParent(Entity& child, Entity& parent);
+    DUCKENGINE_API void RemoveParent(Entity& child);
 
 
 private:
