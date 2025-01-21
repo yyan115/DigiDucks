@@ -151,6 +151,9 @@
     <ClCompile Include="..\src\TransformComponent.cpp">
       <Filter>src\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SpatialGridSystem.cpp">
+      <Filter>src\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -359,6 +362,9 @@
     </ClInclude>
     <ClInclude Include="..\include\GameLogicSystem.h">
       <Filter>include\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SpatialGridSystem.h">
+      <Filter>include\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
