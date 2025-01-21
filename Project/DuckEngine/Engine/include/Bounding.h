@@ -27,6 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "Component.h"
 #include "Entity.h"
+#include "SpatialGridSystem.h"
 
 class BoundingCollider {
 private:

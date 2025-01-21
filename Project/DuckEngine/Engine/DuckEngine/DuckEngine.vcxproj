@@ -321,6 +321,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />
     <ClInclude Include="..\include\SoundSystem.h" />
+    <ClInclude Include="..\include\SpatialGridSystem.h" />
     <ClInclude Include="..\include\TextComponent.h" />
     <ClInclude Include="..\include\TextSystem.h" />
     <ClInclude Include="..\include\Texture.h" />
@@ -377,6 +378,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClCompile Include="..\src\ShaderManager.cpp" />
     <ClCompile Include="..\src\SoundComponent.cpp" />
     <ClCompile Include="..\src\SoundSystem.cpp" />
+    <ClCompile Include="..\src\SpatialGridSystem.cpp" />
     <ClCompile Include="..\src\SpriteRendererSystem.cpp" />
     <ClCompile Include="..\src\SystemManager.cpp" />
     <ClCompile Include="..\src\TextSystem.cpp" />
