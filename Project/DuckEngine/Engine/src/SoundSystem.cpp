@@ -18,6 +18,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SceneWindow.h"
 #include <iostream>
 
+float SoundSystem::masterVolume = 1.0f;
+std::unordered_map<std::string, std::string> SoundSystem::soundCategories;
+std::unordered_map<std::string, float> SoundSystem::categoryVolumes;
+std::unordered_map<std::string, FMOD::Channel*> SoundSystem::activeChannels;
+
+
 void SoundSystem::Start() {
     if (!AssetManager::GetFMODSystem()) {  // Check if fmodSystem is null
         FMOD_RESULT result = FMOD::System_Create(&AssetManager::GetFMODSystem());  // Pass reference
@@ -34,7 +40,11 @@ void SoundSystem::Start() {
     }
     else {
         std::cerr << "FMOD system is already initialized in AssetManager." << std::endl;
-    }
+    }                                                                   
+
+    masterVolume = 1.0f;
+    categoryVolumes.clear();
+    activeChannels.clear();
 }
 
 

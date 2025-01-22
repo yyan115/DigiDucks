@@ -58,5 +58,11 @@ public:
     * @return void
     ***************************************************************/
     static void ResumeAllSounds();
+
+private:
+	static float masterVolume;
+	static std::unordered_map<std::string, std::string> soundCategories;
+	static std::unordered_map<std::string, float> categoryVolumes;
+	static std::unordered_map<std::string, FMOD::Channel*> activeChannels;
 };
 
