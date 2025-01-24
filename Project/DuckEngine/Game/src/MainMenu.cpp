@@ -89,7 +89,7 @@ void MainMenu ::Load()
 
 	start->onHover = []()
 		{
-			StartSound->PlayHold();
+			StartSound->Play();
 			startButtonSpriteRenderer->texture = startHoverTexture;
 		};
 
@@ -100,7 +100,7 @@ void MainMenu ::Load()
 
 	exit->onHover = []()
 		{
-			QuitSound->PlayHold();
+			QuitSound->Play();
 			quitButtonSpriteRenderer->texture = quitHoverTexture;
 		};
 
@@ -111,7 +111,7 @@ void MainMenu ::Load()
 
 	htp->onHover = []()
 		{
-			HtpSound->PlayHold();
+			HtpSound->Play();
 			htpButtonSpriteRenderer->texture = htpHoverTexture;
 		};
 

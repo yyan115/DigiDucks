@@ -52,34 +52,129 @@ void SoundSystem::Update() {
     AssetManager::GetFMODSystem()->update();
 }
 
+void SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume) {
+    if (!AssetManager::GetFMODSystem()) return;
+
+    // Check if the sound is already playing
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        bool isPlaying = false;
+        it->second->isPlaying(&isPlaying);
+        if (isPlaying) {
+            // If the sound is already playing, do nothing
+            return;
+        }
+    }
+
+    FMOD::Sound* sound = AssetManager::GetSounds(soundID);
+    if (!sound) {
+        std::cerr << "Sound not found: " << soundID << std::endl;
+        return;
+    }
+
+    sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
+
+    FMOD::Channel* channel = nullptr;
+    AssetManager::GetFMODSystem()->playSound(sound, nullptr, false, &channel);
+
+    if (channel) {
+        float categoryVolume = 1.0f;
+        if (soundCategories.find(soundID) != soundCategories.end()) {
+            categoryVolume = categoryVolumes[soundCategories[soundID]];
+        }
+        channel->setVolume(volume * categoryVolume * masterVolume);
+        activeChannels[soundID] = channel;
+    }
+}
+
+
+void SoundSystem::StopSounds(const std::string& soundID) {
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        it->second->stop();
+        activeChannels.erase(it);
+    }
+}
 
 void SoundSystem::StopAllSounds() {
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-        if (soundComponent) {
-            soundComponent->Stop();  // Stop each sound
-		}
+    for (auto& [soundID, channel] : activeChannels) {
+        if (channel) channel->stop();
     }
-    //std::cout << "All sounds stopped." << std::endl;
+    activeChannels.clear();
 }
 
 void SoundSystem::PauseAllSounds() {
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-        if (soundComponent) {
-            soundComponent->Pause();
-        }
+    for (auto& [soundID, channel] : activeChannels) {
+        if (channel) channel->setPaused(true);
     }
-    //std::cout << "All sounds paused." << std::endl;
 }
 
 void SoundSystem::ResumeAllSounds() {
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-        SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-        if (soundComponent) {
-            soundComponent->Resume();
-        }
+    for (auto& [soundID, channel] : activeChannels) {
+        if (channel) channel->setPaused(false);
     }
-    //std::cout << "All sounds resumed." << std::endl;
 }
 
+void SoundSystem::SetSoundVolume(const std::string& soundID, float volume) {
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        float categoryVolume = 1.0f;
+        if (soundCategories.find(soundID) != soundCategories.end()) {
+            categoryVolume = categoryVolumes[soundCategories[soundID]];
+        }
+        it->second->setVolume(volume * categoryVolume * masterVolume);
+    }
+}
+
+void SoundSystem::SetMasterVolume(float volume) {
+    masterVolume = volume;
+    for (auto& [soundID, channel] : activeChannels) {
+        if (channel) {
+            float categoryVolume = 1.0f;
+            if (soundCategories.find(soundID) != soundCategories.end()) {
+                categoryVolume = categoryVolumes[soundCategories[soundID]];
+            }
+            channel->setVolume(categoryVolume * masterVolume);
+        }
+    }
+}
+
+void SoundSystem::SetCategoryVolume(const std::string& category, float volume) {
+    categoryVolumes[category] = volume;
+    for (auto& [soundID, channel] : activeChannels) {
+        if (soundCategories[soundID] == category && channel) {
+            channel->setVolume(volume * masterVolume);
+        }
+    }
+}
+
+void SoundSystem::AddSoundToCategory(const std::string& soundID, const std::string& category) {
+    soundCategories[soundID] = category;
+    if (categoryVolumes.find(category) == categoryVolumes.end()) {
+        categoryVolumes[category] = 1.0f;  // Default volume for new category
+    }
+}
+
+bool SoundSystem::IsSoundPlaying(const std::string& soundID) {
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        bool isPlaying = false;
+        it->second->isPlaying(&isPlaying);
+        return isPlaying;
+    }
+    return false;
+}
+
+void SoundSystem::PauseSound(const std::string& soundID) {
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        it->second->setPaused(true);
+    }
+}
+
+void SoundSystem::ResumeSound(const std::string& soundID) {
+    auto it = activeChannels.find(soundID);
+    if (it != activeChannels.end() && it->second) {
+        it->second->setPaused(false);
+    }
+}

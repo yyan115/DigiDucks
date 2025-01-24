@@ -123,7 +123,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->PlayHold();
+			playersound->Play();
 			animator->PlayAnimation("BACK_WALK");
 			dir = BACK;
 		}
@@ -136,7 +136,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->PlayHold();
+			playersound->Play();
 			animator->PlayAnimation("FRONT_WALK");
 			dir = FRONT;
 		}
@@ -149,7 +149,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->PlayHold();
+			playersound->Play();
 			animator->PlayAnimation("LEFT_WALK");
 			dir = LEFT;
 		}
@@ -162,7 +162,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->PlayHold();
+			playersound->Play();
 			animator->PlayAnimation("RIGHT_WALK");
 			dir = RIGHT;
 		}
@@ -350,7 +350,7 @@ void PlayerLogic::InteractHold()
 				chopBoardLogic->chopObject();
 				if (animator)
 				{
-					if (sound) sound->PlayHold();
+					if (sound) sound->Play();
 					animator->PlayAnimation("CHOP");					
 				}
 			}
@@ -366,7 +366,7 @@ void PlayerLogic::InteractHold()
 				panLogic->cookObject();
 				if (animator)
 				{
-					if (sound) sound->PlayHold();
+					if (sound) sound->Play();
 					//animator->PlayAnimation("Cook");
 				}
 			}

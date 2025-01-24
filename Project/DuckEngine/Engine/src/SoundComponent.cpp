@@ -14,36 +14,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #include "DuckEngine.h"
+#include "SoundSystem.h"
 #include "SoundComponent.h"
 
 // Check if the sound is currently playing
 bool SoundComponent::IsSoundPlaying() const {
-    bool isPlaying = false;
-    if (channel) {
-        channel->isPlaying(&isPlaying);
-    }
-    return isPlaying;
+	return SoundSystem::IsSoundPlaying(soundID);
 }
 
 // Play the sound associated with this component
-void SoundComponent::Play() {
-    FMOD::Sound* sound = DuckEngine::DUCKENGINE_AssetManager.GetSounds(soundID);
-    if (!sound || !DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()) return;
-
-    // Stop the current sound on this channel if playing
-    if (channel) {
-        channel->stop();
-    }  
-
-    sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
-
-    // Play the new sound on a fresh channel
-    FMOD::Channel* newChannel = nullptr;
-    DuckEngine::DUCKENGINE_AssetManager.GetFMODSystem()->playSound(sound, nullptr, false, &newChannel);
-    if (newChannel) {
-        newChannel->setVolume(volume);
-    }
-    channel = newChannel;
+void SoundComponent::Play() {    
+    SoundSystem::PlaySounds(soundID, loop, volume);
 }
 
 void SoundComponent::PlayHold() {
@@ -65,30 +46,15 @@ void SoundComponent::PlayHold() {
 
 // Stop the sound if it is playing
 void SoundComponent::Stop() {
-    if (channel) {
-        channel->stop();
-        channel = nullptr;
-    }
+    SoundSystem::StopSounds(soundID);
 }
 
 // Pause the sound if it is playing
 void SoundComponent::Pause() {
-    if (channel) {
-        bool isPaused = false;
-        channel->getPaused(&isPaused);
-        if (!isPaused) {
-            channel->setPaused(true);
-        }
-    }
+    SoundSystem::PauseSound(soundID);
 }
 
 // Resume the sound if it is paused
 void SoundComponent::Resume() {
-    if (channel) {
-        bool isPaused = false;
-        channel->getPaused(&isPaused);
-        if (isPaused) {
-            channel->setPaused(false);
-        }
-    }
+	SoundSystem::ResumeSound(soundID);
 }
