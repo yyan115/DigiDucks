@@ -50,17 +50,18 @@ void Scene::Exit() {}
 /**************************************************************************
 @brief Unloads resources and clears entities from the scene.
 **************************************************************************/
-void Scene::Unload() 
+void Scene::Unload()
 {
-    std::vector<Entity>& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    std::vector<std::unique_ptr<Entity>>& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
     std::vector<int> entityIDs;
-    for (Entity& entity : entities)
+    for (const auto& entity : entities) 
     {
-        entityIDs.push_back(entity.entityID);
-        //entity.Release();
+        entityIDs.push_back(entity->entityID);
     }
+
     SoundSystem::StopAllSounds();
+
     for (int entityID : entityIDs)
     {
         DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
@@ -71,7 +72,6 @@ void Scene::Unload()
 
     DuckEngine::DUCKENGINE_EntityManager.ResetEntityID();
     GameLogicManager::Clear();
-
 }
 
 /**************************************************************************

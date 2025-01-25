@@ -68,17 +68,17 @@ void SpriteRendererSystem::Render()
 
     auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    for (Entity& entity : allEntities)
+    for (auto& entity : allEntities)
     {
-        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.entityID);
+        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.get()->entityID);
         if (!spriteRenderer) continue;
 
         bool isInCorrectLayer = false;
         for (const auto& [layerName, layer] : activeScene->GetLayers())
         {
-            if (layer.HasEntityByID(entity.entityID))
+            if (layer.HasEntityByID(entity.get()->entityID))
             {
-                isInCorrectLayer = (layerName == entity.layerName);
+                isInCorrectLayer = (layerName == entity.get()->layerName);
                 break;
             }
         }
@@ -87,14 +87,14 @@ void SpriteRendererSystem::Render()
         {
             for (const auto& [layerName, layer] : activeScene->GetLayers())
             {
-                if (layer.HasEntityByID(entity.entityID))
+                if (layer.HasEntityByID(entity.get()->entityID))
                 {
-                    activeScene->RemoveEntityFromLayer(layerName, entity.entityID);
+                    activeScene->RemoveEntityFromLayer(layerName, entity.get()->entityID);
                     break;
                 }
             }
 
-            activeScene->AddEntityToLayer(entity.layerName, &entity);
+            activeScene->AddEntityToLayer(entity.get()->layerName, entity.get());
         }
     }
 

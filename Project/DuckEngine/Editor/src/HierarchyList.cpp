@@ -32,39 +32,39 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
         std::string entityLabel;
 
 		// Check if the entity is a prefab
-        if (!entity.prefabName.empty()) {
+        if (!entity.get()->prefabName.empty()) {
 			// If the entity is a prefab, use the prefab name
-            if (!entity.name.empty()) {
-                entityLabel = entity.name;
+            if (!entity.get()->name.empty()) {
+                entityLabel = entity.get()->name;
 				
             }
             else {
 				// Generate a label for prefab entities
-                entityLabel = entity.prefabName;
-                entityLabel += " (" + std::to_string(entity.entityID) + ")";
+                entityLabel = entity.get()->prefabName;
+                entityLabel += " (" + std::to_string(entity.get()->entityID) + ")";
             }
         }
         else {
 			// If not a prefab, use the entity name or a default label
-            entityLabel = entity.name.empty() ? "GameObject " + std::to_string(entity.entityID) : entity.name;
+            entityLabel = entity.get()->name.empty() ? "GameObject " + std::to_string(entity.get()->entityID) : entity.get()->name;
         }
 
 		// If the entity is not being renamed, update the entity name
-        if (entity.entityID != renamingEntityID) {
-            entity.name = entityLabel;
+        if (entity.get()->entityID != renamingEntityID) {
+            entity.get()->name = entityLabel;
         }
 
 		// Set node flags for tree node
         ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
-        if (selectedEntityID == entity.entityID) {
+        if (selectedEntityID == entity.get()->entityID) {
             nodeFlags |= ImGuiTreeNodeFlags_Selected;
         }
 
         bool nodeOpen;
 
         // Display prefab icon       
-        ImGui::PushID(entity.entityID);
-        if (!entity.prefabName.empty() && prefabIconTexture) {
+        ImGui::PushID(entity.get()->entityID);
+        if (!entity.get()->prefabName.empty() && prefabIconTexture) {
             ImGui::Image((void*)(intptr_t)prefabIconTexture, ImVec2(16, 16), ImVec2(0, 1), ImVec2(1, 0)); // Render prefab icon
             ImGui::SameLine();
         }
@@ -74,10 +74,10 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
         }
 
         // Display a renaming input field for the selected entity
-        if (entity.entityID == renamingEntityID) {
+        if (entity.get()->entityID == renamingEntityID) {
             ImGui::SetKeyboardFocusHere();
             if (ImGui::InputText("##Rename", nameBuffer, sizeof(nameBuffer), ImGuiInputTextFlags_EnterReturnsTrue)) {
-                entity.name = nameBuffer;  
+                entity.get()->name = nameBuffer;
 				// Save scene changes
                 LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
                 renamingEntityID = -1;  
@@ -92,15 +92,15 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
             nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
             // Handle selection on click
             if (ImGui::IsItemClicked()) {
-                selectedEntityID = (selectedEntityID == entity.entityID) ? -1 : entity.entityID;
+                selectedEntityID = (selectedEntityID == entity.get()->entityID) ? -1 : entity.get()->entityID;
             }
         }
 
         // Show child nodes if expanded
         if (nodeOpen) {
-            ImGui::Text("Entity ID: %d", entity.entityID);
-            ImGui::Text("Layer name: %s", entity.layerName.c_str());
-            ImGui::Text("Prefab name: %s", entity.prefabName.c_str());
+            ImGui::Text("Entity ID: %d", entity.get()->entityID);
+            ImGui::Text("Layer name: %s", entity.get()->layerName.c_str());
+            ImGui::Text("Prefab name: %s", entity.get()->prefabName.c_str());
             ImGui::TreePop();
         }
 

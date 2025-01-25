@@ -518,7 +518,7 @@ void AssetsBrowser::ReplaceAsset(const std::string& oldPath, const std::string& 
 
 	// Update only entities that use this texture
 	for (auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities()) {
-		int entityID = entity.entityID;
+		int entityID = entity.get()->entityID;
 		if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SpriteRendererComponent>(entityID)) {
 			auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
 			if (spriteRenderer && spriteRenderer->texturePath == oldPath) {

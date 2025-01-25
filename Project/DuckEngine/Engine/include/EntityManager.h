@@ -33,41 +33,16 @@ written consent of DigiPen Institute of Technology is prohibited.
 class EntityManager
 {
   private:
-    std::vector<Entity> entities;
+    std::vector<std::unique_ptr<Entity>> entities;
+    int nextEntityID = 0;
 
   public:
-    /************************************************************************
-    @brief Creates a new entity and adds it to the entity list.
-    @return A reference to the newly created entity.
-    *************************************************************************/
-    DUCKENGINE_API Entity& CreateEntity();
-
-    /************************************************************************
-    @brief Removes an entity by its ID from the entity list.
-    @param entityID The ID of the entity to be removed.
-    *************************************************************************/
-    DUCKENGINE_API void RemoveEntity(int entityID);
-
-    /************************************************************************
-    @brief Retrieves all entities managed by this EntityManager.
-    @return A reference to the vector of entities.
-    *************************************************************************/
-    DUCKENGINE_API std::vector<Entity>& GetEntities();
-
-    /************************************************************************
-    @brief Retrieves a pointer to an entity based on its name.
-    @param name The name of the entity to search for.
-    @return A pointer to the entity if found, otherwise nullptr.
-    *************************************************************************/
-    DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
-    DUCKENGINE_API Entity* GetEntity(int entityID);
-    DUCKENGINE_API int GetEntitiesCount();
-    DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
-    DUCKENGINE_API void RemoveAllEntities();
-    DUCKENGINE_API void SetParent(Entity& child, Entity& parent);
-    DUCKENGINE_API void RemoveParent(Entity& child);
-
-
-private:
-    int nextEntityID = 0;
+      DUCKENGINE_API Entity& CreateEntity();
+      DUCKENGINE_API void RemoveEntity(int entityID);
+      DUCKENGINE_API std::vector<std::unique_ptr<Entity>>& GetEntities();
+      DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
+      DUCKENGINE_API Entity* GetEntity(int entityID);
+      DUCKENGINE_API int GetEntitiesCount();
+      DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
+      DUCKENGINE_API void RemoveAllEntities();
 };

@@ -207,8 +207,8 @@ std::unordered_map<int, ObjectDatas> objectState;
 void RoamSelectedPrefab(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
-        if (entity.prefabName == prefabName) {
-            RoamTwoPos(entity.entityID, firstPos, secondPos);
+        if (entity.get()->prefabName == prefabName) {
+            RoamTwoPos(entity.get()->entityID, firstPos, secondPos);
         }
 
     }
@@ -225,8 +225,8 @@ void RoamSelectedPrefab(std::string prefabName, Vec2 firstPos, Vec2 secondPos) {
 void RoamSelectedObject(std::string objectName, Vec2 firstPos, Vec2 secondPos) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
-        if (entity.name == objectName) {
-            RoamTwoPos(entity.entityID, firstPos, secondPos);
+        if (entity.get()->name == objectName) {
+            RoamTwoPos(entity.get()->entityID, firstPos, secondPos);
         }
 
     }
@@ -346,8 +346,8 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
 void RoamSelectedPrefab(std::string prefabName, Vec2 dir, float time) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
-        if (entity.prefabName == prefabName) {
-            RoamDir(entity.entityID, dir, time);
+        if (entity.get()->prefabName == prefabName) {
+            RoamDir(entity.get()->entityID, dir, time);
         }
 
     }
@@ -365,8 +365,8 @@ void RoamSelectedPrefab(std::string prefabName, Vec2 dir, float time) {
 void RoamSelectedObject(std::string objectName, Vec2 dir, float time) {
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
     for (auto& entity : entities) {
-        if (entity.name == objectName) {
-            RoamDir(entity.entityID, dir, time);
+        if (entity.get()->name == objectName) {
+            RoamDir(entity.get()->entityID, dir, time);
         }
 
     }

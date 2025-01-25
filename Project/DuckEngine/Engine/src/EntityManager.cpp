@@ -25,8 +25,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 Entity& EntityManager::CreateEntity() 
 {
     int newID = nextEntityID++;
-    entities.emplace_back(newID);
-    return entities.back();
+    auto entity = std::make_unique<Entity>(newID);
+    Entity* rawPtr = entity.get();
+    entities.push_back(std::move(entity));
+    return *rawPtr;
 }
 
 
@@ -34,17 +36,18 @@ Entity& EntityManager::CreateEntity()
 @brief Removes an entity by its ID, including all associated components.
 @param entityID The ID of the entity to be removed.
 *************************************************************************/
-void EntityManager::RemoveEntity(int entityID)
+void EntityManager::RemoveEntity(int entityID) 
 {
     DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
-    
-    //entities.erase(
-    //    std::remove_if(entities.begin(), entities.end(),
-    //        [entityID](const Entity& entity) { return entity.entityID == entityID; }
-    //    ),
-    //    entities.end()
-    //);
 
+    auto it = std::find_if(entities.begin(), entities.end(),
+        [entityID](const std::unique_ptr<Entity>& entity) {
+            return entity->entityID == entityID;
+        });
+
+    if (it != entities.end()) {
+        entities.erase(it);
+    }
 }
 
 /************************************************************************
@@ -52,7 +55,7 @@ void EntityManager::RemoveEntity(int entityID)
        EntityManager.
 @return A reference to the vector of entities.
 *************************************************************************/
-std::vector<Entity>& EntityManager::GetEntities() 
+std::vector<std::unique_ptr<Entity>>& EntityManager::GetEntities() 
 {
     return entities;
 }
@@ -63,25 +66,21 @@ std::vector<Entity>& EntityManager::GetEntities()
 @param name The name of the entity to search for.
 @return A pointer to the entity if found, otherwise nullptr.
 *************************************************************************/
-Entity* EntityManager::GetEntityByName(const std::string& name)
+Entity* EntityManager::GetEntityByName(const std::string& name) 
 {
-    for (auto& entity : entities)
-    {
-        if (entity.IsName(name.c_str()))
-        {
-            return &entity;
+    for (auto& entity : entities) {
+        if (entity->IsName(name.c_str())) {
+            return entity.get();
         }
     }
     return nullptr;
 }
 
-Entity* EntityManager::GetEntity(int entityID)
+Entity* EntityManager::GetEntity(int entityID) 
 {
-    for (auto& entity : entities)
-    {
-        if (entity.entityID == entityID)
-        {
-            return &entity;
+    for (auto& entity : entities) {
+        if (entity->entityID == entityID) {
+            return entity.get();
         }
     }
     return nullptr;
@@ -89,18 +88,15 @@ Entity* EntityManager::GetEntity(int entityID)
 
 int EntityManager::GetEntitiesCount() 
 {
-	return static_cast<int>(entities.size());
+    return static_cast<int>(entities.size());
 }
 
-void EntityManager::RemoveAllEntities()
+
+void EntityManager::RemoveAllEntities() 
 {
-    for (const auto& entity : entities)
-    {
-        DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entity.entityID);
+    for (const auto& entity : entities) {
+        DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entity->entityID);
     }
-
-
     entities.clear();
-
     ResetEntityID();
 }

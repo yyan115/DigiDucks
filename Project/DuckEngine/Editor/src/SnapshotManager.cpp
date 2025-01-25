@@ -126,10 +126,10 @@ nlohmann::json SnapshotManager::TakeSceneSnapshot()
     for (const auto& entity : entities)
     {
         nlohmann::json entityData;
-        entityData["name"] = entity.name.empty() ? "Entity_" + std::to_string(entity.entityID) : entity.name;
-        entityData["layer"] = entity.layerName;
+        entityData["name"] = entity.get()->name.empty() ? "Entity_" + std::to_string(entity.get()->entityID) : entity.get()->name;
+        entityData["layer"] = entity.get()->layerName;
 
-        ComponentFactory::SaveComponentsToJson(entity.entityID, entityData["components"]);
+        ComponentFactory::SaveComponentsToJson(entity.get()->entityID, entityData["components"]);
 
         sceneSnapshot["gameObjects"][entityData["name"]] = entityData;
     }
