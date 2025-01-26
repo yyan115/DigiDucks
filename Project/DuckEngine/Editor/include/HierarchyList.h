@@ -34,6 +34,8 @@ public:
     ***************************************************************/
     static void StartRenamingEntity(int entityID);
 
+
+
     static void DisplayEntity(std::shared_ptr<Entity> entity, int& selectedEntityID, const Texture& prefabIcon, const Texture& gameobjectIcon);
 
     static bool IsRootEntity(const std::vector<std::shared_ptr<Entity>>& allEntities, const Entity* entity);
