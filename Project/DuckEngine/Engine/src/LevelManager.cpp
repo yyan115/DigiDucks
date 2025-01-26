@@ -150,21 +150,6 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				if (gameObjectData.contains("childNames"))
 				{
 					entity->childNames = gameObjectData["childNames"].get<std::vector<std::string>>();
-
-					entity->childEntities.clear();
-
-					for (const auto& childName : entity->childNames)
-					{
-						std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
-						if (childEntity)
-						{
-							entity->childEntities.push_back(childEntity);
-						}
-						else
-						{
-							std::cerr << "Warning: Child entity '" << childName << "' not found." << std::endl;
-						}
-					}
 				}
 
 				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
@@ -177,6 +162,28 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				if (layer) 
 				{
 					layer->AddEntity(entity);
+				}
+			}
+		}
+	}
+
+	for (const auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+	{
+		if (entity && !entity->childNames.empty()) 
+		{
+			entity->childEntities.clear();
+
+			for (const auto& childName : entity->childNames)
+			{
+				std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
+				if (childEntity)
+				{
+					entity->childEntities.push_back(childEntity);
+					std::cout << "Linked child entity: " << childEntity->name << " to parent: " << entity->name << std::endl;
+				}
+				else
+				{
+					std::cerr << "Warning: Child entity '" << childName << "' not found for parent: " << entity->name << std::endl;
 				}
 			}
 		}
@@ -332,10 +339,6 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 	{
 		gameObjectData["childNames"] = entity->childNames;
 	}
-
-	std::vector<std::string> testNames = {"hehe", "Objects"};
-
-	gameObjectData["childNames"] = testNames;
 
 	gameObjectData["layer"] = entity->layerName;
 

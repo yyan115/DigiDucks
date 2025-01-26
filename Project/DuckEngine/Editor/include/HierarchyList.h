@@ -33,6 +33,10 @@ public:
     * @return void
     ***************************************************************/
     static void StartRenamingEntity(int entityID);
-private:
+
+    static void DisplayEntity(std::shared_ptr<Entity> entity, int& selectedEntityID, const Texture& prefabIcon, const Texture& gameobjectIcon);
+
+    static bool IsRootEntity(const std::vector<std::shared_ptr<Entity>>& allEntities, const Entity* entity);
+    static std::vector<std::shared_ptr<Entity>> GetRootEntities(const std::vector<std::shared_ptr<Entity>>& entities);
 
 };

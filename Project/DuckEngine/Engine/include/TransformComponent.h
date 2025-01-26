@@ -91,6 +91,9 @@ class DUCKENGINE_API TransformComponent : public Component
 
 	Vec2& GetPosition();
 
+	void UpdateChildPositions(const Vec2& newPos);
+
+
 private:
 	Vec2 position;
 
