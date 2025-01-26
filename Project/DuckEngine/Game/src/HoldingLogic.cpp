@@ -20,7 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ****************************************************************/
 void HoldingLogic::Start()
 {
-	holder = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
+	holder = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	holderTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	// Set Object ptr only when player is holding something
 	object = nullptr;
@@ -60,7 +60,7 @@ void HoldingLogic::setObject(std::pair<int, ItemType> objData)
 	std::cout << "Hand Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	if (!object)
 	{
-		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first).get();
 		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 		type = objData.second;		
 	}

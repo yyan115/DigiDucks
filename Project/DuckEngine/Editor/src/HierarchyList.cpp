@@ -110,7 +110,7 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID) {
 
 void Hierarchy::StartRenamingEntity(int entityID) {
     renamingEntityID = entityID;
-    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get();
     if (entity) {
         strncpy_s(nameBuffer, entity->name.c_str(), sizeof(nameBuffer) - 1);
         nameBuffer[sizeof(nameBuffer) - 1] = '\0';

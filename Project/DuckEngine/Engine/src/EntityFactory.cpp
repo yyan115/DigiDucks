@@ -27,7 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 *************************************************************************/
 Entity* EntityFactory::CreateEntity()
 {
-    Entity* entity = &(DuckEngine::DUCKENGINE_EntityManager.CreateEntity());
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
     return entity;
 }
 
@@ -39,7 +39,7 @@ Entity* EntityFactory::CreateEntity()
 *************************************************************************/
 Entity* EntityFactory::CreateEntity(Vec2 position, Vec2 scale)
 {
-    Entity* entity = &(DuckEngine::DUCKENGINE_EntityManager.CreateEntity());
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
     TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->entityID);
     transform->SetPosition(position);
     transform->scale = scale;
@@ -55,7 +55,7 @@ Entity* EntityFactory::CreateEntity(Vec2 position, Vec2 scale)
 *************************************************************************/
 Entity* EntityFactory::CreateEntity(const std::string& texturePath, Vec2 position, Vec2 scale)
 {
-    Entity* entity = &(DuckEngine::DUCKENGINE_EntityManager.CreateEntity());
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
 
     TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(entity->entityID);
     SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(entity->entityID, true);

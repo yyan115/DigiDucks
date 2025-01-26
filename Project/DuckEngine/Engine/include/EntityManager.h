@@ -33,16 +33,16 @@ written consent of DigiPen Institute of Technology is prohibited.
 class EntityManager
 {
   private:
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
     int nextEntityID = 0;
 
-  public:
-      DUCKENGINE_API Entity& CreateEntity();
-      DUCKENGINE_API void RemoveEntity(int entityID);
-      DUCKENGINE_API std::vector<std::unique_ptr<Entity>>& GetEntities();
-      DUCKENGINE_API Entity* GetEntityByName(const std::string& name);
-      DUCKENGINE_API Entity* GetEntity(int entityID);
-      DUCKENGINE_API int GetEntitiesCount();
-      DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
-      DUCKENGINE_API void RemoveAllEntities();
+public:
+    DUCKENGINE_API std::shared_ptr<Entity> CreateEntity();
+    DUCKENGINE_API void RemoveEntity(int entityID);
+    DUCKENGINE_API std::vector<std::shared_ptr<Entity>>& GetEntities();
+    DUCKENGINE_API std::shared_ptr<Entity> GetEntityByName(const std::string& name); 
+    DUCKENGINE_API std::shared_ptr<Entity> GetEntity(int entityID);
+    DUCKENGINE_API int GetEntitiesCount();
+    DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
+    DUCKENGINE_API void RemoveAllEntities();
 };

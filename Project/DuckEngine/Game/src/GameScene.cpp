@@ -94,14 +94,14 @@ void GameScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	// instantiate prefabs
-	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
 	if(duck)
 	{
 		duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
 		duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 	}
 
-	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab");
+	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
 	if (OrderTab)
 	{
 		orderSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
@@ -111,7 +111,7 @@ void GameScene::Load()
 		}
 	}
 
-	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text");
+	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text").get();
 	if(timer)
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
@@ -121,7 +121,7 @@ void GameScene::Load()
 		}
 	}
 
-	score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text");
+	score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text").get();
 	if(score)
 	{
 		scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
@@ -137,7 +137,7 @@ void GameScene::Load()
 
 	// Pause Menu
 	{
-		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg");
+		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg").get();
 		if (gamePauseBg)
 		{
 			gamePauseBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseBg->entityID);
@@ -147,7 +147,7 @@ void GameScene::Load()
 			}
 		}
 
-		gamePauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text");
+		gamePauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text").get();
 		if (gamePauseTxt)
 		{
 			gamePauseTxtSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseTxt->entityID);
@@ -157,7 +157,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn");
+		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
 		if (gameResumeBtn)
 		{
 			gameResumeBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameResumeBtn->entityID);
@@ -172,7 +172,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn");
+		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
 		if (gameExitBtn)
 		{
 			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
@@ -187,7 +187,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn");
+		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
 		if (gameHTPBtn)
 		{
 			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
@@ -205,7 +205,7 @@ void GameScene::Load()
 
 	// H.T.P Menu
 	{
-		gameJournal = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal");
+		gameJournal = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal").get();
 		if (gameJournal)
 		{
 			gameJournalSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameJournal->entityID);
@@ -215,7 +215,7 @@ void GameScene::Load()
 			}
 		}
 		
-		gameHTPExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Exit_Btn");
+		gameHTPExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Exit_Btn").get();
 		if (gameHTPExitBtn)
 		{
 			gameHTPExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPExitBtn->entityID);
@@ -230,7 +230,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameHTPBackBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Back_Btn");
+		gameHTPBackBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Back_Btn").get();
 		if (gameHTPBackBtn)
 		{
 			gameHTPBackBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBackBtn->entityID);
@@ -245,7 +245,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameHTPNextBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Next_Btn");
+		gameHTPNextBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Next_Btn").get();
 		if (gameHTPNextBtn)
 		{
 			gameHTPNextBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPNextBtn->entityID);
@@ -264,7 +264,7 @@ void GameScene::Load()
 
 	// Exit Confirmation
 	{
-		gameExitCfmBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Bg");
+		gameExitCfmBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Bg").get();
 		if (gameExitCfmBg)
 		{
 			gameExitCfmBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitCfmBg->entityID);
@@ -274,7 +274,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameExitCfmTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Txt");
+		gameExitCfmTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Txt").get();
 		if (gameExitCfmTxt)
 		{
 			gameExitCfmText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameExitCfmTxt->entityID);
@@ -284,7 +284,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn");
+		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
 		if (gameExitYesBtn)
 		{
 			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
@@ -299,7 +299,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn");
+		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
 		if (gameExitNoBtn)
 		{
 			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
@@ -378,7 +378,7 @@ void GameScene::Update()
 		GameManager::SetActiveScene("EndScene");
 	}
 	// Add Score
-	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station");
+	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
 	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
 	if (submitLogic && submitLogic->CheckNewOrder()) {

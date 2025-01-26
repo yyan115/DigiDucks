@@ -21,7 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ****************************************************************/
 void RestockLogic::Start()
 {
-	restockStation = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
+	restockStation = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	restockTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 }

@@ -32,7 +32,7 @@ void PlayerLogic::Start()
 		boxCollider->isKinematic = false;
 		boxCollider->SetCollisionCallback([this](int otherEntityID)
 			{
-				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID);
+				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID).get();
 				// Pickup Object
 				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) && actionCounter <= 0)
 				{

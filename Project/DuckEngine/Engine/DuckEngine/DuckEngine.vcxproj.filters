@@ -151,6 +151,9 @@
     <ClCompile Include="..\src\SpatialGridSystem.cpp">
       <Filter>src\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TransformComponent.cpp">
+      <Filter>src\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">

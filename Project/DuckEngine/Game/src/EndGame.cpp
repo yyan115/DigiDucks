@@ -54,7 +54,7 @@ void EndScene::Load()
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
-	MainMenuButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit");
+	MainMenuButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit").get();
 	MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
 	MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
 	MainMenu->onClick = []()
@@ -70,22 +70,22 @@ void EndScene::Load()
 			MainMenuSound->PlayHold();
 		};
 
-	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score");
+	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score").get();
 	ScoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(Score->entityID);
 	
 	if (ScoreText) {
 		ScoreText->text = "Score: " + std::to_string(scoreValue);
 	}
 
-	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1");
-	Star_2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_2");
-	Star_3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_3");
+	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
+	Star_2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_2").get();
+	Star_3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_3").get();
 
 	Star1 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_1->entityID);
 	Star2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_2->entityID);
 	Star3 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_3->entityID);
 
-	Background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject");
+	Background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject").get();
 	BGMSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(Background->entityID);
 
 }

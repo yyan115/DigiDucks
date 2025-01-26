@@ -20,7 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ***************************************************************/
 void ChopBoardLogic::Start()
 {
-	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
+	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	object = nullptr;
 	objectTransform = nullptr;
@@ -88,7 +88,7 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 {
 	std::cout << "Chop Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
 	if (!object) {
-		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first).get();
 		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 		objectTransform->SetPosition(tableTransform->GetPosition());
 

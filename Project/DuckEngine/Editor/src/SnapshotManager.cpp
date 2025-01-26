@@ -149,7 +149,7 @@ void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 
     for (auto& [entityName, entityData] : snapshot["gameObjects"].items())
     {
-        Entity* entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+        Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
         entity->name = entityName;
         entity->layerName = entityData.value("layer", "Default");
 

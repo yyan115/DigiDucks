@@ -22,15 +22,13 @@ written consent of DigiPen Institute of Technology is prohibited.
        of entities managed by the EntityManager.
 @return A reference to the newly created entity.
 *************************************************************************/
-Entity& EntityManager::CreateEntity() 
+std::shared_ptr<Entity> EntityManager::CreateEntity()
 {
     int newID = nextEntityID++;
-    auto entity = std::make_unique<Entity>(newID);
-    Entity* rawPtr = entity.get();
-    entities.push_back(std::move(entity));
-    return *rawPtr;
+    auto entity = std::make_shared<Entity>(newID); // Create shared_ptr
+    entities.push_back(entity);
+    return entity;
 }
-
 
 /************************************************************************
 @brief Removes an entity by its ID, including all associated components.
@@ -41,7 +39,8 @@ void EntityManager::RemoveEntity(int entityID)
     DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
 
     auto it = std::find_if(entities.begin(), entities.end(),
-        [entityID](const std::unique_ptr<Entity>& entity) {
+        [entityID](const std::shared_ptr<Entity>& entity) 
+        {
             return entity->entityID == entityID;
         });
 
@@ -55,7 +54,7 @@ void EntityManager::RemoveEntity(int entityID)
        EntityManager.
 @return A reference to the vector of entities.
 *************************************************************************/
-std::vector<std::unique_ptr<Entity>>& EntityManager::GetEntities() 
+std::vector<std::shared_ptr<Entity>>& EntityManager::GetEntities()
 {
     return entities;
 }
@@ -66,21 +65,25 @@ std::vector<std::unique_ptr<Entity>>& EntityManager::GetEntities()
 @param name The name of the entity to search for.
 @return A pointer to the entity if found, otherwise nullptr.
 *************************************************************************/
-Entity* EntityManager::GetEntityByName(const std::string& name) 
+std::shared_ptr<Entity> EntityManager::GetEntityByName(const std::string& name)
 {
-    for (auto& entity : entities) {
-        if (entity->IsName(name.c_str())) {
-            return entity.get();
+    for (auto& entity : entities) 
+    {
+        if (entity->IsName(name.c_str())) 
+        {
+            return entity;
         }
     }
     return nullptr;
 }
 
-Entity* EntityManager::GetEntity(int entityID) 
+std::shared_ptr<Entity> EntityManager::GetEntity(int entityID)
 {
-    for (auto& entity : entities) {
-        if (entity->entityID == entityID) {
-            return entity.get();
+    for (auto& entity : entities)
+    {
+        if (entity->entityID == entityID)
+        {
+            return entity;
         }
     }
     return nullptr;

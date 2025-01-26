@@ -22,10 +22,10 @@ bool newOrderGenerated = false;
 * ****************************************************************/
 void SubmitLogic::Start()
 {
-	submit_Station = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
+	submit_Station = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	submit_Transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(submit_Station->entityID);
 
-	scoreText = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text");
+	scoreText = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score_Text").get();
 	if (scoreText) {
 		score_Text = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(scoreText->entityID);
 	}

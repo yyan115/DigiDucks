@@ -44,27 +44,27 @@ void HowToPlay::Load()
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
-	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit");
+	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	if(ExitButton)
 	{
 		auto back = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(ExitButton->entityID);
 		back->onClick = []() { std::cout << "Button clicked go back!!!!!!\n"; GameManager::SetActiveScene("MainMenu"); };
 	}
 
-	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next");
+	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next").get();
 	if(NextButton)
 	{
 		auto next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
 		next->onClick = []() { if (pageNum < 3) { pageNum++; } };
 	}
 
-	BackButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Back");
+	BackButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Back").get();
 	if (BackButton) {
 		auto backBtn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(BackButton->entityID);
 		backBtn->onClick = []() { if (pageNum > 1) { pageNum--; } };
 	}
 
-	JournalPage = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal");
+	JournalPage = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal").get();
 	if(JournalPage)
 	{
 		JournalSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(JournalPage->entityID);

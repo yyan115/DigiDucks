@@ -116,7 +116,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
     Vector2D position = transform->GetPosition();
     Vector2D scale = transform->scale;
 
-    Entity* newEntity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+    Entity* newEntity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
     auto newTransform = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TransformComponent>(newEntity->entityID);
     auto sprite = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newEntity->entityID, true);
 

@@ -39,6 +39,8 @@ public:
     std::string name;
     std::string prefabName;
     std::string layerName = "Gameplay";
+    std::vector<std::string> childNames;
+    std::vector<std::shared_ptr<Entity>> childEntities;
 
     /************************************************************************
     @brief Constructor for the Entity class. Initializes the entity with a

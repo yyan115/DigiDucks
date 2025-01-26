@@ -19,7 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ****************************************************************/
 void TableLogic::Start()
 {
-	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID());
+	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	objectOnTable = nullptr;
 	objectTransform = nullptr;
@@ -39,7 +39,7 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
         return;
     }
 
-    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first);
+    Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first).get();
     if (!entity) {
         std::cerr << "Entity not found for ID: " << objData.first << std::endl;
         return;

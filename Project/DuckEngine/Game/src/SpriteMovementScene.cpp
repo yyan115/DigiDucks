@@ -84,7 +84,7 @@ void SpriteMovementScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	// instantiate prefabs
-	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+	player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
 	playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
 	playerRb = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(player->entityID);
 	playerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(player->entityID);
@@ -125,7 +125,7 @@ void SpriteMovementScene::Load()
 	//buttonSprite->useColor = true;
 	//buttonSprite->sprite = true;
 
-	Entity* buttonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("buttonBox");
+	Entity* buttonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("buttonBox").get();
 	auto buttonTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(buttonEntity->entityID);
 	auto buttonComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(buttonEntity->entityID);
 	// Calculate width and height from minPos and maxPos

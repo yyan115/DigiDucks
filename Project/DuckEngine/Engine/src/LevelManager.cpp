@@ -125,8 +125,9 @@ void LevelManager::LoadLevel(const std::string& levelName)
 			if (!prefabName.empty()) 
 			{
 				auto prefab = PrefabManager::GetPrefab(prefabName.c_str());
-				if (prefab) {
-					entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+				if (prefab) 
+				{
+					entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
 					entity->name = gameObjectName;
 					entity->prefabName = prefabName;
 					entity->layerName = layerName;
@@ -137,7 +138,7 @@ void LevelManager::LoadLevel(const std::string& levelName)
 
 			else if (gameObjectData.contains("components")) 
 			{
-				entity = &DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+				entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
 				entity->name = gameObjectName;
 				entity->layerName = layerName;
 
@@ -146,6 +147,26 @@ void LevelManager::LoadLevel(const std::string& levelName)
 
 			if (entity) 
 			{
+				if (gameObjectData.contains("childNames"))
+				{
+					entity->childNames = gameObjectData["childNames"].get<std::vector<std::string>>();
+
+					entity->childEntities.clear();
+
+					for (const auto& childName : entity->childNames)
+					{
+						std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
+						if (childEntity)
+						{
+							entity->childEntities.push_back(childEntity);
+						}
+						else
+						{
+							std::cerr << "Warning: Child entity '" << childName << "' not found." << std::endl;
+						}
+					}
+				}
+
 				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 				if (transform && gameObjectData.contains("position")) 
 				{
@@ -278,7 +299,7 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
 *************************************************************************/
 void LevelManager::SaveEntityChanges(int entityID, std::string& sceneName)
 {
-	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get();
 	if (!entity) return;
 
 	std::string finalPath = "Resources/Scenes/" + sceneName + ".json";
@@ -306,6 +327,15 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 		std::cerr << "Error: Attempted to save a null entity." << std::endl;
 		return;
 	}
+
+	if (!entity->childNames.empty())
+	{
+		gameObjectData["childNames"] = entity->childNames;
+	}
+
+	std::vector<std::string> testNames = {"hehe", "Objects"};
+
+	gameObjectData["childNames"] = testNames;
 
 	gameObjectData["layer"] = entity->layerName;
 
@@ -336,7 +366,7 @@ void LevelManager::SaveEntityToJson(Entity* entity, json& gameObjectData)
 *************************************************************************/
 void LevelManager::OverwritePrefab(int entityID)
 {
-	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get();
 	if (!entity)
 	{
 		std::cerr << "Error: Entity not found with ID " << entityID << std::endl;

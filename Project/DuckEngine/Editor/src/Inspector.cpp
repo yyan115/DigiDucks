@@ -80,7 +80,7 @@ void InspectorRenderer::RenderLayer(int entityID)
 	}
 
 	// Get the current entity and scene
-	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get();
 	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
 	if (!entity || !activeScene) return;
 

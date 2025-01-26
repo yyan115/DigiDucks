@@ -252,7 +252,7 @@ void RoamTwoPos(int objectID, Vec2& firstPos, Vec2& secondPos) {
     if (objRb->isStatic) { objRb->isStatic = false; }
 
 	// Get player components
-    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
     TransformComponent* playerTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
 	BoundingCircle* playerCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 
@@ -393,7 +393,7 @@ void RoamDir(int objectID, Vec2& dir, float time) {
     if (objRb->isStatic) { objRb->isStatic = false; }
 
     // Get player components
-    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player");
+    Entity* player = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
     TransformComponent* playerTrf = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(player->entityID);
     BoundingCircle* playerCircle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(player->entityID);
 

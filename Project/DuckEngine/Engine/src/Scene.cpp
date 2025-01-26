@@ -52,7 +52,7 @@ void Scene::Exit() {}
 **************************************************************************/
 void Scene::Unload()
 {
-    std::vector<std::unique_ptr<Entity>>& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    std::vector<std::shared_ptr<Entity>> entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
     std::vector<int> entityIDs;
     for (const auto& entity : entities) 

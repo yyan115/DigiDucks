@@ -440,13 +440,13 @@ std::vector<Entity*> SceneWindow::GetEntitiesAtPosition(const Vector2D& worldPos
 			worldPos.y >= top && worldPos.y <= bottom)
 		{
 			// Skip entities with the "Background" layer
-			Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+			Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get();
 			if (entity && entity->layerName == "Background")
 			{
 				continue; 
 			}
 
-			foundEntities.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID));
+			foundEntities.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID).get());
 		}
 	}
 

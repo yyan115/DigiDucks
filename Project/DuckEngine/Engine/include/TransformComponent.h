@@ -87,19 +87,9 @@ class DUCKENGINE_API TransformComponent : public Component
 		return std::make_shared<TransformComponent>(*this);
 	}
 
-	void SetPosition(const Vec2& newPos)
-	{
-		if (position != newPos)
-		{
-			previousPosition = newPos; 
-			position = newPos;
-		}
-	}
+	void SetPosition(const Vec2& newPos);
 
-	Vec2& GetPosition()
-	{
-		return position;
-	}
+	Vec2& GetPosition();
 
 private:
 	Vec2 position;
