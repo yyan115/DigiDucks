@@ -7,6 +7,7 @@ void TransformComponent::SetPosition(const Vec2& newPos)
 	{
 		Vec2 delta = newPos - position;
 
+		previousPosition = newPos;
 		position = newPos;
 
 		UpdateChildPositions(delta);
