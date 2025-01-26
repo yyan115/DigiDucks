@@ -64,7 +64,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	type = objData.second;
 	isOccupied = true;
-	cookTime = 1.f;
+	cookTime = 3.0f;
 }
 
 /****************************************************************

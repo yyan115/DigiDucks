@@ -96,7 +96,7 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 		type = objData.second;
 		isOccupied = true;
 		isChopped = false;
-		chopTime = 1.f;
+		chopTime = 3.0f;
 	}
 }
 
@@ -136,7 +136,7 @@ std::pair<int, ItemType> ChopBoardLogic::moveObject()
 void ChopBoardLogic::chopObject()
 {
 	
-	chopTime -= DuckEngine::FixedDeltaTime();
+	chopTime -= DuckEngine::DeltaTime();
 	if (chopTime <= 0.f)
 	{
 		isChopped = true;
