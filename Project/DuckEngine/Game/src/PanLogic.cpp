@@ -109,7 +109,7 @@ std::pair<int, ItemType> PanLogic::moveObject()
 * ****************************************************************/
 void PanLogic::cookObject()
 {
-	cookTime -= DuckEngine::DeltaTime();
+	cookTime -= DuckEngine::FixedDeltaTime();
 	if (cookTime <= 0.f)
 	{
 		if (objectSprite)

@@ -240,7 +240,6 @@ void DuckEngine::Update()
         if (isEditor && isPlaying || !isEditor)
         {
             DUCKENGINE_SystemManager.FixedUpdateAll();
-            SpatialGrid::Clear();
         }
         
         accumulatedTime -= FIXED_TIMESTEP;

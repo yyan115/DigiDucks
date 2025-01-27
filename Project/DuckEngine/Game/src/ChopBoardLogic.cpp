@@ -135,8 +135,7 @@ std::pair<int, ItemType> ChopBoardLogic::moveObject()
 * ***************************************************************/
 void ChopBoardLogic::chopObject()
 {
-	
-	chopTime -= DuckEngine::DeltaTime();
+	chopTime -= DuckEngine::FixedDeltaTime();
 	if (chopTime <= 0.f)
 	{
 		isChopped = true;

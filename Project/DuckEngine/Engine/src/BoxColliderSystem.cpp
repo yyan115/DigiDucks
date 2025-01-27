@@ -34,7 +34,16 @@ void BoxColliderSystem::Start()
 
 void BoxColliderSystem::Update() 
 {
+
+}
+
+void BoxColliderSystem::FixedUpdate()
+{
+	float deltaTime = DuckEngine::FixedDeltaTime();
 	float cellSize = 50.0f;
+
+	SpatialGrid::Clear();
+
 	// Step 1: Populate the grid with box colliders
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>()) {
 		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
@@ -42,13 +51,8 @@ void BoxColliderSystem::Update()
 
 		SpatialGrid::AddToCell(entityId, entityTrans->GetPosition(), cellSize);
 	}
-}
 
-void BoxColliderSystem::FixedUpdate()
-{
-	float deltaTime = DuckEngine::FixedDeltaTime();
 
-	float cellSize = 50.0f;
 	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
 	{
 		BoundingBox* entityBox = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
