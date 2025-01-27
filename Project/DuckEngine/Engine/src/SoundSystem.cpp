@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundComponent.h"
 #include "SceneWindow.h"
 #include <iostream>
+#include <thread>
 
 float SoundSystem::masterVolume = 1.0f;
 std::unordered_map<std::string, std::string> SoundSystem::soundCategories;
@@ -180,3 +181,31 @@ void SoundSystem::ResumeSound(const std::string& soundID) {
         it->second->setPaused(false);
     }
 }
+
+void SoundSystem::FadeOutSound(SoundComponent* soundComponent, float duration) {
+    if (!soundComponent || soundComponent->soundID.empty()) return;
+
+    const std::string& soundID = soundComponent->soundID[0];
+    auto it = activeChannels.find(soundID);
+    if (it == activeChannels.end() || !it->second) return;
+
+    float initialVolume = soundComponent->volume;
+    const float stepTime = 0.05f;                 // Time per step
+    const int steps = static_cast<int>(duration / stepTime); // Calculate the number of steps
+    const float volumeStep = initialVolume / steps;          // Volume decrement
+
+    for (int i = 0; i < steps; ++i) {
+        float newVolume = initialVolume - (volumeStep * i);
+        if (newVolume < 0.0f) newVolume = 0.0f;
+
+        SetSoundVolume(soundID, newVolume);
+
+        // Add delay for each step
+        std::this_thread::sleep_for(std::chrono::milliseconds(static_cast<int>(stepTime * 1000)));
+    }
+
+    // Ensure volume is completely zero at the end
+    SetSoundVolume(soundID, 0.0f);
+    StopSounds(soundID);
+}
+

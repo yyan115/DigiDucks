@@ -1,53 +1,5 @@
 {
     "gameObjects": {
-        "BackgroundGameObject": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 36.0,
-                            "y": 20.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/mainmenu.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "BGM",
-                        "loop": true,
-                        "playOnStart": true,
-                        "soundID": [
-                            "Resources/Sounds/start menu bgm.wav"
-                        ],
-                        "volume": 0.30000001192092896
-                    },
-                    "type": "SoundComponent"
-                }
-            ],
-            "layer": "Background"
-        },
         "Exit": {
             "components": [
                 {
@@ -204,6 +156,54 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "MenuBGM": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 36.0,
+                            "y": 20.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/mainmenu.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "BGM",
+                        "loop": true,
+                        "playOnStart": true,
+                        "soundID": [
+                            "Resources/Sounds/start menu bgm.wav"
+                        ],
+                        "volume": 0.30000001192092896
+                    },
+                    "type": "SoundComponent"
                 }
             ],
             "layer": "Background"

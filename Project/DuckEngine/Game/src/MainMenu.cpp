@@ -24,6 +24,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <map>
 #include "Scene.h"
 #include "GameManager.h"
+#include "SoundSystem.h"
+#include "thread"
 
 
 SoundComponent* menusound;
@@ -64,7 +66,15 @@ void MainMenu ::Load()
 	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start").get();
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
-	start->onClick = []() { StartSound->Play(1); GameManager::SetActiveScene("GameScene"); };
+	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
+	start->onClick = [this]() {
+		StartSound->Play(1);
+		if (menusound) {
+			float duration = 3.0f;
+			SoundSystem::FadeOutSound(menusound, duration);
+		}
+		GameManager::SetActiveScene("GameScene");
+	};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
 	QuitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);

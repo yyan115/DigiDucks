@@ -61,9 +61,9 @@ public:
 
 	static FMOD::Channel* PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f, const std::string& category = "Default");
 
-	static void StopSounds(const std::string& soundID);
+	static DUCKENGINE_API void StopSounds(const std::string& soundID);
 
-	static void SetSoundVolume(const std::string& soundID, float volume);
+	static DUCKENGINE_API void SetSoundVolume(const std::string& soundID, float volume);
 
 	static void SetMasterVolume(float volume);
 
@@ -76,6 +76,8 @@ public:
 	static void ResumeSound(const std::string& soundID);
 
 	static void PauseSound(const std::string& soundID);
+
+    static DUCKENGINE_API void FadeOutSound(SoundComponent* soundComponent, float duration);
 
 private:
 	static float masterVolume;

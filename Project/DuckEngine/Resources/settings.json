@@ -1,0 +1,11 @@
+{
+    "volume": {
+        "Master": 1.0,
+        "category": {
+            "Default": 1.0,
+            "BGM":0.2,
+            "SFX":1.0,
+            "UI":0.5
+        }
+    }
+}
