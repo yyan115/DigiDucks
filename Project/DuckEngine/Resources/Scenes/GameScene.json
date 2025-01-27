@@ -38,7 +38,9 @@
                         "category": "BGM",
                         "loop": true,
                         "playOnStart": true,
-                        "soundID": "Resources/Sounds/gameplay bgm.wav",
+                        "soundID": [
+                            "Resources/Sounds/gameplay bgm.wav"
+                        ],
                         "volume": 0.20000000298023224
                     },
                     "type": "SoundComponent"
@@ -103,7 +105,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/trash.wav",
+                        "soundID": [
+                            "Resources/Sounds/trash.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -176,7 +180,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/trash.wav",
+                        "soundID": [
+                            "Resources/Sounds/trash.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -249,7 +255,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -322,7 +330,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -395,7 +405,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/chopping.mp3",
+                        "soundID": [
+                            "Resources/Sounds/chopping.mp3"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -462,7 +474,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/drone/beeps/beep sound 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/drone/beeps/beep sound 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -798,7 +812,10 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/plate/plate 2.wav",
+                        "soundID": [
+                            "Resources/Sounds/plate/plate 1.wav",
+                            "Resources/Sounds/plate/plate 2.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1103,7 +1120,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1176,7 +1195,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1367,7 +1388,7 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/footstep.mp3",
+                        "soundID": [],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1375,29 +1396,6 @@
                 {
                     "properties": {
                         "animations": [
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
                             {
                                 "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
@@ -1414,11 +1412,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -1428,6 +1440,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -1725,7 +1746,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1798,7 +1821,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1871,7 +1896,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/sizzle.mp3",
+                        "soundID": [
+                            "Resources/Sounds/sizzle.mp3"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1941,10 +1968,12 @@
                 },
                 {
                     "properties": {
-                        "category": "Default",
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/sizzle.mp3",
+                        "soundID": [
+                            "Resources/Sounds/sizzle.mp3"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -2011,7 +2040,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/orders/correct order sfx.wav",
+                        "soundID": [
+                            "Resources/Sounds/orders/correct order sfx.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -2651,7 +2682,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/trash.wav",
+                        "soundID": [
+                            "Resources/Sounds/trash.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -3015,7 +3048,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -3124,7 +3159,10 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/plate/plate 1.wav",
+                        "soundID": [
+                            "Resources/Sounds/plate/plate 2.wav",
+                            "Resources/Sounds/plate/plate 1.wav"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"

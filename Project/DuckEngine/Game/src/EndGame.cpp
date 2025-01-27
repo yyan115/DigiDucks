@@ -60,7 +60,7 @@ void EndScene::Load()
 	MainMenu->onClick = []()
 		{ 
 			std::cout << "Button clicked QUIT!!!!!!\n"; 
-			MainMenuSound->Play();
+			MainMenuSound->Play(1);
 			isQuitButtonClicked = true;
 		};
 

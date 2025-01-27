@@ -189,7 +189,12 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 	{
 		json soundData;
 		soundData["type"] = "SoundComponent";
-		soundData["properties"]["soundID"] = sound->soundID;
+		// Add each soundID from the vector to the JSON array
+		soundData["properties"]["soundID"] = json::array();
+		for (const auto& sounds : sound->soundID) {
+			soundData["properties"]["soundID"].push_back(sounds);
+		}
+
 		soundData["properties"]["loop"] = sound->loop;
 		soundData["properties"]["playOnStart"] = sound->playOnStart;
 		soundData["properties"]["volume"] = sound->volume;
@@ -369,7 +374,12 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 	}
 	else if (type == "SoundComponent")
 	{
-		std::string soundID = componentJson["properties"].value("soundID", "");
+		std::vector<std::string> soundID;
+		if (componentJson["properties"].contains("soundID") && componentJson["properties"]["soundID"].is_array()) {
+			for (const auto& id : componentJson["properties"]["soundID"]) {
+				soundID.push_back(id.get<std::string>()); // Extract each sound ID as a string
+			}
+		}
 		bool loop = componentJson["properties"].value("loop", false);
 		bool playOnStart = componentJson["properties"].value("playOnStart", false);
 		float volume = componentJson["properties"].value("volume", 1.0f);

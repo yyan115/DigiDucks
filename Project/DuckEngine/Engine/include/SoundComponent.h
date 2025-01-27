@@ -26,7 +26,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 class SoundComponent : public Component {
 public:
-    std::string soundID;          // Identifier or path for preloaded sound
+    std::vector<std::string> soundID;          // Identifier or path for preloaded sound
     FMOD::Channel* channel;       // Channel for playback control
 	std::string category;		  // Sound category
     bool loop;                    // Whether to loop the sound
@@ -38,7 +38,7 @@ public:
     *
     * @return void
     ***************************************************************/
-    SoundComponent(const std::string& _soundID = "", const std::string& _category = "Default",bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
+    SoundComponent(const std::vector<std::string>& _soundID = {}, const std::string& _category = "Default",bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
         : soundID(_soundID), category(_category), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume) {}
 
     /****************************************************************
@@ -62,7 +62,7 @@ public:
     *
     * @return void
     ***************************************************************/
-    DUCKENGINE_API void Play();
+    DUCKENGINE_API void Play(int index = 0);
 
     /****************************************************************
     * @brief Play the sound associated with this component when key is held down

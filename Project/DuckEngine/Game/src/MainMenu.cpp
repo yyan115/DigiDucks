@@ -64,15 +64,15 @@ void MainMenu ::Load()
 	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start").get();
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
-	start->onClick = []() { std::cout << "Button clicked START!!!!!!\n"; GameManager::SetActiveScene("GameScene"); };
+	start->onClick = []() { StartSound->Play(1); GameManager::SetActiveScene("GameScene"); };
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
 	QuitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);
-	exit->onClick = []() { std::cout << "Button clicked QUIT!!!!!!\n"; GameManager::DuckEngine.CloseWindow(); };
+	exit->onClick = []() { QuitSound->Play(1); GameManager::DuckEngine.CloseWindow(); };
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay").get();
 	auto htp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(HtpButton->entityID);
 	HtpSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(HtpButton->entityID);
-	htp->onClick = []() { std::cout << "Button clicked BOOK!!!!!!\n"; GameManager::SetActiveScene("HowToPlay"); };
+	htp->onClick = []() { HtpSound->Play(1); GameManager::SetActiveScene("HowToPlay"); };
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
 	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);

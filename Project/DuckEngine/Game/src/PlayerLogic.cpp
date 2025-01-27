@@ -198,7 +198,7 @@ void PlayerLogic::InteractPressed()
 			Entity* newObject = makeObject(stockLogic->getType());
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 			holdingLogic->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
-			if (sound) sound->Play();
+			if (sound) sound->Play(-1);
 			isHolding = true;
 			return;
 		}

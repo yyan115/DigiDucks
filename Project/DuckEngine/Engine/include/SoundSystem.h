@@ -59,7 +59,7 @@ public:
     ***************************************************************/
     static DUCKENGINE_API void ResumeAllSounds();
 
-	static void PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f);
+	static FMOD::Channel* PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f, const std::string& category = "Default");
 
 	static void StopSounds(const std::string& soundID);
 

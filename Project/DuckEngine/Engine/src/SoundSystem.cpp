@@ -45,6 +45,12 @@ void SoundSystem::Start() {
     masterVolume = 1.0f;
     categoryVolumes.clear();
     activeChannels.clear();
+
+    // Set default volumes for categories
+    categoryVolumes["Default"] = 1.0f;
+    categoryVolumes["BGM"] = 0.2f;
+    categoryVolumes["SFX"] = 1.0f;
+    categoryVolumes["UI"] = 0.5f;
 }
 
 
@@ -52,24 +58,18 @@ void SoundSystem::Update() {
     AssetManager::GetFMODSystem()->update();
 }
 
-void SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume) {
-    if (!AssetManager::GetFMODSystem()) return;
-
-    // Check if the sound is already playing
-    auto it = activeChannels.find(soundID);
-    if (it != activeChannels.end() && it->second) {
-        bool isPlaying = false;
-        it->second->isPlaying(&isPlaying);
-        if (isPlaying) {
-            // If the sound is already playing, do nothing
-            return;
-        }
-    }
+FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category) {
+    if (!AssetManager::GetFMODSystem()) return nullptr;
 
     FMOD::Sound* sound = AssetManager::GetSounds(soundID);
     if (!sound) {
         std::cerr << "Sound not found: " << soundID << std::endl;
-        return;
+        return nullptr;
+    }
+
+    // Assign soundID with its category
+    if (soundCategories.find(soundID) == soundCategories.end()) {
+        AddSoundToCategory(soundID, category);
     }
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
@@ -78,14 +78,16 @@ void SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume
     AssetManager::GetFMODSystem()->playSound(sound, nullptr, false, &channel);
 
     if (channel) {
-        float categoryVolume = 1.0f;
-        if (soundCategories.find(soundID) != soundCategories.end()) {
-            categoryVolume = categoryVolumes[soundCategories[soundID]];
-        }
+        float categoryVolume = categoryVolumes[category]; // Get category volume
         channel->setVolume(volume * categoryVolume * masterVolume);
+
+        // Store the channel in the active channels map
         activeChannels[soundID] = channel;
     }
+
+    return channel; // Return the channel to the caller
 }
+
 
 
 void SoundSystem::StopSounds(const std::string& soundID) {
