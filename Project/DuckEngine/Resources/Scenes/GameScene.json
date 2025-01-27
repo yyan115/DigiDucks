@@ -354,7 +354,7 @@
                     "properties": {
                         "position": {
                             "x": 4.0,
-                            "y": -8.0
+                            "y": -7.961686134338379
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -385,7 +385,7 @@
                     "properties": {
                         "center": {
                             "x": 4.0,
-                            "y": -8.0
+                            "y": -7.961686134338379
                         },
                         "size": {
                             "x": 0.699999988079071,
@@ -477,7 +477,7 @@
                         "soundID": [
                             "Resources/Sounds/drone/beeps/beep sound 1.wav"
                         ],
-                        "volume": 1.0
+                        "volume": 0.4000000059604645
                     },
                     "type": "SoundComponent"
                 },
@@ -1388,7 +1388,9 @@
                         "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": [],
+                        "soundID": [
+                            "Resources/Sounds/footstep.mp3"
+                        ],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
