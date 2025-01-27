@@ -8,6 +8,7 @@
                             "x": -15.100000381469727,
                             "y": -7.300000190734863
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -56,6 +57,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 36.0,
@@ -82,6 +84,7 @@
                 },
                 {
                     "properties": {
+                        "category": "BGM",
                         "loop": false,
                         "playOnStart": true,
                         "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
@@ -100,6 +103,7 @@
                             "x": -16.535999298095703,
                             "y": 8.99899959564209
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -148,6 +152,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 35.20000076293945,
@@ -196,6 +201,7 @@
                             "x": 14.899999618530273,
                             "y": -7.300000190734863
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,

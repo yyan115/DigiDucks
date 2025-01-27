@@ -28,6 +28,7 @@ class SoundComponent : public Component {
 public:
     std::string soundID;          // Identifier or path for preloaded sound
     FMOD::Channel* channel;       // Channel for playback control
+	std::string category;		  // Sound category
     bool loop;                    // Whether to loop the sound
     bool playOnStart;             // Play sound when the entity is created
     float volume;                 // Sound volume
@@ -37,8 +38,8 @@ public:
     *
     * @return void
     ***************************************************************/
-    SoundComponent(const std::string& _soundID = "", bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
-        : soundID(_soundID), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume) {}
+    SoundComponent(const std::string& _soundID = "", const std::string& _category = "Default",bool _loop = false, bool _playOnStart = false, float _volume = 1.0f)
+        : soundID(_soundID), category(_category), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume) {}
 
     /****************************************************************
 	* @brief Clone function for the SoundComponent class

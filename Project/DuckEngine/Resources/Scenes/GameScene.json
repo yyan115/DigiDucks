@@ -35,6 +35,7 @@
                 },
                 {
                     "properties": {
+                        "category": "BGM",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": "Resources/Sounds/gameplay bgm.wav",
@@ -46,10 +47,6 @@
             "layer": "Background"
         },
         "Bin_1": {
-            "childNames": [
-                "BackgroundGameObject",
-                "Bin_2"
-            ],
             "components": [
                 {
                     "properties": {
@@ -103,6 +100,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/trash.wav",
@@ -175,6 +173,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/trash.wav",
@@ -247,6 +246,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -319,6 +319,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -391,6 +392,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/chopping.mp3",
@@ -457,6 +459,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/drone/beeps/beep sound 1.wav",
@@ -792,6 +795,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/plate/plate 2.wav",
@@ -1096,6 +1100,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -1168,6 +1173,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -1358,6 +1364,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/footstep.mp3",
@@ -1715,6 +1722,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -1787,6 +1795,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -1859,6 +1868,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/sizzle.mp3",
@@ -1931,6 +1941,7 @@
                 },
                 {
                     "properties": {
+                        "category": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/sizzle.mp3",
@@ -1997,6 +2008,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/orders/correct order sfx.wav",
@@ -2636,6 +2648,16 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": "Resources/Sounds/trash.wav",
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "logicNames": [
                             "BinLogic"
                         ]
@@ -2990,6 +3012,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/ingredients/ingredients 1.wav",
@@ -3098,6 +3121,7 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": "Resources/Sounds/plate/plate 1.wav",

@@ -67,7 +67,7 @@ void EndScene::Load()
 	MainMenu->onHover = []()
 		{
 			std::cout << "hover" << std::endl;
-			MainMenuSound->PlayHold();
+			MainMenuSound->Play();
 		};
 
 	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score").get();

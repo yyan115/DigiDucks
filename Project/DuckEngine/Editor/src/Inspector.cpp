@@ -453,6 +453,33 @@ void InspectorRenderer::RenderComponents(int entityID)
 				ImGui::EndDragDropTarget();
 			}
 
+			// Category dropdown
+			const std::vector<std::string> categories = { "Default", "BGM", "SFX", "UI" };
+			static int currentCategoryIndex = 0;
+
+			// Update index to match the current category
+			for (size_t i = 0; i < categories.size(); ++i) {
+				if (categories[i] == sound->category) {
+					currentCategoryIndex = static_cast<int>(i);
+					break;
+				}
+			}
+
+			ImGui::Text("Category");
+			ImGui::SameLine(100);
+			if (ImGui::BeginCombo("##Category", categories[currentCategoryIndex].c_str())) {
+				for (size_t i = 0; i < categories.size(); ++i) {
+					bool isSelected = (currentCategoryIndex == static_cast<int>(i));
+					if (ImGui::Selectable(categories[i].c_str(), isSelected)) {
+						currentCategoryIndex = static_cast<int>(i);
+						sound->category = categories[i];
+						hasChanged = true;
+					}
+					if (isSelected) ImGui::SetItemDefaultFocus();
+				}
+				ImGui::EndCombo();
+			}
+
 			// Remove component button
 			ComponentMenu<SoundComponent>(entityID);
 		}      

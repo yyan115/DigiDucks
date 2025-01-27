@@ -35,6 +35,7 @@
                 },
                 {
                     "properties": {
+                        "category": "BGM",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": "Resources/Sounds/start menu bgm.wav",
@@ -80,9 +81,10 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/clicks/click 2.wav",
+                        "soundID": "Resources/Sounds/clicks/hover 1.mp3",
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -138,9 +140,10 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/clicks/click 2.wav",
+                        "soundID": "Resources/Sounds/clicks/hover 1.mp3",
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -232,9 +235,10 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/clicks/click 2.wav",
+                        "soundID": "Resources/Sounds/clicks/hover 1.mp3",
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
