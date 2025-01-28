@@ -144,9 +144,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 			// Position
 			ImGui::Text("Position");
 			ImGui::SameLine(100);
-			Vec2 currentPos = transform->GetPosition();
-			if (ImGui::DragFloat2("##Position", &currentPos.x, 0.1f, -10000.0f, 10000.0f)) {
-				transform->SetPosition(currentPos);
+			TransformComponent currentPos = *transform;
+			if (ImGui::DragFloat2("##Position", &currentPos.GetPosition().x, 0.1f, -10000.0f, 10000.0f)) {
+				transform->SetPosition(currentPos.GetPosition());
 				hasChanged = true;
 				if (!isEditing)
 				{
