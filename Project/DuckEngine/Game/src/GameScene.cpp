@@ -89,6 +89,7 @@ bool isPaused = false;
 * ****************************************************************/
 void GameScene::Load() 
 {
+	Scene::Load();
 	DuckEngine::EnableLogging(false);
 
 	DuckEngine::SetCameraHeight(20);

@@ -133,20 +133,50 @@ void InspectorRenderer::RenderComponents(int entityID)
 		return;
 	}
 
-	// Use reference to track changes for the current entity
 	bool& hasChanged = entityChanges[entityID];
 
-	// Render TransformComponent if it exists
 	if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID))
 	{
 		if (ImGui::CollapsingHeader("Transform Component"))
 		{
-			// Position
-			ImGui::Text("Position");
+			ImGui::Text("Local Position");
 			ImGui::SameLine(100);
-			TransformComponent currentPos = *transform;
-			if (ImGui::DragFloat2("##Position", &currentPos.GetPosition().x, 0.1f, -10000.0f, 10000.0f)) {
-				transform->SetPosition(currentPos.GetPosition());
+			Vec2 currentLocalPos = transform->localPosition;
+
+			if (ImGui::DragFloat2("##Position", &currentLocalPos.x, 0.1f, -10000.0f, 10000.0f))
+			{
+				Vec2 oldWorldPos = transform->worldPosition;
+				transform->localPosition = currentLocalPos;
+
+				Entity* parentEntity = nullptr;
+				for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+				{
+					auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
+						[entityID](const std::shared_ptr<Entity>& child) { return child->entityID == entityID; });
+
+					if (it != potentialParent->childEntities.end())
+					{
+						parentEntity = potentialParent.get();
+						break;
+					}
+				}
+
+				if (parentEntity)
+				{
+					auto* parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
+					if (parentTransform)
+					{
+						transform->worldPosition = parentTransform->worldPosition + transform->localPosition;
+					}
+				}
+				else
+				{
+					transform->worldPosition = transform->localPosition;
+				}
+
+				Vec2 delta = transform->worldPosition - oldWorldPos;
+				transform->UpdateChildPositions(delta);
+
 				hasChanged = true;
 				if (!isEditing)
 				{
@@ -155,10 +185,9 @@ void InspectorRenderer::RenderComponents(int entityID)
 				}
 			}
 
-			// Rotation
 			ImGui::Text("Rotation");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f)) 
+			if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f))
 			{
 				hasChanged = true;
 				if (!isEditing)
@@ -168,7 +197,6 @@ void InspectorRenderer::RenderComponents(int entityID)
 				}
 			}
 
-			// Scale
 			ImGui::Text("Scale");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat2("##Scale", &transform->scale.x, 0.1f, 0.1f, 10000.0f))
@@ -183,9 +211,10 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 			ImGui::Checkbox("Relative To Camera", &transform->relativeToCamera);
 			if (ImGui::IsItemEdited()) hasChanged = true;
-
 		}
 	}
+
+
 
 	// Render SpriteRendererComponent if it exists
 	if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID))

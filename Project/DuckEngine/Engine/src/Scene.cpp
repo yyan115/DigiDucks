@@ -22,7 +22,42 @@ written consent of DigiPen Institute of Technology is prohibited.
 /**************************************************************************
 @brief Loads resources and initializes the scene.
 **************************************************************************/
-void Scene::Load() {}
+void Scene::Load()
+{
+    for (const auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+    {
+        auto transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+        if (transform)
+        {
+            // Ensure local position is set correctly on scene start
+            Entity* parentEntity = nullptr;
+            for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+            {
+                auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
+                    [&entity](const std::shared_ptr<Entity>& child) { return child->entityID == entity->entityID; });
+
+                if (it != potentialParent->childEntities.end())
+                {
+                    parentEntity = potentialParent.get();
+                    break;
+                }
+            }
+
+            if (parentEntity)
+            {
+                auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
+                if (parentTransform)
+                {
+                    transform->localPosition = transform->worldPosition - parentTransform->worldPosition;
+                }
+            }
+            else
+            {
+                transform->localPosition = transform->worldPosition;
+            }
+        }
+    }
+}
 
 /**************************************************************************
 @brief Called at the start of the scene to initialize components or settings.
