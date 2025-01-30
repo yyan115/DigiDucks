@@ -141,7 +141,7 @@ Layer* Scene::GetLayer(const std::string& name)
 @brief Gets a constant reference to the layers map in the scene.
 @return An unordered_map containing the layers in the scene.
 **************************************************************************/
-const std::unordered_map<std::string, Layer>& Scene::GetLayers() const
+std::unordered_map<std::string, Layer>& Scene::GetLayers()
 {
     return layers;
 }

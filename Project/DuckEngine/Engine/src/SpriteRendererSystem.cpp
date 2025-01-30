@@ -70,31 +70,33 @@ void SpriteRendererSystem::Render()
 
     for (auto& entity : allEntities)
     {
-        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity.get()->entityID);
+        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
         if (!spriteRenderer) continue;
 
-        bool isInCorrectLayer = false;
-        for (const auto& [layerName, layer] : activeScene->GetLayers())
+        Layer* currentLayer = activeScene->GetLayer(entity->layerName);
+
+        if (!currentLayer)
         {
-            if (layer.HasEntityByID(entity.get()->entityID))
-            {
-                isInCorrectLayer = (layerName == entity.get()->layerName);
-                break;
-            }
+            continue;
         }
 
-        if (!isInCorrectLayer)
+        if (!currentLayer->HasEntityByID(entity->entityID))
         {
-            for (const auto& [layerName, layer] : activeScene->GetLayers())
+            for (auto& [layerName, layer] : activeScene->GetLayers())
             {
-                if (layer.HasEntityByID(entity.get()->entityID))
+                if (layer.HasEntityByID(entity->entityID))
                 {
-                    activeScene->RemoveEntityFromLayer(layerName, entity.get()->entityID);
-                    break;
+                    layer.RemoveEntityByID(entity->entityID);
                 }
             }
 
-            activeScene->AddEntityToLayer(entity.get()->layerName, entity.get());
+            currentLayer->AddEntity(entity.get());
+        }
+
+        // Skip adding to render queue if the layer is not visible
+        if (!currentLayer->IsVisible())
+        {
+            continue;
         }
     }
 
@@ -105,9 +107,13 @@ void SpriteRendererSystem::Render()
 
     for (const auto& [layerName, layer] : activeScene->GetLayers())
     {
+        // Skip rendering for invisible layers
+        if (!layer.IsVisible())
+        {
+            continue;
+        }
+
         int layerOrder = layer.GetOrder();
-        bool isUILayer = false;
-        isUILayer = (layerName == "UI");
 
         for (int entityID : layer.GetEntityIDs())
         {
@@ -118,7 +124,7 @@ void SpriteRendererSystem::Render()
             {
                 continue;
             }
- 
+
             if (!DuckEngine::IsPlaying())
             {
                 transform->previousPosition = transform->GetPosition();

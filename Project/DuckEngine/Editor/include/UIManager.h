@@ -16,7 +16,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 enum class WindowType {
     DebugInfo,
     Inspector,
-	NewScene
+	NewScene,
+    Layer
 };
 
 class UIManager {
@@ -145,6 +146,8 @@ private:
     * @return void
     ***************************************************************/
     static void CreateNewSceneDialog();
+
+    static void ShowLayerWindow();
 
 };
 

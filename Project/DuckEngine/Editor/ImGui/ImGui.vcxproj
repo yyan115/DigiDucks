@@ -43,6 +43,7 @@
     <ClCompile Include="..\src\GizmoManager.cpp" />
     <ClCompile Include="..\src\HierarchyList.cpp" />
     <ClCompile Include="..\src\Inspector.cpp" />
+    <ClCompile Include="..\src\LayerWindow.cpp" />
     <ClCompile Include="..\src\LoggerManager.cpp" />
     <ClCompile Include="..\src\PrefabEditor.cpp" />
     <ClCompile Include="..\src\SceneWindow.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="..\include\GizmoManager.h" />
     <ClInclude Include="..\include\HierarchyList.h" />
     <ClInclude Include="..\include\Inspector.h" />
+    <ClInclude Include="..\include\LayerWindow.h" />
     <ClInclude Include="..\include\LoggerManager.h" />
     <ClInclude Include="..\include\PrefabEditor.h" />
     <ClInclude Include="..\include\SceneWindow.h" />

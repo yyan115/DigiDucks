@@ -187,6 +187,16 @@ void UIManager::ShowMenuBar()
             }
             ImGui::EndMenu();
         }
+
+        if (ImGui::BeginMenu("Window"))
+        {
+            if (ImGui::MenuItem("Layer", NULL))
+            {
+                windowStates[WindowType::Layer] = true;
+            }
+            ImGui::EndMenu();
+        }
+
         ImGui::EndMainMenuBar();
     }
 }
@@ -460,6 +470,9 @@ void UIManager::RenderWindows() {
             case WindowType::NewScene:
                 CreateNewSceneDialog();
                 break;
+            case WindowType::Layer:
+                ShowLayerWindow();
+                break;
             default:
                 break;
             }
@@ -544,4 +557,31 @@ void UIManager::CreateNewSceneDialog() {
 
         ImGui::EndPopup();
     }
+}
+
+void UIManager::ShowLayerWindow()
+{
+    ImGui::Begin("Layer Visibility", NULL, ImGuiWindowFlags_NoCollapse);
+
+    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+    if (!activeScene)
+    {
+        ImGui::Text("No active scene.");
+        ImGui::End();
+        return;
+    }
+
+    auto& layers = activeScene->GetLayers();
+
+    for (auto& [layerName, layer] : layers)
+    {
+        bool isVisible = layer.IsVisible();
+
+        if (ImGui::Checkbox(layerName.c_str(), &isVisible))
+        {
+            layer.SetVisible(isVisible);
+        }
+    }
+
+    ImGui::End();
 }

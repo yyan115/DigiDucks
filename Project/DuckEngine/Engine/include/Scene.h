@@ -80,7 +80,7 @@ public:
 	@brief Gets a constant reference to the layers map in the scene.
 	@return An unordered_map containing the layers in the scene.
 	**************************************************************************/
-	DUCKENGINE_API const std::unordered_map<std::string, Layer>& GetLayers() const;
+	DUCKENGINE_API std::unordered_map<std::string, Layer>& GetLayers();
 
 	/**************************************************************************
 	@brief Adds an entity to a specified layer within the scene.
