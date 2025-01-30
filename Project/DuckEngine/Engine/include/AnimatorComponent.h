@@ -60,6 +60,7 @@ public:
     Animation* currentAnimation;
     bool isPaused;
     std::unordered_map<std::string, Animation> animations;
+    std::unordered_map<std::string, std::tuple<std::string, int, int>> spriteSheetMetadata;
 
     DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr), isPaused(true) {}
 
@@ -120,6 +121,12 @@ public:
     {
         return animations;
     }
+
+    DUCKENGINE_API void SaveAnimationWithSpriteSheet(const std::string& animationName, const std::string& spriteSheetPath, int spriteWidth, int spriteHeight)
+    {
+        spriteSheetMetadata[animationName] = { spriteSheetPath, spriteWidth, spriteHeight };
+    }
+
 
 
 };

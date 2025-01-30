@@ -63,4 +63,7 @@ private:
     * @param animator Pointer to the AnimatorComponent of the selected entity.
     **************************************************************************/
     static void RenderAnimationPreview(AnimatorComponent* animator);
+
+    static void RenderSpriteSheetPreview(const std::vector<std::shared_ptr<Texture>>& frames);
+
 };

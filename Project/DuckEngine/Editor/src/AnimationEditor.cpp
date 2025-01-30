@@ -20,6 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "AssetManager.h"
 #include "Inspector.h"
+#include "ImageLoader.h"
 
 bool AnimationEditor::isOpen = false;
 int AnimationEditor::selectedEntityID = -1;
@@ -47,14 +48,20 @@ void AnimationEditor::Open(int entityId)
 void AnimationEditor::Render()
 {
     if (!isOpen || selectedEntityID == -1)
+    {
         return;
+    }
 
     auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(selectedEntityID);
     if (!animator)
     {
-        if (ImGui::Begin("Animation Editor", &isOpen)) {
+        if (ImGui::Begin("Animation Editor", &isOpen))
+        {
             ImGui::Text("No Animator Component found on this entity.");
-            if (ImGui::Button("Close")) isOpen = false;
+            if (ImGui::Button("Close"))
+            {
+                isOpen = false;
+            }
         }
         ImGui::End();
         return;
@@ -106,11 +113,13 @@ void AnimationEditor::Render()
     ImGui::End();
 
     if (!windowOpen)
+    {
         isOpen = false;
+    }
 }
 
 /**************************************************************************
-* @brief Renders the list of animations in the editor.
+* @brief Renders the list of animations in the editor (left column).
 * @param animator The animator component of the current entity.
 **************************************************************************/
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
@@ -119,8 +128,6 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
     ImGui::Separator();
 
     auto& animations = animator->GetAnimations();
-    static std::string renameBuffer;
-    static std::string animationToRename;
 
     for (const auto& [name, animation] : animations)
     {
@@ -136,7 +143,7 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
                 animator->animations.erase(name);
                 if (currentAnimationName == name)
                 {
-                    currentAnimationName = "";
+                    currentAnimationName.clear();
                 }
                 ImGui::EndPopup();
                 break;
@@ -162,14 +169,16 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 }
 
 /**************************************************************************
-* @brief Renders the timeline section for the selected animation.
+* @brief Renders the timeline section for the selected animation,
+*        including rename, importing sprite sheet, and frame list.
 * @param animator The animator component of the current entity.
 **************************************************************************/
 void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 {
     auto& animation = animator->animations[currentAnimationName];
+
     static char renameBuffer[128] = "";
-    static std::string originalName = ""; 
+    static std::string originalName = "";
 
     if (originalName.empty() || originalName != currentAnimationName)
     {
@@ -181,29 +190,87 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     ImGui::Text("Timeline - %s", currentAnimationName.c_str());
     ImGui::Separator();
 
-    if (ImGui::InputText("##AnimationName", renameBuffer, sizeof(renameBuffer)))
-    {
-    }
+    ImGui::InputText("##AnimationName", renameBuffer, sizeof(renameBuffer));
 
     ImGui::SameLine();
     if (ImGui::Button("Apply##RenameAnimation"))
     {
         std::string newName(renameBuffer);
-        if (!newName.empty() && newName != currentAnimationName && animator->animations.find(newName) == animator->animations.end())
+        if (!newName.empty() &&
+            newName != currentAnimationName &&
+            animator->animations.find(newName) == animator->animations.end())
         {
-            auto& animationData = animator->animations[currentAnimationName];
+            auto tempData = animator->animations[currentAnimationName];
             animator->animations.erase(currentAnimationName);
-            animator->animations[newName] = animationData;
+            animator->animations[newName] = tempData;
 
             currentAnimationName = newName;
             originalName = newName;
-
             std::cout << "Animation renamed to: " << newName << std::endl;
         }
         else
         {
             std::cerr << "Error: Animation name must be unique and non-empty!" << std::endl;
         }
+    }
+
+    ImGui::Separator();
+
+    static std::string spriteSheetPath;
+    static int spriteWidth = 64;
+    static int spriteHeight = 64;
+    static bool showSpriteSheetPopup = false;
+
+    if (ImGui::Button("Import Sprite Sheet"))
+    {
+        spriteSheetPath = LevelManager::OpenFileDialog("texture");
+        if (!spriteSheetPath.empty())
+        {
+            showSpriteSheetPopup = true;
+            ImGui::OpenPopup("Sprite Sheet Dimensions");
+        }
+    }
+
+    if (ImGui::BeginPopupModal("Sprite Sheet Dimensions", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+    {
+        ImGui::InputInt("Sprite Width", &spriteWidth);
+        ImGui::InputInt("Sprite Height", &spriteHeight);
+
+        if (ImGui::Button("OK"))
+        {
+            if (!spriteSheetPath.empty() && spriteWidth > 0 && spriteHeight > 0)
+            {
+                std::vector<GLuint> frames = ImageLoader::LoadSpriteSheet(spriteSheetPath, spriteWidth, spriteHeight);
+                if (!frames.empty())
+                {
+                    for (GLuint textureID : frames)
+                    {
+                        auto texture = std::make_shared<Texture>(textureID);
+                        animation.Frames.push_back(texture);
+                        animation.texturePaths.push_back(spriteSheetPath);
+
+                        std::cout << "Added frame from sprite sheet: "
+                            << spriteSheetPath << " with Texture ID: "
+                            << textureID << std::endl;
+                    }
+                }
+                else
+                {
+                    std::cerr << "Failed to load sprite sheet: " << spriteSheetPath << std::endl;
+                }
+            }
+            ImGui::CloseCurrentPopup();
+            showSpriteSheetPopup = false;
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("Cancel"))
+        {
+            ImGui::CloseCurrentPopup();
+            showSpriteSheetPopup = false;
+        }
+
+        ImGui::EndPopup();
     }
 
     ImGui::Separator();
@@ -215,19 +282,16 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
     for (int i = 0; i < numFrames; ++i)
     {
         ImGui::PushID(i);
-
-        auto &texture = animation.Frames[i];
+        auto& texture = animation.Frames[i];
 
         if (texture && *texture != 0)
         {
             if (ImGui::ImageButton(
                 ("##Frame" + std::to_string(i)).c_str(),
                 (void*)(uintptr_t)*texture,
-                ImVec2(64.0f, 64.0f), // Button size
-                ImVec2(0.0f, 1.0f),   // UV top-left
-                ImVec2(1.0f, 0.0f),   // UV bottom-right
-                ImVec4(0, 0, 0, 0),
-                ImVec4(1, 1, 1, 1)
+                ImVec2(64.0f, 64.0f),
+                ImVec2(0.0f, 1.0f),
+                ImVec2(1.0f, 0.0f)
             ))
             {
                 animation.currentFrame = i;
@@ -250,9 +314,9 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
         }
         else
         {
+            // Show an empty slot if there's no texture
             if (ImGui::Button(("Empty##Frame" + std::to_string(i)).c_str(), ImVec2(64.0f, 64.0f)))
             {
-
             }
 
             if (ImGui::BeginPopupContextItem())
@@ -284,7 +348,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
                     if (newTexture)
                     {
                         animation.Frames[i] = newTexture;
-                        if (i < animation.texturePaths.size())
+                        if (i < static_cast<int>(animation.texturePaths.size()))
                         {
                             animation.texturePaths[i] = path;
                         }
@@ -357,7 +421,6 @@ void AnimationEditor::RenderAnimationProperties(AnimatorComponent* animator)
         animation.frameTimer = 0.0f;
     }
 
-    // Change the button label based on the preview state
     if (ImGui::Button(isPreviewing ? "Pause Animation" : "Play Animation"))
     {
         isPreviewing = !isPreviewing;
@@ -391,13 +454,11 @@ void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
         previewElapsedTime += DuckEngine::DeltaTime();
 
         float totalDuration = animation.frameDuration * animation.Frames.size();
-
         if (totalDuration > 0.0f)
         {
             float animationTime = fmod(previewElapsedTime, totalDuration);
-
-            int frameIndex = static_cast<int>(animationTime / animation.frameDuration) % animation.Frames.size();
-
+            int frameIndex = static_cast<int>(animationTime / animation.frameDuration)
+                % animation.Frames.size();
             previewCurrentFrame = frameIndex;
         }
         else
@@ -410,15 +471,15 @@ void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
         previewCurrentFrame = 0;
     }
 
-    if (animation.Frames.size() > 0)
+    if (!animation.Frames.empty())
     {
         auto& texture = animation.Frames[previewCurrentFrame];
 
         ImVec2 contentRegion = ImGui::GetContentRegionAvail();
         ImVec2 imageSize(128.0f, 128.0f);
 
-        float padX = (contentRegion.x - imageSize.x) / 2.0f;
-        float padY = (contentRegion.y - imageSize.y) / 2.0f;
+        float padX = (contentRegion.x - imageSize.x) * 0.5f;
+        float padY = (contentRegion.y - imageSize.y) * 0.5f;
 
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + padX);
         ImGui::SetCursorPosY(ImGui::GetCursorPosY() + padY);
@@ -445,4 +506,58 @@ void AnimationEditor::RenderAnimationPreview(AnimatorComponent* animator)
     }
 
     ImGui::EndChild();
+}
+
+/**************************************************************************
+* @brief (Optional) Renders a preview grid of frames if you wish.
+*        You can call this if you want to show the user a sheet of frames
+*        before adding them to the animation.
+* @param frames A list of textures to display as a grid.
+**************************************************************************/
+void AnimationEditor::RenderSpriteSheetPreview(const std::vector<std::shared_ptr<Texture>>& frames)
+{
+    auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(selectedEntityID);
+    if (!animator)
+    {
+        ImGui::Text("No Animator Component found.");
+        return;
+    }
+
+    ImGui::Text("Sprite Sheet Preview");
+    ImGui::Separator();
+
+    int framesPerRow = 10;
+    int framesRendered = 0;
+
+    for (size_t i = 0; i < frames.size(); ++i)
+    {
+        ImGui::PushID(static_cast<int>(i));
+
+        auto& texture = frames[i];
+        if (texture)
+        {
+            ImTextureID texID = reinterpret_cast<ImTextureID>(static_cast<uintptr_t>(*texture));
+            if (ImGui::ImageButton(
+                "##FrameButton",
+                texID,
+                ImVec2(64.0f, 64.0f),
+                ImVec2(0.0f, 1.0f),
+                ImVec2(1.0f, 0.0f)))
+            {
+                auto& animation = animator->animations[currentAnimationName];
+                animation.Frames.push_back(texture);
+                animation.texturePaths.push_back("Path_To_Frame");
+            }
+        }
+
+        ImGui::PopID();
+
+        framesRendered++;
+        if (framesRendered % framesPerRow != 0)
+        {
+            ImGui::SameLine();
+        }
+    }
+
+    ImGui::NewLine();
 }
