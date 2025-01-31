@@ -1,14 +1,18 @@
 #include "TransformComponent.h"
 #include "DuckEngine.h"
 
+#include "TransformComponent.h"
+#include "DuckEngine.h"
+
 void TransformComponent::SetPosition(const Vec2& newPos)
 {
+    previousPosition = worldPosition;
+
     if (worldPosition != newPos)
     {
-        Vec2 delta = newPos - worldPosition;
-
-        previousPosition = worldPosition;
         worldPosition = newPos;
+
+        Vec2 delta = newPos - previousPosition;
 
         Entity* parentEntity = nullptr;
         for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
@@ -29,6 +33,7 @@ void TransformComponent::SetPosition(const Vec2& newPos)
             if (parentTransform)
             {
                 localPosition = worldPosition - parentTransform->worldPosition;
+                std::cout << "Updated Local Position: (" << localPosition.x << ", " << localPosition.y << ")" << std::endl;
             }
         }
         else
@@ -38,7 +43,12 @@ void TransformComponent::SetPosition(const Vec2& newPos)
 
         UpdateChildPositions(delta);
     }
+    else
+    {
+        std::cout << "SetPosition: No change in position." << std::endl;
+    }
 }
+
 
 
 
