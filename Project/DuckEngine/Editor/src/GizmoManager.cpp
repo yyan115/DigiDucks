@@ -80,6 +80,10 @@ void GizmoManager::Render() {
         if (!transform) {
             GraphicsManager::entityIsSelected = false;
         }
+        // new: if its UI, dont show gizmo either, since it wont work properly (for now)
+        else if (!transform->relativeToCamera) {
+            GraphicsManager::entityIsSelected = false;
+        }
         else {
             float biggestScale = transform->scale.x > transform->scale.y ? transform->scale.x : transform->scale.y;
             GraphicsManager::gizmoData = { transform->GetPosition(), biggestScale }; // Adjust size as needed

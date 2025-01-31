@@ -116,6 +116,15 @@ void TextSystem::Render()
         if (!transform)
             continue;
 
+        // skip if no sprite renderer
+        //auto sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId);
+        //if (!sprite)
+        //    continue;
+
+        //// skip if sprite disabled
+        //if (!sprite->isVisible)
+        //    continue;
+
         Vector2D position = transform->GetPosition();
         float scale = static_cast<float>(text->fontSize) * 0.03f;
 
@@ -129,7 +138,7 @@ void TextSystem::Render()
         // std::cout << "Text Size: " << textSize.x << ", " << textSize.y << std::endl;
         // std::cout << "Centered Position: " << centeredPosition.x << ", " << centeredPosition.y << std::endl;
 
-        DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color);
+        DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color, transform->relativeToCamera);
     }
 }
 

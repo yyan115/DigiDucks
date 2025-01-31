@@ -1,4 +1,4 @@
-/******************************************************************************/
+﻿/******************************************************************************/
 /*!
 \file       ButtonSystem.cpp
 \author     Yan Yu, y.yan, 2301213
@@ -28,9 +28,8 @@ bool IsPointInside(const Vector2D& point, const Vector2D& position, const Vector
     Vector2D min = position - scale * 0.5f; // Calculate the minimum boundary
     Vector2D max = position + scale * 0.5f; // Calculate the maximum boundary
 
-    //std::cout << "Not inside. Mouse pos: " << point.x << ", " << point.y << ". min:" << min.x << ", " << min.x << ". max: " << max.x << ", " << max.y << ".\n";
-
-    return point.x >= min.x && point.x <= max.x && point.y >= min.y && point.y <= max.y;
+    return point.x >= min.x && point.x <= max.x &&
+        point.y >= min.y && point.y <= max.y;
 }
 
 void ButtonSystem::Start()
@@ -39,7 +38,6 @@ void ButtonSystem::Start()
 
 void ButtonSystem::Update()
 {
-  
 }
 
 // Temporary render function until FixedUpdate and Update are implemented
@@ -47,100 +45,117 @@ void ButtonSystem::Render()
 {
     std::vector<ButtonComponent> ClickedButtons;
 
-    for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+    // Iterate over all ButtonComponents
+    for (const auto& [entityId, component] :
+        DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
     {
         ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
-        //TransformComponent* sprite = static_cast<TransformComponent*>(component.get());
-        TransformComponent* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+        if (!button) continue;
+
+        // Get the TransformComponent so we can read position/scale
+        TransformComponent* sprite =
+            DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
         if (!sprite) continue;
 
-        // Retrieve position and scale from TransformComponent
-        Vector2D position = sprite->GetPosition();
-        Vector2D scale = sprite->scale;
-
-        // Skip if disabled
+        // If the button is disabled, skip
         if (!button->isEnabled)
         {
             continue;
         }
 
-        // Editor mode handling
-        Vector2D mousePosWorld;
-        if (DuckEngine::isEditor)
+        // Retrieve position and scale from TransformComponent
+        Vector2D position = sprite->GetPosition();
+        Vector2D scale = sprite->scale;
+
+        // Determine the mouse position in the correct coordinate space
+        Vector2D finalMousePos;
+
+        if (sprite->relativeToCamera)
         {
-            if (!DuckEngine::IsPlaying()) return;
-            mousePosWorld = DuckEngine::editorMouseWorldPos;
+            // -- WORLD BUTTON --
+            if (DuckEngine::isEditor)
+            {
+                // If in editor, we might want to require "playing" mode?
+                // (Your code checks if not playing => return.)
+                // We'll replicate that logic:
+                if (!DuckEngine::IsPlaying())
+                    return;
+
+                // Use your editor's world position
+                finalMousePos = DuckEngine::editorMouseWorldPos;
+            }
+            else
+            {
+                // Normal game mode: convert screen to world
+                Vector2D mousePosScreen = {
+                    static_cast<float>(DuckEngine_Input::GetMouseX()),
+                    static_cast<float>(DuckEngine_Input::GetMouseY())
+                };
+                finalMousePos = GraphicsManager::ScreenToWorld(mousePosScreen);
+            }
         }
         else
         {
-            Vector2D mousePosScreen = { static_cast<float>(DuckEngine_Input::GetMouseX()),
-                                      static_cast<float>(DuckEngine_Input::GetMouseY()) };
-            mousePosWorld = GraphicsManager::ScreenToWorld(mousePosScreen);
+            // -- UI BUTTON --
+            // Do NOT convert to world space.  Use screen coords directly.
+            finalMousePos = {
+                static_cast<float>(DuckEngine_Input::GetMouseX()),
+                static_cast<float>(DuckEngine_Input::GetMouseY())
+            };
         }
 
-
-        bool isCurrentlyHovered = IsPointInside(mousePosWorld, position, scale);
+        // Check hover
+        bool isCurrentlyHovered = IsPointInside(finalMousePos, position, scale);
         if (isCurrentlyHovered && !button->isHovered)
         {
-            if (button->onHover)
-            {
+            if (button->onHover) {
                 button->onHover();
             }
             button->isHovered = true;
         }
         else if (!isCurrentlyHovered && button->isHovered)
         {
-            if (button->onFinishHover)
-            {
+            if (button->onFinishHover) {
                 button->onFinishHover();
             }
             button->isHovered = false;
         }
 
+        // Check click
         if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
         {
-            //std::cout << "pos: " << position.x << ", " << position.y << ". scale: " << scale.x << ", " << scale.y << "\n";
-
-            if (IsPointInside(mousePosWorld, position, scale))
+            if (IsPointInside(finalMousePos, position, scale))
             {
-                //std::cout << "Button clicked. Mouse Pos: " << DuckEngine_Input::GetMouseX() << ", " << DuckEngine_Input::GetMouseY() << ".\n";
                 if (button->onClick)
                 {
-                    button->onClick();
-                    //ClickedButtons.push_back(*button);
+                    // We'll push it into the array so we can handle topmost
+                    ClickedButtons.push_back(*button);
                 }
             }
         }
+    }
 
-        // Check for highest layer button and click it
-        //if (!ClickedButtons.empty()) {
-        //    int buttonIndexToClick = 0;
+    // If multiple buttons were clicked, pick the topmost
+    if (!ClickedButtons.empty())
+    {
+        int buttonIndexToClick = 0;
+        int currentIndex = 0;
+        int topSortingOrder = -999999;
 
-        //    for (auto button : ClickedButtons) {
-        //        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(button.GetEntityID());
+        for (auto& btn : ClickedButtons)
+        {
+            auto* spriteRenderer =
+                DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(
+                    btn.GetEntityID());
+            if (spriteRenderer && spriteRenderer->sortingOrder > topSortingOrder)
+            {
+                topSortingOrder = spriteRenderer->sortingOrder;
+                buttonIndexToClick = currentIndex;
+            }
+            currentIndex++;
+        }
 
-        //        if (spriteRenderer && buttonIndexToClick < spriteRenderer->sortingOrder) {
-        //            buttonIndexToClick = spriteRenderer->sortingOrder;
-        //        }
-        //    }
-
-        //    ClickedButtons[buttonIndexToClick].onClick();
-        //}
-
-        // On-hover functionality could be added here in the future
-        //if (IsPointInside(mousePosWorld, position, scale))
-        //{
-        //    if (button->onHover)
-        //    {
-        //        button->onHover();
-        //    }
-        //}
-        //else
-        //{
-        //    if (button->onFinishHover)
-        //    {
-        //        button->onFinishHover();
-        //    }
-        //}
+        // Call onClick() for the top button
+        ClickedButtons[buttonIndexToClick].onClick();
     }
 }

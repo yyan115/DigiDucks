@@ -43,30 +43,32 @@ struct TextRenderCommand {
     // Color of text
     Color color;
 
+    bool isUI;
+
     /// <summary>
     /// Constructs a TextRenderCommand with specified text, position, scale, and color.
     /// Defaults to a white color.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt = "",
         float posX = 0.0f, float posY = 0.0f,
-        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f })
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr) {}
+        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         float posX, float posY,
-        float scl, float r, float g, float b, float a)
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, float r, float g, float b, float a)
-        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and a Color struct for color.
@@ -74,8 +76,8 @@ struct TextRenderCommand {
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f })
-        : fontName(fontName), text(txt), position(position), scale(scl), color(clr) {}
+        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(clr), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Destructor for TextRenderCommand.

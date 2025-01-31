@@ -408,13 +408,14 @@ void DuckEngine::SetCameraHeight(const int height) {
 @param scale The scaling factor for the text.
 @param color The color of the text.
 *************************************************************************/
-void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color) {
+void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI) {
     TextRenderCommand command{
         fontName,
         text,
         position,
         scale,
-        color
+        color,
+        isUI
     };
     FontManager::AddToDrawQueue(command);
 }

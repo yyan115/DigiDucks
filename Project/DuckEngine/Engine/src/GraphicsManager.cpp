@@ -197,9 +197,11 @@ void GraphicsManager::Render() {
 
         glm::mat3x3 finalMatrix;
 
+        // world draw
         if (drawItem.relativeToCamera) {
             finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
         }
+        // UI draw
         else {
             float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
             float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());

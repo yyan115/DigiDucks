@@ -578,11 +578,11 @@ void InspectorRenderer::RenderComponents(int entityID)
 			}
 
 			// Position
-			ImGui::Text("Position");
-			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##TextPosition", &text->position.x, 0.1f, -10000.0f, 10000.0f)) {
-				hasChanged = true;
-			}
+			//ImGui::Text("Position");
+			//ImGui::SameLine(100);
+			//if (ImGui::DragFloat2("##TextPosition", &text->position.x, 0.1f, -10000.0f, 10000.0f)) {
+			//	hasChanged = true;
+			//}
 
 			// Font size
 			ImGui::Text("Font Size");
