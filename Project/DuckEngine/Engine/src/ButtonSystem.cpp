@@ -68,6 +68,7 @@ void ButtonSystem::Render()
         Vector2D mousePosWorld;
         if (DuckEngine::isEditor)
         {
+            if (!DuckEngine::IsPlaying()) return;
             mousePosWorld = DuckEngine::editorMouseWorldPos;
         }
         else

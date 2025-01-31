@@ -561,7 +561,16 @@ void UIManager::CreateNewSceneDialog() {
 
 void UIManager::ShowLayerWindow()
 {
-    ImGui::Begin("Layer Visibility", NULL, ImGuiWindowFlags_NoCollapse);
+    static bool isLayerWindowOpen = true;
+
+    ImGui::Begin("Layer Visibility", &isLayerWindowOpen, ImGuiWindowFlags_NoCollapse);
+
+    if (!isLayerWindowOpen)
+    {
+        windowStates[WindowType::Layer] = false;
+        ImGui::End();
+        return;
+    }
 
     auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
     if (!activeScene)

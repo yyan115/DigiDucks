@@ -92,7 +92,7 @@ void GameScene::Load()
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
 
-	DuckEngine::SetCameraHeight(20);
+	DuckEngine::SetCameraHeight(15);
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
