@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include <iostream>
 
+#include "MovementLogic.h"
 #include "IngredientType.h"
 #include "StockLogic.h"
 #include "TableLogic.h"
@@ -45,7 +46,7 @@ private:
     FacingDirection dir;
     Entity* interactObject;
     SoundComponent* sound;
-
+	std::shared_ptr<MovementLogic> movement;
 
 public:
     bool isHolding = false;
@@ -53,10 +54,10 @@ public:
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr){}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr)
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }
@@ -100,5 +101,5 @@ public:
     * 
 	* @return - Pointer to the object
 	* ****************************************************************/
-    Entity* makeObject(ItemType type);    
+    Entity* makeObject(ItemType type);
 };

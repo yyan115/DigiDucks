@@ -28,6 +28,12 @@ void PlayerLogic::Start()
 {
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
+	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
+	dir = FRONT;
+	isHolding = false;
+	actionCounter = actionCooldown;
+
 	if (boxCollider)
 	{
 		boxCollider->isKinematic = false;
@@ -47,11 +53,6 @@ void PlayerLogic::Start()
 				}
 			});
 	}
-	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-	dir = FRONT;
-	isHolding = false;
-
-	actionCounter = actionCooldown;
 }
 
 
@@ -60,28 +61,30 @@ void PlayerLogic::Start()
 * ****************************************************************/
 void PlayerLogic::Update()
 {
-	
 	if (actionCounter >= 0)
 	{
 		actionCounter -= DuckEngine::DeltaTime();
 	}
 	if (animator)
 	{
-		if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_D)
-			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_A)
-			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_S)
-			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
-			|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_K))
+		if (movement->isMoving)
 		{
-			
-			if (dir == FRONT)
-				animator->PlayAnimation("FRONT_IDLE");
-			else if (dir == BACK)
-				animator->PlayAnimation("BACK_IDLE");
-			else if (dir == LEFT)
-				animator->PlayAnimation("LEFT_IDLE");
-			else if (dir == RIGHT)
-				animator->PlayAnimation("RIGHT_IDLE");
+			if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_D)
+				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_A)
+				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_S)
+				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
+				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_K))
+			{
+
+				if (dir == FRONT)
+					animator->PlayAnimation("FRONT_IDLE");
+				else if (dir == BACK)
+					animator->PlayAnimation("BACK_IDLE");
+				else if (dir == LEFT)
+					animator->PlayAnimation("LEFT_IDLE");
+				else if (dir == RIGHT)
+					animator->PlayAnimation("RIGHT_IDLE");
+			}
 		}
 	}
 
@@ -116,6 +119,14 @@ void PlayerLogic::Update()
 void PlayerLogic::FixedUpdate()
 {
 	auto playersound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
+
+	// If player is not moving, do nothing
+	if (!movement->isMoving)
+	{
+		animator->Pause();
+		return;
+	}
+
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 	{
 		if (boxCollider)
@@ -252,10 +263,13 @@ void PlayerLogic::InteractPressed()
 			return;*/
 			//here
 			GameScene::MiniGame_1(true);
+			return;
 		}
 
 	}
-	else if (isHolding) // If player is already holding something
+
+	// If player is already holding something
+	else if (isHolding)
 	{
 		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
 		if (stockLogic)
@@ -339,7 +353,6 @@ void PlayerLogic::InteractPressed()
 void PlayerLogic::InteractHold()
 {
 	
-
 	// Hold down is for Cutting/Cooking
 	// Player Must Not be Holding Anything
 	if (!isHolding)

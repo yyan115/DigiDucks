@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
-#include "RoamingLogic.h"
 #include "MessagingSystem.h"
 #include "GameManager.h"
 #include "Scene.h"
@@ -42,29 +41,21 @@ int scoreValue{};
 /*Pause Menu*/
 Entity* gamePauseBg;
 SpriteRendererComponent* gamePauseBgSpt;
-Entity* gamePauseTxt;
-SpriteRendererComponent* gamePauseTxtSpt;
 Entity* gameResumeBtn;
-SpriteRendererComponent* gameResumeBtnSpt;
 ButtonComponent* gameResumeButton;
 Entity* gameExitBtn;
-SpriteRendererComponent* gameExitBtnSpt;
 ButtonComponent* gameExitButton;
 Entity* gameHTPBtn;
-SpriteRendererComponent* gameHTPBtnSpt;
 ButtonComponent* gameHTPButton;
 
 /*HTP Menu*/
 Entity* gameJournal;
 SpriteRendererComponent* gameJournalSpt;
 Entity* gameHTPExitBtn;
-SpriteRendererComponent* gameHTPExitBtnSpt;
 ButtonComponent* gameHTPExitButton;
 Entity* gameHTPBackBtn;
-SpriteRendererComponent* gameHTPBackBtnSpt;
 ButtonComponent* gameHTPBackButton;
 Entity* gameHTPNextBtn;
-SpriteRendererComponent* gameHTPNextBtnSpt;
 ButtonComponent* gameHTPNextButton;
 
 /*Exit Confirm*/
@@ -73,10 +64,8 @@ SpriteRendererComponent* gameExitCfmBgSpt;
 Entity* gameExitCfmTxt;
 TextComponent* gameExitCfmText;
 Entity* gameExitYesBtn;
-SpriteRendererComponent* gameExitYesBtnSpt;
 ButtonComponent* gameExitYesButton;
 Entity* gameExitNoBtn;
-SpriteRendererComponent* gameExitNoBtnSpt;
 ButtonComponent* gameExitNoButton;
 
 /*MiniGame_1*/
@@ -110,7 +99,7 @@ void GameScene::Load()
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
 
-	DuckEngine::SetCameraHeight(15);
+	DuckEngine::SetCameraHeight(17);
 
 	// instantiate prefabs
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
@@ -166,24 +155,9 @@ void GameScene::Load()
 			}
 		}
 
-		gamePauseTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Text").get();
-		if (gamePauseTxt)
-		{
-			gamePauseTxtSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseTxt->entityID);
-			if (gamePauseTxtSpt)
-			{
-				gamePauseTxtSpt->isVisible = false;
-			}
-		}
-
 		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
 		if (gameResumeBtn)
 		{
-			gameResumeBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameResumeBtn->entityID);
-			if (gameResumeBtnSpt)
-			{
-				gameResumeBtnSpt->isVisible = false;
-			}
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
@@ -194,11 +168,6 @@ void GameScene::Load()
 		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
 		if (gameExitBtn)
 		{
-			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
-			if (gameExitBtnSpt)
-			{
-				gameExitBtnSpt->isVisible = false;
-			}
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
@@ -209,11 +178,6 @@ void GameScene::Load()
 		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
 		if (gameHTPBtn)
 		{
-			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
-			if (gameHTPBtnSpt)
-			{
-				gameHTPBtnSpt->isVisible = false;
-			}
 			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
 			if (gameHTPButton)
 			{
@@ -237,11 +201,6 @@ void GameScene::Load()
 		gameHTPExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Exit_Btn").get();
 		if (gameHTPExitBtn)
 		{
-			gameHTPExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPExitBtn->entityID);
-			if (gameHTPExitBtnSpt)
-			{
-				gameHTPExitBtnSpt->isVisible = false;
-			}
 			gameHTPExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPExitBtn->entityID);
 			if (gameHTPExitButton)
 			{
@@ -252,11 +211,6 @@ void GameScene::Load()
 		gameHTPBackBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Back_Btn").get();
 		if (gameHTPBackBtn)
 		{
-			gameHTPBackBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBackBtn->entityID);
-			if (gameHTPBackBtnSpt)
-			{
-				gameHTPBackBtnSpt->isVisible = false;
-			}
 			gameHTPBackButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBackBtn->entityID);
 			if (gameHTPBackButton)
 			{
@@ -267,11 +221,6 @@ void GameScene::Load()
 		gameHTPNextBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Next_Btn").get();
 		if (gameHTPNextBtn)
 		{
-			gameHTPNextBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPNextBtn->entityID);
-			if (gameHTPNextBtnSpt)
-			{
-				gameHTPNextBtnSpt->isVisible = false;
-			}
 			gameHTPNextButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPNextBtn->entityID);
 			if (gameHTPNextButton)
 			{
@@ -306,11 +255,6 @@ void GameScene::Load()
 		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
 		if (gameExitYesBtn)
 		{
-			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
-			if (gameExitYesBtnSpt)
-			{
-				gameExitYesBtnSpt->isVisible = false;
-			}
 			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
@@ -321,11 +265,6 @@ void GameScene::Load()
 		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
 		if (gameExitNoBtn)
 		{
-			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
-			if (gameExitNoBtnSpt)
-			{
-				gameExitNoBtnSpt->isVisible = false;
-			}
 			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
 			if (gameExitNoButton)
 			{
@@ -588,22 +527,6 @@ void GameScene::PauseGame(bool state)
 	{
 		gamePauseBgSpt->isVisible = state;
 	}
-	if (gamePauseTxtSpt)
-	{
-		gamePauseTxtSpt->isVisible = state;
-	}
-	if (gameResumeBtnSpt)
-	{
-		gameResumeBtnSpt->isVisible = state;
-	}
-	if (gameExitBtnSpt)
-	{
-		gameExitBtnSpt->isVisible = state;
-	}
-	if (gameHTPBtnSpt)
-	{
-		gameHTPBtnSpt->isVisible = state;
-	}
 
 	HTPShow(false);
 	ExitConfirm(false);
@@ -619,18 +542,6 @@ void GameScene::HTPShow(bool state)
 	if (gameJournalSpt)
 	{
 		gameJournalSpt->isVisible = state;
-	}
-	if (gameHTPExitBtnSpt)
-	{
-		gameHTPExitBtnSpt->isVisible = state;
-	}
-	if (gameHTPBackBtnSpt)
-	{
-		gameHTPBackBtnSpt->isVisible = state;
-	}
-	if (gameHTPNextBtnSpt)
-	{
-		gameHTPNextBtnSpt->isVisible = state;
 	}
 
 	// Disable Quit and Resume Btn
@@ -659,14 +570,6 @@ void GameScene::ExitConfirm(bool state)
 	if (gameExitCfmTxt)
 	{
 		gameExitCfmText->isEnabled = state;
-	}
-	if (gameExitYesBtn)
-	{
-		gameExitYesBtnSpt->isVisible = state;
-	}
-	if (gameExitNoBtn)
-	{
-		gameExitNoBtnSpt->isVisible = state;
 	}
 
 	// Disable HTP  and Quit Btn

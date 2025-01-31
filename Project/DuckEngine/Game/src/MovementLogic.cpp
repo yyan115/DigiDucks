@@ -52,21 +52,24 @@ void MovementLogic::FixedUpdate()
 	// Store input state - don't directly modify velocity
 	Vector2D inputDirection(0.0f, 0.0f);
 
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
+	if (isMoving)
 	{
-		inputDirection.y += 1.0f;
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
-	{
-		inputDirection.y -= 1.0f;
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
-	{
-		inputDirection.x -= 1.0f;
-	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
-	{
-		inputDirection.x += 1.0f;
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
+		{
+			inputDirection.y += 1.0f;
+		}
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
+		{
+			inputDirection.y -= 1.0f;
+		}
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
+		{
+			inputDirection.x -= 1.0f;
+		}
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
+		{
+			inputDirection.x += 1.0f;
+		}
 	}
 
 	// Normalize the input direction if it's not zero

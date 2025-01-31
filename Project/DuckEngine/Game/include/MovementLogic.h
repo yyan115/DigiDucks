@@ -28,6 +28,8 @@ private:
     float moveSpeed;
 
 public:
+	bool isMoving = true;
+
     MovementLogic()
         : GameLogic(nullptr), transform(nullptr), rigidbody(nullptr), animator(nullptr), circleCollider(nullptr), moveSpeed(10.0f) {}
 

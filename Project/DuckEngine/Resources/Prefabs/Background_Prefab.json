@@ -1,0 +1,34 @@
+{
+    "components": [
+        {
+            "properties": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "relativeToCamera": true,
+                "rotation": 0.0,
+                "scale": {
+                    "x": 35.0,
+                    "y": 25.0
+                }
+            },
+            "type": "TransformComponent"
+        },
+        {
+            "properties": {
+                "color": {
+                    "a": 255,
+                    "b": 255,
+                    "g": 255,
+                    "r": 255
+                },
+                "isVisible": true,
+                "sortingOrder": 0,
+                "texture": "Resources/Sprites/HowToPlay/background.png",
+                "useColor": false
+            },
+            "type": "SpriteRendererComponent"
+        }
+    ]
+}
