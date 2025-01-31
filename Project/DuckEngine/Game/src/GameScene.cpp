@@ -79,6 +79,24 @@ Entity* gameExitNoBtn;
 SpriteRendererComponent* gameExitNoBtnSpt;
 ButtonComponent* gameExitNoButton;
 
+/*MiniGame_1*/
+Entity* gameMiniGame_BG;
+SpriteRendererComponent* gameMiniGame_BG_Spt;
+Entity* gameMiniGame_Keypad;
+SpriteRendererComponent* gameMiniGame_Keypad_Spt;
+Entity* gameMiniGame_K1;
+SpriteRendererComponent* gameMiniGame_K1_Spt;
+ButtonComponent* gameMiniGame_K1_Btn;
+Entity* gameMiniGame_K2;
+SpriteRendererComponent* gameMiniGame_K2_Spt;
+ButtonComponent* gameMiniGame_K2_Btn;
+Entity* gameMiniGame_T1;
+TextComponent* gameMiniGame_T1_Txt;
+Entity* gameMiniGame_T2;
+TextComponent* gameMiniGame_T2_Txt;
+Entity* gameMiniGame_Text;
+TextComponent* gameMiniGame_Text_Txt;
+
 
 int pageNumb = 1;
 bool isPaused = false;
@@ -312,6 +330,89 @@ void GameScene::Load()
 			if (gameExitNoButton)
 			{
 				gameExitNoButton->onClick = [this]() { std::cout << "NO\n"; ExitConfirm(false); };
+			}
+		}
+	}
+
+	// MiniGame_1
+	{
+		gameMiniGame_Text = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Text").get();
+		if (gameMiniGame_Text)
+		{
+			gameMiniGame_Text_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_Text->entityID);
+			if (gameMiniGame_Text_Txt)
+			{
+				gameMiniGame_Text_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_BG = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_BG").get();
+		if (gameMiniGame_BG)
+		{
+			gameMiniGame_BG_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_BG->entityID);
+			if (gameMiniGame_BG_Spt)
+			{
+				gameMiniGame_BG_Spt->isVisible = false;
+			}
+		}
+
+		gameMiniGame_Keypad = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Keypad").get();
+		if (gameMiniGame_Keypad)
+		{
+			gameMiniGame_Keypad_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Keypad->entityID);
+			if (gameMiniGame_Keypad_Spt)
+			{
+				gameMiniGame_Keypad_Spt->isVisible = false;
+			}
+		}
+
+		gameMiniGame_K1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K1").get();
+		if (gameMiniGame_K1)
+		{
+			gameMiniGame_K1_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K1->entityID);
+			if (gameMiniGame_K1_Spt)
+			{
+				gameMiniGame_K1_Spt->isVisible = false;
+			}
+			gameMiniGame_K1_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K1->entityID);
+			if (gameMiniGame_K1_Btn)
+			{
+				gameMiniGame_K1_Btn->onClick = [this]() {std::cout << "1" << std::endl; };
+			}
+		}
+
+		gameMiniGame_T1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T1").get();
+		if (gameMiniGame_T1)
+		{
+			gameMiniGame_T1_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T1->entityID);
+			if (gameMiniGame_T1_Txt)
+			{
+				gameMiniGame_T1_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_K2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K2").get();
+		if (gameMiniGame_K2)
+		{
+			gameMiniGame_K2_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K2->entityID);
+			if (gameMiniGame_K2_Spt)
+			{
+				gameMiniGame_K2_Spt->isVisible = false;
+			}
+			gameMiniGame_K2_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K2->entityID);
+			if (gameMiniGame_K2_Btn)
+			{
+				gameMiniGame_K2_Btn->onClick = [this]() { std::cout << "2" << std::endl; };
+			}
+		}
+
+		gameMiniGame_T2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T2").get();
+		if (gameMiniGame_T2)
+		{
+			gameMiniGame_T2_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T2->entityID);
+			if (gameMiniGame_T2_Txt)
+			{
+				gameMiniGame_T2_Txt->isEnabled = false;
 			}
 		}
 	}
@@ -602,4 +703,24 @@ void GameScene::changePage()
 	default:
 		break;
 	};
+}
+
+void GameScene::MiniGame_1(bool state)
+{
+
+	// Hide Texts
+	if (scoreText)
+	{
+		scoreText->isEnabled = !state;
+	}
+	if (timerText)
+	{
+		timerText->isEnabled = !state;
+	}
+
+	// Hide Order Tab
+	if (orderSprite)
+	{
+		orderSprite->isVisible = !state;
+	}
 }

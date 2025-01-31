@@ -249,6 +249,7 @@ void PlayerLogic::InteractPressed()
 			if (sound) sound->Play();
 			restockLogic->restockAll();
 			return;
+			//here
 		}
 
 	}

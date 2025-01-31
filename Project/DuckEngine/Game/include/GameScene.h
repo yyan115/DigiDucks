@@ -84,4 +84,7 @@ class GameScene : public  Scene{
 	* @brief Change the current page of the How To Play menu.
 	* ****************************************************************/
 	void changePage();
+
+	void MiniGame_1(bool);
+
 };
