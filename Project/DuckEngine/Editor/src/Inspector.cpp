@@ -139,7 +139,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 	{
 		if (ImGui::CollapsingHeader("Transform Component"))
 		{
-			ImGui::Text("Local Position");
+			ImGui::Text("Position");
 			ImGui::SameLine(100);
 			Vec2 currentLocalPos = transform->localPosition;
 
