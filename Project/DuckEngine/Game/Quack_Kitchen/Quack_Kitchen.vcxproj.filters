@@ -26,9 +26,6 @@
     <ClCompile Include="..\src\GameScene.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\PlayerLogic.cpp">
-      <Filter>src\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\HoldingLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
@@ -55,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="..\src\HowToPlay.cpp">
       <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PlayerLogic.cpp">
+      <Filter>src\Logic\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +97,12 @@
     <Filter Include="include\Logic\Ingredient">
       <UniqueIdentifier>{68042585-030c-4081-a3a2-b0228557d11d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Logic\Player">
+      <UniqueIdentifier>{7a682da8-f311-4db9-af4c-4ea0438ac056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Player">
+      <UniqueIdentifier>{b4fca658-7954-4685-9363-0e1a78178e33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\MaxLoadScene.h">
@@ -120,13 +126,7 @@
     <ClInclude Include="..\include\MainMenu.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\MovementLogic.h">
-      <Filter>include\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\HoldingLogic.h">
-      <Filter>include\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\PlayerLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
     <ClInclude Include="..\include\BunStockLogic.h">
@@ -190,6 +190,12 @@
       <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\include\PlayerLogic.h">
+      <Filter>include\Logic\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MovementLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Quack_Kitchen.rc" />

@@ -125,6 +125,16 @@ void SpriteRendererSystem::Render()
                 continue;
             }
 
+            Entity* parentEntity = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(entityID).get();
+            if (parentEntity)
+            {
+                auto* parentSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(parentEntity->entityID);
+                if (parentSpriteRenderer && !parentSpriteRenderer->isVisible)
+                {
+                    continue; 
+                }
+            }
+
             if (!DuckEngine::IsPlaying())
             {
                 transform->previousPosition = transform->GetPosition();

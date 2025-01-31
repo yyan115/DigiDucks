@@ -103,3 +103,18 @@ void EntityManager::RemoveAllEntities()
     entities.clear();
     ResetEntityID();
 }
+
+std::shared_ptr<Entity> EntityManager::GetParentEntity(int childEntityID)
+{
+    for (auto& potentialParent : entities)
+    {
+        for (const auto& child : potentialParent->childEntities)
+        {
+            if (child->entityID == childEntityID)
+            {
+                return potentialParent;
+            }
+        }
+    }
+    return nullptr;
+}
