@@ -464,15 +464,6 @@ void GameScene::Unload()
 * ****************************************************************/
 void GameScene::PauseGame(bool state) 
 {
-	if (state)
-	{
-		CameraManager::SetPosition(0.0f, 50.0f);
-	}
-	else
-	{
-		CameraManager::SetPosition(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
-	}
-
 	isPaused = state;
 	// Hide Texts
 	if (scoreText)
