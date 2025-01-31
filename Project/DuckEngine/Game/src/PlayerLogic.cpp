@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
 
+
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
 
@@ -246,10 +247,11 @@ void PlayerLogic::InteractPressed()
 		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(interactObject->entityID);
 		if (restockLogic)
 		{
-			if (sound) sound->Play();
+			/*if (sound) sound->Play();
 			restockLogic->restockAll();
-			return;
+			return;*/
 			//here
+			GameScene::MiniGame_1(true);
 		}
 
 	}

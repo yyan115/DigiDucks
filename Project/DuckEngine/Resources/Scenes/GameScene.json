@@ -510,45 +510,6 @@
             ],
             "layer": "Gameplay"
         },
-        "MiniGame_Text": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -8.0,
-                            "y": 2.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 7.0,
-                            "y": 7.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.5,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": "123"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "Exit_Cfm_Bg": {
             "components": [
                 {
@@ -1273,7 +1234,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
@@ -1325,7 +1286,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
@@ -1374,7 +1335,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/INPUT.png",
@@ -1410,7 +1371,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -1449,7 +1410,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -1462,6 +1423,45 @@
                 }
             ],
             "layer": "UI"
+        },
+        "MiniGame_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -8.0,
+                            "y": 2.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 7.0,
+                            "y": 7.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": false,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "123"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "Mushroom_Box": {
             "components": [

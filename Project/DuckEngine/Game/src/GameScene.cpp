@@ -418,6 +418,7 @@ void GameScene::Load()
 	}
 
 	PauseGame(false);
+	MiniGame_1(false);
 }
 
 /****************************************************************
@@ -707,7 +708,6 @@ void GameScene::changePage()
 
 void GameScene::MiniGame_1(bool state)
 {
-
 	// Hide Texts
 	if (scoreText)
 	{
@@ -722,5 +722,35 @@ void GameScene::MiniGame_1(bool state)
 	if (orderSprite)
 	{
 		orderSprite->isVisible = !state;
+	}
+
+// show minigame
+	if (gameMiniGame_BG)
+	{
+		gameMiniGame_BG_Spt->isVisible = state;
+	}
+	if (gameMiniGame_Keypad)
+	{
+		gameMiniGame_Keypad_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K1)
+	{
+		gameMiniGame_K1_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K2)
+	{
+		gameMiniGame_K2_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T1)
+	{
+		gameMiniGame_T1_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T2)
+	{
+		gameMiniGame_T2_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Text)
+	{
+		gameMiniGame_Text_Txt->isEnabled = state;
 	}
 }

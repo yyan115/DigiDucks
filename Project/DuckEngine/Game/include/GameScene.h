@@ -85,6 +85,7 @@ class GameScene : public  Scene{
 	* ****************************************************************/
 	void changePage();
 
-	void MiniGame_1(bool);
+public: 
+	static void MiniGame_1(bool);
 
 };
