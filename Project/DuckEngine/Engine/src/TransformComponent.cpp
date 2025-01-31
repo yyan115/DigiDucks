@@ -6,7 +6,7 @@
 
 void TransformComponent::SetPosition(const Vec2& newPos)
 {
-    previousPosition = worldPosition;
+    previousPosition = newPos;
 
     if (worldPosition != newPos)
     {
