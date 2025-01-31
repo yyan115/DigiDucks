@@ -780,7 +780,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Exit_Cfm_Txt": {
             "components": [
@@ -819,7 +819,7 @@
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Exit_No_Btn": {
             "components": [
@@ -868,7 +868,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Exit_Yes_Btn": {
             "components": [
@@ -917,7 +917,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Frying_Pan": {
             "components": [
@@ -992,6 +992,9 @@
             "layer": "Gameplay"
         },
         "Grey_Plate_Station": {
+            "childNames": [
+                "Grey_Plate"
+            ],
             "components": [
                 {
                     "properties": {
@@ -1114,7 +1117,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "HTP_Btn": {
             "childNames": [
@@ -1166,7 +1169,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "HTP_Exit_Btn": {
             "components": [
@@ -1215,7 +1218,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "HTP_Next_Btn": {
             "components": [
@@ -1264,7 +1267,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Journal": {
             "childNames": [
@@ -1305,7 +1308,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Lettuce_Box": {
             "components": [
@@ -1858,7 +1861,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Pause_Text": {
             "components": [
@@ -1894,7 +1897,7 @@
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Player": {
             "components": [
@@ -2160,11 +2163,11 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Restock_Menu": {
             "childNames": [
-                "Tomato_Rstk"
+                "Tomato_Bg"
             ],
             "components": [
                 {
@@ -2267,7 +2270,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Score_Text": {
             "components": [
@@ -3637,6 +3640,59 @@
             ],
             "layer": "UI"
         },
+        "Tomato_Bg": {
+            "childNames": [
+                "Tomato_Rstk",
+                "Tomato_Txt"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3999999761581421,
+                            "y": -0.699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.20000000298023224
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/INPUT.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Tomato_Box": {
             "components": [
                 {
@@ -3713,18 +3769,21 @@
             "layer": "Gameplay"
         },
         "Tomato_Rstk": {
+            "childNames": [
+                ""
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7000007629394531,
-                            "y": -0.699999988079071
+                            "x": 0.3999999761581421,
+                            "y": -0.7299999594688416
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 5.0
+                            "x": 0.05000000074505806,
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -3738,15 +3797,54 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 7,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Ingredients/tomato.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
+        },
+        "Tomato_Txt": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -9.700000762939453,
+                            "y": 1.7999999523162842
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05000000074505806,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney Pixel",
+                        "fontSize": 0.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "Tomato"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "White_Plate": {
             "components": [
@@ -3785,6 +3883,9 @@
             "layer": "Gameplay"
         },
         "White_Plate_Station": {
+            "childNames": [
+                "White_Plate"
+            ],
             "components": [
                 {
                     "properties": {
