@@ -343,7 +343,7 @@ void GameScene::Update()
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
 	if (!isPaused)
 	{
-		//CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
 	}
 
 	// For each sound component, play the sound if it is set to play on start
