@@ -218,6 +218,7 @@ public:
     static void DUCKENGINE_API ToggleFullScreen();
     
     static DUCKENGINE_API void ToggleShowDebugColliders();
+
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;
@@ -227,4 +228,12 @@ public:
     static DUCKENGINE_API const double FIXED_TIMESTEP; // 60 FPS fixed timestep
     static double accumulatedTime;
     static int currentSteps;
+
+    /// <summary>
+    /// Spawn (emit) a new particle at 'pos' with velocity 'vel'.
+    /// Randomizes some properties like lifetime, scale, color, etc.
+    /// </summary>
+    /// <param name="pos">Spawn position in world coords.</param>
+    /// <param name="vel">Initial velocity of the particle.</param>
+    static void DUCKENGINE_API Emit(const Vector2D& pos, const Vector2D& vel);
 };

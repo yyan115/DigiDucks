@@ -143,6 +143,16 @@ public:
     /// <returns>World position as a vector.</returns>
     DUCKENGINE_API static Vector2D ScreenToWorld(const Vector2D& screenPosition);
 
+    /// <summary>
+    /// Draws a FILLED circle (triangle fan) at the specified position with the given radius and color. 
+    /// Similar to DrawCircle but not just an outline.
+    /// </summary>
+    /// <param name="position">The center position.</param>
+    /// <param name="radius">Radius of the circle.</param>
+    /// <param name="color">Fill color.</param>
+    /// <param name="relativeToCamera">Whether to apply camera transforms.</param>
+    DUCKENGINE_API static void DrawFilledCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera = true);
+
 private:
 
     static std::vector<DrawOptions*> CameraDrawCommands;
@@ -277,4 +287,8 @@ private:
     /// <param name="color">The color of the square.</param>
     /// <param name="cameraViewMatrix">The camera view matrix to apply.</param>
     static void DrawSquare(const Vector2D& center, float size, const Color& color, const glm::mat3x3& cameraViewMatrix);
+
+    static GLuint filledCircleVAO;
+    static int filledCircleSegments;
+    static void SetupFilledCircleVAO(int segments);
 };

@@ -154,6 +154,9 @@
     <ClCompile Include="..\src\TransformComponent.cpp">
       <Filter>src\Components</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ParticleSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -365,6 +368,9 @@
     </ClInclude>
     <ClInclude Include="..\include\SpatialGridSystem.h">
       <Filter>include\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ParticleSystem.h">
+      <Filter>include\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

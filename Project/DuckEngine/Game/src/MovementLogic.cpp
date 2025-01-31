@@ -52,23 +52,29 @@ void MovementLogic::FixedUpdate()
 	// Store input state - don't directly modify velocity
 	Vector2D inputDirection(0.0f, 0.0f);
 
+	Vector2D moveSmokePosition;
+
 	if (isMoving)
 	{
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 		{
 			inputDirection.y += 1.0f;
+			moveSmokePosition = { transform->GetPosition().x , transform->GetPosition().y - 1.5f };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 		{
 			inputDirection.y -= 1.0f;
+			moveSmokePosition = { transform->GetPosition().x , transform->GetPosition().y + 1.5f };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 		{
 			inputDirection.x -= 1.0f;
+			moveSmokePosition = { transform->GetPosition().x + 1.5f, transform->GetPosition().y };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 		{
 			inputDirection.x += 1.0f;
+			moveSmokePosition = { transform->GetPosition().x - 1.5f, transform->GetPosition().y };
 		}
 	}
 
@@ -77,5 +83,8 @@ void MovementLogic::FixedUpdate()
 
 	// Set velocity based on normalized input
 	rigidbody->velocity = inputDirection * moveSpeed;
+
+	if (isMoving)
+		DuckEngine::Emit({ moveSmokePosition.x, moveSmokePosition.y - 0.5f}, -rigidbody->velocity);
 }
 

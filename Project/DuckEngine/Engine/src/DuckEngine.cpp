@@ -42,6 +42,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLogicSystem.h"
 #include "SoundSystem.h"
 #include "SpatialGridSystem.h"
+#include "ParticleSystem.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -135,6 +136,9 @@ void DuckEngine::SetupSystems()
 
     auto buttonSystem = std::make_shared<ButtonSystem>();
     DUCKENGINE_SystemManager.AddSystem(buttonSystem);
+
+    auto particleSystem = std::make_shared<ParticleSystem>(150);
+    DUCKENGINE_SystemManager.AddSystem(particleSystem);
 
 
     // start all systems
@@ -541,4 +545,9 @@ void DuckEngine::ToggleShowDebugColliders() {
 void DuckEngine::CloseWindow()
 {
     WindowManager::SetWindowShouldClose();
+}
+
+void DuckEngine::Emit(const Vector2D& pos, const Vector2D& vel) {
+    ParticleSystem::Emit(pos, vel);
+    std::cout << "Emitting\n";
 }

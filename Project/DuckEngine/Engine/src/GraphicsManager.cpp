@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShaderManager.h"
 #include "GizmoManager.h"
 
+#include "ParticleSystem.h"
 
 
 GLuint GraphicsManager::VAO = 0;
@@ -67,6 +68,9 @@ GizmoData GraphicsManager::gizmoData;
 int GraphicsManager::currentGizmo = 1;
 
 std::vector<DrawOptions*> GraphicsManager::CameraDrawCommands;
+
+GLuint GraphicsManager::filledCircleVAO = 0;
+int GraphicsManager::filledCircleSegments = 0;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -155,7 +159,6 @@ glm::mat3 OrthographicProjectionMatrix(float left, float right, float bottom, fl
         glm::vec3(-(right + left) / (right - left), -(top + bottom) / (top - bottom), 1.0f)
     );
 }
-
 
 /// <summary>
 /// Renders all objects in the draw queue using the default shader and configured matrices. 
@@ -269,6 +272,8 @@ void GraphicsManager::Render() {
         // Render the sprite
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
     }
+
+    ParticleSystem::RenderTemp();
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -402,6 +407,7 @@ void GraphicsManager::InitializeDebugShaderSystem() {
     GraphicsManager::SetupLineVAO();
     GraphicsManager::SetupPointVAO();
     GraphicsManager::SetupRectangleVAO();
+    GraphicsManager::SetupFilledCircleVAO(20); // 20 segments or so
 }
 
 void GraphicsManager::DrawGizmo() {
@@ -1205,7 +1211,119 @@ bool GraphicsManager::InitializeFBO(int width, int height)
     return true;
 }
 
+void GraphicsManager::SetupFilledCircleVAO(int segments)
+{
+    filledCircleSegments = segments;
 
+    // We'll build a simple array for a TRIANGLE FAN:
+    // The first vertex is center (0,0), 
+    // then each subsequent vertex is on the circle perimeter.
+    std::vector<GLfloat> verts;
+    verts.reserve((segments + 2) * 3);
+
+    // Center point
+    verts.push_back(0.0f);
+    verts.push_back(0.0f);
+    verts.push_back(0.0f);
+
+    float angleStep = 2.0f * 3.14159f / segments;
+    for (int i = 0; i <= segments; ++i)
+    {
+        float angle = i * angleStep;
+        float x = cosf(angle);
+        float y = sinf(angle);
+
+        verts.push_back(x);
+        verts.push_back(y);
+        verts.push_back(0.0f);
+    }
+
+    GLuint vbo;
+    glGenVertexArrays(1, &filledCircleVAO);
+    glGenBuffers(1, &vbo);
+
+    glBindVertexArray(filledCircleVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(float), verts.data(), GL_STATIC_DRAW);
+
+    // layout (location=0) is position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glBindVertexArray(0);
+}
+
+void GraphicsManager::DrawFilledCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera)
+{
+    // We'll reuse the "DebugShader" or something that accepts a mat3
+    auto shader = ShaderManager::GetShader("DebugShader");
+    shader->Use();
+
+    glBindVertexArray(filledCircleVAO);
+
+    // set color uniform
+    GLint colorLoc = glGetUniformLocation(shader->GetProgram(), "uColor");
+    glUniform4f(colorLoc,
+        color.r / 255.0f,
+        color.g / 255.0f,
+        color.b / 255.0f,
+        color.a / 255.0f);
+
+    // build modelToWorld scaling by (radius, radius), translation by position
+    // similar to your existing model->world steps
+    glm::mat3 modelToWorld(1.0f);
+    modelToWorld[0][0] = radius;
+    modelToWorld[1][1] = radius;
+    modelToWorld[2][0] = position.x;
+    modelToWorld[2][1] = position.y;
+
+    // Then combine with camera or UI projection
+    glm::mat3 finalMatrix(1.0f);
+
+    if (relativeToCamera)
+    {
+        // same approach as your debug geometry
+        Vector2D camPos = CameraManager::GetPosition();
+        float ar = CameraManager::GetAR();
+        float h = CameraManager::GetHeight();
+
+        glm::mat3 view(1.0f);
+        view[2][0] = -camPos.x;
+        view[2][1] = -camPos.y;
+
+        glm::mat3 cameraToNDC(1.0f);
+        cameraToNDC[0][0] = 2.f / (ar * h);
+        cameraToNDC[1][1] = 2.f / h;
+
+        glm::mat3 cameraView = cameraToNDC * view;
+        finalMatrix = cameraView * modelToWorld;
+    }
+    else
+    {
+        // UI approach: orthographic from (0..windowWidth, 0..windowHeight).
+        float w = (float)WindowManager::GetWindowWidth();
+        float h = (float)WindowManager::GetWindowHeight();
+
+        // convert to ND
+        glm::mat3 ortho(1.0f);
+        ortho[0][0] = 2.f / w;
+        ortho[1][1] = 2.f / h;
+        ortho[2][0] = -1.f;
+        ortho[2][1] = -1.f;
+
+        finalMatrix = ortho * modelToWorld;
+    }
+
+    GLint matLoc = glGetUniformLocation(shader->GetProgram(), "uModelToNDC");
+    glUniformMatrix3fv(matLoc, 1, GL_FALSE, (GLfloat*)&finalMatrix[0][0]);
+
+    // draw with triangle fan:
+    //  (we have segments+2 vertices, center + each perimeter vertex + repeat)
+    glDrawArrays(GL_TRIANGLE_FAN, 0, filledCircleSegments + 2);
+
+    glBindVertexArray(0);
+    glUseProgram(0);
+}
 
 void GraphicsManager::BindFBO() 
 {
