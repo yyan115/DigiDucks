@@ -742,18 +742,23 @@
             "layer": "Gameplay"
         },
         "Exit_Cfm_Bg": {
+            "childNames": [
+                "Exit_Cfm_Txt",
+                "Exit_Yes_Btn",
+                "Exit_No_Btn"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 50.0
+                            "x": 0.7099999785423279,
+                            "y": -0.8799999356269836
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 22.0,
-                            "y": 12.0
+                            "x": 0.44999998807907104,
+                            "y": 0.6499999761581421
                         }
                     },
                     "type": "TransformComponent"
@@ -783,7 +788,7 @@
                     "properties": {
                         "position": {
                             "x": 0.7099999785423279,
-                            "y": 0.5200000405311584
+                            "y": 1.1200001239776611
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2419,7 +2424,7 @@
                         "soundID": [
                             "Resources/Sounds/gameplay bgm.wav"
                         ],
-                        "volume": 0.20000000298023224
+                        "volume": 1.0
                     },
                     "type": "SoundComponent"
                 }
