@@ -3001,8 +3001,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 3.0,
-                            "y": 8.5
+                            "x": 861.4000244140625,
+                            "y": 780.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4368,8 +4368,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -3.0,
-                            "y": 8.5
+                            "x": 600.0,
+                            "y": 780.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
