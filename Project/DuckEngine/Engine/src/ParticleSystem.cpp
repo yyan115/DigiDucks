@@ -109,5 +109,5 @@ void ParticleSystem::UpdateParticles(float dt)
         }
     }
 
-    std::cout << "updated\n";
+    //std::cout << "updated\n";
 }

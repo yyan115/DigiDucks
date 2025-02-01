@@ -124,6 +124,8 @@ void WindowManager::UpdateViewportDimensions() {
         viewportWidth = width;
         viewportHeight = height;
     }
+
+    // std::cout << "viewport w h: " << viewportWidth << ", " << viewportHeight << "\n";
 }
 
 /// <summary>
@@ -200,7 +202,12 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
 /// <returns>The width of the window in pixels.</returns>
 GLint WindowManager::GetWindowWidth()
 {
-    return width;
+    if (DuckEngine::isEditor) {
+        return viewportWidth;
+    }
+    else {
+        return width;
+    }
 }
 
 /// <summary>
@@ -209,7 +216,12 @@ GLint WindowManager::GetWindowWidth()
 /// <returns>The height of the window in pixels.</returns>
 GLint WindowManager::GetWindowHeight()
 {
-    return height;
+    if (DuckEngine::isEditor) {
+        return viewportHeight;
+    }
+    else {
+        return height;
+    }
 }
 
 GLint WindowManager::GetViewportWidth()

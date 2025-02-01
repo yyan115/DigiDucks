@@ -64,11 +64,7 @@ public:
                 p.color,
                 /*relativeToCamera=*/ true
             );
-
-            std::cout << "drawn\n";
         }
-
-        std::cout << "drawn end\n";
     }
 
     /// <summary>
