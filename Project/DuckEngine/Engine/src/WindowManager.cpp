@@ -235,6 +235,14 @@ GLint WindowManager::GetViewportHeight()
     return viewportHeight;
 }
 
+GLint WindowManager::GetEntireWindowWidth() {
+    return width;
+}
+
+GLint WindowManager::GetEntireWindowHeight() {
+    return height;
+}
+
 /// <summary>
 /// Sets the title of the window to the specified string.
 /// </summary>

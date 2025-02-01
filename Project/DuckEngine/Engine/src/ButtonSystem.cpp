@@ -21,12 +21,21 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "imgui.h"
 #include "CameraManager.h"
+#include "WindowManager.h"
 
 // Utility function to check if a point is within button bounds
 bool IsPointInside(const Vector2D& point, const Vector2D& position, const Vector2D& scale)
 {
     Vector2D min = position - scale * 0.5f; // Calculate the minimum boundary
     Vector2D max = position + scale * 0.5f; // Calculate the maximum boundary
+
+    if (point.x >= min.x && point.x <= max.x &&
+        point.y >= min.y && point.y <= max.y) {
+        std::cout << "IN BUTTON\n";
+    }
+    else {
+        std::cout << "NOT IN BUTTON\n";
+    }
 
     return point.x >= min.x && point.x <= max.x &&
         point.y >= min.y && point.y <= max.y;
@@ -43,6 +52,8 @@ void ButtonSystem::Update()
 // Temporary render function until FixedUpdate and Update are implemented
 void ButtonSystem::Render()
 {
+    // static int frameCounter = 0;
+
     std::vector<ButtonComponent> ClickedButtons;
 
     // Iterate over all ButtonComponents
@@ -96,12 +107,51 @@ void ButtonSystem::Render()
         }
         else
         {
-            // -- UI BUTTON --
-            // Do NOT convert to world space.  Use screen coords directly.
-            finalMousePos = {
-                static_cast<float>(DuckEngine_Input::GetMouseX()),
-                static_cast<float>(DuckEngine_Input::GetMouseY())
-            };
+            float mouseX = 0;
+            float mouseY = 0;
+
+            if (DuckEngine::isEditor) {
+                // Get the mouse position in screen coordinates
+                mouseX = DuckEngine::editorMouseScreenPos.x;
+                mouseY = DuckEngine::editorMouseScreenPos.y;
+            }
+            else {
+                mouseX = static_cast<float>(DuckEngine_Input::GetMouseX());
+                mouseY = static_cast<float>(DuckEngine_Input::GetMouseY());
+            }
+
+            // Normalize the mouse position to the button coordinate system
+            // Assuming screen width and height are known or accessible
+            float screenWidth = WindowManager::GetViewportWidth();
+            float screenHeight = WindowManager::GetViewportHeight();
+
+            // Normalize mouse coordinates to [0, 1] for X and [0, -1] for Y
+            // Mouse X normalization (left = 0, right = 1)
+            float normalizedMouseX = mouseX / screenWidth; // Range: [0, 1]
+
+            // Mouse Y normalization (top = 0, bottom = -1)
+            float normalizedMouseY = -(mouseY / screenHeight); // Range: [0, -1]
+
+            // Store the normalized mouse position
+            finalMousePos = { normalizedMouseX, normalizedMouseY };
+
+            //frameCounter++;
+
+            //if (frameCounter >= 100) {
+
+            //    Vector2D min = position - scale * 0.5f;
+            //    Vector2D max = position + scale * 0.5f;
+
+            //    std::cout << "UI Button Debug:\n";
+            //    std::cout << "  Mouse Pos (normalized): (" << finalMousePos.x << ", " << finalMousePos.y << ")\n";
+            //    std::cout << "  Button Pos (normalized): (" << position.x << ", " << position.y << ")\n";
+            //    std::cout << "  Button Min: (" << min.x << ", " << min.y << ")\n";
+            //    std::cout << "  Button Max: (" << max.x << ", " << max.y << ")\n";
+            //    std::cout << "----------------------------------\n";
+            //    std::cout << "editor mouse screen pos: " << DuckEngine::editorMouseScreenPos.x << ", " << DuckEngine::editorMouseScreenPos.y << "\n";
+
+            //    frameCounter = 0; // Reset counter after printing
+            //}
         }
 
         // Check hover
