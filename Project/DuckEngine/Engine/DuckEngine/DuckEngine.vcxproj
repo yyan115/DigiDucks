@@ -318,6 +318,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\SceneManager.h" />
     <ClInclude Include="..\include\ShaderManager.h" />
+    <ClInclude Include="..\include\SliderComponent.h" />
     <ClInclude Include="..\include\SoundComponent.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\Serialization.h" />

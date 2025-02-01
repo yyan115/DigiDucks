@@ -8,6 +8,7 @@
                             "x": 0.1759277582168579,
                             "y": 4.706301212310791
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 100.0,
@@ -34,9 +35,10 @@
                 },
                 {
                     "properties": {
+                        "category": "Default",
                         "loop": false,
                         "playOnStart": true,
-                        "soundID": "Resources/Sounds/gameplay bgm.wav",
+                        "soundID": [],
                         "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"
@@ -49,9 +51,10 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
-                            "y": 4.547732830047607
+                            "x": -21.0,
+                            "y": 0.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -79,8 +82,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 10.0,
-                            "y": 4.547732830047607
+                            "x": -21.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 1.0,
@@ -102,256 +105,6 @@
                         ]
                     },
                     "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Bin_2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -6.0,
-                            "y": -8.0
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -6.0,
-                            "y": -8.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.25
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "BinLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "CabbageStockPrefab (26)": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -2.3904519081115723,
-                            "y": -9.115616798400879
-                        },
-                        "rotation": 73.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 3.0999999046325684
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 3,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -2.3904519081115723,
-                            "y": -9.115616798400879
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "CabbageStockPrefab (27)": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -14.440661430358887,
-                            "y": -4.781107425689697
-                        },
-                        "rotation": 73.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 3.0999999046325684
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 3,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -14.440661430358887,
-                            "y": -4.781107425689697
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "CabbageStockPrefab (28)": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -11.47140884399414,
-                            "y": -0.5517244338989258
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -11.47140884399414,
-                            "y": -0.5517244338989258
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Carry_Object": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 5.222850799560547,
-                            "y": 1.154639720916748
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -364,6 +117,7 @@
                             "x": 4.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -426,6 +180,7 @@
                             "x": 12.0,
                             "y": 2.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -479,9 +234,10 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -9.336874961853027,
-                            "y": -6.023192882537842
+                            "x": -14.150211334228516,
+                            "y": -7.451457977294922
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -509,8 +265,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -9.336874961853027,
-                            "y": -6.023192882537842
+                            "x": -14.150211334228516,
+                            "y": -7.451457977294922
                         },
                         "size": {
                             "x": 1.0,
@@ -527,9 +283,10 @@
                 },
                 {
                     "properties": {
+                        "category": "Default",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/AnimalDuck.wav",
+                        "soundID": [],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -545,6 +302,7 @@
                             "x": 8.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -572,82 +330,6 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 10": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 11.190143585205078,
-                            "y": -0.2386629581451416
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": []
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 11": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 12.0,
-                            "y": 0.0
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "GameObject 13": {
             "components": [
                 {
@@ -656,6 +338,7 @@
                             "x": 16.165504455566406,
                             "y": 4.297425270080566
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -691,6 +374,7 @@
                             "x": 10.0,
                             "y": 12.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -718,76 +402,6 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 17": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 8.0,
-                            "y": 12.5
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 18": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 6.0,
-                            "y": 12.5
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "GameObject 21": {
             "components": [
                 {
@@ -796,41 +410,7 @@
                             "x": 2.0,
                             "y": 12.5
                         },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject 22": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 12.5
-                        },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -866,6 +446,7 @@
                             "x": -10.0,
                             "y": 7.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -901,6 +482,7 @@
                             "x": 8.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -928,47 +510,6 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject 34": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.04927921295166,
-                            "y": 8.09195327758789
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "GameObject 47": {
             "components": [
                 {
@@ -977,6 +518,7 @@
                             "x": -10.0,
                             "y": -0.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -1012,6 +554,7 @@
                             "x": 10.938169479370117,
                             "y": -0.09546399116516113
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -1047,6 +590,7 @@
                             "x": -14.221756935119629,
                             "y": 3.9170541763305664
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1093,218 +637,15 @@
             ],
             "layer": "Gameplay"
         },
-        "Obstacle2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -6.078567028045654,
-                            "y": -0.8929424285888672
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -6.078567028045654,
-                            "y": -0.8929424285888672
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Obstacle3": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 12.407586097717285,
-                            "y": -5.044188022613525
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 12.407586097717285,
-                            "y": -5.044188022613525
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Obstacle4": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 14.926036834716797,
-                            "y": -5.116128921508789
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 14.926036834716797,
-                            "y": -5.116128921508789
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Obstacle5": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 9.925616264343262,
-                            "y": -5.0459442138671875
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/waste.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 9.925616264343262,
-                            "y": -5.0459442138671875
-                        },
-                        "radius": 1.0
-                    },
-                    "type": "BoundingCircle"
-                },
-                {
-                    "properties": {
-                        "isStatic": false
-                    },
-                    "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "Player": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -2.309288740158081,
+                            "y": 2.421842098236084
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.5,
@@ -1332,8 +673,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -2.309288740158081,
+                            "y": 2.421842098236084
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -1345,8 +686,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -2.309288740158081,
+                            "y": 2.421842098236084
                         },
                         "radius": 1.0
                     },
@@ -1360,9 +701,10 @@
                 },
                 {
                     "properties": {
+                        "category": "Default",
                         "loop": false,
                         "playOnStart": false,
-                        "soundID": "Resources/Sounds/footstep.mp3",
+                        "soundID": [],
                         "volume": 1.0
                     },
                     "type": "SoundComponent"
@@ -1496,6 +838,7 @@
                             "x": 3.0,
                             "y": 8.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -1512,6 +855,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -1525,6 +869,134 @@
             ],
             "layer": "Gameplay"
         },
+        "Slider": {
+            "childNames": [
+                "Slider_Green",
+                "Slider_Red"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -23.092880249023438,
+                            "y": 15.959314346313477
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 4.0,
+                            "y": 0.6000000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 0.0,
+                        "isEnable": false,
+                        "maxValue": 1.0,
+                        "minValue": 0.0,
+                        "step": 0.10000000149011612
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Slider_Bg": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -23.092880249023438,
+                            "y": 15.959314346313477
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.9000000953674316,
+                            "y": 0.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 111.0,
+                            "g": 111.0,
+                            "r": 111.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 7,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Slider_Green": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -24.99287986755371,
+                            "y": 15.959314346313477
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 54.0,
+                            "g": 221.0,
+                            "r": 54.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 8,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": []
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Stove_02": {
             "components": [
                 {
@@ -1533,6 +1005,7 @@
                             "x": 8.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1595,6 +1068,7 @@
                             "x": -10.0,
                             "y": -4.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1651,6 +1125,7 @@
                             "x": 10.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1705,68 +1180,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Table_02": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 12.0,
-                            "y": -8.0
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 2,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 12.0,
-                            "y": -8.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.25
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "TableLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "Table_03": {
             "components": [
                 {
@@ -1775,6 +1188,7 @@
                             "x": 12.0,
                             "y": -5.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1837,6 +1251,7 @@
                             "x": 12.0,
                             "y": -3.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1899,6 +1314,7 @@
                             "x": 12.0,
                             "y": -0.572702169418335
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -1961,6 +1377,7 @@
                             "x": -10.0,
                             "y": -0.5
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2023,6 +1440,7 @@
                             "x": 2.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2085,6 +1503,7 @@
                             "x": 6.0,
                             "y": -8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
@@ -2139,43 +1558,6 @@
             ],
             "layer": "Gameplay"
         },
-        "TestText2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 12.013017654418945,
-                            "y": -8.496419906616211
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 0.0,
-                            "g": 50.0,
-                            "r": 250.0
-                        },
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2.0,
-                        "position": {
-                            "x": 600.0,
-                            "y": 100.0
-                        },
-                        "text": "Second Font!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "Timer": {
             "components": [
                 {
@@ -2184,6 +1566,7 @@
                             "x": 0.0,
                             "y": 8.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -2200,6 +1583,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
+                        "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -2221,6 +1605,7 @@
                             "x": -10.0,
                             "y": 2.0
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
@@ -2253,9 +1638,10 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -700.0,
-                            "y": 400.0
+                            "x": -1180.0,
+                            "y": 658.5
                         },
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 200.0,
@@ -2304,6 +1690,7 @@
                             "x": 0.0,
                             "y": -6.1575188636779785
                         },
+                        "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -2320,6 +1707,7 @@
                             "g": 50.0,
                             "r": 100.0
                         },
+                        "enabled": true,
                         "fontName": "Kenney Rocket",
                         "fontSize": 1.0,
                         "position": {
@@ -2327,106 +1715,6 @@
                             "y": 50.0
                         },
                         "text": "More Text!"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "obstacleObject4": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 5.0
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.799999952316284
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table02_front.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": 0.0,
-                            "y": 5.0
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": "Resources/Sounds/CRATE-WOOD_GEN-HDF-08708.wav",
-                        "volume": 0.5
-                    },
-                    "type": "SoundComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "textBox": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -9.707115173339844,
-                            "y": -8.830548286437988
-                        },
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 250.0,
-                            "b": 100.0,
-                            "g": 50.0,
-                            "r": 255.0
-                        },
-                        "fontName": "Kenney Mini",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "text": "TEST TEXT COMPONENT"
                     },
                     "type": "TextComponent"
                 }

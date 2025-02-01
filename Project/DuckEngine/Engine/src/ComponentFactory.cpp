@@ -85,12 +85,14 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
 			{
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(entity->entityID, *buttonComponent);
 			}
-
 			else if (auto gameLogicComponent = std::dynamic_pointer_cast<GameLogicComponent>(component))
 			{
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<GameLogicComponent>(entity->entityID, *gameLogicComponent);
 			}
-
+			else if (auto sliderComponent = std::dynamic_pointer_cast<SliderComponent>(component))
+			{
+				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SliderComponent>(entity->entityID, *sliderComponent);
+			}
 		}
 		else
 		{
@@ -285,6 +287,17 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		componentsArray.push_back(gameLogicData);
 	}
 
+	if (auto* sliderComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(entityID))
+	{
+		json sliderData;
+		sliderData["type"] = "SliderComponent";
+		sliderData["properties"]["isEnable"] = sliderComponent->isEnable;
+		sliderData["properties"]["minValue"] = sliderComponent->minValue;
+		sliderData["properties"]["maxValue"] = sliderComponent->maxValue;
+		sliderData["properties"]["currentValue"] = sliderComponent->currentValue;
+		sliderData["properties"]["step"] = sliderComponent->step;
+		componentsArray.push_back(sliderData);
+	}
 
 }
 
@@ -433,9 +446,18 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		}
 
 		return gameLogicComponent;
-		}
+	}
 
-
+	else if (type == "SliderComponent")
+	{
+		bool isEnable = componentJson["properties"].value("isEnable", false);
+		float minValue = componentJson["properties"].value("minValue", 0.0f);
+		float maxValue = componentJson["properties"].value("maxValue", 1.0f);
+		float currentValue = componentJson["properties"].value("currentValue", 0.0f);
+		float step = componentJson["properties"].value("step", 0.1f);
+		auto sliderComponent = std::make_shared<SliderComponent>(isEnable, minValue, maxValue, currentValue, step);
+		return sliderComponent;
+	}
 
 
 	std::cerr << "Error: Unknown component type: " << type << std::endl;

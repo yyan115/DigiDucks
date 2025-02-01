@@ -32,6 +32,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Serialization.h"
 #include "SoundComponent.h"
 #include "GameLogicComponent.h"
+#include "SliderComponent.h"
 
 #include "TextComponent.h"
 #include "ButtonComponent.h"

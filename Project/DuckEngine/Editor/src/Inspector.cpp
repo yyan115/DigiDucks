@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "SnapshotManager.h"
 #include "AnimationEditor.h"
+#include "SliderComponent.h"
 
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
@@ -42,7 +43,8 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
 	"SoundComponent",
 	"TextComponent",
 	"ButtonComponent",
-	"GameLogicComponent"
+	"GameLogicComponent",
+	"SliderComponent"
 };
 
 bool isEditing = false;
@@ -213,8 +215,6 @@ void InspectorRenderer::RenderComponents(int entityID)
 			if (ImGui::IsItemEdited()) hasChanged = true;
 		}
 	}
-
-
 
 	// Render SpriteRendererComponent if it exists
 	if (auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID))
@@ -706,6 +706,29 @@ void InspectorRenderer::RenderComponents(int entityID)
 		}
 	}
 
+	if (auto* sliderComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent <SliderComponent>(entityID))
+	{
+		if (ImGui::CollapsingHeader("Slider Component"))
+		{
+			ImGui::Checkbox("Is Enable", &sliderComponent->isEnable);
+			if (ImGui::IsItemEdited()) hasChanged = true;
+			ImGui::Text("Min Value");
+			ImGui::SameLine(100);
+			if (ImGui::DragFloat("##MinValue", &sliderComponent->minValue, 0.1f, -1000.0f, 1000.0f)) hasChanged = true;
+			ImGui::Text("Max Value");
+			ImGui::SameLine(100);
+			if (ImGui::DragFloat("##MaxValue", &sliderComponent->maxValue, 0.1f, -1000.0f, 1000.0f)) hasChanged = true;
+			ImGui::Text("Current Value");
+			ImGui::SameLine(100);
+			if (ImGui::DragFloat("##CurrentValue", &sliderComponent->currentValue, 0.1f, -1000.0f, 1000.0f)) hasChanged = true;
+			ImGui::Text("Step");
+			ImGui::SameLine(100);
+			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.1f, -1000.0f, 1000.0f)) hasChanged = true;
+			// Remove component button
+			ComponentMenu<SliderComponent>(entityID);
+		}
+	}
+
 	if (isEditing && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
 	{
 		//SnapshotManager::SaveUndoState(); 
@@ -777,6 +800,8 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<ButtonComponent>(entityID);
 	else if (selectedType == "GameLogicComponent")
 		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<GameLogicComponent>(entityID);
+	else if (selectedType == "SliderComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SliderComponent>(entityID);
 
 	// Disable the Add Component button if component exists
 	if (componentExists)
@@ -875,5 +900,8 @@ void InspectorRenderer::AddComponentToEntity(const std::string& componentName, i
 	}
 	else if (componentName == "GameLogicComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<GameLogicComponent>(entityID)) {
 		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<GameLogicComponent>(entityID);
+	}
+	else if (componentName == "SliderComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SliderComponent>(entityID)) {
+		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SliderComponent>(entityID);
 	}
 }

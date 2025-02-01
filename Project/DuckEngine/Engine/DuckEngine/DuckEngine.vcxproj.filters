@@ -372,6 +372,9 @@
     <ClInclude Include="..\include\ParticleSystem.h">
       <Filter>include\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\SliderComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag">
