@@ -59,172 +59,180 @@ void SpriteRendererSystem::Update()
 
 void SpriteRendererSystem::Render()
 {
-    auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
-    if (!activeScene) return;
+	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+	if (!activeScene) return;
 
-    float totalTime = static_cast<float>(DuckEngine::accumulatedTime);
-    float alpha = static_cast<float>((totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP));
-    alpha = std::min(1.0f, std::max(0.0f, alpha));
+	float totalTime = static_cast<float>(DuckEngine::accumulatedTime);
+	float alpha = static_cast<float>((totalTime / DuckEngine::FIXED_TIMESTEP) - std::floor(totalTime / DuckEngine::FIXED_TIMESTEP));
+	alpha = std::min(1.0f, std::max(0.0f, alpha));
 
-    auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+	auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    for (auto& entity : allEntities)
-    {
-        auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
-        if (!spriteRenderer) continue;
+	for (auto& entity : allEntities)
+	{
+		auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
+		if (!spriteRenderer) continue;
 
-        Layer* currentLayer = activeScene->GetLayer(entity->layerName);
+		Layer* currentLayer = activeScene->GetLayer(entity->layerName);
 
-        if (!currentLayer)
-        {
-            continue;
-        }
+		if (!currentLayer)
+		{
+			continue;
+		}
 
-        if (!currentLayer->HasEntityByID(entity->entityID))
-        {
-            for (auto& [layerName, layer] : activeScene->GetLayers())
-            {
-                if (layer.HasEntityByID(entity->entityID))
-                {
-                    layer.RemoveEntityByID(entity->entityID);
-                }
-            }
+		if (!currentLayer->HasEntityByID(entity->entityID))
+		{
+			for (auto& [layerName, layer] : activeScene->GetLayers())
+			{
+				if (layer.HasEntityByID(entity->entityID))
+				{
+					layer.RemoveEntityByID(entity->entityID);
+				}
+			}
 
-            currentLayer->AddEntity(entity.get());
-        }
+			currentLayer->AddEntity(entity.get());
+		}
 
-        // Skip adding to render queue if the layer is not visible
-        if (!currentLayer->IsVisible())
-        {
-            continue;
-        }
-    }
+		// Skip adding to render queue if the layer is not visible
+		if (!currentLayer->IsVisible())
+		{
+			continue;
+		}
+	}
 
-    std::vector<RenderData> renderQueue;
+	std::vector<RenderData> renderQueue;
 
-    float viewportWidth = static_cast<float>(DuckEngine::GetViewportWidth());
-    float viewportHeight = static_cast<float>(DuckEngine::GetViewportHeight());
+	float viewportWidth = static_cast<float>(DuckEngine::GetViewportWidth());
+	float viewportHeight = static_cast<float>(DuckEngine::GetViewportHeight());
 
-    for (const auto& [layerName, layer] : activeScene->GetLayers())
-    {
-        // Skip rendering for invisible layers
-        if (!layer.IsVisible())
-        {
-            continue;
-        }
+	for (const auto& [layerName, layer] : activeScene->GetLayers())
+	{
+		// Skip rendering for invisible layers
+		if (!layer.IsVisible())
+		{
+			continue;
+		}
 
-        int layerOrder = layer.GetOrder();
+		int layerOrder = layer.GetOrder();
 
-        for (int entityID : layer.GetEntityIDs())
-        {
-            auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
-            auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
+		for (int entityID : layer.GetEntityIDs())
+		{
+			auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityID);
+			auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
 
-            if (!spriteRenderer || !transform || !spriteRenderer->isVisible)
-            {
-                continue;
-            }
+			if (!spriteRenderer || !transform || !spriteRenderer->isVisible)
+			{
+				continue;
+			}
 
-            Entity* parentEntity = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(entityID).get();
-            if (parentEntity)
-            {
-                auto* parentSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(parentEntity->entityID);
-                if (parentSpriteRenderer && !parentSpriteRenderer->isVisible)
-                {
-                    continue; 
-                }
-            }
+			bool skipDueToInvisibleAncestor = false;
+			std::shared_ptr<Entity> currentParent = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(entityID);
+			while (currentParent)
+			{
+				auto* parentSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(currentParent->entityID);
+				if (parentSpriteRenderer && !parentSpriteRenderer->isVisible)
+				{
+					skipDueToInvisibleAncestor = true;
+					break;
+				}
+				currentParent = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(currentParent->entityID);
+			}
 
-            if (!DuckEngine::IsPlaying())
-            {
-                transform->previousPosition = transform->GetPosition();
-            }
+			if (skipDueToInvisibleAncestor)
+			{
+				continue;
+			}
 
-            RenderData data;
-            data.transform = transform;
-            data.spriteRenderer = spriteRenderer;
-            data.layer = layerOrder;
-            data.entityID = entityID;
+			if (!DuckEngine::IsPlaying())
+			{
+				transform->previousPosition = transform->GetPosition();
+			}
 
-            renderQueue.push_back(data);
-        }
-    }
+			RenderData data;
+			data.transform = transform;
+			data.spriteRenderer = spriteRenderer;
+			data.layer = layerOrder;
+			data.entityID = entityID;
 
-    std::sort(renderQueue.begin(), renderQueue.end(),
-        [](const RenderData& a, const RenderData& b) {
-            if (a.layer != b.layer)
-                return a.layer < b.layer;
-            return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
-        });
+			renderQueue.push_back(data);
+		}
+	}
 
-    for (const RenderData& data : renderQueue)
-    {
-        DrawOptions drawOptions;
-        bool isUILayer = !data.transform->relativeToCamera;
+	std::sort(renderQueue.begin(), renderQueue.end(),
+		[](const RenderData& a, const RenderData& b) {
+			if (a.layer != b.layer)
+				return a.layer < b.layer;
+			return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
+		});
 
-        if (isUILayer)
-        {
-            Vector2D uiPos = data.transform->GetPosition();
-            drawOptions.translation = Vector2D(
-                uiPos.x * viewportWidth,
-                uiPos.y * viewportHeight
-            );
-        }
-        else if (data.transform->relativeToCamera)
-        {
-            if (data.transform->previousPosition == data.transform->GetPosition())
-            {
-                drawOptions.translation = data.transform->GetPosition();
-            }
-            else
-            {
-                Vector2D interpolatedPosition = data.transform->previousPosition +
-                    (data.transform->GetPosition() - data.transform->previousPosition) * alpha;
-                drawOptions.translation = interpolatedPosition;
-            }
-        }
-        else
-        {
-            drawOptions.translation = data.transform->GetPosition();
-        }
+	for (const RenderData& data : renderQueue)
+	{
+		DrawOptions drawOptions;
+		bool isUILayer = !data.transform->relativeToCamera;
 
-        if (isUILayer)
-        {
-            drawOptions.scale = Vector2D(
-                data.transform->scale.x * viewportWidth,
-                data.transform->scale.y * viewportHeight
-            );
-        }
-        else
-        {
-            drawOptions.scale = data.transform->scale;
-        }
+		if (isUILayer)
+		{
+			Vector2D uiPos = data.transform->GetPosition();
+			drawOptions.translation = Vector2D(
+				uiPos.x * viewportWidth,
+				uiPos.y * viewportHeight
+			);
+		}
+		else if (data.transform->relativeToCamera)
+		{
+			if (data.transform->previousPosition == data.transform->GetPosition())
+			{
+				drawOptions.translation = data.transform->GetPosition();
+			}
+			else
+			{
+				Vector2D interpolatedPosition = data.transform->previousPosition +
+					(data.transform->GetPosition() - data.transform->previousPosition) * alpha;
+				drawOptions.translation = interpolatedPosition;
+			}
+		}
+		else
+		{
+			drawOptions.translation = data.transform->GetPosition();
+		}
 
-        drawOptions.rotation = data.transform->angle;
+		if (isUILayer)
+		{
+			drawOptions.scale = Vector2D(
+				data.transform->scale.x * viewportWidth,
+				data.transform->scale.y * viewportHeight
+			);
+		}
+		else
+		{
+			drawOptions.scale = data.transform->scale;
+		}
 
-        if (data.spriteRenderer->texture)
-        {
-            drawOptions.useTexture = true;
-            drawOptions.texture = &data.spriteRenderer->texture;
-        }
-        else if (data.spriteRenderer->useColor)
-        {
-            drawOptions.useColor = true;
-            drawOptions.color = data.spriteRenderer->color;
-        }
-        else
-        {
-            drawOptions.useColor = true;
-            drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
-        }
+		drawOptions.rotation = data.transform->angle;
 
-        drawOptions.relativeToCamera = data.transform->relativeToCamera;
+		if (data.spriteRenderer->texture)
+		{
+			drawOptions.useTexture = true;
+			drawOptions.texture = &data.spriteRenderer->texture;
+		}
+		else if (data.spriteRenderer->useColor)
+		{
+			drawOptions.useColor = true;
+			drawOptions.color = data.spriteRenderer->color;
+		}
+		else
+		{
+			drawOptions.useColor = true;
+			drawOptions.color = { 255.f, 0.f, 255.f, 255.f };
+		}
 
-        if (drawOptions.relativeToCamera) {
-            GraphicsManager::AddToCameraDrawQueue(drawOptions);
-        }
-        else {
-            GraphicsManager::AddToDrawQueue(drawOptions);
-        }
-    }
+		drawOptions.relativeToCamera = data.transform->relativeToCamera;
+
+		if (drawOptions.relativeToCamera) {
+			GraphicsManager::AddToCameraDrawQueue(drawOptions);
+		}
+		else {
+			GraphicsManager::AddToDrawQueue(drawOptions);
+		}
+	}
 }
