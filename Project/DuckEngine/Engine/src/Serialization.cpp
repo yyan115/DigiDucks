@@ -26,20 +26,20 @@ WindowInit Serialization::windowInit;
 ***************************************************************/
 void Serialization::InitJson(const std::string& filePath)
 {
-    std::ifstream file(filePath);
-    std::cout << filePath << std::endl;
-    if (!file.is_open())
-    {
-        std::cerr << "Could not open the file:" << filePath << std::endl;  // Print the full file path
-        return;
-    }
-    file >> jsonData;
-    file.close();
+	std::ifstream file(filePath);
+	std::cout << filePath << std::endl;
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open the file:" << filePath << std::endl;  // Print the full file path
+		return;
+	}
+	file >> jsonData;
+	file.close();
 
-    // Extract window initialization data
-    windowInit.title = jsonData.value("title", "Untitled Game");
-    windowInit.width = jsonData.value("width", 800);
-    windowInit.height = jsonData.value("height", 600);
+	// Extract window initialization data
+	windowInit.title = jsonData.value("title", "Untitled Game");
+	windowInit.width = jsonData.value("width", 800);
+	windowInit.height = jsonData.value("height", 600);
 }
 
 /****************************************************************
@@ -51,44 +51,20 @@ void Serialization::InitJson(const std::string& filePath)
 ***************************************************************/
 json Serialization::LoadJsonFile(const std::string& filePath)
 {
-    json data;
-    std::ifstream file(filePath);
-    std::filesystem::path absolutePath = std::filesystem::absolute(filePath);
-    //std::cout << "Loading from: " << absolutePath << std::endl;
-    if (!file.is_open())
-    {
-        std::cerr << "Could not open the file: " << absolutePath << std::endl;
-    }
-    else
-    {
-        file >> data;
-        file.close();
-    }
-    return data;
-}
-
-/****************************************************************
-* @brief Overloaded operator + to add two matrices
-*
-* @param j - json library
-*
-* @param key - keyword from json file
-*
-* @param defaultValue - default value if json file does not contain any value
-*
-* @return Vec2(x,y)
-*
-* @return defaultValue
-***************************************************************/
-Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& defaultValue)
-{
-    if (j.contains(key))
-    {
-        float x = j[key]["x"].get<float>();
-        float y = j[key]["y"].get<float>();
-        return Vec2(x, y);
-    }
-    return defaultValue;
+	json data;
+	std::ifstream file(filePath);
+	std::filesystem::path absolutePath = std::filesystem::absolute(filePath);
+	//std::cout << "Loading from: " << absolutePath << std::endl;
+	if (!file.is_open())
+	{
+		std::cerr << "Could not open the file: " << absolutePath << std::endl;
+	}
+	else
+	{
+		file >> data;
+		file.close();
+	}
+	return data;
 }
 
 /****************************************************************
@@ -98,22 +74,34 @@ Vec2 Serialization::GetVec2(const json& j, const std::string& key, const Vec2& d
 ***************************************************************/
 WindowInit Serialization::GetWindowInit()
 {
-    return windowInit;
+	return windowInit;
 }
 
 void Serialization::SaveJsonFile(const std::string& filePath, const nlohmann::json& data) 
 {
-    std::ofstream file(filePath);
+	std::ofstream file(filePath);
 
-    if (file.is_open()) {
-        try {
-            file << std::setw(4) << data;
-        }
-        catch (const std::exception& e) {
-            std::cerr << "Error saving JSON file: " << e.what() << std::endl;
-        }
-    }
-    else {
-        std::cerr << "Unable to open JSON file for writing: " << filePath << std::endl;
-    }
+	if (file.is_open()) {
+		try {
+			file << std::setw(4) << data;
+		}
+		catch (const std::exception& e) {
+			std::cerr << "Error saving JSON file: " << e.what() << std::endl;
+		}
+	}
+	else {
+		std::cerr << "Unable to open JSON file for writing: " << filePath << std::endl;
+	}
+}
+
+Vector2D Serialization::GetVec2(const nlohmann::json& json, const std::string& key, const Vector2D& defaultValue)
+{
+	if (json.contains(key))
+	{
+		const auto& vecJson = json[key];
+		float x = vecJson.value("x", defaultValue.x);
+		float y = vecJson.value("y", defaultValue.y);
+		return Vector2D(x, y);
+	}
+	return defaultValue;
 }

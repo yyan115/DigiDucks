@@ -57,9 +57,9 @@ public:
 
 	static void InitJson(const std::string& filePath);
 	static DUCKENGINE_API json LoadJsonFile(const std::string& filePath);
-	static Vec2 GetVec2(const json& j, const std::string& key, const Vec2& defaultValue = Vec2(0.0f, 0.0f));
 	static WindowInit GetWindowInit();
 	static DUCKENGINE_API void SaveJsonFile(const std::string& filePath, const nlohmann::json& data);
+	static DUCKENGINE_API Vector2D GetVec2(const nlohmann::json& json, const std::string& key, const Vector2D& defaultValue);
 
 private:
 	static json jsonData;
