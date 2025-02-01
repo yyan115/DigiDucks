@@ -33,10 +33,12 @@ SoundComponent* menusound;
 Entity* StartButton;
 Entity* QuitButton;
 Entity* HtpButton;
+Entity* FadeOutScreen;
 
 SpriteRendererComponent* startButtonSpriteRenderer;
 SpriteRendererComponent* quitButtonSpriteRenderer;
 SpriteRendererComponent* htpButtonSpriteRenderer;
+SpriteRendererComponent* FadeOutSpriteRenderer;
 
 Texture startNormalTexture;
 Texture startHoverTexture;
@@ -50,6 +52,10 @@ Texture htpHoverTexture;
 SoundComponent* StartSound;
 SoundComponent* QuitSound;
 SoundComponent* HtpSound;
+
+float fadeOutDuration = 3.0f;
+float fadeElapsedTime = 0.0f;
+bool isFadingOut = false;
 
 bool shouldClose = false;
 
@@ -67,13 +73,15 @@ void MainMenu ::Load()
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
 	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
+	FadeOutScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeOutMenu").get();
 	start->onClick = [this]() {
 		StartSound->Play(1);
 		if (menusound) {
-			float duration = 3.0f;
-			SoundSystem::FadeOutSound(menusound, duration);
+			fadeOutDuration = 3.0f; // 3 seconds fade duration
+			fadeElapsedTime = 0.0f;
+			isFadingOut = true;
 		}
-		GameManager::SetActiveScene("GameScene");
+		
 	};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
@@ -87,6 +95,7 @@ void MainMenu ::Load()
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
 	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);
 	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
+	FadeOutSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeOutScreen->entityID);
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
 	startHoverTexture = AssetManager::GetTextureByName("start_click");
@@ -156,6 +165,25 @@ void MainMenu ::Update()
 			soundComponent->Play();
 		}
 	}
+
+	if (isFadingOut && menusound) {
+		if ((fadeElapsedTime += DuckEngine::DeltaTime()) >= fadeOutDuration) {
+			SoundSystem::SetSoundVolume(menusound->soundID[0], 0.0f);
+			SoundSystem::StopSounds(menusound->soundID[0]);
+			FadeOutSpriteRenderer->color.a = 0;
+			isFadingOut = false;
+			fadeElapsedTime = 0.0f;
+
+			GameManager::SetActiveScene("GameScene");
+			return;
+		}
+
+		// Calculate fade progress
+		float fadeProgress = fadeElapsedTime / fadeOutDuration;
+		SoundSystem::SetSoundVolume(menusound->soundID[0], menusound->volume * (1.0f - fadeProgress));
+		FadeOutSpriteRenderer->color.a = static_cast<unsigned char>(fadeProgress * 255);
+	}
+
 }
 
 /****************************************************************
