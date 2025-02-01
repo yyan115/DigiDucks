@@ -29,14 +29,6 @@ bool IsPointInside(const Vector2D& point, const Vector2D& position, const Vector
     Vector2D min = position - scale * 0.5f; // Calculate the minimum boundary
     Vector2D max = position + scale * 0.5f; // Calculate the maximum boundary
 
-    if (point.x >= min.x && point.x <= max.x &&
-        point.y >= min.y && point.y <= max.y) {
-        std::cout << "IN BUTTON\n";
-    }
-    else {
-        std::cout << "NOT IN BUTTON\n";
-    }
-
     return point.x >= min.x && point.x <= max.x &&
         point.y >= min.y && point.y <= max.y;
 }
