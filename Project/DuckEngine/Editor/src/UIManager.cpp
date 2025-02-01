@@ -174,9 +174,11 @@ void UIManager::ShowMenuBar()
         }
         if (ImGui::BeginMenu("Game Object")) {
             if (ImGui::MenuItem("Spawn GameObject")) { 
+                SnapshotManager::SaveUndoState();
                 DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
             }
             if (ImGui::MenuItem("Spawn Text UI")) {
+				SnapshotManager::SaveUndoState();
                 auto Ent = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity({ 0.0f, 0.0f }, { 5.0f, 5.0f });
                 DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(Ent->entityID);
             }
