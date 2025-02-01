@@ -1510,6 +1510,142 @@
             ],
             "layer": "UI"
         },
+        "MiniGame_Delete": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 1.2999999523162842,
+                            "y": -1.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.17499999701976776,
+                            "y": 0.4000000059604645
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/REDBUTTON.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_Enter": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 1.100000023841858,
+                            "y": -1.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.17499999701976776,
+                            "y": 0.4000000059604645
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/GREENBUTTON.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "MiniGame_K1": {
             "childNames": [
                 "MiniGame_T1"
@@ -1545,6 +1681,74 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K10": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.9399999976158142,
+                            "y": -1.149999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
                 },
                 {
                     "properties": {
@@ -1614,6 +1818,450 @@
             ],
             "layer": "UI"
         },
+        "MiniGame_K3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5839999914169312,
+                            "y": -0.9399999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": false,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5839999914169312,
+                            "y": -1.149999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K5": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.699999988079071,
+                            "y": -0.9399999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K6": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.699999988079071,
+                            "y": -1.149999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K7": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8199999928474426,
+                            "y": -0.9399999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K8": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8199999928474426,
+                            "y": -1.149999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_K9": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.9399999976158142,
+                            "y": -0.9399999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "MiniGame_Keypad": {
             "components": [
                 {
@@ -1655,7 +2303,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.640000343322754,
+                            "x": -8.36527156829834,
                             "y": -0.9399999976158142
                         },
                         "relativeToCamera": false,
@@ -1733,8 +2381,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.0,
-                            "y": 2.0
+                            "x": -7.04442024230957,
+                            "y": 3.2661876678466797
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3684,8 +4332,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 3.6312050819396973,
+                            "y": -1.53477144241333
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
