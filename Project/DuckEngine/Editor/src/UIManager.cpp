@@ -183,6 +183,7 @@ void UIManager::ShowMenuBar()
                 DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(Ent->entityID);
             }
             if (ImGui::MenuItem("Spawn Button UI")) {
+				SnapshotManager::SaveUndoState();
                 auto Ent = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity("", { 0.0f, 0.0f }, { 5.0f, 5.0f });
                 DuckEngine::DUCKENGINE_ComponentManager.AddComponent<ButtonComponent>(Ent->entityID);
                 DuckEngine::DUCKENGINE_ComponentManager.AddComponent<TextComponent>(Ent->entityID);
