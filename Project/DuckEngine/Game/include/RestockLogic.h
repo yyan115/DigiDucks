@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
+#include "StockLogic.h"
 
 class RestockLogic : public GameLogic
 {
@@ -73,4 +74,6 @@ public:
 	* ****************************************************************/
 	void RestockAll();
 
+
+	void Restock(ItemType type);
 };

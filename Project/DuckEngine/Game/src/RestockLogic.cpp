@@ -13,7 +13,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "RestockLogic.h"
-#include "StockLogic.h"
 #include "GameLogicManager.h"
 
 /****************************************************************
@@ -65,4 +64,21 @@ void RestockLogic::RestockAll()
 		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(entityID);
 		stockLogic->restock();
 	}
+}
+
+void RestockLogic::Restock(ItemType type) 
+{
+	std::vector<int> allEntities = GameLogicManager::GetAllEntitiesWithLogic<StockLogic>();
+	for (int entityID : allEntities)
+	{
+		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(entityID);
+		if (stockLogic->getType() == type)
+		{
+			stockLogic->restock();
+			return;
+		}
+	}
+
+	// Error message
+	std::cout << "RestockLogic::Restock: No stock of type " << static_cast<int>(type) << " found." << std::endl;
 }

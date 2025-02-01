@@ -17,7 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include <iostream>
-
+#include "TextComponent.h"
 #include "IngredientType.h"
 
 
@@ -26,15 +26,16 @@ class StockLogic : public GameLogic
 private:
 	ItemType type;
 	SpriteRendererComponent* spriteRenderer;
+	TextComponent* textComponent;
 	int stock;
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), stock(5) {}
+	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(5) {}
 
-	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_) {}
+	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), stock(stock_)
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -53,12 +54,19 @@ public:
 	void Start() override 
 	{
 		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
+		textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(component->GetEntityID());
 	}
 
 	/****************************************************************
 	* @brief Update function for the StockLogic	*
 	* ***************************************************************/
-	void Update() override {}
+	void Update() override 
+	{
+		if (textComponent) 
+		{
+			textComponent->text = std::to_string(stock);
+		}
+	}
 
 	/****************************************************************
 	* @brief FixedUpdate function for the StockLogic
@@ -66,6 +74,7 @@ public:
 	void FixedUpdate() override 
 	{
 		if (type == ItemType::BIN) return;
+
 		if (stock <= 0)
 		{
 			if (type == ItemType::STEAK || type == ItemType::SHRIMP || type == ItemType::CHEESE)
