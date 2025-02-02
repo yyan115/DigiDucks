@@ -1,4 +1,4 @@
-/******************************************************************************/
+﻿/******************************************************************************/
 /*!
 \file       TextSystem.cpp
 \author     Yan Yu, y.yan, 2301213
@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "TextComponent.h"
 #include "DuckEngine_Input.h"
 #include "FontManager.h"
+#include "WindowManager.h"
 
 void TextSystem::Start()
 {
@@ -125,20 +126,29 @@ void TextSystem::Render()
         //if (!sprite->isVisible)
         //    continue;
 
-        Vector2D position = transform->GetPosition();
-        float scale = static_cast<float>(text->fontSize) * 0.03f;
+        if (!transform->relativeToCamera) {
+            // Use a constant reference height (e.g., 1080) to compute normalized scale.
+            float referenceHeight = 1080.0f;
+            float normalizedScale = text->fontSize / referenceHeight;
+            DuckEngine::RenderText(text->fontName, text->text, transform->GetPosition(), normalizedScale, text->color, transform->relativeToCamera);
+        }
 
-        // Calculate text size
-        Vector2D textSize = GetTextSize(text->fontName, text->text, scale);
+        else {
+            Vector2D position = transform->GetPosition();
+            float scale = static_cast<float>(text->fontSize) * 0.03f;
 
-        // Adjust position to center the text
-        Vector2D centeredPosition = position - (textSize * 0.5f);
+            // Calculate text size
+            Vector2D textSize = GetTextSize(text->fontName, text->text, scale);
 
-        // Debugging outputs
-        // std::cout << "Text Size: " << textSize.x << ", " << textSize.y << std::endl;
-        // std::cout << "Centered Position: " << centeredPosition.x << ", " << centeredPosition.y << std::endl;
+            // Adjust position to center the text
+            Vector2D centeredPosition = position - (textSize * 0.5f);
 
-        DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color, transform->relativeToCamera);
+            // Debugging outputs
+            // std::cout << "Text Size: " << textSize.x << ", " << textSize.y << std::endl;
+            // std::cout << "Centered Position: " << centeredPosition.x << ", " << centeredPosition.y << std::endl;
+
+            DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color, transform->relativeToCamera);
+        }
     }
 }
 

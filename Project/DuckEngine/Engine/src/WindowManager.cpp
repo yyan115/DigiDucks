@@ -193,7 +193,7 @@ void WindowManager::fbsize_cb(GLFWwindow* ptr_win, int _width, int _height) {
     glViewport(0, 0, _width, _height);
 
     // Call GraphicsManager to update UI positions based on new window size
-    GraphicsManager::OnWindowResize(_width, _height);
+    //GraphicsManager::OnWindowResize(_width, _height);
 }
 
 /// <summary>

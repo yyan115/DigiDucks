@@ -281,7 +281,7 @@ void DuckEngine::StartDraw(GLint width, GLint height)
         old_w = w;
         old_h = h;
         glViewport(0, 0, w, h);
-        std::cout << "caalled\n";
+        //std::cout << "caalled\n";
     }
 }
 

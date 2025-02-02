@@ -128,19 +128,19 @@ void GraphicsManager::AddToCameraDrawQueue(const DrawOptions& drawOptions) {
     }
 }
 
-void GraphicsManager::OnWindowResize(int newWidth, int newHeight) {
-    for (auto& drawCmdPtr : CameraDrawCommands) {
-        if (drawCmdPtr && !drawCmdPtr->relativeToCamera) {
-            // Recalculate position based on normalized UI coordinates
-            drawCmdPtr->translation.x = drawCmdPtr->translation.x / WindowManager::GetWindowWidth() * newWidth;
-            drawCmdPtr->translation.y = drawCmdPtr->translation.y / WindowManager::GetWindowHeight() * newHeight;
-        }
-    }
-
-    // Update stored dimensions
-    //WindowManager::SetWindowSize(newWidth, newHeight);
-}
-
+//void GraphicsManager::OnWindowResize(int newWidth, int newHeight) {
+//    for (auto& drawCmdPtr : CameraDrawCommands) {
+//        if (drawCmdPtr && !drawCmdPtr->relativeToCamera) {
+//            // Recalculate position based on normalized UI coordinates
+//            drawCmdPtr->translation.x = drawCmdPtr->translation.x / WindowManager::GetWindowWidth() * newWidth;
+//            drawCmdPtr->translation.y = drawCmdPtr->translation.y / WindowManager::GetWindowHeight() * newHeight;
+//        }
+//    }
+//
+//    // Update stored dimensions
+//    //WindowManager::SetWindowSize(newWidth, newHeight);
+//}
+//
 
 
 

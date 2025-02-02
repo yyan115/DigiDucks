@@ -88,7 +88,7 @@ public:
     /// <param name="drawOptions">A set of options specifying how the object should be drawn.</param>
     DUCKENGINE_API static void AddToCameraDrawQueue(const DrawOptions& drawOptions);
 
-    DUCKENGINE_API static void OnWindowResize(int newWidth, int newHeight);
+    //DUCKENGINE_API static void OnWindowResize(int oldWidth, int oldHeight, int newWidth, int newHeight);
 
     /// <summary>
     /// Adds a debugging draw command to the debug draw queue, which will be rendered in the next call to RenderDebug().
@@ -291,4 +291,6 @@ private:
     static GLuint filledCircleVAO;
     static int filledCircleSegments;
     static void SetupFilledCircleVAO(int segments);
+    
+    static bool resized;
 };

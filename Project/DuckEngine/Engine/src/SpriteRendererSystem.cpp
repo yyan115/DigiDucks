@@ -228,11 +228,11 @@ void SpriteRendererSystem::Render()
 
 		drawOptions.relativeToCamera = data.transform->relativeToCamera;
 
-		if (drawOptions.relativeToCamera) {
-			GraphicsManager::AddToCameraDrawQueue(drawOptions);
-		}
-		else {
+		//if (!drawOptions.relativeToCamera) {
+		//	GraphicsManager::AddToCameraDrawQueue(drawOptions);
+		//}
+		//else {
 			GraphicsManager::AddToDrawQueue(drawOptions);
-		}
+		//}
 	}
 }
