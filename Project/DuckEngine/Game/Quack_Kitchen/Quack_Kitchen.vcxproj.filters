@@ -56,25 +56,8 @@
     <ClCompile Include="..\src\PlayerLogic.cpp">
       <Filter>src\Logic\Player</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
     <ClCompile Include="..\src\SliderLogic.cpp">
       <Filter>src\Logic</Filter>
-=======
-    <ClCompile Include="..\src\CustomerLogic.cpp">
-      <Filter>src\Logic\Customer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\State.cpp">
-      <Filter>src\Logic\Customer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\StateMachine.cpp">
-      <Filter>src\Logic\Customer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\CustomerIdleState.cpp">
-      <Filter>src\Logic\Customer\States</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\CustomerWalkState.cpp">
-      <Filter>src\Logic\Customer\States</Filter>
->>>>>>> Stashed changes
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -122,18 +105,6 @@
     </Filter>
     <Filter Include="include\Logic\Player">
       <UniqueIdentifier>{b4fca658-7954-4685-9363-0e1a78178e33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\Logic\Customer">
-      <UniqueIdentifier>{55a408ce-5bc9-4b5e-9793-54994bbd01ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Logic\Customer">
-      <UniqueIdentifier>{4795ead1-1d91-464f-b07b-b5b121161440}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\Logic\Customer\States">
-      <UniqueIdentifier>{04586b32-ba51-43f5-8e29-9eb1de4cc782}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Logic\Customer\States">
-      <UniqueIdentifier>{8d0aabb7-e17a-4a5f-9d72-18c3e0c5efb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -228,25 +199,8 @@
     <ClInclude Include="..\include\MovementLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
     <ClInclude Include="..\include\SliderLogic.h">
       <Filter>include\Logic</Filter>
-=======
-    <ClInclude Include="..\include\CustomerLogic.h">
-      <Filter>include\Logic\Customer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\State.h">
-      <Filter>include\Logic\Customer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\StateMachine.h">
-      <Filter>include\Logic\Customer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CustomerIdleState.h">
-      <Filter>include\Logic\Customer\States</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CustomerWalkState.h">
-      <Filter>include\Logic\Customer\States</Filter>
->>>>>>> Stashed changes
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
