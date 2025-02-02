@@ -188,7 +188,7 @@ void GameScene::Load()
 
 	// Pause Menu
 	{
-		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Bg").get();
+		gamePauseBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
 		if (gamePauseBg)
 		{
 			gamePauseBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseBg->entityID);

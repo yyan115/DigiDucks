@@ -56,6 +56,9 @@
     <ClCompile Include="..\src\PlayerLogic.cpp">
       <Filter>src\Logic\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SliderLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -194,6 +197,9 @@
       <Filter>include\Logic\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\include\MovementLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SliderLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>

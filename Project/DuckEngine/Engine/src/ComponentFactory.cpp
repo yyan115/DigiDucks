@@ -292,6 +292,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		json sliderData;
 		sliderData["type"] = "SliderComponent";
 		sliderData["properties"]["isEnable"] = sliderComponent->isEnable;
+		sliderData["properties"]["isIncrease"] = sliderComponent->isIncrease;
 		sliderData["properties"]["minValue"] = sliderComponent->minValue;
 		sliderData["properties"]["maxValue"] = sliderComponent->maxValue;
 		sliderData["properties"]["currentValue"] = sliderComponent->currentValue;
@@ -451,6 +452,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 	else if (type == "SliderComponent")
 	{
 		bool isEnable = componentJson["properties"].value("isEnable", false);
+		bool isIncrease = componentJson["properties"].value("isIncrease", true);
 		float minValue = componentJson["properties"].value("minValue", 0.0f);
 		float maxValue = componentJson["properties"].value("maxValue", 1.0f);
 		float currentValue = componentJson["properties"].value("currentValue", 0.0f);

@@ -1,8 +1,7 @@
 /******************************************************************************/
 /*!
 \file		RigidbodyComponent.h
-\author 	Ernest Ho, h.yonghengernest, 2301223
-(100%)
+\author 	Ernest Ho, h.yonghengernest, 2301223 (100%)
 \email    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
 \brief  	This file holds the component of Rigidbody for physics 

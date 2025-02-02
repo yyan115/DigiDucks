@@ -206,6 +206,7 @@
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RestockLogic.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
+    <ClCompile Include="..\src\SliderLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
     <ClCompile Include="..\src\SubmitLogic.cpp" />
     <ClCompile Include="..\src\TableLogic.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="..\include\RestockLogic.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />
     <ClInclude Include="..\include\ShrimpStockLogic.h" />
+    <ClInclude Include="..\include\SliderLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
     <ClInclude Include="..\include\SteakStockLogic.h" />
     <ClInclude Include="..\include\StockLogic.h" />
