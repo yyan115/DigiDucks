@@ -193,6 +193,9 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\src\ChopBoardLogic.cpp" />
     <ClCompile Include="..\src\CombineLogic.cpp" />
+    <ClCompile Include="..\src\CustomerIdleState.cpp" />
+    <ClCompile Include="..\src\CustomerLogic.cpp" />
+    <ClCompile Include="..\src\CustomerWalkState.cpp" />
     <ClCompile Include="..\src\EndGame.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />
@@ -208,6 +211,8 @@
     <ClCompile Include="..\src\RoamingLogic.cpp" />
     <ClCompile Include="..\src\SliderLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
+    <ClCompile Include="..\src\State.cpp" />
+    <ClCompile Include="..\src\StateMachine.cpp" />
     <ClCompile Include="..\src\SubmitLogic.cpp" />
     <ClCompile Include="..\src\TableLogic.cpp" />
   </ItemGroup>
@@ -217,6 +222,9 @@
     <ClInclude Include="..\include\CheeseStockLogic.h" />
     <ClInclude Include="..\include\ChopBoardLogic.h" />
     <ClInclude Include="..\include\CombineLogic.h" />
+    <ClInclude Include="..\include\CustomerIdleState.h" />
+    <ClInclude Include="..\include\CustomerLogic.h" />
+    <ClInclude Include="..\include\CustomerWalkState.h" />
     <ClInclude Include="..\include\EndGame.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
@@ -237,6 +245,8 @@
     <ClInclude Include="..\include\ShrimpStockLogic.h" />
     <ClInclude Include="..\include\SliderLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />
+    <ClInclude Include="..\include\State.h" />
+    <ClInclude Include="..\include\StateMachine.h" />
     <ClInclude Include="..\include\SteakStockLogic.h" />
     <ClInclude Include="..\include\StockLogic.h" />
     <ClInclude Include="..\include\SubmitLogic.h" />
