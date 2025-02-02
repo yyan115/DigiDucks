@@ -42,7 +42,7 @@
                             "Resources/Sounds/clicks/hover 1.mp3",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
-                        "volume": 1.0
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
@@ -140,7 +140,7 @@
                             "Resources/Sounds/clicks/hover 1.mp3",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
-                        "volume": 1.0
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
@@ -235,9 +235,9 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
-                            "Resources/Sounds/start menu bgm.wav"
+                            "Resources/Sounds/bgm/start menu bgm.wav"
                         ],
-                        "volume": 0.30000001192092896
+                        "volume": 0.20000000298023224
                     },
                     "type": "SoundComponent"
                 }
@@ -286,7 +286,7 @@
                             "Resources/Sounds/clicks/hover 1.mp3",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
-                        "volume": 1.0
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },

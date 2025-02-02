@@ -23,10 +23,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "SubmitLogic.h"
 #include "SpriteRendererComponent.h"
+#include "SoundSystem.h"
 
 Entity* duck;
 TransformComponent* duckTrans;
-SoundComponent* duckSound;
+SoundComponent* TimeLeftSound;
 
 Entity* OrderTab;
 SpriteRendererComponent* orderSprite;
@@ -130,6 +131,8 @@ TextComponent* gameMiniGame_T10_Txt;
 
 int pageNumb = 1;
 bool isPaused = false;
+bool hasStartedFade = false;
+float GamefadeElapsedTime = 0.0f;
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -147,7 +150,6 @@ void GameScene::Load()
 	if(duck)
 	{
 		duckTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(duck->entityID);
-		duckSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(duck->entityID);
 	}
 
 	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
@@ -597,6 +599,9 @@ void GameScene::Load()
 		}
 	}
 
+	TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager").get()->entityID);
+	hasStartedFade = false;
+	GamefadeElapsedTime = 0.0f;
 	PauseGame(false);
 	MiniGame_1(false);
 }
@@ -644,13 +649,38 @@ void GameScene::Update()
 			int minutes = static_cast<int>(timeLeft) / 60;
 			int seconds = static_cast<int>(timeLeft) % 60;
 			timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+
+			if (timeLeft < 10.f && TimeLeftSound) {
+				timerText->color = { 255, 0, 0, 255 };
+				TimeLeftSound->Play(0);
+			}
 		}
 		else {
 			timerText->text = "Time's up!";
-			// Change to End Scene.
-			GameManager::SetActiveScene("EndScene");
+
+			if (!hasStartedFade && TimeLeftSound) {
+				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
+				TimeLeftSound->Play(1); // Play final sound
+				hasStartedFade = true;
+			}
+
+			if (hasStartedFade) {
+				GamefadeElapsedTime += DuckEngine::DeltaTime();
+				float fadeProgress = GamefadeElapsedTime / 3.0f;
+
+				if (fadeProgress >= 1.0f) {
+					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], 0.0f);
+					SoundSystem::StopSounds(TimeLeftSound->soundID[1]);
+					GameManager::SetActiveScene("EndScene");
+				}
+				else {
+					float newVolume = TimeLeftSound->volume * (1.0f - fadeProgress);
+					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], newVolume);
+				}
+			}
 		}
 	}
+
 
 	// Cheats
 
@@ -694,13 +724,6 @@ void GameScene::PostUpdate()
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
-	}
-
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
-		if (duckSound) {
-			std::cout << "Sound stopped\n";
-			duckSound->Stop();
-		}
 	}
 
 

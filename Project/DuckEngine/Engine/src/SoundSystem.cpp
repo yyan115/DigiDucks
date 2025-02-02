@@ -49,9 +49,9 @@ void SoundSystem::Start() {
 
     // Set default volumes for categories
     categoryVolumes["Default"] = 1.0f;
-    categoryVolumes["BGM"] = 0.2f;
-    categoryVolumes["SFX"] = 0.4f;
-    categoryVolumes["UI"] = 0.5f;
+    categoryVolumes["BGM"] = 1.0f;
+    categoryVolumes["SFX"] = 1.0f;
+    categoryVolumes["UI"] = 1.0f;
 }
 
 

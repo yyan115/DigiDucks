@@ -46,6 +46,7 @@ private:
     FacingDirection dir;
     Entity* interactObject;
     SoundComponent* sound;
+    SoundComponent* SFXsound;
 	std::shared_ptr<MovementLogic> movement;
 
 public:
@@ -54,10 +55,10 @@ public:
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr){}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), SFXsound(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr)
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), SFXsound(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }
