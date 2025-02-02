@@ -6,51 +6,44 @@
 
 void TransformComponent::SetPosition(const Vec2& newPos)
 {
-    previousPosition = newPos;
+	if (worldPosition != newPos)
+	{
+		// Store the old position to calculate delta
+		Vec2 oldPosition = worldPosition;
+		worldPosition = newPos;
+		previousPosition = newPos; // Update previousPosition after calculating delta
 
-    if (worldPosition != newPos)
-    {
-        worldPosition = newPos;
+		Vec2 delta = newPos - oldPosition;
 
-        Vec2 delta = newPos - previousPosition;
+		Entity* parentEntity = nullptr;
+		for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+		{
+			auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
+				[this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
 
-        Entity* parentEntity = nullptr;
-        for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
-        {
-            auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
-                [this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
+			if (it != potentialParent->childEntities.end())
+			{
+				parentEntity = potentialParent.get();
+				break;
+			}
+		}
 
-            if (it != potentialParent->childEntities.end())
-            {
-                parentEntity = potentialParent.get();
-                break;
-            }
-        }
+		if (parentEntity)
+		{
+			auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
+			if (parentTransform)
+			{
+				localPosition = worldPosition - parentTransform->worldPosition;
+			}
+		}
+		else
+		{
+			localPosition = worldPosition;
+		}
 
-        if (parentEntity)
-        {
-            auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
-            if (parentTransform)
-            {
-                localPosition = worldPosition - parentTransform->worldPosition;
-                std::cout << "Updated Local Position: (" << localPosition.x << ", " << localPosition.y << ")" << std::endl;
-            }
-        }
-        else
-        {
-            localPosition = worldPosition;
-        }
-
-        UpdateChildPositions(delta);
-    }
-    else
-    {
-        std::cout << "SetPosition: No change in position." << std::endl;
-    }
+		UpdateChildPositions(delta);
+	}
 }
-
-
-
 
 Vec2& TransformComponent::GetPosition()
 {
@@ -64,29 +57,29 @@ Vec2& TransformComponent::GetLocalPosition()
 
 void TransformComponent::UpdateChildPositions(const Vec2& delta)
 {
-    auto entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetEntityID());
-    if (!entity)
-    {
-        std::cerr << "Warning: Entity not found for entity ID " << GetEntityID() << std::endl;
-        return;
-    }
+	auto entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetEntityID());
+	if (!entity)
+	{
+		std::cerr << "Warning: Entity not found for entity ID " << GetEntityID() << std::endl;
+		return;
+	}
 
-    if (!entity->childEntities.empty())
-    {
-        for (const auto& childEntity : entity->childEntities)
-        {
-            if (childEntity)
-            {
-                auto childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(childEntity->entityID);
-                if (childTransform)
-                {
-                    childTransform->worldPosition += delta;
+	if (!entity->childEntities.empty())
+	{
+		for (const auto& childEntity : entity->childEntities)
+		{
+			if (childEntity)
+			{
+				auto childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(childEntity->entityID);
+				if (childTransform)
+				{
+					childTransform->worldPosition += delta;
 
-                    childTransform->localPosition = childTransform->worldPosition - worldPosition;
+					childTransform->localPosition = childTransform->worldPosition - worldPosition;
 
-                    childTransform->UpdateChildPositions(delta);
-                }
-            }
-        }
-    }
+					childTransform->UpdateChildPositions(delta);
+				}
+			}
+		}
+	}
 }
