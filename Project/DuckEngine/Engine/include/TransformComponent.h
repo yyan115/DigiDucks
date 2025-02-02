@@ -49,7 +49,10 @@ class DUCKENGINE_API TransformComponent : public Component
 	@param pos The initial position of the entity.
 	@param scaleVec2 The initial scale of the entity.
 	*************************************************************************/
-	TransformComponent(Vec2 pos, Vec2 scaleVec2) : scale(scaleVec2.x, scaleVec2.y), angle(0), worldPosition(pos.x, pos.y), relativeToCamera(true), previousPosition(worldPosition) {};
+	TransformComponent(Vec2 pos, Vec2 scaleVec2)
+		: scale(scaleVec2.x, scaleVec2.y), angle(0), worldPosition(pos.x, pos.y), relativeToCamera(true),
+		previousPosition(worldPosition), localPosition(worldPosition) {
+	};
 	
 	/************************************************************************
 	@brief Constructor for TransformComponent with specified position, scale,

@@ -1,6 +1,9 @@
 #include <iostream>
 #include "CustomerIdleState.h"
+#include "CustomerLogic.h"
 
+CustomerIdleState::CustomerIdleState(CustomerLogic* customerLogicOwner)
+	: State(static_cast<GameLogic*>(customerLogicOwner)) {}
 
 void CustomerIdleState::Enter()
 {

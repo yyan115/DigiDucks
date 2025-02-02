@@ -41,30 +41,30 @@ void Hierarchy::ShowHierarchy(int& selectedEntityID)
             ImVec2(ImGui::GetContentRegionAvail().x, 3.0f)
         );
 
-        if (ImGui::BeginDragDropTarget())
-        {
-            if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_HIERARCHY"))
-            {
-                int draggedEntityID = *(const int*)payload->Data;
-                auto draggedEntity  = DuckEngine::DUCKENGINE_EntityManager.GetEntity(draggedEntityID);
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_HIERARCHY"))
+			{
+				int draggedEntityID = *(const int*)payload->Data;
+				auto draggedEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(draggedEntityID);
 
-                if (draggedEntity)
-                {
-                    for (auto& potentialParent : allEntities)
-                    {
-                        auto& kids       = potentialParent->childEntities;
-                        auto& childNames = potentialParent->childNames;
+				if (draggedEntity)
+				{
+					for (auto& potentialParent : allEntities)
+					{
+						auto& kids = potentialParent->childEntities;
+						auto& childNames = potentialParent->childNames;
 
-                        kids.erase(std::remove(kids.begin(), kids.end(), draggedEntity),
-                                   kids.end());
-                        childNames.erase(std::remove(childNames.begin(), childNames.end(),
-                                                     draggedEntity->name),
-                                         childNames.end());
-                    }
-                }
-            }
-            ImGui::EndDragDropTarget();
-        }
+						kids.erase(std::remove(kids.begin(), kids.end(), draggedEntity),
+							kids.end());
+						childNames.erase(std::remove(childNames.begin(), childNames.end(),
+							draggedEntity->name),
+							childNames.end());
+					}
+				}
+			}
+			ImGui::EndDragDropTarget();
+		}
     };
 
     ShowRootDropZone(0);
@@ -118,108 +118,108 @@ std::vector<std::shared_ptr<Entity>> Hierarchy::GetRootEntities(const std::vecto
 }
 
 void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
-    int& selectedEntityID,
-    const Texture& prefabIcon,
-    const Texture& gameobjectIcon)
+	int& selectedEntityID,
+	const Texture& prefabIcon,
+	const Texture& gameobjectIcon)
 {
-    std::string entityLabel = entity->name.empty()
-        ? "GameObject " + std::to_string(entity->entityID)
-        : entity->name;
+	std::string entityLabel = entity->name.empty()
+		? "GameObject " + std::to_string(entity->entityID)
+		: entity->name;
 
-    ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow
-        | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+	if (entity->childEntities.empty())
+		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
+	if (selectedEntityID == entity->entityID)
+		nodeFlags |= ImGuiTreeNodeFlags_Selected;
 
-    if (entity->childEntities.empty())
-        nodeFlags |= ImGuiTreeNodeFlags_Leaf;
+	ImGui::PushID(entity->entityID);
 
-    if (selectedEntityID == entity->entityID)
-        nodeFlags |= ImGuiTreeNodeFlags_Selected;
+	if (entity->entityID == renamingEntityID)
+	{
+		ImGui::SetKeyboardFocusHere();
+		if (ImGui::InputText("##Rename", nameBuffer, sizeof(nameBuffer),
+			ImGuiInputTextFlags_EnterReturnsTrue))
+		{
+			entity->name = nameBuffer;
+			LevelManager::SaveSceneChanges(
+				DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			renamingEntityID = -1;
+		}
 
-    ImGui::PushID(entity->entityID);
+		if (ImGui::IsItemDeactivated())
+		{
+			renamingEntityID = -1;
+		}
 
-    if (entity->entityID == renamingEntityID)
-    {
-        ImGui::SetKeyboardFocusHere();
-        if (ImGui::InputText("##Rename", nameBuffer, sizeof(nameBuffer),
-            ImGuiInputTextFlags_EnterReturnsTrue))
-        {
-            entity->name = nameBuffer;
-            LevelManager::SaveSceneChanges(
-                DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
-            renamingEntityID = -1;
-        }
+		ImGui::PopID();
+		return;
+	}
 
-        if (ImGui::IsItemDeactivated())
-        {
-            renamingEntityID = -1;
-        }
+	ImGui::AlignTextToFramePadding();
 
-        ImGui::PopID();
-        return; 
-    }
+	if (!entity->prefabName.empty() && prefabIcon)
+	{
+		ImGui::Image((void*)(intptr_t)prefabIcon, ImVec2(16, 16));
+	}
+	else
+	{
+		ImGui::Image((void*)(intptr_t)gameobjectIcon, ImVec2(16, 16));
+	}
+	ImGui::SameLine();
 
-    ImGui::AlignTextToFramePadding();
+	bool nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
 
-    if (!entity->prefabName.empty() && prefabIcon)
-    {
-        ImGui::Image((void*)(intptr_t)prefabIcon, ImVec2(16, 16));
-    }
-    else
-    {
-        ImGui::Image((void*)(intptr_t)gameobjectIcon, ImVec2(16, 16));
-    }
-    ImGui::SameLine();
+	if (ImGui::IsItemClicked())
+		selectedEntityID = entity->entityID;
 
-    bool nodeOpen = ImGui::TreeNodeEx(entityLabel.c_str(), nodeFlags);
+	if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+	{
+		ImGui::SetDragDropPayload("ENTITY_HIERARCHY", &entity->entityID, sizeof(int));
+		ImGui::Text("Moving %s", entityLabel.c_str());
+		ImGui::EndDragDropSource();
+	}
 
-    if (ImGui::IsItemClicked())
-        selectedEntityID = entity->entityID;
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_HIERARCHY"))
+		{
+			int draggedEntityID = *(const int*)payload->Data;
+			auto draggedEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(draggedEntityID);
 
-    if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
-    {
-        ImGui::SetDragDropPayload("ENTITY_HIERARCHY", &entity->entityID, sizeof(int));
-        ImGui::Text("Moving %s", entityLabel.c_str());
-        ImGui::EndDragDropSource();
-    }
+			if (draggedEntity && draggedEntity->entityID != entity->entityID)
+			{
+				for (auto& e : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+				{
+					auto& children = e->childEntities;
+					children.erase(std::remove(children.begin(), children.end(), draggedEntity),
+						children.end());
+					auto& childNames = e->childNames;
+					childNames.erase(std::remove(childNames.begin(), childNames.end(), draggedEntity->name),
+						childNames.end());
+				}
 
-    if (ImGui::BeginDragDropTarget())
-    {
-        if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ENTITY_HIERARCHY"))
-        {
-            int draggedEntityID = *(const int*)payload->Data;
-            auto draggedEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(draggedEntityID);
+				entity->childEntities.push_back(draggedEntity);
+				entity->childNames.push_back(draggedEntity->name);
 
-            if (draggedEntity && draggedEntity->entityID != entity->entityID)
-            {
-                for (auto& e : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
-                {
-                    auto& children = e->childEntities;
-                    children.erase(std::remove(children.begin(),
-                        children.end(),
-                        draggedEntity),
-                        children.end());
-                    auto& childNames = e->childNames;
-                    childNames.erase(std::remove(childNames.begin(),
-                        childNames.end(),
-                        draggedEntity->name),
-                        childNames.end());
-                }
+				auto* parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+				auto* childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(draggedEntity->entityID);
+				if (parentTransform && childTransform)
+				{
+					childTransform->localPosition = childTransform->worldPosition - parentTransform->worldPosition;
+				}
+			}
+		}
+		ImGui::EndDragDropTarget();
+	}
 
-                entity->childEntities.push_back(draggedEntity);
-                entity->childNames.push_back(draggedEntity->name);
-            }
-        }
-        ImGui::EndDragDropTarget();
-    }
+	if (nodeOpen)
+	{
+		for (const auto& child : entity->childEntities)
+		{
+			DisplayEntity(child, selectedEntityID, prefabIcon, gameobjectIcon);
+		}
+		ImGui::TreePop();
+	}
 
-    if (nodeOpen)
-    {
-        for (const auto& child : entity->childEntities)
-        {
-            DisplayEntity(child, selectedEntityID, prefabIcon, gameobjectIcon);
-        }
-        ImGui::TreePop();
-    }
-
-    ImGui::PopID();
+	ImGui::PopID();
 }

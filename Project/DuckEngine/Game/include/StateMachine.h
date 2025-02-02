@@ -1,3 +1,5 @@
+#pragma once
+
 #include "DuckEngine.h"
 #include "State.h"
 
@@ -8,27 +10,6 @@ public:
 
 	StateMachine() : currentState(nullptr) {}
 
-	void ChangeState(State* newState)
-	{
-		if (currentState != nullptr)
-		{
-			currentState->Exit();
-		}
-		
-		currentState = newState;
-
-		if (currentState != nullptr)
-		{
-			currentState->Enter();
-		}
-	}
-
-	void Update()
-	{
-		if (currentState != nullptr)
-		{
-			currentState->Update();
-		}
-	}
-
+	void ChangeState(State* newState);
+	void Update();
 };

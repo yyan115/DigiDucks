@@ -59,6 +59,21 @@
     <ClCompile Include="..\src\SliderLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CustomerLogic.cpp">
+      <Filter>src\Logic\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\State.cpp">
+      <Filter>src\Logic\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StateMachine.cpp">
+      <Filter>src\Logic\Customer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CustomerIdleState.cpp">
+      <Filter>src\Logic\Customer\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CustomerWalkState.cpp">
+      <Filter>src\Logic\Customer\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -105,6 +120,18 @@
     </Filter>
     <Filter Include="include\Logic\Player">
       <UniqueIdentifier>{b4fca658-7954-4685-9363-0e1a78178e33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Customer">
+      <UniqueIdentifier>{77345834-3b8f-44de-84be-6730498ed360}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Customer\States">
+      <UniqueIdentifier>{e153a915-c1f6-4d5e-980d-3a7874a59ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Customer">
+      <UniqueIdentifier>{432fc508-a376-453f-bee8-abbc48a55a93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Customer\States">
+      <UniqueIdentifier>{43259d04-ec65-4b48-ac1e-a01dde4a0ff3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +228,21 @@
     </ClInclude>
     <ClInclude Include="..\include\SliderLogic.h">
       <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CustomerLogic.h">
+      <Filter>include\Logic\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\State.h">
+      <Filter>include\Logic\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\StateMachine.h">
+      <Filter>include\Logic\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CustomerIdleState.h">
+      <Filter>include\Logic\Customer\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CustomerWalkState.h">
+      <Filter>include\Logic\Customer\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

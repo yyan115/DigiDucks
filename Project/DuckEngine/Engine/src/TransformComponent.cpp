@@ -6,44 +6,44 @@
 
 void TransformComponent::SetPosition(const Vec2& newPos)
 {
-	if (worldPosition != newPos)
+	bool positionChanged = (worldPosition != newPos);
+	Vec2 oldPosition = worldPosition;
+
+	worldPosition = newPos;
+	previousPosition = newPos;
+
+	Entity* parentEntity = nullptr;
+	for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
 	{
-		// Store the old position to calculate delta
-		Vec2 oldPosition = worldPosition;
-		worldPosition = newPos;
-		previousPosition = newPos; // Update previousPosition after calculating delta
+		auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
+			[this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
+		if (it != potentialParent->childEntities.end())
+		{
+			parentEntity = potentialParent.get();
+			break;
+		}
+	}
 
+	if (parentEntity)
+	{
+		auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
+		if (parentTransform)
+		{
+			localPosition = worldPosition - parentTransform->worldPosition;
+		}
+	}
+	else
+	{
+		localPosition = worldPosition;
+	}
+
+	if (positionChanged)
+	{
 		Vec2 delta = newPos - oldPosition;
-
-		Entity* parentEntity = nullptr;
-		for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
-		{
-			auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
-				[this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
-
-			if (it != potentialParent->childEntities.end())
-			{
-				parentEntity = potentialParent.get();
-				break;
-			}
-		}
-
-		if (parentEntity)
-		{
-			auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
-			if (parentTransform)
-			{
-				localPosition = worldPosition - parentTransform->worldPosition;
-			}
-		}
-		else
-		{
-			localPosition = worldPosition;
-		}
-
 		UpdateChildPositions(delta);
 	}
 }
+
 
 Vec2& TransformComponent::GetPosition()
 {

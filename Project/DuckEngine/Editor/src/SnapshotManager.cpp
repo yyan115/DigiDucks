@@ -135,14 +135,15 @@ nlohmann::json SnapshotManager::TakeSceneSnapshot()
 			entityData["childNames"] = entity->childNames;
 		}
 
+		if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
+		{
+			entityData["position"]["x"] = transform->GetPosition().x;
+			entityData["position"]["y"] = transform->GetPosition().y;
+		}
+
 		if (!entity->prefabName.empty())
 		{
 			entityData["prefab"] = entity->prefabName;
-			if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
-			{
-				entityData["position"]["x"] = transform->GetPosition().x;
-				entityData["position"]["y"] = transform->GetPosition().y;
-			}
 		}
 		else
 		{
@@ -154,6 +155,7 @@ nlohmann::json SnapshotManager::TakeSceneSnapshot()
 
 	return sceneSnapshot;
 }
+
 
 /**************************************************************************
 * @brief Applies a scene snapshot to restore a specific state.
@@ -184,17 +186,18 @@ void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 			{
 				ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
 			}
-			if (entityData.contains("position"))
-			{
-				if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
-				{
-					transform->SetPosition(Serialization::GetVec2(entityData, "position", { 0.f, 0.f }));
-				}
-			}
 		}
 		else
 		{
 			ComponentFactory::AddComponentsToEntity(entity, entityData["components"]);
+		}
+
+		if (entityData.contains("position"))
+		{
+			if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
+			{
+				transform->SetPosition(Serialization::GetVec2(entityData, "position", { 0.f, 0.f }));
+			}
 		}
 	}
 
@@ -210,19 +213,16 @@ void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 				if (childEntity)
 				{
 					entity->childEntities.push_back(childEntity);
-					std::cout << "Linked child entity: " << childEntity->name
-						<< " to parent: " << entity->name << std::endl;
-				}
-				else
-				{
-					std::cerr << "Warning: Child entity '" << childName
-						<< "' not found for parent: " << entity->name << std::endl;
+					auto* childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(childEntity->entityID);
+					auto* parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+					if (childTransform && parentTransform)
+					{
+						childTransform->localPosition = childTransform->worldPosition - parentTransform->worldPosition;
+					}
 				}
 			}
 		}
 	}
-
-	std::cout << "Scene snapshot applied successfully." << std::endl;
 }
 
 /**************************************************************************
