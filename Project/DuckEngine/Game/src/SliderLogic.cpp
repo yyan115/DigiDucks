@@ -22,25 +22,20 @@ void SliderLogic::Update()
 		// Increase
 		if (slider->isIncrease)
 		{
-			if (slider->currentValue < slider->maxValue)
+			if (slider->currentValue+slider->step < slider->maxValue)
 			{
 				// Horizontal
 				if (slider->isHorizontal)
 				{
-					if (transform->scale.x > 0)
-					{
-						transform->SetPosition(Vec2(transform->GetPosition().x + slider->step, transform->GetPosition().y));
-						transform->scale.x += 2 * slider->step;
-					}
+					transform->SetPosition(Vec2(transform->GetPosition().x + slider->step, transform->GetPosition().y));
+					transform->scale.x += 2 * slider->step;
 				}
 
 				// Vertical
 				if (slider->isVertical)
 				{
-					if (transform->scale.y > 0) {
-						transform->SetPosition(Vec2(transform->GetPosition().x, transform->GetPosition().y + slider->step));
-						transform->scale.y += 2 * slider->step;
-					}
+					transform->SetPosition(Vec2(transform->GetPosition().x, transform->GetPosition().y + slider->step));
+					transform->scale.y += 2 * slider->step;
 				}
 
 				slider->currentValue += slider->step;
@@ -52,7 +47,7 @@ void SliderLogic::Update()
 		// Decrease
 		else
 		{
-			if (slider->currentValue > slider->minValue)
+			if (slider->currentValue-slider->step > slider->minValue)
 			{
 				// Horizontal
 				if (slider->isHorizontal)

@@ -34,6 +34,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ChopBoardLogic.h"
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
+#include "SliderLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -76,6 +77,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("ChopBoardLogic", std::make_shared<ChopBoardLogic>());
 	GameLogicManager::AddLogic("SubmitLogic", std::make_shared<SubmitLogic>());
 	GameLogicManager::AddLogic("RestockLogic", std::make_shared<RestockLogic>());
+	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
 
 }
 

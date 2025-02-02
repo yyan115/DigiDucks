@@ -549,5 +549,5 @@ void DuckEngine::CloseWindow()
 
 void DuckEngine::Emit(const Vector2D& pos, const Vector2D& vel) {
     ParticleSystem::Emit(pos, vel);
-    std::cout << "Emitting\n";
+    //std::cout << "Emitting\n";
 }

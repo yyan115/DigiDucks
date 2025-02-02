@@ -717,16 +717,16 @@ void InspectorRenderer::RenderComponents(int entityID)
 			if (ImGui::IsItemEdited()) hasChanged = true;
 			ImGui::Text("Min Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##MinValue", &sliderComponent->minValue, 0.1f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##MinValue", &sliderComponent->minValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
 			ImGui::Text("Max Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##MaxValue", &sliderComponent->maxValue, 0.1f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##MaxValue", &sliderComponent->maxValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
 			ImGui::Text("Current Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##CurrentValue", &sliderComponent->currentValue, 0.1f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##CurrentValue", &sliderComponent->currentValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
 			ImGui::Text("Step");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.1f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
 			// Remove component button
 			ComponentMenu<SliderComponent>(entityID);
 		}
