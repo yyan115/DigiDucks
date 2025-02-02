@@ -114,8 +114,8 @@ void ButtonSystem::Render()
 
             // Normalize the mouse position to the button coordinate system
             // Assuming screen width and height are known or accessible
-            float screenWidth = WindowManager::GetViewportWidth();
-            float screenHeight = WindowManager::GetViewportHeight();
+            float screenWidth = static_cast<float>(WindowManager::GetViewportWidth());
+            float screenHeight = static_cast<float>(WindowManager::GetViewportHeight());
 
             // Normalize mouse coordinates to [0, 1] for X and [0, -1] for Y
             // Mouse X normalization (left = 0, right = 1)
