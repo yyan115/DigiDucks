@@ -69,6 +69,13 @@ ButtonComponent* gameExitYesButton;
 Entity* gameExitNoBtn;
 ButtonComponent* gameExitNoButton;
 
+/*Restock Menu*/
+Entity* gameRestockMenu;
+SpriteRendererComponent* gameRestockMenuSpt;
+Entity* gameRestockExitBtn;
+ButtonComponent* gameRestockExitButton;
+
+
 /*MiniGame_1*/
 Entity* gameMiniGame_BG;
 SpriteRendererComponent* gameMiniGame_BG_Spt;

@@ -293,6 +293,8 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		sliderData["type"] = "SliderComponent";
 		sliderData["properties"]["isEnable"] = sliderComponent->isEnable;
 		sliderData["properties"]["isIncrease"] = sliderComponent->isIncrease;
+		sliderData["properties"]["isHorizontal"] = sliderComponent->isHorizontal;
+		sliderData["properties"]["isVertical"] = sliderComponent->isVertical;
 		sliderData["properties"]["minValue"] = sliderComponent->minValue;
 		sliderData["properties"]["maxValue"] = sliderComponent->maxValue;
 		sliderData["properties"]["currentValue"] = sliderComponent->currentValue;
@@ -453,11 +455,13 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 	{
 		bool isEnable = componentJson["properties"].value("isEnable", false);
 		bool isIncrease = componentJson["properties"].value("isIncrease", true);
+		bool isHorizontal = componentJson["properties"].value("isHorizontal", true);
+		bool isVertical = componentJson["properties"].value("isVertical", false);
 		float minValue = componentJson["properties"].value("minValue", 0.0f);
 		float maxValue = componentJson["properties"].value("maxValue", 1.0f);
 		float currentValue = componentJson["properties"].value("currentValue", 0.0f);
 		float step = componentJson["properties"].value("step", 0.1f);
-		auto sliderComponent = std::make_shared<SliderComponent>(isEnable, minValue, maxValue, currentValue, step);
+		auto sliderComponent = std::make_shared<SliderComponent>(isEnable, isIncrease, isHorizontal, isVertical, minValue, maxValue, currentValue, step);
 		return sliderComponent;
 	}
 

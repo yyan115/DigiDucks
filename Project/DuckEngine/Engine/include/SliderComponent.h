@@ -26,15 +26,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 class SliderComponent :public Component {
 public:
 	bool isEnable;			// Enable the slider
-	bool isIncrease;		// Increase the value of the slider
+	bool isIncrease;		// Increase/Decrease the slider
+	bool isHorizontal;		// Direction of the slider
+	bool isVertical;		// Direction of the slider
 	float minValue;			// Minimum value of the slider
 	float maxValue;			// Maximum value of the slider
 	float currentValue;		// Current value of the slider
 	float step;				// Step value of the slider
 
 	// Constructor initializes the SliderComponent with default values
-	DUCKENGINE_API SliderComponent(bool enable = false, bool direction = true, float min = 0.0f, float max = 1.0f, float current = 0.0f, float step = 0.1f) : 
-		isEnable(enable),isIncrease(direction), minValue(min), maxValue(max), currentValue(current), step(step) {}
+	DUCKENGINE_API SliderComponent(bool enable = false, bool increase = true, bool sides = true, bool heights = false, float min = 0.0f, float max = 1.0f, float current = 0.0f, float step = 0.1f) :
+		isEnable(enable), isIncrease(increase), isHorizontal(sides), isVertical(heights), minValue(min), maxValue(max), currentValue(current), step(step) { }
 
 	std::shared_ptr<Component> Clone() const override 
 	{

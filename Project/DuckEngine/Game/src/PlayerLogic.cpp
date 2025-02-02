@@ -30,8 +30,12 @@ void PlayerLogic::Start()
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
-	if (DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get()->entityID) != nullptr) {
-		SFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get()->entityID);
+
+	// Incase Scene does not have a SFXManager
+	Entity* SFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get();
+	if (SFX)
+	{
+		SFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(SFX->entityID);
 	}
 	dir = FRONT;
 	isHolding = false;
@@ -228,10 +232,12 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());				
 				holdingLogic->setObject(tableLogic->moveObject());
 				type = holdingLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound) {
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				isHolding = true;
 			}
 			return;
@@ -246,10 +252,13 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(chopBoardLogic->moveObject());
 				type = holdingLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				isHolding = true;
 			}
 			return;
@@ -264,10 +273,13 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				holdingLogic->setObject(panLogic->moveObject());
 				type = holdingLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				isHolding = true;
 			}
 			return;
@@ -311,10 +323,13 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				tableLogic->setObject(holdingLogic->moveObject());
 				type = tableLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				isHolding = false;
 			}
 			else if (tableLogic->isOccupied)
@@ -342,10 +357,13 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				chopBoardLogic->setObject(holdingLogic->moveObject());
 				type = chopBoardLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				isHolding = false;
 			}
 			return;
@@ -358,10 +376,13 @@ void PlayerLogic::InteractPressed()
 				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 				if (holdingLogic->getType() != ItemType::R_PATTY) return;
 				type = holdingLogic->getType();
-				if (static_cast<int>(type) <= 15) {
-					if (SFXsound) SFXsound->Play(0);
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15) {
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
 				}
-				else SFXsound->Play(1);
 				panLogic->setObject(holdingLogic->moveObject());
 				isHolding = false;
 			}
