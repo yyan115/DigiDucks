@@ -960,6 +960,45 @@
             ],
             "layer": "UI"
         },
+        "FPS_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 702.5,
+                            "y": 250.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "FPS"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Frying_Pan": {
             "components": [
                 {
@@ -4546,7 +4585,8 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/timer/timer warning.mp3",
-                            "Resources/Sounds/timer/times up.mp3"
+                            "Resources/Sounds/timer/times up.mp3",
+                            "Resources/Sounds/UI Menu/pause menu open sfx.mp3"
                         ],
                         "volume": 0.5
                     },

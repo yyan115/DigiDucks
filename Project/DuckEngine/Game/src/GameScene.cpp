@@ -33,6 +33,7 @@ Entity* OrderTab;
 SpriteRendererComponent* orderSprite;
 Entity* timer;
 TextComponent* timerText;
+TextComponent* FPSText;
 float timeLeft{};
 
 Entity* score;
@@ -189,7 +190,10 @@ void GameScene::Load()
 			scoreValue = 0;
 		}
 	}
-
+	auto fpsTextEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPS_Text");
+	if (fpsTextEntity) {
+		FPSText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(fpsTextEntity->entityID);
+	}
 	isPaused = false;
 	pageNumb = 1;
 
@@ -605,8 +609,10 @@ void GameScene::Load()
 			}
 		}
 	}
-
-	TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager").get()->entityID);
+	auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
+	if (TimeLeftEntity) {
+		TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(TimeLeftEntity->entityID);
+	}
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
 	PauseGame(false);
@@ -657,7 +663,7 @@ void GameScene::Update()
 			int seconds = static_cast<int>(timeLeft) % 60;
 			timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
 
-			if (timeLeft < 10.f && TimeLeftSound) {
+			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 				timerText->color = { 255, 0, 0, 255 };
 				TimeLeftSound->Play(0);
 			}
@@ -665,7 +671,7 @@ void GameScene::Update()
 		else {
 			timerText->text = "Time's up!";
 
-			if (!hasStartedFade && TimeLeftSound) {
+			if (!hasStartedFade && TimeLeftSound != nullptr) {
 				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
 				TimeLeftSound->Play(1); // Play final sound
 				hasStartedFade = true;
@@ -686,6 +692,10 @@ void GameScene::Update()
 				}
 			}
 		}
+	}
+
+	if (FPSText != nullptr) {
+		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
 	}
 
 
@@ -743,8 +753,17 @@ void GameScene::PostUpdate()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
 		std::cout << "Escape is pressed!\n";
-
+		TimeLeftSound->Play(2);
+		Sleep(500);
 		PauseGame(!isPaused);
+	}
+
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U))
+	{
+		if (FPSText)
+		{
+			FPSText->isEnabled = !FPSText->isEnabled;
+		}
 	}
 }
 
@@ -785,6 +804,10 @@ void GameScene::PauseGame(bool state)
 	if (timerText)
 	{
 		timerText->isEnabled = !state;
+	}
+	if (FPSText)
+	{
+		FPSText->isEnabled = !state;
 	}
 
 	// Hide Order Tab

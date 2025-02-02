@@ -1,9 +1,10 @@
 /******************************************************************************/
 /*
 \file:      AssetManager.cpp
-\authors:	Tan Yan Kai, yankai.tan, 2301312 (100%)
+\authors:	Tan Yan Kai, yankai.tan, 2301312 (40%)
 \par:	    yankai.tan@digipen.edu
-
+\author     Muhammad Zikry Bin Zakaria , 2201751 (60%)
+\par        muhammadzikry.b@digipen.edu
 
 \brief:     Contains the definitions that are used to manage the assets
 
@@ -367,4 +368,148 @@ std::string AssetManager::GetTexturePath(Texture textureID)
 		}
 	}
 	return "";
+}
+
+void AssetManager::LoadFont(const std::string& fontName, const std::string& filePath) {
+	if (std::find(fontNames.begin(), fontNames.end(), fontName) != fontNames.end()) {
+		std::cerr << "Font already loaded: " << fontName << std::endl;
+		return;
+	}
+
+	FontManager::LoadFont(fontName, filePath, 48);  // Adjust font size as needed
+	fontNames.push_back(fontName);
+	std::cout << "Loaded font: " << fontName << " from " << filePath << std::endl;
+}
+
+void AssetManager::UnloadFont(const std::string& fontName) {
+	auto it = std::find(fontNames.begin(), fontNames.end(), fontName);
+	if (it != fontNames.end()) {
+		fontNames.erase(it);
+		std::cout << "Unloaded font: " << fontName << std::endl;
+	}
+	else {
+		std::cerr << "Font not found: " << fontName << std::endl;
+	}
+}
+
+void AssetManager::LoadShader(const std::string& shaderName, const std::string& filePath) {
+	std::string extension = fs::path(filePath).extension().string();
+	std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
+	// Check if this is a vertex or fragment shader
+	std::string pairedShaderPath;
+	std::string pairedExtension = (extension == ".vert") ? ".frag" : ".vert";
+	std::string pairedShaderName = shaderName;
+
+	for (const auto& entry : fs::directory_iterator(fs::path(filePath).parent_path())) {
+		if (entry.path().extension() == pairedExtension) {
+			pairedShaderPath = entry.path().string();
+			break;
+		}
+	}
+
+	// Load shader only if paired shader is found
+	if (!pairedShaderPath.empty()) {
+		ShaderManager::InsertShader(shaderName,
+			(extension == ".vert") ? filePath : pairedShaderPath,
+			(extension == ".frag") ? filePath : pairedShaderPath);
+		std::cout << "Loaded Shader: " << shaderName << " (Vertex: " << (extension == ".vert" ? filePath : pairedShaderPath)
+			<< ", Fragment: " << (extension == ".frag" ? filePath : pairedShaderPath) << ")\n";
+	}
+	else {
+		std::cerr << "Error: Could not find paired shader for: " << filePath << std::endl;
+	}
+}
+
+void AssetManager::UnloadShader(const std::string& shaderName) {
+	if (ShaderManager::GetShader(shaderName)) {
+		ShaderManager::DeleteAllShaders();  // Removes the shader from memory
+		std::cout << "Unloaded Shader: " << shaderName << std::endl;
+	}
+	else {
+		std::cerr << "Error: Shader not found: " << shaderName << std::endl;
+	}
+}
+
+
+bool AssetManager::AddAsset(const std::string& sourcePath, const std::string& destinationFolder) {
+	try {
+		// Ensure the destination folder exists
+		fs::create_directories(destinationFolder);
+
+		// Construct the destination path
+		std::string fileName = fs::path(sourcePath).filename().string();
+		std::string destinationPath = destinationFolder + "/" + fileName;
+
+		// Copy the file to the destination
+		fs::copy_file(sourcePath, destinationPath, fs::copy_options::overwrite_existing);
+		std::cout << "Asset added: " << destinationPath << std::endl;
+
+		// load asset based on file type
+		std::string extension = fs::path(destinationPath).extension().string();
+		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
+		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
+			LoadTexture(destinationPath);
+		}
+		else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
+			LoadSound(destinationPath, destinationPath);
+		}
+		else if (extension == ".ttf") {
+			std::string fontName = fs::path(destinationPath).stem().string();
+			LoadFont(fontName, destinationPath);
+		}
+		else if (extension == ".vert" || extension == ".frag") {
+			std::string shaderName = fs::path(destinationPath).stem().string();
+			LoadShader(shaderName, destinationPath);
+		}
+		else {
+			std::cerr << "Warning: Unsupported asset type added (" << extension << ")." << std::endl;
+		}
+
+		return true;
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error adding asset: " << e.what() << std::endl;
+		return false;
+	}
+}
+
+
+bool AssetManager::RemoveAsset(const std::string& assetPath) {
+	try {
+		if (!fs::exists(assetPath)) {
+			std::cerr << "Error: Asset does not exist: " << assetPath << std::endl;
+			return false;
+		}
+
+		// Remove asset from memory before deleting file
+		std::string extension = fs::path(assetPath).extension().string();
+		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+
+		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
+			UnloadTexture(assetPath);
+		}
+		else if (extension == ".wav" || extension == ".mp3" || extension == ".ogg") {
+			UnloadSound(assetPath);
+		}
+		else if (extension == ".ttf") {
+			std::string fontName = fs::path(assetPath).stem().string();
+			UnloadFont(fontName);
+		}
+		else if (extension == ".vert" || extension == ".frag") {
+			std::string shaderName = fs::path(assetPath).stem().string();
+			UnloadShader(shaderName);
+		}
+
+		// Delete the asset from disk
+		fs::remove(assetPath);
+		std::cout << "Asset removed: " << assetPath << std::endl;
+
+		return true;
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error removing asset: " << e.what() << std::endl;
+		return false;
+	}
 }

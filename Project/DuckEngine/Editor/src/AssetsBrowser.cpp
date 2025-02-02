@@ -200,7 +200,7 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 	}
 	itemIndex = 0;
 	ImGui::Separator();
-
+	bool isAssetContextOpen = false;
 	// Render files
 	for (const auto& entry : files) {
 		std::string fileName = entry.path().filename().string();
@@ -272,17 +272,29 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 						ImGui::Text("Drag %s", fileName.c_str());
 						ImGui::EndDragDropSource();
 					}
-					// Open context menu on right-click
-					if (ImGui::BeginPopupContextItem(("Replace##" + normalizedPath).c_str())) {
-						// Replace the asset with the new file
-						if (ImGui::MenuItem("Replace texture")) {
-							std::string newFilePath = LevelManager::OpenFileDialog("texture");
-							if (!newFilePath.empty()) {
-								ReplaceAsset(normalizedPath, newFilePath);
-							}
+
+					// Right-click context menu for deleting individual assets
+					if (ImGui::BeginPopupContextItem(("##ContextMenu_" + normalizedPath).c_str())) {
+						isAssetContextOpen = true;  // Mark that an asset menu is open
+
+						if (ImGui::MenuItem("Delete")) {
+							AssetManager::RemoveAsset(normalizedPath);
 						}
+
 						ImGui::EndPopup();
 					}
+
+					// Open context menu on right-click
+					//if (ImGui::BeginPopupContextItem(("Replace##" + normalizedPath).c_str())) {
+					//	// Replace the asset with the new file
+					//	if (ImGui::MenuItem("Replace texture")) {
+					//		std::string newFilePath = LevelManager::OpenFileDialog("texture");
+					//		if (!newFilePath.empty()) {
+					//			ReplaceAsset(normalizedPath, newFilePath);
+					//		}
+					//	}
+					//	ImGui::EndPopup();
+					//}
 				}
 				else if (parentDir == "Sounds") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
@@ -304,6 +316,17 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 						ImGui::Text("Drag %s", fileName.c_str());
 						ImGui::EndDragDropSource();
 					}
+
+					// Right-click context menu for deleting individual assets
+					if (ImGui::BeginPopupContextItem(("##ContextMenu_" + normalizedPath).c_str())) {
+						isAssetContextOpen = true;  // Mark that an asset menu is open
+
+						if (ImGui::MenuItem("Delete")) {
+							AssetManager::RemoveAsset(normalizedPath);
+						}
+
+						ImGui::EndPopup();
+					}
 				}
 				else if (parentDir == "Scenes") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
@@ -324,14 +347,46 @@ void AssetsBrowser::RenderAssetGrid(const std::string& path) {
 				else if (parentDir == "Fonts") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
 					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+
+					// Right-click context menu for deleting individual assets
+					if (ImGui::BeginPopupContextItem(("##ContextMenu_" + normalizedPath).c_str())) {
+						isAssetContextOpen = true;  // Mark that an asset menu is open
+
+						if (ImGui::MenuItem("Delete")) {
+							AssetManager::RemoveAsset(normalizedPath);
+						}
+
+						ImGui::EndPopup();
+					}
 				}
 				else if (parentDir == "Shaders") {
 					auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName(iconName);
 					if (texture) ImGui::Image((void*)(intptr_t)texture, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+
+					// Right-click context menu for deleting individual assets
+					if (ImGui::BeginPopupContextItem(("##ContextMenu_" + normalizedPath).c_str())) {
+						isAssetContextOpen = true;  // Mark that an asset menu is open
+
+						if (ImGui::MenuItem("Delete")) {
+							AssetManager::RemoveAsset(normalizedPath);
+						}
+
+						ImGui::EndPopup();
+					}
 				}
 
 				else {
 					ImGui::Button(fileName.c_str(), ImVec2(128, 128));
+				}
+
+				if(!isAssetContextOpen && ImGui::BeginPopupContextWindow("FolderContextMenu", ImGuiPopupFlags_MouseButtonRight)) {
+					if (ImGui::MenuItem("Import Asset")) {
+						std::string filePath = LevelManager::OpenFileDialog("All Files (*.*)\0*.*\0");
+						if (!filePath.empty()) {
+							AssetManager::AddAsset(filePath, selectedFolderPath);
+						}
+					}
+					ImGui::EndPopup();
 				}
 			}
 			else {

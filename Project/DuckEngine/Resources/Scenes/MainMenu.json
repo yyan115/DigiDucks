@@ -70,7 +70,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 36.0,

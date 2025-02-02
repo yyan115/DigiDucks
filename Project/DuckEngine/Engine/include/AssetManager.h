@@ -194,6 +194,13 @@ public:
 	*************************************************************************/
 	static DUCKENGINE_API nlohmann::json GetLevelData(const std::string& levelName);
 
+	static DUCKENGINE_API bool AddAsset(const std::string& sourcePath, const std::string& destinationFolder);
+	static DUCKENGINE_API bool RemoveAsset(const std::string& assetPath);
+	static DUCKENGINE_API void LoadFont(const std::string& fontName, const std::string& filePath);
+	static DUCKENGINE_API void UnloadFont(const std::string& fontName);
+	static DUCKENGINE_API void LoadShader(const std::string& shaderName, const std::string& filePath);
+	static DUCKENGINE_API void UnloadShader(const std::string& shaderName);
+
 
 private:
 	// Stores all loaded textures with their file paths as keys
