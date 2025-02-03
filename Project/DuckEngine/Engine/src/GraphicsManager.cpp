@@ -121,9 +121,14 @@ void GraphicsManager::AddToDrawQueue(const UnifiedRenderCommand& cmd) {
 void GraphicsManager::Render() {
 
     // First, sort the unified render queue by layer.
-    std::sort(drawQueue.begin(), drawQueue.end(), [](const UnifiedRenderCommand& a, const UnifiedRenderCommand& b) {
-        return a.layer < b.layer;
+    std::sort(drawQueue.begin(), drawQueue.end(),
+        [](const UnifiedRenderCommand& a, const UnifiedRenderCommand& b) {
+            if (a.layer != b.layer)
+                return a.layer < b.layer; // Lower layers first
+
+            return a.sortingOrder < b.sortingOrder; // Lower sorting order first
         });
+
 
     // Bind the FBO and set up common state.
     BindFBO();

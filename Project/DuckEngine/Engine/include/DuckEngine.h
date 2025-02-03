@@ -164,7 +164,7 @@ public:
     @param scale The scale factor for the text.
     @param color The color of the text.
     *************************************************************************/
-    static DUCKENGINE_API void RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI, int sortingOrder = 999);
+    static DUCKENGINE_API void RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI, int sortingOrder = 999, int layer = 999);
 
     /************************************************************************
     @brief Draws a point on the screen at a specified position with a given size.
@@ -173,7 +173,7 @@ public:
     @param color The color of the point (default is red).
     @param relativeToCamera Determines if the point should be drawn relative to the camera.
     *************************************************************************/
-    static DUCKENGINE_API void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999);
+    static DUCKENGINE_API void DrawPoint(const Vector2D& position, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999, int layer = 999);
 
     /************************************************************************
     @brief Draws a line between two points on the screen with a specified size and color.
@@ -183,7 +183,7 @@ public:
     @param color The color of the line (default is red).
     @param relativeToCamera Determines if the line should be drawn relative to the camera.
     *************************************************************************/
-    static DUCKENGINE_API void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999);
+    static DUCKENGINE_API void DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999, int layer = 999);
 
     /************************************************************************
     @brief Draws a circle at a specified position with a given radius and color.
@@ -192,7 +192,7 @@ public:
     @param color The color of the circle (default is red).
     @param relativeToCamera Determines if the circle should be drawn relative to the camera.
     *************************************************************************/
-    static DUCKENGINE_API void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999);
+    static DUCKENGINE_API void DrawCircle(const Vector2D& position, float radius, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999, int layer = 999);
 
     /************************************************************************
     @brief Draws a rectangle on the screen using the minimum and maximum corners, with optional rotation.
@@ -202,7 +202,7 @@ public:
     @param color The color of the rectangle (default is red).
     @param relativeToCamera Determines if the rectangle should be drawn relative to the camera.
     *************************************************************************/
-    static void DUCKENGINE_API DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation = 0.f, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999);
+    static void DUCKENGINE_API DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation = 0.f, const Color& color = { 255.f, 0.f, 0.f, 255.f }, bool relativeToCamera = true, int sortingOrder = 999, int layer = 999);
 
     /************************************************************************
     @brief Enables or disables logging in the engine.

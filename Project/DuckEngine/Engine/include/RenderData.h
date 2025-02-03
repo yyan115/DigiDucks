@@ -46,32 +46,30 @@ struct TextRenderCommand {
 
     bool isUI;
 
-    int layer;
-
     /// <summary>
     /// Constructs a TextRenderCommand with specified text, position, scale, and color.
     /// Defaults to a white color.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt = "",
         float posX = 0.0f, float posY = 0.0f,
-        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false, int textLayer = 0)
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr), isUI(!relativeToCamera), layer(textLayer) {}
+        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         float posX, float posY,
-        float scl, float r, float g, float b, float a, bool relativeToCamera = false, int textLayer = 0)
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a), isUI(!relativeToCamera), layer(textLayer) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, float r, float g, float b, float a, bool relativeToCamera = false, int textLayer = 0)
-        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a), isUI(!relativeToCamera), layer(textLayer) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and a Color struct for color.
@@ -79,8 +77,8 @@ struct TextRenderCommand {
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false, int textLayer = 0)
-        : fontName(fontName), text(txt), position(position), scale(scl), color(clr), isUI(!relativeToCamera), layer(textLayer) {}
+        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(clr), isUI(!relativeToCamera) {}
 
     /// <summary>
     /// Destructor for TextRenderCommand.
@@ -168,7 +166,8 @@ enum class RenderCommandType {
 
 // Our unified render command – each command carries a layer and a variant.
 struct UnifiedRenderCommand {
-    int layer;  // Lower layer numbers are drawn first.
+    int layer;
+    int sortingOrder;
     RenderCommandType type;
     std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand> command;
 };
