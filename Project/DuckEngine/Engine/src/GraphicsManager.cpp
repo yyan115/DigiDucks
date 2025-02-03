@@ -576,6 +576,7 @@ void GraphicsManager::DrawGizmo() {
         glEnable(GL_DEPTH_TEST);
 
         UnbindFBO();
+        ResetGLState();
     }
 }
 
