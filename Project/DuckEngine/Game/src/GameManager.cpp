@@ -35,6 +35,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
 #include "SliderLogic.h"
+#include "ScoreLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -55,6 +56,7 @@ void GameManager::InitScenes()
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("HowToPlay", std::make_shared<HowToPlay>());
     DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
 
 
     // add game logic
@@ -78,6 +80,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("SubmitLogic", std::make_shared<SubmitLogic>());
 	GameLogicManager::AddLogic("RestockLogic", std::make_shared<RestockLogic>());
 	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
+	GameLogicManager::AddLogic("ScoreLogic", std::make_shared<ScoreLogic>());
 
 }
 

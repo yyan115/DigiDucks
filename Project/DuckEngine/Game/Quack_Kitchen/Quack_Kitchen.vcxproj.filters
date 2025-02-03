@@ -74,6 +74,12 @@
     <ClCompile Include="..\src\CustomerWalkState.cpp">
       <Filter>src\Logic\Customer\States</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Level0.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ScoreLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -243,6 +249,12 @@
     </ClInclude>
     <ClInclude Include="..\include\CustomerWalkState.h">
       <Filter>include\Logic\Customer\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level0.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ScoreLogic.h">
+      <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

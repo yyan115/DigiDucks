@@ -23,7 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "GameManager.h"
 #include "GameScene.h"
-
+#include "ScoreLogic.h"
 
 
 Entity* MainMenuButton;
@@ -41,7 +41,6 @@ SpriteRendererComponent* Star3;
 
 Entity* Score;
 TextComponent* ScoreText;
-extern int scoreValue;
 
 Entity* Background;
 SoundComponent* BGMSound;
@@ -55,8 +54,11 @@ void EndScene::Load()
 	DuckEngine::SetCameraHeight(20);
 
 	MainMenuButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit").get();
-	MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
-	MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
+	if (MainMenuButton != nullptr) {
+		MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
+		MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
+	}
+	
 	MainMenu->onClick = []()
 		{ 
 			std::cout << "Button clicked QUIT!!!!!!\n"; 
@@ -74,7 +76,7 @@ void EndScene::Load()
 	ScoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(Score->entityID);
 	
 	if (ScoreText) {
-		ScoreText->text = "Score: " + std::to_string(scoreValue);
+		ScoreText->text = "Score: " + std::to_string(ScoreLogic::scoreValue);
 	}
 
 	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
@@ -115,19 +117,19 @@ void EndScene::Update()
 		}
 	}
 
-	if (scoreValue > 10) {
+	if (ScoreLogic::scoreValue > 10) {
 
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (scoreValue > 30) {
+	if (ScoreLogic::scoreValue > 30) {
 
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		Star2->texture = AssetManager::GetTextureByName("star");
 
 	}
 	
-	if (scoreValue > 50) {
+	if (ScoreLogic::scoreValue > 50) {
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		//Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");

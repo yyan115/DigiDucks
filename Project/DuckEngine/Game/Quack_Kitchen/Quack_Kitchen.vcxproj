@@ -201,6 +201,7 @@
     <ClCompile Include="..\src\GameScene.cpp" />
     <ClCompile Include="..\src\HoldingLogic.cpp" />
     <ClCompile Include="..\src\HowToPlay.cpp" />
+    <ClCompile Include="..\src\Level0.cpp" />
     <ClCompile Include="..\src\MainMenu.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RestockLogic.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
+    <ClCompile Include="..\src\ScoreLogic.cpp" />
     <ClCompile Include="..\src\SliderLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
     <ClCompile Include="..\src\State.cpp" />
@@ -232,6 +234,7 @@
     <ClInclude Include="..\include\HowToPlay.h" />
     <ClInclude Include="..\include\IngredientType.h" />
     <ClInclude Include="..\include\LettuceStockLogic.h" />
+    <ClInclude Include="..\include\Level0.h" />
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
@@ -242,6 +245,7 @@
     <ClInclude Include="..\include\PlayerLogic.h" />
     <ClInclude Include="..\include\RestockLogic.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />
+    <ClInclude Include="..\include\ScoreLogic.h" />
     <ClInclude Include="..\include\ShrimpStockLogic.h" />
     <ClInclude Include="..\include\SliderLogic.h" />
     <ClInclude Include="..\include\SpriteMovementScene.h" />

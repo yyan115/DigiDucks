@@ -14,7 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "GameScene.h"
+#include "Level0.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
@@ -24,13 +24,14 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
+#include "EndGame.h"
 #include "ScoreLogic.h"
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
 * ****************************************************************/
-void GameScene::Load() 
+void Level0::Load() 
 {
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
@@ -520,7 +521,7 @@ void GameScene::Load()
 * setting up the initial state. This function is called when
 * the scene begins running.
 * ****************************************************************/
-void GameScene::Start() 
+void Level0::Start()
 {
 	Scene::Start();
 	//DuckEngine::showDebugColliders = false;
@@ -531,7 +532,7 @@ void GameScene::Start()
 * input and updating game objects. This function is called
 * every frame.
 * ****************************************************************/
-void GameScene::Update() 
+void Level0::Update()
 {	
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
@@ -661,7 +662,7 @@ void GameScene::Update()
 	ScoreLogic::scoreValue = submitLogic->getScore();
 }
 
-void GameScene::UpdateOrderTexture() {
+void Level0::UpdateOrderTexture() {
 	// Generate a new random texture path
 	std::string newOrderTexture = "Resources/Sprites/Ingredients/Dishes/Dish_" + std::to_string((rand() % 2) + 1) + ".png";
 	auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
@@ -675,7 +676,7 @@ void GameScene::UpdateOrderTexture() {
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void GameScene::PostUpdate()
+void Level0::PostUpdate()
 {
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
@@ -710,7 +711,7 @@ void GameScene::PostUpdate()
 * @brief Exit the scene, performing any cleanup necessary before
 * the scene is unloaded.
 * ****************************************************************/
-void GameScene::Exit() 
+void Level0::Exit()
 {
 
 }
@@ -719,7 +720,7 @@ void GameScene::Exit()
 * @brief Unload the scene and free any resources that were loaded
 * during the Load() phase.
 * ****************************************************************/
-void GameScene::Unload() 
+void Level0::Unload()
 {
 	// base unload
 	Scene::Unload();
@@ -732,7 +733,7 @@ void GameScene::Unload()
 * @param isPaused - true if the game is paused, false if the game
 * is unpaused.
 * ****************************************************************/
-void GameScene::PauseGame(bool state) 
+void Level0::PauseGame(bool state)
 {
 	isPaused = state;
 	// Hide Texts
@@ -770,7 +771,7 @@ void GameScene::PauseGame(bool state)
 /****************************************************************
 * @brief Display the How To Play menu.
 * ****************************************************************/
-void GameScene::HTPShow(bool state) 
+void Level0::HTPShow(bool state)
 {
 	if (gameJournalSpt)
 	{
@@ -793,7 +794,7 @@ void GameScene::HTPShow(bool state)
 /****************************************************************
 * @brief Display Comfirmation to exit the game.
 * ****************************************************************/
-void GameScene::ExitConfirm(bool state)
+void Level0::ExitConfirm(bool state)
 {
 
 	if (gameExitCfmBg)
@@ -821,7 +822,7 @@ void GameScene::ExitConfirm(bool state)
 /****************************************************************
 * @brief Change the current page of the How To Play menu.
 * ****************************************************************/
-void GameScene::changePage() 
+void Level0::changePage()
 {
 	switch (pageNumb)
 	{
@@ -842,7 +843,7 @@ void GameScene::changePage()
 	};
 }
 
-void GameScene::MiniGame_1(bool state)
+void Level0::MiniGame_1(bool state)
 {
 	// Hide Texts
 	if (scoreText)

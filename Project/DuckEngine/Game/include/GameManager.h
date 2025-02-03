@@ -20,6 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "MainMenu.h"
 #include "EndGame.h"
 #include "HowToPlay.h"
+#include "Level0.h"
 
 class GameManager
 {
