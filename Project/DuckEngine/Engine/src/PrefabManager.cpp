@@ -157,3 +157,25 @@ void PrefabManager::SavePrefab(const std::string& name)
 		std::cerr << "Error saving prefab: " << e.what() << std::endl;
 	}
 }
+
+int PrefabManager::GenerateTemporaryEntityFromPrefab(const std::string& prefabName)
+{
+	std::shared_ptr<Prefab> prefab = GetPrefab(prefabName);
+	if (!prefab)
+	{
+		std::cerr << "Error: Prefab not found: " << prefabName << std::endl;
+		return -1;
+	}
+
+	auto entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+	if (!entity)
+	{
+		std::cerr << "Error: Failed to create temporary entity for prefab: " << prefabName << std::endl;
+		return -1;
+	}
+
+	entity->name = prefabName + "_Temp";
+	ComponentFactory::AddComponentsToEntity(entity.get(), prefab->componentsData);
+
+	return entity->entityID;
+}

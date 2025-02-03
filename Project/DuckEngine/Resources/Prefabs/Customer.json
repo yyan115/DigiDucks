@@ -1,0 +1,52 @@
+{
+    "components": [
+        {
+            "properties": {
+                "position": {
+                    "x": 6.920041561126709,
+                    "y": -0.5710171461105347
+                },
+                "relativeToCamera": true,
+                "rotation": 0.0,
+                "scale": {
+                    "x": 2.5,
+                    "y": 3.0
+                }
+            },
+            "type": "TransformComponent"
+        },
+        {
+            "properties": {
+                "color": {
+                    "a": 255.0,
+                    "b": 255.0,
+                    "g": 255.0,
+                    "r": 255.0
+                },
+                "isVisible": true,
+                "sortingOrder": 0,
+                "sprite": true,
+                "texture": "Resources/Sprites/Duck/idle/idle1.png",
+                "useColor": false
+            },
+            "type": "SpriteRendererComponent"
+        },
+        {
+            "properties": {
+                "animations": [
+                    {
+                        "frameDuration": 0.20000000298023224,
+                        "name": "hehe",
+                        "textures": []
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "wasd",
+                        "textures": []
+                    }
+                ]
+            },
+            "type": "AnimatorComponent"
+        }
+    ]
+}

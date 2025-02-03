@@ -76,4 +76,6 @@ public:
 	static DUCKENGINE_API void SavePrefab(const std::string& name);
 
 	static const DUCKENGINE_API std::unordered_map<std::string, std::shared_ptr<Prefab>>& GetAllPrefabs();
+
+	static int DUCKENGINE_API GenerateTemporaryEntityFromPrefab(const std::string& prefabName);
 };

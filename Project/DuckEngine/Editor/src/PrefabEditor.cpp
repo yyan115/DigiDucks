@@ -21,6 +21,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <imgui_internal.h>
 #include "ImageLoader.h"
 #include "Inspector.h"
+#include "AnimationEditor.h"
+#include "PrefabManager.h"
 
 bool PrefabEditor::isOpen = false;
 std::string PrefabEditor::currentPrefabName = "";
@@ -366,30 +368,34 @@ void PrefabEditor::RenderPrefabProperties()
             index++;
         }
 
-        else if (type == "AnimatorComponent")
-        {
-            if (ImGui::CollapsingHeader("Animator Component"))
-            {
-                std::string currentAnimation = properties.value("currentAnimation", "");
+		if (type == "AnimatorComponent")
+		{
+			if (ImGui::CollapsingHeader("Animator Component"))
+			{
+				std::string currentAnimation = properties.value("currentAnimation", "");
+				if (ImGui::InputText("Current Animation", &currentAnimation[0], currentAnimation.size() + 1))
+				{
+					properties["currentAnimation"] = currentAnimation;
+				}
 
-                if (ImGui::InputText("Current Animation", currentAnimation.data(), currentAnimation.size()))
-                {
-                    properties["currentAnimation"] = currentAnimation;
-                }
+				if (ImGui::Button("Open Animation Editor"))
+				{
+					int prefabEntityID = PrefabManager::GenerateTemporaryEntityFromPrefab(currentPrefabName);
+					if (prefabEntityID != -1)
+					{
+						AnimationEditor::Open(prefabEntityID);
+					}
+					else
+					{
+						std::cerr << "Failed to generate a temporary entity for animation editing." << std::endl;
+					}
+				}
 
-                if (ImGui::Button("Play"))
-                {
-                }
+				ComponentMenu(index);
+			}
+			index++;
+		}
 
-                ImGui::SameLine();
-                if (ImGui::Button("Pause"))
-                {
-                }
-
-                ComponentMenu(index);
-            }
-            index++;
-        }
         else if (type == "SoundComponent")
         {
             if (ImGui::CollapsingHeader("Sound Component"))

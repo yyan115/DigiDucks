@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "State.h"
-#include "CustomerLogic.h"
 
 class CustomerLogic;
 
