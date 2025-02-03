@@ -36,6 +36,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 #include "SliderLogic.h"
 #include "ScoreLogic.h"
+#include "CustomerLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -81,6 +82,9 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("RestockLogic", std::make_shared<RestockLogic>());
 	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
 	GameLogicManager::AddLogic("ScoreLogic", std::make_shared<ScoreLogic>());
+
+	//Customer Logic
+	GameLogicManager::AddLogic("CustomerLogic", std::make_shared<CustomerLogic>());
 
 }
 

@@ -22,6 +22,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 class GameLogic
 {
 public:
+
+	GameLogic() : component(nullptr) {}
     /************************************************************************
     * @brief Constructor to initialize the game logic with a component
     * @param component Pointer to the associated GameLogicComponent

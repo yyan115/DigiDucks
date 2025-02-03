@@ -35,7 +35,7 @@
             "properties": {
                 "center": {
                     "x": 17.943925857543945,
-                    "y": 7.444329738616943
+                    "y": 7.744329929351807
                 },
                 "size": {
                     "x": 0.6000000238418579,
@@ -43,6 +43,12 @@
                 }
             },
             "type": "BoundingBox"
+        },
+        {
+            "properties": {
+                "isStatic": false
+            },
+            "type": "RigidbodyComponent"
         },
         {
             "properties": {
