@@ -23,16 +23,6 @@ void RestockLogic::Start()
 	restockStation = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	restockTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-
-	restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
-	if (restockMenu)
-	{
-		restockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockMenu->entityID);
-		if (restockMenuSpt)
-		{
-			restockMenuSpt->isVisible = false;
-		}
-	}
 }
 
 
@@ -47,10 +37,6 @@ void RestockLogic::Update()
 	}
 }
 
-void RestockLogic::RestockMenu()
-{
-	restockMenuSpt->isVisible = !restockMenuSpt->isVisible;
-}
 
 /****************************************************************
 * @brief Restock all items in the restock station.

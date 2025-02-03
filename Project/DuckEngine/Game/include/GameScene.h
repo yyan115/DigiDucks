@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
+#include "RestockLogic.h"
 
 class GameScene : public Scene
 {
@@ -41,6 +42,7 @@ private:
     void UpdateOrderTexture();
     void PauseGame(bool state);
     void HTPShow(bool state);
+	void RestockMenu(bool state);
     void ExitConfirm(bool state);
     void changePage();
     void MiniGame_1(bool state);
@@ -50,15 +52,22 @@ private:
     TransformComponent* duckTrans = nullptr;
     SoundComponent* TimeLeftSound = nullptr;
 
+	// Order Tab
     Entity* OrderTab = nullptr;
     SpriteRendererComponent* orderSprite = nullptr;
+    TextComponent* FPSText = nullptr;
+
+    // Timer
     Entity* timer = nullptr;
     TextComponent* timerText = nullptr;
-    TextComponent* FPSText = nullptr;
     float timeLeft = 0.f;
 
+	// Score
     Entity* score = nullptr;
     TextComponent* scoreText = nullptr;
+
+    // Game State
+    bool isPaused = false;
 
     // Pause Menu
     Entity* gamePauseBg = nullptr;
@@ -69,6 +78,10 @@ private:
     ButtonComponent* gameExitButton = nullptr;
     Entity* gameHTPBtn = nullptr;
     ButtonComponent* gameHTPButton = nullptr;
+
+
+    // HTP Page
+    int pageNumb = 1;
 
     // HTP Menu
     Entity* gameJournal = nullptr;
@@ -91,9 +104,9 @@ private:
     ButtonComponent* gameExitNoButton = nullptr;
 
     // Restock Menu
-    Entity* gameRestockMenu = nullptr;
+	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
     SpriteRendererComponent* gameRestockMenuSpt = nullptr;
-    Entity* gameRestockExitBtn = nullptr;
+	ButtonComponent* gameRestockAllButton = nullptr;
     ButtonComponent* gameRestockExitButton = nullptr;
 
     // MiniGame_1
@@ -154,9 +167,8 @@ private:
     Entity* gameMiniGame_T10 = nullptr;
     TextComponent* gameMiniGame_T10_Txt = nullptr;
 
-    // Other variables
-    int pageNumb = 1;
-    bool isPaused = false;
+
+	// Other Variables
     TextComponent* CountdownText = nullptr;
     float countdownTime = 4.0f;
     bool gameStarted = false;
