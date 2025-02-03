@@ -52,6 +52,14 @@
                 ]
             },
             "type": "AnimatorComponent"
+        },
+        {
+            "properties": {
+                "logicNames": [
+                    "MovementLogic"
+                ]
+            },
+            "type": "GameLogicComponent"
         }
     ]
 }
