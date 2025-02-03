@@ -68,21 +68,19 @@ public:
     static void Update();
 
     /// <summary>
-    /// Renders all text in the draw queue. This function is called each frame to draw text on the screen.
-    /// </summary>
-    static void Render();
-
-    /// <summary>
-    /// Adds a text render command to the draw queue for rendering in the next frame.
-    /// </summary>
-    /// <param name="drawOptions">The TextRenderCommand object containing the text, position, scale, color, and font name.</param>
-    static void AddToDrawQueue(TextRenderCommand& drawOptions);
-
-    /// <summary>
     /// A map storing all loaded fonts, each identified by a unique name, with each font storing its character glyphs.
     /// </summary>
     static std::map<std::string, std::map<GLchar, Character>> Fonts;
 
+    /// <summary>
+    /// The OpenGL Vertex Array Object (VAO) used for rendering text.
+    /// </summary>
+    static unsigned int VAO;
+
+    /// <summary>
+    /// The OpenGL Vertex Buffer Object (VBO) used for rendering text.
+    /// </summary>
+    static unsigned int VBO;
 private:
 
     /// <summary>
@@ -94,14 +92,4 @@ private:
     /// The FreeType library instance.
     /// </summary>
     static FT_Library ft;
-
-    /// <summary>
-    /// The OpenGL Vertex Array Object (VAO) used for rendering text.
-    /// </summary>
-    static unsigned int VAO;
-
-    /// <summary>
-    /// The OpenGL Vertex Buffer Object (VBO) used for rendering text.
-    /// </summary>
-    static unsigned int VBO;
 };

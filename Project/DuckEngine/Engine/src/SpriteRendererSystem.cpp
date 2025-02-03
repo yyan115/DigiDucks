@@ -167,7 +167,7 @@ void SpriteRendererSystem::Render()
 
 	for (const RenderData& data : renderQueue)
 	{
-		DrawOptions drawOptions;
+		GameRenderCommand drawOptions;
 		bool isUILayer = !data.transform->relativeToCamera;
 
 		if (isUILayer)
@@ -228,11 +228,8 @@ void SpriteRendererSystem::Render()
 
 		drawOptions.relativeToCamera = data.transform->relativeToCamera;
 
-		//if (!drawOptions.relativeToCamera) {
-		//	GraphicsManager::AddToCameraDrawQueue(drawOptions);
-		//}
-		//else {
-			GraphicsManager::AddToDrawQueue(drawOptions);
-		//}
+		UnifiedRenderCommand drawCommand{ data.layer, RenderCommandType::Game, drawOptions };
+
+		GraphicsManager::AddToDrawQueue(drawCommand);
 	}
 }

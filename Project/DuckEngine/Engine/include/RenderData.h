@@ -5,7 +5,7 @@
 \par        y.yan@digipen.edu
 \date       October 3 2024
 \brief      Defines the data structures used for rendering, such as
-            TextRenderCommand, DrawOptions, and DebugDrawCommand. These
+            TextRenderCommand, GameRenderCommand, and DebugRenderCommand. These
             structures store information about how to render text, shapes,
             and objects on the screen, including their positions, colors,
             scale, and rotation.
@@ -19,6 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 
 #include <string>
+#include <variant>
 
 #include "Vector2.h"
 #include "Color.h"
@@ -45,30 +46,32 @@ struct TextRenderCommand {
 
     bool isUI;
 
+    int layer;
+
     /// <summary>
     /// Constructs a TextRenderCommand with specified text, position, scale, and color.
     /// Defaults to a white color.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt = "",
         float posX = 0.0f, float posY = 0.0f,
-        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr), isUI(!relativeToCamera) {}
+        float scl = 1.0f, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false, int textLayer = 0)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(clr), isUI(!relativeToCamera), layer(textLayer) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         float posX, float posY,
-        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
-        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false, int textLayer = 0)
+        : fontName(fontName), text(txt), position(posX, posY), scale(scl), color(r, g, b, a), isUI(!relativeToCamera), layer(textLayer) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and RGB values with default alpha.
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, float r, float g, float b, float a, bool relativeToCamera = false)
-        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a), isUI(!relativeToCamera) {}
+        float scl, float r, float g, float b, float a, bool relativeToCamera = false, int textLayer = 0)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(r, g, b, a), isUI(!relativeToCamera), layer(textLayer) {}
 
     /// <summary>
     /// Constructs a TextRenderCommand using a Vec2 for position and a Color struct for color.
@@ -76,8 +79,8 @@ struct TextRenderCommand {
     /// </summary>
     TextRenderCommand(std::string fontName, const std::string& txt,
         Vec2 position,
-        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false)
-        : fontName(fontName), text(txt), position(position), scale(scl), color(clr), isUI(!relativeToCamera) {}
+        float scl, Color clr = Color{ 255.f, 255.f, 255.f, 255.f }, bool relativeToCamera = false, int textLayer = 0)
+        : fontName(fontName), text(txt), position(position), scale(scl), color(clr), isUI(!relativeToCamera), layer(textLayer) {}
 
     /// <summary>
     /// Destructor for TextRenderCommand.
@@ -89,7 +92,7 @@ struct TextRenderCommand {
 /// Represents options for drawing an object on the screen, including scale, rotation, translation, and color.
 /// Also provides options for using textures and whether the object is relative to the camera.
 /// </summary>
-struct DrawOptions {
+struct GameRenderCommand {
 
     // NECESSARY (SCALE, ROTATE, TRANSLATE)
     Vector2D scale = { 1.0f, 1.0f };
@@ -112,7 +115,7 @@ struct DrawOptions {
 /// Represents a command to draw a debug shape on the screen, such as a point, line, rectangle, or circle.
 /// Includes properties such as position, size, rotation, color, and camera relativity.
 /// </summary>
-struct DebugDrawCommand {
+struct DebugRenderCommand {
     enum Type { POINT, LINE, RECTANGLE, CIRCLE } type;
 
     Vector2D position1;      // For POINT, RECTANGLE (min), CIRCLE (center)
@@ -123,10 +126,10 @@ struct DebugDrawCommand {
     bool relativeToCamera;   // If relative to camera or not
 
     /// <summary>
-    /// Constructs a DebugDrawCommand with specified parameters for drawing a debug shape.
+    /// Constructs a DebugRenderCommand with specified parameters for drawing a debug shape.
     /// Initializes the appropriate fields based on the type of shape being drawn.
     /// </summary>
-    DebugDrawCommand(Type t, const Vector2D& pos1, const Vector2D& pos2, float sizeOrRadius, float rotation, const Color& color, bool relativeToCamera = true)
+    DebugRenderCommand(Type t, const Vector2D& pos1, const Vector2D& pos2, float sizeOrRadius, float rotation, const Color& color, bool relativeToCamera = true)
         : type(t), position1(pos1), position2(pos2), sizeOrRadius(sizeOrRadius), rotation(rotation), color(color), relativeToCamera(relativeToCamera)
     {
         switch (type) {
@@ -154,4 +157,18 @@ struct DebugDrawCommand {
             break;
         }
     }
+};
+
+// Define the three types of commands.
+enum class RenderCommandType {
+    Game,   // For game objects (using GameRenderCommand)
+    Text,   // For text (using TextRenderCommand)
+    Debug   // For debug drawing (using DebugRenderCommand)
+};
+
+// Our unified render command – each command carries a layer and a variant.
+struct UnifiedRenderCommand {
+    int layer;  // Lower layer numbers are drawn first.
+    RenderCommandType type;
+    std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand> command;
 };

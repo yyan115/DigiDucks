@@ -41,8 +41,8 @@ CurrentGizmo GizmoManager::currentGizmo = CurrentGizmo::TRANSLATE;
 
 static bool alreadyClicked = false;
 
-DrawOptions xAxisLineArrow;       // X-axis line arrow
-DrawOptions yAxisLineArrow;       // Y-axis line arrow
+GameRenderCommand xAxisLineArrow;       // X-axis line arrow
+GameRenderCommand yAxisLineArrow;       // Y-axis line arrow
 
 const float PI = 3.14159265f;
 const float RAD2DEG = 180.0f / PI;

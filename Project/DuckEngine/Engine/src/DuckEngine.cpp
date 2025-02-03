@@ -29,6 +29,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShaderManager.h"
 #include "FontManager.h"
 #include "CameraManager.h"
+#include "UnifiedRenderQueue.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -292,10 +293,8 @@ void DuckEngine::StartDraw(GLint width, GLint height)
 void DuckEngine::Draw() 
 { 
     CameraManager::Update();
-    //GraphicsManager::OldRender(false);
     TimeManager::StartManagerTimer("Graphics System");
     GraphicsManager::Render();
-    GraphicsManager::RenderDebug();
     GraphicsManager::DrawGizmo();
     TimeManager::EndManagerTimer("Graphics System");
 
@@ -304,7 +303,7 @@ void DuckEngine::Draw()
     DuckEngine::DUCKENGINE_SceneManager.Render();
     
     TimeManager::StartManagerTimer("Font System");
-    FontManager::Render();
+    //FontManager::Render();
     TimeManager::EndManagerTimer("Font System");
     
 }
@@ -412,16 +411,18 @@ void DuckEngine::SetCameraHeight(const int height) {
 @param scale The scaling factor for the text.
 @param color The color of the text.
 *************************************************************************/
-void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI) {
+void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI, int sortingOrder) {
     TextRenderCommand command{
         fontName,
         text,
         position,
         scale,
         color,
-        isUI
+        isUI,
+        sortingOrder
     };
-    FontManager::AddToDrawQueue(command);
+
+    GraphicsManager::AddToDrawQueue({ sortingOrder, RenderCommandType::Text, command });
 }
 
 /************************************************************************
@@ -432,10 +433,12 @@ void DuckEngine::RenderText(const std::string& fontName, const std::string& text
 @param color The color of the point (default is red).
 @param relativeToCamera Determines if the point should be drawn relative to the camera.
 *************************************************************************/
-void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera) {
-    // Create a DebugDrawCommand for a point and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
-    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera, int sortingOrder) {
+
+    // Create a DebugRenderCommand for a point and add it to the debug draw queue
+    DebugRenderCommand drawCommand(DebugRenderCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
+
+    GraphicsManager::AddToDrawQueue({ sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
@@ -447,10 +450,12 @@ void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& co
 @param color The color of the line (default is red).
 @param relativeToCamera Determines if the line should be drawn relative to the camera.
 *************************************************************************/
-void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color, bool relativeToCamera) {
-    // Create a DebugDrawCommand for a line and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
-    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color, bool relativeToCamera, int sortingOrder) {
+
+    // Create a DebugRenderCommand for a line and add it to the debug draw queue
+    DebugRenderCommand drawCommand(DebugRenderCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
+
+    GraphicsManager::AddToDrawQueue({ sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
@@ -462,16 +467,18 @@ void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size
 @param color The color of the rectangle (default is red).
 @param relativeToCamera Determines if the rectangle should be drawn relative to the camera.
 *************************************************************************/
-void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera) {
+void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera, int sortingOrder) {
+
     // Calculate the center of the rectangle
     Vector2D center = (minCorner + maxCorner) * 0.5f;
 
     // Calculate the size (width and height) of the rectangle
     Vector2D size = maxCorner - minCorner;
 
-    // Create a DebugDrawCommand for a rectangle with rotation and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::RECTANGLE, center, size, 0.f, rotation, color, relativeToCamera); // sizeOrRadius is 0 for rectangles
-    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+    // Create a DebugRenderCommand for a rectangle with rotation and add it to the debug draw queue
+    DebugRenderCommand drawCommand(DebugRenderCommand::RECTANGLE, center, size, 0.f, rotation, color, relativeToCamera); // sizeOrRadius is 0 for rectangles
+
+    GraphicsManager::AddToDrawQueue({ sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
@@ -481,10 +488,12 @@ void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCor
 @param color The color of the circle (default is red).
 @param relativeToCamera Determines if the circle should be drawn relative to the camera.
 *************************************************************************/
-void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera) {
-    // Create a DebugDrawCommand for a circle and add it to the debug draw queue
-    DebugDrawCommand drawCommand(DebugDrawCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
-    GraphicsManager::AddToDebugDrawQueue(drawCommand);
+void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera, int sortingOrder) {
+
+    // Create a DebugRenderCommand for a circle and add it to the debug draw queue
+    DebugRenderCommand drawCommand(DebugRenderCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
+
+    GraphicsManager::AddToDrawQueue({ sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************

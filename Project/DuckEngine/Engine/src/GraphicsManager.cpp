@@ -35,9 +35,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "ParticleSystem.h"
 
+#include "FontManager.h"
+#include "RenderData.h"
 
 GLuint GraphicsManager::VAO = 0;
-std::vector<DrawOptions> GraphicsManager::drawQueue;
 
 GLuint GraphicsManager::pointVAO;
 GLuint GraphicsManager::lineVAO;
@@ -50,27 +51,20 @@ GLuint GraphicsManager::fbo = 0;
 GLuint GraphicsManager::fboTexture = 0;
 GLuint GraphicsManager::depthStencil = 0;
 
-std::vector<DebugDrawCommand> GraphicsManager::debugDrawQueue;
-
 GLuint GraphicsManager::pointInstanceVBO = 0;
 GLuint GraphicsManager::lineInstanceVBO = 0;
 GLuint GraphicsManager::rectangleInstanceVBO = 0;
 GLuint GraphicsManager::circleInstanceVBO = 0;
-
-std::vector<DebugDrawCommand> GraphicsManager::pointCommands;
-std::vector<DebugDrawCommand> GraphicsManager::lineCommands;
-std::vector<DebugDrawCommand> GraphicsManager::rectangleCommands;
-std::vector<DebugDrawCommand> GraphicsManager::circleCommands;
 
 bool GraphicsManager::entityIsSelected = 0;
 GizmoData GraphicsManager::gizmoData;
 
 int GraphicsManager::currentGizmo = 1;
 
-std::vector<DrawOptions*> GraphicsManager::CameraDrawCommands;
-
 GLuint GraphicsManager::filledCircleVAO = 0;
 int GraphicsManager::filledCircleSegments = 0;
+
+std::vector<UnifiedRenderCommand> GraphicsManager::drawQueue;
 
 /// <summary>
 /// namespace with functions to help setup VBO and EBO
@@ -111,47 +105,6 @@ namespace {
     glm::mat3x3 CameraToNDCMatrix(const float width, const float height);
 }
 
-/// <summary>
-/// Adds a new drawing command to the queue that will be rendered on the next call to Render().
-/// </summary>
-/// <param name="drawOptions">The options for rendering the object, including position, rotation, and other properties.</param>
-void GraphicsManager::AddToDrawQueue(const DrawOptions& drawOptions) {
-    drawQueue.emplace_back(drawOptions);
-}
-
-void GraphicsManager::AddToCameraDrawQueue(const DrawOptions& drawOptions) {
-    drawQueue.emplace_back(drawOptions);
-
-    if (!drawOptions.relativeToCamera) {
-        // Add a pointer to the newly added element in drawQueue to CameraDrawCommands
-        CameraDrawCommands.emplace_back(&drawQueue.back());
-    }
-}
-
-//void GraphicsManager::OnWindowResize(int newWidth, int newHeight) {
-//    for (auto& drawCmdPtr : CameraDrawCommands) {
-//        if (drawCmdPtr && !drawCmdPtr->relativeToCamera) {
-//            // Recalculate position based on normalized UI coordinates
-//            drawCmdPtr->translation.x = drawCmdPtr->translation.x / WindowManager::GetWindowWidth() * newWidth;
-//            drawCmdPtr->translation.y = drawCmdPtr->translation.y / WindowManager::GetWindowHeight() * newHeight;
-//        }
-//    }
-//
-//    // Update stored dimensions
-//    //WindowManager::SetWindowSize(newWidth, newHeight);
-//}
-//
-
-
-
-/// <summary>
-/// Adds a new debug draw command to the debug queue that will be rendered on the next call to RenderDebug().
-/// </summary>
-/// <param name="drawCommand">The options for rendering the debug object, such as its position, type, and color.</param>
-void GraphicsManager::AddToDebugDrawQueue(const DebugDrawCommand& drawCommand) {
-    debugDrawQueue.emplace_back(drawCommand);
-}
-
 glm::mat3 OrthographicProjectionMatrix(float left, float right, float bottom, float top) {
     return glm::mat3(
         glm::vec3(2.0f / (right - left), 0.0f, 0.0f),
@@ -160,24 +113,59 @@ glm::mat3 OrthographicProjectionMatrix(float left, float right, float bottom, fl
     );
 }
 
-/// <summary>
-/// Renders all objects in the draw queue using the default shader and configured matrices. 
-/// Handles both textured and color-based rendering, setting up necessary OpenGL states.
-/// </summary>
-void GraphicsManager::Render() {
-    // Turn off VSync
-    //glfwSwapInterval(0);
+void GraphicsManager::AddToDrawQueue(const UnifiedRenderCommand& cmd) {
+    drawQueue.push_back(cmd);
+}
 
+// --- Unified Render Function ---
+void GraphicsManager::Render() {
+
+    // First, sort the unified render queue by layer.
+    std::sort(drawQueue.begin(), drawQueue.end(), [](const UnifiedRenderCommand& a, const UnifiedRenderCommand& b) {
+        return a.layer < b.layer;
+        });
+
+    // Bind the FBO and set up common state.
     BindFBO();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // For each command in the unified queue, dispatch according to its type.
+    for (const auto& cmd : drawQueue) {
+        switch (cmd.type) {
+        case RenderCommandType::Game:
+            RenderGameObject(std::get<GameRenderCommand>(cmd.command));
+            break;
+        case RenderCommandType::Text:
+            RenderTextObject(std::get<TextRenderCommand>(cmd.command));
+            break;
+        case RenderCommandType::Debug:
+            RenderDebugObject(std::get<DebugRenderCommand>(cmd.command));
+            break;
+        default:
+            break;
+        }
+    }
+
+    // Clear the queue after rendering.
+    drawQueue.clear();
+
+    // Optionally render particles, etc.
+    ParticleSystem::RenderTemp();
+
+    // Unbind FBO and cleanup.
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glUseProgram(0);
+    UnbindFBO();
+}
+
+void GraphicsManager::RenderGameObject(const GameRenderCommand& cmd) {
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // Set the clear color (e.g., black in this case)
-    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
-
-    // Clear the color buffer (and depth buffer, if used)
-    glClear(GL_COLOR_BUFFER_BIT);
 
     ShaderManager::GetShader("DefaultShader")->Use();
 
@@ -195,103 +183,217 @@ void GraphicsManager::Render() {
     float height = CameraManager::GetHeight();
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
 
-    for (const auto& drawItem : drawQueue) {
-        glm::mat3x3 modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+    glm::mat3x3 modelToWorld = ModelToWorldMatrix(cmd.scale, cmd.rotation, cmd.translation);
 
-        glm::mat3x3 finalMatrix;
+    glm::mat3x3 finalMatrix;
 
-        // world draw
-        if (drawItem.relativeToCamera) {
-            finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
-        }
-        // UI draw
-        else {
-            float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
-            float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());
+    // world draw
+    if (cmd.relativeToCamera) {
+        finalMatrix = cameraToNDC * viewMatrix * modelToWorld;
+    }
+    // UI draw
+    else {
+        float windowWidth = static_cast<float>(WindowManager::GetWindowWidth());
+        float windowHeight = static_cast<float>(WindowManager::GetWindowHeight());
 
-            float left = 0.0f;
-            float right = windowWidth;
-            float bottom = windowHeight;
-            float top = 0.0f;
+        float left = 0.0f;
+        float right = windowWidth;
+        float bottom = windowHeight;
+        float top = 0.0f;
 
-            glm::mat3 projection = OrthographicProjectionMatrix(left, right, bottom, top);
+        glm::mat3 projection = OrthographicProjectionMatrix(left, right, bottom, top);
 
-            // Ensure drawItem positions are in screen coordinates
-            glm::mat3 _modelToWorld = ModelToWorldMatrix(drawItem.scale, drawItem.rotation, drawItem.translation);
+        // Ensure drawItem positions are in screen coordinates
+        glm::mat3 _modelToWorld = ModelToWorldMatrix(cmd.scale, cmd.rotation, cmd.translation);
 
-            finalMatrix = projection * _modelToWorld;
-        }
-
-
-        // Send matrix to vert shader
-        GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uModelToNDC");
-        if (uniformModelToNDCLocation == -1) {
-            std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
-            std::exit(EXIT_FAILURE);
-        }
-
-        glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
-
-        if (drawItem.useTexture)
-        {
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, *drawItem.texture);
-
-            // Set the texture uniform
-            GLint uTex2dLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uTex2d");
-            if (uTex2dLocation != -1) {
-                glUniform1i(uTex2dLocation, 0);
-            }
-
-            GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
-
-            glUniform1i(uUseTextureLocation, 1);
-        }
-        else {
-            GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
-
-            glUniform1i(uUseTextureLocation, 0);
-        }
-
-        if (drawItem.useColor) {
-            GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
-
-            glUniform1i(uBlendColorsLocation, 1);
-            glUniform4f(uBlendColorLocation, drawItem.color.r / 255.f, drawItem.color.g / 255.f, drawItem.color.b / 255.f, drawItem.color.a / 255.f);
-        }
-        // Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
-        else {
-            GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
-            GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
-
-            glUniform1i(uBlendColorsLocation, 1);
-            glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
-        }
-
-        // Render the sprite
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+        finalMatrix = projection * _modelToWorld;
     }
 
-    ParticleSystem::RenderTemp();
+
+    // Send matrix to vert shader
+    GLint uniformModelToNDCLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uModelToNDC");
+    if (uniformModelToNDCLocation == -1) {
+        std::cout << "Uniform variable for modelToNDC doesn't exist!!!\n";
+        std::exit(EXIT_FAILURE);
+    }
+
+    glUniformMatrix3fv(uniformModelToNDCLocation, 1, GL_FALSE, glm::value_ptr(finalMatrix));
+
+    if (cmd.useTexture)
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, *cmd.texture);
+
+        // Set the texture uniform
+        GLint uTex2dLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uTex2d");
+        if (uTex2dLocation != -1) {
+            glUniform1i(uTex2dLocation, 0);
+        }
+
+        GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
+
+        glUniform1i(uUseTextureLocation, 1);
+    }
+    else {
+        GLint uUseTextureLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uUseTexture");
+
+        glUniform1i(uUseTextureLocation, 0);
+    }
+
+    if (cmd.useColor) {
+        GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
+        GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
+
+        glUniform1i(uBlendColorsLocation, 1);
+        glUniform4f(uBlendColorLocation, cmd.color.r / 255.f, cmd.color.g / 255.f, cmd.color.b / 255.f, cmd.color.a / 255.f);
+    }
+    // Test fallback white color for when no textures or colors are provided (Else potential undefined behaviour)
+    else {
+        GLint uBlendColorsLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColors");
+        GLint uBlendColorLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uBlendColor");
+
+        glUniform1i(uBlendColorsLocation, 1);
+        glUniform4f(uBlendColorLocation, 1.f, 1.f, 1.f, 1.f);
+    }
+
+    // Render the sprite
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glUseProgram(0);
-
-    drawQueue.clear();
-
-    UnbindFBO();
 }
 
-/// <summary>
-/// Renders all objects in the debug draw queue using the debug shader. 
-/// Handles rendering of shapes like points, lines, rectangles, and circles for debugging purposes.
-/// </summary>
-void GraphicsManager::RenderDebug()
-{
-    BindFBO();
+void GraphicsManager::RenderTextObject(const TextRenderCommand& cmd) {
+
+    auto shader = ShaderManager::GetShader("TextShader");
+    shader->Use();
+
+    // Enable alpha blending for text
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glDisable(GL_DEPTH_TEST);
+
+    // Bind the text VAO and set texture unit 0 active
+    glBindVertexArray(FontManager::VAO);
+    glActiveTexture(GL_TEXTURE0);
+
+    glm::mat4 projection(1.0f);
+
+    if (cmd.isUI)
+    {
+        // For UI text, use an orthographic projection that maps [0,1] to the screen
+        projection = glm::ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
+    }
+    else
+    {
+        // For world text, use a centered orthographic projection with camera offset
+        float virtualHeight = CameraManager::GetHeight();
+        float ar = CameraManager::GetAR();
+        float virtualWidth = virtualHeight * ar;
+        glm::mat4 orthoMat = glm::ortho(
+            -virtualWidth * 0.5f, virtualWidth * 0.5f,
+            -virtualHeight * 0.5f, virtualHeight * 0.5f,
+            -1.0f, 1.0f
+        );
+        auto camPos = CameraManager::GetPosition();
+        glm::mat4 view = glm::translate(glm::mat4(1.0f),
+            glm::vec3(-camPos.x, -camPos.y, 0.0f));
+        projection = orthoMat * view;
+    }
+
+    // Send the projection matrix to the shader
+    GLint projLoc = glGetUniformLocation(shader->GetProgram(), "projection");
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+    // Set the text color
+    GLint colorLoc = glGetUniformLocation(shader->GetProgram(), "textColor");
+    glUniform4f(colorLoc,
+        cmd.color.r / 255.f,
+        cmd.color.g / 255.f,
+        cmd.color.b / 255.f,
+        cmd.color.a / 255.f);
+
+    // Get the font character map for this text command
+    const auto& fontMap = FontManager::Fonts[cmd.fontName];
+
+    // Start at the given text position
+    float x = cmd.position.x;
+    float y = cmd.position.y;
+
+    if (cmd.isUI)
+    {
+        // Now text.scale is assumed to be normalized already.
+        for (char c : cmd.text)
+        {
+            if (fontMap.find(c) == fontMap.end())
+                continue;
+            const FontManager::Character& ch = fontMap.at(c);
+            // No division by winW/winH needed because we expect text.scale to be relative already.
+            float xpos = x + (ch.Bearing.x * cmd.scale);
+            float ypos = y - ((ch.Size.y - ch.Bearing.y) * cmd.scale);
+            float w = ch.Size.x * cmd.scale;
+            float h = ch.Size.y * cmd.scale;
+
+            GLfloat vertices[6][4] = {
+                { xpos,     ypos + h,  0.0f, 0.0f },
+                { xpos,     ypos,      0.0f, 1.0f },
+                { xpos + w, ypos,      1.0f, 1.0f },
+
+                { xpos,     ypos + h,  0.0f, 0.0f },
+                { xpos + w, ypos,      1.0f, 1.0f },
+                { xpos + w, ypos + h,  1.0f, 0.0f }
+            };
+
+            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+            glBindBuffer(GL_ARRAY_BUFFER, FontManager::VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+
+            // Advance x without additional division.
+            x += ((ch.Advance >> 6) * cmd.scale);
+        }
+    }
+    else
+    {
+        // For world text, positions are in world (pixel) units; use the original calculations.
+        for (char c : cmd.text)
+        {
+            if (fontMap.find(c) == fontMap.end())
+                continue;
+            const FontManager::Character& ch = fontMap.at(c);
+
+            float xpos = x + ch.Bearing.x * cmd.scale;
+            float ypos = y - (ch.Size.y - ch.Bearing.y) * cmd.scale;
+            float w = ch.Size.x * cmd.scale;
+            float h = ch.Size.y * cmd.scale;
+
+            GLfloat vertices[6][4] = {
+                { xpos,     ypos + h,  0.0f, 0.0f },
+                { xpos,     ypos,      0.0f, 1.0f },
+                { xpos + w, ypos,      1.0f, 1.0f },
+
+                { xpos,     ypos + h,  0.0f, 0.0f },
+                { xpos + w, ypos,      1.0f, 1.0f },
+                { xpos + w, ypos + h,  1.0f, 0.0f }
+            };
+
+            glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+            glBindBuffer(GL_ARRAY_BUFFER, FontManager::VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+
+            x += (ch.Advance >> 6) * cmd.scale;
+        }
+    }
+
+    // Unbind VAO and texture, clear the draw queue, and unbind the FBO.
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void GraphicsManager::RenderDebugObject(const DebugRenderCommand& cmd) {
 
     // Get camera matrices
     Vector2D cameraPosition = CameraManager::GetPosition();
@@ -301,29 +403,25 @@ void GraphicsManager::RenderDebug()
     glm::mat3x3 viewMatrix = ViewMatrix(cameraPosition);
     glm::mat3x3 cameraToNDC = CameraToNDCMatrix(ar * height, height);
     glm::mat3x3 cameraViewMatrix = cameraToNDC * viewMatrix;
-    // Iterate through the queue and process each draw command
-    for (const DebugDrawCommand& command : debugDrawQueue) {
-        bool useCamera = command.relativeToCamera; // Check if the command should use the camera matrix
-        switch (command.type) {
-        case DebugDrawCommand::POINT:
-            DrawPoint(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::LINE:
-            DrawLine(command.position1, command.position2, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::RECTANGLE:
-            DrawRectangle(command.position1, command.position2, command.rotation, command.color, useCamera, cameraViewMatrix);
-            break;
-        case DebugDrawCommand::CIRCLE:
-            DrawCircle(command.position1, command.sizeOrRadius, command.color, useCamera, cameraViewMatrix);
-            break;
-        }
+
+    bool useCamera = cmd.relativeToCamera; // Check if the command should use the camera matrix
+
+    switch (cmd.type) {
+    case DebugRenderCommand::POINT:
+        DrawPoint(cmd.position1, cmd.sizeOrRadius, cmd.color, useCamera, cameraViewMatrix);
+        break;
+    case DebugRenderCommand::LINE:
+        DrawLine(cmd.position1, cmd.position2, cmd.sizeOrRadius, cmd.color, useCamera, cameraViewMatrix);
+        break;
+    case DebugRenderCommand::RECTANGLE:
+        DrawRectangle(cmd.position1, cmd.position2, cmd.rotation, cmd.color, useCamera, cameraViewMatrix);
+        break;
+    case DebugRenderCommand::CIRCLE:
+        DrawCircle(cmd.position1, cmd.sizeOrRadius, cmd.color, useCamera, cameraViewMatrix);
+        break;
     }
 
-    UnbindFBO();
-
-    // Clear the debug draw queue after rendering
-    debugDrawQueue.clear();
+    std::cout << "rendered debug for watever reason\n";
 }
 
 /// <summary>
@@ -388,17 +486,6 @@ void GraphicsManager::InitializeSingleMeshShaderSystem() {
 /// Sets up VAOs for rendering debug shapes such as points, lines, rectangles, and circles.
 /// </summary>
 void GraphicsManager::InitializeDebugShaderSystem() {
-    //ShaderManager::InsertShader("DebugShader", "../Resources/Shaders/DebugVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-
-    //GraphicsManager::SetupCircleVAO(100);
-    //GraphicsManager::SetupLineVAO();
-    //GraphicsManager::SetupPointVAO();
-    //GraphicsManager::SetupRectangleVAO();
-
-    //ShaderManager::InsertShader("PointShader", "../Resources/Shaders/PointVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    //ShaderManager::InsertShader("LineShader", "../Resources/Shaders/LineVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    //ShaderManager::InsertShader("RectangleShader", "../Resources/Shaders/RectangleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
-    //ShaderManager::InsertShader("CircleShader", "../Resources/Shaders/CircleVertShader.vert", "../Resources/Shaders/DebugFragShader.frag");
 
     ShaderManager::InsertShader("DebugShader", "Resources/Shaders/DebugVertShader.vert", "Resources/Shaders/DebugFragShader.frag");
 

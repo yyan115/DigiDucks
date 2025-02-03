@@ -43,6 +43,8 @@ public:
 
     bool isEnabled;
 
+    int sortingOrder;
+
     /// <summary>
     /// Constructs a TextComponent with specified font name, text content, position, 
     /// font size, color, and enabled state.
@@ -60,9 +62,10 @@ public:
         float fontSize = 1.f,
         const Color& color = Color(255, 255, 255),
         //std::shared_ptr<Font> font = nullptr,
-        bool enabled = true
+        bool enabled = true,
+        int sortingOrder = 0
     )
-        : fontName(fontName), text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled) {}
+        : fontName(fontName), text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled), sortingOrder(sortingOrder) {}
 
     /// <summary>
     /// Creates and returns a clone of the TextComponent.

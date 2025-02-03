@@ -19,6 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <map>
 #include <vector>
+#include <algorithm>
 
 #include <glm/glm.hpp>
 #include <GL/glew.h>
@@ -27,6 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "RenderData.h"
 #include "Color.h"
+#include "UnifiedRenderQueue.h"
 
 #ifdef APIENTRY
 #undef APIENTRY
@@ -42,6 +44,7 @@ struct GizmoData {
     Vector2D position{ 0.0f, 0.0f };
     float size{ 1.0f };
 };
+
 
 /// <summary>
 /// The GraphicsManager class is responsible for managing all graphics rendering for game objects, including the 
@@ -66,35 +69,12 @@ public:
     /// </summary>
     static void Exit();
 
+    static void AddToDrawQueue(const UnifiedRenderCommand& cmd);
+
     /// <summary>
     /// Executes the rendering pipeline, drawing all queued objects to the screen.
     /// </summary>
     static void Render();
-
-    /// <summary>
-    /// Renders debugging visual elements that have been added to the debug draw queue.
-    /// </summary>
-    static void RenderDebug();
-
-    /// <summary>
-    /// Adds a drawing command to the draw queue, which will be rendered during the next call to Render().
-    /// </summary>
-    /// <param name="drawOptions">A set of options specifying how the object should be drawn.</param>
-    DUCKENGINE_API static void AddToDrawQueue(const DrawOptions& drawOptions);
-
-    /// <summary>
-    /// Adds a drawing command to the camera draw queue, which will be checked and resized if window resizes.
-    /// </summary>
-    /// <param name="drawOptions">A set of options specifying how the object should be drawn.</param>
-    DUCKENGINE_API static void AddToCameraDrawQueue(const DrawOptions& drawOptions);
-
-    //DUCKENGINE_API static void OnWindowResize(int oldWidth, int oldHeight, int newWidth, int newHeight);
-
-    /// <summary>
-    /// Adds a debugging draw command to the debug draw queue, which will be rendered in the next call to RenderDebug().
-    /// </summary>
-    /// <param name="drawCommand">The draw command specifying how the debug element should be rendered.</param>
-    static void AddToDebugDrawQueue(const DebugDrawCommand& drawCommand);
 
     /// <summary>
     /// Sets the background color for the rendering window.
@@ -154,8 +134,12 @@ public:
     DUCKENGINE_API static void DrawFilledCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera = true);
 
 private:
+    static std::vector<UnifiedRenderCommand> drawQueue;
 
-    static std::vector<DrawOptions*> CameraDrawCommands;
+    // Internal helper functions to dispatch different command types.
+    static void RenderGameObject(const GameRenderCommand& cmd);
+    static void RenderTextObject(const TextRenderCommand& cmd);
+    static void RenderDebugObject(const DebugRenderCommand& cmd);
 
     /// <summary>
     /// Draws a point at the specified position with the given size and color.
@@ -232,8 +216,6 @@ private:
 
     // Variables for VAOs
     static GLuint VAO;
-    static std::vector<DrawOptions> drawQueue;
-    static std::vector<DebugDrawCommand> debugDrawQueue;
     static Color backgroundColor;
 
     // Debug-specific VAOs
@@ -252,12 +234,6 @@ private:
     static GLuint lineInstanceVBO;
     static GLuint rectangleInstanceVBO;
     static GLuint circleInstanceVBO;
-
-    // Grouped debug commands
-    static std::vector<DebugDrawCommand> pointCommands;
-    static std::vector<DebugDrawCommand> lineCommands;
-    static std::vector<DebugDrawCommand> rectangleCommands;
-    static std::vector<DebugDrawCommand> circleCommands;
 
     /// <summary>
     /// Draws an arrow from the specified start point in the given direction.
@@ -291,6 +267,4 @@ private:
     static GLuint filledCircleVAO;
     static int filledCircleSegments;
     static void SetupFilledCircleVAO(int segments);
-    
-    static bool resized;
 };
