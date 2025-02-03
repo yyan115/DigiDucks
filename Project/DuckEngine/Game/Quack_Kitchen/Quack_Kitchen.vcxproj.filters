@@ -80,6 +80,9 @@
     <ClCompile Include="..\src\ScoreLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CutsceneLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -254,6 +257,9 @@
       <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\ScoreLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CutSceneLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>

@@ -608,6 +608,15 @@ void InspectorRenderer::RenderComponents(int entityID)
 				hasChanged = true;
 			}
 
+			ImGui::Text("Sorting Order");
+			ImGui::SameLine(110);
+			ImGui::PushItemWidth(130);
+			if (ImGui::InputInt("##SortingOrder", &text->sortingOrder))
+			{
+				hasChanged = true;
+			}
+			ImGui::PopItemWidth();
+
 			// Enabled checkbox
 			if (ImGui::Checkbox("Enabled", &text->isEnabled)) {
 				hasChanged = true;

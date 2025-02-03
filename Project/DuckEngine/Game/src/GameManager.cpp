@@ -37,6 +37,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SliderLogic.h"
 #include "ScoreLogic.h"
 #include "CustomerLogic.h"
+#include "CutSceneLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -85,7 +86,7 @@ void GameManager::InitScenes()
 
 	//Customer Logic
 	GameLogicManager::AddLogic("CustomerLogic", std::make_shared<CustomerLogic>());
-
+	GameLogicManager::AddLogic("CutSceneLogic", std::make_shared<CutSceneLogic>());
 }
 
  /****************************************************************
