@@ -25,20 +25,15 @@ private:
 	TransformComponent* restockTransform;
 	AnimatorComponent* animator;
 
-	Entity* restockMenu;
-	SpriteRendererComponent* restockMenuSpt;
-	//ButtonComponent* tomatoButton;
-	//ButtonComponent* lettuceButton;
-	//ButtonComponent* shrimpButton;
 
 public:
 	bool isRestock = false;
 
 	RestockLogic() :
-		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr), restockMenu(nullptr), restockMenuSpt(nullptr){}
+		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr) {}
 
 	RestockLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr), restockMenu(nullptr), restockMenuSpt(nullptr)
+		GameLogic(nullptr), restockStation(nullptr), restockTransform(nullptr), animator(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -67,7 +62,6 @@ public:
 		return clone;
 	}
 
-	void RestockMenu();
 
 	/****************************************************************
 	* @brief Restock all items in the restock station.

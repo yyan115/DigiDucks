@@ -211,6 +211,42 @@ void GameScene::Load()
 		}
 	}
 
+	// Restock Menu
+	{
+		auto gameRestockRobot = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Robot").get();
+		if (gameRestockRobot)
+		{
+			robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockRobot->entityID);
+		}
+		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+		if (gameRestockMenu)
+		{
+			gameRestockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameRestockMenu->entityID);
+			if (gameRestockMenuSpt)
+			{
+				gameRestockMenuSpt->isVisible = false;
+			}
+		}
+		auto gameRestockAllBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_All_Btn").get();
+		if (gameRestockAllBtn)
+		{
+			gameRestockAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameRestockAllBtn->entityID);
+			if (gameRestockAllButton)
+			{
+				gameRestockAllButton->onClick = [this]() { robotRestockLogic->RestockAll(); };
+			}
+		}
+		auto gameRestockExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Exit_Btn").get();
+		if (gameRestockExitBtn)
+		{
+			gameRestockExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameRestockExitBtn->entityID);
+			if (gameRestockExitButton)
+			{
+				gameRestockExitButton->onClick = [this]() { RestockMenu(false); };
+			}
+		}
+	}
+
 	// MiniGame_1
 	{
 		gameMiniGame_Text = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Text").get();
@@ -493,6 +529,7 @@ void GameScene::Load()
 			}
 		}
 	}
+	
 	auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
 	if (TimeLeftEntity) {
 		TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(TimeLeftEntity->entityID);
@@ -511,6 +548,8 @@ void GameScene::Load()
 	GamefadeElapsedTime = 0.0f;
 	gameStarted = false;
 	countdownTime = 4.0f;
+
+
 	PauseGame(false);
 	MiniGame_1(false);
 }
@@ -763,6 +802,7 @@ void GameScene::PauseGame(bool state)
 
 	HTPShow(false);
 	ExitConfirm(false);
+	RestockMenu(false);
 	DuckEngine::SetPaused(state);
 }
 
@@ -791,7 +831,7 @@ void GameScene::HTPShow(bool state)
 
 
 /****************************************************************
-* @brief Display Comfirmation to exit the game.
+* @brief Change the visibility of the exit confirmation menu.
 * ****************************************************************/
 void GameScene::ExitConfirm(bool state)
 {
@@ -841,6 +881,29 @@ void GameScene::changePage()
 		break;
 	};
 }
+
+/****************************************************************
+* @brief Change the visibility of the restock menu.
+* ****************************************************************/
+void GameScene::RestockMenu(bool state)
+{
+	// Disable/Enable Restock Menu
+	if (gameRestockMenuSpt)
+	{
+		gameRestockMenuSpt->isVisible = state;
+	}
+
+	// Disable/Enable Quit and Resume Btn
+	if(gameRestockAllButton)
+	{
+		gameRestockAllButton->isEnabled = state;
+	}
+	if (gameRestockExitButton)
+	{
+		gameRestockExitButton->isEnabled = state;
+	}
+}
+
 
 void GameScene::MiniGame_1(bool state)
 {
