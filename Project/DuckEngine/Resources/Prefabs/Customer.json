@@ -3,8 +3,8 @@
         {
             "properties": {
                 "position": {
-                    "x": 4.037384033203125,
-                    "y": -2.030769109725952
+                    "x": 17.943925857543945,
+                    "y": 7.744329929351807
                 },
                 "relativeToCamera": true,
                 "rotation": 0.0,
@@ -33,6 +33,25 @@
         },
         {
             "properties": {
+                "center": {
+                    "x": 17.943925857543945,
+                    "y": 7.744329929351807
+                },
+                "size": {
+                    "x": 0.6000000238418579,
+                    "y": 0.8999999761581421
+                }
+            },
+            "type": "BoundingBox"
+        },
+        {
+            "properties": {
+                "isStatic": false
+            },
+            "type": "RigidbodyComponent"
+        },
+        {
+            "properties": {
                 "animations": [
                     {
                         "frameDuration": 0.20000000298023224,
@@ -56,7 +75,7 @@
         {
             "properties": {
                 "logicNames": [
-                    "MovementLogic"
+                    "CustomerLogic"
                 ]
             },
             "type": "GameLogicComponent"
