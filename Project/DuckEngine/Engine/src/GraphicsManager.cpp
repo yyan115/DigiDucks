@@ -103,6 +103,28 @@ namespace {
     glm::mat3x3 ModelToWorldMatrix(const Vector2D& scale, float rotation, const Vector2D& translate);
 
     glm::mat3x3 CameraToNDCMatrix(const float width, const float height);
+
+    static void ResetGLState() {
+        // Unbind VAO and buffers:
+        glBindVertexArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        // Reset active texture and unbind any 2D texture.
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        // Unbind any shader program.
+        glUseProgram(0);
+
+        // Reset common state: for many 2D engines a default state might be:
+        //    blending enabled with SRC_ALPHA, ONE_MINUS_SRC_ALPHA, and
+        //    depth testing disabled.
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDisable(GL_DEPTH_TEST);
+    }
+
 }
 
 glm::mat3 OrthographicProjectionMatrix(float left, float right, float bottom, float top) {
@@ -132,8 +154,8 @@ void GraphicsManager::Render() {
 
     // Bind the FBO and set up common state.
     BindFBO();
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -152,6 +174,8 @@ void GraphicsManager::Render() {
         default:
             break;
         }
+        // Reset state after processing each command
+        ResetGLState();
     }
 
     // Clear the queue after rendering.
@@ -1287,6 +1311,8 @@ bool GraphicsManager::InitializeFBO(int width, int height)
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fboTexture, 0);
+    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, drawBuffers);
 
     glGenRenderbuffers(1, &depthStencil);
     glBindRenderbuffer(GL_RENDERBUFFER, depthStencil);

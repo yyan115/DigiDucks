@@ -144,10 +144,10 @@ void SpriteRendererSystem::Render()
 				continue;
 			}
 
-			//if (!DuckEngine::IsPlaying())
-			//{
-			//	transform->previousPosition = transform->GetPosition();
-			//}
+			if (!DuckEngine::IsPlaying())
+			{
+				transform->previousPosition = transform->GetPosition();
+			}
 
 			RenderData data;
 			data.transform = transform;
@@ -160,55 +160,55 @@ void SpriteRendererSystem::Render()
 		}
 	}
 
-	//std::sort(renderQueue.begin(), renderQueue.end(),
-	//	[](const RenderData& a, const RenderData& b) {
-	//		if (a.layer != b.layer)
-	//			return a.layer < b.layer;
-	//		return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
-	//	});
+	std::sort(renderQueue.begin(), renderQueue.end(),
+		[](const RenderData& a, const RenderData& b) {
+			if (a.layer != b.layer)
+				return a.layer < b.layer;
+			return a.spriteRenderer->sortingOrder < b.spriteRenderer->sortingOrder;
+		});
 
 	for (const RenderData& data : renderQueue)
 	{
 		GameRenderCommand drawOptions;
-		//bool isUILayer = !data.transform->relativeToCamera;
+		bool isUILayer = !data.transform->relativeToCamera;
 
-		//if (isUILayer)
-		//{
-		//	Vector2D uiPos = data.transform->GetPosition();
-		//	drawOptions.translation = Vector2D(
-		//		uiPos.x * viewportWidth,
-		//		uiPos.y * viewportHeight
-		//	);
-		//}
-		//else if (data.transform->relativeToCamera)
-		//{
-		//	if (data.transform->previousPosition == data.transform->GetPosition())
-		//	{
-		//		drawOptions.translation = data.transform->GetPosition();
-		//	}
-		//	else
-		//	{
-		//		Vector2D interpolatedPosition = data.transform->previousPosition +
-		//			(data.transform->GetPosition() - data.transform->previousPosition) * alpha;
-		//		drawOptions.translation = interpolatedPosition;
-		//	}
-		//}
-		//else
-		//{
+		if (isUILayer)
+		{
+			Vector2D uiPos = data.transform->GetPosition();
+			drawOptions.translation = Vector2D(
+				uiPos.x * viewportWidth,
+				uiPos.y * viewportHeight
+			);
+		}
+		else if (data.transform->relativeToCamera)
+		{
+			if (data.transform->previousPosition == data.transform->GetPosition())
+			{
+				drawOptions.translation = data.transform->GetPosition();
+			}
+			else
+			{
+				Vector2D interpolatedPosition = data.transform->previousPosition +
+					(data.transform->GetPosition() - data.transform->previousPosition) * alpha;
+				drawOptions.translation = interpolatedPosition;
+			}
+		}
+		else
+		{
 			drawOptions.translation = data.transform->GetPosition();
-		//}
+		}
 
-		//if (isUILayer)
-		//{
-		//	drawOptions.scale = Vector2D(
-		//		data.transform->scale.x * viewportWidth,
-		//		data.transform->scale.y * viewportHeight
-		//	);
-		//}
-		//else
-		//{
+		if (isUILayer)
+		{
+			drawOptions.scale = Vector2D(
+				data.transform->scale.x * viewportWidth,
+				data.transform->scale.y * viewportHeight
+			);
+		}
+		else
+		{
 			drawOptions.scale = data.transform->scale;
-		//}
+		}
 
 		drawOptions.rotation = data.transform->angle;
 

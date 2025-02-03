@@ -106,7 +106,7 @@ struct GameRenderCommand {
     unsigned int* texture = 0;
 
     // OPTIONAL
-    bool relativeToCamera = false;
+    bool relativeToCamera = true;
 };
 
 /// <summary>
