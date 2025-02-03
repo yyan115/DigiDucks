@@ -59,7 +59,7 @@ void GameScene::Load()
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "Time: 10:00";
+			timerText->text = "Time:";
 			timeLeft = 60.f;
 		}
 	}
@@ -497,8 +497,20 @@ void GameScene::Load()
 	if (TimeLeftEntity) {
 		TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(TimeLeftEntity->entityID);
 	}
+	auto FadeEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameFadeScreen");
+	if (FadeEntity) {
+		FadeOutSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeEntity->entityID);
+		FadeOutSprite->isVisible = false;
+	}
+	auto CountdownEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Countdown_Text");
+	if (CountdownEntity) {
+		CountdownText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(CountdownEntity->entityID);
+		CountdownText->isEnabled = false;
+	}
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
+	gameStarted = false;
+	countdownTime = 4.0f;
 	PauseGame(false);
 	MiniGame_1(false);
 }
@@ -524,6 +536,42 @@ void GameScene::Update()
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
+	// Handle countdown before game starts
+	if (!gameStarted) {
+		countdownTime -= DuckEngine::DeltaTime();
+		int displayNumber = static_cast<int>(ceil(countdownTime));
+
+		if (CountdownText) {
+			CountdownText->isEnabled = true;
+			if (displayNumber > 1) {
+				TimeLeftSound->Play(3);
+				CountdownText->text = std::to_string(displayNumber) + "..";
+			}
+			else {
+				CountdownText->text = "Start!";
+			}
+		}
+
+		// Reduce FadeOutSprite opacity over time
+		if (FadeOutSprite) {
+			FadeOutSprite->isVisible = true;
+			float fadeProgress = countdownTime / 3.0f;
+			FadeOutSprite->color.a = static_cast<int>(fadeProgress * 150); // Reduce alpha gradually
+		}
+
+		// When countdown finishes, start the game
+		if (countdownTime <= 0.0f) {
+			gameStarted = true;
+			CountdownText->isEnabled = false;
+			// Reset sprite
+			if (FadeOutSprite) {
+				FadeOutSprite->color.a = 0;
+				FadeOutSprite->isVisible = false;
+			}
+		}
+		return; // Skip game logic until countdown is done
+	}
+
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
 	if (!isPaused)
 	{
@@ -539,6 +587,7 @@ void GameScene::Update()
 		}
 	}
 
+	// Timer Display
 	if (timerText) {
 		// Update the timer
 		if (timeLeft > 0.f) {
@@ -550,6 +599,7 @@ void GameScene::Update()
 			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 				timerText->color = { 255, 0, 0, 255 };
 				TimeLeftSound->Play(0);
+				GamefadeElapsedTime = 0.0f;
 			}
 		}
 		else {
@@ -559,6 +609,7 @@ void GameScene::Update()
 				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
 				TimeLeftSound->Play(1); // Play final sound
 				hasStartedFade = true;
+				FadeOutSprite->isVisible = true;
 			}
 
 			if (hasStartedFade) {
@@ -566,18 +617,22 @@ void GameScene::Update()
 				float fadeProgress = GamefadeElapsedTime / 3.0f;
 
 				if (fadeProgress >= 1.0f) {
-					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], 0.0f);
+					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], 0.0f);					
 					SoundSystem::StopSounds(TimeLeftSound->soundID[1]);
+					FadeOutSprite->color.a = 0;
+					FadeOutSprite->isVisible = false;
 					GameManager::SetActiveScene("EndScene");
 				}
 				else {
 					float newVolume = TimeLeftSound->volume * (1.0f - fadeProgress);
 					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], newVolume);
+					FadeOutSprite->color.a = static_cast<int>(fadeProgress * 255.0f);
 				}
 			}
 		}
 	}
 
+	// FPS Counter
 	if (FPSText != nullptr) {
 		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
 	}

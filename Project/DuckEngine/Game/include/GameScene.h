@@ -157,6 +157,12 @@ private:
     // Other variables
     int pageNumb = 1;
     bool isPaused = false;
+    TextComponent* CountdownText = nullptr;
+    float countdownTime = 4.0f;
+    bool gameStarted = false;
+
+	// Fade out
     bool hasStartedFade = false;
     float GamefadeElapsedTime = 0.f;
+	SpriteRendererComponent* FadeOutSprite = nullptr;
 };

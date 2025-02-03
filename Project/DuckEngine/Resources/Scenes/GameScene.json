@@ -619,6 +619,45 @@
             ],
             "layer": "Gameplay"
         },
+        "Countdown_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": false,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "text": "start"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Cutting_Station_01": {
             "components": [
                 {
@@ -1034,6 +1073,42 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "GameFadeScreen": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 150.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 10,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Grey_Plate": {
             "components": [
@@ -4586,7 +4661,8 @@
                         "soundID": [
                             "Resources/Sounds/timer/timer warning.mp3",
                             "Resources/Sounds/timer/times up.mp3",
-                            "Resources/Sounds/UI Menu/pause menu open sfx.mp3"
+                            "Resources/Sounds/UI Menu/pause menu open sfx.mp3",
+                            "Resources/Sounds/timer/countdown.mp3"
                         ],
                         "volume": 0.5
                     },
@@ -4627,7 +4703,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "text": "Time: 10:00"
+                        "text": "Time:"
                     },
                     "type": "TextComponent"
                 }
