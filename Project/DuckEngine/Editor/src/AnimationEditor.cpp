@@ -124,49 +124,60 @@ void AnimationEditor::Render()
 **************************************************************************/
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 {
-	ImGui::Text("Animations");
-	ImGui::Separator();
-
 	auto& animations = animator->GetAnimations();
+	std::vector<std::string> animationsToRemove; // Temporary list to hold animations for removal
 
+	// Iterate over animations safely
 	for (const auto& [name, animation] : animations)
 	{
-		if (ImGui::Selectable(name.c_str(), currentAnimationName == name))
+		bool isSelected = (currentAnimationName == name);
+
+		if (ImGui::Selectable(name.c_str(), isSelected))
 		{
 			currentAnimationName = name;
 		}
 
+		// Context menu for each animation
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Remove Animation"))
 			{
-				animator->animations.erase(name);
+				animationsToRemove.push_back(name); // Mark animation for removal
 				if (currentAnimationName == name)
 				{
-					currentAnimationName.clear();
+					currentAnimationName.clear(); // Reset the current animation if it's being removed
 				}
-				ImGui::EndPopup();
-				break;
+				ImGui::CloseCurrentPopup();
 			}
 			ImGui::EndPopup();
 		}
 	}
 
+	// Remove animations after rendering
+	for (const std::string& name : animationsToRemove)
+	{
+		animations.erase(name);
+	}
+
+	// Button to add new animations
 	if (ImGui::Button("Add Animation"))
 	{
 		static int newAnimationIndex = 1;
 		std::string newName = "NewAnimation" + std::to_string(newAnimationIndex++);
 
+		// Ensure unique name
 		while (animations.find(newName) != animations.end())
 		{
 			newName = "NewAnimation" + std::to_string(newAnimationIndex++);
 		}
 
-		Animation newAnimation(0.1f);
-		animator->animations[newName] = newAnimation;
-		currentAnimationName = newName;
+		animations[newName] = Animation(0.1f); // Add a new animation with default frame duration
+		currentAnimationName = newName;       // Select the new animation
 	}
 }
+
+
+
 
 /**************************************************************************
 * @brief Renders the timeline section for the selected animation,

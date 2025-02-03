@@ -117,7 +117,7 @@ public:
         }
     }
 
-    DUCKENGINE_API const std::unordered_map<std::string, Animation>& GetAnimations() const
+    DUCKENGINE_API std::unordered_map<std::string, Animation>& GetAnimations()
     {
         return animations;
     }
