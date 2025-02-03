@@ -118,15 +118,6 @@ void TextSystem::Render()
         if (!transform)
             continue;
 
-        int orderInt = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()->GetOrderFromEntityID(entityId);
-
-        auto entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityId);
-        auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
-        Layer* currentLayer = activeScene->GetLayer(entity.get()->layerName);
-
-        if (!currentLayer->IsVisible())
-            continue;
-
         // skip if no sprite renderer
         //auto sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId);
         //if (!sprite)
@@ -165,7 +156,7 @@ void TextSystem::Render()
 
         TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera);
 
-        GraphicsManager::AddToDrawQueue({ orderInt, text->sortingOrder, RenderCommandType::Text, TextDrawCommand });
+        GraphicsManager::AddToDrawQueue({ text->sortingOrder, RenderCommandType::Text, TextDrawCommand });
     }
 }
 

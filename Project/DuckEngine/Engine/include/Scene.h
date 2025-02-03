@@ -90,8 +90,6 @@ public:
 	void AddEntityToLayer(const std::string& layerName, Entity* entity);
 	void RemoveEntityFromLayer(const std::string& layerName, int entityID);
 
-	int GetOrderFromEntityID(int entityID) const;
-
 	std::string sceneName;
 private:
 	std::unordered_map<std::string, Layer> layers; // Layers in the scene

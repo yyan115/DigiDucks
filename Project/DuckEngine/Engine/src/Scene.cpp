@@ -169,12 +169,3 @@ void Scene::RemoveEntityFromLayer(const std::string& layerName, int entityID)
         layers[layerName].RemoveEntityByID(entityID);
     }
 }
-
-int Scene::GetOrderFromEntityID(int entityID) const {
-    for (const auto& [layerName, layer] : layers) {
-        if (layer.HasEntityByID(entityID)) {
-            return layer.GetOrder();
-        }
-    }
-    return -1; // Return an invalid order if entity is not found
-}
