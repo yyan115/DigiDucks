@@ -14,8 +14,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "PrefabManager.h"
 #include "DuckEngine.h"
+#include "PrefabManager.h"
 #include "ComponentFactory.h"
 #include <filesystem>
 
@@ -179,3 +179,47 @@ int PrefabManager::GenerateTemporaryEntityFromPrefab(const std::string& prefabNa
 
 	return entity->entityID;
 }
+
+void PrefabManager::SyncPrefabInstances(const std::shared_ptr<Prefab>& prefab)
+{
+	if (!prefab)
+		return;
+
+	for (auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+	{
+		if (entity.get()->prefabName == prefab->name)
+		{
+			auto* animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(entity.get()->entityID);
+			if (animator)
+			{
+				animator->animations.clear();
+				for (const auto& [name, animation] : prefab->componentsData["AnimatorComponent"]["animations"].items())
+				{
+					Animation anim(animation["frameDuration"]);
+					anim.name = name;
+					animator->animations[name] = anim;
+				}
+			}
+		}
+	}
+}
+
+std::shared_ptr<Prefab> PrefabManager::GetPrefabFromEntity(const Entity* entity)
+{
+	if (!entity)
+	{
+		std::cerr << "Error: Entity is null." << std::endl;
+		return nullptr;
+	}
+
+	const std::string& prefabName = entity->prefabName;
+	auto it = prefabs.find(prefabName);
+	if (it != prefabs.end())
+	{
+		return it->second;
+	}
+
+	std::cerr << "Error: Prefab not found for entity with prefabName: " << prefabName << std::endl;
+	return nullptr;
+}
+

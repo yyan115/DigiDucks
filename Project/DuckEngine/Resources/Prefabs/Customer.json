@@ -3,8 +3,8 @@
         {
             "properties": {
                 "position": {
-                    "x": 6.920041561126709,
-                    "y": -0.5710171461105347
+                    "x": 4.037384033203125,
+                    "y": -2.030769109725952
                 },
                 "relativeToCamera": true,
                 "rotation": 0.0,
@@ -42,6 +42,11 @@
                     {
                         "frameDuration": 0.10000000149011612,
                         "name": "wasd",
+                        "textures": []
+                    },
+                    {
+                        "frameDuration": 0.20000000298023224,
+                        "name": "new1",
                         "textures": []
                     }
                 ]

@@ -78,4 +78,9 @@ public:
 	static const DUCKENGINE_API std::unordered_map<std::string, std::shared_ptr<Prefab>>& GetAllPrefabs();
 
 	static int DUCKENGINE_API GenerateTemporaryEntityFromPrefab(const std::string& prefabName);
+
+	static void DUCKENGINE_API SyncPrefabInstances(const std::shared_ptr<Prefab>& prefab);
+
+	static DUCKENGINE_API std::shared_ptr<Prefab> GetPrefabFromEntity(const Entity* entity);
+
 };

@@ -125,9 +125,8 @@ void AnimationEditor::Render()
 void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 {
 	auto& animations = animator->GetAnimations();
-	std::vector<std::string> animationsToRemove; // Temporary list to hold animations for removal
+	std::vector<std::string> animationsToRemove;
 
-	// Iterate over animations safely
 	for (const auto& [name, animation] : animations)
 	{
 		bool isSelected = (currentAnimationName == name);
@@ -137,15 +136,14 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 			currentAnimationName = name;
 		}
 
-		// Context menu for each animation
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Remove Animation"))
 			{
-				animationsToRemove.push_back(name); // Mark animation for removal
+				animationsToRemove.push_back(name);
 				if (currentAnimationName == name)
 				{
-					currentAnimationName.clear(); // Reset the current animation if it's being removed
+					currentAnimationName.clear();
 				}
 				ImGui::CloseCurrentPopup();
 			}
@@ -153,31 +151,26 @@ void AnimationEditor::RenderAnimationList(AnimatorComponent* animator)
 		}
 	}
 
-	// Remove animations after rendering
 	for (const std::string& name : animationsToRemove)
 	{
 		animations.erase(name);
+		UpdatePrefabAnimations(animator, name);
 	}
 
-	// Button to add new animations
 	if (ImGui::Button("Add Animation"))
 	{
 		static int newAnimationIndex = 1;
 		std::string newName = "NewAnimation" + std::to_string(newAnimationIndex++);
 
-		// Ensure unique name
 		while (animations.find(newName) != animations.end())
 		{
 			newName = "NewAnimation" + std::to_string(newAnimationIndex++);
 		}
 
-		animations[newName] = Animation(0.1f); // Add a new animation with default frame duration
-		currentAnimationName = newName;       // Select the new animation
+		animations[newName] = Animation(0.1f);
+		currentAnimationName = newName; 
 	}
 }
-
-
-
 
 /**************************************************************************
 * @brief Renders the timeline section for the selected animation,
@@ -572,4 +565,23 @@ void AnimationEditor::RenderSpriteSheetPreview(const std::vector<std::shared_ptr
 	}
 
 	ImGui::NewLine();
+}
+
+void AnimationEditor::UpdatePrefabAnimations(AnimatorComponent* animator, const std::string& removedAnimationName)
+{
+	auto prefab = PrefabManager::GetPrefabFromEntity(DuckEngine::DUCKENGINE_EntityManager.GetEntity(animator->GetEntityID()).get());
+	if (!prefab)
+	{
+		std::cerr << "Failed to find prefab associated with entity." << std::endl;
+		return;
+	}
+
+	auto& prefabAnimations = prefab->componentsData["AnimatorComponent"]["animations"];
+	prefabAnimations.erase(removedAnimationName);
+
+	PrefabManager::SyncPrefabInstances(prefab);
+
+	PrefabManager::SavePrefab(prefab->name);
+
+	DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
 }

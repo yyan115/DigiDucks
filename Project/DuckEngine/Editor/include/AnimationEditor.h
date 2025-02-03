@@ -66,4 +66,6 @@ private:
 
     static void RenderSpriteSheetPreview(const std::vector<std::shared_ptr<Texture>>& frames);
 
+    static void UpdatePrefabAnimations(AnimatorComponent* animator, const std::string& removedAnimationName);
+
 };
