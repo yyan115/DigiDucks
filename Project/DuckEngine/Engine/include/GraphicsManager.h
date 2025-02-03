@@ -28,7 +28,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "RenderData.h"
 #include "Color.h"
-#include "UnifiedRenderQueue.h"
 
 #ifdef APIENTRY
 #undef APIENTRY

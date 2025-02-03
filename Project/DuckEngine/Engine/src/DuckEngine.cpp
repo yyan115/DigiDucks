@@ -29,7 +29,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShaderManager.h"
 #include "FontManager.h"
 #include "CameraManager.h"
-#include "UnifiedRenderQueue.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
