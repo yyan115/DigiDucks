@@ -17,4 +17,9 @@ public:
 		: GameLogic(component), IdleState(this), WalkState(this)
 	{
 	}
+
+	void Start() override;
+	void Update() override;
+	void FixedUpdate() override;
+
 };

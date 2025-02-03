@@ -624,8 +624,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -0.4236767292022705,
+                            "y": 0.9463913440704346
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -657,6 +657,14 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "Customer_1": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 17.943925857543945,
+                "y": 7.744329929351807
+            },
+            "prefab": "Customer"
         },
         "Cutting_Station_01": {
             "components": [
@@ -2422,8 +2430,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.36527156829834,
-                            "y": -0.7686938643455505
+                            "x": -7.8709821701049805,
+                            "y": 1.0539865493774414
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2971,6 +2979,42 @@
                         ]
                     },
                     "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "QueueUpSpot": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -7.948999881744385,
+                            "y": 6.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 112.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
