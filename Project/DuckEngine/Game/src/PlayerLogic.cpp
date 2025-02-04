@@ -286,12 +286,11 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
-		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(interactObject->entityID);
-		if (restockLogic)
+		auto robotLogic = GameLogicManager::GetLogicForEntity<RobotLogic>(interactObject->entityID);
+		if (robotLogic)
 		{
 			if (sound) sound->Play(0);
-			restockLogic->isRestock = !restockLogic->isRestock;
-			//return;
+			robotLogic->RestockMenu(true);
 			//here
 			//GameScene::MiniGame_1(true);
 			return;

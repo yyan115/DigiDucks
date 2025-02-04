@@ -83,6 +83,9 @@
     <ClCompile Include="..\src\CutSceneLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\RobotLogic.cpp">
+      <Filter>src\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -260,6 +263,9 @@
       <Filter>include\Logic</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CutSceneLogic.h">
+      <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RobotLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
   </ItemGroup>

@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HoldingLogic.h"
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
+#include "RobotLogic.h"
 
 enum FacingDirection
 {

@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
 #include "SubmitLogic.h"
+#include "RobotLogic.h"
 #include "RestockLogic.h"
 #include "SliderLogic.h"
 #include "ScoreLogic.h"
@@ -80,6 +81,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("PanLogic", std::make_shared<PanLogic>());
 	GameLogicManager::AddLogic("ChopBoardLogic", std::make_shared<ChopBoardLogic>());
 	GameLogicManager::AddLogic("SubmitLogic", std::make_shared<SubmitLogic>());
+	GameLogicManager::AddLogic("RobotLogic", std::make_shared<RobotLogic>());
 	GameLogicManager::AddLogic("RestockLogic", std::make_shared<RestockLogic>());
 	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
 	GameLogicManager::AddLogic("ScoreLogic", std::make_shared<ScoreLogic>());

@@ -211,41 +211,6 @@ void GameScene::Load()
 		}
 	}
 
-	// Restock Menu
-	{
-		auto gameRestockRobot = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Robot").get();
-		if (gameRestockRobot)
-		{
-			robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockRobot->entityID);
-		}
-		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
-		if (gameRestockMenu)
-		{
-			gameRestockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameRestockMenu->entityID);
-			if (gameRestockMenuSpt)
-			{
-				gameRestockMenuSpt->isVisible = false;
-			}
-		}
-		auto gameRestockAllBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_All_Btn").get();
-		if (gameRestockAllBtn)
-		{
-			gameRestockAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameRestockAllBtn->entityID);
-			if (gameRestockAllButton)
-			{
-				gameRestockAllButton->onClick = [this]() { robotRestockLogic->RestockAll(); };
-			}
-		}
-		auto gameRestockExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Exit_Btn").get();
-		if (gameRestockExitBtn)
-		{
-			gameRestockExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameRestockExitBtn->entityID);
-			if (gameRestockExitButton)
-			{
-				gameRestockExitButton->onClick = [this]() { RestockMenu(false); };
-			}
-		}
-	}
 
 	// MiniGame_1
 	{
@@ -801,7 +766,7 @@ void GameScene::PauseGame(bool state)
 
 	HTPShow(false);
 	ExitConfirm(false);
-	RestockMenu(false);
+	//RestockMenu(false);
 	DuckEngine::SetPaused(state);
 }
 

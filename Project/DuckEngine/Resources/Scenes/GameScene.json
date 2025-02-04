@@ -870,7 +870,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "RestockLogic"
+                            "RobotLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -3276,6 +3276,14 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "RestockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "UI"
