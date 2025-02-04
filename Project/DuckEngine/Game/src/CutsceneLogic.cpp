@@ -75,7 +75,7 @@ void CutSceneLogic::Update()
 		if (currentCutsceneIndex > 14)
 		{
 			// Start fade-out effect before finishing
-			FadeOutSprite->isVisible = true;
+			FadeOutSprite->isVisible = false;
 			isFading = true;
 			isPlaying = false;
 			return;
@@ -98,7 +98,7 @@ void CutSceneLogic::Update()
 		currentCutsceneIndex++;
 
 		// Enable fade-in effect after each scene change
-		FadeOutSprite->isVisible = true;
+		FadeOutSprite->isVisible = false;
 		FadeOutSprite->color.a = 255;
 		isFading = true;
 		fadeProgress = 0.0f;
@@ -107,6 +107,5 @@ void CutSceneLogic::Update()
 
 bool CutSceneLogic::CutscenePlay()
 {
-	std::cout << "Cutscene playing = " << isPlaying << std::endl;
 	return isPlaying;
 }
