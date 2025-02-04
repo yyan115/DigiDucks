@@ -5,11 +5,6 @@
 CustomerIdleState::CustomerIdleState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}
 
-void CustomerIdleState::Initialize(CustomerLogic* customerLogicOwner)
-{
-	owner = customerLogicOwner;
-}
-
 void CustomerIdleState::Enter()
 {
 	std::cout << "Customer enters Idle State" << std::endl;

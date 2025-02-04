@@ -5,15 +5,10 @@
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner), queueTarget(nullptr) {}
 
-void CustomerWalkState::Initialize(CustomerLogic* customerLogicOwner)
-{
-	owner = customerLogicOwner;
-}
-
 void CustomerWalkState::Enter()
 {
 	std::cout << "Customer enters Walk State" << std::endl;
-
+	queueTarget = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUpSpot").get();
 }
 
 
@@ -24,7 +19,6 @@ void CustomerWalkState::Update()
 
 void CustomerWalkState::FixedUpdate()
 {
-	queueTarget = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUpSpot").get();
 	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
 	TransformComponent* targetTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(queueTarget->entityID);
 

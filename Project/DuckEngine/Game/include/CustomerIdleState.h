@@ -10,7 +10,6 @@ class CustomerIdleState : public State<CustomerLogic>
 public:
 	explicit CustomerIdleState(CustomerLogic* customerLogicOwner);
 
-	void Initialize(CustomerLogic* customerLogicOwner);
 	void Enter() override;
 	void Update() override;
 	void FixedUpdate() override;
