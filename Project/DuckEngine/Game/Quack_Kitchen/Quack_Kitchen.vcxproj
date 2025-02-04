@@ -215,8 +215,6 @@
     <ClCompile Include="..\src\ScoreLogic.cpp" />
     <ClCompile Include="..\src\SliderLogic.cpp" />
     <ClCompile Include="..\src\SpriteMovementScene.cpp" />
-    <ClCompile Include="..\src\State.cpp" />
-    <ClCompile Include="..\src\StateMachine.cpp" />
     <ClCompile Include="..\src\SubmitLogic.cpp" />
     <ClCompile Include="..\src\TableLogic.cpp" />
   </ItemGroup>
