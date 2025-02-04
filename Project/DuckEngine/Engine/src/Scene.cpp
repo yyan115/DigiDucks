@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "DuckEngine.h"
 #include "SoundSystem.h"
-#include "GameLogicManager.h"
 
 /**************************************************************************
 @brief Loads resources and initializes the scene.
