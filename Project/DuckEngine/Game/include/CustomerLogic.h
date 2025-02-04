@@ -9,23 +9,19 @@
 class CustomerLogic : public GameLogic
 {
 public:
-	StateMachine stateMachine;
-	CustomerIdleState IdleState;
-	CustomerWalkState WalkState;
+	StateMachine<CustomerLogic> stateMachine;
+	CustomerIdleState* IdleState;
+	CustomerWalkState* WalkState;
 
 	CustomerLogic()
-		: GameLogic(nullptr), stateMachine(), IdleState(this), WalkState(this)
-	{
-	}
-
-	CustomerLogic(GameLogicComponent* component)
-		: GameLogic(component), IdleState(this), WalkState(this)
-	{
+		: IdleState(nullptr), WalkState(nullptr) {
 	}
 
 	void Start() override;
 	void Update() override;
 	void FixedUpdate() override;
+
+	~CustomerLogic();
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{

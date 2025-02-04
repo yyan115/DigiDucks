@@ -5,18 +5,18 @@
 
 class CustomerLogic;
 
-class CustomerWalkState : public State
+class CustomerWalkState : public State<CustomerLogic>
 {
 public:
-	CustomerWalkState(CustomerLogic* customerLogicOwner);
+	explicit CustomerWalkState(CustomerLogic* customerLogicOwner);
 
+	void Initialize(CustomerLogic* customerLogicOwner);
 	void Enter() override;
 	void Update() override;
 	void FixedUpdate() override;
 	void Exit() override;
 
 private:
-	CustomerLogic* customer;
 	Entity* queueTarget;
 
 

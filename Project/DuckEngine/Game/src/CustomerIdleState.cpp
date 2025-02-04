@@ -3,7 +3,12 @@
 #include "CustomerLogic.h"
 
 CustomerIdleState::CustomerIdleState(CustomerLogic* customerLogicOwner)
-	: State(static_cast<GameLogic*>(customerLogicOwner)) {}
+	: State<CustomerLogic>(customerLogicOwner) {}
+
+void CustomerIdleState::Initialize(CustomerLogic* customerLogicOwner)
+{
+	owner = customerLogicOwner;
+}
 
 void CustomerIdleState::Enter()
 {

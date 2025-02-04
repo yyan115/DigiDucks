@@ -2,7 +2,9 @@
 
 void CustomerLogic::Start()
 {
-	stateMachine.ChangeState(&WalkState);
+	IdleState = new CustomerIdleState(this);
+	WalkState = new CustomerWalkState(this);
+	stateMachine.ChangeState(WalkState);
 }
 
 void CustomerLogic::Update()
@@ -13,4 +15,11 @@ void CustomerLogic::Update()
 void CustomerLogic::FixedUpdate()
 {
 	stateMachine.currentState->FixedUpdate();
+}
+
+
+CustomerLogic::~CustomerLogic()
+{
+	delete IdleState;
+	delete WalkState;
 }

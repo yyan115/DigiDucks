@@ -5,11 +5,12 @@
 
 class CustomerLogic;
 
-class CustomerIdleState : public State
+class CustomerIdleState : public State<CustomerLogic>
 {
 public:
-	CustomerIdleState(CustomerLogic* customerLogicOwner);
+	explicit CustomerIdleState(CustomerLogic* customerLogicOwner);
 
+	void Initialize(CustomerLogic* customerLogicOwner);
 	void Enter() override;
 	void Update() override;
 	void FixedUpdate() override;

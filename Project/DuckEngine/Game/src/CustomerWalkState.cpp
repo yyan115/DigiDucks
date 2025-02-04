@@ -3,9 +3,11 @@
 #include "CustomerLogic.h"
 
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
-	: State(static_cast<GameLogic*>(customerLogicOwner)) 
+	: State<CustomerLogic>(customerLogicOwner), queueTarget(nullptr) {}
+
+void CustomerWalkState::Initialize(CustomerLogic* customerLogicOwner)
 {
-	customer = customerLogicOwner;
+	owner = customerLogicOwner;
 }
 
 void CustomerWalkState::Enter()
@@ -23,7 +25,7 @@ void CustomerWalkState::Update()
 void CustomerWalkState::FixedUpdate()
 {
 	queueTarget = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUpSpot").get();
-	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(customer->GetComponentID());
+	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
 	TransformComponent* targetTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(queueTarget->entityID);
 
 	if (customerTransform == nullptr || targetTransform == nullptr)
@@ -42,7 +44,7 @@ void CustomerWalkState::FixedUpdate()
 	}
 
 	float moveSpeed = 2.0f;
-	RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(customer->GetComponentID());
+	RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(owner->GetComponentID());
 	if (rigidbody)
 	{
 		if (distance > 0.1f)
@@ -53,6 +55,7 @@ void CustomerWalkState::FixedUpdate()
 		{
 			rigidbody->velocity = Vec2(0.0f, 0.0f);
 			std::cout << "Reached QueueUpSpot!" << std::endl;
+			owner->stateMachine.ChangeState(owner->IdleState);
 		}
 	}
 }
