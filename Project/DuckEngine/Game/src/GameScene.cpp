@@ -586,7 +586,7 @@ void GameScene::Update()
 				CountdownText->text = std::to_string(displayNumber) + "..";
 			}
 			else {
-				CountdownText->text = "Start!";
+				CountdownText->text = "Go!";
 			}
 		}
 

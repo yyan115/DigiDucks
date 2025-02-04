@@ -540,6 +540,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -658,6 +659,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -670,10 +672,10 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.4236767292022705,
-                            "y": 0.9463913440704346
+                            "x": 0.44999998807907104,
+                            "y": 0.44999998807907104
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -692,17 +694,18 @@
                         },
                         "enabled": false,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontSize": 2.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 1,
                         "text": "start"
                     },
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Customer_1": {
             "layer": "Gameplay",
@@ -948,6 +951,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Quit Game?"
                     },
                     "type": "TextComponent"
@@ -1085,6 +1089,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "FPS"
                     },
                     "type": "TextComponent"
@@ -1631,6 +1636,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -1686,6 +1692,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1754,6 +1761,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1822,6 +1830,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1942,6 +1951,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2062,6 +2072,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2166,6 +2177,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2234,6 +2246,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2302,6 +2315,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2370,6 +2384,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2438,6 +2453,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2519,13 +2535,14 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "1"
                     },
                     "type": "TextComponent"
@@ -2565,6 +2582,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "2"
                     },
                     "type": "TextComponent"
@@ -2604,6 +2622,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "123"
                     },
                     "type": "TextComponent"
@@ -2722,6 +2741,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -2959,29 +2979,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -2996,11 +2993,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -3010,6 +3021,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -3162,6 +3182,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -3307,6 +3328,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -3411,6 +3433,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Score: 0"
                     },
                     "type": "TextComponent"
@@ -3529,6 +3552,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -3577,7 +3601,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/gameplay bgm.wav"
                         ],
-                        "volume": 0.15000000596046448
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }
@@ -3696,6 +3720,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -4885,6 +4910,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Time:"
                     },
                     "type": "TextComponent"
@@ -5056,6 +5082,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "5"
                     },
                     "type": "TextComponent"
