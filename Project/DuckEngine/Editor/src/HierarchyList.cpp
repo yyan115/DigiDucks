@@ -126,6 +126,8 @@ void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
 		? "GameObject_" + std::to_string(entity->entityID)
 		: entity->name;
 
+	entity->name = entityLabel;
+
 	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
 	if (entity->childEntities.empty())
 		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
