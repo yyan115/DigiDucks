@@ -124,6 +124,11 @@ public:
     static void DeleteAllShaders();
 
     /// <summary>
+	/// Deletes shader programs and terminates the ShaderManager.
+    /// </summary>
+    static void DeleteShader(const std::string& shaderName);
+
+    /// <summary>
     /// Cleans up resources and terminates the ShaderManager.
     /// </summary>
     static void Exit();

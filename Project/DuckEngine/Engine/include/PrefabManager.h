@@ -82,5 +82,6 @@ public:
 	static void DUCKENGINE_API SyncPrefabInstances(const std::shared_ptr<Prefab>& prefab);
 
 	static DUCKENGINE_API std::shared_ptr<Prefab> GetPrefabFromEntity(const Entity* entity);
-
+	
+	static bool DUCKENGINE_API RemovePrefab(const std::string& name);
 };

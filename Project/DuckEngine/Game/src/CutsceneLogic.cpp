@@ -14,10 +14,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "CutSceneLogic.h"
 #include "GameLogicManager.h"
+#include "DuckEngine.h"
+#include "AssetManager.h"
 
-/****************************************************************
-* @brief Start function for the Restock Station Logic.
-* ****************************************************************/
 void CutSceneLogic::Start()
 {
 	auto CutSceneEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
@@ -27,26 +26,60 @@ void CutSceneLogic::Start()
 		CutSceneSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneEntity->entityID);
 	}
 
-	currentCutsceneIndex = 1;  // Start at scene 1
-	cutsceneTimer = 0.0f;      // Reset timer
+	auto FadeEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameFadeScreen");
+	if (FadeEntity) {
+		FadeOutSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeEntity->entityID);
+		FadeOutSprite->isVisible = true;
+		FadeOutSprite->color.a = 255; // Start fully visible
+	}
+
+	currentCutsceneIndex = 1;
+	cutsceneTimer = 0.0f;
+	fadeProgress = 0.0f;
+	isFading = true; // Start with a fade-in effect
 	isPlaying = true;
 }
 
-
-/****************************************************************
-* @brief Update function for the Restock Station Logic.
-* ****************************************************************/
 void CutSceneLogic::Update()
 {
 	if (!isPlaying) return;
 
-	// Accumulate time
+	// Handle fade-in effect at the start
+	if (isFading)
+	{
+		fadeProgress += DuckEngine::DeltaTime() / 0.5f; // 0.5s fade duration
+
+		if (fadeProgress >= 1.0f)
+		{
+			FadeOutSprite->color.a = 0; // Fully transparent
+			FadeOutSprite->isVisible = false;
+			isFading = false;
+			fadeProgress = 0.0f;
+		}
+		else
+		{
+			FadeOutSprite->color.a = static_cast<int>(255 * (1.0f - fadeProgress));
+			return; // Don't progress the cutscene while fading in
+		}
+	}
+
+	// Accumulate time for cutscene transition
 	cutsceneTimer += DuckEngine::DeltaTime();
 
-	// Change cutscene every 1.5 seconds (adjust timing as needed)
+	// Change scene every 1.5 seconds
 	if (cutsceneTimer >= 1.5f)
 	{
 		cutsceneTimer = 0.0f;  // Reset timer
+
+		// Check if it's time to end the cutscene
+		if (currentCutsceneIndex > 14)
+		{
+			// Start fade-out effect before finishing
+			FadeOutSprite->isVisible = true;
+			isFading = true;
+			isPlaying = false;
+			return;
+		}
 
 		// Update cutscene sprite
 		if (CutSceneSprite)
@@ -55,7 +88,7 @@ void CutSceneLogic::Update()
 			CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
 		}
 
-		// Play sound effect
+		// Play sound effect for the scene
 		if (CutSceneSFX)
 		{
 			CutSceneSFX->Play(currentCutsceneIndex);
@@ -64,11 +97,11 @@ void CutSceneLogic::Update()
 		// Move to the next scene
 		currentCutsceneIndex++;
 
-		// If reached the last scene, stop playing
-		if (currentCutsceneIndex > 14)
-		{
-			isPlaying = false;
-		}
+		// Enable fade-in effect after each scene change
+		FadeOutSprite->isVisible = true;
+		FadeOutSprite->color.a = 255;
+		isFading = true;
+		fadeProgress = 0.0f;
 	}
 }
 

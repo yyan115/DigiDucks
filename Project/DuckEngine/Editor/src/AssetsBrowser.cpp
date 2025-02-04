@@ -447,6 +447,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 	int itemsPerRow = static_cast<int>(contentWidth / (itemWidth + itemPadding));
 	if (itemsPerRow < 1) itemsPerRow = 1;
 	int itemIndex = 0;
+	bool isAssetContextOpen = false;
 
 	// Retrieve all prefabs loaded in PrefabManager
 	auto &prefabs = PrefabManager::GetAllPrefabs();
@@ -467,6 +468,18 @@ void AssetsBrowser::RenderPrefabsGrid() {
 			ImGui::SetDragDropPayload("PREFAB_PAYLOAD", prefabName.c_str(), prefabName.size() + 1);
 			ImGui::Text("Drag %s", prefabName.c_str());
 			ImGui::EndDragDropSource();
+		}
+
+		// Right-click context menu for deleting individual assets
+		if (ImGui::BeginPopupContextItem(("##ContextMenu_" + prefabName).c_str())) {
+			isAssetContextOpen = true;  // Mark that an asset menu is open
+
+			if (ImGui::MenuItem("Delete")) {
+				std::string prefabPath = "Resources/Prefabs/" + prefabName + ".json";
+				AssetManager::RemoveAsset(prefabPath);
+			}
+
+			ImGui::EndPopup();
 		}
 
 		if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
@@ -494,7 +507,7 @@ void AssetsBrowser::RenderPrefabsGrid() {
 	static bool openCreatePrefabPopup = false;
 
 	// Rightclick context menu for creating a new prefab
-	if (ImGui::BeginPopupContextWindow("PrefabContextMenu", ImGuiPopupFlags_MouseButtonRight)) {
+	if (!isAssetContextOpen && ImGui::BeginPopupContextWindow("PrefabContextMenu", ImGuiPopupFlags_MouseButtonRight)) {
 		if (ImGui::MenuItem("Create Prefab")) {
 			openCreatePrefabPopup = true;
 		}

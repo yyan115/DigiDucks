@@ -1152,13 +1152,13 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 150.0,
+                            "a": 255.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
-                        "sortingOrder": 10,
+                        "isVisible": true,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "",
                         "useColor": true

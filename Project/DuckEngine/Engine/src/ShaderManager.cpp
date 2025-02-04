@@ -242,6 +242,21 @@ void ShaderManager::DeleteAllShaders() {
 }
 
 /// <summary>
+/// Deletes shader programs by name and frees associated resources.
+/// </summary>
+void ShaderManager::DeleteShader(const std::string& shaderName) {
+	auto it = shaders.find(shaderName);
+	if (it != shaders.end()) {
+		it->second->DeleteProgram();
+		delete it->second;
+		shaders.erase(it);
+	}
+	else {
+		std::cerr << "Shader with name '" << shaderName << "' not found.\n";
+	}
+}
+
+/// <summary>
 /// Cleans up resources by deleting all shader programs and terminating the ShaderManager.
 /// </summary>
 void ShaderManager::Exit() {

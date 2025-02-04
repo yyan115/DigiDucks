@@ -423,7 +423,7 @@ void AssetManager::LoadShader(const std::string& shaderName, const std::string& 
 
 void AssetManager::UnloadShader(const std::string& shaderName) {
 	if (ShaderManager::GetShader(shaderName)) {
-		ShaderManager::DeleteAllShaders();  // Removes the shader from memory
+		ShaderManager::DeleteShader(shaderName);  // Removes the shader from memory
 		std::cout << "Unloaded Shader: " << shaderName << std::endl;
 	}
 	else {
@@ -500,6 +500,13 @@ bool AssetManager::RemoveAsset(const std::string& assetPath) {
 		else if (extension == ".vert" || extension == ".frag") {
 			std::string shaderName = fs::path(assetPath).stem().string();
 			UnloadShader(shaderName);
+		}
+		else if (extension == ".json") {
+			// Assume it's a prefab
+			std::string prefabName = fs::path(assetPath).stem().string();
+			if (!PrefabManager::RemovePrefab(prefabName)) {
+				return false;  // If prefab removal fails, return early
+			}
 		}
 
 		// Delete the asset from disk

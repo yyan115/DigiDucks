@@ -223,3 +223,34 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefabFromEntity(const Entity* entity)
 	return nullptr;
 }
 
+bool PrefabManager::RemovePrefab(const std::string& name)
+{
+	auto it = prefabs.find(name);
+	if (it == prefabs.end()) {
+		std::cerr << "Error: Prefab not found: " << name << std::endl;
+		return false;
+	}
+
+	// Remove from memory
+	prefabs.erase(it);
+
+	// Construct file path
+	std::string filePath = "Resources/Prefabs/" + name + ".json";
+
+	// Delete the JSON file
+	try {
+		if (std::filesystem::exists(filePath)) {
+			std::filesystem::remove(filePath);
+			std::cout << "Prefab deleted: " << filePath << std::endl;
+			return true;
+		}
+		else {
+			std::cerr << "Error: Prefab file does not exist: " << filePath << std::endl;
+			return false;
+		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Error deleting prefab file: " << e.what() << std::endl;
+		return false;
+	}
+}
