@@ -38,6 +38,7 @@ void RestockLogic::Start()
 		{
 			maintainenceButton->onClick = [this]() { /*Mainatinence Func*/ };
 		}
+	}
 }
 
 
