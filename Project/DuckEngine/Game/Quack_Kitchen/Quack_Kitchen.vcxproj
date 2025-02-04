@@ -196,7 +196,7 @@
     <ClCompile Include="..\src\CustomerIdleState.cpp" />
     <ClCompile Include="..\src\CustomerLogic.cpp" />
     <ClCompile Include="..\src\CustomerWalkState.cpp" />
-    <ClCompile Include="..\src\CutsceneLogic.cpp" />
+    <ClCompile Include="..\src\CutSceneLogic.cpp" />
     <ClCompile Include="..\src\EndGame.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />

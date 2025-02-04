@@ -19,7 +19,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 class CutSceneLogic : public GameLogic
 {
 private:
+	SpriteRendererComponent* CutSceneSprite = nullptr;
+	SoundComponent* CutSceneSFX = nullptr;
 
+	int currentCutsceneIndex = 1;
+	float cutsceneTimer = 0.0f;
+	bool isPlaying = true;
 
 public:
 
@@ -32,7 +37,7 @@ public:
 		UNREFERENCED_PARAMETER(component);
 	}
 
-
+	
 	/****************************************************************
 	* @brief Start function for the Restock Station Logic.
 	* ****************************************************************/
@@ -48,6 +53,7 @@ public:
 	* ****************************************************************/
 	void FixedUpdate() override {}
 
+	bool CutscenePlay();
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{

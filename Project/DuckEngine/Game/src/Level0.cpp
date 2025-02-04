@@ -26,6 +26,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "EndGame.h"
 #include "ScoreLogic.h"
+#include "CutSceneLogic.h"
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -537,129 +538,136 @@ void Level0::Update()
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
-	// Handle countdown before game starts
-	if (!gameStarted) {
-		countdownTime -= DuckEngine::DeltaTime();
-		int displayNumber = static_cast<int>(ceil(countdownTime));
-
-		if (CountdownText) {
-			CountdownText->isEnabled = true;
-			if (displayNumber > 1) {
-				TimeLeftSound->Play(3);
-				CountdownText->text = std::to_string(displayNumber) + "..";
-			}
-			else {
-				CountdownText->text = "Start!";
-			}
-		}
-
-		// Reduce FadeOutSprite opacity over time
-		if (FadeOutSprite) {
-			FadeOutSprite->isVisible = true;
-			float fadeProgress = countdownTime / 3.0f;
-			FadeOutSprite->color.a = static_cast<int>(fadeProgress * 150); // Reduce alpha gradually
-		}
-
-		// When countdown finishes, start the game
-		if (countdownTime <= 0.0f) {
-			gameStarted = true;
-			CountdownText->isEnabled = false;
-			// Reset sprite
-			if (FadeOutSprite) {
-				FadeOutSprite->color.a = 0;
-				FadeOutSprite->isVisible = false;
-			}
-		}
-		return; // Skip game logic until countdown is done
-	}
-
-	//// SET CAMERA TO MOVE ALONG TO PLAYER
-	if (!isPaused)
+	Entity* CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
+	auto CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
+	if (!CutSceneManager->CutscenePlay())
 	{
-		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
-	}
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutScene->entityID)->isVisible = false;
+		// Handle countdown before game starts
+		if (!gameStarted) {
+			countdownTime -= DuckEngine::DeltaTime();
+			int displayNumber = static_cast<int>(ceil(countdownTime));
 
-	// For each sound component, play the sound if it is set to play on start
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
-
-		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-			soundComponent->Play();
-		}
-	}
-
-	// Timer Display
-	if (timerText) {
-		// Update the timer
-		if (timeLeft > 0.f) {
-			timeLeft -= DuckEngine::DeltaTime();
-			int minutes = static_cast<int>(timeLeft) / 60;
-			int seconds = static_cast<int>(timeLeft) % 60;
-			timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
-
-			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
-				timerText->color = { 255, 0, 0, 255 };
-				TimeLeftSound->Play(0);
-				GamefadeElapsedTime = 0.0f;
-			}
-		}
-		else {
-			timerText->text = "Time's up!";
-
-			if (!hasStartedFade && TimeLeftSound != nullptr) {
-				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
-				TimeLeftSound->Play(1); // Play final sound
-				hasStartedFade = true;
-				FadeOutSprite->isVisible = true;
-			}
-
-			if (hasStartedFade) {
-				GamefadeElapsedTime += DuckEngine::DeltaTime();
-				float fadeProgress = GamefadeElapsedTime / 3.0f;
-
-				if (fadeProgress >= 1.0f) {
-					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], 0.0f);					
-					SoundSystem::StopSounds(TimeLeftSound->soundID[1]);
-					FadeOutSprite->color.a = 0;
-					FadeOutSprite->isVisible = false;
-					GameManager::SetActiveScene("EndScene");
+			if (CountdownText) {
+				CountdownText->isEnabled = true;
+				if (displayNumber > 1) {
+					TimeLeftSound->Play(3);
+					CountdownText->text = std::to_string(displayNumber) + "..";
 				}
 				else {
-					float newVolume = TimeLeftSound->volume * (1.0f - fadeProgress);
-					SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], newVolume);
-					FadeOutSprite->color.a = static_cast<int>(fadeProgress * 255.0f);
+					CountdownText->text = "Start!";
+				}
+			}
+
+			// Reduce FadeOutSprite opacity over time
+			if (FadeOutSprite) {
+				FadeOutSprite->isVisible = true;
+				float fadeProgress = countdownTime / 3.0f;
+				FadeOutSprite->color.a = static_cast<int>(fadeProgress * 150); // Reduce alpha gradually
+			}
+
+			// When countdown finishes, start the game
+			if (countdownTime <= 0.0f) {
+				gameStarted = true;
+				CountdownText->isEnabled = false;
+				// Reset sprite
+				if (FadeOutSprite) {
+					FadeOutSprite->color.a = 0;
+					FadeOutSprite->isVisible = false;
+				}
+			}
+			return; // Skip game logic until countdown is done
+		}
+
+		//// SET CAMERA TO MOVE ALONG TO PLAYER
+		if (!isPaused)
+		{
+			CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		}
+
+		// For each sound component, play the sound if it is set to play on start
+		for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+			SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+
+			if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+				soundComponent->Play();
+			}
+		}
+
+		// Timer Display
+		if (timerText) {
+			// Update the timer
+			if (timeLeft > 0.f) {
+				timeLeft -= DuckEngine::DeltaTime();
+				int minutes = static_cast<int>(timeLeft) / 60;
+				int seconds = static_cast<int>(timeLeft) % 60;
+				timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+
+				if (timeLeft < 10.f && TimeLeftSound != nullptr) {
+					timerText->color = { 255, 0, 0, 255 };
+					TimeLeftSound->Play(0);
+					GamefadeElapsedTime = 0.0f;
+				}
+			}
+			else {
+				timerText->text = "Time's up!";
+
+				if (!hasStartedFade && TimeLeftSound != nullptr) {
+					SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
+					TimeLeftSound->Play(1); // Play final sound
+					hasStartedFade = true;
+					FadeOutSprite->isVisible = true;
+				}
+
+				if (hasStartedFade) {
+					GamefadeElapsedTime += DuckEngine::DeltaTime();
+					float fadeProgress = GamefadeElapsedTime / 3.0f;
+
+					if (fadeProgress >= 1.0f) {
+						SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], 0.0f);
+						SoundSystem::StopSounds(TimeLeftSound->soundID[1]);
+						FadeOutSprite->color.a = 0;
+						FadeOutSprite->isVisible = false;
+						GameManager::SetActiveScene("EndScene");
+					}
+					else {
+						float newVolume = TimeLeftSound->volume * (1.0f - fadeProgress);
+						SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], newVolume);
+						FadeOutSprite->color.a = static_cast<int>(fadeProgress * 255.0f);
+					}
 				}
 			}
 		}
+
+		// FPS Counter
+		if (FPSText != nullptr) {
+			FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
+		}
+
+
+		// Cheats
+
+		// End the Game
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M))
+		{
+			std::cout << "H is pressed!\n";
+			GameManager::SetActiveScene("EndScene");
+		}
+		// Add Score
+		Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
+		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+
+		if (submitLogic && submitLogic->CheckNewOrder()) {
+			UpdateOrderTexture(); // Update the order texture on successful submission
+		}
+
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
+		{
+			submitLogic->increaseScore(10);
+		}
+		ScoreLogic::scoreValue = submitLogic->getScore();
 	}
-
-	// FPS Counter
-	if (FPSText != nullptr) {
-		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
-	}
-
-
-	// Cheats
-
-	// End the Game
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M))
-	{
-		std::cout << "H is pressed!\n";
-		GameManager::SetActiveScene("EndScene");
-	}
-	// Add Score
-	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
-	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
-
-	if (submitLogic && submitLogic->CheckNewOrder()) {
-		UpdateOrderTexture(); // Update the order texture on successful submission
-	}
-
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
-	{
-		submitLogic->increaseScore(10);
-	}
-	ScoreLogic::scoreValue = submitLogic->getScore();
+	else return;		
 }
 
 void Level0::UpdateOrderTexture() {

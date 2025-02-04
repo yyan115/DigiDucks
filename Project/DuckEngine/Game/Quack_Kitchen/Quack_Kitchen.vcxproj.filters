@@ -80,7 +80,7 @@
     <ClCompile Include="..\src\ScoreLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\CutsceneLogic.cpp">
+    <ClCompile Include="..\src\CutSceneLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
   </ItemGroup>
