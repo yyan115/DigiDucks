@@ -289,7 +289,7 @@ void LevelManager::SaveSceneChanges(const std::string& sceneName)
 
 	for (auto& entity : entities)
 	{
-		std::string entityName = entity.get()->name.empty() ? "Entity_" + std::to_string(entity.get()->entityID) : entity.get()->name;
+		std::string entityName = entity.get()->name.empty() ? "GameObject_" + std::to_string(entity.get()->entityID) : entity.get()->name;
 		json& gameObjectData = sceneData["gameObjects"][entityName];
 
 		SaveEntityToJson(entity.get(), gameObjectData);

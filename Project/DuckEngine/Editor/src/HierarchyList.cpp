@@ -123,7 +123,7 @@ void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
 	const Texture& gameobjectIcon)
 {
 	std::string entityLabel = entity->name.empty()
-		? "GameObject " + std::to_string(entity->entityID)
+		? "GameObject_" + std::to_string(entity->entityID)
 		: entity->name;
 
 	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;

@@ -126,7 +126,7 @@ nlohmann::json SnapshotManager::TakeSceneSnapshot()
 	{
 		nlohmann::json entityData;
 		std::string entityName = entity->name.empty()
-			? "Entity_" + std::to_string(entity->entityID)
+			? "GameObject_" + std::to_string(entity->entityID)
 			: entity->name;
 		entityData["layer"] = entity->layerName;
 
