@@ -43,9 +43,6 @@ void GameLogicManager::AddLogicToEntity(int entityID, std::shared_ptr<GameLogic>
     {
         logics.push_back(logic);
     }
-    else
-    {
-    }
 }
 
 /**************************************************************************
@@ -125,4 +122,9 @@ void GameLogicManager::Clear()
     }
     entityLogicMap.clear();
 
+}
+
+std::vector<std::shared_ptr<GameLogic>>& GameLogicManager::GetLogicsForEntity(int entityID)
+{
+	return entityLogicMap[entityID];
 }

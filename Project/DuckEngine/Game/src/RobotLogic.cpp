@@ -14,6 +14,10 @@ void RobotLogic::Start()
 		{
 			std::cout << "Restock Logic Not Found" << std::endl;
 		}
+		else
+		{
+			std::cout << "Restock Logic Found and Entity Name is " << restockMenu->name << std::endl;
+		}
 	}
 }
 

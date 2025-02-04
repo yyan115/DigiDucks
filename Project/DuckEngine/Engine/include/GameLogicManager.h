@@ -129,6 +129,8 @@ public:
     **************************************************************************/
     static DUCKENGINE_API void RemoveLogicsForEntity(int entityID);
 
+    static std::vector<std::shared_ptr<GameLogic>>& GetLogicsForEntity(int entityID);
+
     static void StartAll();
     static void UpdateAll();
     static void Clear();

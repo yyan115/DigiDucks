@@ -5,10 +5,10 @@
 \par        l.yee@digipen.edu
 \date       November 30 2024
 \brief      Implements the GameLogicSystem class, which coordinates the
-            initialization, updating, and fixed updating of game logic
-            components for entities in the game engine. This system interacts
-            with the DuckEngine Component Manager and the GameLogicManager
-            to handle logic execution.
+			initialization, updating, and fixed updating of game logic
+			components for entities in the game engine. This system interacts
+			with the DuckEngine Component Manager and the GameLogicManager
+			to handle logic execution.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -31,25 +31,35 @@ written consent of DigiPen Institute of Technology is prohibited.
 **************************************************************************/
 void GameLogicSystem::Start()
 {
-    auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
+	auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
 
-    for (auto& [entityID, component] : components)
-    {
-        auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
+	for (auto& [entityID, component] : components)
+	{
+		auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
 
-        for (const auto& logicName : logicComponent->logicNames)
-        {
-            auto baseLogic = GameLogicManager::GetLogic(logicName);
-            if (baseLogic)
-            {
-                auto logic = baseLogic->Clone();
+		for (const auto& logicName : logicComponent->logicNames)
+		{
+			auto baseLogic = GameLogicManager::GetLogic(logicName);
+			if (baseLogic)
+			{
+				auto logic = baseLogic->Clone();
 
-                logic->SetComponent(logicComponent);
-                logic->Start();
-                GameLogicManager::AddLogicToEntity(entityID, logic);
-            }
-        }
-    }
+				logic->SetComponent(logicComponent);
+				GameLogicManager::AddLogicToEntity(entityID, logic);
+			}
+		}
+	}
+
+	for (auto& [entityID, component] : components)
+	{
+		auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
+
+		auto& logics = GameLogicManager::GetLogicsForEntity(entityID);
+		for (auto& logic : logics)
+		{
+			logic->Start();
+		}
+	}
 }
 
 /**************************************************************************
@@ -60,19 +70,19 @@ void GameLogicSystem::Start()
 **************************************************************************/
 void GameLogicSystem::Update()
 {
-    auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
+	auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
 
-    for (auto& [entityID, component] : components)
-    {
-        auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
-        for (auto& logic : logics)
-        {
-            if (logic)
-            {
-                logic->Update();
-            }
-        }
-    }
+	for (auto& [entityID, component] : components)
+	{
+		auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
+		for (auto& logic : logics)
+		{
+			if (logic)
+			{
+				logic->Update();
+			}
+		}
+	}
 }
 
 /**************************************************************************
@@ -84,17 +94,17 @@ void GameLogicSystem::Update()
 **************************************************************************/
 void GameLogicSystem::FixedUpdate()
 {
-    auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
+	auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
 
-    for (auto& [entityID, component] : components)
-    {
-        auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
-        for (auto& logic : logics)
-        {
-            if (logic)
-            {
-                logic->FixedUpdate();
-            }
-        }
-    }
+	for (auto& [entityID, component] : components)
+	{
+		auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
+		for (auto& logic : logics)
+		{
+			if (logic)
+			{
+				logic->FixedUpdate();
+			}
+		}
+	}
 }
