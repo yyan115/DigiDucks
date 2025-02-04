@@ -99,7 +99,7 @@ void GameScene::Load()
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
-				gameResumeButton->onClick = [this]() { std::cout << "RESUME\n"; if (isPaused) { PauseGame(false); } };
+				gameResumeButton->onClick = [this]() { if (isPaused) { PauseGame(false); } };
 			}
 		}
 
@@ -109,7 +109,7 @@ void GameScene::Load()
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
-				gameExitButton->onClick = [this]() { std::cout << "QUIT\n"; ExitConfirm(true); };
+				gameExitButton->onClick = [this]() { ExitConfirm(true); };
 			}
 		}
 
@@ -119,7 +119,7 @@ void GameScene::Load()
 			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
 			if (gameHTPButton)
 			{
-				gameHTPButton->onClick = [this]() { std::cout << "HTP\n"; HTPShow(true); };
+				gameHTPButton->onClick = [this]() { HTPShow(true); };
 			}
 		}
 	}
@@ -196,9 +196,9 @@ void GameScene::Load()
 			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
-				gameExitYesButton->onClick = []() { std::cout << "YES\n"; GameManager::DuckEngine.CloseWindow(); };
+				gameExitYesButton->onClick = []() { GameManager::DuckEngine.CloseWindow(); };
 			}
-		}
+		} 
 
 		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
 		if (gameExitNoBtn)
@@ -206,7 +206,7 @@ void GameScene::Load()
 			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
 			if (gameExitNoButton)
 			{
-				gameExitNoButton->onClick = [this]() { std::cout << "NO\n"; ExitConfirm(false); };
+				gameExitNoButton->onClick = [this]() { ExitConfirm(false); };
 			}
 		}
 	}
@@ -842,14 +842,6 @@ void GameScene::ExitConfirm(bool state)
 	if (gameExitCfmTxt)
 	{
 		gameExitCfmText->isEnabled = state;
-	}
-	if (gameExitYesButton)
-	{
-		gameExitYesButton->isEnabled = state;
-	}
-	if (gameExitNoButton)
-	{
-		gameExitNoButton->isEnabled = state;
 	}
 
 	// Disable HTP  and Quit Btn

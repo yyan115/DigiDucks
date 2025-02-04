@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 class StockLogic : public GameLogic
 {
 private:
+	Entity* entity;
 	ItemType type;
 	SpriteRendererComponent* spriteRenderer;
 	TextComponent* textComponent;
@@ -31,11 +32,11 @@ private:
 
 public:
 
-	StockLogic() : GameLogic(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(5) {}
+	StockLogic() : GameLogic(nullptr), entity(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(5) {}
 
-	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_) {}
+	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), entity(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_)
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), entity(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -53,8 +54,16 @@ public:
 	* ***************************************************************/
 	void Start() override 
 	{
-		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
-		textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(component->GetEntityID());
+		entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
+		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
+		textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->entityID);
+		if (textComponent == nullptr)
+		{
+			if (entity->childEntities.size() > 0)
+			{
+				textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->childEntities[0]->entityID);
+			}
+		}
 	}
 
 	/****************************************************************
