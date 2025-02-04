@@ -12,4 +12,5 @@ public:
 
 	void ChangeState(State* newState);
 	void Update();
+	void FixedUpdate();
 };

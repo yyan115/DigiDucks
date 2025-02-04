@@ -13,6 +13,11 @@ void CustomerIdleState::Enter()
 
 void CustomerIdleState::Update()
 {
+	std::cout << "In Idle State" << std::endl;
+}
+
+void CustomerIdleState::FixedUpdate()
+{
 
 }
 

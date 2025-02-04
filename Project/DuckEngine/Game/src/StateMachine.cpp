@@ -22,3 +22,11 @@ void StateMachine::Update()
 		currentState->Update();
 	}
 }
+
+void StateMachine::FixedUpdate()
+{
+	if (currentState != nullptr)
+	{
+		currentState->FixedUpdate();
+	}
+}

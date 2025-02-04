@@ -33,8 +33,4 @@ public:
 		clone->component = nullptr;
 		return clone;
 	}
-
-private:
-	Entity* queueTarget;
-
 };

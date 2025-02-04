@@ -12,5 +12,7 @@ public:
 
 	void Enter() override;
 	void Update() override;
+	void FixedUpdate() override;
 	void Exit() override;
+	
 };
