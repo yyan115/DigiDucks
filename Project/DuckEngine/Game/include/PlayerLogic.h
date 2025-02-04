@@ -26,6 +26,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PanLogic.h"
 #include "ChopBoardLogic.h"
 #include "RobotLogic.h"
+#include "RestockLogic.h"
 
 enum FacingDirection
 {

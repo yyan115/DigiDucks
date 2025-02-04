@@ -15,7 +15,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
-#include "StockLogic.h"
 #include "RestockLogic.h"
 
 class RobotLogic : public GameLogic

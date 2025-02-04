@@ -19,14 +19,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ****************************************************************/
 void RestockLogic::Start()
 {
-	std::cout << "RestockLogic::Start" << std::endl;
-	restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+	restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();;
 	if (restockMenu)
 	{
-		restockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockMenu->entityID);
+		std::cout << "Restock Menu ID: " << restockMenu->entityID << std::endl;
+		restockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
 		if (restockMenuSpt)
 		{
 			restockMenuSpt->isVisible = false;
+		}
+
+		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(component->GetEntityID());
+		if (restockLogic == nullptr)
+		{
+			std::cout << "Cant find shit" << std::endl;
 		}
 	}
 

@@ -8,8 +8,12 @@ void RobotLogic::Start()
 	restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
 	if (restockMenu)
 	{
-		std::cout << "Restock Menu Object Found" << std::endl;
+		std::cout << "Restock Menu ID: " << restockMenu->entityID << std::endl;
 		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID);
+		if (restockLogic == nullptr)
+		{
+			std::cout << "Restock Logic Not Found" << std::endl;
+		}
 	}
 }
 
@@ -28,9 +32,10 @@ void RobotLogic::FixedUpdate()
 
 void RobotLogic::RestockMenu(bool state)
 {
+	std::cout << "Restock Menu 1 " << std::endl;
 	if (restockMenu && restockLogic)
 	{
-		std::cout << "Restock Menu" << std::endl;
+		std::cout << "Restock Menu 2 " << std::endl;
 		restockLogic->RestockMenu(state);
 	}
 }

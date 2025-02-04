@@ -1879,7 +1879,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
@@ -2535,9 +2535,9 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.5,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -2575,9 +2575,9 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.5,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -2615,7 +2615,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 2.0,
                         "position": {
