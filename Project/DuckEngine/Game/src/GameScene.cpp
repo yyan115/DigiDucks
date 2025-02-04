@@ -211,6 +211,10 @@ void GameScene::Load()
 		}
 	}
 
+	// Restock Menu
+	{
+		
+	}
 
 	// MiniGame_1
 	{
@@ -536,6 +540,23 @@ void GameScene::Start()
 * ****************************************************************/
 void GameScene::Update() 
 {	
+	if (!robotRestockLogic)
+	{
+		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+		if (gameRestockMenu)
+		{
+			std::cout << "Restock Menu Found" << std::endl;
+			robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockMenu->entityID);
+			if (robotRestockLogic)
+			{
+				std::cout << "Restock Logic Found" << std::endl;
+			}
+			else
+			{
+				std::cout << "Restock Logic Not Found" << std::endl;
+			}
+		}
+	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -694,6 +715,15 @@ void GameScene::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
+		if (robotRestockLogic)
+		{
+			if (robotRestockLogic->isRestock)
+			{
+				robotRestockLogic->RestockMenu(false);
+				return;
+			}
+		}
+		
 		std::cout << "Escape is pressed!\n";
 		TimeLeftSound->Play(2);
 		Sleep(500);
@@ -766,7 +796,6 @@ void GameScene::PauseGame(bool state)
 
 	HTPShow(false);
 	ExitConfirm(false);
-	//RestockMenu(false);
 	DuckEngine::SetPaused(state);
 }
 
@@ -846,27 +875,7 @@ void GameScene::changePage()
 	};
 }
 
-/****************************************************************
-* @brief Change the visibility of the restock menu.
-* ****************************************************************/
-void GameScene::RestockMenu(bool state)
-{
-	// Disable/Enable Restock Menu
-	if (gameRestockMenuSpt)
-	{
-		gameRestockMenuSpt->isVisible = state;
-	}
 
-	// Disable/Enable Quit and Resume Btn
-	if(gameRestockAllButton)
-	{
-		gameRestockAllButton->isEnabled = state;
-	}
-	if (gameRestockExitButton)
-	{
-		gameRestockExitButton->isEnabled = state;
-	}
-}
 
 
 void GameScene::MiniGame_1(bool state)

@@ -49,6 +49,7 @@ private:
     SoundComponent* sound;
     SoundComponent* SFXsound;
 	std::shared_ptr<MovementLogic> movement;
+	std::shared_ptr<RestockLogic> restockLogic;
 
 public:
     bool isHolding = false;
@@ -56,10 +57,10 @@ public:
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
     PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), SFXsound(nullptr) {}
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), restockLogic(nullptr), SFXsound(nullptr) {}
 
     PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), SFXsound(nullptr)
+        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), restockLogic(nullptr), SFXsound(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }
@@ -104,4 +105,9 @@ public:
 	* @return - Pointer to the object
 	* ****************************************************************/
     Entity* makeObject(ItemType type);
+    
+	/****************************************************************
+	* @brief Function that handles the state of the restock menu
+	* ****************************************************************/
+    void setRestockMenu(bool state);
 };

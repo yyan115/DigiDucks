@@ -21,20 +21,21 @@ written consent of DigiPen Institute of Technology is prohibited.
 class RestockLogic : public GameLogic
 {
 private:
-	Entity* restockMenu;
-	SpriteRendererComponent* restockMenuSpt;
+	Entity* restockMenu = nullptr;
+	SpriteRendererComponent* restockMenuSpt = nullptr;
 
-	Entity* maintainenceBtn;
-	ButtonComponent* maintainenceButton;
+	ButtonComponent* maintainenceButton = nullptr;
+
+	ButtonComponent* restockAllButton = nullptr;
+
+	ButtonComponent* restockExitButton = nullptr;
 
 public:
 	bool isRestock = false;
 
-	RestockLogic() :
-		GameLogic(nullptr), restockMenu(nullptr), restockMenuSpt(nullptr), maintainenceBtn(nullptr), maintainenceButton(nullptr){}
+	RestockLogic() : GameLogic(nullptr) {}
 
-	RestockLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), restockMenu(nullptr), restockMenuSpt(nullptr), maintainenceBtn(nullptr), maintainenceButton(nullptr)
+	RestockLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}

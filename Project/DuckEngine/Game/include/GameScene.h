@@ -43,7 +43,6 @@ private:
     void UpdateOrderTexture();
     void PauseGame(bool state);
     void HTPShow(bool state);
-	void RestockMenu(bool state);
     void ExitConfirm(bool state);
     void changePage();
     void MiniGame_1(bool state);
@@ -106,9 +105,6 @@ private:
 
     // Restock Menu
 	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
-    SpriteRendererComponent* gameRestockMenuSpt = nullptr;
-	ButtonComponent* gameRestockAllButton = nullptr;
-    ButtonComponent* gameRestockExitButton = nullptr;
 
     // MiniGame_1
     Entity* gameMiniGame_BG = nullptr;

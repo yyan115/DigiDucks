@@ -184,22 +184,6 @@
                         }
                     },
                     "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Background"
@@ -425,6 +409,31 @@
                         ]
                     },
                     "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bin_Master": {
+            "childNames": [
+                "Bin_1",
+                "Bin_3",
+                "Bin_2"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -672,8 +681,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.44999998807907104,
-                            "y": 0.44999998807907104
+                            "x": -3.9944448471069336,
+                            "y": -0.839062511920929
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1062,8 +1071,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.8799999952316284,
-                            "y": 0.8999999761581421
+                            "x": -1.508644700050354,
+                            "y": 0.1578124761581421
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1643,6 +1652,55 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "Maintenance_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.6000000238418579,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "MiniGame_BG": {
             "components": [
@@ -3203,6 +3261,55 @@
             ],
             "layer": "UI"
         },
+        "Restock_All_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/GREENBUTTON.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Restock_Bg": {
             "components": [
                 {
@@ -3239,11 +3346,69 @@
             ],
             "layer": "UI"
         },
+        "Restock_Exit_Btn": {
+            "childNames": [
+                "Tomato_Rstk"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.25,
+                            "y": -0.20000000298023224
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05000000074505806,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/xbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Restock_Menu": {
             "childNames": [
                 "Tomato_Bg",
                 "Restock_Bg",
-                "Tomato_Btn"
+                "Tomato_Btn",
+                "GameObject_95",
+                "Restock_Exit_Btn",
+                "GameObject_96",
+                "GameObject_97",
+                "Restock_All_Btn",
+                "Maintenance_Btn"
             ],
             "components": [
                 {
@@ -5005,58 +5170,6 @@
                 }
             ],
             "layer": "Gameplay"
-        },
-        "Tomato_Btn": {
-            "childNames": [
-                "Tomato_Rstk"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.5
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.05000000074505806,
-                            "y": 0.10000000149011612
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 6,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/foodstash stuff/tomato_box.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
         },
         "Tomato_Txt": {
             "components": [

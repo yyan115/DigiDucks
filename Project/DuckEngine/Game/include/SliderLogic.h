@@ -56,4 +56,24 @@ public:
 	* ****************************************************************/
 	void FixedUpdate() override;
 
+	/****************************************************************
+	* @brief Increase Horizontal function for the Slider Logic
+	* ****************************************************************/
+	void IncreaseHorizontal();
+
+	/****************************************************************
+	* @brief Decrease Horizontal function for the Slider Logic
+	* ****************************************************************/
+	void DecreaseHorizontal();
+
+	/****************************************************************
+	* @brief Increase Vertical function for the Slider Logic
+	* ****************************************************************/
+	void IncreaseVertical();
+
+	/****************************************************************
+	* @brief Decrease Vertical function for the Slider Logic
+	* ****************************************************************/
+	void DecreaseVertical();
+
 };

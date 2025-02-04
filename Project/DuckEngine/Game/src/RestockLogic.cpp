@@ -22,27 +22,40 @@ void RestockLogic::Start()
 	restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();;
 	if (restockMenu)
 	{
-		std::cout << "Restock Menu ID: " << restockMenu->entityID << std::endl;
 		restockMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
 		if (restockMenuSpt)
 		{
 			restockMenuSpt->isVisible = false;
 		}
+	}
 
-		auto restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(component->GetEntityID());
-		if (restockLogic == nullptr)
+	auto restockExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Exit_Btn").get();
+	if (restockExitBtn)
+	{
+		restockExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockExitBtn->entityID);
+		if (restockExitButton)
 		{
-			std::cout << "Cant find shit" << std::endl;
+			restockExitButton->onClick = [this]() { RestockMenu(false); };
 		}
 	}
 
-	maintainenceBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Maintainence_Btn").get();
+	auto restockAllBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_All_Btn").get();
+	if (restockAllBtn)
+	{
+		restockAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockAllBtn->entityID);
+		if (restockAllButton)
+		{
+			restockAllButton->onClick = [this]() { std::cout << "Restock ALL" << std::endl; RestockAll(); };
+		}
+	}
+
+	auto maintainenceBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Maintenance_Btn").get();
 	if (maintainenceBtn)
 	{
 		maintainenceButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(maintainenceBtn->entityID);
 		if (maintainenceButton)
 		{
-			maintainenceButton->onClick = [this]() { /*Mainatinence Func*/ };
+			maintainenceButton->onClick = [this]() { std::cout << "Maintenance" << std::endl;/*Mainatinence Func*/ };
 		}
 	}
 }
@@ -53,7 +66,6 @@ void RestockLogic::Start()
 * ****************************************************************/
 void RestockLogic::Update()
 {
-
 }
 
 void RestockLogic::FixedUpdate()
@@ -65,9 +77,10 @@ void RestockLogic::RestockMenu(bool state)
 	// Disable/Enable Restock Menu
 	if (restockMenuSpt)
 	{
-		std::cout << "Restock Menu" << std::endl;
 		restockMenuSpt->isVisible = state;
 	}
+
+	isRestock = state;
 }
 
 /****************************************************************
@@ -75,6 +88,7 @@ void RestockLogic::RestockMenu(bool state)
 * ****************************************************************/
 void RestockLogic::RestockAll()
 {
+
     std::vector<int> allEntities = GameLogicManager::GetAllEntitiesWithLogic<StockLogic>();
 
 	for (int entityID : allEntities)

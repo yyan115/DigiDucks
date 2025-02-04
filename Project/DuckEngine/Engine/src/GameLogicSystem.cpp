@@ -52,8 +52,6 @@ void GameLogicSystem::Start()
 
 	for (auto& [entityID, component] : components)
 	{
-		auto* logicComponent = static_cast<GameLogicComponent*>(component.get());
-
 		auto& logics = GameLogicManager::GetLogicsForEntity(entityID);
 		for (auto& logic : logics)
 		{

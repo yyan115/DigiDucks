@@ -23,16 +23,13 @@ private:
 	Entity* robot;
 	AnimatorComponent* robotAni;
 
-	Entity* restockMenu;
-	std::shared_ptr<RestockLogic> restockLogic;
-
 public:
 
 	RobotLogic() :
-		GameLogic(nullptr), robot(nullptr), robotAni(nullptr), restockMenu(nullptr), restockLogic(nullptr) {}
+		GameLogic(nullptr), robot(nullptr), robotAni(nullptr) {}
 
 	RobotLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), robot(nullptr), robotAni(nullptr), restockMenu(nullptr), restockLogic(nullptr)
+		GameLogic(nullptr), robot(nullptr), robotAni(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -59,10 +56,4 @@ public:
 	* ****************************************************************/
 	void FixedUpdate() override;
 
-	/****************************************************************
-	* @brief Handles the state of the restock menu.
-	*	
-	* @param state - The state of the restock menu.
-	* ****************************************************************/
-	void RestockMenu(bool state);
 };

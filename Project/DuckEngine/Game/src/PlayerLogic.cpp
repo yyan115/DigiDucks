@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 
 
-
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
 
@@ -31,6 +30,11 @@ void PlayerLogic::Start()
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
+	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+	if (restockMenu)
+	{
+		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID);
+	}
 
 	// Incase Scene does not have a SFXManager
 	Entity* SFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get();
@@ -69,6 +73,18 @@ void PlayerLogic::Start()
 * ****************************************************************/
 void PlayerLogic::Update()
 {
+	if (restockLogic)
+	{
+		if (restockLogic->isRestock)
+		{
+			movement->isMoving = false;
+		}
+		else
+		{
+			movement->isMoving = true;
+		}
+	}
+
 	if (actionCounter >= 0)
 	{
 		actionCounter -= DuckEngine::DeltaTime();
@@ -290,9 +306,7 @@ void PlayerLogic::InteractPressed()
 		if (robotLogic)
 		{
 			if (sound) sound->Play(0);
-			robotLogic->RestockMenu(true);
-			//here
-			//GameScene::MiniGame_1(true);
+			setRestockMenu(true);
 			return;
 		}
 
@@ -505,4 +519,12 @@ Entity* PlayerLogic::makeObject(ItemType type)
 	};
 
 	return newObject;
+}
+
+/****************************************************************
+* @brief Function to set the restock menu
+* ****************************************************************/
+void PlayerLogic::setRestockMenu(bool state)
+{
+	restockLogic->RestockMenu(state);
 }
