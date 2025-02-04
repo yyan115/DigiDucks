@@ -549,7 +549,6 @@ void GameScene::Load()
 	gameStarted = false;
 	countdownTime = 4.0f;
 
-
 	PauseGame(false);
 	MiniGame_1(false);
 }
@@ -843,6 +842,14 @@ void GameScene::ExitConfirm(bool state)
 	if (gameExitCfmTxt)
 	{
 		gameExitCfmText->isEnabled = state;
+	}
+	if (gameExitYesButton)
+	{
+		gameExitYesButton->isEnabled = state;
+	}
+	if (gameExitNoButton)
+	{
+		gameExitNoButton->isEnabled = state;
 	}
 
 	// Disable HTP  and Quit Btn
