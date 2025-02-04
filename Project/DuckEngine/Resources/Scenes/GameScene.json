@@ -1879,7 +1879,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
@@ -2515,48 +2515,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 1.059999942779541,
-                            "y": 0.40000003576278687
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "enabled": false,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 0,
-                        "text": "1"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "MiniGame_T2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -2.0357863903045654,
-                            "y": -4.095553874969482
+                            "x": 0.25200000405311584,
+                            "y": 0.4500000476837158
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2575,14 +2535,54 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontSize": 1.5,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 3,
+                        "text": "1"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_T2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.2499999850988388,
+                            "y": 0.3050000071525574
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.5,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 3,
                         "text": "2"
                     },
                     "type": "TextComponent"
@@ -2595,14 +2595,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 7.801650524139404,
-                            "y": 2.5240890979766846
+                            "x": 0.25,
+                            "y": 0.625
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 7.0,
-                            "y": 7.0
+                            "x": 5.0,
+                            "y": 5.0
                         }
                     },
                     "type": "TransformComponent"
@@ -2615,20 +2615,20 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontSize": 2.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
-                        "text": "123"
+                        "sortingOrder": 3,
+                        "text": "hello "
                     },
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Mushroom_Box": {
             "childNames": [

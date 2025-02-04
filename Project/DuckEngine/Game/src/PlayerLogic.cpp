@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 
 
+
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
 
@@ -290,7 +291,7 @@ void PlayerLogic::InteractPressed()
 		{
 			if (sound) sound->Play(0);
 			restockLogic->isRestock = !restockLogic->isRestock;
-			return;
+			//return;
 			//here
 			//GameScene::MiniGame_1(true);
 			return;
