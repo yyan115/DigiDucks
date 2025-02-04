@@ -118,3 +118,18 @@ std::shared_ptr<Entity> EntityManager::GetParentEntity(int childEntityID)
     }
     return nullptr;
 }
+
+bool EntityManager::ShouldSkipDueToInvisibleAncestor(int entityID)
+{
+	std::shared_ptr<Entity> currentParent = GetParentEntity(entityID);
+	while (currentParent) 
+    {
+		auto* parentSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(currentParent->entityID);
+		if (parentSpriteRenderer && !parentSpriteRenderer->isVisible) 
+        {
+			return true; 
+		}
+		currentParent = GetParentEntity(currentParent->entityID);
+	}
+	return false;
+}

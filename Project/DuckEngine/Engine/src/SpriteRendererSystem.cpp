@@ -126,20 +126,8 @@ void SpriteRendererSystem::Render()
 				continue;
 			}
 
-			bool skipDueToInvisibleAncestor = false;
-			std::shared_ptr<Entity> currentParent = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(entityID);
-			while (currentParent)
-			{
-				auto* parentSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(currentParent->entityID);
-				if (parentSpriteRenderer && !parentSpriteRenderer->isVisible)
-				{
-					skipDueToInvisibleAncestor = true;
-					break;
-				}
-				currentParent = DuckEngine::DUCKENGINE_EntityManager.GetParentEntity(currentParent->entityID);
-			}
-
-			if (skipDueToInvisibleAncestor)
+			// skip if parent invisible
+			if (DuckEngine::DUCKENGINE_EntityManager.ShouldSkipDueToInvisibleAncestor(entityID)) 
 			{
 				continue;
 			}

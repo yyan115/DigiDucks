@@ -46,4 +46,5 @@ public:
     DUCKENGINE_API void ResetEntityID() { nextEntityID = 0; }
     DUCKENGINE_API void RemoveAllEntities();
     DUCKENGINE_API std::shared_ptr<Entity> GetParentEntity(int childEntityID);
+    DUCKENGINE_API bool ShouldSkipDueToInvisibleAncestor(int entityID);
 };

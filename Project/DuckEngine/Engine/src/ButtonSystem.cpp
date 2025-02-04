@@ -66,6 +66,11 @@ void ButtonSystem::Render()
             continue;
         }
 
+		if (DuckEngine::DUCKENGINE_EntityManager.ShouldSkipDueToInvisibleAncestor(entityId)) 
+        {
+			continue;
+		}
+
         // Retrieve position and scale from TransformComponent
         Vector2D position = sprite->GetPosition();
         Vector2D scale = sprite->scale;
