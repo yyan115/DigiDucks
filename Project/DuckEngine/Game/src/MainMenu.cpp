@@ -49,8 +49,11 @@ void MainMenu::Load()
 	auto levelSelect = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(LevelSelectButton->entityID);
 	levelSelect->onClick = [this]()
 		{
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			if (!isFadingOut)
+			{
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			}
 		};
 
 	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
@@ -68,11 +71,24 @@ void MainMenu::Load()
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
 	QuitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);
-	exit->onClick = [this]() { QuitSound->Play(1); GameManager::DuckEngine.CloseWindow(); };
+	exit->onClick = [this]() 
+		{ 
+			if (!isFadingOut)
+			{
+				QuitSound->Play(1); GameManager::DuckEngine.CloseWindow();
+			}
+		};
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay").get();
 	auto htp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(HtpButton->entityID);
 	HtpSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(HtpButton->entityID);
-	htp->onClick = [this]() { HtpSound->Play(1); GameManager::SetActiveScene("HowToPlay"); };
+	htp->onClick = [this]() 
+		{
+			if (!isFadingOut)
+			{
+				HtpSound->Play(1); 
+				GameManager::SetActiveScene("HowToPlay"); 
+			}
+		};
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
 	levelSelectButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LevelSelectButton->entityID);
