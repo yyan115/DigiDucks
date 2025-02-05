@@ -123,6 +123,143 @@ void FontManager::Update()
     // Currently nothing here
 }
 
+//
+//void FontManager::Render()
+//{
+//    GraphicsManager::BindFBO();
+//
+//    auto shader = ShaderManager::GetShader("TextShader");
+//    shader->Use();
+//
+//    // Enable alpha blending for text
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glDisable(GL_DEPTH_TEST);
+//
+//    // Bind the text VAO and set texture unit 0 active
+//    glBindVertexArray(VAO);
+//    glActiveTexture(GL_TEXTURE0);
+//
+//    // Process each text render command in the draw queue
+//    for (auto& text : drawQueue)
+//    {
+//        glm::mat4 projection(1.0f);
+//
+//        if (text.isUI)
+//        {
+//            // For UI text, use an orthographic projection that maps [0,1] to the screen
+//            projection = glm::ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
+//        }
+//        else
+//        {
+//            // For world text, use a centered orthographic projection with camera offset
+//            float virtualHeight = CameraManager::GetHeight();
+//            float ar = CameraManager::GetAR();
+//            float virtualWidth = virtualHeight * ar;
+//            glm::mat4 orthoMat = glm::ortho(
+//                -virtualWidth * 0.5f, virtualWidth * 0.5f,
+//                -virtualHeight * 0.5f, virtualHeight * 0.5f,
+//                -1.0f, 1.0f
+//            );
+//            auto camPos = CameraManager::GetPosition();
+//            glm::mat4 view = glm::translate(glm::mat4(1.0f),
+//                glm::vec3(-camPos.x, -camPos.y, 0.0f));
+//            projection = orthoMat * view;
+//        }
+//
+//        // Send the projection matrix to the shader
+//        GLint projLoc = glGetUniformLocation(shader->GetProgram(), "projection");
+//        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+//
+//        // Set the text color
+//        GLint colorLoc = glGetUniformLocation(shader->GetProgram(), "textColor");
+//        glUniform4f(colorLoc,
+//            text.color.r / 255.f,
+//            text.color.g / 255.f,
+//            text.color.b / 255.f,
+//            text.color.a / 255.f);
+//
+//        // Get the font character map for this text command
+//        const auto& fontMap = Fonts[text.fontName];
+//
+//        // Start at the given text position
+//        float x = text.position.x;
+//        float y = text.position.y;
+//
+//        if (text.isUI)
+//        {
+//            // Now text.scale is assumed to be normalized already.
+//            for (char c : text.text)
+//            {
+//                if (fontMap.find(c) == fontMap.end())
+//                    continue;
+//                const Character& ch = fontMap.at(c);
+//                // No division by winW/winH needed because we expect text.scale to be relative already.
+//                float xpos = x + (ch.Bearing.x * text.scale);
+//                float ypos = y - ((ch.Size.y - ch.Bearing.y) * text.scale);
+//                float w = ch.Size.x * text.scale;
+//                float h = ch.Size.y * text.scale;
+//
+//                GLfloat vertices[6][4] = {
+//                    { xpos,     ypos + h,  0.0f, 0.0f },
+//                    { xpos,     ypos,      0.0f, 1.0f },
+//                    { xpos + w, ypos,      1.0f, 1.0f },
+//
+//                    { xpos,     ypos + h,  0.0f, 0.0f },
+//                    { xpos + w, ypos,      1.0f, 1.0f },
+//                    { xpos + w, ypos + h,  1.0f, 0.0f }
+//                };
+//
+//                glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+//                glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+//                glDrawArrays(GL_TRIANGLES, 0, 6);
+//
+//                // Advance x without additional division.
+//                x += ((ch.Advance >> 6) * text.scale);
+//            }
+//        }
+//        else
+//        {
+//            // For world text, positions are in world (pixel) units; use the original calculations.
+//            for (char c : text.text)
+//            {
+//                if (fontMap.find(c) == fontMap.end())
+//                    continue;
+//                const Character& ch = fontMap.at(c);
+//
+//                float xpos = x + ch.Bearing.x * text.scale;
+//                float ypos = y - (ch.Size.y - ch.Bearing.y) * text.scale;
+//                float w = ch.Size.x * text.scale;
+//                float h = ch.Size.y * text.scale;
+//
+//                GLfloat vertices[6][4] = {
+//                    { xpos,     ypos + h,  0.0f, 0.0f },
+//                    { xpos,     ypos,      0.0f, 1.0f },
+//                    { xpos + w, ypos,      1.0f, 1.0f },
+//
+//                    { xpos,     ypos + h,  0.0f, 0.0f },
+//                    { xpos + w, ypos,      1.0f, 1.0f },
+//                    { xpos + w, ypos + h,  1.0f, 0.0f }
+//                };
+//
+//                glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+//                glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//                glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+//                glDrawArrays(GL_TRIANGLES, 0, 6);
+//
+//                x += (ch.Advance >> 6) * text.scale;
+//            }
+//        }
+//    }
+//
+//    // Unbind VAO and texture, clear the draw queue, and unbind the FBO.
+//    glBindVertexArray(0);
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//    drawQueue.clear();
+//    GraphicsManager::UnbindFBO();
+//}
+
 void FontManager::Exit() 
 {
     for (auto& font : Fonts) {

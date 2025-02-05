@@ -1,19 +1,3 @@
-/******************************************************************************/
-/*!
-\file       ParticleManager.cpp
-\author     Yan Yu, y.yan, 2301213
-\par        y.yan@digipen.edu
-\date       Feburary 6 2025
-\brief      Implements the ParticleManager class, which manages a global pool of
-            particles for the game engine. This system handles particle updates,
-            rendering, and emitter-based spawning to create dynamic visual effects.
-
-Copyright (C) 2024 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
-
 #include "ParticleManager.h"
 
 #include <random>

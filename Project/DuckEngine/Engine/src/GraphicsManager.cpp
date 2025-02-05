@@ -33,6 +33,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShaderManager.h"
 #include "GizmoManager.h"
 
+#include "ParticleSystem.h"
+
 #include "FontManager.h"
 #include "RenderData.h"
 
