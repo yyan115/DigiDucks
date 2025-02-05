@@ -5,7 +5,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
+                            "x": 9.800000190734863,
                             "y": -7.471495628356934
                         },
                         "relativeToCamera": true,
@@ -67,8 +67,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 3.3289215564727783,
+                            "y": 0.1923084259033203
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -103,7 +103,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
+                            "x": 9.800000190734863,
                             "y": -4.61757755279541
                         },
                         "relativeToCamera": true,
@@ -160,12 +160,48 @@
             ],
             "layer": "Gameplay"
         },
+        "LevelSelectScreen": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Logo": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
+                            "x": 9.800000190734863,
                             "y": 5.0
                         },
                         "relativeToCamera": true,
@@ -196,12 +232,56 @@
             ],
             "layer": "Gameplay"
         },
+        "MainMenuScreen": {
+            "childNames": [
+                "Start",
+                "MenuBGM",
+                "Logo",
+                "HowToPlay",
+                "FadeOutMenu",
+                "Exit"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.20000000298023224,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "MenuBGM": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": -0.20000000298023224,
                             "y": 0.0
                         },
                         "relativeToCamera": true,
@@ -249,7 +329,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
+                            "x": 9.800000190734863,
                             "y": -1.6175775527954102
                         },
                         "relativeToCamera": true,
