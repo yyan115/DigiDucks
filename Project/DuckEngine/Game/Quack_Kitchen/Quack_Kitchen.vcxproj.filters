@@ -80,6 +80,9 @@
     <ClCompile Include="..\src\RobotLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\LevelSelectScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -261,6 +264,9 @@
     </ClInclude>
     <ClInclude Include="..\include\RobotLogic.h">
       <Filter>include\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\LevelSelectScene.h">
+      <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

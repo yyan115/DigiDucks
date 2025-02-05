@@ -203,6 +203,7 @@
     <ClCompile Include="..\src\HoldingLogic.cpp" />
     <ClCompile Include="..\src\HowToPlay.cpp" />
     <ClCompile Include="..\src\Level0.cpp" />
+    <ClCompile Include="..\src\LevelSelectScene.cpp" />
     <ClCompile Include="..\src\MainMenu.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="..\include\IngredientType.h" />
     <ClInclude Include="..\include\LettuceStockLogic.h" />
     <ClInclude Include="..\include\Level0.h" />
+    <ClInclude Include="..\include\LevelSelectScene.h" />
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
