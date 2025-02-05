@@ -7,18 +7,18 @@ template<typename T>
 class StateMachine
 {
 public:
-	State<T>* currentState;
+	std::shared_ptr<State<T>> currentState;
 
 	StateMachine() : currentState(nullptr) {}
 
-	void ChangeState(State<T>* newState)
+	void ChangeState(std::shared_ptr<State<T>> newState)
 	{
 		if (currentState != nullptr)
 		{
 			currentState->Exit();
 		}
 
-		currentState = newState;
+		currentState = std::move(newState);
 
 		if (currentState != nullptr)
 		{

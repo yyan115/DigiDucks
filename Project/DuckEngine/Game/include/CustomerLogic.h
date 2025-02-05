@@ -10,8 +10,8 @@ class CustomerLogic : public GameLogic
 {
 public:
 	StateMachine<CustomerLogic> stateMachine;
-	CustomerIdleState* IdleState;
-	CustomerWalkState* WalkState;
+	std::shared_ptr<CustomerIdleState> IdleState;
+	std::shared_ptr<CustomerWalkState> WalkState;
 
 	CustomerLogic()
 		: IdleState(nullptr), WalkState(nullptr) {
@@ -20,8 +20,6 @@ public:
 	void Start() override;
 	void Update() override;
 	void FixedUpdate() override;
-
-	~CustomerLogic();
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{

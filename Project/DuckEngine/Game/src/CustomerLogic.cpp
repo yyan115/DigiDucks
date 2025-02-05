@@ -2,8 +2,8 @@
 
 void CustomerLogic::Start()
 {
-	IdleState = new CustomerIdleState(this);
-	WalkState = new CustomerWalkState(this);
+	IdleState = std::make_shared<CustomerIdleState>(this);
+	WalkState = std::make_shared<CustomerWalkState>(this);
 	stateMachine.ChangeState(WalkState);
 }
 
@@ -15,11 +15,4 @@ void CustomerLogic::Update()
 void CustomerLogic::FixedUpdate()
 {
 	stateMachine.currentState->FixedUpdate();
-}
-
-
-CustomerLogic::~CustomerLogic()
-{
-	delete IdleState;
-	delete WalkState;
 }
