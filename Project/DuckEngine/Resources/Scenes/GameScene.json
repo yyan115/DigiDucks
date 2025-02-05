@@ -3109,6 +3109,55 @@
             ],
             "layer": "Gameplay"
         },
+        "QuackSound": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/duck sounds/AnimalDuckCart 10.wav",
+                            "Resources/Sounds/duck sounds/AnimalDuckCart 3.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "QueueUpPaths": {
             "childNames": [
                 "QueueUp_1",
@@ -3850,7 +3899,8 @@
         },
         "SFXManager": {
             "childNames": [
-                "TimerSFXManager"
+                "TimerSFXManager",
+                "QuackSound"
             ],
             "components": [
                 {
@@ -3891,9 +3941,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/plate/plate 1.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 10.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 3.wav"
+                            "Resources/Sounds/plate/plate 1.wav"
                         ],
                         "volume": 0.6000000238418579
                     },

@@ -95,7 +95,6 @@ void DuckEngine::Initialize(bool _isEditor)
 
 void DuckEngine::SetupSystems()
 {
-
 	// add the systems
 	std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
 	DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
@@ -488,7 +487,7 @@ void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCor
 @brief Draws a circle at a specified position with a given radius and color.
 @param position The position of the circle's center.
 @param radius The radius of the circle.
-@param color The color of the circle (default is red).
+@param color The color of the circle (is red).
 @param relativeToCamera Determines if the circle should be drawn relative to the camera.
 *************************************************************************/
 void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera, int sortingOrder, int layer) {

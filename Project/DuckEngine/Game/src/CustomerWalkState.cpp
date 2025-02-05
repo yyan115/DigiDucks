@@ -33,7 +33,7 @@ void CustomerWalkState::Enter()
 	if (isOrderTaken && orderCollected)
 	{
 		currentQueueTarget = finalPath;
-		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get()->entityID);
+		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
 		quackSound->Play(2);
 
 	}
