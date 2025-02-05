@@ -30,8 +30,8 @@ struct Particle
     float scale = 1.0f;       // can be used for radius or sprite scale
     Color color = { 255,255,255,255 };  // RGBA
 
-    int layer;
-    int sortingOrder;
+    int layer = 0;
+    int sortingOrder = 0;
 };
 
 /**

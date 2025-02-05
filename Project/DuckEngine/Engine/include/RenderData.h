@@ -159,31 +159,31 @@ struct DebugRenderCommand {
 
 // --- ParticleRenderCommand ---
 // This structure is used by the unified render system to render particles.
-//struct ParticleRenderCommand {
-//
-//    // NECESSARY (SCALE, ROTATE, TRANSLATE)
-//    Vector2D scale = { 1.0f, 1.0f };
-//    float rotation = 0.0f;
-//    Vector2D translation = { 0.0f, 0.0f };
-//
-//    // OPTIONAL
-//    bool useColor = false;
-//    Color color = { 255, 255, 255, 255 };
-//
-//    // OPTIONAL
-//    bool useTexture = false;
-//    unsigned int* texture = 0;
-//
-//    // OPTIONAL
-//    bool relativeToCamera = true;
-//};
+struct ParticleRenderCommand {
+
+    // NECESSARY (SCALE, ROTATE, TRANSLATE)
+    Vector2D scale = { 1.0f, 1.0f };
+    float rotation = 0.0f;
+    Vector2D translation = { 0.0f, 0.0f };
+
+    // OPTIONAL
+    bool useColor = false;
+    Color color = { 255, 255, 255, 255 };
+
+    // OPTIONAL
+    bool useTexture = false;
+    unsigned int* texture = 0;
+
+    // OPTIONAL
+    bool relativeToCamera = true;
+};
 
 // Define the three types of commands.
 enum class RenderCommandType {
     Game,   // For game objects (using GameRenderCommand)
     Text,   // For text (using TextRenderCommand)
     Debug,   // For debug drawing (using DebugRenderCommand)
-    //Particle
+    Particle
 };
 
 // Our unified render command – each command carries a layer and a variant.
@@ -191,5 +191,5 @@ struct UnifiedRenderCommand {
     int layer = 0;
     int sortingOrder = 0;
     RenderCommandType type = RenderCommandType::Game;
-    std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand> command;
+    std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand, ParticleRenderCommand> command;
 };

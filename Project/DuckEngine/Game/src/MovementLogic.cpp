@@ -84,8 +84,29 @@ void MovementLogic::FixedUpdate()
 	// Set velocity based on normalized input
 	rigidbody->velocity = inputDirection * moveSpeed;
 
-	if (isMoving) {
-		DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.1f}, -rigidbody->velocity);
+	if (isMoving)
+	{
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
+		{
+			DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 0.1f }, -rigidbody->velocity);
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
+		{
+			DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.f }, -rigidbody->velocity);
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
+		{
+			DuckEngine::Emit("Dust", { moveSmokePosition.x - 1.f, moveSmokePosition.y - 1.1f }, -rigidbody->velocity);
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
+		{
+			DuckEngine::Emit("Dust", { moveSmokePosition.x + 1.f, moveSmokePosition.y - 1.1f }, -rigidbody->velocity);
+		}
 	}
+
+	//if (isMoving) {
+	//	DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.1f}, -rigidbody->velocity);
+	//	std::cout << "emitting\n";
+	//}
 }
 

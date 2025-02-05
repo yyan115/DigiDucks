@@ -171,9 +171,12 @@ void GraphicsManager::Render() {
         case RenderCommandType::Debug:
             RenderDebugObject(std::get<DebugRenderCommand>(cmd.command));
             break;
-        //case RenderCommandType::Particle:
-        //    RenderGameObject(std::get<ParticleRenderCommand>(cmd.command));
-        //    break;
+        case RenderCommandType::Particle: {
+            ParticleRenderCommand particleData = std::get<ParticleRenderCommand>(cmd.command);
+            //RenderGameObject(std::get<ParticleRenderCommand>(cmd.command));
+            DrawFilledCircle(particleData.translation, particleData.scale.x, particleData.color, /*relativeToCamera=*/ true);
+            break;
+        }
         default:
             break;
         }

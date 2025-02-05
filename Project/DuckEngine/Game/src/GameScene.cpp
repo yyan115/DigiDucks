@@ -538,11 +538,11 @@ void GameScene::Load()
 	Emitter dust;
 
 	dust.spawnCountMin = 1;
-	dust.spawnCountMax = 10;
-	dust.lifetimeMin = 0.5f;
-	dust.lifetimeMax = 1.0f;
-	dust.scaleMin = 0.05f;
-	dust.scaleMax = 0.3f;
+	dust.spawnCountMax = 2;
+	dust.lifetimeMin = 0.2f;
+	dust.lifetimeMax = 0.3f;
+	dust.scaleMin = 0.03f;
+	dust.scaleMax = 0.1f;
 	dust.speedMin = 0.05f;
 	dust.speedMax = 0.1f;
 	dust.baseColor = { 160,160,160,255 };
