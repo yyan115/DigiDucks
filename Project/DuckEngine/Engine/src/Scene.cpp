@@ -138,6 +138,23 @@ Layer* Scene::GetLayer(const std::string& name)
 }
 
 /**************************************************************************
+@brief Retrieves a pointer to a layer by int.
+@param name The name of the layer to retrieve.
+@return Pointer to the layer if found, nullptr otherwise.
+**************************************************************************/
+Layer* Scene::GetLayer(int layerInt)
+{
+    for (auto layer : layers) {
+        if (layer.second.GetOrder() == layerInt) {
+            return &(layer.second);
+        }
+    }
+
+    return nullptr;
+
+}
+
+/**************************************************************************
 @brief Gets a constant reference to the layers map in the scene.
 @return An unordered_map containing the layers in the scene.
 **************************************************************************/

@@ -77,6 +77,13 @@ public:
 	DUCKENGINE_API Layer* GetLayer(const std::string& name);
 
 	/**************************************************************************
+	@brief Retrieves a pointer to a layer by int.
+	@param name The name of the layer to retrieve.
+	@return Pointer to the layer if found, nullptr otherwise.
+	**************************************************************************/
+	DUCKENGINE_API Layer* GetLayer(int layerInt);
+
+	/**************************************************************************
 	@brief Gets a constant reference to the layers map in the scene.
 	@return An unordered_map containing the layers in the scene.
 	**************************************************************************/

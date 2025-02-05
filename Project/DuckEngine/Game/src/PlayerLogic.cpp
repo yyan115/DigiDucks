@@ -468,6 +468,14 @@ void PlayerLogic::InteractHold()
 				{
 					if (sound) sound->Play();
 					//animator->PlayAnimation("Cook");
+
+					panLogic->EmitSparks();
+					//	// Then inside your stove/cooking system:
+					//if (foodIsCooking && someRandomChance())
+					//{
+					//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
+					//	DuckEngine::Emit("CookingSparks", , {0.2f, 0.2f});
+					//}
 				}
 			}
 

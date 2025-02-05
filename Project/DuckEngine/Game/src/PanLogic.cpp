@@ -119,3 +119,7 @@ void PanLogic::cookObject()
 		}
 	}
 }
+
+void PanLogic::EmitSparks() {
+	DuckEngine::Emit("CookingSparks", tableTransform->GetPosition(), {0.2f, 0.2f});
+}

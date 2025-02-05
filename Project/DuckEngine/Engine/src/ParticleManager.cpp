@@ -45,17 +45,20 @@ void ParticleManager::Start(int maxParticles)
 
 void ParticleManager::Update()
 {
-    float dt = DuckEngine::DeltaTime();  // or whatever your engine uses
+    float dt = DuckEngine::DeltaTime();
     UpdateParticles(dt);
 }
 
 void ParticleManager::Render()
 {
-    int count = 0;
-
     for (auto& p : m_particles)
     {
         if (!p.active) continue;
+
+        auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+        Layer* currentLayer = activeScene->GetLayer(p.layer);
+
+        if (!currentLayer->IsVisible()) continue;
 
         // Add draw command to the GraphicsManager queue
         ParticleRenderCommand drawOpt;
@@ -73,11 +76,7 @@ void ParticleManager::Render()
         cmd.command = drawOpt;
 
         GraphicsManager::AddToDrawQueue(cmd);
-        count++;
     }
-
-    //std::cout << "particle count: " << count << "\n";
-    count = 0;
 }
 
 void ParticleManager::RegisterEmitter(const std::string& type, const Emitter& def)
@@ -119,6 +118,9 @@ void ParticleManager::SpawnOneParticle(const Emitter& def, const Vector2D& pos, 
             p.color = def.baseColor;
             p.scale = RandRange(def.scaleMin, def.scaleMax);
             p.velocity = baseVel + RandDirection2D(def.speedMin, def.speedMax);
+            // Set layer and sorting order from emitter
+            p.layer = def.layer;
+            p.sortingOrder = def.sortingOrder;
             return;
         }
     }

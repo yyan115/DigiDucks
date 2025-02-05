@@ -128,10 +128,5 @@ void MovementLogic::FixedUpdate()
 
 		DuckEngine::Emit("Dust", moveSmokePosition, -rigidbody->velocity);
 	}
-
-	//if (isMoving) {
-	//	DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.1f}, -rigidbody->velocity);
-	//	std::cout << "emitting\n";
-	//}
 }
 

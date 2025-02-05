@@ -535,8 +535,8 @@ void GameScene::Load()
 	PauseGame(false);
 	MiniGame_1(false);
 
+	// MOVEMENT WALKING DUST PARTICLE SETUP
 	Emitter dust;
-
 	dust.spawnCountMin = 1;
 	dust.spawnCountMax = 2;
 	dust.lifetimeMin = 0.2f;
@@ -546,26 +546,35 @@ void GameScene::Load()
 	dust.speedMin = 0.05f;
 	dust.speedMax = 0.1f;
 	dust.baseColor = { 160,160,160,255 };
-
-	//EmitterDef dust;
-	//dust.spawnCountMin = 1;
-	//dust.spawnCountMax = 3;
-	//dust.lifetimeMin = 0.5f;
-	//dust.lifetimeMax = 1.0f;
-	//dust.scaleMin = 0.05f;
-	//dust.scaleMax = 0.1f;
-	//dust.speedMin = 0.1f;
-	//dust.speedMax = 0.3f;
-	//dust.baseColor = { 160,160,160,255 };
-	//g_particleManager.RegisterEmitterDef(ParticleType::Dust, dust);
-
 	// Gameplay layer
 	dust.layer = 1;
-
-	// Behind player (sorting order 1)
+	// Behind player which has sorting order 1
 	dust.sortingOrder = 0;
-
 	DuckEngine::RegisterEmitter("Dust", dust);
+
+	Emitter sparks;
+	sparks.spawnCountMin = 1;
+	sparks.spawnCountMax = 2;
+	sparks.lifetimeMin = 0.3f;
+	sparks.lifetimeMax = 0.7f;
+	sparks.scaleMin = 0.05f;
+	sparks.scaleMax = 0.25f;
+	sparks.speedMin = 0.5f;
+	sparks.speedMax = 1.0f;
+	sparks.baseColor = { 255, 100, 0, 255 }; // orange
+	// Gameplay layer
+	sparks.layer = 1;
+	// Behind pan which has sorting order 3
+	sparks.sortingOrder = 2;
+	DuckEngine::RegisterEmitter("CookingSparks", sparks);
+	//g_particleManager.RegisterEmitterDef(ParticleType::CookingSparks, sparks);
+
+	//// Then inside your stove/cooking system:
+	//if (foodIsCooking && someRandomChance())
+	//{
+	//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
+	//}
+
 }
 
 /****************************************************************
