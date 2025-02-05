@@ -418,7 +418,7 @@ void PlayerLogic::InteractPressed()
 			//	isHolding = false;
 			//}
 
-			if (holdingLogic->getType() != orderTabLogic->GetCurrentOrder())
+			if (holdingLogic->getType() == orderTabLogic->GetCurrentOrder())
 			{
 				submitLogic->removeObject(holdingLogic->moveObject());
 				if (sound) sound->Play();

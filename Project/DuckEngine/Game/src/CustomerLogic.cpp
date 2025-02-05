@@ -1,6 +1,5 @@
 #include "CustomerLogic.h"
 #include "GameScene.h"
-#include "IngredientType.h"
 
 void CustomerLogic::Start()
 {
@@ -18,11 +17,14 @@ void CustomerLogic::Start()
 	// 2 is Salad
 	if (randomDishOrder == 1)
 	{
+
 		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_1");
+		customerOrderType = ItemType::CHEESE_BURGER_PLATE;
 	}
 	else
 	{
 		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_2");
+		customerOrderType = ItemType::SALAD_PLATE;
 	}
 
 

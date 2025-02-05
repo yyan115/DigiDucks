@@ -27,6 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ChopBoardLogic.h"
 #include "RobotLogic.h"
 #include "RestockLogic.h"
+#include "OrderTabLogic.h"
 
 enum FacingDirection
 {
@@ -41,6 +42,7 @@ enum FacingDirection
 class PlayerLogic : public GameLogic
 {
 private:
+    OrderTabLogic* orderTabLogic;
     BoundingCircle* circleCollider;
     BoundingBox* boxCollider;
     AnimatorComponent* animator;

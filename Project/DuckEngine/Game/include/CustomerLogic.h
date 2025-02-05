@@ -8,6 +8,9 @@
 #include "CustomerWalkState.h"
 #include "CustomerWaitingOrderState.h"
 
+#include "IngredientType.h"
+
+
 class GameScene;
 
 class CustomerLogic : public GameLogic
@@ -35,9 +38,12 @@ public:
 
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
 	GameScene* GetGameScene() { return gameScene; }
+	ItemType GetCustomerOrderType() { return customerOrderType; }
 
 private:
 	GameScene* gameScene = nullptr;
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;
+	ItemType customerOrderType = ItemType::EMPTY;
+
 };

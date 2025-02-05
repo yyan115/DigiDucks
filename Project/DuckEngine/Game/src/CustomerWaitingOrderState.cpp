@@ -37,7 +37,7 @@ void CustomerWaitingOrderState::Update()
 
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J))
 		{
-			orderTabLogic->AddOrder(ItemType::CHEESE_BURGER_PLATE);
+			orderTabLogic->AddOrder(owner->GetCustomerOrderType());
 			orderTaken = true;
 		}
 	}
