@@ -52,29 +52,25 @@ void MovementLogic::FixedUpdate()
 	// Store input state - don't directly modify velocity
 	Vector2D inputDirection(0.0f, 0.0f);
 
-	Vector2D moveSmokePosition;
+	//Vector2D moveSmokePosition;
 
 	if (isMoving)
 	{
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
 		{
 			inputDirection.y += 1.0f;
-			moveSmokePosition = { transform->GetPosition().x , transform->GetPosition().y - 1.5f };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
 		{
 			inputDirection.y -= 1.0f;
-			moveSmokePosition = { transform->GetPosition().x , transform->GetPosition().y + 1.5f };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
 		{
 			inputDirection.x -= 1.0f;
-			moveSmokePosition = { transform->GetPosition().x + 1.5f, transform->GetPosition().y };
 		}
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
 		{
 			inputDirection.x += 1.0f;
-			moveSmokePosition = { transform->GetPosition().x - 1.5f, transform->GetPosition().y };
 		}
 	}
 
@@ -86,22 +82,51 @@ void MovementLogic::FixedUpdate()
 
 	if (isMoving)
 	{
-		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
-		{
-			DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 0.1f }, -rigidbody->velocity);
+		Vector2D moveSmokePosition = transform->GetPosition();
+
+		// DIAGONALS
+
+		// TOP RIGHT
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D)) {
+			moveSmokePosition.x += -0.4f;
+			moveSmokePosition.y += -1.1f;
 		}
-		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
-		{
-			DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.f }, -rigidbody->velocity);
+
+		// BOTTOM RIGHT
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D)) {
+			moveSmokePosition.x += -0.4f;
+			moveSmokePosition.y += -1.0f;
 		}
-		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
-		{
-			DuckEngine::Emit("Dust", { moveSmokePosition.x - 1.f, moveSmokePosition.y - 1.1f }, -rigidbody->velocity);
+
+		// BOTTOM LEFT
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S)) {
+			moveSmokePosition.x += 0.6f;
+			moveSmokePosition.y += -1.0f;
 		}
-		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
-		{
-			DuckEngine::Emit("Dust", { moveSmokePosition.x + 1.f, moveSmokePosition.y - 1.1f }, -rigidbody->velocity);
+
+		// TOP LEFT
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W)) {
+			moveSmokePosition.x += 0.6f;
+			moveSmokePosition.y += -1.35f;
 		}
+
+		// TOP DOWN LEFT RIGHT
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W)) {
+			moveSmokePosition.y -= 1.3f;
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S)) {
+			moveSmokePosition.y += 0.5f;
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A)) {
+			moveSmokePosition.x += 0.5f;
+			moveSmokePosition.y -= 1.1f;
+		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D)) {
+			moveSmokePosition.x -= 0.5f;
+			moveSmokePosition.y -= 1.1f;
+		}
+
+		DuckEngine::Emit("Dust", moveSmokePosition, -rigidbody->velocity);
 	}
 
 	//if (isMoving) {

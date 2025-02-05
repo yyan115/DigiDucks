@@ -542,7 +542,7 @@ void GameScene::Load()
 	dust.lifetimeMin = 0.2f;
 	dust.lifetimeMax = 0.3f;
 	dust.scaleMin = 0.03f;
-	dust.scaleMax = 0.1f;
+	dust.scaleMax = 0.15f;
 	dust.speedMin = 0.05f;
 	dust.speedMax = 0.1f;
 	dust.baseColor = { 160,160,160,255 };

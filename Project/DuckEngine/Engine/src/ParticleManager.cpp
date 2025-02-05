@@ -76,7 +76,7 @@ void ParticleManager::Render()
         count++;
     }
 
-    std::cout << "particle count: " << count << "\n";
+    //std::cout << "particle count: " << count << "\n";
     count = 0;
 }
 
