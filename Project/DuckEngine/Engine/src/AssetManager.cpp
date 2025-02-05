@@ -394,7 +394,12 @@ void AssetManager::UnloadFont(const std::string& fontName) {
 
 void AssetManager::LoadShader(const std::string& shaderName, const std::string& filePath) {
 	std::string extension = fs::path(filePath).extension().string();
-	std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+	std::transform(
+		extension.begin(),
+		extension.end(),
+		extension.begin(),
+		[](unsigned char c) { return static_cast<char>(std::tolower(c)); }
+	);
 
 	// Check if this is a vertex or fragment shader
 	std::string pairedShaderPath;
@@ -447,7 +452,13 @@ bool AssetManager::AddAsset(const std::string& sourcePath, const std::string& de
 
 		// load asset based on file type
 		std::string extension = fs::path(destinationPath).extension().string();
-		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+		std::transform(
+			extension.begin(),
+			extension.end(),
+			extension.begin(),
+			[](unsigned char c) { return static_cast<char>(std::tolower(c)); }
+		);
+
 
 		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
 			LoadTexture(destinationPath);
@@ -485,7 +496,13 @@ bool AssetManager::RemoveAsset(const std::string& assetPath) {
 
 		// Remove asset from memory before deleting file
 		std::string extension = fs::path(assetPath).extension().string();
-		std::transform(extension.begin(), extension.end(), extension.begin(), ::tolower);
+		std::transform(
+			extension.begin(),
+			extension.end(),
+			extension.begin(),
+			[](unsigned char c) { return static_cast<char>(std::tolower(c)); }
+		);
+
 
 		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg") {
 			UnloadTexture(assetPath);

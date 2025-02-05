@@ -6,6 +6,8 @@
 #include "CustomerWalkState.h"
 #include "GameLogicComponent.h"
 
+class GameScene;
+
 class CustomerLogic : public GameLogic
 {
 public:
@@ -27,4 +29,7 @@ public:
 		clone->component = nullptr;
 		return clone;
 	}
+
+private:
+	GameScene* gameScene = nullptr;
 };

@@ -37,6 +37,8 @@ public:
     void Exit() override;
     void Unload() override;
     
+    bool IsGameStarted() { return gameStarted; }
+    
 
 private:
     // Helper functions
