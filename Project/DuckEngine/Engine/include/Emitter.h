@@ -1,3 +1,18 @@
+/******************************************************************************/
+/*!
+\file       Emitter.h
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       Feburary 6 2025
+\brief      Defines the Emitter struct, which is used for the Particle System. Contains
+            all the data needed to render one type of particle.
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "Color.h"
@@ -31,5 +46,5 @@ struct Emitter
     int layer = 0;
     int sortingOrder = 0;
 
-    // You can add more options like "gravity", "rotationSpeed", etc.
+    // Can add more options like "gravity", "rotationSpeed", etc, if needed.
 };

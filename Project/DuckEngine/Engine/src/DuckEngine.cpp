@@ -29,6 +29,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShaderManager.h"
 #include "FontManager.h"
 #include "CameraManager.h"
+#include "ParticleManager.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -42,8 +43,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLogicSystem.h"
 #include "SoundSystem.h"
 #include "SpatialGridSystem.h"
-#include "ParticleSystem.h"
-#include "ParticleManager.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
