@@ -127,6 +127,11 @@ void TextSystem::Render()
         if (!currentLayer->IsVisible())
             continue;
 
+		if (DuckEngine::DUCKENGINE_EntityManager.ShouldSkipDueToInvisibleAncestor(entityId))
+		{
+			continue;
+		}
+
         // skip if no sprite renderer
         //auto sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId);
         //if (!sprite)
