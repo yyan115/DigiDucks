@@ -3940,7 +3940,7 @@
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Shrimp_Fridge": {
             "childNames": [
@@ -5407,7 +5407,7 @@
                     "type": "TextComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "Tomato_Box": {
             "childNames": [
