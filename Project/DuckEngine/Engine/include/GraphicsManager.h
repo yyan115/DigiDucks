@@ -265,5 +265,11 @@ private:
 
     static GLuint filledCircleVAO;
     static int filledCircleSegments;
+
+    /// <summary>
+    /// Sets up the Vertex Array Object (VAO) for rendering a filled circle.
+    /// This function initializes the necessary buffers and vertex attributes.
+    /// </summary>
+    /// <param name="segments">The number of segments to use for the circle.</param>
     static void SetupFilledCircleVAO(int segments);
 };

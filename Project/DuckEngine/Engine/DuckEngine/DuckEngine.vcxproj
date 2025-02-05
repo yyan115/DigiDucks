@@ -311,7 +311,6 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\LevelManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
     <ClInclude Include="..\include\ParticleManager.h" />
-    <ClInclude Include="..\include\ParticleSystem.h" />
     <ClInclude Include="..\include\Prefab.h" />
     <ClInclude Include="..\include\PrefabManager.h" />
     <ClInclude Include="..\include\RenderData.h" />
@@ -374,7 +373,6 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClCompile Include="..\src\LevelManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
     <ClCompile Include="..\src\ParticleManager.cpp" />
-    <ClCompile Include="..\src\ParticleSystem.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\PrefabManager.cpp" />
     <ClCompile Include="..\src\RigidbodySystem.cpp" />

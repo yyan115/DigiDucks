@@ -166,7 +166,7 @@ struct ParticleRenderCommand {
     float rotation = 0.0f;
     Vector2D translation = { 0.0f, 0.0f };
 
-    // OPTIONAL
+    // NECESSARY
     bool useColor = false;
     Color color = { 255, 255, 255, 255 };
 

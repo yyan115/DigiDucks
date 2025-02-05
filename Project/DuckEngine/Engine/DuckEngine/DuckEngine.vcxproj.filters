@@ -154,9 +154,6 @@
     <ClCompile Include="..\src\TransformComponent.cpp">
       <Filter>src\Components</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ParticleSystem.cpp">
-      <Filter>src\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ParticleManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
@@ -371,9 +368,6 @@
     </ClInclude>
     <ClInclude Include="..\include\SpatialGridSystem.h">
       <Filter>include\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ParticleSystem.h">
-      <Filter>include\Systems</Filter>
     </ClInclude>
     <ClInclude Include="..\include\SliderComponent.h">
       <Filter>include\Components</Filter>
