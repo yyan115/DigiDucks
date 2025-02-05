@@ -144,17 +144,12 @@ void CutSceneLogic::Update()
 		if (dialogueTimer < 2.0f) return;
 
 		// Check for user input to progress dialogue
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 30)
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 31)
 		{
 			currentDialogueIndex++;
 			std::cout << "Dialogue index: " << currentDialogueIndex << std::endl;
 			
-
-			// Update dialogue texture
-			std::string dialoguePath = "Resources/Sprites/Dialogues/intro/" + std::to_string(currentDialogueIndex) + ".png";
-			DialogueSprite->texture = *AssetManager::GetTexture(dialoguePath).get();
-
-			if (currentDialogueIndex == 30)
+			if (currentDialogueIndex == 31)
 			{
 				// End cutscene entirely and start game
 				FadeOutSprite->isVisible = false;
@@ -162,7 +157,20 @@ void CutSceneLogic::Update()
 				isShowingDialogue = false;
 				isPlaying = false;
 				CutSceneBGM->Stop();
+				return;
 			}
+
+			// Update dialogue texture
+			std::string dialoguePath = "Resources/Sprites/Dialogues/intro/" + std::to_string(currentDialogueIndex) + ".png";
+			DialogueSprite->texture = *AssetManager::GetTexture(dialoguePath).get();
+
+			// Play sound effect for dialogues between soundtrack 15 and 16
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Play(15 + (std::rand() % 2));
+			}
+
+			
 		}
 	}
 }
