@@ -66,6 +66,7 @@ bool shouldClose = false;
 
 void MainMenu ::Load()
 {
+	Scene::Load();
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
