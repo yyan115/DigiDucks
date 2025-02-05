@@ -22,6 +22,8 @@ void CustomerWalkState::Enter()
 		finalPath = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FinalPath").get();
 	}
 
+	customerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(owner->GetComponentID());
+
 
 	isOrderTaken = owner->WaitingOrderState->GetIsOrderTaken();
 
@@ -47,7 +49,6 @@ void CustomerWalkState::FixedUpdate()
 	TransformComponent* customerTransform =
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
 
-	// Always ensure our current target is valid before we proceed
 	if (!currentQueueTarget || !customerTransform)
 	{
 		return;
@@ -83,13 +84,66 @@ void CustomerWalkState::FixedUpdate()
 	if (distance > 0.1f)
 	{
 		rigidbody->velocity = direction * moveSpeed;
+
+		if (customerAnimator) 
+		{
+			if (std::abs(direction.x) > std::abs(direction.y)) 
+			{
+				if (direction.x > 0)
+				{
+					customerAnimator->PlayAnimation("RIGHT_WALK");
+				}
+				else
+				{
+					customerAnimator->PlayAnimation("LEFT_WALK");
+				}
+			}
+			else 
+			{
+				if (direction.y > 0)
+				{
+					customerAnimator->PlayAnimation("BACK_WALK");
+				}
+				else
+				{
+					customerAnimator->PlayAnimation("FRONT_WALK");
+				}
+			}
+		}
 	}
 	else
 	{
 		rigidbody->velocity = Vec2(0.0f, 0.0f);
 
+		if (customerAnimator)
+		{
+			if (std::abs(direction.x) > std::abs(direction.y)) 
+			{
+				if (direction.x > 0)
+				{
+					customerAnimator->PlayAnimation("RIGHT_IDLE");
+				}
+				else
+				{
+					customerAnimator->PlayAnimation("LEFT_IDLE");
+				}
+			}
+			else
+			{
+				if (direction.y > 0)
+				{
+					customerAnimator->PlayAnimation("BACK_IDLE");
+				}
+				else
+				{
+					customerAnimator->PlayAnimation("FRONT_IDLE");
+				}
+			}
+		}
+
 		if (!isOrderTaken && currentTargetIndex == 0)
 		{
+			customerAnimator->PlayAnimation("LEFT_IDLE");
 			owner->stateMachine.ChangeState(owner->WaitingOrderState);
 			return;
 		}
@@ -102,7 +156,7 @@ void CustomerWalkState::FixedUpdate()
 			}
 			else
 			{
-				// destroy customer do later
+				// destroy customer or do something else
 			}
 		}
 
@@ -115,13 +169,12 @@ void CustomerWalkState::FixedUpdate()
 			}
 			else
 			{
-				// final queue target reached
 				isWaitingToCollectOrder = true;
+				customerAnimator->PlayAnimation("RIGHT_IDLE");
 			}
 		}
 	}
 }
-
 
 
 void CustomerWalkState::Exit()

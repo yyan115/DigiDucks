@@ -22,6 +22,8 @@ private:
 	std::vector<Entity*> queueTargets{};
 	Entity* currentQueueTarget = nullptr;
 	Entity* finalPath = nullptr;
+	AnimatorComponent* customerAnimator = nullptr;
+
 
 	bool isOrderTaken = false;
 	bool orderCollected = false;
