@@ -30,6 +30,10 @@ void PlayerLogic::Start()
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
+
+	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
+	orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
+
 	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
 	if (restockMenu)
 	{
@@ -407,7 +411,14 @@ void PlayerLogic::InteractPressed()
 		if (submitLogic)
 		{
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			if (holdingLogic->getType() == ItemType::SALAD_PLATE || holdingLogic->getType() == ItemType::CHEESE_BURGER_PLATE)
+			//if (holdingLogic->getType() == ItemType::SALAD_PLATE || holdingLogic->getType() == ItemType::CHEESE_BURGER_PLATE)
+			//{
+			//	submitLogic->removeObject(holdingLogic->moveObject());
+			//	if (sound) sound->Play();
+			//	isHolding = false;
+			//}
+
+			if (holdingLogic->getType() != orderTabLogic->GetCurrentOrder())
 			{
 				submitLogic->removeObject(holdingLogic->moveObject());
 				if (sound) sound->Play();
