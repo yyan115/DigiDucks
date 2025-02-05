@@ -77,8 +77,10 @@
     <ClCompile Include="..\src\CutSceneLogic.cpp">
       <Filter>src\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\RobotLogic.cpp">
-      <Filter>src\Logic</Filter>
+    <ClCompile Include="..\src\State.cpp" />
+    <ClCompile Include="..\src\StateMachine.cpp" />
+    <ClCompile Include="..\src\LevelSelectScene.cpp">
+      <Filter>src\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -259,8 +261,8 @@
     <ClInclude Include="..\include\CutSceneLogic.h">
       <Filter>include\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\RobotLogic.h">
-      <Filter>include\Logic</Filter>
+    <ClInclude Include="..\include\LevelSelectScene.h">
+      <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
