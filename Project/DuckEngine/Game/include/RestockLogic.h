@@ -18,19 +18,45 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "StockLogic.h"
 
+#define MAX_MAINTENANCE_LEVEL 5;
+#define MAX_CART_STOCK 5;
+
 class RestockLogic : public GameLogic
 {
 private:
-	Entity* restockMenu = nullptr;
+
+	// Restock Menu Sprite
 	SpriteRendererComponent* restockMenuSpt = nullptr;
 
+	// Restock Ingredient Menu Sprite
+	SpriteRendererComponent* restockIngredientMenuSpt = nullptr;
+	// Restock Maintenance Menu Sprite
+	SpriteRendererComponent* restockMaintenanceMenuSpt = nullptr;
 
+	// Exit Button
+	ButtonComponent* restockExitButton = nullptr;
 
-	ButtonComponent* maintainenceButton = nullptr;
+	// Restock Ingredient Button & Sprite
+	ButtonComponent* restockIngredientButton = nullptr;
+	SpriteRendererComponent* restockIngredientSpt = nullptr;
+	Texture restockIngredientOn{};
+	Texture restockIngredientOff{};
 
+	// Restock Maintenance Button & Sprite
+	ButtonComponent* restockMaintenanceButton = nullptr;
+	SpriteRendererComponent* restockMaintenanceSpt = nullptr;
+	Texture restockMaintenanceOn{};
+	Texture restockMaintenanceOff{};
+	int maintenanceLevel = 0;
+
+	// Maintainence Start Button
+	ButtonComponent* maintainenceStartButton = nullptr;
+
+	// Restock All Button
 	ButtonComponent* restockAllButton = nullptr;
 
-	ButtonComponent* restockExitButton = nullptr;
+	std::vector<ItemType> cartStock;
+	bool changeCartStock = false;
 
 public:
 	bool isRestock = false;
@@ -66,13 +92,15 @@ public:
 		return clone;
 	}
 
+	/****************************************************************
+	* @brief Function that handles the state of the restock menu.
+	* ****************************************************************/
 	void RestockMenu(bool state);
 
 	/****************************************************************
 	* @brief Restock all items in the restock station.
 	* ****************************************************************/
 	void RestockAll();
-
 
 	/****************************************************************
 	* @brief Restock a specific item in the restock station.
@@ -81,4 +109,19 @@ public:
 	* ****************************************************************/
 	void Restock(ItemType type);
 
+	/****************************************************************
+	* @brief Decrease the maintenance level of the Restock station.
+	* ****************************************************************/
+	void LowerMaintenanceLevel();
+
+	/****************************************************************
+	* @brief Increase the maintenance level of the Restock station.
+	* ****************************************************************/
+	void IncreaseMaintenanceLevel();
+
+
+	void RefreshCart()
+	{
+
+	}
 };
