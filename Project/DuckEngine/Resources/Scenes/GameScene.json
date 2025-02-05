@@ -955,7 +955,7 @@
                         "isVisible": true,
                         "sortingOrder": 103,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/Confirm Exit/no.png",
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/exit_no.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1004,7 +1004,7 @@
                         "isVisible": true,
                         "sortingOrder": 103,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/Confirm Exit/yes.png",
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/exit_yes.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

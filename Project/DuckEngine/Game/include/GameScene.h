@@ -74,12 +74,18 @@ private:
     // Pause Menu
     Entity* gamePauseBg = nullptr;
     SpriteRendererComponent* gamePauseBgSpt = nullptr;
-    Entity* gameResumeBtn = nullptr;
     ButtonComponent* gameResumeButton = nullptr;
-    Entity* gameExitBtn = nullptr;
+	SpriteRendererComponent* gameResumeBtnSpt = nullptr;
+	Texture gameResumeBtn_Normal;
+	Texture gameResumeBtn_Hover ;
     ButtonComponent* gameExitButton = nullptr;
-    Entity* gameHTPBtn = nullptr;
+	SpriteRendererComponent* gameExitBtnSpt = nullptr;
+	Texture gameExitBtn_Normal ;
+	Texture gameExitBtn_Hover ;
     ButtonComponent* gameHTPButton = nullptr;
+	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
+	Texture gameHTPBtn_Normal ;
+	Texture gameHTPBtn_Hover ;
 
 
     // HTP Page
@@ -98,12 +104,14 @@ private:
     // Exit Confirm
     Entity* gameExitCfmBg = nullptr;
     SpriteRendererComponent* gameExitCfmBgSpt = nullptr;
-    Entity* gameExitCfmTxt = nullptr;
-    TextComponent* gameExitCfmText = nullptr;
-    Entity* gameExitYesBtn = nullptr;
     ButtonComponent* gameExitYesButton = nullptr;
-    Entity* gameExitNoBtn = nullptr;
+	SpriteRendererComponent* gameExitYesBtnSpt = nullptr;
+	Texture gameExitYesBtn_Normal;
+	Texture gameExitYesBtn_Hover;
     ButtonComponent* gameExitNoButton = nullptr;
+	SpriteRendererComponent* gameExitNoBtnSpt = nullptr;
+	Texture gameExitNoBtn_Normal;
+	Texture gameExitNoBtn_Hover;
 
     // Restock Menu
 	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
