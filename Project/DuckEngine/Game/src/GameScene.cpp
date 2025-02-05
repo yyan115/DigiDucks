@@ -26,6 +26,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "ScoreLogic.h"
 
+#include "Emitter.h"
+
 /****************************************************************
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
@@ -532,6 +534,38 @@ void GameScene::Load()
 
 	PauseGame(false);
 	MiniGame_1(false);
+
+	Emitter dust;
+
+	dust.spawnCountMin = 1;
+	dust.spawnCountMax = 10;
+	dust.lifetimeMin = 0.5f;
+	dust.lifetimeMax = 1.0f;
+	dust.scaleMin = 0.05f;
+	dust.scaleMax = 0.3f;
+	dust.speedMin = 0.05f;
+	dust.speedMax = 0.1f;
+	dust.baseColor = { 160,160,160,255 };
+
+	//EmitterDef dust;
+	//dust.spawnCountMin = 1;
+	//dust.spawnCountMax = 3;
+	//dust.lifetimeMin = 0.5f;
+	//dust.lifetimeMax = 1.0f;
+	//dust.scaleMin = 0.05f;
+	//dust.scaleMax = 0.1f;
+	//dust.speedMin = 0.1f;
+	//dust.speedMax = 0.3f;
+	//dust.baseColor = { 160,160,160,255 };
+	//g_particleManager.RegisterEmitterDef(ParticleType::Dust, dust);
+
+	// Gameplay layer
+	dust.layer = 1;
+
+	// Behind player (sorting order 1)
+	dust.sortingOrder = 0;
+
+	DuckEngine::RegisterEmitter("Dust", dust);
 }
 
 /****************************************************************

@@ -32,6 +32,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLogicManager.h"
 #include "CameraManager.h"
 
+#include "Emitter.h"
+
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
 #else
@@ -238,5 +240,8 @@ public:
     /// </summary>
     /// <param name="pos">Spawn position in world coords.</param>
     /// <param name="vel">Initial velocity of the particle.</param>
-    static void DUCKENGINE_API Emit(const Vector2D& pos, const Vector2D& vel);
+    //static void DUCKENGINE_API Emit(const Vector2D& pos, const Vector2D& vel);
+    static void DUCKENGINE_API Emit(const std::string& type, const Vector2D& pos, const Vector2D& baseVel = { 0,0 });
+
+    static void DUCKENGINE_API RegisterEmitter(const std::string& ParticleType, Emitter& emitter);
 };
