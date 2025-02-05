@@ -24,6 +24,8 @@ private:
 	Entity* restockMenu = nullptr;
 	SpriteRendererComponent* restockMenuSpt = nullptr;
 
+
+
 	ButtonComponent* maintainenceButton = nullptr;
 
 	ButtonComponent* restockAllButton = nullptr;
