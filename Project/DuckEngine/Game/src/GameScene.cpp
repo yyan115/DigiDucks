@@ -94,33 +94,48 @@ void GameScene::Load()
 			}
 		}
 
-		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
+		auto gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
 		if (gameResumeBtn)
 		{
+			gameResumeBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameResumeBtn->entityID);
+			gameResumeBtn_Normal = AssetManager::GetTextureByName("pause_resumegame");
+			gameResumeBtn_Hover = AssetManager::GetTextureByName("pause_resumegame_hover");
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
 				gameResumeButton->onClick = [this]() { if (isPaused) { PauseGame(false); } };
+				gameResumeButton->onHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Hover; };
+				gameResumeButton->onFinishHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Normal; };
 			}
 		}
 
-		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
+		auto gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
 		if (gameExitBtn)
 		{
+			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
+			gameExitBtn_Normal = AssetManager::GetTextureByName("pause_quitgame");
+			gameExitBtn_Hover = AssetManager::GetTextureByName("pause_quitgame_hover");
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
 				gameExitButton->onClick = [this]() { ExitConfirm(true); };
+				gameExitButton->onHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Hover; };
+				gameExitButton->onFinishHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Normal; };
 			}
 		}
 
-		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
+		auto gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
 		if (gameHTPBtn)
 		{
+			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
+			gameHTPBtn_Normal = AssetManager::GetTextureByName("pause_howtoplay");
+			gameHTPBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
 			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
 			if (gameHTPButton)
 			{
 				gameHTPButton->onClick = [this]() { HTPShow(true); };
+				gameHTPButton->onHover = [this]() {  gameHTPBtnSpt->texture = gameHTPBtn_Hover; };
+				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
 	}
@@ -181,33 +196,33 @@ void GameScene::Load()
 			}
 		}
 
-		gameExitCfmTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Txt").get();
-		if (gameExitCfmTxt)
-		{
-			gameExitCfmText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameExitCfmTxt->entityID);
-			if (gameExitCfmText)
-			{
-				gameExitCfmText->isEnabled = false;
-			}
-		}
-
-		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
+		auto gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
 		if (gameExitYesBtn)
 		{
+			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
+			gameExitYesBtn_Normal = AssetManager::GetTextureByName("exit_yes");
+			gameExitYesBtn_Hover = AssetManager::GetTextureByName("exit_yes_hover");
 			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
 				gameExitYesButton->onClick = []() { GameManager::DuckEngine.CloseWindow(); };
+				gameExitYesButton->onHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Hover; };
+				gameExitYesButton->onFinishHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Normal; };
 			}
 		} 
 
-		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
+		auto gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
 		if (gameExitNoBtn)
 		{
+			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
+			gameExitNoBtn_Normal = AssetManager::GetTextureByName("exit_no");
+			gameExitNoBtn_Hover = AssetManager::GetTextureByName("exit_no_hover");
 			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
 			if (gameExitNoButton)
 			{
 				gameExitNoButton->onClick = [this]() { ExitConfirm(false); };
+				gameExitNoButton->onHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Hover; };
+				gameExitNoButton->onFinishHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Normal; };
 			}
 		}
 	}
@@ -829,10 +844,6 @@ void GameScene::ExitConfirm(bool state)
 	if (gameExitCfmBg)
 	{
 		gameExitCfmBgSpt->isVisible = state;
-	}
-	if (gameExitCfmTxt)
-	{
-		gameExitCfmText->isEnabled = state;
 	}
 
 	// Disable HTP  and Quit Btn
