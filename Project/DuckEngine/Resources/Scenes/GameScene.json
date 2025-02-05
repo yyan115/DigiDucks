@@ -716,11 +716,50 @@
             ],
             "layer": "UI"
         },
+        "Customer1_Order": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 15.399999618530273,
+                            "y": -3.9000000953674316
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Customer_1": {
+            "childNames": [
+                "Customer1_Order"
+            ],
             "layer": "Gameplay",
             "position": {
-                "x": 16.63943099975586,
-                "y": 7.308947563171387
+                "x": 13.939000129699707,
+                "y": -5.091000080108643
             },
             "prefab": "Customer"
         },
@@ -1050,7 +1089,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -2998,29 +3037,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -3035,11 +3051,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -3049,6 +3079,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -3119,8 +3158,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -7.948999881744385,
-                            "y": 7.309000015258789
+                            "x": 14.0,
+                            "y": -2.2909998893737793
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -3134,7 +3173,7 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 0.0,
+                            "a": 250.0,
                             "b": 0.0,
                             "g": 255.0,
                             "r": 112.0
