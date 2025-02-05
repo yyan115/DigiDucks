@@ -14,21 +14,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "GameManager.h"
 #include "GameLogicComponent.h"
-
-// scenes
-#include "MaxLoadScene.h"
-#include "SpriteMovementScene.h"
-#include "GameScene.h"
-#include "MainMenu.h"
-#include "EndGame.h"
-#include "HowToPlay.h"
-#include "Level0.h"
-#include "LevelSelectScene.h"
-
-// logics
 #include "MovementLogic.h"
 #include "PlayerLogic.h"
 #include "HoldingLogic.h"
+
 #include "StockLogic.h"
 #include "BunStockLogic.h"
 #include "CheeseStockLogic.h"
@@ -71,7 +60,6 @@ void GameManager::InitScenes()
     DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("LevelSelectScene", std::make_shared<LevelSelectScene>());
 
 
     // add game logic

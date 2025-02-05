@@ -14,6 +14,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 
 #include "DuckEngine.h"
+#include "MaxLoadScene.h"
+#include "SpriteMovementScene.h"
+#include "GameScene.h"
+#include "MainMenu.h"
+#include "EndGame.h"
+#include "HowToPlay.h"
+#include "Level0.h"
 
 class GameManager
 {
