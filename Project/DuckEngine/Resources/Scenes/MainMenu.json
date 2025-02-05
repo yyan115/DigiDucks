@@ -42,7 +42,7 @@
                     "properties": {
                         "position": {
                             "x": 10.0,
-                            "y": -7.471495628356934
+                            "y": -8.670999526977539
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -140,12 +140,12 @@
                     "properties": {
                         "position": {
                             "x": 10.0,
-                            "y": -4.61757755279541
+                            "y": -6.2179999351501465
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 8.5,
+                            "x": 10.5,
                             "y": 2.5
                         }
                     },
@@ -431,6 +431,75 @@
             ],
             "layer": "Gameplay"
         },
+        "LevelSelectButton": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.199999809265137,
+                            "y": -3.4000000953674316
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 11.399999618530273,
+                            "y": 2.0999999046325684
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/levelselect.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "LevelSelectScreen": {
             "childNames": [
                 "LevelSelectText",
@@ -551,7 +620,8 @@
                 "Logo",
                 "HowToPlay",
                 "FadeOutMenu",
-                "Exit"
+                "Exit",
+                "LevelSelectButton"
             ],
             "components": [
                 {
@@ -642,7 +712,7 @@
                     "properties": {
                         "position": {
                             "x": 10.0,
-                            "y": -1.6175775527954102
+                            "y": -0.7179999947547913
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
