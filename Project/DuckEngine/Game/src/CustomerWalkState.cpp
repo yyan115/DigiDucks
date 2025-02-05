@@ -33,6 +33,9 @@ void CustomerWalkState::Enter()
 	if (isOrderTaken && orderCollected)
 	{
 		currentQueueTarget = finalPath;
+		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get()->entityID);
+		quackSound->Play(2);
+
 	}
 
 	std::cout << "queue size = " << queueTargets.size() << std::endl;
