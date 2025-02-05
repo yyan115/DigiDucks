@@ -1,4 +1,5 @@
 #include "LevelSelectScreenLogic.h"
+#include "MainMenu.h"
 
 
 //LevelSelectScreen
@@ -16,21 +17,28 @@ void LevelSelectScreenLogic::Start()
 	Entity* level1ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level1Button").get();
 	ButtonComponent* level1Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level1ButtonEntity->entityID);
 
+	levelSelectScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID);
+	mainMenuScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID);
+
+	mainMenu = DuckEngine::DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu").get();
 
 	XButton->onClick = [this]()
 		{
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = false;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = true;
+			levelSelectScreenSpriteRenderer->isVisible = false;
+			mainMenuScreenSpriteRenderer->isVisible = true;
+			
 		};
 
 	level0Button->onClick = [this]()
 		{
 			std::cout << "Level 0 button clicked!" << std::endl;
+			mainMenu->OnPlayButtonClicked("Level0");
 		};
 
 	level1Button->onClick = [this]()
 		{
 			std::cout << "Level 1 button clicked!" << std::endl;
+			mainMenu->OnPlayButtonClicked("GameScene");
 		};
 }
 

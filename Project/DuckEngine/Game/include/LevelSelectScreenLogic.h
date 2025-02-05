@@ -2,6 +2,8 @@
 #include "DuckEngine.h"
 #include "GameLogicComponent.h"
 
+class MainMenu;
+
 class LevelSelectScreenLogic : public GameLogic
 {
 public:
@@ -17,8 +19,14 @@ public:
 	}
 
 private:
-	Entity* levelSelectScreen;
-	Entity* mainMenuScreen;
+	MainMenu* mainMenu = nullptr;
+	
+	Entity* levelSelectScreen = nullptr;
+	Entity* mainMenuScreen = nullptr;
+
+	SpriteRendererComponent* levelSelectScreenSpriteRenderer = nullptr;
+	SpriteRendererComponent* mainMenuScreenSpriteRenderer = nullptr;
+
 
 
 };

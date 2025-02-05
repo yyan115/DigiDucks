@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "LevelSelectScreenLogic.h"
 
 class MainMenu : public Scene {
+public:
 	/****************************************************************
 	* @brief Load all necessary resources for the scene.
 	* This function is called before the scene starts.
@@ -51,45 +52,49 @@ class MainMenu : public Scene {
 	* ****************************************************************/
 	void Unload() override;
 
+	void OnPlayButtonClicked(std::string sceneName);
+
 private:
-	SoundComponent* menusound;
+	SoundComponent* menusound = nullptr;
 
-	Entity* levelSelectScreen;
-	Entity* mainMenuScreen;
+	Entity* levelSelectScreen = nullptr;
+	Entity* mainMenuScreen = nullptr;
 
-	Entity* StartButton;
-	Entity* QuitButton;
-	Entity* HtpButton;
-	Entity* LevelSelectButton;
-	Entity* FadeOutScreen;
+	Entity* StartButton = nullptr;
+	Entity* QuitButton = nullptr;
+	Entity* HtpButton = nullptr;
+	Entity* LevelSelectButton = nullptr;
+	Entity* FadeOutScreen = nullptr;
 
 
-	SpriteRendererComponent* startButtonSpriteRenderer;
-	SpriteRendererComponent* levelSelectButtonSpriteRenderer;
-	SpriteRendererComponent* quitButtonSpriteRenderer;
-	SpriteRendererComponent* htpButtonSpriteRenderer;
-	SpriteRendererComponent* FadeOutSpriteRenderer;
+	SpriteRendererComponent* startButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* levelSelectButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* quitButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* htpButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* FadeOutSpriteRenderer = nullptr;
 
-	Texture startNormalTexture;
-	Texture startHoverTexture;
+	Texture startNormalTexture = 0;
+	Texture startHoverTexture = 0;
 
-	Texture levelSelectNormalTexture;
-	Texture levelSelectHoverTexture;
+	Texture levelSelectNormalTexture = 0;
+	Texture levelSelectHoverTexture = 0;
 
-	Texture quitNormalTexture;
-	Texture quitHoverTexture;
+	Texture quitNormalTexture = 0;
+	Texture quitHoverTexture = 0;
 
-	Texture htpNormalTexture;
-	Texture htpHoverTexture;
+	Texture htpNormalTexture = 0;
+	Texture htpHoverTexture = 0;
 
-	SoundComponent* StartSound;
-	SoundComponent* QuitSound;
-	SoundComponent* HtpSound;
+	SoundComponent* StartSound = nullptr;
+	SoundComponent* QuitSound = nullptr;
+	SoundComponent* HtpSound = nullptr;
 
 	float fadeOutDuration = 3.0f;
 	float fadeElapsedTime = 0.0f;
 	bool isFadingOut = false;
 
 	bool shouldClose = false;
+
+	std::string nextScene = "";
 	
 };

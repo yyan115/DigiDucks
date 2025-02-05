@@ -63,13 +63,7 @@ void MainMenu::Load()
 	fadeElapsedTime = 0.0f;
 	isFadingOut = false;
 	start->onClick = [this]() {
-		StartSound->Play(1);
-		if (menusound) {
-			fadeOutDuration = 3.0f; // 3 seconds fade duration
-			fadeElapsedTime = 0.0f;
-			isFadingOut = true;
-		}
-		
+		OnPlayButtonClicked("GameScene");
 	};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
@@ -177,7 +171,7 @@ void MainMenu ::Update()
 			isFadingOut = false;
 			fadeElapsedTime = 0.0f;
 
-			GameManager::SetActiveScene("GameScene");
+			GameManager::SetActiveScene(nextScene);
 			return;
 		}
 
@@ -223,4 +217,16 @@ void MainMenu::Unload()
 {
 	// base unload
 	Scene::Unload();
+}
+
+void MainMenu::OnPlayButtonClicked(std::string sceneName)
+{
+	StartSound->Play(1);
+	if (menusound) 
+	{
+		fadeOutDuration = 3.0f; // 3 seconds fade duration
+		fadeElapsedTime = 0.0f;
+		isFadingOut = true;
+		nextScene = sceneName;
+	}
 }
