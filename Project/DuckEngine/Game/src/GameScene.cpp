@@ -567,14 +567,6 @@ void GameScene::Load()
 	// Behind pan which has sorting order 3
 	sparks.sortingOrder = 2;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
-	//g_particleManager.RegisterEmitterDef(ParticleType::CookingSparks, sparks);
-
-	//// Then inside your stove/cooking system:
-	//if (foodIsCooking && someRandomChance())
-	//{
-	//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
-	//}
-
 }
 
 /****************************************************************
