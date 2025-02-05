@@ -509,6 +509,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -604,6 +605,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -651,12 +653,61 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "start"
                     },
                     "type": "TextComponent"
                 }
             ],
             "layer": "Gameplay"
+        },
+        "CutSceneBGM": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "BGM",
+                        "loop": true,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/bgm/cutscene_bgm.wav"
+                        ],
+                        "volume": 0.15000000596046448
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Background"
         },
         "CutSceneManager": {
             "components": [
@@ -684,7 +735,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/cutscene/1.png",
                         "useColor": true
@@ -697,9 +748,10 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/plate/plate 1.wav",
-                            "Resources/Sounds/plate/plate 2.wav",
-                            "Resources/Sounds/plate/plate 3.wav"
+                            "",
+                            "Resources/Sounds/cutscene/Snoring.mp3",
+                            "Resources/Sounds/cutscene/door knocking.mp3",
+                            "Resources/Sounds/cutscene/door open.mp3"
                         ],
                         "volume": 1.0
                     },
@@ -791,6 +843,42 @@
             ],
             "layer": "Gameplay"
         },
+        "DialogueManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.699999988079071,
+                            "y": 0.8999999761581421
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Dialogues/intro/1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Drone": {
             "components": [
                 {
@@ -816,7 +904,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Drone/drone_1.png",
@@ -952,6 +1040,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Quit Game?"
                     },
                     "type": "TextComponent"
@@ -1089,6 +1178,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "FPS"
                     },
                     "type": "TextComponent"
@@ -1158,7 +1248,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -1604,6 +1694,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1667,6 +1758,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1735,6 +1827,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1803,6 +1896,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -1923,6 +2017,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2043,6 +2138,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2147,6 +2243,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2215,6 +2312,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2283,6 +2381,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2351,6 +2450,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2419,6 +2519,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2507,6 +2608,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "1"
                     },
                     "type": "TextComponent"
@@ -2546,6 +2648,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "2"
                     },
                     "type": "TextComponent"
@@ -2585,6 +2688,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "123"
                     },
                     "type": "TextComponent"
@@ -2672,6 +2776,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -2917,29 +3022,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -2954,11 +3036,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -2968,6 +3064,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -3084,6 +3189,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -3142,8 +3248,6 @@
         },
         "Restock_Menu": {
             "childNames": [
-                "Tomato_Bg",
-                "",
                 "Restock_Bg",
                 "Tomato_Btn"
             ],
@@ -3230,6 +3334,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -3334,6 +3439,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Score: 0"
                     },
                     "type": "TextComponent"
@@ -3421,6 +3527,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -3564,6 +3671,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -4619,19 +4727,10 @@
         },
         "Table_Master": {
             "childNames": [
-                "Table_01",
                 "Table_14",
                 "Table_12",
                 "Table_13",
                 "Table_11",
-                "Table_09",
-                "Table_08",
-                "Table_07",
-                "Table_06",
-                "Table_05",
-                "Table_04",
-                "Table_03",
-                "Table_02",
                 "Table_9",
                 "Table_8",
                 "Table_7",
@@ -4761,6 +4860,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Time:"
                     },
                     "type": "TextComponent"
@@ -4848,6 +4948,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": ""
                     },
                     "type": "TextComponent"
@@ -4864,10 +4965,6 @@
             "layer": "Gameplay"
         },
         "Tomato_Btn": {
-            "childNames": [
-                "Tomato_Rstk",
-                "Tomato_Txt"
-            ],
             "components": [
                 {
                     "properties": {

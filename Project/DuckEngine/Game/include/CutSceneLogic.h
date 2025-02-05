@@ -21,15 +21,21 @@ class CutSceneLogic : public GameLogic
 private:
 	SpriteRendererComponent* CutSceneSprite = nullptr;
 	SoundComponent* CutSceneSFX = nullptr;
+	SoundComponent* CutSceneBGM = nullptr;
 	SpriteRendererComponent* FadeOutSprite = nullptr;
+	SpriteRendererComponent* DialogueSprite = nullptr;
 	
-	int currentCutsceneIndex = 1;
+	int currentCutsceneIndex = 0;
 	float cutsceneTimer = 0.0f;
 	float fadeProgress = 0.0f;
-
+	int currentDialogueIndex = 0;
+	float dialogueTimer = 0.0f;
+	float DialoguefadeProgress = 0.0f;
+	
 	bool isPlaying = true;
 	bool isFading = true;
-
+	bool isCutSceneFading = false;
+	bool isShowingDialogue = false;
 public:
 
 	CutSceneLogic() :

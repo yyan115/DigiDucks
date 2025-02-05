@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CutSceneLogic.h"
 #include "GameLogicManager.h"
 #include "DuckEngine.h"
+#include "DuckEngine_Input.h"
 #include "AssetManager.h"
 
 void CutSceneLogic::Start()
@@ -25,6 +26,11 @@ void CutSceneLogic::Start()
 		CutSceneSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID);
 		CutSceneSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneEntity->entityID);
 	}
+	auto CutSceneSound = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneBGM").get();
+	if (CutSceneSound)
+	{
+		CutSceneBGM = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneSound->entityID);
+	}
 
 	auto FadeEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameFadeScreen");
 	if (FadeEntity) {
@@ -33,20 +39,33 @@ void CutSceneLogic::Start()
 		FadeOutSprite->color.a = 255; // Start fully visible
 	}
 
-	currentCutsceneIndex = 1;
+	auto DialogueEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("DialogueManager").get();
+	if (DialogueEntity)
+	{
+		DialogueSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueEntity->entityID);
+		DialogueSprite->isVisible = false; // Hide initially
+	}
+
+	currentCutsceneIndex = 0;
+	currentDialogueIndex = 0;
 	cutsceneTimer = 0.0f;
+	dialogueTimer = 0.0f;
 	fadeProgress = 0.0f;
+	DialoguefadeProgress = 0.0f;
 	isFading = true; // Start with a fade-in effect
+	isCutSceneFading = false;
 	isPlaying = true;
+	isShowingDialogue = false;
 }
 
 void CutSceneLogic::Update()
 {
-	if (!isPlaying) return;
+	if (!isPlaying && !isShowingDialogue) return;
 
 	// Handle fade-in effect at the start
 	if (isFading)
 	{
+		CutSceneBGM->Play(); // Play the cutscene BGM
 		fadeProgress += DuckEngine::DeltaTime() / 0.5f; // 0.5s fade duration
 
 		if (fadeProgress >= 1.0f)
@@ -63,45 +82,88 @@ void CutSceneLogic::Update()
 		}
 	}
 
-	// Accumulate time for cutscene transition
-	cutsceneTimer += DuckEngine::DeltaTime();
-
-	// Change scene every 1.5 seconds
-	if (cutsceneTimer >= 1.5f)
+	// If playing cutscene
+	if (isPlaying && currentCutsceneIndex < 14)
 	{
-		cutsceneTimer = 0.0f;  // Reset timer
+		cutsceneTimer += DuckEngine::DeltaTime();
 
-		// Check if it's time to end the cutscene
-		if (currentCutsceneIndex > 14)
+		// Change scene every 1.5 seconds
+		if (cutsceneTimer >= 1.5f)
 		{
-			// Start fade-out effect before finishing
+			currentCutsceneIndex++;
+			cutsceneTimer = 0.0f; // Reset timer
+			// Update cutscene sprite
+			if (CutSceneSprite)
+			{
+				std::string cutscenePath = "Resources/Sprites/cutscene/" + std::to_string(currentCutsceneIndex) + ".png";
+				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
+			}
+
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+			
+			if (currentCutsceneIndex == 14) {
+				isCutSceneFading = true;
+				FadeOutSprite->color.a = 0; // Start fade-out
+			}
+		}
+	}	
+	else if (isCutSceneFading) // Handle fade-out before dialogue starts
+	{
+		DialoguefadeProgress += DuckEngine::DeltaTime();
+
+		if (DialoguefadeProgress >= 6.0f)
+		{
+			FadeOutSprite->color.a = 255; // Fully visible fade-out
 			FadeOutSprite->isVisible = false;
-			isFading = true;
-			isPlaying = false;
-			return;
+			isCutSceneFading = false;
+			isShowingDialogue = true;
+			CutSceneSprite->isVisible = false; // Hide cutscene sprite
+			dialogueTimer = 0.0f;
+			DialogueSprite->isVisible = true; // Show dialogue box
 		}
-
-		// Update cutscene sprite
-		if (CutSceneSprite)
+		else if (DialoguefadeProgress >= 2.0f)
 		{
-			std::string cutscenePath = "Resources/Sprites/cutscene/" + std::to_string(currentCutsceneIndex) + ".png";
-			CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
-		}
+			FadeOutSprite->isVisible = true;
 
-		// Play sound effect for the scene
-		if (CutSceneSFX)
+			float fadeRatio = (DialoguefadeProgress - 2.0f) / (6.0f - 2.0f);
+			FadeOutSprite->color.a = static_cast<int>(fadeRatio * 255.0f);
+
+		}
+	}
+
+
+	// **Handle dialogues after cutscene**
+	if (isShowingDialogue)
+	{
+		// Wait 2 seconds before allowing click to progress
+		dialogueTimer += DuckEngine::DeltaTime();
+		if (dialogueTimer < 2.0f) return;
+
+		// Check for user input to progress dialogue
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 30)
 		{
-			CutSceneSFX->Play(currentCutsceneIndex);
+			currentDialogueIndex++;
+			std::cout << "Dialogue index: " << currentDialogueIndex << std::endl;
+			
+
+			// Update dialogue texture
+			std::string dialoguePath = "Resources/Sprites/Dialogues/intro/" + std::to_string(currentDialogueIndex) + ".png";
+			DialogueSprite->texture = *AssetManager::GetTexture(dialoguePath).get();
+
+			if (currentDialogueIndex == 30)
+			{
+				// End cutscene entirely and start game
+				FadeOutSprite->isVisible = false;
+				DialogueSprite->isVisible = false;
+				isShowingDialogue = false;
+				isPlaying = false;
+				CutSceneBGM->Stop();
+			}
 		}
-
-		// Move to the next scene
-		currentCutsceneIndex++;
-
-		// Enable fade-in effect after each scene change
-		FadeOutSprite->isVisible = false;
-		FadeOutSprite->color.a = 255;
-		isFading = true;
-		fadeProgress = 0.0f;
 	}
 }
 
