@@ -6,42 +6,49 @@
 
 void TransformComponent::SetPosition(const Vec2& newPos)
 {
-	bool positionChanged = (worldPosition != newPos);
-	Vec2 oldPosition = worldPosition;
+    previousPosition = newPos;
+    bool positionChanged = (worldPosition != newPos);
+    Vec2 oldPosition = worldPosition;
 
-	worldPosition = newPos;
-	previousPosition = newPos;
+    // Update the world position
+    worldPosition = newPos;
 
-	Entity* parentEntity = nullptr;
-	for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
-	{
-		auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
-			[this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
-		if (it != potentialParent->childEntities.end())
-		{
-			parentEntity = potentialParent.get();
-			break;
-		}
-	}
+    // Find parent entity
+    Entity* parentEntity = nullptr;
+    for (const auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+    {
+        auto it = std::find_if(potentialParent->childEntities.begin(), potentialParent->childEntities.end(),
+            [this](const std::shared_ptr<Entity>& child) { return child->entityID == GetEntityID(); });
+        if (it != potentialParent->childEntities.end())
+        {
+            parentEntity = potentialParent.get();
+            break;
+        }
+    }
 
-	if (parentEntity)
-	{
-		auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
-		if (parentTransform)
-		{
-			localPosition = worldPosition - parentTransform->worldPosition;
-		}
-	}
-	else
-	{
-		localPosition = worldPosition;
-	}
+    // Update local position
+    if (parentEntity)
+    {
+        auto parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(parentEntity->entityID);
+        if (parentTransform)
+        {
+            localPosition = worldPosition - parentTransform->worldPosition;
+        }
+    }
+    else
+    {
+        localPosition = worldPosition;
+    }
 
-	if (positionChanged)
-	{
-		Vec2 delta = newPos - oldPosition;
-		UpdateChildPositions(delta);
-	}
+    // Update child positions if position changed
+    if (positionChanged)
+    {
+        Vec2 delta = newPos - oldPosition;
+        UpdateChildPositions(delta);
+    }
+
+    // Finally update previous position
+    previousPosition = worldPosition;
 }
 
 
@@ -74,7 +81,6 @@ void TransformComponent::UpdateChildPositions(const Vec2& delta)
 				if (childTransform)
 				{
 					childTransform->worldPosition += delta;
-
 					childTransform->localPosition = childTransform->worldPosition - worldPosition;
 
 					childTransform->UpdateChildPositions(delta);

@@ -49,7 +49,7 @@ void CustomerWalkState::FixedUpdate()
 		{
 			rigidbody->velocity = Vec2(0.0f, 0.0f);
 			std::cout << "Reached QueueUpSpot!" << std::endl;
-			owner->stateMachine.ChangeState(owner->IdleState);
+			owner->stateMachine.ChangeState(owner->WaitingOrderState);
 		}
 	}
 }

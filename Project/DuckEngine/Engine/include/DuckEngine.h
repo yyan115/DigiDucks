@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 #define WIN32_LEAN_AND_MEAN
+#include <random>
 #include <iostream>
 #include "EntityManager.h"
 #include "ComponentManager.h"
@@ -218,6 +219,8 @@ public:
     static void DUCKENGINE_API ToggleFullScreen();
     
     static DUCKENGINE_API void ToggleShowDebugColliders();
+
+    static DUCKENGINE_API int RandomRange(int minVal, int maxVal);
 
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;

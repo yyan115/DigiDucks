@@ -5,9 +5,9 @@
 \par        l.yee@digipen.edu
 \date       October 3 2024
 \brief      Implements the DuckEngine class, which manages the initialization,
-            update, rendering, and exit processes of the game engine. It handles
-            the coordination of various systems such as input, graphics, and
-            camera management.
+			update, rendering, and exit processes of the game engine. It handles
+			the coordination of various systems such as input, graphics, and
+			camera management.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -70,280 +70,280 @@ const double DuckEngine::FIXED_TIMESTEP = 1.0 / 60.0;
 
 /************************************************************************
 @brief Initializes the DuckEngine by setting up the window, graphics, input,
-       camera, and font managers. It also loads prefabs and adds systems
-       such as sprite rendering and collision systems to the SystemManager.
+	   camera, and font managers. It also loads prefabs and adds systems
+	   such as sprite rendering and collision systems to the SystemManager.
 *************************************************************************/
 void DuckEngine::Initialize(bool _isEditor) 
 {
-    isEditor = _isEditor;
-    // need to grab width and height from XML for rubrics in the future
-    // Init Window, then Graphics, then Input
-    //Serialization::InitJson("Resources/windows_init.json");
-    WindowInit window = Serialization::GetWindowInit();
-    WindowManager::Initialize(1600, 900, "DigiDucks");
-    GraphicsManager::Initialize();
-    InputManager::Initialize(WindowManager::getWindow());
-    CameraManager::Initialize(0.f, 0.f, 10);
-    //FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
+	isEditor = _isEditor;
+	// need to grab width and height from XML for rubrics in the future
+	// Init Window, then Graphics, then Input
+	//Serialization::InitJson("Resources/windows_init.json");
+	WindowInit window = Serialization::GetWindowInit();
+	WindowManager::Initialize(1600, 900, "DigiDucks");
+	GraphicsManager::Initialize();
+	InputManager::Initialize(WindowManager::getWindow());
+	CameraManager::Initialize(0.f, 0.f, 10);
+	//FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadAll();
+	DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 
-    GraphicsManager::Start();
+	GraphicsManager::Start();
 
 }
 
 void DuckEngine::SetupSystems()
 {
 
-    // add the systems
-    std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
-    DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
+	// add the systems
+	std::shared_ptr<System> spriteRendererSystem = std::make_shared<SpriteRendererSystem>();
+	DUCKENGINE_SystemManager.AddSystem(spriteRendererSystem);
 
-    //// ADDED BY YY
-    //std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
-    //DUCKENGINE_SystemManager.AddSystem(cameraSystem);
+	//// ADDED BY YY
+	//std::shared_ptr<System> cameraSystem = std::make_shared<CameraSystem>();
+	//DUCKENGINE_SystemManager.AddSystem(cameraSystem);
 
-    // Update Collision System
-    // Circle Collider System
+	// Update Collision System
+	// Circle Collider System
 
-    std::shared_ptr<System> circleColliderSystem = std::make_shared<CircleColliderSystem>();
-    DUCKENGINE_SystemManager.AddSystem(circleColliderSystem);
+	std::shared_ptr<System> circleColliderSystem = std::make_shared<CircleColliderSystem>();
+	DUCKENGINE_SystemManager.AddSystem(circleColliderSystem);
 
-    // Box Collider System
-    std::shared_ptr<System> boxColliderSystem = std::make_shared<BoxColliderSystem>();
-    DUCKENGINE_SystemManager.AddSystem(boxColliderSystem);
+	// Box Collider System
+	std::shared_ptr<System> boxColliderSystem = std::make_shared<BoxColliderSystem>();
+	DUCKENGINE_SystemManager.AddSystem(boxColliderSystem);
 
-    std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
-    DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
+	std::shared_ptr<System> rigidbodySystem = std::make_shared<RigidbodySystem>();
+	DUCKENGINE_SystemManager.AddSystem(rigidbodySystem);
 
-    std::shared_ptr<System> animatorSystem = std::make_shared<AnimatorSystem>();
-    DUCKENGINE_SystemManager.AddSystem(animatorSystem);
+	std::shared_ptr<System> animatorSystem = std::make_shared<AnimatorSystem>();
+	DUCKENGINE_SystemManager.AddSystem(animatorSystem);
 
-    std::shared_ptr<System> soundSystem = std::make_shared<SoundSystem>();
-    DUCKENGINE_SystemManager.AddSystem(soundSystem);
+	std::shared_ptr<System> soundSystem = std::make_shared<SoundSystem>();
+	DUCKENGINE_SystemManager.AddSystem(soundSystem);
 
-    std::shared_ptr<System> gameLogicSystem = std::make_shared<GameLogicSystem>();
-    DUCKENGINE_SystemManager.AddSystem(gameLogicSystem);
+	std::shared_ptr<System> gameLogicSystem = std::make_shared<GameLogicSystem>();
+	DUCKENGINE_SystemManager.AddSystem(gameLogicSystem);
 
-    //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
-    //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+	//std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
+	//DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
 
-    //std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
-    //DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
+	//std::shared_ptr<System> textRenderingSystem = std::make_shared<TextRenderingSystem>();
+	//DUCKENGINE_SystemManager.AddSystem(textRenderingSystem);
 
-    auto textSystem = std::make_shared<TextSystem>();
-    DUCKENGINE_SystemManager.AddSystem(textSystem);
+	auto textSystem = std::make_shared<TextSystem>();
+	DUCKENGINE_SystemManager.AddSystem(textSystem);
 
-    auto buttonSystem = std::make_shared<ButtonSystem>();
-    DUCKENGINE_SystemManager.AddSystem(buttonSystem);
+	auto buttonSystem = std::make_shared<ButtonSystem>();
+	DUCKENGINE_SystemManager.AddSystem(buttonSystem);
 
-    auto particleSystem = std::make_shared<ParticleSystem>(150);
-    DUCKENGINE_SystemManager.AddSystem(particleSystem);
+	auto particleSystem = std::make_shared<ParticleSystem>(150);
+	DUCKENGINE_SystemManager.AddSystem(particleSystem);
 
 
-    // start all systems
-    DuckEngine::DUCKENGINE_SystemManager.StartAll();
+	// start all systems
+	DuckEngine::DUCKENGINE_SystemManager.StartAll();
 
-    DuckEngine::DUCKENGINE_AssetManager.LoadAllSounds("Resources/Sounds");
+	DuckEngine::DUCKENGINE_AssetManager.LoadAllSounds("Resources/Sounds");
 }
 
 
 void DuckEngine::SetPlaying(bool playing)
 {
-    isPlaying = playing;
-    if (!playing)
-    {
-        isPaused = false;
-        GameLogicManager::Clear();
-    }
-    else
-    {
-        DuckEngine::DUCKENGINE_SystemManager.StartAll();
-    }
+	isPlaying = playing;
+	if (!playing)
+	{
+		isPaused = false;
+		GameLogicManager::Clear();
+	}
+	else
+	{
+		DuckEngine::DUCKENGINE_SystemManager.StartAll();
+	}
 
 }
 
 bool DuckEngine::IsPlaying()
 {
-    return isPlaying;
+	return isPlaying;
 }
 
 void DuckEngine::SetPaused(bool paused) 
 {
-    isPaused = paused;
-    if (isPaused)
-    {
-        SoundSystem::PauseAllSounds();
-    }
-    else
-    {
-        SoundSystem::ResumeAllSounds();
-        TimeManager::ResetPrevTime();
-    }
+	isPaused = paused;
+	if (isPaused)
+	{
+		SoundSystem::PauseAllSounds();
+	}
+	else
+	{
+		SoundSystem::ResumeAllSounds();
+		TimeManager::ResetPrevTime();
+	}
 }
 
 bool DuckEngine::IsPaused() {
-    return isPaused;
+	return isPaused;
 }
 
 /************************************************************************
 @brief Updates the DuckEngine by processing inputs, updating systems,
-       handling scene management, and rendering text. It also updates
-       the window title with the current FPS.
+	   handling scene management, and rendering text. It also updates
+	   the window title with the current FPS.
 *************************************************************************/
 void DuckEngine::Update()
 {
-    static bool pausedOrMinimized = false;
-    if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
-    {
-        if (!pausedOrMinimized)
-        {
-            std::cout << "Paused" << std::endl;
-            SoundSystem::PauseAllSounds();
-            pausedOrMinimized = true;
-        }
-        return;
-    }
-    else if (pausedOrMinimized)
-    {
-        SoundSystem::ResumeAllSounds();
-        pausedOrMinimized = false;
-    }
+	static bool pausedOrMinimized = false;
+	if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
+	{
+		if (!pausedOrMinimized)
+		{
+			std::cout << "Paused" << std::endl;
+			SoundSystem::PauseAllSounds();
+			pausedOrMinimized = true;
+		}
+		return;
+	}
+	else if (pausedOrMinimized)
+	{
+		SoundSystem::ResumeAllSounds();
+		pausedOrMinimized = false;
+	}
 
-    static float timer = 0;
-    // Look for inputs first   
-    TimeManager::StartManagerTimer("Input System");
-    TimeManager::EndManagerTimer("Input System");
+	static float timer = 0;
+	// Look for inputs first   
+	TimeManager::StartManagerTimer("Input System");
+	TimeManager::EndManagerTimer("Input System");
 
-    // Update viewport
-    WindowManager::UpdateViewportDimensions();
+	// Update viewport
+	WindowManager::UpdateViewportDimensions();
 
-    // Get the actual frame time
-    TimeManager::UpdateTime(1.0);
-    double frameTime = TimeManager::DT();
+	// Get the actual frame time
+	TimeManager::UpdateTime(1.0);
+	double frameTime = TimeManager::DT();
 
-    // Accumulate time
-    accumulatedTime += frameTime;
-    currentSteps = 0;
+	// Accumulate time
+	accumulatedTime += frameTime;
+	currentSteps = 0;
 
 
-    DuckEngine::DUCKENGINE_SystemManager.EditorUpdateAll();
+	DuckEngine::DUCKENGINE_SystemManager.EditorUpdateAll();
 
-    if (isEditor && isPlaying || !isEditor)
-    {
-        DUCKENGINE_SceneManager.Update();
-        DUCKENGINE_SystemManager.UpdateAll();
-    }
+	if (isEditor && isPlaying || !isEditor)
+	{
+		DUCKENGINE_SceneManager.Update();
+		DUCKENGINE_SystemManager.UpdateAll();
+	}
   
 
-    TimeManager::StartManagerTimer("Systems Update");
-    // Update in fixed timesteps
-    while (accumulatedTime >= FIXED_TIMESTEP)
-    {
-        // Fixed update step    
-        if (isEditor && isPlaying || !isEditor)
-        {
-            DUCKENGINE_SystemManager.FixedUpdateAll();
-        }
-        
-        accumulatedTime -= FIXED_TIMESTEP;
-        currentSteps++;
+	TimeManager::StartManagerTimer("Systems Update");
+	// Update in fixed timesteps
+	while (accumulatedTime >= FIXED_TIMESTEP)
+	{
+		// Fixed update step    
+		if (isEditor && isPlaying || !isEditor)
+		{
+			DUCKENGINE_SystemManager.FixedUpdateAll();
+		}
+		
+		accumulatedTime -= FIXED_TIMESTEP;
+		currentSteps++;
 
-        if (currentSteps > 5)
-        {
-            accumulatedTime = 0.0;
-            break;
-        }
-    }
-        
-    TimeManager::EndManagerTimer("Systems Update");
+		if (currentSteps > 5)
+		{
+			accumulatedTime = 0.0;
+			break;
+		}
+	}
+		
+	TimeManager::EndManagerTimer("Systems Update");
 
-    // Render at whatever FPS we can achieve
-    TimeManager::StartManagerTimer("Font System");
-    FontManager::Update();
-    TimeManager::EndManagerTimer("Font System");
+	// Render at whatever FPS we can achieve
+	TimeManager::StartManagerTimer("Font System");
+	FontManager::Update();
+	TimeManager::EndManagerTimer("Font System");
 
-    //DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
+	//DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 }
 
 /************************************************************************
 @brief Prepares the rendering process for a new frame by clearing the screen
-       and adapting the viewport to any window size changes.
+	   and adapting the viewport to any window size changes.
 *************************************************************************/
 void DuckEngine::StartDraw(GLint width, GLint height)
 {
-    // Clear the screen
-    //Adapt viewport to resized window
-    GLint w{ width }, h{ height };
-    static GLint old_w{}, old_h{};
-    if (w != old_w || h != old_h)
-    {
-        old_w = w;
-        old_h = h;
-        glViewport(0, 0, w, h);
-        //std::cout << "caalled\n";
-    }
+	// Clear the screen
+	//Adapt viewport to resized window
+	GLint w{ width }, h{ height };
+	static GLint old_w{}, old_h{};
+	if (w != old_w || h != old_h)
+	{
+		old_w = w;
+		old_h = h;
+		glViewport(0, 0, w, h);
+		//std::cout << "caalled\n";
+	}
 }
 
 /************************************************************************
 @brief Executes the rendering of the game, including rendering the graphics,
-       debug elements, and the UI if the editor mode is enabled.
+	   debug elements, and the UI if the editor mode is enabled.
 *************************************************************************/
 void DuckEngine::Draw() 
 { 
-    CameraManager::Update();
-    TimeManager::StartManagerTimer("Graphics System");
-    GraphicsManager::Render();
-    GraphicsManager::DrawGizmo();
-    TimeManager::EndManagerTimer("Graphics System");
+	CameraManager::Update();
+	TimeManager::StartManagerTimer("Graphics System");
+	GraphicsManager::Render();
+	GraphicsManager::DrawGizmo();
+	TimeManager::EndManagerTimer("Graphics System");
 
-    InputManager::Update();
-    DuckEngine::DUCKENGINE_SystemManager.RenderAll();
-    DuckEngine::DUCKENGINE_SceneManager.Render();
-    
-    TimeManager::StartManagerTimer("Font System");
-    //FontManager::Render();
-    TimeManager::EndManagerTimer("Font System");
-    
+	InputManager::Update();
+	DuckEngine::DUCKENGINE_SystemManager.RenderAll();
+	DuckEngine::DUCKENGINE_SceneManager.Render();
+	
+	TimeManager::StartManagerTimer("Font System");
+	//FontManager::Render();
+	TimeManager::EndManagerTimer("Font System");
+	
 }
 
 /************************************************************************
 @brief Finalizes the rendering process by swapping the window buffers to
-       display the rendered frame.
+	   display the rendered frame.
 *************************************************************************/
 void DuckEngine::EndDraw()
 {  
-    // Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
-    glfwSwapBuffers(WindowManager::getWindow());
+	// Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
+	glfwSwapBuffers(WindowManager::getWindow());
 }
 
 /************************************************************************
 @brief Exits the DuckEngine by shutting down various systems and cleaning
-       up resources.
+	   up resources.
 *************************************************************************/
 void DuckEngine::Exit() 
 { 
-    WindowManager::Exit();
-    GraphicsManager::Exit();
-    //PrefabManager::Exit();
-    InputManager::Exit();
-    ShaderManager::Exit();
-    
+	WindowManager::Exit();
+	GraphicsManager::Exit();
+	//PrefabManager::Exit();
+	InputManager::Exit();
+	ShaderManager::Exit();
+	
 
-    DUCKENGINE_SceneManager.Shutdown();
-    
+	DUCKENGINE_SceneManager.Shutdown();
+	
 }
 
 /************************************************************************
 @brief Checks if the game engine is still running by determining if the
-       window is closed.
+	   window is closed.
 @return True if the window is still open, otherwise false.
 *************************************************************************/
 bool DuckEngine::Running() {
-    if (!WindowManager::CloseWindow())
-        return true;
-    else
-        return false;
+	if (!WindowManager::CloseWindow())
+		return true;
+	else
+		return false;
 }
 
 /************************************************************************
@@ -355,7 +355,7 @@ bool DuckEngine::Running() {
 *************************************************************************/
 void DuckEngine::SetBackgroundColor(const float r, const float g, const float b, const float a) 
 {
-    GraphicsManager::SetBackgroundColor(r, g, b, a);
+	GraphicsManager::SetBackgroundColor(r, g, b, a);
 }
 
 /************************************************************************
@@ -364,7 +364,7 @@ void DuckEngine::SetBackgroundColor(const float r, const float g, const float b,
 *************************************************************************/
 int DuckEngine::GetWindowWidth() 
 {
-    return WindowManager::GetWindowWidth();
+	return WindowManager::GetWindowWidth();
 }
 
 /************************************************************************
@@ -373,7 +373,7 @@ int DuckEngine::GetWindowWidth()
 *************************************************************************/
 int DuckEngine::GetWindowHeight() 
 {
-    return WindowManager::GetWindowHeight();
+	return WindowManager::GetWindowHeight();
 }
 
 /************************************************************************
@@ -382,7 +382,7 @@ int DuckEngine::GetWindowHeight()
 *************************************************************************/
 float DuckEngine::DeltaTime()
 {
-    return static_cast<float>(TimeManager::DT());
+	return static_cast<float>(TimeManager::DT());
 }
 
 /************************************************************************
@@ -391,7 +391,7 @@ float DuckEngine::DeltaTime()
 @param y The y-coordinate of the camera.
 *************************************************************************/
 void DuckEngine::SetCameraPosition(const float x, const float y) {
-    CameraManager::SetPosition(x, y);
+	CameraManager::SetPosition(x, y);
 }
 
 /************************************************************************
@@ -399,33 +399,33 @@ void DuckEngine::SetCameraPosition(const float x, const float y) {
 @param height The new height of the camera.
 *************************************************************************/
 void DuckEngine::SetCameraHeight(const int height) {
-    CameraManager::SetHeight(height);
+	CameraManager::SetHeight(height);
 }
 
 /************************************************************************
 @brief Renders text on the screen at a specified position with a given scale
-       and color.
+	   and color.
 @param text The string of text to render.
 @param position The position on the screen where the text will appear.
 @param scale The scaling factor for the text.
 @param color The color of the text.
 *************************************************************************/
 void DuckEngine::RenderText(const std::string& fontName, const std::string& text, const Vector2D& position, float scale, const Color& color, bool isUI, int sortingOrder, int layer) {
-    TextRenderCommand command{
-        fontName,
-        text,
-        position,
-        scale,
-        color,
-        isUI,
-    };
+	TextRenderCommand command{
+		fontName,
+		text,
+		position,
+		scale,
+		color,
+		isUI,
+	};
 
-    GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Text, command });
+	GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Text, command });
 }
 
 /************************************************************************
 @brief Draws a point on the screen at a specified position, with a given
-       size and color.
+	   size and color.
 @param position The position of the point.
 @param size The size of the point.
 @param color The color of the point (default is red).
@@ -433,15 +433,15 @@ void DuckEngine::RenderText(const std::string& fontName, const std::string& text
 *************************************************************************/
 void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& color, bool relativeToCamera, int sortingOrder, int layer) {
 
-    // Create a DebugRenderCommand for a point and add it to the debug draw queue
-    DebugRenderCommand drawCommand(DebugRenderCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
+	// Create a DebugRenderCommand for a point and add it to the debug draw queue
+	DebugRenderCommand drawCommand(DebugRenderCommand::POINT, position, {}, size, 0.f, color, relativeToCamera); // position2 and rotation are unused
 
-    GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
+	GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
 @brief Draws a line between two points on the screen with a specified size
-       and color.
+	   and color.
 @param start The starting point of the line.
 @param end The ending point of the line.
 @param size The thickness of the line.
@@ -450,15 +450,15 @@ void DuckEngine::DrawPoint(const Vector2D& position, float size, const Color& co
 *************************************************************************/
 void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size, const Color& color, bool relativeToCamera, int sortingOrder, int layer) {
 
-    // Create a DebugRenderCommand for a line and add it to the debug draw queue
-    DebugRenderCommand drawCommand(DebugRenderCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
+	// Create a DebugRenderCommand for a line and add it to the debug draw queue
+	DebugRenderCommand drawCommand(DebugRenderCommand::LINE, start, end, size, 0.f, color, relativeToCamera); // rotation is unused
 
-    GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
+	GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
 @brief Draws a rectangle on the screen using the given minimum and maximum
-       corner positions, with optional rotation.
+	   corner positions, with optional rotation.
 @param minCorner The position of the bottom-left corner of the rectangle.
 @param maxCorner The position of the top-right corner of the rectangle.
 @param rotation The rotation angle of the rectangle (default is 0 degrees).
@@ -467,16 +467,16 @@ void DuckEngine::DrawLine(const Vector2D& start, const Vector2D& end, float size
 *************************************************************************/
 void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCorner, float rotation, const Color& color, bool relativeToCamera, int sortingOrder, int layer) {
 
-    // Calculate the center of the rectangle
-    Vector2D center = (minCorner + maxCorner) * 0.5f;
+	// Calculate the center of the rectangle
+	Vector2D center = (minCorner + maxCorner) * 0.5f;
 
-    // Calculate the size (width and height) of the rectangle
-    Vector2D size = maxCorner - minCorner;
+	// Calculate the size (width and height) of the rectangle
+	Vector2D size = maxCorner - minCorner;
 
-    // Create a DebugRenderCommand for a rectangle with rotation and add it to the debug draw queue
-    DebugRenderCommand drawCommand(DebugRenderCommand::RECTANGLE, center, size, 0.f, rotation, color, relativeToCamera); // sizeOrRadius is 0 for rectangles
+	// Create a DebugRenderCommand for a rectangle with rotation and add it to the debug draw queue
+	DebugRenderCommand drawCommand(DebugRenderCommand::RECTANGLE, center, size, 0.f, rotation, color, relativeToCamera); // sizeOrRadius is 0 for rectangles
 
-    GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
+	GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
@@ -488,10 +488,10 @@ void DuckEngine::DrawRectangle(const Vector2D& minCorner, const Vector2D& maxCor
 *************************************************************************/
 void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color& color, bool relativeToCamera, int sortingOrder, int layer) {
 
-    // Create a DebugRenderCommand for a circle and add it to the debug draw queue
-    DebugRenderCommand drawCommand(DebugRenderCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
+	// Create a DebugRenderCommand for a circle and add it to the debug draw queue
+	DebugRenderCommand drawCommand(DebugRenderCommand::CIRCLE, position, {}, radius, 0.f, color, relativeToCamera); // position2 and rotation are unused
 
-    GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
+	GraphicsManager::AddToDrawQueue({ layer, sortingOrder, RenderCommandType::Debug, drawCommand });
 }
 
 /************************************************************************
@@ -499,7 +499,7 @@ void DuckEngine::DrawCircle(const Vector2D& position, float radius, const Color&
 @param title The new title for the game window.
 *************************************************************************/
 void DuckEngine::SetWindowTitle(std::string title) {
-    WindowManager::SetWindowTitle(title.c_str());
+	WindowManager::SetWindowTitle(title.c_str());
 }
 
 /************************************************************************
@@ -507,7 +507,7 @@ void DuckEngine::SetWindowTitle(std::string title) {
 @return The current FPS.
 *************************************************************************/
 float DuckEngine::FPS() {
-    return static_cast<float>(TimeManager::FPS());
+	return static_cast<float>(TimeManager::FPS());
 }
 
 /************************************************************************
@@ -515,46 +515,53 @@ float DuckEngine::FPS() {
 @param enable True to enable logging, false to disable.
 *************************************************************************/
 void DuckEngine::EnableLogging(bool enable) {
-    DUCKENGINE_ComponentManager.EnableLogging(enable);
+	DUCKENGINE_ComponentManager.EnableLogging(enable);
 }
 
 float DuckEngine::GetViewportWidth()
 {
-    return static_cast<float>(WindowManager::GetViewportWidth());
+	return static_cast<float>(WindowManager::GetViewportWidth());
 }
 
 float DuckEngine::GetViewportHeight()
 {
-    return static_cast<float>(WindowManager::GetViewportHeight());
+	return static_cast<float>(WindowManager::GetViewportHeight());
 } 
 
 void DuckEngine::ToggleFullScreen() {
-    WindowManager::ToggleFullscreen();
+	WindowManager::ToggleFullscreen();
 }
 
 void DuckEngine::ToggleShowDebugColliders() {
 
-    for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
-    {
-        BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
+	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
+	{
+		BoundingCircle* circle = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(entityId);
 
-        if (circle) circle->showDebugCollider = !circle->showDebugCollider;
-    }
+		if (circle) circle->showDebugCollider = !circle->showDebugCollider;
+	}
 
-    for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
-    {
-        BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
+	for (const auto& [entityId, boxCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingBox>())
+	{
+		BoundingBox* box = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(entityId);
 
-        if (box) box->showDebugCollider = !box->showDebugCollider;
-    }
+		if (box) box->showDebugCollider = !box->showDebugCollider;
+	}
 }
 
 void DuckEngine::CloseWindow()
 {
-    WindowManager::SetWindowShouldClose();
+	WindowManager::SetWindowShouldClose();
 }
 
 void DuckEngine::Emit(const Vector2D& pos, const Vector2D& vel) {
-    ParticleSystem::Emit(pos, vel);
-    //std::cout << "Emitting\n";
+	ParticleSystem::Emit(pos, vel);
+	//std::cout << "Emitting\n";
+}
+
+int DuckEngine::RandomRange(int minVal, int maxVal)
+{
+	static std::mt19937 rng{ std::random_device{}() };
+	std::uniform_int_distribution<int> dist(minVal, maxVal);
+	return dist(rng);
 }

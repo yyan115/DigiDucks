@@ -60,7 +60,7 @@ void GameScene::Load()
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
 			timerText->text = "Time:";
-			timeLeft = 60.f;
+			timeLeft = 600.f;
 		}
 	}
 

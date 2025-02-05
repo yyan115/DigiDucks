@@ -2,9 +2,11 @@
 
 #include "DuckEngine.h"
 #include "StateMachine.h"
+#include "GameLogicComponent.h"
+
 #include "CustomerIdleState.h"
 #include "CustomerWalkState.h"
-#include "GameLogicComponent.h"
+#include "CustomerWaitingOrderState.h"
 
 class GameScene;
 
@@ -14,6 +16,7 @@ public:
 	StateMachine<CustomerLogic> stateMachine;
 	std::shared_ptr<CustomerIdleState> IdleState;
 	std::shared_ptr<CustomerWalkState> WalkState;
+	std::shared_ptr<CustomerWaitingOrderState> WaitingOrderState;
 
 	CustomerLogic()
 		: IdleState(nullptr), WalkState(nullptr) {
@@ -30,6 +33,11 @@ public:
 		return clone;
 	}
 
+	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
+	GameScene* GetGameScene() { return gameScene; }
+
 private:
 	GameScene* gameScene = nullptr;
+	Entity* customerOrder = nullptr;
+	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;
 };

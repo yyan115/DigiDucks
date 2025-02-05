@@ -722,7 +722,7 @@
                     "properties": {
                         "position": {
                             "x": 15.399999618530273,
-                            "y": -3.9000000953674316
+                            "y": -9.300000190734863
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -741,7 +741,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
@@ -759,7 +759,7 @@
             "layer": "Gameplay",
             "position": {
                 "x": 13.939000129699707,
-                "y": -5.091000080108643
+                "y": -10.491000175476074
             },
             "prefab": "Customer"
         },
@@ -1089,7 +1089,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -2869,13 +2869,21 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "OrderTabLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "UI"

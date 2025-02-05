@@ -1,6 +1,6 @@
-#include <iostream>
 #include "CustomerIdleState.h"
 #include "CustomerLogic.h"
+#include "GameScene.h"
 
 CustomerIdleState::CustomerIdleState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}
@@ -13,6 +13,10 @@ void CustomerIdleState::Enter()
 
 void CustomerIdleState::Update()
 {
+	if (owner->GetGameScene()->IsGameStarted())
+	{
+		owner->stateMachine.ChangeState(owner->WalkState);
+	}
 }
 
 void CustomerIdleState::FixedUpdate()

@@ -6,7 +6,7 @@
 \email    	h.yonghengernestt@digipen.edu
 \date   	Sep 28 2024
 \brief  	Implements the RigidbodySystem for managing physics-related 
-            updates for entities with RigidbodyComponents.
+			updates for entities with RigidbodyComponents.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
@@ -19,17 +19,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 void RigidbodySystem::Start()
 {
-    for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
-    {
-        RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
-        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+	for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
+	{
+		RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 
-        // Ensure the entity has both RigidbodyComponent and TransformComponent
-        if (rigidbody && transform)
-        {
-            transform->previousPosition = transform->GetPosition();
-        }
-    }
+		// Ensure the entity has both RigidbodyComponent and TransformComponent
+		if (rigidbody && transform)
+		{
+			transform->previousPosition = transform->GetPosition();
+		}
+	}
 }
 
 void RigidbodySystem::Update()
@@ -49,38 +49,45 @@ void RigidbodySystem::Update()
 ****************************************************************/
 void RigidbodySystem::FixedUpdate()
 {
-    // Get deltaTime (elapsed time between frames)
-    float deltaTime = DuckEngine::FixedDeltaTime();
-
-    // Loop through all entities that have RigidbodyComponent
-    for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
-    {
-        RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
-        TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
-
-        // Ensure the entity has both RigidbodyComponent and TransformComponent
-        if (rigidbody && transform)
-        {
-            transform->previousPosition = transform->GetPosition();
-
-            // Skip if the rigidbody is static (not affected by physics)
-            if (rigidbody->isStatic)
-            {
-                continue;
-            }
-
-            // Update velocity based on acceleration and deltaTime
-            rigidbody->velocity += rigidbody->acceleration * deltaTime;
+	for (auto& [entityId, transformComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<TransformComponent>())
+	{
+		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		transform->previousPosition = transform->GetPosition();
+	}
 
 
-            // Update the position based on the velocity
-            transform->GetPosition() += rigidbody->velocity * deltaTime;
+	// Get deltaTime (elapsed time between frames)
+	float deltaTime = DuckEngine::FixedDeltaTime();
 
-            // Reset acceleration for the next frame
-            rigidbody->acceleration = Vec2(0.0f, 0.0f);
+	// Loop through all entities that have RigidbodyComponent
+	for (const auto& [entityId, rigidbodyComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RigidbodyComponent>())
+	{
+		RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(entityId);
+		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
 
-            // Apply damping to the velocity based on mass
-            rigidbody->velocity -= rigidbody->mass * (rigidbody->velocity * deltaTime);
-        }
-    }
+		// Ensure the entity has both RigidbodyComponent and TransformComponent
+		if (rigidbody && transform)
+		{
+			transform->previousPosition = transform->GetPosition();
+
+			// Skip if the rigidbody is static (not affected by physics)
+			if (rigidbody->isStatic)
+			{
+				continue;
+			}
+
+			// Update velocity based on acceleration and deltaTime
+			rigidbody->velocity += rigidbody->acceleration * deltaTime;
+
+			Vec2 newPosition = transform->GetPosition() + rigidbody->velocity * deltaTime;
+
+			transform->SetPosition(newPosition);
+
+			// Reset acceleration for the next frame
+			rigidbody->acceleration = Vec2(0.0f, 0.0f);
+
+			// Apply damping to the velocity based on mass
+			rigidbody->velocity -= rigidbody->mass * (rigidbody->velocity * deltaTime);
+		}
+	}
 }

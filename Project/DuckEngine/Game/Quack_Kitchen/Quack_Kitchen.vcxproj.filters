@@ -83,6 +83,12 @@
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp">
       <Filter>src\Logic\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\CustomerWaitingOrderState.cpp">
+      <Filter>src\Logic\Game\Customer\States</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\OrderTabLogic.cpp">
+      <Filter>src\Logic\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -153,6 +159,12 @@
     </Filter>
     <Filter Include="src\Logic\MainMenu">
       <UniqueIdentifier>{3d7f87bf-2892-4243-9df3-41f1ce04ecda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Game\UI">
+      <UniqueIdentifier>{875c2d34-c8a5-4e78-b6d9-3843844bee5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Game\UI">
+      <UniqueIdentifier>{ae8864fa-b379-46e1-b9ab-fe371b9c0ced}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +291,12 @@
     </ClInclude>
     <ClInclude Include="..\include\LevelSelectScreenLogic.h">
       <Filter>include\Logic\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CustomerWaitingOrderState.h">
+      <Filter>include\Logic\Game\Customer\States</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\OrderTabLogic.h">
+      <Filter>include\Logic\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
