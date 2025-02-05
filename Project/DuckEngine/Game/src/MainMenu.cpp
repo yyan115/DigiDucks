@@ -221,9 +221,9 @@ void MainMenu::Unload()
 
 void MainMenu::OnPlayButtonClicked(std::string sceneName)
 {
-	StartSound->Play(1);
-	if (menusound) 
+	if (menusound && !isFadingOut) 
 	{
+		StartSound->Play(1);
 		fadeOutDuration = 3.0f; // 3 seconds fade duration
 		fadeElapsedTime = 0.0f;
 		isFadingOut = true;
