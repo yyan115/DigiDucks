@@ -125,6 +125,10 @@ void CutSceneLogic::Update()
 			CutSceneSprite->isVisible = false; // Hide cutscene sprite
 			dialogueTimer = 0.0f;
 			DialogueSprite->isVisible = true; // Show dialogue box
+
+			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
+			level0Scene->FinishedTutorial();
+
 		}
 		else if (DialoguefadeProgress >= 2.0f)
 		{
