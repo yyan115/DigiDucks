@@ -39,7 +39,7 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
-                            "Resources/Sounds/bgm/end of level bgm.wav"
+                            "Resources/Sounds/bgm/end of level bgm.mp3"
                         ],
                         "volume": 0.05000000074505806
                     },
