@@ -65,9 +65,18 @@ void MainMenu::Load()
 	fadeOutDuration = 3.0f;
 	fadeElapsedTime = 0.0f;
 	isFadingOut = false;
-	start->onClick = [this]() {
-		OnPlayButtonClicked("GameScene");
-	};
+	start->onClick = [this]() 
+		{
+			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
+			if (level0Scene->GetIsFinishedTutorial())
+			{
+				OnPlayButtonClicked("GameScene");
+			}
+			else
+			{
+				OnPlayButtonClicked("Level0");
+			}
+		};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
 	QuitSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(QuitButton->entityID);

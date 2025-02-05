@@ -35,6 +35,8 @@ public:
     void PostUpdate() override;
     void Exit() override;
     void Unload() override;
+	bool GetIsFinishedTutorial() { return finishedTutorial; }
+	void FinishedTutorial() { finishedTutorial = true; }
 
 private:
     // Helper functions
@@ -44,6 +46,8 @@ private:
     void ExitConfirm(bool state);
     void changePage();
     void MiniGame_1(bool state);
+
+    bool finishedTutorial = false;
 
     // Member variables
     Entity* duck = nullptr;

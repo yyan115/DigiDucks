@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "AssetManager.h"
+#include "Level0.h"
 
 void CutSceneLogic::Start()
 {
@@ -152,11 +153,14 @@ void CutSceneLogic::Update()
 			if (currentDialogueIndex == 31)
 			{
 				// End cutscene entirely and start game
+				Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
+				level0Scene->FinishedTutorial();
 				FadeOutSprite->isVisible = false;
 				DialogueSprite->isVisible = false;
 				isShowingDialogue = false;
 				isPlaying = false;
 				CutSceneBGM->Stop();
+
 				return;
 			}
 
