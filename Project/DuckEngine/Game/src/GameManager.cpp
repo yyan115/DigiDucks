@@ -39,7 +39,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ScoreLogic.h"
 #include "CustomerLogic.h"
 #include "CutSceneLogic.h"
-#include "LoadingScreenLogic.h"
+#include "LevelSelectScreenLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -86,7 +86,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("RobotLogic", std::make_shared<RobotLogic>());
 	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
 	GameLogicManager::AddLogic("ScoreLogic", std::make_shared<ScoreLogic>());
-	GameLogicManager::AddLogic("LoadingScreen", std::make_shared<LoadingScreenLogic>());
+	GameLogicManager::AddLogic("LevelSelectScreenLogic", std::make_shared<LevelSelectScreenLogic>());
 
 	//Customer Logic
 	GameLogicManager::AddLogic("CustomerLogic", std::make_shared<CustomerLogic>());

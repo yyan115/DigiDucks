@@ -80,7 +80,7 @@
     <ClCompile Include="..\src\TableLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\LoadingScreenLogic.cpp">
+    <ClCompile Include="..\src\LevelSelectScreenLogic.cpp">
       <Filter>src\Logic\MainMenu</Filter>
     </ClCompile>
   </ItemGroup>
@@ -277,7 +277,7 @@
     <ClInclude Include="..\include\TableLogic.h">
       <Filter>include\Logic\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\LoadingScreenLogic.h">
+    <ClInclude Include="..\include\LevelSelectScreenLogic.h">
       <Filter>include\Logic\MainMenu</Filter>
     </ClInclude>
   </ItemGroup>

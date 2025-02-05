@@ -43,11 +43,11 @@ void GameLogicSystem::Start()
 			if (baseLogic)
 			{
 				auto logic = baseLogic->Clone();
-
 				logic->SetComponent(logicComponent);
 				GameLogicManager::AddLogicToEntity(entityID, logic);
 			}
 		}
+
 	}
 
 	for (auto& [entityID, component] : components)
@@ -69,7 +69,6 @@ void GameLogicSystem::Start()
 void GameLogicSystem::Update()
 {
 	auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
-
 	for (auto& [entityID, component] : components)
 	{
 		auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);

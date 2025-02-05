@@ -541,7 +541,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "LoadingScreenLogic"
+                            "LevelSelectScreenLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
