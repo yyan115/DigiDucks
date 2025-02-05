@@ -51,12 +51,14 @@ void ParticleManager::Update()
 
 void ParticleManager::Render()
 {
+    int count = 0;
+
     for (auto& p : m_particles)
     {
         if (!p.active) continue;
 
         // Add draw command to the GraphicsManager queue
-        GameRenderCommand drawOpt;
+        ParticleRenderCommand drawOpt;
         drawOpt.scale = { p.scale * 2.0f, p.scale * 2.0f };
         drawOpt.rotation = 0.0f;
         drawOpt.translation = p.position;
@@ -67,11 +69,15 @@ void ParticleManager::Render()
         UnifiedRenderCommand cmd;
         cmd.layer = p.layer;
         cmd.sortingOrder = p.sortingOrder;
-        cmd.type = RenderCommandType::Game;
+        cmd.type = RenderCommandType::Particle;
         cmd.command = drawOpt;
 
         GraphicsManager::AddToDrawQueue(cmd);
+        count++;
     }
+
+    std::cout << "particle count: " << count << "\n";
+    count = 0;
 }
 
 void ParticleManager::RegisterEmitter(const std::string& type, const Emitter& def)
