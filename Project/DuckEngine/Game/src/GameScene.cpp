@@ -78,6 +78,7 @@ void GameScene::Load()
 	if (fpsTextEntity) {
 		FPSText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(fpsTextEntity->entityID);
 	}
+
 	isPaused = false;
 	pageNumb = 1;
 
@@ -211,10 +212,6 @@ void GameScene::Load()
 		}
 	}
 
-	// Restock Menu
-	{
-		
-	}
 
 	// MiniGame_1
 	{

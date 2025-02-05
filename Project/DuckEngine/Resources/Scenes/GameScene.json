@@ -889,7 +889,6 @@
         },
         "Exit_Cfm_Bg": {
             "childNames": [
-                "Exit_Cfm_Txt",
                 "Exit_Yes_Btn",
                 "Exit_No_Btn"
             ],
@@ -898,13 +897,13 @@
                     "properties": {
                         "position": {
                             "x": 0.5,
-                            "y": -0.5499999523162842
+                            "y": -0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.4000000059604645,
-                            "y": 0.4000000059604645
+                            "x": 1.0,
+                            "y": 1.100000023841858
                         }
                     },
                     "type": "TransformComponent"
@@ -920,50 +919,10 @@
                         "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/INPUT.png",
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/confirmquit (2).png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Exit_Cfm_Txt": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.375,
-                            "y": 0.5200001001358032
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "enabled": false,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 0,
-                        "text": "Quit Game?"
-                    },
-                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"
@@ -973,14 +932,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.6000000238418579,
-                            "y": -0.60999995470047
+                            "x": 0.5,
+                            "y": -0.6000000238418579
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.15000000596046448,
-                            "y": 0.14000000059604645
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -996,7 +955,7 @@
                         "isVisible": true,
                         "sortingOrder": 103,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/NOBUTTON.png",
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/no.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1022,14 +981,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.60999995470047
+                            "x": 0.30000001192092896,
+                            "y": -0.6000000238418579
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.15000000596046448,
-                            "y": 0.12999999523162842
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -1045,7 +1004,7 @@
                         "isVisible": true,
                         "sortingOrder": 103,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/YESBUTTON.png",
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/yes.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1299,8 +1258,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.19999998807907104,
-                            "y": -0.8400000333786011
+                            "x": 0.09999999403953552,
+                            "y": -0.8600000143051147
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1351,14 +1310,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
-                            "y": -0.550000011920929
+                            "x": 0.4000000059604645,
+                            "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.10000000149011612
+                            "x": 0.18000000715255737,
+                            "y": 0.12999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -1374,7 +1333,7 @@
                         "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/HOWTOPLAY_BUTTON.png",
+                        "texture": "Resources/Sprites/Pause/howtoplay.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1400,8 +1359,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.18000000715255737,
-                            "y": -0.1899999976158142
+                            "x": 0.08000001311302185,
+                            "y": -0.20999997854232788
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1449,8 +1408,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7899999618530273,
-                            "y": -0.8400000333786011
+                            "x": 0.6899999380111694,
+                            "y": -0.8600000143051147
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1503,8 +1462,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
-                            "y": -0.550000011920929
+                            "x": 0.4000000059604645,
+                            "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1653,19 +1612,58 @@
             ],
             "layer": "Gameplay"
         },
-        "Maintenance_Btn": {
+        "Maintenance_Bg": {
+            "childNames": [
+                "Maintenance_Btn"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.6000000238418579,
+                            "x": 0.5,
                             "y": -0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.10000000149011612,
-                            "y": 0.10000000149011612
+                            "x": 0.800000011920929,
+                            "y": 0.800000011920929
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/Maintenance/maintenance1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Maintenance_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.6499999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -1679,9 +1677,9 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/KEYCAP.png",
+                        "texture": "Resources/Sprites/Drone Menu/Maintenance/mainbutton1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2854,8 +2852,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.6000000238418579,
-                            "y": 0.800000011920929
+                            "x": 1.0,
+                            "y": 1.100000023841858
                         }
                     },
                     "type": "TransformComponent"
@@ -2871,7 +2869,7 @@
                         "isVisible": true,
                         "sortingOrder": 100,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/patternminigame.png",
+                        "texture": "Resources/Sprites/Pause/PAUSEMENU (2).png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2882,7 +2880,6 @@
         "Pause_Menu": {
             "childNames": [
                 "Pause_Bg",
-                "Pause_Text",
                 "Quit_Btn",
                 "HTP_Btn",
                 "Resume_Btn"
@@ -2906,51 +2903,15 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 180.0,
-                            "b": 50.0,
-                            "g": 50.0,
-                            "r": 50.0
+                            "a": 220.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
                         },
                         "isVisible": false,
                         "sortingOrder": 4,
                         "sprite": true,
                         "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Pause_Text": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.27000001072883606
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.25,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 101,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Pause/gamepaused.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3037,29 +2998,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -3074,11 +3012,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -3088,6 +3040,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -3197,14 +3158,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
-                            "y": -0.699999988079071
+                            "x": 0.4000000059604645,
+                            "y": -0.7400000095367432
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.10000000149011612
+                            "x": 0.18000000715255737,
+                            "y": 0.12999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -3220,7 +3181,7 @@
                         "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/quitgame_button.png",
+                        "texture": "Resources/Sprites/Pause/quitgame.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3266,14 +3227,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.5
+                            "x": 0.30000001192092896,
+                            "y": -0.4000000059604645
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.10000000149011612,
-                            "y": 0.10000000149011612
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -3287,9 +3248,9 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/GREENBUTTON.png",
+                        "texture": "Resources/Sprites/Drone Menu/lettucebutton.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3311,6 +3272,10 @@
             "layer": "UI"
         },
         "Restock_Bg": {
+            "childNames": [
+                "Restock_All_Btn",
+                "Restock_Cfm_Btn"
+            ],
             "components": [
                 {
                     "properties": {
@@ -3321,7 +3286,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.6000000238418579,
+                            "x": 0.800000011920929,
                             "y": 0.800000011920929
                         }
                     },
@@ -3336,9 +3301,9 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/patternminigame.png",
+                        "texture": "Resources/Sprites/Drone Menu/main_drone_page.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3346,19 +3311,19 @@
             ],
             "layer": "UI"
         },
-        "Restock_Exit_Btn": {
+        "Restock_Cfm_Btn": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.25,
-                            "y": -0.20000000298023224
+                            "x": 0.4000000059604645,
+                            "y": -0.699999988079071
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05000000074505806,
-                            "y": 0.10000000149011612
+                            "x": 0.15000000596046448,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -3372,9 +3337,143 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 6,
+                        "sortingOrder": 4,
                         "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/xbutton.png",
+                        "texture": "Resources/Sprites/Drone Menu/confirm_grey.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Exit_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.7599999904632568,
+                            "y": -0.28999999165534973
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03500000014901161,
+                            "y": 0.05999999865889549
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 3,
+                        "sprite": false,
+                        "texture": "Resources/Sprites/Drone Menu/closebutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Ingredient_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.2770000100135803,
+                            "y": -0.28999999165534973
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/INGREDIENTS_active.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Maintenana_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.38999998569488525,
+                            "y": -0.28999999165534973
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/maintenance_inactive.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3399,8 +3498,9 @@
             "childNames": [
                 "Restock_Bg",
                 "Restock_Exit_Btn",
-                "Restock_All_Btn",
-                "Maintenance_Btn"
+                "Maintenance_Bg",
+                "Restock_Maintenana_Btn",
+                "Restock_Ingredient_Btn"
             ],
             "components": [
                 {
@@ -3421,13 +3521,13 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 180.0,
-                            "b": 40.0,
-                            "g": 40.0,
-                            "r": 40.0
+                            "a": 220.0,
+                            "b": 2.0,
+                            "g": 5.0,
+                            "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": false,
                         "texture": "",
                         "useColor": true
@@ -3450,14 +3550,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.4000000059604645,
                             "y": -0.4000000059604645
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.10000000149011612
+                            "x": 0.18000000715255737,
+                            "y": 0.12999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -3857,8 +3957,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 5.699999809265137,
-                            "y": 5.900000095367432
+                            "x": 5.7166428565979,
+                            "y": 5.918764114379883
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
