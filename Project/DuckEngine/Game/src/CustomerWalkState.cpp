@@ -3,12 +3,37 @@
 #include "CustomerLogic.h"
 
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
-	: State<CustomerLogic>(customerLogicOwner), queueTarget(nullptr) {}
+	: State<CustomerLogic>(customerLogicOwner), currentQueueTarget(nullptr) {}
 
 void CustomerWalkState::Enter()
 {
 	std::cout << "Customer enters Walk State" << std::endl;
-	queueTarget = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUpSpot").get();
+
+	if (queueTargets.empty())
+	{
+		queueTargets.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUp_1").get());
+		queueTargets.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUp_2").get());
+		queueTargets.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUp_3").get());
+		queueTargets.push_back(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QueueUp_4").get());
+	}
+
+	if (finalPath == nullptr)
+	{
+		finalPath = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FinalPath").get();
+	}
+
+
+	isOrderTaken = owner->WaitingOrderState->GetIsOrderTaken();
+
+	currentTargetIndex = 0;
+	currentQueueTarget = queueTargets[currentTargetIndex];
+
+	if (isOrderTaken && orderCollected)
+	{
+		currentQueueTarget = finalPath;
+	}
+
+	std::cout << "queue size = " << queueTargets.size() << std::endl;
 }
 
 
@@ -19,16 +44,24 @@ void CustomerWalkState::Update()
 
 void CustomerWalkState::FixedUpdate()
 {
-	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
-	TransformComponent* targetTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(queueTarget->entityID);
+	TransformComponent* customerTransform =
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
 
-	if (customerTransform == nullptr || targetTransform == nullptr)
+	// Always ensure our current target is valid before we proceed
+	if (!currentQueueTarget || !customerTransform)
+	{
+		return;
+	}
+
+	TransformComponent* targetTransform =
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(currentQueueTarget->entityID);
+
+	if (!targetTransform)
 	{
 		return;
 	}
 
 	Vec2 direction = targetTransform->GetPosition() - customerTransform->GetPosition();
-
 	float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 
 	if (distance > 0.0f)
@@ -37,22 +70,59 @@ void CustomerWalkState::FixedUpdate()
 		direction.y /= distance;
 	}
 
-	float moveSpeed = 2.0f;
-	RigidbodyComponent* rigidbody = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(owner->GetComponentID());
-	if (rigidbody)
+	float moveSpeed = 3.0f;
+
+	RigidbodyComponent* rigidbody =
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(owner->GetComponentID());
+
+	if (!rigidbody)
 	{
-		if (distance > 0.1f)
+		return;
+	}
+
+	if (distance > 0.1f)
+	{
+		rigidbody->velocity = direction * moveSpeed;
+	}
+	else
+	{
+		rigidbody->velocity = Vec2(0.0f, 0.0f);
+
+		if (!isOrderTaken && currentTargetIndex == 0)
 		{
-			rigidbody->velocity = direction * moveSpeed;
-		}
-		else
-		{
-			rigidbody->velocity = Vec2(0.0f, 0.0f);
-			std::cout << "Reached QueueUpSpot!" << std::endl;
 			owner->stateMachine.ChangeState(owner->WaitingOrderState);
+			return;
+		}
+
+		else if (isOrderTaken && orderCollected)
+		{
+			if (currentQueueTarget != finalPath)
+			{
+				currentQueueTarget = finalPath;
+			}
+			else
+			{
+				// destroy customer do later
+			}
+		}
+
+		else if (isOrderTaken)
+		{
+			if (currentTargetIndex < queueTargets.size() - 1)
+			{
+				currentTargetIndex++;
+				currentQueueTarget = queueTargets[currentTargetIndex];
+			}
+			else
+			{
+				// final queue target reached
+				isWaitingToCollectOrder = true;
+			}
 		}
 	}
 }
+
+
 
 void CustomerWalkState::Exit()
 {

@@ -14,8 +14,21 @@ public:
 	void FixedUpdate() override;
 	void Exit() override;
 
+	void CustomerOrderCollected() { orderCollected = true; }
+	bool GetIsWaitingToCollectOrder() { return isWaitingToCollectOrder; }
+
+
 private:
-	Entity* queueTarget;
+	std::vector<Entity*> queueTargets{};
+	Entity* currentQueueTarget = nullptr;
+	Entity* finalPath = nullptr;
+
+	bool isOrderTaken = false;
+	bool orderCollected = false;
+	bool isWaitingToCollectOrder = false;
+	size_t currentTargetIndex = 0;
+
+
 
 
 };

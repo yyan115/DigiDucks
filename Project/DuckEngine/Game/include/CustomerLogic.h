@@ -39,6 +39,7 @@ public:
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
 	GameScene* GetGameScene() { return gameScene; }
 	ItemType GetCustomerOrderType() { return customerOrderType; }
+	void OrderCompleted();
 
 private:
 	GameScene* gameScene = nullptr;

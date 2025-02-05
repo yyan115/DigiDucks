@@ -15,7 +15,10 @@ public:
 	void FixedUpdate() override;
 	void Exit() override;
 
+	bool GetIsOrderTaken() { return orderTaken; }
+
 private:
 	bool orderTaken = false;
+	bool orderCollected = false;
 
 };

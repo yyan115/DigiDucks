@@ -41,13 +41,15 @@ void OrderTabLogic::FixedUpdate()
 
 }
 
-void OrderTabLogic::AddOrder(ItemType order)
+void OrderTabLogic::AddOrder(ItemType order, CustomerLogic* customer)
 {
 	if (!orderTabTransform)
 	{
 		std::cerr << "Order tab transform is null!" << std::endl;
 		return;
 	}
+
+	currentCustomer = customer;
 
 	if (order == ItemType::CHEESE_BURGER_PLATE)
 	{

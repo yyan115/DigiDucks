@@ -42,7 +42,7 @@ enum FacingDirection
 class PlayerLogic : public GameLogic
 {
 private:
-    OrderTabLogic* orderTabLogic;
+    OrderTabLogic* orderTabLogic = nullptr;
     BoundingCircle* circleCollider;
     BoundingBox* boxCollider;
     AnimatorComponent* animator;

@@ -37,8 +37,10 @@ void CustomerWaitingOrderState::Update()
 
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J))
 		{
-			orderTabLogic->AddOrder(owner->GetCustomerOrderType());
+			orderTabLogic->AddOrder(owner->GetCustomerOrderType(), owner);
 			orderTaken = true;
+			owner->stateMachine.ChangeState(owner->WalkState);
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
 	}
 	else

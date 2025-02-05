@@ -16,7 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CombineLogic.h"
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
-
+#include "CustomerLogic.h"
 
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
@@ -418,8 +418,9 @@ void PlayerLogic::InteractPressed()
 			//	isHolding = false;
 			//}
 
-			if (holdingLogic->getType() == orderTabLogic->GetCurrentOrder())
+			if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
 			{
+				orderTabLogic->GetCurrentCustomer()->OrderCompleted();
 				submitLogic->removeObject(holdingLogic->moveObject());
 				if (sound) sound->Play();
 				isHolding = false;

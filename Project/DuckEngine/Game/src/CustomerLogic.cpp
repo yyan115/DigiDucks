@@ -43,3 +43,9 @@ void CustomerLogic::FixedUpdate()
 	if (!gameScene->IsGameStarted()) return;
 	stateMachine.currentState->FixedUpdate();
 }
+
+void CustomerLogic::OrderCompleted()
+{
+	WalkState->CustomerOrderCollected();
+	stateMachine.ChangeState(WalkState);
+}
