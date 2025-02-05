@@ -3037,29 +3037,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -3074,11 +3051,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -3088,6 +3079,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -3347,9 +3347,6 @@
             "layer": "UI"
         },
         "Restock_Exit_Btn": {
-            "childNames": [
-                "Tomato_Rstk"
-            ],
             "components": [
                 {
                     "properties": {
@@ -3400,13 +3397,8 @@
         },
         "Restock_Menu": {
             "childNames": [
-                "Tomato_Bg",
                 "Restock_Bg",
-                "Tomato_Btn",
-                "GameObject_95",
                 "Restock_Exit_Btn",
-                "GameObject_96",
-                "GameObject_97",
                 "Restock_All_Btn",
                 "Maintenance_Btn"
             ],
@@ -3783,7 +3775,6 @@
         },
         "Steak_Fridge": {
             "childNames": [
-                "Meat_Txt",
                 "Steak_Txt"
             ],
             "components": [
@@ -4941,19 +4932,10 @@
         },
         "Table_Master": {
             "childNames": [
-                "Table_01",
                 "Table_14",
                 "Table_12",
                 "Table_13",
                 "Table_11",
-                "Table_09",
-                "Table_08",
-                "Table_07",
-                "Table_06",
-                "Table_05",
-                "Table_04",
-                "Table_03",
-                "Table_02",
                 "Table_9",
                 "Table_8",
                 "Table_7",
@@ -5093,7 +5075,6 @@
         },
         "Tomato_Box": {
             "childNames": [
-                "",
                 "Tomato_Txt"
             ],
             "components": [

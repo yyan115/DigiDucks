@@ -169,25 +169,31 @@ void LevelManager::LoadLevel(const std::string& levelName)
 
 	for (const auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
 	{
-		if (entity && !entity->childNames.empty()) 
+		if (entity && !entity->childNames.empty())
 		{
 			entity->childEntities.clear();
+
+			std::vector<std::string> validChildNames;
 
 			for (const auto& childName : entity->childNames)
 			{
 				std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
+
 				if (childEntity)
 				{
 					entity->childEntities.push_back(childEntity);
+					validChildNames.push_back(childName);
 					std::cout << "Linked child entity: " << childEntity->name << " to parent: " << entity->name << std::endl;
 				}
 				else
 				{
-					std::cerr << "Warning: Child entity '" << childName << "' not found for parent: " << entity->name << std::endl;
+					std::cerr << "Warning: Child entity '" << childName << "' not found for parent: " << entity->name << ". Removing from child list." << std::endl;
 				}
 			}
+			entity->childNames = validChildNames;
 		}
 	}
+
 }
 
 
