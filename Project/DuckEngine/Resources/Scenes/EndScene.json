@@ -115,8 +115,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": -3.0999999046325684
+                            "x": -3.5,
+                            "y": -4.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -161,7 +161,7 @@
                     "type": "ButtonComponent"
                 }
             ],
-            "layer": "Background"
+            "layer": "UI"
         },
         "Star_1": {
             "components": [

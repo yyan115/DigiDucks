@@ -487,28 +487,78 @@ void GameScene::Load()
 			}
 		}
 
-		gameMiniGame_K10 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K10").get();
-		if (gameMiniGame_K10)
+		gameMiniGame_K0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K10").get();
+		if (gameMiniGame_K0)
 		{
-			gameMiniGame_K10_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K10->entityID);
-			if (gameMiniGame_K10_Spt)
+			gameMiniGame_K0_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K0->entityID);
+			if (gameMiniGame_K0_Spt)
 			{
-				gameMiniGame_K10_Spt->isVisible = false;
+				gameMiniGame_K0_Spt->isVisible = false;
 			}
-			gameMiniGame_K10_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K10->entityID);
-			if (gameMiniGame_K10_Btn)
+			gameMiniGame_K0_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K0->entityID);
+			if (gameMiniGame_K0_Btn)
 			{
-				gameMiniGame_K10_Btn->onClick = [this]() { std::cout << "10" << std::endl; };
+				gameMiniGame_K0_Btn->onClick = [this]() { std::cout << "0" << std::endl; };
 			}
 		}
 
-		gameMiniGame_T10 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T10").get();
-		if (gameMiniGame_T10)
+		gameMiniGame_T0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T10").get();
+		if (gameMiniGame_T0)
 		{
-			gameMiniGame_T10_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T10->entityID);
-			if (gameMiniGame_T10_Txt)
+			gameMiniGame_T0_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T0->entityID);
+			if (gameMiniGame_T0_Txt)
 			{
-				gameMiniGame_T10_Txt->isEnabled = false;
+				gameMiniGame_T0_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Enter = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Enter").get();
+		if (gameMiniGame_Enter)
+		{
+			gameMiniGame_Enter_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Enter->entityID);
+			if (gameMiniGame_Enter_Spt)
+			{
+				gameMiniGame_Enter_Spt->isVisible = false;
+			}
+			gameMiniGame_Enter_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Enter->entityID);
+			if (gameMiniGame_Enter_Btn)
+			{
+				gameMiniGame_Enter_Btn->onClick = [this]() { std::cout << "Enter" << std::endl; };
+			}
+		}
+
+		gameMiniGame_TextEnter = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextEnter").get();
+		if (gameMiniGame_TextEnter)
+		{
+			gameMiniGame_TextEnter_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextEnter->entityID);
+			if (gameMiniGame_TextEnter_Txt)
+			{
+				gameMiniGame_TextEnter_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Delete = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Delete").get();
+		if (gameMiniGame_Delete)
+		{
+			gameMiniGame_Delete_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Delete->entityID);
+			if (gameMiniGame_Delete_Spt)
+			{
+				gameMiniGame_Delete_Spt->isVisible = false;
+			}
+			gameMiniGame_Delete_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Delete->entityID);
+			if (gameMiniGame_Delete_Btn)
+			{
+				gameMiniGame_Delete_Btn->onClick = [this]() { std::cout << "Delete" << std::endl; };
+			}
+		}
+
+		gameMiniGame_TextDelete = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextDelete").get();
+		if (gameMiniGame_TextDelete)
+		{
+			gameMiniGame_TextDelete_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextDelete->entityID);
+			if (gameMiniGame_TextDelete_Txt)
+			{
+				gameMiniGame_TextDelete_Txt->isEnabled = false;
 			}
 		}
 	}
@@ -1015,17 +1065,17 @@ void GameScene::MiniGame_1(bool state)
 	{
 		gameMiniGame_K9_Spt->isVisible = state;
 	}
-	if (gameMiniGame_K10)
+	if (gameMiniGame_K0)
 	{
-		gameMiniGame_K10_Spt->isVisible = state;
+		gameMiniGame_K0_Spt->isVisible = state;
 	}
 	if (gameMiniGame_T9)
 	{
 		gameMiniGame_T9_Txt->isEnabled = state;
 	}
-	if (gameMiniGame_T10)
+	if (gameMiniGame_T0)
 	{
-		gameMiniGame_T10_Txt->isEnabled = state;
+		gameMiniGame_T0_Txt->isEnabled = state;
 	}
 	if (gameMiniGame_Text)
 	{
