@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include "Scene.h"
 #include "DuckEngine.h"
+#include "LevelSelectScreenLogic.h"
 
 class MainMenu : public Scene {
 	/****************************************************************
@@ -53,18 +54,27 @@ class MainMenu : public Scene {
 private:
 	SoundComponent* menusound;
 
+	Entity* levelSelectScreen;
+	Entity* mainMenuScreen;
+
 	Entity* StartButton;
 	Entity* QuitButton;
 	Entity* HtpButton;
+	Entity* LevelSelectButton;
 	Entity* FadeOutScreen;
 
+
 	SpriteRendererComponent* startButtonSpriteRenderer;
+	SpriteRendererComponent* levelSelectButtonSpriteRenderer;
 	SpriteRendererComponent* quitButtonSpriteRenderer;
 	SpriteRendererComponent* htpButtonSpriteRenderer;
 	SpriteRendererComponent* FadeOutSpriteRenderer;
 
 	Texture startNormalTexture;
 	Texture startHoverTexture;
+
+	Texture levelSelectNormalTexture;
+	Texture levelSelectHoverTexture;
 
 	Texture quitNormalTexture;
 	Texture quitHoverTexture;
@@ -81,4 +91,5 @@ private:
 	bool isFadingOut = false;
 
 	bool shouldClose = false;
+	
 };

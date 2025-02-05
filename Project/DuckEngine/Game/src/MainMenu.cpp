@@ -31,15 +31,28 @@ written consent of DigiPen Institute of Technology is prohibited.
 * This function is called before the scene starts.
 * ****************************************************************/
 
-void MainMenu ::Load()
+void MainMenu::Load()
 {
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
 
+	levelSelectScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectScreen").get();
+	mainMenuScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenuScreen").get();
+
 	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start").get();
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
+	
+	//level select button
+	LevelSelectButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectButton").get();
+	auto levelSelect = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(LevelSelectButton->entityID);
+	levelSelect->onClick = [this]()
+		{
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+		};
+
 	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
 	FadeOutScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeOutMenu").get();
 	start->onClick = [this]() {
@@ -61,12 +74,16 @@ void MainMenu ::Load()
 	htp->onClick = [this]() { HtpSound->Play(1); GameManager::SetActiveScene("HowToPlay"); };
 
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
+	levelSelectButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LevelSelectButton->entityID);
 	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);
 	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
 	FadeOutSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeOutScreen->entityID);
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
 	startHoverTexture = AssetManager::GetTextureByName("start_click");
+
+	levelSelectNormalTexture = AssetManager::GetTextureByName("levelselect");
+	levelSelectHoverTexture = AssetManager::GetTextureByName("levelselect_hover");
 
 	quitNormalTexture = AssetManager::GetTextureByName("quit");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
@@ -83,6 +100,17 @@ void MainMenu ::Load()
 	start->onFinishHover = [this]()
 		{
 			startButtonSpriteRenderer->texture = startNormalTexture;
+		};
+
+	levelSelect->onHover = [this]()
+		{
+			StartSound->Play();
+			levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
+		};
+	
+	levelSelect->onFinishHover = [this]()
+		{
+			levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
 		};
 
 	exit->onHover = [this]()

@@ -15,4 +15,10 @@ public:
 		clone->component = nullptr;
 		return clone;
 	}
+
+private:
+	Entity* levelSelectScreen;
+	Entity* mainMenuScreen;
+
+
 };
