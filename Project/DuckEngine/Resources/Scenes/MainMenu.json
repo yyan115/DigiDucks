@@ -1,5 +1,41 @@
 {
     "gameObjects": {
+        "Background": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 35.599998474121094,
+                            "y": 20.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/levelbg.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Exit": {
             "components": [
                 {
@@ -160,6 +196,318 @@
             ],
             "layer": "Gameplay"
         },
+        "Level0Button": {
+            "childNames": [
+                "Level0Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -2.299999952316284,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level0Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -2.75,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "0"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level1Button": {
+            "childNames": [
+                "Level1Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 1.899999976158142,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level1Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 1.5999999046325684,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "1"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "LevelButtons": {
+            "childNames": [
+                "Level0Button",
+                "Level1Button"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "Kenney High Square",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": ""
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "LevelSelectScreen": {
+            "childNames": [
+                "LevelSelectText",
+                "Background",
+                "LevelButtons"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "LevelSelectText": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 3.700000047683716
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 19.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/levelselectfont.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Logo": {
             "components": [
                 {
@@ -189,6 +537,50 @@
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/LOGO_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "MainMenuScreen": {
+            "childNames": [
+                "Start",
+                "MenuBGM",
+                "Logo",
+                "HowToPlay",
+                "FadeOutMenu",
+                "Exit"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

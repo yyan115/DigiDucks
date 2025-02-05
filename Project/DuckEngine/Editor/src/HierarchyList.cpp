@@ -218,6 +218,7 @@ void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
 	{
 		for (const auto& child : entity->childEntities)
 		{
+			if (child == nullptr) continue;
 			DisplayEntity(child, selectedEntityID, prefabIcon, gameobjectIcon);
 		}
 		ImGui::TreePop();
