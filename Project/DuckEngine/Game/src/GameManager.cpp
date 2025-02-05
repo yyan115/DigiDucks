@@ -39,6 +39,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ScoreLogic.h"
 #include "CustomerLogic.h"
 #include "CutSceneLogic.h"
+#include "LoadingScreenLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -53,17 +54,17 @@ bool GameManager::ShouldChangeScene = false;
  * ****************************************************************/
 void GameManager::InitScenes()
 {
-    DuckEngine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
-    DuckEngine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
-    DuckEngine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("HowToPlay", std::make_shared<HowToPlay>());
-    DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
 
 
-    // add game logic
-    GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
+	// add game logic
+	GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
 	GameLogicManager::AddLogic("PlayerLogic", std::make_shared<PlayerLogic>());
 	GameLogicManager::AddLogic("HoldingLogic", std::make_shared<HoldingLogic>());
 	GameLogicManager::AddLogic("StockLogic", std::make_shared<StockLogic>());
@@ -85,6 +86,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("RobotLogic", std::make_shared<RobotLogic>());
 	GameLogicManager::AddLogic("SliderLogic", std::make_shared<SliderLogic>());
 	GameLogicManager::AddLogic("ScoreLogic", std::make_shared<ScoreLogic>());
+	GameLogicManager::AddLogic("LoadingScreen", std::make_shared<LoadingScreenLogic>());
 
 	//Customer Logic
 	GameLogicManager::AddLogic("CustomerLogic", std::make_shared<CustomerLogic>());
