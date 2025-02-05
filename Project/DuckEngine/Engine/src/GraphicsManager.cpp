@@ -171,6 +171,9 @@ void GraphicsManager::Render() {
         case RenderCommandType::Debug:
             RenderDebugObject(std::get<DebugRenderCommand>(cmd.command));
             break;
+        //case RenderCommandType::Particle:
+        //    RenderGameObject(std::get<ParticleRenderCommand>(cmd.command));
+        //    break;
         default:
             break;
         }
@@ -182,7 +185,7 @@ void GraphicsManager::Render() {
     drawQueue.clear();
 
     // Optionally render particles, etc.
-    ParticleSystem::RenderTemp();
+    //ParticleSystem::RenderTemp();
 
     // Unbind FBO and cleanup.
     glBindVertexArray(0);

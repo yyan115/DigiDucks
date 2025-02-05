@@ -43,6 +43,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "SpatialGridSystem.h"
 #include "ParticleSystem.h"
+#include "ParticleManager.h"
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -89,7 +90,7 @@ void DuckEngine::Initialize(bool _isEditor)
 	DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 
 	GraphicsManager::Start();
-
+	ParticleManager::Start(2000);
 }
 
 void DuckEngine::SetupSystems()
@@ -136,8 +137,10 @@ void DuckEngine::SetupSystems()
 	auto buttonSystem = std::make_shared<ButtonSystem>();
 	DUCKENGINE_SystemManager.AddSystem(buttonSystem);
 
-	auto particleSystem = std::make_shared<ParticleSystem>(150);
-	DUCKENGINE_SystemManager.AddSystem(particleSystem);
+	//auto particleSystem = std::make_shared<ParticleSystem>(2000);
+	//DUCKENGINE_SystemManager.AddSystem(particleSystem);
+
+	//static ParticleManager g_particleManager(2000);  // 2000 is max pool size
 
 
 	// start all systems
@@ -232,6 +235,7 @@ void DuckEngine::Update()
 	{
 		DUCKENGINE_SceneManager.Update();
 		DUCKENGINE_SystemManager.UpdateAll();
+		ParticleManager::Update();
 	}
   
 
@@ -292,6 +296,7 @@ void DuckEngine::Draw()
 { 
 	CameraManager::Update();
 	TimeManager::StartManagerTimer("Graphics System");
+	ParticleManager::Render();
 	GraphicsManager::Render();
 	GraphicsManager::DrawGizmo();
 	TimeManager::EndManagerTimer("Graphics System");
@@ -553,9 +558,13 @@ void DuckEngine::CloseWindow()
 	WindowManager::SetWindowShouldClose();
 }
 
-void DuckEngine::Emit(const Vector2D& pos, const Vector2D& vel) {
-	ParticleSystem::Emit(pos, vel);
-	//std::cout << "Emitting\n";
+//void DuckEngine::Emit(const Vector2D& pos, const Vector2D& vel) {
+//	//ParticleSystem::Emit(pos, vel);
+//	//std::cout << "Emitting\n";
+//}
+
+void DuckEngine::Emit(const std::string& type, const Vector2D& pos, const Vector2D& baseVel) {
+	ParticleManager::Emit(type, pos, baseVel);
 }
 
 int DuckEngine::RandomRange(int minVal, int maxVal)
@@ -563,4 +572,8 @@ int DuckEngine::RandomRange(int minVal, int maxVal)
 	static std::mt19937 rng{ std::random_device{}() };
 	std::uniform_int_distribution<int> dist(minVal, maxVal);
 	return dist(rng);
+}
+
+void DuckEngine::RegisterEmitter(const std::string& ParticleType, Emitter& emitter) {
+	ParticleManager::RegisterEmitter(ParticleType, emitter);
 }

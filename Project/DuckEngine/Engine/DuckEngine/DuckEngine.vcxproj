@@ -278,6 +278,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\ComponentManager.h" />
     <ClInclude Include="..\include\DuckEngine.h" />
     <ClInclude Include="..\include\DuckEngine_Input.h" />
+    <ClInclude Include="..\include\Emitter.h" />
     <ClInclude Include="..\include\Entity.h" />
     <ClInclude Include="..\include\EntityFactory.h" />
     <ClInclude Include="..\include\EntityManager.h" />
@@ -309,6 +310,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\Layer.h" />
     <ClInclude Include="..\include\LevelManager.h" />
     <ClInclude Include="..\include\Matrix3x3.h" />
+    <ClInclude Include="..\include\ParticleManager.h" />
     <ClInclude Include="..\include\ParticleSystem.h" />
     <ClInclude Include="..\include\Prefab.h" />
     <ClInclude Include="..\include\PrefabManager.h" />
@@ -371,6 +373,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClCompile Include="..\src\Layer.cpp" />
     <ClCompile Include="..\src\LevelManager.cpp" />
     <ClCompile Include="..\src\Matrix3x3.cpp" />
+    <ClCompile Include="..\src\ParticleManager.cpp" />
     <ClCompile Include="..\src\ParticleSystem.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\PrefabManager.cpp" />

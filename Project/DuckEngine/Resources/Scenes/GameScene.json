@@ -1687,94 +1687,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Maintenance_Bg": {
-            "childNames": [
-                "Maintenance_Btn"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.5
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 2,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/Maintenance/maintenance1.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Maintenance_Btn": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.6499999761581421
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.07999999821186066
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 3,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/Maintenance/mainbutton1.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "MiniGame_BG": {
             "components": [
                 {
@@ -3554,46 +3466,6 @@
             ],
             "layer": "UI"
         },
-        "Restock_Bg": {
-            "childNames": [
-                "Restock_All_Btn",
-                "Restock_Cfm_Btn"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.5
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.800000011920929,
-                            "y": 0.800000011920929
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 2,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/main_drone_page.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "Restock_Cfm_Btn": {
             "components": [
                 {
@@ -3707,7 +3579,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/INGREDIENTS_active.png",
+                        "texture": "Resources/Sprites/Drone Menu/restock_ingredient_on.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3728,7 +3600,96 @@
             ],
             "layer": "UI"
         },
-        "Restock_Maintenana_Btn": {
+        "Restock_Ingredient_Menu": {
+            "childNames": [
+                "Restock_All_Btn",
+                "Restock_Cfm_Btn"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.800000011920929,
+                            "y": 0.800000011920929
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/main_drone_page.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Maintainence_Start_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.6499999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/Maintenance/mainbutton1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Maintenance_Btn": {
             "components": [
                 {
                     "properties": {
@@ -3756,7 +3717,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/maintenance_inactive.png",
+                        "texture": "Resources/Sprites/Drone Menu/restock_maintenance_off.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3777,13 +3738,52 @@
             ],
             "layer": "UI"
         },
+        "Restock_Maintenance_Menu": {
+            "childNames": [
+                "Restock_Maintainence_Start_Btn"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.800000011920929,
+                            "y": 0.800000011920929
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/Maintenance/maintenance1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Restock_Menu": {
             "childNames": [
-                "Restock_Bg",
                 "Restock_Exit_Btn",
-                "Maintenance_Bg",
-                "Restock_Maintenana_Btn",
-                "Restock_Ingredient_Btn"
+                "Restock_Ingredient_Btn",
+                "Restock_Maintenance_Btn",
+                "Restock_Ingredient_Menu",
+                "Restock_Maintenance_Menu"
             ],
             "components": [
                 {

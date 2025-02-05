@@ -84,7 +84,8 @@ void MovementLogic::FixedUpdate()
 	// Set velocity based on normalized input
 	rigidbody->velocity = inputDirection * moveSpeed;
 
-	if (isMoving)
-		DuckEngine::Emit({ moveSmokePosition.x, moveSmokePosition.y - 0.5f}, -rigidbody->velocity);
+	if (isMoving) {
+		DuckEngine::Emit("Dust", { moveSmokePosition.x, moveSmokePosition.y - 1.1f}, -rigidbody->velocity);
+	}
 }
 
