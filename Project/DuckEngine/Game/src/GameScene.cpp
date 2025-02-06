@@ -839,17 +839,17 @@ void GameScene::Update()
 		GameScene::MiniGame_1(true);
 	}
 
-	//if (robotRestockLogic)
-	//{
-	//	if (robotRestockLogic->isMiniGame)
-	//	{
-	//		GameScene::MiniGame_1(true);
-	//	}
-	//	else
-	//	{
-	//		GameScene::MiniGame_1(false);
-	//	}
-	//}
+	/*if (robotRestockLogic)
+	{
+		if (robotRestockLogic->isMiniGame)
+		{
+			GameScene::MiniGame_1(true);
+		}
+		else
+		{
+			GameScene::MiniGame_1(false);
+		}
+	}*/
 
 }
 
@@ -1325,5 +1325,9 @@ void GameScene::enterPassword()
 
 void GameScene::deletePassword()
 {
-	gameMiniGame_Input_Txt->text.pop_back();
+	if (!gameMiniGame_Input_Txt->text.empty())
+	{
+		gameMiniGame_Input_Txt->text.pop_back();
+	}
+	
 }
