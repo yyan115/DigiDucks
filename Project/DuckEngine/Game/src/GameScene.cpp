@@ -828,7 +828,6 @@ void GameScene::PostUpdate()
 		
 		std::cout << "Escape is pressed!\n";
 		TimeLeftSound->Play(2);
-		Sleep(500);
 		PauseGame(!isPaused);
 	}
 
