@@ -523,7 +523,7 @@ void GameScene::Load()
 			gameMiniGame_Enter_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Enter->entityID);
 			if (gameMiniGame_Enter_Btn)
 			{
-				gameMiniGame_Enter_Btn->onClick = [this]() { std::cout << "Enter" << std::endl; };
+				gameMiniGame_Enter_Btn->onClick = [this]() { enterPassword(); };
 			}
 		}
 
@@ -1177,7 +1177,7 @@ void GameScene::MiniGame_1(bool state)
 	}
 	if (gameMiniGame_Input)
 	{
-		gameMiniGame_Input_Txt->isEnabled = !state;
+		gameMiniGame_Input_Txt->isEnabled = state;
 	}
 	
 }
@@ -1188,4 +1188,137 @@ void GameScene::passwordInput(std::string num)
 	gameMiniGame_Input_Txt->isEnabled = true;
 	gameMiniGame_Input_Txt->text += num;
 
+}
+
+void GameScene::enterPassword()
+{
+	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
+	{
+		gameMiniGame_Input_Txt->text = "";
+
+		if (gameMiniGame_BG)
+		{
+			gameMiniGame_BG_Spt->isVisible = false;
+		}
+		if (gameMiniGame_Keypad)
+		{
+			gameMiniGame_Keypad_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K1)
+		{
+			gameMiniGame_K1_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K2)
+		{
+			gameMiniGame_K2_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T1)
+		{
+			gameMiniGame_T1_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T2)
+		{
+			gameMiniGame_T2_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K3)
+		{
+			gameMiniGame_K3_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K4)
+		{
+			gameMiniGame_K4_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T3)
+		{
+			gameMiniGame_T3_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T4)
+		{
+			gameMiniGame_T4_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K5)
+		{
+			gameMiniGame_K5_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K6)
+		{
+			gameMiniGame_K6_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T5)
+		{
+			gameMiniGame_T5_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T6)
+		{
+			gameMiniGame_T6_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K7)
+		{
+			gameMiniGame_K7_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K8)
+		{
+			gameMiniGame_K8_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T7)
+		{
+			gameMiniGame_T7_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T8)
+		{
+			gameMiniGame_T8_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K9)
+		{
+			gameMiniGame_K9_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K0)
+		{
+			gameMiniGame_K0_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T9)
+		{
+			gameMiniGame_T9_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T0)
+		{
+			gameMiniGame_T0_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Enter)
+		{
+			gameMiniGame_Enter_Spt->isVisible = false;
+		}
+		if (gameMiniGame_Delete)
+		{
+			gameMiniGame_Delete_Spt->isVisible = false;
+		}
+		if (gameMiniGame_TextEnter)
+		{
+			gameMiniGame_TextEnter_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_TextDelete)
+		{
+			gameMiniGame_TextDelete_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Text)
+		{
+			gameMiniGame_Text_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Password)
+		{
+			gameMiniGame_Password_Spt->isVisible = false;
+		}
+		if (gameMiniGame_TextPassword)
+		{
+			gameMiniGame_TextPassword_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Input)
+		{
+			gameMiniGame_Input_Txt->isEnabled = false;
+		}
+	}
+	else
+	{
+		gameMiniGame_Input_Txt->text = "";
+	}
 }

@@ -49,6 +49,7 @@ private:
     void changePage();
     void MiniGame_1(bool state);
     void passwordInput(std::string num);
+    void enterPassword();
 
     // Member variables
     Entity* duck = nullptr;
