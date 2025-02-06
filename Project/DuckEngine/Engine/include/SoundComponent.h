@@ -65,13 +65,6 @@ public:
     DUCKENGINE_API void Play(int index = 0);
 
     /****************************************************************
-    * @brief Play the sound associated with this component when key is held down
-    *
-    * @return void
-    ***************************************************************/
-    DUCKENGINE_API void PlayHold();
-
-    /****************************************************************
 	* @brief Stop the sound if it is playing
     *
     * @return void

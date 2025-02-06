@@ -59,24 +59,83 @@ public:
     ***************************************************************/
     static DUCKENGINE_API void ResumeAllSounds();
 
+    /************************************************************************
+	@brief Plays a sound effect with the specified sound ID
+	@param soundID The ID of the sound to play
+	@param loop Whether to loop the sound
+	@param volume The volume of the sound
+	@param category The category of the sound
+	@return FMOD::Channel* The channel that the sound is playing on
+    *************************************************************************/
 	static FMOD::Channel* PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f, const std::string& category = "Default");
 
+	/************************************************************************
+	@brief Stops a sound effect with the specified sound ID
+	@param soundID The ID of the sound to stop
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void StopSounds(const std::string& soundID);
 
+
+	/************************************************************************
+	@brief Sets the volume of a sound effect with the specified sound ID
+	@param soundID The ID of the sound
+	@param volume The volume to set
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void SetSoundVolume(const std::string& soundID, float volume);
 
+
+	/************************************************************************
+	@brief Sets the master volume of the sound system
+	@param volume The volume to set
+	@return void
+	*************************************************************************/
 	static void SetMasterVolume(float volume);
 
+	/************************************************************************
+	@brief Sets the volume of a sound category
+	@param category The category of the sound
+	@param volume The volume to set
+	@return void
+	*************************************************************************/
 	static void SetCategoryVolume(const std::string& category, float volume);
 
+	/************************************************************************
+	@brief Adds a sound to a category
+	@param soundID The ID of the sound
+	@param category The category to add the sound to
+	@return void
+	*************************************************************************/
 	static void AddSoundToCategory(const std::string& soundID, const std::string& category);
 
+	/************************************************************************
+	@brief Checks if a sound is currently playing
+	@param soundID The ID of the sound
+	@return bool
+	*************************************************************************/
 	static bool IsSoundPlaying(const std::string& soundID);
 
+	/************************************************************************
+	@brief Resumes a sound from the specified file path
+	@param soundID The ID of the sound
+	@return void
+	*************************************************************************/
 	static void ResumeSound(const std::string& soundID);
 
+	/************************************************************************
+	@brief Pauses a sound from the specified file path
+	@param soundID The ID of the sound
+	@return void
+	*************************************************************************/
 	static void PauseSound(const std::string& soundID);
 
+	/************************************************************************
+	@brief Fades out a sound effect with the specified sound ID
+	@param SoundComponent The sound component to fade out
+	@param duration The duration of the fade out effect
+	@return void
+	*************************************************************************/
     static DUCKENGINE_API void FadeOutSound(SoundComponent* soundComponent, float duration);
 
 private:

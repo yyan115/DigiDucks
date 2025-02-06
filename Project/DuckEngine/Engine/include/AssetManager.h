@@ -194,11 +194,49 @@ public:
 	*************************************************************************/
 	static DUCKENGINE_API nlohmann::json GetLevelData(const std::string& levelName);
 
+	/************************************************************************
+	@brief Adds an asset to the specified destination folder
+	@param sourcePath The path to the source file
+	@param destinationFolder The path to the destination folder
+	@return bool
+	*************************************************************************/
 	static DUCKENGINE_API bool AddAsset(const std::string& sourcePath, const std::string& destinationFolder);
+
+	/************************************************************************
+	@brief Removes an asset from the specified destination folder
+	@param assetPath The path to the asset file
+	@return bool
+	*************************************************************************/
 	static DUCKENGINE_API bool RemoveAsset(const std::string& assetPath);
+
+	/************************************************************************
+	@brief Loads a font from the specified file path
+	@param fontName The name of the font
+	@param filePath The path to the font file
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void LoadFont(const std::string& fontName, const std::string& filePath);
+
+	/************************************************************************
+	@brief Unloads a font from the specified file path
+	@param fontName The name of the font
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void UnloadFont(const std::string& fontName);
+
+	/************************************************************************
+	@brief Loads a shader from the specified file path
+	@param shaderName The name of the shader
+	@param filePath The path to the shader file
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void LoadShader(const std::string& shaderName, const std::string& filePath);
+
+	/************************************************************************
+	@brief Unloads a shader from the specified file path
+	@param shaderName The name of the shader
+	@return void
+	*************************************************************************/
 	static DUCKENGINE_API void UnloadShader(const std::string& shaderName);
 
 

@@ -548,7 +548,7 @@ void Level0::Load()
 			gameMiniGame_Delete_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Delete->entityID);
 			if (gameMiniGame_Delete_Btn)
 			{
-				gameMiniGame_Delete_Btn->onClick = [this]() { std::cout << "Delete" << std::endl; };
+				gameMiniGame_Delete_Btn->onClick = [this]() { Level0::deletePassword(); };
 			}
 		}
 
@@ -640,7 +640,7 @@ void Level0::Load()
 	// Gameplay layer
 	sparks.layer = 1;
 	// Behind pan which has sorting order 3
-	sparks.sortingOrder = 2;
+	sparks.sortingOrder = 4;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
 }
 
@@ -661,7 +661,7 @@ void Level0::Start()
 * every frame.
 * ****************************************************************/
 void Level0::Update()
-{	
+{
 	if (!robotRestockLogic)
 	{
 		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
@@ -738,14 +738,14 @@ void Level0::Update()
 				}
 			}
 
-		// Handle fade effect during countdown
-		if (FadeOutSprite) {
-			FadeOutSprite->isVisible = true;
-			float fadeValue = (countdownTime / 3.0f) * 255.0f;
-			FadeOutSprite->color.a = (fadeValue >= 0.0f) ? static_cast<int>(fadeValue) : 0;  // Prevent negative values
-		}
+			// Handle fade effect during countdown
+			if (FadeOutSprite) {
+				FadeOutSprite->isVisible = true;
+				float fadeValue = (countdownTime / 3.0f) * 255.0f;
+				FadeOutSprite->color.a = (fadeValue >= 0.0f) ? static_cast<int>(fadeValue) : 0;  // Prevent negative values
+			}
 
-		return;  // Skip game logic until countdown is done
+			return;  // Skip game logic until countdown is done
 		}
 
 		//// SET CAMERA TO MOVE ALONG TO PLAYER
@@ -836,11 +836,25 @@ void Level0::Update()
 		}
 		ScoreLogic::scoreValue = submitLogic->getScore();
 
-		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
+		//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
+		//{
+		//	std::cout << "L is pressed!\n";
+		//	MiniGame_1(true);
+		//}
+
+		// Uncomment When Sorting Order Fixed.
+		if (robotRestockLogic)
 		{
-		std::cout << "L is pressed!\n";
-		Level0::MiniGame_1(true);
+			if (robotRestockLogic->isMiniGame)
+			{
+				MiniGame_1(true);
+			}
+			else
+			{
+				MiniGame_1(false);
+			}
 		}
+		
 	}
 	else
 	{
@@ -885,6 +899,9 @@ void Level0::PostUpdate()
 			if (robotRestockLogic->isRestock)
 			{
 				robotRestockLogic->RestockMenu(false);
+				robotRestockLogic->isMiniGame = false;
+				Level0::MiniGame_1(false);
+				textcount = true;
 				return;
 			}
 		}
@@ -944,12 +961,6 @@ void Level0::PauseGame(bool state)
 	if (FPSText)
 	{
 		FPSText->isEnabled = !state;
-	}
-
-	// Hide Order Tab
-	if (orderSprite)
-	{
-		orderSprite->isVisible = !state;
 	}
 
 	// Show Pause Menu
@@ -1053,6 +1064,7 @@ void Level0::MiniGame_1(bool state)
 	}
 
 // show minigame
+{
 	if (gameMiniGame_BG)
 	{
 		gameMiniGame_BG_Spt->isVisible = state;
@@ -1159,8 +1171,17 @@ void Level0::MiniGame_1(bool state)
 	}
 	if (gameMiniGame_Text)
 	{
-		gameMiniGame_Text_Txt->isEnabled = state;
+		if (textcount == true)
+		{
+			gameMiniGame_Text_Txt->isEnabled = state;
+		}
+		else
+		{
+			gameMiniGame_Text_Txt->isEnabled = !state;
+		}
+
 	}
+
 	if (gameMiniGame_Password)
 	{
 		gameMiniGame_Password_Spt->isVisible = state;
@@ -1173,11 +1194,13 @@ void Level0::MiniGame_1(bool state)
 	{
 		gameMiniGame_Input_Txt->isEnabled = state;
 	}
+}
 	
 }
 
 void Level0::passwordInput(std::string num)
 {
+	textcount = false;
 	gameMiniGame_Text_Txt->isEnabled = false;
 	gameMiniGame_Input_Txt->isEnabled = true;
 	gameMiniGame_Input_Txt->text += num;
@@ -1188,131 +1211,25 @@ void Level0::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
 	{
+		textcount = true;
 		gameMiniGame_Input_Txt->text = "";
-
-		if (gameMiniGame_BG)
-		{
-			gameMiniGame_BG_Spt->isVisible = false;
-		}
-		if (gameMiniGame_Keypad)
-		{
-			gameMiniGame_Keypad_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K1)
-		{
-			gameMiniGame_K1_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K2)
-		{
-			gameMiniGame_K2_Spt->isVisible = false;
-		}
-		if (gameMiniGame_T1)
-		{
-			gameMiniGame_T1_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_T2)
-		{
-			gameMiniGame_T2_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_K3)
-		{
-			gameMiniGame_K3_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K4)
-		{
-			gameMiniGame_K4_Spt->isVisible = false;
-		}
-		if (gameMiniGame_T3)
-		{
-			gameMiniGame_T3_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_T4)
-		{
-			gameMiniGame_T4_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_K5)
-		{
-			gameMiniGame_K5_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K6)
-		{
-			gameMiniGame_K6_Spt->isVisible = false;
-		}
-		if (gameMiniGame_T5)
-		{
-			gameMiniGame_T5_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_T6)
-		{
-			gameMiniGame_T6_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_K7)
-		{
-			gameMiniGame_K7_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K8)
-		{
-			gameMiniGame_K8_Spt->isVisible = false;
-		}
-		if (gameMiniGame_T7)
-		{
-			gameMiniGame_T7_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_T8)
-		{
-			gameMiniGame_T8_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_K9)
-		{
-			gameMiniGame_K9_Spt->isVisible = false;
-		}
-		if (gameMiniGame_K0)
-		{
-			gameMiniGame_K0_Spt->isVisible = false;
-		}
-		if (gameMiniGame_T9)
-		{
-			gameMiniGame_T9_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_T0)
-		{
-			gameMiniGame_T0_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_Enter)
-		{
-			gameMiniGame_Enter_Spt->isVisible = false;
-		}
-		if (gameMiniGame_Delete)
-		{
-			gameMiniGame_Delete_Spt->isVisible = false;
-		}
-		if (gameMiniGame_TextEnter)
-		{
-			gameMiniGame_TextEnter_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_TextDelete)
-		{
-			gameMiniGame_TextDelete_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_Text)
-		{
-			gameMiniGame_Text_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_Password)
-		{
-			gameMiniGame_Password_Spt->isVisible = false;
-		}
-		if (gameMiniGame_TextPassword)
-		{
-			gameMiniGame_TextPassword_Txt->isEnabled = false;
-		}
-		if (gameMiniGame_Input)
-		{
-			gameMiniGame_Input_Txt->isEnabled = false;
-		}
+		robotRestockLogic->isMiniGame = false;
+		robotRestockLogic->LowerMaintenanceLevel();
 	}
 	else
 	{
 		gameMiniGame_Input_Txt->text = "";
 	}
+}
+
+/****************************************************************
+* @brief To allow user to delete the password 
+* ****************************************************************/
+void Level0::deletePassword()
+{
+	if (!gameMiniGame_Input_Txt->text.empty())
+	{
+		gameMiniGame_Input_Txt->text.pop_back();
+	}
+	
 }
