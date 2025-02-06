@@ -713,9 +713,6 @@ void GameScene::Update()
 					if (customer1Logic)
 					{
 						int randomDishOrder = DuckEngine::RandomRange(1, 2);
-
-						// 1 is Hamburger
-						// 2 is Salad
 						if (randomDishOrder == 1)
 						{
 
