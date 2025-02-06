@@ -1273,6 +1273,98 @@
             ],
             "layer": "UI"
         },
+        "CutSceneSkip": {
+            "childNames": [
+                "CutSceneSkipText"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8999999761581421,
+                            "y": -0.8999999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 250.05813598632813,
+                            "g": 229.70457458496094,
+                            "r": 250.05812072753906
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "CutSceneSkipText": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8399999737739563,
+                            "y": 0.08000004291534424
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.2000000476837158,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 100,
+                        "text": "SKIP"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Cutting_Station_01": {
             "childNames": [
                 "Chopping_Slider_Bg"
@@ -1383,6 +1475,98 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "DialogueSkip": {
+            "childNames": [
+                "DialogueSkipText"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8999999761581421,
+                            "y": -0.8999999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 227.32557678222656,
+                            "r": 254.99998474121094
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "DialogueSkipText": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8399999737739563,
+                            "y": 0.08000004291534424
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.2000000476837158,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 100,
+                        "text": "SKIP"
+                    },
+                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"
@@ -2462,7 +2646,7 @@
                             "a": 255.0,
                             "b": 255.0,
                             "g": 0.0,
-                            "r": 255.0
+                            "r": 254.0
                         },
                         "isVisible": false,
                         "sortingOrder": 6,

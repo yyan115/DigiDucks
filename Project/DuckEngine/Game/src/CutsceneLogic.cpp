@@ -47,6 +47,8 @@ void CutSceneLogic::Start()
 		DialogueSprite->isVisible = false; // Hide initially
 	}
 
+	
+
 	currentCutsceneIndex = 0;
 	currentDialogueIndex = 0;
 	cutsceneTimer = 0.0f;
@@ -56,6 +58,31 @@ void CutSceneLogic::Start()
 	isCutSceneFading = false;
 	isPlaying = true;
 	isShowingDialogue = false;
+
+	CutSceneButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneSkip").get();
+
+	if (CutSceneButton)
+	{
+		auto CutSceneSkip = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(CutSceneButton->entityID);
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
+		CutSceneSkip->onClick = [this]()
+		{
+			currentCutsceneIndex = 13;
+		};
+	}
+
+	DialogueButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("DialogueSkip").get();
+	
+
+	if (DialogueButton)
+	{
+		auto DialogueSkip = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(DialogueButton->entityID);
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
+		DialogueSkip->onClick = [this]()
+		{
+			currentDialogueIndex = 29;
+		};
+	}
 }
 
 void CutSceneLogic::Update()
@@ -81,12 +108,13 @@ void CutSceneLogic::Update()
 			return;
 		}
 	}
-
+	
 	// If playing cutscene
 	if (isPlaying && currentCutsceneIndex < 14)
 	{
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
-
+		
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -113,6 +141,7 @@ void CutSceneLogic::Update()
 	}	
 	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 		DialoguefadeProgress += DuckEngine::DeltaTime();
 
 		if (DialoguefadeProgress >= 6.0f)
@@ -142,6 +171,7 @@ void CutSceneLogic::Update()
 	// Handle dialogues
 	if (isShowingDialogue)
 	{
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
 		// Check for user input to progress dialogue
 		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 31)
 		{
@@ -156,6 +186,7 @@ void CutSceneLogic::Update()
 				DialogueSprite->isVisible = false;
 				isShowingDialogue = false;
 				isPlaying = false;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
 				CutSceneBGM->Stop();
 
 				return;

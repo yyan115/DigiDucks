@@ -24,6 +24,8 @@ private:
 	SoundComponent* CutSceneBGM = nullptr;
 	SpriteRendererComponent* FadeOutSprite = nullptr;
 	SpriteRendererComponent* DialogueSprite = nullptr;
+	Entity* CutSceneButton = nullptr;
+	Entity* DialogueButton = nullptr;
 	
 	int currentCutsceneIndex = 0;
 	float cutsceneTimer = 0.0f;
