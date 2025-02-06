@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-\file       GameScene.cpp
+\file       Level0.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
 \date       November 18 2024
@@ -24,9 +24,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
-#include "EndGame.h"
 #include "ScoreLogic.h"
+#include "CustomerLogic.h"
 #include "CutSceneLogic.h"
+#include "Emitter.h"
+
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -61,8 +63,8 @@ void Level0::Load()
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "Time:";
-			timeLeft = 60.f;
+			timerText->text = "TIME:";
+			timeLeft = 600.f;
 		}
 	}
 
@@ -72,7 +74,7 @@ void Level0::Load()
 		scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
 		if (scoreText) 
 		{
-			scoreText->text = "Score: 0";
+			scoreText->text = "SCORE: 0";
 			ScoreLogic::scoreValue = 0;
 		}
 	}
@@ -95,33 +97,48 @@ void Level0::Load()
 			}
 		}
 
-		gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
+		auto gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
 		if (gameResumeBtn)
 		{
+			gameResumeBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameResumeBtn->entityID);
+			gameResumeBtn_Normal = AssetManager::GetTextureByName("pause_resumegame");
+			gameResumeBtn_Hover = AssetManager::GetTextureByName("pause_resumegame_hover");
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
-				gameResumeButton->onClick = [this]() { std::cout << "RESUME\n"; if (isPaused) { PauseGame(false); } };
+				gameResumeButton->onClick = [this]() { if (isPaused) { PauseGame(false); } };
+				gameResumeButton->onHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Hover; };
+				gameResumeButton->onFinishHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Normal; };
 			}
 		}
 
-		gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
+		auto gameExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Btn").get();
 		if (gameExitBtn)
 		{
+			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
+			gameExitBtn_Normal = AssetManager::GetTextureByName("pause_quitgame");
+			gameExitBtn_Hover = AssetManager::GetTextureByName("pause_quitgame_hover");
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
-				gameExitButton->onClick = [this]() { std::cout << "QUIT\n"; ExitConfirm(true); };
+				gameExitButton->onClick = [this]() { ExitConfirm(true); };
+				gameExitButton->onHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Hover; };
+				gameExitButton->onFinishHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Normal; };
 			}
 		}
 
-		gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
+		auto gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
 		if (gameHTPBtn)
 		{
+			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
+			gameHTPBtn_Normal = AssetManager::GetTextureByName("pause_howtoplay");
+			gameHTPBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
 			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
 			if (gameHTPButton)
 			{
-				gameHTPButton->onClick = [this]() { std::cout << "HTP\n"; HTPShow(true); };
+				gameHTPButton->onClick = [this]() { HTPShow(true); };
+				gameHTPButton->onHover = [this]() {  gameHTPBtnSpt->texture = gameHTPBtn_Hover; };
+				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
 	}
@@ -182,33 +199,33 @@ void Level0::Load()
 			}
 		}
 
-		gameExitCfmTxt = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Cfm_Txt").get();
-		if (gameExitCfmTxt)
-		{
-			gameExitCfmText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameExitCfmTxt->entityID);
-			if (gameExitCfmText)
-			{
-				gameExitCfmText->isEnabled = false;
-			}
-		}
-
-		gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
+		auto gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
 		if (gameExitYesBtn)
 		{
+			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
+			gameExitYesBtn_Normal = AssetManager::GetTextureByName("exit_yes");
+			gameExitYesBtn_Hover = AssetManager::GetTextureByName("exit_yes_hover");
 			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
-				gameExitYesButton->onClick = []() { std::cout << "YES\n"; GameManager::DuckEngine.CloseWindow(); };
+				gameExitYesButton->onClick = []() { GameManager::DuckEngine.CloseWindow(); };
+				gameExitYesButton->onHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Hover; };
+				gameExitYesButton->onFinishHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Normal; };
 			}
-		}
+		} 
 
-		gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
+		auto gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
 		if (gameExitNoBtn)
 		{
+			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
+			gameExitNoBtn_Normal = AssetManager::GetTextureByName("exit_no");
+			gameExitNoBtn_Hover = AssetManager::GetTextureByName("exit_no_hover");
 			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
 			if (gameExitNoButton)
 			{
-				gameExitNoButton->onClick = [this]() { std::cout << "NO\n"; ExitConfirm(false); };
+				gameExitNoButton->onClick = [this]() { ExitConfirm(false); };
+				gameExitNoButton->onHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Hover; };
+				gameExitNoButton->onFinishHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Normal; };
 			}
 		}
 	}
@@ -256,7 +273,7 @@ void Level0::Load()
 			gameMiniGame_K1_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K1->entityID);
 			if (gameMiniGame_K1_Btn)
 			{
-				gameMiniGame_K1_Btn->onClick = [this]() {std::cout << "1" << std::endl; };
+				gameMiniGame_K1_Btn->onClick = [this]() {passwordInput("1"); };
 			}
 		}
 
@@ -281,7 +298,7 @@ void Level0::Load()
 			gameMiniGame_K2_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K2->entityID);
 			if (gameMiniGame_K2_Btn)
 			{
-				gameMiniGame_K2_Btn->onClick = [this]() { std::cout << "2" << std::endl; };
+				gameMiniGame_K2_Btn->onClick = [this]() { passwordInput("2"); };
 			}
 		}
 
@@ -306,7 +323,7 @@ void Level0::Load()
 			gameMiniGame_K3_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K3->entityID);
 			if (gameMiniGame_K3_Btn)
 			{
-				gameMiniGame_K3_Btn->onClick = [this]() {std::cout << "3" << std::endl; };
+				gameMiniGame_K3_Btn->onClick = [this]() {passwordInput("3"); };
 			}
 		}
 
@@ -331,7 +348,7 @@ void Level0::Load()
 			gameMiniGame_K4_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K4->entityID);
 			if (gameMiniGame_K4_Btn)
 			{
-				gameMiniGame_K4_Btn->onClick = [this]() { std::cout << "4" << std::endl; };
+				gameMiniGame_K4_Btn->onClick = [this]() {passwordInput("4"); };
 			}
 		}
 
@@ -356,7 +373,7 @@ void Level0::Load()
 			gameMiniGame_K5_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K5->entityID);
 			if (gameMiniGame_K5_Btn)
 			{
-				gameMiniGame_K5_Btn->onClick = [this]() {std::cout << "5" << std::endl; };
+				gameMiniGame_K5_Btn->onClick = [this]() {passwordInput("5"); };
 			}
 		}
 
@@ -381,7 +398,7 @@ void Level0::Load()
 			gameMiniGame_K6_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K6->entityID);
 			if (gameMiniGame_K6_Btn)
 			{
-				gameMiniGame_K6_Btn->onClick = [this]() { std::cout << "6" << std::endl; };
+				gameMiniGame_K6_Btn->onClick = [this]() {passwordInput("6"); };
 			}
 		}
 
@@ -406,7 +423,7 @@ void Level0::Load()
 			gameMiniGame_K7_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K7->entityID);
 			if (gameMiniGame_K7_Btn)
 			{
-				gameMiniGame_K7_Btn->onClick = [this]() {std::cout << "7" << std::endl; };
+				gameMiniGame_K7_Btn->onClick = [this]() {passwordInput("7"); };
 			}
 		}
 
@@ -431,7 +448,7 @@ void Level0::Load()
 			gameMiniGame_K8_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K8->entityID);
 			if (gameMiniGame_K8_Btn)
 			{
-				gameMiniGame_K8_Btn->onClick = [this]() { std::cout << "8" << std::endl; };
+				gameMiniGame_K8_Btn->onClick = [this]() {passwordInput("8"); };
 			}
 		}
 
@@ -456,7 +473,7 @@ void Level0::Load()
 			gameMiniGame_K9_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K9->entityID);
 			if (gameMiniGame_K9_Btn)
 			{
-				gameMiniGame_K9_Btn->onClick = [this]() {std::cout << "9" << std::endl; };
+				gameMiniGame_K9_Btn->onClick = [this]() {passwordInput("9"); };
 			}
 		}
 
@@ -470,32 +487,109 @@ void Level0::Load()
 			}
 		}
 
-		gameMiniGame_K10 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K10").get();
-		if (gameMiniGame_K10)
+		gameMiniGame_K0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K0").get();
+		if (gameMiniGame_K0)
 		{
-			gameMiniGame_K10_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K10->entityID);
-			if (gameMiniGame_K10_Spt)
+			gameMiniGame_K0_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K0->entityID);
+			if (gameMiniGame_K0_Spt)
 			{
-				gameMiniGame_K10_Spt->isVisible = false;
+				gameMiniGame_K0_Spt->isVisible = false;
 			}
-			gameMiniGame_K10_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K10->entityID);
-			if (gameMiniGame_K10_Btn)
+			gameMiniGame_K0_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K0->entityID);
+			if (gameMiniGame_K0_Btn)
 			{
-				gameMiniGame_K10_Btn->onClick = [this]() { std::cout << "10" << std::endl; };
+				gameMiniGame_K0_Btn->onClick = [this]() {passwordInput("0"); };
 			}
 		}
 
-		gameMiniGame_T10 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T10").get();
-		if (gameMiniGame_T10)
+		gameMiniGame_T0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_T10").get();
+		if (gameMiniGame_T0)
 		{
-			gameMiniGame_T10_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T10->entityID);
-			if (gameMiniGame_T10_Txt)
+			gameMiniGame_T0_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_T0->entityID);
+			if (gameMiniGame_T0_Txt)
 			{
-				gameMiniGame_T10_Txt->isEnabled = false;
+				gameMiniGame_T0_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Enter = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Enter").get();
+		if (gameMiniGame_Enter)
+		{
+			gameMiniGame_Enter_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Enter->entityID);
+			if (gameMiniGame_Enter_Spt)
+			{
+				gameMiniGame_Enter_Spt->isVisible = false;
+			}
+			gameMiniGame_Enter_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Enter->entityID);
+			if (gameMiniGame_Enter_Btn)
+			{
+				gameMiniGame_Enter_Btn->onClick = [this]() { enterPassword(); };
+			}
+		}
+
+		gameMiniGame_TextEnter = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextEnter").get();
+		if (gameMiniGame_TextEnter)
+		{
+			gameMiniGame_TextEnter_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextEnter->entityID);
+			if (gameMiniGame_TextEnter_Txt)
+			{
+				gameMiniGame_TextEnter_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Delete = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Delete").get();
+		if (gameMiniGame_Delete)
+		{
+			gameMiniGame_Delete_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Delete->entityID);
+			if (gameMiniGame_Delete_Spt)
+			{
+				gameMiniGame_Delete_Spt->isVisible = false;
+			}
+			gameMiniGame_Delete_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Delete->entityID);
+			if (gameMiniGame_Delete_Btn)
+			{
+				gameMiniGame_Delete_Btn->onClick = [this]() { std::cout << "Delete" << std::endl; };
+			}
+		}
+
+		gameMiniGame_TextDelete = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextDelete").get();
+		if (gameMiniGame_TextDelete)
+		{
+			gameMiniGame_TextDelete_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextDelete->entityID);
+			if (gameMiniGame_TextDelete_Txt)
+			{
+				gameMiniGame_TextDelete_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Password = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Password").get();
+		gameMiniGame_Password_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Password->entityID);
+		if (gameMiniGame_Password_Spt)
+		{
+			gameMiniGame_Password_Spt->isVisible = false;
+		}
+
+		gameMiniGame_TextPassword = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextPassword").get();
+		if (gameMiniGame_TextPassword)
+		{
+			gameMiniGame_TextPassword_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextPassword->entityID);
+			if (gameMiniGame_TextPassword_Txt)
+			{
+				gameMiniGame_TextPassword_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Input = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Input").get();
+		if (gameMiniGame_Input)
+		{
+			gameMiniGame_Input_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_Input->entityID);
+			if (gameMiniGame_Input_Txt)
+			{
+				gameMiniGame_Input_Txt->isEnabled = false;
 			}
 		}
 	}
-	auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
+		auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
 	if (TimeLeftEntity) {
 		TimeLeftSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(TimeLeftEntity->entityID);
 	}
@@ -512,9 +606,42 @@ void Level0::Load()
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
 	gameStarted = false;
-	countdownTime = 4.0f;
+	countdownTime = 3.0f;
 	PauseGame(false);
 	MiniGame_1(false);
+
+	// MOVEMENT WALKING DUST PARTICLE SETUP
+	Emitter dust;
+	dust.spawnCountMin = 1;
+	dust.spawnCountMax = 2;
+	dust.lifetimeMin = 0.2f;
+	dust.lifetimeMax = 0.3f;
+	dust.scaleMin = 0.03f;
+	dust.scaleMax = 0.15f;
+	dust.speedMin = 0.05f;
+	dust.speedMax = 0.1f;
+	dust.baseColor = { 160,160,160,255 };
+	// Gameplay layer
+	dust.layer = 0;
+	// Behind player which has sorting order 1
+	dust.sortingOrder = 0;
+	DuckEngine::RegisterEmitter("Dust", dust);
+
+	Emitter sparks;
+	sparks.spawnCountMin = 1;
+	sparks.spawnCountMax = 2;
+	sparks.lifetimeMin = 0.3f;
+	sparks.lifetimeMax = 0.7f;
+	sparks.scaleMin = 0.05f;
+	sparks.scaleMax = 0.25f;
+	sparks.speedMin = 0.5f;
+	sparks.speedMax = 1.0f;
+	sparks.baseColor = { 255, 100, 0, 255 }; // orange
+	// Gameplay layer
+	sparks.layer = 1;
+	// Behind pan which has sorting order 3
+	sparks.sortingOrder = 2;
+	DuckEngine::RegisterEmitter("CookingSparks", sparks);
 }
 
 /****************************************************************
@@ -535,48 +662,88 @@ void Level0::Start()
 * ****************************************************************/
 void Level0::Update()
 {	
+	if (!robotRestockLogic)
+	{
+		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+		if (gameRestockMenu)
+		{
+			std::cout << "Restock Menu Found" << std::endl;
+			robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockMenu->entityID);
+			if (robotRestockLogic)
+			{
+				std::cout << "Restock Logic Found" << std::endl;
+			}
+			else
+			{
+				std::cout << "Restock Logic Not Found" << std::endl;
+			}
+		}
+	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
 	Entity* CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	auto CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
+	std::cout << "custscne palying: " << CutSceneManager->CutscenePlay() << std::endl;
 	if (!CutSceneManager->CutscenePlay())
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutScene->entityID)->isVisible = false;
 		// Handle countdown before game starts
 		if (!gameStarted) {
+			static int lastDisplayedNumber = -1;  // Store last displayed number
+
 			countdownTime -= DuckEngine::DeltaTime();
 			int displayNumber = static_cast<int>(ceil(countdownTime));
 
 			if (CountdownText) {
 				CountdownText->isEnabled = true;
-				if (displayNumber > 1) {
-					TimeLeftSound->Play(3);
-					CountdownText->text = std::to_string(displayNumber) + "..";
+
+				if (displayNumber != lastDisplayedNumber) {
+					lastDisplayedNumber = displayNumber;
+
+					if (displayNumber > 0) {
+						TimeLeftSound->Play(3);
+						CountdownText->text = std::to_string(displayNumber) + "..";
+					}
+					else {
+						TimeLeftSound->Play(4);
+						CountdownText->text = "Go!";
+
+						// set customer order
+						Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
+						CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
+
+						if (customer1Logic)
+						{
+							int randomDishOrder = DuckEngine::RandomRange(1, 2);
+							if (randomDishOrder == 1)
+							{
+
+								customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+							}
+							else
+							{
+								customer1Logic->SetOrder(ItemType::SALAD_PLATE);
+							}
+						}
+					}
 				}
-				else {
-					CountdownText->text = "Start!";
+
+				// Hide countdown text after last number
+				if (countdownTime <= -0.5f) {
+					CountdownText->isEnabled = false;
+					gameStarted = true;
 				}
 			}
 
-			// Reduce FadeOutSprite opacity over time
-			if (FadeOutSprite) {
-				FadeOutSprite->isVisible = true;
-				float fadeProgress = countdownTime / 3.0f;
-				FadeOutSprite->color.a = static_cast<int>(fadeProgress * 150); // Reduce alpha gradually
-			}
+		// Handle fade effect during countdown
+		if (FadeOutSprite) {
+			FadeOutSprite->isVisible = true;
+			float fadeValue = (countdownTime / 3.0f) * 255.0f;
+			FadeOutSprite->color.a = (fadeValue >= 0.0f) ? static_cast<int>(fadeValue) : 0;  // Prevent negative values
+		}
 
-			// When countdown finishes, start the game
-			if (countdownTime <= 0.0f) {
-				gameStarted = true;
-				CountdownText->isEnabled = false;
-				// Reset sprite
-				if (FadeOutSprite) {
-					FadeOutSprite->color.a = 0;
-					FadeOutSprite->isVisible = false;
-				}
-			}
-			return; // Skip game logic until countdown is done
+		return;  // Skip game logic until countdown is done
 		}
 
 		//// SET CAMERA TO MOVE ALONG TO PLAYER
@@ -601,7 +768,7 @@ void Level0::Update()
 				timeLeft -= DuckEngine::DeltaTime();
 				int minutes = static_cast<int>(timeLeft) / 60;
 				int seconds = static_cast<int>(timeLeft) % 60;
-				timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+				timerText->text = "TIME: " + std::to_string(minutes) + ":" + std::to_string(seconds);
 
 				if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 					timerText->color = { 255, 0, 0, 255 };
@@ -610,7 +777,7 @@ void Level0::Update()
 				}
 			}
 			else {
-				timerText->text = "Time's up!";
+				timerText->text = "TIME'S UP!";
 
 				if (!hasStartedFade && TimeLeftSound != nullptr) {
 					SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound
@@ -666,16 +833,21 @@ void Level0::Update()
 			submitLogic->increaseScore(10);
 		}
 		ScoreLogic::scoreValue = submitLogic->getScore();
+
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
+		{
+		std::cout << "L is pressed!\n";
+		Level0::MiniGame_1(true);
+		}
 	}
 	else return;		
 }
 
 void Level0::UpdateOrderTexture() {
 	// Generate a new random texture path
-	std::string newOrderTexture = "Resources/Sprites/Ingredients/Dishes/Dish_" + std::to_string((rand() % 2) + 1) + ".png";
 	auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
 	if (spriteRenderer) {
-		spriteRenderer->texture = *AssetManager::GetTexture(newOrderTexture).get();
+		spriteRenderer->isVisible = false;
 	}
 }
 
@@ -700,9 +872,17 @@ void Level0::PostUpdate()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
+		if (robotRestockLogic)
+		{
+			if (robotRestockLogic->isRestock)
+			{
+				robotRestockLogic->RestockMenu(false);
+				return;
+			}
+		}
+		
 		std::cout << "Escape is pressed!\n";
 		TimeLeftSound->Play(2);
-		Sleep(500);
 		PauseGame(!isPaused);
 	}
 
@@ -800,7 +980,7 @@ void Level0::HTPShow(bool state)
 
 
 /****************************************************************
-* @brief Display Comfirmation to exit the game.
+* @brief Change the visibility of the exit confirmation menu.
 * ****************************************************************/
 void Level0::ExitConfirm(bool state)
 {
@@ -808,10 +988,6 @@ void Level0::ExitConfirm(bool state)
 	if (gameExitCfmBg)
 	{
 		gameExitCfmBgSpt->isVisible = state;
-	}
-	if (gameExitCfmTxt)
-	{
-		gameExitCfmText->isEnabled = state;
 	}
 
 	// Disable HTP  and Quit Btn
@@ -850,7 +1026,6 @@ void Level0::changePage()
 		break;
 	};
 }
-
 void Level0::MiniGame_1(bool state)
 {
 	// Hide Texts
@@ -946,20 +1121,190 @@ void Level0::MiniGame_1(bool state)
 	{
 		gameMiniGame_K9_Spt->isVisible = state;
 	}
-	if (gameMiniGame_K10)
+	if (gameMiniGame_K0)
 	{
-		gameMiniGame_K10_Spt->isVisible = state;
+		gameMiniGame_K0_Spt->isVisible = state;
 	}
 	if (gameMiniGame_T9)
 	{
 		gameMiniGame_T9_Txt->isEnabled = state;
 	}
-	if (gameMiniGame_T10)
+	if (gameMiniGame_T0)
 	{
-		gameMiniGame_T10_Txt->isEnabled = state;
+		gameMiniGame_T0_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Enter)
+	{
+		gameMiniGame_Enter_Spt->isVisible = state;
+	}
+	if (gameMiniGame_Delete)
+	{
+		gameMiniGame_Delete_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextEnter)
+	{
+		gameMiniGame_TextEnter_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_TextDelete)
+	{
+		gameMiniGame_TextDelete_Txt->isEnabled = state;
 	}
 	if (gameMiniGame_Text)
 	{
 		gameMiniGame_Text_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Password)
+	{
+		gameMiniGame_Password_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextPassword)
+	{
+		gameMiniGame_TextPassword_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Input)
+	{
+		gameMiniGame_Input_Txt->isEnabled = state;
+	}
+	
+}
+
+void Level0::passwordInput(std::string num)
+{
+	gameMiniGame_Text_Txt->isEnabled = false;
+	gameMiniGame_Input_Txt->isEnabled = true;
+	gameMiniGame_Input_Txt->text += num;
+
+}
+
+void Level0::enterPassword()
+{
+	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
+	{
+		gameMiniGame_Input_Txt->text = "";
+
+		if (gameMiniGame_BG)
+		{
+			gameMiniGame_BG_Spt->isVisible = false;
+		}
+		if (gameMiniGame_Keypad)
+		{
+			gameMiniGame_Keypad_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K1)
+		{
+			gameMiniGame_K1_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K2)
+		{
+			gameMiniGame_K2_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T1)
+		{
+			gameMiniGame_T1_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T2)
+		{
+			gameMiniGame_T2_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K3)
+		{
+			gameMiniGame_K3_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K4)
+		{
+			gameMiniGame_K4_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T3)
+		{
+			gameMiniGame_T3_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T4)
+		{
+			gameMiniGame_T4_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K5)
+		{
+			gameMiniGame_K5_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K6)
+		{
+			gameMiniGame_K6_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T5)
+		{
+			gameMiniGame_T5_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T6)
+		{
+			gameMiniGame_T6_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K7)
+		{
+			gameMiniGame_K7_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K8)
+		{
+			gameMiniGame_K8_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T7)
+		{
+			gameMiniGame_T7_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T8)
+		{
+			gameMiniGame_T8_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_K9)
+		{
+			gameMiniGame_K9_Spt->isVisible = false;
+		}
+		if (gameMiniGame_K0)
+		{
+			gameMiniGame_K0_Spt->isVisible = false;
+		}
+		if (gameMiniGame_T9)
+		{
+			gameMiniGame_T9_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_T0)
+		{
+			gameMiniGame_T0_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Enter)
+		{
+			gameMiniGame_Enter_Spt->isVisible = false;
+		}
+		if (gameMiniGame_Delete)
+		{
+			gameMiniGame_Delete_Spt->isVisible = false;
+		}
+		if (gameMiniGame_TextEnter)
+		{
+			gameMiniGame_TextEnter_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_TextDelete)
+		{
+			gameMiniGame_TextDelete_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Text)
+		{
+			gameMiniGame_Text_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Password)
+		{
+			gameMiniGame_Password_Spt->isVisible = false;
+		}
+		if (gameMiniGame_TextPassword)
+		{
+			gameMiniGame_TextPassword_Txt->isEnabled = false;
+		}
+		if (gameMiniGame_Input)
+		{
+			gameMiniGame_Input_Txt->isEnabled = false;
+		}
+	}
+	else
+	{
+		gameMiniGame_Input_Txt->text = "";
 	}
 }
