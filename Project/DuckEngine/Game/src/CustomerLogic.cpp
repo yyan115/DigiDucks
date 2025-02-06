@@ -14,6 +14,11 @@ void CustomerLogic::SetOrder(ItemType order)
 		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettucetomatoshrimp");
 
 	}
+	else if (order == ItemType::LETTUCE_PLATE)
+	{
+		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettuce");
+
+	}
 }
 
 void CustomerLogic::Start()

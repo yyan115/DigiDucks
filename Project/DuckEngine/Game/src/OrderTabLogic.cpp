@@ -55,9 +55,13 @@ void OrderTabLogic::AddOrder(ItemType order, CustomerLogic* customer)
 	{
 		orderTabSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_1");
 	}
-	else
+	else if(order == ItemType::SALAD_PLATE)
 	{
 		orderTabSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_2");
+	}
+	else if (order == ItemType::LETTUCE_PLATE)
+	{
+		orderTabSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_Lettuce_Plate");
 	}
 
 	currentOrder = order;

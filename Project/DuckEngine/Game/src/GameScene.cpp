@@ -719,11 +719,11 @@ void GameScene::Update()
 						if (randomDishOrder == 1)
 						{
 
-							customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+							customer1Logic->SetOrder(ItemType::LETTUCE_PLATE);
 						}
 						else
 						{
-							customer1Logic->SetOrder(ItemType::SALAD_PLATE);
+							customer1Logic->SetOrder(ItemType::LETTUCE_PLATE);
 						}
 					}
 				}
