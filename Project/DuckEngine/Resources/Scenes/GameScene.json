@@ -193,7 +193,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
+                            "x": 9.999999046325684,
                             "y": 4.5
                         },
                         "relativeToCamera": true,
@@ -224,7 +224,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 10.0,
+                            "x": 9.999999046325684,
                             "y": 4.5
                         },
                         "size": {
@@ -1015,7 +1015,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 15.460625648498535,
+                            "x": 15.560626029968262,
                             "y": -14.550000190734863
                         },
                         "relativeToCamera": true,
@@ -1038,7 +1038,7 @@
                         "isVisible": false,
                         "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
