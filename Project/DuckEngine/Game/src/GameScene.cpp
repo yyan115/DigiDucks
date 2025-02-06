@@ -1,8 +1,12 @@
 /******************************************************************************/
 /*!
 \file       GameScene.cpp
-\author     Ernest Ho, h.yonghengernest, 2301223
+\author     Ernest Ho, h.yonghengernest, 2301223 (50%)
 \par        h.yonghengernestt@digipen.edu
+\author     Jovan Chua, c.shengkaijovan, 2301244 (25%)
+\par        c.shengkaijovan@digipen.edu
+\author     Tan Yan Kai, yankai.tan, 2301312 (25%)
+\par        yankai.tan@digipen.edu
 \date       November 18 2024
 \brief      Implementation of the GameScene class, which handles the game logic
 			for the main game scene. This includes loading assets, initializing
@@ -1037,7 +1041,9 @@ void GameScene::changePage()
 
 
 
-
+/****************************************************************
+* @brief To launch the MiniGame
+* ****************************************************************/
 void GameScene::MiniGame_1(bool state)
 {
 	// Hide Texts
@@ -1191,6 +1197,9 @@ void GameScene::MiniGame_1(bool state)
 	
 }
 
+/****************************************************************
+* @brief To record input of typing the password
+* ****************************************************************/
 void GameScene::passwordInput(std::string num)
 {
 	textcount = false;
@@ -1200,6 +1209,9 @@ void GameScene::passwordInput(std::string num)
 
 }
 
+/****************************************************************
+* @brief To allow user to enter the password by clicking the keys
+* ****************************************************************/
 void GameScene::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
@@ -1215,6 +1227,9 @@ void GameScene::enterPassword()
 	}
 }
 
+/****************************************************************
+* @brief To allow user to delete the password 
+* ****************************************************************/
 void GameScene::deletePassword()
 {
 	if (!gameMiniGame_Input_Txt->text.empty())
