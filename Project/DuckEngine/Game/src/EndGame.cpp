@@ -103,6 +103,13 @@ void EndScene::Update()
 			soundComponent->Play();
 		}
 	}
+	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+	if (lastPlayedSceneName == "Level0" && ScoreLogic::scoreValue == 10)
+	{
+		Star1->texture = AssetManager::GetTextureByName("star");
+		Star2->texture = AssetManager::GetTextureByName("star");
+		Star3->texture = AssetManager::GetTextureByName("star");
+	}
 
 	if (ScoreLogic::scoreValue > 10) {
 
