@@ -2278,7 +2278,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 1.0,
                         "position": {
