@@ -52,14 +52,6 @@ void GameScene::Load()
 	}
 
 	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
-	if (OrderTab)
-	{
-		orderSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
-		if (orderSprite)
-		{
-			orderSprite->isVisible = true;
-		}
-	}
 
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text").get();
 	if(timer)
@@ -713,6 +705,21 @@ void GameScene::Update()
 					// set customer order
 					Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
 					CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
+
+					Entity* customer2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_2").get();
+					CustomerLogic* customer2Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer2->entityID).get();
+					
+					Entity* customer3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_3").get();
+					CustomerLogic* customer3Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer3->entityID).get();
+					
+					Entity* customer4 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_4").get();
+					CustomerLogic* customer4Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer4->entityID).get();
+					
+					currentCustomerIndex = 0;
+					customers.push_back(customer1Logic);
+					customers.push_back(customer2Logic);
+					customers.push_back(customer3Logic);
+					customers.push_back(customer4Logic);
 
 					if (customer1Logic)
 					{

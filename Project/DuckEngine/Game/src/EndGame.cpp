@@ -117,7 +117,7 @@ void EndScene::Update()
 
 	}
 	
-	if (ScoreLogic::scoreValue > 50) {
+	if (ScoreLogic::scoreValue >= 40) {
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		//Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");

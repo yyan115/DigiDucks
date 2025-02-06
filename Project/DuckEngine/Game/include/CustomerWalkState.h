@@ -29,6 +29,7 @@ private:
 	bool orderCollected = false;
 	bool isWaitingToCollectOrder = false;
 	size_t currentTargetIndex = 0;
+	bool customerEnded = false;
 
 
 

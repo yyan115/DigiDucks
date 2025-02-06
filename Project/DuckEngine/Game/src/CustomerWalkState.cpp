@@ -1,6 +1,7 @@
 #include <iostream>
 #include "CustomerWalkState.h"
 #include "CustomerLogic.h"
+#include "GameManager.h"
 
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner), currentQueueTarget(nullptr) {}
@@ -74,7 +75,7 @@ void CustomerWalkState::FixedUpdate()
 		direction.y /= distance;
 	}
 
-	float moveSpeed = 3.0f;
+	float moveSpeed = 5.0f;
 
 	RigidbodyComponent* rigidbody =
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RigidbodyComponent>(owner->GetComponentID());
@@ -83,6 +84,39 @@ void CustomerWalkState::FixedUpdate()
 	{
 		return;
 	}
+
+	if (currentQueueTarget == finalPath && distance <= 0.1f)
+	{
+		owner->stateMachine.ChangeState(owner->IdleState);
+
+		if (owner->GetGameScene()->currentCustomerIndex < owner->GetGameScene()->customers.size() - 1)
+		{
+			std::cout << "NEXT CUSTOMER" << std::endl;
+
+			owner->GetGameScene()->currentCustomerIndex++;
+			CustomerLogic* nextCustomer = owner->GetGameScene()->customers[owner->GetGameScene()->currentCustomerIndex];
+
+			int randomDishOrder = DuckEngine::RandomRange(1, 2);
+			if (randomDishOrder == 1)
+			{
+				nextCustomer->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			}
+			else
+			{
+				nextCustomer->SetOrder(ItemType::SALAD_PLATE);
+			}
+			customerEnded = true;
+
+		}
+		else
+		{
+			std::cout << "All customers served. Transitioning to EndScene." << std::endl;
+			GameManager::SetActiveScene("EndScene");
+			customerEnded = true;
+
+		}
+	}
+
 
 	if (distance > 0.1f)
 	{
@@ -151,7 +185,7 @@ void CustomerWalkState::FixedUpdate()
 			return;
 		}
 
-		else if (isOrderTaken && orderCollected)
+		else if (isOrderTaken && orderCollected && !customerEnded)
 		{
 			if (currentQueueTarget != finalPath)
 			{
@@ -159,9 +193,12 @@ void CustomerWalkState::FixedUpdate()
 			}
 			else
 			{
-				// destroy customer or do something else
+				
 			}
 		}
+
+
+
 
 		else if (isOrderTaken)
 		{

@@ -30,6 +30,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
 #include "RestockLogic.h"
+#include "CustomerLogic.h"
 
 class GameScene : public Scene
 {
@@ -42,6 +43,9 @@ public:
     void Unload() override;
     
     bool IsGameStarted() { return gameStarted; }
+
+	std::vector<CustomerLogic*> customers{};
+	int currentCustomerIndex = 0;
     
 
 private:
@@ -223,4 +227,6 @@ private:
     bool hasStartedFade = false;
     float GamefadeElapsedTime = 0.f;
 	SpriteRendererComponent* FadeOutSprite = nullptr;
+
+
 };

@@ -13,10 +13,6 @@ void CustomerIdleState::Enter()
 
 void CustomerIdleState::Update()
 {
-	if (owner->GetGameScene()->IsGameStarted())
-	{
-		owner->stateMachine.ChangeState(owner->WalkState);
-	}
 }
 
 void CustomerIdleState::FixedUpdate()

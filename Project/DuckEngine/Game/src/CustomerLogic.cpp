@@ -19,6 +19,7 @@ void CustomerLogic::SetOrder(ItemType order)
 		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettuce");
 
 	}
+	stateMachine.ChangeState(WalkState);
 }
 
 void CustomerLogic::Start()
@@ -26,16 +27,24 @@ void CustomerLogic::Start()
 	IdleState = std::make_shared<CustomerIdleState>(this);
 	WalkState = std::make_shared<CustomerWalkState>(this);
 	WaitingOrderState = std::make_shared<CustomerWaitingOrderState>(this);
-	stateMachine.ChangeState(IdleState);
 
-	customerOrder = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer1_Order").get();
-	customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(customerOrder->entityID);
+	Entity* currentEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
+	Entity* childEntity = currentEntity->childEntities[0].get();
+
+	if (childEntity)
+	{
+		customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(childEntity->entityID);
+		customerOrderSpriteRenderer->isVisible = false;
+	}
 
 	gameScene = DuckEngine::DUCKENGINE_SceneManager.GetScene<GameScene>("GameScene").get();
+
+	stateMachine.ChangeState(IdleState);
 }
 
 void CustomerLogic::Update()
 {
+	if (!gameScene->IsGameStarted()) return;
 	stateMachine.currentState->Update();
 
 }
