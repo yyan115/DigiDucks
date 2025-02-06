@@ -411,4 +411,5 @@ void RestockLogic::MiniGame_1(bool state)
 	/*
 	*  Minigame Logic here.
 	*/
+	isMiniGame = state;
 }

@@ -86,6 +86,7 @@ private:
 
 public:
 	bool isRestock = false;
+	bool isMiniGame = false;
 
 	RestockLogic() : GameLogic(nullptr) {}
 

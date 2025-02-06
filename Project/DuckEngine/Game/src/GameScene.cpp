@@ -786,6 +786,19 @@ void GameScene::Update()
 		
 		GameScene::MiniGame_1(true);
 	}
+
+	//if (robotRestockLogic)
+	//{
+	//	if (robotRestockLogic->isMiniGame)
+	//	{
+	//		GameScene::MiniGame_1(true);
+	//	}
+	//	else
+	//	{
+	//		GameScene::MiniGame_1(false);
+	//	}
+	//}
+
 }
 
 void GameScene::UpdateOrderTexture() {
