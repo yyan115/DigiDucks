@@ -579,7 +579,7 @@ void GameScene::Load()
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
 	gameStarted = false;
-	countdownTime = 4.0f;
+	countdownTime = 3.0f;
 
 	PauseGame(false);
 	MiniGame_1(false);
@@ -658,39 +658,45 @@ void GameScene::Update()
 
 	// Handle countdown before game starts
 	if (!gameStarted) {
+		static int lastDisplayedNumber = -1;  // Store last displayed number
+
 		countdownTime -= DuckEngine::DeltaTime();
 		int displayNumber = static_cast<int>(ceil(countdownTime));
 
 		if (CountdownText) {
 			CountdownText->isEnabled = true;
-			if (displayNumber > 1) {
-				TimeLeftSound->Play(3);
-				CountdownText->text = std::to_string(displayNumber) + "..";
+
+			if (displayNumber != lastDisplayedNumber) {
+				lastDisplayedNumber = displayNumber;
+
+				if (displayNumber > 0) {
+					TimeLeftSound->Play(3);
+					CountdownText->text = std::to_string(displayNumber) + "..";
+				}
+				else {
+					TimeLeftSound->Play(4);
+					CountdownText->text = "Go!";
+				}
 			}
-			else {
-				CountdownText->text = "Go!";
+
+			// Hide countdown text after last number
+			if (countdownTime <= -0.5f) {
+				CountdownText->isEnabled = false;
+				gameStarted = true;
 			}
 		}
 
-		// Reduce FadeOutSprite opacity over time
+		// Handle fade effect during countdown
 		if (FadeOutSprite) {
 			FadeOutSprite->isVisible = true;
-			float fadeProgress = countdownTime / 3.0f;
-			FadeOutSprite->color.a = static_cast<int>(fadeProgress * 150); // Reduce alpha gradually
+			float fadeValue = (countdownTime / 3.0f) * 255.0f;
+			FadeOutSprite->color.a = (fadeValue >= 0.0f) ? static_cast<int>(fadeValue) : 0;  // Prevent negative values
 		}
 
-		// When countdown finishes, start the game
-		if (countdownTime <= 0.0f) {
-			gameStarted = true;
-			CountdownText->isEnabled = false;
-			// Reset sprite
-			if (FadeOutSprite) {
-				FadeOutSprite->color.a = 0;
-				FadeOutSprite->isVisible = false;
-			}
-		}
-		return; // Skip game logic until countdown is done
+		return;  // Skip game logic until countdown is done
 	}
+
+
 
 	//// SET CAMERA TO MOVE ALONG TO PLAYER
 	if (!isPaused)

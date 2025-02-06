@@ -6524,7 +6524,8 @@
                             "Resources/Sounds/timer/timer warning 3.mp3",
                             "Resources/Sounds/timer/times up.mp3",
                             "Resources/Sounds/UI Menu/pause menu open sfx.mp3",
-                            "Resources/Sounds/timer/countdown.mp3"
+                            "Resources/Sounds/timer/countdown.mp3",
+                            "Resources/Sounds/duck sounds/AnimalDuckCart 3.wav"
                         ],
                         "volume": 0.5
                     },
