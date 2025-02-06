@@ -557,6 +557,294 @@
             ],
             "layer": "Gameplay"
         },
+        "Cart_Stock": {
+            "childNames": [
+                "Cart_Stock_4",
+                "Cart_Stock_2",
+                "Cart_Stock_3",
+                "Cart_Stock_1",
+                "Cart_Stock_0"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.671999990940094,
+                            "y": -0.5400000214576721
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.20000000298023224,
+                            "y": 0.4000000059604645
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 201.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_0": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.4400000274181366
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.722000002861023,
+                            "y": -0.4400000274181366
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.5600000023841858
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.722000002861023,
+                            "y": -0.5600000023841858
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/shrimp.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.6800000071525574
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Cheese_Fridge": {
             "childNames": [
                 "Cheese_Txt"
@@ -3852,13 +4140,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.30000001192092896,
-                            "y": -0.4000000059604645
+                            "x": 0.25999999046325684,
+                            "y": -0.699999988079071
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.10000000149011612,
+                            "x": 0.05000000074505806,
                             "y": 0.07000000029802322
                         }
                     },
@@ -3875,7 +4163,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/lettucebutton.png",
+                        "texture": "Resources/Sprites/MiniGame/GREENBUTTON.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3896,12 +4184,61 @@
             ],
             "layer": "UI"
         },
-        "Restock_Cfm_Btn": {
+        "Restock_Clear_Btn": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
+                            "x": 0.5299999713897705,
+                            "y": -0.699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05999999865889549,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/REDBUTTON.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Confirm_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.38999998569488525,
                             "y": -0.699999988079071
                         },
                         "relativeToCamera": false,
@@ -3924,10 +4261,23 @@
                         "isVisible": true,
                         "sortingOrder": 4,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Drone Menu/confirm_grey.png",
+                        "texture": "Resources/Sprites/Drone Menu/confirm_off.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
@@ -3961,6 +4311,194 @@
                         "sortingOrder": 3,
                         "sprite": false,
                         "texture": "Resources/Sprites/Drone Menu/closebutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Ingredient": {
+            "childNames": [
+                "Restock_Ingredient_0",
+                "Restock_Ingredient_1",
+                "Restock_Ingredient_2"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Ingredient_0": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.30000001192092896,
+                            "y": -0.3799999952316284
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.12999999523162842,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/lettucebutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Ingredient_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.44999998807907104,
+                            "y": -0.3799999952316284
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.12999999523162842,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/tomatobutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Restock_Ingredient_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.30000001192092896,
+                            "y": -0.4699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.12999999523162842,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Drone Menu/shrimpbutton.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -4033,7 +4571,10 @@
         "Restock_Ingredient_Menu": {
             "childNames": [
                 "Restock_All_Btn",
-                "Restock_Cfm_Btn"
+                "Cart_Stock",
+                "Restock_Ingredient",
+                "Restock_Clear_Btn",
+                "Restock_Confirm_Btn"
             ],
             "components": [
                 {
@@ -4453,7 +4994,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 0"
+                        "text": "SCORE: 0"
                     },
                     "type": "TextComponent"
                 }
@@ -5920,7 +6461,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Time:"
+                        "text": "TIME:"
                     },
                     "type": "TextComponent"
                 }

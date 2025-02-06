@@ -18,8 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "StockLogic.h"
 
-#define MAX_MAINTENANCE_LEVEL 5;
-#define MAX_CART_STOCK 5;
+const int MAX_CART_STOCK = 5;
 
 class RestockLogic : public GameLogic
 {
@@ -32,6 +31,7 @@ private:
 	SpriteRendererComponent* restockIngredientMenuSpt = nullptr;
 	// Restock Maintenance Menu Sprite
 	SpriteRendererComponent* restockMaintenanceMenuSpt = nullptr;
+	std::vector<Texture> maintenanceTextures;
 
 	// Exit Button
 	ButtonComponent* restockExitButton = nullptr;
@@ -52,8 +52,34 @@ private:
 	// Maintainence Start Button
 	ButtonComponent* maintainenceStartButton = nullptr;
 
-	// Restock All Button
+	// Ingredient Restocks
+	ButtonComponent* restockBunButton = nullptr;
+	ButtonComponent* restockCheeseButton = nullptr;
+	ButtonComponent* restockLettuceButton = nullptr;
+	ButtonComponent* restockMushroomButton = nullptr;
+	ButtonComponent* restockShrimpButton = nullptr;
+	ButtonComponent* restockSteakButton = nullptr;
+	ButtonComponent* restockTomatoButton = nullptr;
+
+	// Cart Stock Max of 5 items
+	std::vector<SpriteRendererComponent*> cartStockSprites;
+	std::vector<ButtonComponent*> cartStockButtons;
+
+	// Texture for All Items
+	std::vector<Texture> itemTextures;
+
+	// Ingredient Stock Buttons
+	std::vector<ButtonComponent*> ingredientButtons;
+	std::vector<SpriteRendererComponent*> ingredientSprites;
+	std::vector<Texture> ingredientBtnTextures;
+
+
 	ButtonComponent* restockAllButton = nullptr;
+	ButtonComponent* restockConfirmButton = nullptr;
+	SpriteRendererComponent* restockConfirmSpt = nullptr;
+	Texture restockConfirmOn{};
+	Texture restockConfirmOff{};
+	ButtonComponent* restockClearAllButton = nullptr;
 
 	std::vector<ItemType> cartStock;
 	bool changeCartStock = false;
@@ -119,9 +145,39 @@ public:
 	* ****************************************************************/
 	void IncreaseMaintenanceLevel();
 
+	/****************************************************************
+	* @brief Add an item to the cart.
+	* 
+	* @param type - The type of item to add to the cart.
+	* ****************************************************************/
+	void AddToCart(ItemType type);
 
-	void RefreshCart()
-	{
+	/****************************************************************
+	* @brief Remove an item from the cart.
+	* 
+	* @param type - The type of item to remove from the cart.
+	* ****************************************************************/
+	void RemoveFromCart(ItemType type);
 
-	}
+	/****************************************************************
+	* @brief Remove all items from the cart.
+	* ****************************************************************/
+	void RefreshCart();
+
+	/****************************************************************
+	* @brief Update the sprite renderers for the cart stock.
+	* ****************************************************************/
+	void UpdateCartMenu();
+
+	/****************************************************************
+	* @brief Update the sprite renderers for the maintenance menu.
+	* ****************************************************************/
+	void UpdateMaintenanceMenu();
+
+	/****************************************************************
+	* @brief Start the mini game.
+	* 
+	* @param state - The state of the mini game.
+	* ****************************************************************/
+	void MiniGame_1(bool state);
 };

@@ -20,18 +20,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 enum class ItemType
 {
     // Ingredient Types
-    EMPTY,
-    BIN,
-    BUN,
-    CHEESE,
-    LETTUCE,
-    MUSHROOM,
-    SHRIMP,
-    STEAK,
-    TOMATO,
+    EMPTY = -2,
+    BIN = -1,
+
+	/* Reset to 0 when Sprites are done*/
+    BUN = 4,
+    CHEESE = 6,
+    LETTUCE = 0,	// Change back to 2
+    MUSHROOM = 3,
+	SHRIMP = 1,		// Change back to 4
+    STEAK = 5,
+    TOMATO = 2,		// Change back to 6
 
     // Cooked Ingredients
-    C_CHEESE,              // Cut Cheese
+    C_CHEESE = 7,              // Cut Cheese
     C_LETTUCE,             // Cut Lettuce
     C_MUSHROOM,            // Cut Mushroom
     C_SHRIMP,              // Cut Shrimp

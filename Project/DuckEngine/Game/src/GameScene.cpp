@@ -61,7 +61,7 @@ void GameScene::Load()
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "Time:";
+			timerText->text = "TIME:";
 			timeLeft = 600.f;
 		}
 	}
@@ -72,7 +72,7 @@ void GameScene::Load()
 		scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
 		if (scoreText) 
 		{
-			scoreText->text = "Score: 0";
+			scoreText->text = "SCORE: 0";
 			ScoreLogic::scoreValue = 0;
 		}
 	}
@@ -714,7 +714,7 @@ void GameScene::Update()
 			timeLeft -= DuckEngine::DeltaTime();
 			int minutes = static_cast<int>(timeLeft) / 60;
 			int seconds = static_cast<int>(timeLeft) % 60;
-			timerText->text = "Time: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+			timerText->text = "TIME: " + std::to_string(minutes) + ":" + std::to_string(seconds);
 
 			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 				timerText->color = { 255, 0, 0, 255 };
@@ -723,7 +723,7 @@ void GameScene::Update()
 			}
 		}
 		else {
-			timerText->text = "Time's up!";
+			timerText->text = "TIME'S UP!";
 
 			if (!hasStartedFade && TimeLeftSound != nullptr) {
 				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound

@@ -128,6 +128,11 @@ public:
 	virtual void restock() { stock = 5; }
 
 	/****************************************************************
+	* @brief Restock function for the StockLogic
+	* ***************************************************************/
+	virtual void addStock() { stock++; }
+
+	/****************************************************************
 	* @brief Use Stock function for the StockLogic
 	* ***************************************************************/
 	virtual void useStock() { if (stock > 0) { stock--; } }
