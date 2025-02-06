@@ -548,7 +548,7 @@ void GameScene::Load()
 			gameMiniGame_Delete_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Delete->entityID);
 			if (gameMiniGame_Delete_Btn)
 			{
-				gameMiniGame_Delete_Btn->onClick = [this]() { std::cout << "Delete" << std::endl; };
+				gameMiniGame_Delete_Btn->onClick = [this]() { deletePassword(); };
 			}
 		}
 
@@ -1321,4 +1321,9 @@ void GameScene::enterPassword()
 	{
 		gameMiniGame_Input_Txt->text = "";
 	}
+}
+
+void GameScene::deletePassword()
+{
+	gameMiniGame_Input_Txt->text.pop_back();
 }
