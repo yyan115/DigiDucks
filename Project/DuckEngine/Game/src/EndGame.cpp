@@ -25,28 +25,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameScene.h"
 #include "ScoreLogic.h"
 
-
-Entity* MainMenuButton;
-SoundComponent* MainMenuSound;
-ButtonComponent* MainMenu;
-
-Entity* Star_1;
-SpriteRendererComponent* Star1;
-
-Entity* Star_2;
-SpriteRendererComponent* Star2;
-
-Entity* Star_3;
-SpriteRendererComponent* Star3;
-
-Entity* Score;
-TextComponent* ScoreText;
-
-Entity* Background;
-SoundComponent* BGMSound;
-
+SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
-bool isHover = false;
 
 void EndScene::Load()
 {
@@ -96,6 +76,16 @@ void EndScene::Start()
 {
 	Scene::Start();
 	//DuckEngine::showDebugColliders = false;
+
+	std::string sceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+	std::cout << "sceneName " << sceneName << std::endl;
+	if (!sceneName.empty() && sceneName.find("Level") != std::string::npos)
+	{
+		int day = std::stoi(sceneName.substr(5, 1));
+		std::string EndScenePath = "Resources/Sprites/EndScene/DAY" + std::to_string(day) + ".png";
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Background->entityID)->texture = *AssetManager::GetTexture(EndScenePath).get();
+
+	}
 }
 
 void EndScene::Update()
@@ -105,10 +95,7 @@ void EndScene::Update()
 		GameManager::SetActiveScene("MainMenu");
 		isQuitButtonClicked = false;
 	}
-	 
-
-
-
+	
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
 		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
 

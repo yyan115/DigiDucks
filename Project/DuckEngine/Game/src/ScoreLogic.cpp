@@ -1,12 +1,11 @@
 /******************************************************************************/
 /*!
-\file       RestockLogic.cpp
+\file       ScoreLogic.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\date       November 29 2024
-\brief      Definition of the Restock Station Logic.
+\brief      Definition of the Score Logic.
 
-Copyright (C) 2024 DigiPen Institute of Technology.
+Copyright (C) 2025 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 */
@@ -17,7 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 int ScoreLogic::scoreValue = 0;
 /****************************************************************
-* @brief Start function for the Restock Station Logic.
+* @brief Start function for the Score Logic.
 * ****************************************************************/
 void ScoreLogic::Start()
 {
@@ -26,7 +25,7 @@ void ScoreLogic::Start()
 
 
 /****************************************************************
-* @brief Update function for the Restock Station Logic.
+* @brief Update function for the Score Logic.
 * ****************************************************************/
 void ScoreLogic::Update()
 {

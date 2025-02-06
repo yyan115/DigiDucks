@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*!
-\file       RestockLogic.cpp
-\author     Ernest Ho, h.yonghengernest, 2301223
-\par        h.yonghengernestt@digipen.edu
-\date       November 29 2024
-\brief      Definition of the Restock Station Logic.
+\file     CutSceneLogic.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the CutSceneLogic class
+		  which is responsible for handling the cutscene logic in the game.
 
-Copyright (C) 2024 DigiPen Institute of Technology.
+Copyright (C) 2025 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 */
@@ -50,7 +50,6 @@ void CutSceneLogic::Start()
 	currentCutsceneIndex = 0;
 	currentDialogueIndex = 0;
 	cutsceneTimer = 0.0f;
-	dialogueTimer = 0.0f;
 	fadeProgress = 0.0f;
 	DialoguefadeProgress = 0.0f;
 	isFading = true; // Start with a fade-in effect
@@ -71,7 +70,7 @@ void CutSceneLogic::Update()
 
 		if (fadeProgress >= 1.0f)
 		{
-			FadeOutSprite->color.a = 0; // Fully transparent
+			FadeOutSprite->color.a = 0; // transparent
 			FadeOutSprite->isVisible = false;
 			isFading = false;
 			fadeProgress = 0.0f;
@@ -79,7 +78,7 @@ void CutSceneLogic::Update()
 		else
 		{
 			FadeOutSprite->color.a = static_cast<int>(255 * (1.0f - fadeProgress));
-			return; // Don't progress the cutscene while fading in
+			return;
 		}
 	}
 
@@ -108,22 +107,21 @@ void CutSceneLogic::Update()
 			
 			if (currentCutsceneIndex == 14) {
 				isCutSceneFading = true;
-				FadeOutSprite->color.a = 0; // Start fade-out
+				FadeOutSprite->color.a = 0; // Start fade
 			}
 		}
 	}	
-	else if (isCutSceneFading) // Handle fade-out before dialogue starts
+	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
 		DialoguefadeProgress += DuckEngine::DeltaTime();
 
 		if (DialoguefadeProgress >= 6.0f)
 		{
-			FadeOutSprite->color.a = 255; // Fully visible fade-out
+			FadeOutSprite->color.a = 255;
 			FadeOutSprite->isVisible = false;
 			isCutSceneFading = false;
 			isShowingDialogue = true;
 			CutSceneSprite->isVisible = false; // Hide cutscene sprite
-			dialogueTimer = 0.0f;
 			DialogueSprite->isVisible = true; // Show dialogue box
 
 			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
@@ -141,18 +139,13 @@ void CutSceneLogic::Update()
 	}
 
 
-	// **Handle dialogues after cutscene**
+	// Handle dialogues
 	if (isShowingDialogue)
 	{
-		// Wait 2 seconds before allowing click to progress
-		dialogueTimer += DuckEngine::DeltaTime();
-		if (dialogueTimer < 2.0f) return;
-
 		// Check for user input to progress dialogue
 		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 31)
 		{
 			currentDialogueIndex++;
-			std::cout << "Dialogue index: " << currentDialogueIndex << std::endl;
 			
 			if (currentDialogueIndex == 31)
 			{

@@ -1,12 +1,12 @@
 /******************************************************************************/
 /*!
-\file       RestockLogic.h
-\author     Ernest Ho, h.yonghengernest, 2301223
-\par        h.yonghengernestt@digipen.edu
-\date       November 29 2024
-\brief      Declaration of the Restock Station Logic.
+\file     CutSceneLogic.h
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the declaration of the CutSceneLogic class
+		  which is responsible for handling the cutscene logic in the game.
 
-Copyright (C) 2024 DigiPen Institute of Technology.
+Copyright (C) 2025 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 */
@@ -29,7 +29,6 @@ private:
 	float cutsceneTimer = 0.0f;
 	float fadeProgress = 0.0f;
 	int currentDialogueIndex = 0;
-	float dialogueTimer = 0.0f;
 	float DialoguefadeProgress = 0.0f;
 	
 	bool isPlaying = true;
@@ -49,20 +48,23 @@ public:
 
 	
 	/****************************************************************
-	* @brief Start function for the Restock Station Logic.
+	* @brief Start function for the Cutscene Logic.
 	* ****************************************************************/
 	void Start() override;
 
 	/****************************************************************
-	* @brief Update function for the Restock Station Logic.
+	* @brief Update function for the Cutscene Logic.
 	* ****************************************************************/
 	void Update() override;
 
 	/****************************************************************
-	* @brief Fixed Update function for the Restock Station Logic.
+	* @brief Fixed Update function for the Cutscene Logic.
 	* ****************************************************************/
 	void FixedUpdate() override {}
 
+	/****************************************************************
+	* @brief Checks if the cutscene is playing.
+	* ****************************************************************/
 	bool CutscenePlay();
 
 	std::shared_ptr<GameLogic> Clone() const override

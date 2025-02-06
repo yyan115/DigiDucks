@@ -253,5 +253,6 @@ void MainMenu::OnPlayButtonClicked(std::string sceneName)
 		fadeElapsedTime = 0.0f;
 		isFadingOut = true;
 		nextScene = sceneName;
+		GameManager::SetGlobalVariable("LastPlayedScene", nextScene);
 	}
 }

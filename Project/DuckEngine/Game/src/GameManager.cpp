@@ -47,6 +47,7 @@ DuckEngine GameManager::DuckEngine;
 
 std::string GameManager::ActiveSceneName = "SpriteMovementScene";
 bool GameManager::ShouldChangeScene = false;
+std::unordered_map<std::string, std::string> GameManager::GlobalVariables;
 
 
  /****************************************************************
@@ -122,4 +123,20 @@ void GameManager::SetActiveScene(std::string sceneName, bool transition)
 	{
 		DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
 	}
+}
+
+// Set a global variable
+void GameManager::SetGlobalVariable(const std::string& key, const std::string& value)
+{
+	GlobalVariables[key] = value;
+}
+
+// Get a global variable
+std::string GameManager::GetGlobalVariable(const std::string& key)
+{
+	if (GlobalVariables.find(key) != GlobalVariables.end())
+	{
+		return GlobalVariables[key];
+	}
+	return ""; // Return empty string if key doesn't exist
 }

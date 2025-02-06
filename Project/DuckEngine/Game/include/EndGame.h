@@ -13,8 +13,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 #pragma once
 #include "Scene.h"
+#include "Entity.h"
+#include "DuckEngine.h"
 
 class EndScene : public  Scene {
+public:
     /// <summary>
     /// Loads all necessary resources for the scene.
     /// This function is called before the scene starts.
@@ -48,4 +51,24 @@ class EndScene : public  Scene {
     /// Unloads the scene and frees any resources that were loaded during the Load() phase.
     /// </summary>
     void Unload() override;
+
+private:
+    Entity* MainMenuButton = nullptr;
+    ButtonComponent* MainMenu = nullptr;
+
+    Entity* Star_1 = nullptr;
+    SpriteRendererComponent* Star1 = nullptr;
+
+    Entity* Star_2 = nullptr;
+    SpriteRendererComponent* Star2 = nullptr;
+
+    Entity* Star_3 = nullptr;
+    SpriteRendererComponent* Star3 = nullptr;
+
+    Entity* Score = nullptr;
+    TextComponent* ScoreText = nullptr;
+
+    Entity* Background = nullptr;
+    SoundComponent* BGMSound = nullptr;
+    bool isHover = false;
 };

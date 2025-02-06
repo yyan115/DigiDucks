@@ -28,7 +28,7 @@ public:
 	static std::string ActiveSceneName;
 	static bool ShouldChangeScene;
 	static DuckEngine DuckEngine;
-
+	static std::unordered_map<std::string, std::string> GlobalVariables;
 
 	static void InitScenes();
 /****************************************************************
@@ -43,5 +43,8 @@ public:
 /****************************************************************
 * @brief Updates the game state and handles scene transitions.
 * ****************************************************************/
+
+	static void SetGlobalVariable(const std::string& key, const std::string& value);
+	static std::string GetGlobalVariable(const std::string& key);
 };
 

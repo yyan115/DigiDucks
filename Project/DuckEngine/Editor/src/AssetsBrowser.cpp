@@ -473,11 +473,11 @@ void AssetsBrowser::RenderPrefabsGrid() {
 		// Right-click context menu for deleting individual assets
 		if (ImGui::BeginPopupContextItem(("##ContextMenu_" + prefabName).c_str())) {
 			isAssetContextOpen = true;  // Mark that an asset menu is open
-
-			if (ImGui::MenuItem("Delete")) {
+			//TODO: FIX DELETED PREFAB ERROR
+			/*if (ImGui::MenuItem("Delete")) {
 				std::string prefabPath = "Resources/Prefabs/" + prefabName + ".json";
 				AssetManager::RemoveAsset(prefabPath);
-			}
+			}*/
 
 			ImGui::EndPopup();
 		}
