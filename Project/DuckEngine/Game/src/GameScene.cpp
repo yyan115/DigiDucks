@@ -642,7 +642,7 @@ void GameScene::Load()
 	// Gameplay layer
 	sparks.layer = 1;
 	// Behind pan which has sorting order 3
-	sparks.sortingOrder = 2;
+	sparks.sortingOrder = 4;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
 
 }
