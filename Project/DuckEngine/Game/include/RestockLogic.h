@@ -3,7 +3,7 @@
 \file       RestockLogic.h
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\date       November 29 2024
+\date       Feb 6 2025
 \brief      Declaration of the Restock Station Logic.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
