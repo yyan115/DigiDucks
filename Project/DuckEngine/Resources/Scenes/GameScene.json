@@ -289,7 +289,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
@@ -518,12 +518,15 @@
             "layer": "Gameplay"
         },
         "Bun_Txt": {
+            "childNames": [
+                "GameObject_131"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": -8.300000190734863,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -543,13 +546,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -925,12 +928,15 @@
             "layer": "Gameplay"
         },
         "Cheese_Txt": {
+            "childNames": [
+                "GameObject_136"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": 3.700000047683716,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -950,13 +956,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -1077,7 +1083,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
@@ -1357,8 +1363,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.8799999952316284,
-                            "y": 0.8999999761581421
+                            "x": 0.8999999761581421,
+                            "y": 0.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1378,13 +1384,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.5,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 5,
                         "text": "FPS: 573"
                     },
                     "type": "TextComponent"
@@ -1454,7 +1460,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
                         "useColor": true
@@ -1499,6 +1505,62 @@
                 }
             ],
             "layer": "UI"
+        },
+        "GameObject_131": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -8.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_132": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_133": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 2.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_134": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 6.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_135": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -1.9999998807907104,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_136": {
+            "layer": "Gameplay",
+            "position": {
+                "x": 4.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
+        },
+        "GameObject_137": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -4.0,
+                "y": 6.5
+            },
+            "prefab": "Txt_Bg"
         },
         "Grey_Plate": {
             "components": [
@@ -1936,12 +1998,15 @@
             "layer": "Gameplay"
         },
         "Lettuce_Txt": {
+            "childNames": [
+                "GameObject_135"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": -2.299999952316284,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1961,13 +2026,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -3471,12 +3536,15 @@
             "layer": "Gameplay"
         },
         "Mushroom_Txt": {
+            "childNames": [
+                "GameObject_132"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": -6.300000190734863,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -3496,13 +3564,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -4993,7 +5061,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 100,
                         "text": "SCORE: 0"
                     },
                     "type": "TextComponent"
@@ -5003,7 +5071,8 @@
         },
         "Shrimp_Fridge": {
             "childNames": [
-                "Shrimp_Txt"
+                "Shrimp_Txt",
+                "GameObject_133"
             ],
             "components": [
                 {
@@ -5086,7 +5155,7 @@
                     "properties": {
                         "position": {
                             "x": 1.7000000476837158,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -5106,13 +5175,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -5248,12 +5317,15 @@
             "layer": "Gameplay"
         },
         "Steak_Txt": {
+            "childNames": [
+                "GameObject_134"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 5.7166428565979,
-                            "y": 5.918764114379883
+                            "x": 5.699999809265137,
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -5273,16 +5345,61 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Stocks": {
+            "childNames": [
+                "Shrimp_Fridge",
+                "Steak_Fridge",
+                "Lettuce_Box",
+                "Cheese_Fridge",
+                "Mushroom_Box",
+                "Bun_Box",
+                "Tomato_Box"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -5313,9 +5430,9 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/stove.png",
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -5341,20 +5458,8 @@
                 },
                 {
                     "properties": {
-                        "category": "SFX",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/chop and cook/sizzle.mp3"
-                        ],
-                        "volume": 0.5
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
                         "logicNames": [
-                            "PanLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -5391,7 +5496,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -5535,7 +5640,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -5684,7 +5789,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -5747,7 +5852,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -5810,7 +5915,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -6288,7 +6393,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -6460,7 +6565,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 100,
                         "text": "TIME:"
                     },
                     "type": "TextComponent"
@@ -6548,12 +6653,15 @@
             "layer": "Gameplay"
         },
         "Tomato_Txt": {
+            "childNames": [
+                "GameObject_137"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": -4.300000190734863,
-                            "y": 5.900000095367432
+                            "y": 6.099999904632568
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6573,13 +6681,13 @@
                             "r": 255.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.75,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 0,
+                        "sortingOrder": 2,
                         "text": "5"
                     },
                     "type": "TextComponent"
