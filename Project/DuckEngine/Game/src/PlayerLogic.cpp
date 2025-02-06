@@ -416,7 +416,6 @@ void PlayerLogic::InteractPressed()
 			{
 				if (holdingLogic->getType() == ItemType::LETTUCE_PLATE)
 				{
-					std::cout << "LETTUCE PLATE" << std::endl;
 					submitLogic->removeObject(holdingLogic->moveObject());
 					if (sound) sound->Play();
 					isHolding = false;

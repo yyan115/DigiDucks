@@ -1297,14 +1297,14 @@
                     "properties": {
                         "color": {
                             "a": 255.0,
-                            "b": 250.05813598632813,
-                            "g": 229.70457458496094,
-                            "r": 250.05812072753906
+                            "b": 250.0,
+                            "g": 229.0,
+                            "r": 250.0
                         },
                         "isVisible": false,
                         "sortingOrder": 6,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/MiniGame/paper.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1330,8 +1330,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.8399999737739563,
-                            "y": 0.08000004291534424
+                            "x": 0.8549999594688416,
+                            "y": 0.08500003814697266
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1352,7 +1352,7 @@
                         },
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
-                        "fontSize": 1.2000000476837158,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1504,13 +1504,13 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 227.32557678222656,
-                            "r": 254.99998474121094
+                            "g": 227.0,
+                            "r": 254.0
                         },
                         "isVisible": false,
                         "sortingOrder": 6,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/MiniGame/paper.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1536,8 +1536,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.8399999737739563,
-                            "y": 0.08000004291534424
+                            "x": 0.8549999594688416,
+                            "y": 0.08500003814697266
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1558,7 +1558,7 @@
                         },
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
-                        "fontSize": 1.2000000476837158,
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -4350,29 +4350,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -4387,11 +4364,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -4401,6 +4392,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
