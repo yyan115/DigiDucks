@@ -410,10 +410,9 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		std::string fontName = componentJson["properties"].value("fontName", "Roboto-Black");
 		std::string text = componentJson["properties"].value("text", "");
 		Vec2 position = Serialization::GetVec2(componentJson["properties"], "position", Vec2(0.0f, 0.0f));
-		int fontSize = componentJson["properties"].value("fontSize", 12);
+		float fontSize = componentJson["properties"].value("fontSize", 12.0f);
 		int layer = componentJson["properties"].value("sortingOrder", 0);
 		bool enabled = componentJson["properties"].value("enabled", true);
-		
 
 		Color color{ 255, 255, 255, 255 };
 		if (componentJson["properties"].contains("color"))
