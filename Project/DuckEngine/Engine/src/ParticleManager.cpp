@@ -74,7 +74,7 @@ void ParticleManager::Render()
         auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
         Layer* currentLayer = activeScene->GetLayer(p.layer);
 
-        if (!currentLayer->IsVisible()) continue;
+        if (currentLayer && !currentLayer->IsVisible()) continue;
 
         // Add draw command to the GraphicsManager queue
         ParticleRenderCommand drawOpt;
