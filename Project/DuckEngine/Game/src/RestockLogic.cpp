@@ -58,7 +58,12 @@ void RestockLogic::Start()
 		restockExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockExitBtn->entityID);
 		if (restockExitButton)
 		{
-			restockExitButton->onClick = [this]() { RestockMenu(false); };
+			
+			restockExitButton->onClick = [this, restockExitBtn]() {
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockExitBtn->entityID)->Play();
+				RestockMenu(false);
+				};
+
 		}
 	}
 

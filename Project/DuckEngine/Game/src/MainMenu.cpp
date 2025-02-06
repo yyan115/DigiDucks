@@ -24,7 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "GameManager.h"
 #include "SoundSystem.h"
-#include "thread"
+#include "HowToPlayLogic.h"
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -39,6 +39,7 @@ void MainMenu::Load()
 
 	levelSelectScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectScreen").get();
 	mainMenuScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenuScreen").get();
+	HTPScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlayScreen").get();
 
 	StartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Start").get();
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
@@ -51,6 +52,7 @@ void MainMenu::Load()
 		{
 			if (!isFadingOut)
 			{
+				StartSound->Play(1);
 				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
 				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
 			}
@@ -68,6 +70,7 @@ void MainMenu::Load()
 	start->onClick = [this]() 
 		{
 			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
+			StartSound->Play(1);
 			if (level0Scene->GetIsFinishedTutorial())
 			{
 				OnPlayButtonClicked("GameScene");
@@ -95,7 +98,8 @@ void MainMenu::Load()
 			if (!isFadingOut)
 			{
 				HtpSound->Play(1); 
-				GameManager::SetActiveScene("HowToPlay"); 
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = true;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
 			}
 		};
 

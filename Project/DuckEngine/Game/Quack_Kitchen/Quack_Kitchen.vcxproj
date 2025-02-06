@@ -203,6 +203,7 @@
     <ClCompile Include="..\src\GameScene.cpp" />
     <ClCompile Include="..\src\HoldingLogic.cpp" />
     <ClCompile Include="..\src\HowToPlay.cpp" />
+    <ClCompile Include="..\src\HowToPlayLogic.cpp" />
     <ClCompile Include="..\src\Level0.cpp" />
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp" />
     <ClCompile Include="..\src\MainMenu.cpp" />
@@ -237,6 +238,7 @@
     <ClInclude Include="..\include\GameScene.h" />
     <ClInclude Include="..\include\HoldingLogic.h" />
     <ClInclude Include="..\include\HowToPlay.h" />
+    <ClInclude Include="..\include\HowToPlayLogic.h" />
     <ClInclude Include="..\include\IngredientType.h" />
     <ClInclude Include="..\include\LettuceStockLogic.h" />
     <ClInclude Include="..\include\Level0.h" />

@@ -59,6 +59,7 @@ private:
 
 	Entity* levelSelectScreen = nullptr;
 	Entity* mainMenuScreen = nullptr;
+	Entity* HTPScreen = nullptr;
 
 	Entity* StartButton = nullptr;
 	Entity* QuitButton = nullptr;
