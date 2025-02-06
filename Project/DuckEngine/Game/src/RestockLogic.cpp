@@ -257,6 +257,8 @@ void RestockLogic::Start()
 				};
 		}
 	}
+
+	isMiniGame = false;
 }
 
 
@@ -416,5 +418,6 @@ void RestockLogic::MiniGame_1(bool state)
 	/*
 	*  Minigame Logic here.
 	*/
+	std::cout << "MiniGame_1: Start"  << std::endl;
 	isMiniGame = state;
 }

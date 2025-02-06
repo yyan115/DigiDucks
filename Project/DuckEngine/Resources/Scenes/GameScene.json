@@ -975,7 +975,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.815000057220459,
+                            "x": 3.1500000953674316,
                             "y": -9.300000190734863
                         },
                         "relativeToCamera": true,
@@ -1020,7 +1020,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.4000000953674316,
+                            "x": 1.7999999523162842,
                             "y": 0.4000000059604645
                         }
                     },
@@ -1057,9 +1057,9 @@
                         "isHorizontal": true,
                         "isIncrease": true,
                         "isVertical": false,
-                        "maxValue": 2.3499999046325684,
+                        "maxValue": 1.7000000476837158,
                         "minValue": 0.0,
-                        "step": 0.013000000268220901
+                        "step": 0.008999999612569809
                     },
                     "type": "SliderComponent"
                 }
@@ -4010,29 +4010,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -4047,11 +4024,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -4061,6 +4052,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -5731,7 +5731,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.815000057220459,
+                            "x": 7.150000095367432,
                             "y": -9.300000190734863
                         },
                         "relativeToCamera": true,
@@ -5776,7 +5776,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.4000000953674316,
+                            "x": 1.7999999523162842,
                             "y": 0.4000000059604645
                         }
                     },
@@ -5813,9 +5813,9 @@
                         "isHorizontal": true,
                         "isIncrease": true,
                         "isVertical": false,
-                        "maxValue": 2.3499999046325684,
+                        "maxValue": 1.7000000476837158,
                         "minValue": 0.0,
-                        "step": 0.013000000268220901
+                        "step": 0.008999999612569809
                     },
                     "type": "SliderComponent"
                 }
