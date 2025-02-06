@@ -50,6 +50,7 @@ private:
     void MiniGame_1(bool state);
     void passwordInput(std::string num);
     void enterPassword();
+    void deletePassword();
 
     // Member variables
     Entity* duck = nullptr;
