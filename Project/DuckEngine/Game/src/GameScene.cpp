@@ -888,7 +888,9 @@ void GameScene::PostUpdate()
 			if (robotRestockLogic->isRestock)
 			{
 				robotRestockLogic->RestockMenu(false);
+				robotRestockLogic->isMiniGame = false;
 				MiniGame_1(false);
+				textcount = true;
 				return;
 			}
 		}
