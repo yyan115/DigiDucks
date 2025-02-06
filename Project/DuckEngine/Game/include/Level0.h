@@ -211,4 +211,5 @@ private:
     bool hasStartedFade = false;
     float GamefadeElapsedTime = 0.f;
 	SpriteRendererComponent* FadeOutSprite = nullptr;
+
 };

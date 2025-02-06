@@ -3993,7 +3993,7 @@
                         "isVisible": false,
                         "sortingOrder": 7,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_Lettuce_Plate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

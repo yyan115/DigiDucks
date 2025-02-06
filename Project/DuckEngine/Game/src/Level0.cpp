@@ -835,6 +835,10 @@ void Level0::Update()
 			submitLogic->increaseScore(10);
 		}
 		ScoreLogic::scoreValue = submitLogic->getScore();
+		if (ScoreLogic::scoreValue == 10)
+		{
+			GameManager::SetActiveScene("EndScene");
+		}
 
 		//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
 		//{

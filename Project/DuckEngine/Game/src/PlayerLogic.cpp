@@ -412,19 +412,25 @@ void PlayerLogic::InteractPressed()
 		if (submitLogic)
 		{
 			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			//if (holdingLogic->getType() == ItemType::SALAD_PLATE || holdingLogic->getType() == ItemType::CHEESE_BURGER_PLATE)
-			//{
-			//	submitLogic->removeObject(holdingLogic->moveObject());
-			//	if (sound) sound->Play();
-			//	isHolding = false;
-			//}
-			if (orderTabLogic) {
-				if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
+			if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() == "Level0")
+			{
+				if (holdingLogic->getType() == ItemType::LETTUCE_PLATE)
 				{
-					orderTabLogic->GetCurrentCustomer()->OrderCompleted();
 					submitLogic->removeObject(holdingLogic->moveObject());
 					if (sound) sound->Play();
 					isHolding = false;
+				}
+			}
+			else
+			{
+				if (orderTabLogic) {
+					if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
+					{
+						orderTabLogic->GetCurrentCustomer()->OrderCompleted();
+						submitLogic->removeObject(holdingLogic->moveObject());
+						if (sound) sound->Play();
+						isHolding = false;
+					}
 				}
 			}
 			return;
