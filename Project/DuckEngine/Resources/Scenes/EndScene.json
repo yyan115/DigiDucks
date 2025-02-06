@@ -185,14 +185,14 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Kenney Future Narrow",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 0"
+                        "text": "Score: 40"
                     },
                     "type": "TextComponent"
                 },
