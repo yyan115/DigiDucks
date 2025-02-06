@@ -1197,8 +1197,8 @@ void GameScene::MiniGame_1(bool state)
 
 void GameScene::passwordInput(std::string num)
 {
-	//gameMiniGame_Text_Txt->isEnabled = false;
 	textcount = false;
+	gameMiniGame_Text_Txt->isEnabled = false;
 	gameMiniGame_Input_Txt->isEnabled = true;
 	gameMiniGame_Input_Txt->text += num;
 
@@ -1208,9 +1208,8 @@ void GameScene::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
 	{
-		gameMiniGame_Input_Txt->text = "";
 		textcount = true;
-		MiniGame_1(false);
+		gameMiniGame_Input_Txt->text = "";
 		robotRestockLogic->isMiniGame = false;
 		robotRestockLogic->LowerMaintenanceLevel();
 	}
