@@ -684,10 +684,12 @@ void Level0::Update()
 
 	Entity* CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	auto CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
-	std::cout << "custscne palying: " << CutSceneManager->CutscenePlay() << std::endl;
 	if (!CutSceneManager->CutscenePlay())
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutScene->entityID)->isVisible = false;
+		timerText->isEnabled = true;
+		FPSText->isEnabled = true;
+		scoreText->isEnabled = true;
 		// Handle countdown before game starts
 		if (!gameStarted) {
 			static int lastDisplayedNumber = -1;  // Store last displayed number
@@ -840,7 +842,13 @@ void Level0::Update()
 		Level0::MiniGame_1(true);
 		}
 	}
-	else return;		
+	else
+	{
+		timerText->isEnabled = false;
+		FPSText->isEnabled = false;
+		scoreText->isEnabled = false;
+		return;
+	}
 }
 
 void Level0::UpdateOrderTexture() {
