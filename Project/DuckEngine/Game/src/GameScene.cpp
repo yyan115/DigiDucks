@@ -486,7 +486,7 @@ void GameScene::Load()
 			}
 		}
 
-		gameMiniGame_K0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K10").get();
+		gameMiniGame_K0 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_K0").get();
 		if (gameMiniGame_K0)
 		{
 			gameMiniGame_K0_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_K0->entityID);
@@ -779,6 +779,13 @@ void GameScene::Update()
 		submitLogic->increaseScore(10);
 	}
 	ScoreLogic::scoreValue = submitLogic->getScore();
+
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
+	{
+		std::cout << "L is pressed!\n";
+		
+		GameScene::MiniGame_1(true);
+	}
 }
 
 void GameScene::UpdateOrderTexture() {
@@ -1075,6 +1082,22 @@ void GameScene::MiniGame_1(bool state)
 	if (gameMiniGame_T0)
 	{
 		gameMiniGame_T0_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Enter)
+	{
+		gameMiniGame_Enter_Spt->isVisible = state;
+	}
+	if (gameMiniGame_Delete)
+	{
+		gameMiniGame_Delete_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextEnter)
+	{
+		gameMiniGame_TextEnter_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_TextDelete)
+	{
+		gameMiniGame_TextDelete_Txt->isEnabled = state;
 	}
 	if (gameMiniGame_Text)
 	{

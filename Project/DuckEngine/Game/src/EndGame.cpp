@@ -57,6 +57,7 @@ void EndScene::Load()
 	
 	if (ScoreText) {
 		ScoreText->text = "Score: " + std::to_string(ScoreLogic::scoreValue);
+		ScoreText->isEnabled = true;
 	}
 
 	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
@@ -131,7 +132,7 @@ void EndScene::PostUpdate()
 
 void EndScene::Exit()
 {
-
+	ScoreText->isEnabled = false;
 }
 
 void EndScene::Unload()

@@ -701,7 +701,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 2.0,
                         "position": {
@@ -709,7 +709,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 1,
-                        "text": "go"
+                        "text": "Go!"
                     },
                     "type": "TextComponent"
                 }
@@ -721,8 +721,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 15.399999618530273,
-                            "y": -9.300000190734863
+                            "x": 15.460625648498535,
+                            "y": -1.1502337455749512
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -758,8 +758,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": 13.939000129699707,
-                "y": -10.491000175476074
+                "x": 13.999626159667969,
+                "y": -2.341233730316162
             },
             "prefab": "Customer"
         },
@@ -1097,7 +1097,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "FPS"
+                        "text": "FPS: 573"
                     },
                     "type": "TextComponent"
                 }
@@ -1196,7 +1196,7 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 150.0,
+                            "a": 0.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
@@ -3423,29 +3423,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -3460,11 +3437,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -3474,6 +3465,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -4405,7 +4405,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney Future Narrow",
                         "fontSize": 1.0,
                         "position": {
@@ -4416,19 +4416,6 @@
                         "text": "Score: 0"
                     },
                     "type": "TextComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
