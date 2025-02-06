@@ -952,12 +952,6 @@ void GameScene::PauseGame(bool state)
 		FPSText->isEnabled = !state;
 	}
 
-	// Hide Order Tab
-	if (orderSprite)
-	{
-		orderSprite->isVisible = !state;
-	}
-
 	// Show Pause Menu
 	if (gamePauseBgSpt)
 	{
