@@ -66,9 +66,11 @@ void ButtonSystem::Render()
             continue;
         }
 
-        if (!DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId)->isVisible)
+        SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entityId);
+
+        if (spriteRenderer)
         {
-            continue;
+            if (!spriteRenderer->isVisible) continue;
         }
 
 		if (DuckEngine::DUCKENGINE_EntityManager.ShouldSkipDueToInvisibleAncestor(entityId)) 
