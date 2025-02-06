@@ -21,6 +21,24 @@ written consent of DigiPen Institute of Technology is prohibited.
 void ChopBoardLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
+	if (table)
+	{
+		if (table->childEntities.size() > 0)
+		{
+			for (int i = 0; i < table->childEntities.size(); i++)
+			{
+				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(table->childEntities[i]->entityID);
+				if (sliderLogic)
+				{
+					std::cout << "Found Slider\n"; break;
+				}
+				else
+				{
+					std::cout << "Slider Not Found\n";
+				}
+			}
+		}
+	}
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 	object = nullptr;
 	objectTransform = nullptr;
@@ -108,7 +126,6 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 * ***************************************************************/
 std::pair<int, ItemType> ChopBoardLogic::moveObject()
 {
-
 	std::cout << "Moving Object from Chopboard";
 	if (!object)
 	{
@@ -126,6 +143,9 @@ std::pair<int, ItemType> ChopBoardLogic::moveObject()
 	isOccupied = false;
 	type = ItemType::EMPTY;
 
+	if (sliderLogic)
+		sliderLogic->ResetSlider();
+
 	return std::make_pair(objectID, temp);
 }
 
@@ -135,6 +155,10 @@ std::pair<int, ItemType> ChopBoardLogic::moveObject()
 * ***************************************************************/
 void ChopBoardLogic::chopObject()
 {
+	// Run slider logic
+	if (sliderLogic)
+		sliderLogic->EnableSlider(true);
+
 	chopTime -= DuckEngine::FixedDeltaTime();
 	if (chopTime <= 0.f)
 	{

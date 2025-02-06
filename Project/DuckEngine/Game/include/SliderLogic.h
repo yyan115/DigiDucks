@@ -21,17 +21,19 @@ written consent of DigiPen Institute of Technology is prohibited.
 class SliderLogic : public GameLogic
 {
 private:
-	SliderComponent* slider;
-	TransformComponent* transform;
+	Entity* sliderEntity = nullptr;
+	SliderComponent* slider = nullptr;
+	SpriteRendererComponent* sliderBgSpt = nullptr;
+	TransformComponent* sliderTrfm = nullptr;
+	Vec2 originalPos{};
+	Vec2 originalScale{};
 
 public:
 
 	SliderLogic()
-		: GameLogic(nullptr), slider(nullptr), transform(nullptr) {
+		: GameLogic(nullptr){
 	}
-	SliderLogic(GameLogicComponent* component)
-		: GameLogic(component), slider(nullptr), transform(nullptr) {
-	}
+	SliderLogic(GameLogicComponent* component) : GameLogic(component) {}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
@@ -76,4 +78,12 @@ public:
 	* ****************************************************************/
 	void DecreaseVertical();
 
+	/****************************************************************
+	* @brief Reset Slider function for the Slider Logic
+	* ****************************************************************/
+	void ResetSlider();
+
+	void EnableSlider(bool state) {
+		slider->isEnable = state;
+	}
 };

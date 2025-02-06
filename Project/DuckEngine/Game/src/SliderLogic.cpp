@@ -7,8 +7,31 @@
 * ****************************************************************/
 void SliderLogic::Start()
 {
-	slider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(component->GetEntityID());
-	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+	sliderEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
+	if (sliderEntity)
+	{
+		sliderBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
+		if (sliderBgSpt)
+		{
+		//	sliderBgSpt->isVisible = false;
+		}
+		slider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(component->GetEntityID());
+		if (slider)
+		{
+			// Get the Slider's Child Transform (Green Part)
+			if (sliderEntity->childEntities.size() > 0)
+			{
+				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[0]->entityID);
+
+				if (sliderTrfm)
+				{
+					originalPos = sliderTrfm->GetPosition();
+					originalScale = sliderTrfm->scale;
+				}
+			}
+		}
+		
+	}
 }
 
 /****************************************************************
@@ -28,6 +51,9 @@ void SliderLogic::Update()
 			IncreaseVertical();
 
 			slider->currentValue += slider->step;
+
+			if(slider->currentValue >= slider->maxValue)
+				slider->currentValue = slider->maxValue;
 		}
 		// Decrease
 		else
@@ -38,9 +64,13 @@ void SliderLogic::Update()
 			// Vertical
 			DecreaseVertical();				
 
-			slider->currentValue -= slider->step;			
-		}
+			slider->currentValue -= slider->step;
+
+			if (slider->currentValue <= slider->minValue)
+				slider->currentValue = slider->minValue;
+		}		
 	}
+	slider->isEnable = false;
 }
 
 /****************************************************************
@@ -61,8 +91,8 @@ void SliderLogic::IncreaseHorizontal()
 	{
 		if (slider->isHorizontal)
 		{
-			transform->SetPosition(Vec2(transform->GetPosition().x + slider->step / 2.0f, transform->GetPosition().y));
-			transform->scale.x += slider->step;
+			sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x + slider->step / 2.0f, sliderTrfm->GetPosition().y));
+			sliderTrfm->scale.x += slider->step;
 		}
 	}
 	else 
@@ -80,9 +110,9 @@ void SliderLogic::DecreaseHorizontal()
 	{
 		if (slider->isHorizontal)
 		{
-			if (transform->scale.x > 0) {
-				transform->SetPosition(Vec2(transform->GetPosition().x - slider->step / 2.0f, transform->GetPosition().y));
-				transform->scale.x -= slider->step;
+			if (sliderTrfm->scale.x > 0) {
+				sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x - slider->step / 2.0f, sliderTrfm->GetPosition().y));
+				sliderTrfm->scale.x -= slider->step;
 			}
 		}
 	}
@@ -101,8 +131,8 @@ void SliderLogic::IncreaseVertical()
 	{
 		if (slider->isVertical)
 		{
-			transform->SetPosition(Vec2(transform->GetPosition().x, transform->GetPosition().y + slider->step / 2.0f));
-			transform->scale.y += slider->step;
+			sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x, sliderTrfm->GetPosition().y + slider->step / 2.0f));
+			sliderTrfm->scale.y += slider->step;
 		}
 	}
 	else 
@@ -120,13 +150,26 @@ void SliderLogic::DecreaseVertical()
 	{
 		if (slider->isVertical)
 		{
-			if (transform->scale.y > 0) {
-				transform->SetPosition(Vec2(transform->GetPosition().x, transform->GetPosition().y - slider->step / 2.0f));
-				transform->scale.y -= slider->step;
+			if (sliderTrfm->scale.y > 0) {
+				sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x, sliderTrfm->GetPosition().y - slider->step / 2.0f));
+				sliderTrfm->scale.y -= slider->step;
 			}
 		}
 	}
 	else {
 		slider->isEnable = false;
+	}
+}
+
+/****************************************************************
+* @brief Reset Slider function for the Slider Logic
+* ****************************************************************/
+void SliderLogic::ResetSlider()
+{
+	if (sliderTrfm)
+	{
+		slider->currentValue = slider->minValue;
+		sliderTrfm->SetPosition(originalPos);
+		sliderTrfm->scale = originalScale;
 	}
 }

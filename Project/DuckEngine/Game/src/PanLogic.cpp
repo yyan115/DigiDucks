@@ -21,6 +21,18 @@ written consent of DigiPen Institute of Technology is prohibited.
 void PanLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
+	if (table)
+	{
+		if (table->childEntities.size() > 0)
+		{
+			for (int i = 0; i < table->childEntities.size(); i++)
+			{
+				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(table->childEntities[i]->entityID);
+				if (sliderLogic)
+					break;
+			}
+		}
+	}
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
 
 	object = nullptr;
@@ -60,7 +72,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
 	objectSprite->texture = AssetManager::GetTextureByName("fryingpan_raw");
-	objectSprite->sortingOrder = 5;
+	objectSprite->sortingOrder = 7;
 
 	type = objData.second;
 	isOccupied = true;
@@ -74,7 +86,6 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 * ****************************************************************/
 std::pair<int, ItemType> PanLogic::moveObject()
 {
-
 	std::cout << "Moving Object from Pan";
 	if (!object)
 	{
@@ -101,6 +112,9 @@ std::pair<int, ItemType> PanLogic::moveObject()
 	type = ItemType::EMPTY;
 	isOccupied = false;
 
+	if(sliderLogic)
+		sliderLogic->ResetSlider();
+
 	return std::make_pair(objectID, temp);
 }
 
@@ -109,6 +123,10 @@ std::pair<int, ItemType> PanLogic::moveObject()
 * ****************************************************************/
 void PanLogic::cookObject()
 {
+	// Run slider logic
+	if(sliderLogic)
+		sliderLogic->EnableSlider(true);
+
 	cookTime -= DuckEngine::FixedDeltaTime();
 	if (cookTime <= 0.f)
 	{

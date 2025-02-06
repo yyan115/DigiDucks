@@ -970,13 +970,109 @@
             ],
             "layer": "Gameplay"
         },
+        "Chopping_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.815000057220459,
+                            "y": -9.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.0,
+                            "y": 0.3499999940395355
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Chopping_Slider_Bg": {
+            "childNames": [
+                "Chopping_Slider"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 4.0,
+                            "y": -9.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.4000000953674316,
+                            "y": 0.4000000059604645
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 89.0,
+                            "g": 89.0,
+                            "r": 89.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "SliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 0.0,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 2.3499999046325684,
+                        "minValue": 0.0,
+                        "step": 0.012000000104308128
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Countdown_Text": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4699999988079071,
-                            "y": 0.3499999940395355
+                            "x": 1.0747897624969482,
+                            "y": -0.17538586258888245
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1058,6 +1154,9 @@
             "prefab": "Customer"
         },
         "Cutting_Station_01": {
+            "childNames": [
+                "Chopping_Slider_Bg"
+            ],
             "components": [
                 {
                     "properties": {
@@ -3911,29 +4010,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -3948,11 +4024,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -3962,6 +4052,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -5548,72 +5647,10 @@
             ],
             "layer": "Gameplay"
         },
-        "Stove_01": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -2.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 4,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -2.0,
-                            "y": -8.0
-                        },
-                        "size": {
-                            "x": 0.8999999761581421,
-                            "y": 1.25
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "TableLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Stove_02": {
+        "Stove_1": {
             "childNames": [
-                "Frying_Pan"
+                "Frying_Pan",
+                "Stove_Sliver_Bg"
             ],
             "components": [
                 {
@@ -5685,6 +5722,102 @@
                         ]
                     },
                     "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Stove_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 6.815000057220459,
+                            "y": -9.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.0,
+                            "y": 0.3499999940395355
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Stove_Sliver_Bg": {
+            "childNames": [
+                "Stove_Slider"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -9.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.4000000953674316,
+                            "y": 0.4000000059604645
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 89.0,
+                            "g": 89.0,
+                            "r": 89.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "SliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 0.0,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 2.3499999046325684,
+                        "minValue": 0.0,
+                        "step": 0.012000000104308128
+                    },
+                    "type": "SliderComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -6096,6 +6229,69 @@
             ],
             "layer": "Gameplay"
         },
+        "Table_15": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -2.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": -2.0,
+                            "y": -8.0
+                        },
+                        "size": {
+                            "x": 0.8999999761581421,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Table_2": {
             "components": [
                 {
@@ -6231,14 +6427,14 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 0.0,
+                            "g": 255.0,
                             "r": 255.0
                         },
                         "isVisible": true,
                         "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_back.png",
-                        "useColor": true
+                        "sprite": false,
+                        "texture": "Resources/Sprites/Stations/cashregistertable.png",
+                        "useColor": false
                     },
                     "type": "SpriteRendererComponent"
                 },
@@ -6589,7 +6785,8 @@
                 "Table_3",
                 "Table_2",
                 "Table_10",
-                "Table_1"
+                "Table_1",
+                "Table_15"
             ],
             "components": [
                 {

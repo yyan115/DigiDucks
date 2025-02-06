@@ -197,7 +197,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Drone/drone_1.png",
@@ -862,85 +862,10 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Score: 0"
                     },
                     "type": "TextComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Slider": {
-            "childNames": [
-                "Slider_Green",
-                "Slider_Red"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -23.092880249023438,
-                            "y": 15.959314346313477
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 4.0,
-                            "y": 0.6000000238418579
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Slider_Bg": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -23.092880249023438,
-                            "y": 15.959314346313477
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 3.9000000953674316,
-                            "y": 0.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 111.0,
-                            "g": 111.0,
-                            "r": 111.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -950,8 +875,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -25.092880249023438,
-                            "y": 15.959314346313477
+                            "x": -2.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -993,7 +918,7 @@
                         "isHorizontal": true,
                         "isIncrease": true,
                         "isVertical": false,
-                        "maxValue": 2.0,
+                        "maxValue": 4.0,
                         "minValue": 0.0,
                         "step": 0.009999999776482582
                     },
@@ -1595,6 +1520,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "sortingOrder": 0,
                         "text": "Time: 9:17"
                     },
                     "type": "TextComponent"
@@ -1643,8 +1569,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -808.0,
-                            "y": 403.5
+                            "x": -774.5,
+                            "y": 403.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1719,6 +1645,7 @@
                             "x": 1200.0,
                             "y": 50.0
                         },
+                        "sortingOrder": 0,
                         "text": "More Text!"
                     },
                     "type": "TextComponent"

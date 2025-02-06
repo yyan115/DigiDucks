@@ -32,7 +32,8 @@ void PlayerLogic::Start()
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
 
 	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
-	orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
+	if(orderTabEntity)
+		orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
 
 	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
 	if (restockMenu)
@@ -417,13 +418,14 @@ void PlayerLogic::InteractPressed()
 			//	if (sound) sound->Play();
 			//	isHolding = false;
 			//}
-
-			if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
-			{
-				orderTabLogic->GetCurrentCustomer()->OrderCompleted();
-				submitLogic->removeObject(holdingLogic->moveObject());
-				if (sound) sound->Play();
-				isHolding = false;
+			if (orderTabLogic) {
+				if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
+				{
+					orderTabLogic->GetCurrentCustomer()->OrderCompleted();
+					submitLogic->removeObject(holdingLogic->moveObject());
+					if (sound) sound->Play();
+					isHolding = false;
+				}
 			}
 			return;
 		}
@@ -497,7 +499,7 @@ Entity* PlayerLogic::makeObject(ItemType type)
 	Entity* newObject = nullptr;
 	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
 	SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
-	spriteRenderer->sortingOrder = 5;
+	spriteRenderer->sortingOrder = 7;
 
 	switch (type)
 	{

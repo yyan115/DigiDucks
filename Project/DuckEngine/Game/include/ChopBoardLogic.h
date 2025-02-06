@@ -17,29 +17,33 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "IngredientType.h"
+#include "SliderLogic.h"
 #include <iostream>
 
 
 class ChopBoardLogic : public GameLogic
 {
 private:
-	Entity* table;
-	TransformComponent* tableTransform;
-	Entity* object;
-	TransformComponent* objectTransform;
-	SpriteRendererComponent* objectSprite;
+	Entity* table = nullptr;
+	TransformComponent* tableTransform = nullptr;
+	Entity* object = nullptr;
+	TransformComponent* objectTransform = nullptr;
+	SpriteRendererComponent* objectSprite = nullptr;
 	ItemType type;
 	float chopTime;
+
+
+	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
 
 public:
 	bool isChopped = false;
 	bool isOccupied = false;
 
 	ChopBoardLogic() : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(1.f) {}
+		GameLogic(nullptr), type(ItemType::EMPTY), chopTime(1.f) {}
 
 	ChopBoardLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), chopTime(1.f) 
+		GameLogic(nullptr), type(ItemType::EMPTY), chopTime(1.f) 
 	{
 		UNREFERENCED_PARAMETER(component);
 	}

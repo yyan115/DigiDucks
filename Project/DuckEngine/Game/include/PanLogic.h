@@ -17,29 +17,31 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "IngredientType.h"
+#include "SliderLogic.h"
 #include <iostream>
 
 
 class PanLogic : public GameLogic
 {
 private:
-	Entity* table;
-	TransformComponent* tableTransform;
-	Entity* object;
-	TransformComponent* objectTransform;
-	SpriteRendererComponent* objectSprite;
+	Entity* table = nullptr;
+	TransformComponent* tableTransform = nullptr;
+	Entity* object = nullptr;
+	TransformComponent* objectTransform = nullptr;
+	SpriteRendererComponent* objectSprite = nullptr;
 	ItemType type;
 	float cookTime;
 
+	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
+
 public:
-	bool isCooked = false;
 	bool isOccupied = false;
 
 	PanLogic() :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
+		GameLogic(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
 
 	PanLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), object(nullptr), objectTransform(nullptr), objectSprite(nullptr), type(ItemType::EMPTY), cookTime(1.f)
+		GameLogic(nullptr), type(ItemType::EMPTY), cookTime(1.f)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
