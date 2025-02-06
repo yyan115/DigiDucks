@@ -833,24 +833,24 @@ void GameScene::Update()
 	}
 	ScoreLogic::scoreValue = submitLogic->getScore();
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
-	{
-		std::cout << "L is pressed!\n";
-		MiniGame_1(true);
-	}
+	//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
+	//{
+	//	std::cout << "L is pressed!\n";
+	//	MiniGame_1(true);
+	//}
 
 	// Uncomment When Sorting Order Fixed.
-	//if (robotRestockLogic)
-	//{
-	//	if (robotRestockLogic->isMiniGame)
-	//	{
-	//		MiniGame_1(true);
-	//	}
-	//	else
-	//	{
-	//		MiniGame_1(false);
-	//	}
-	//}
+	if (robotRestockLogic)
+	{
+		if (robotRestockLogic->isMiniGame)
+		{
+			MiniGame_1(true);
+		}
+		else
+		{
+			MiniGame_1(false);
+		}
+	}
 
 }
 
@@ -1168,8 +1168,17 @@ void GameScene::MiniGame_1(bool state)
 		}
 		if (gameMiniGame_Text)
 		{
-			gameMiniGame_Text_Txt->isEnabled = state;
+			if (textcount == true)
+			{
+				gameMiniGame_Text_Txt->isEnabled = state;
+			}
+			else
+			{
+				gameMiniGame_Text_Txt->isEnabled = !state;
+			}
+
 		}
+
 		if (gameMiniGame_Password)
 		{
 			gameMiniGame_Password_Spt->isVisible = state;
@@ -1188,7 +1197,8 @@ void GameScene::MiniGame_1(bool state)
 
 void GameScene::passwordInput(std::string num)
 {
-	gameMiniGame_Text_Txt->isEnabled = false;
+	//gameMiniGame_Text_Txt->isEnabled = false;
+	textcount = false;
 	gameMiniGame_Input_Txt->isEnabled = true;
 	gameMiniGame_Input_Txt->text += num;
 
@@ -1199,7 +1209,7 @@ void GameScene::enterPassword()
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
 	{
 		gameMiniGame_Input_Txt->text = "";
-
+		textcount = true;
 		MiniGame_1(false);
 		robotRestockLogic->isMiniGame = false;
 		robotRestockLogic->LowerMaintenanceLevel();

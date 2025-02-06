@@ -213,6 +213,7 @@ private:
     TextComponent* CountdownText = nullptr;
     float countdownTime = 4.0f;
     bool gameStarted = false;
+    bool textcount = true;
 
 	// Fade out
     bool hasStartedFade = false;
