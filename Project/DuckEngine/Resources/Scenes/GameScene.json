@@ -1071,8 +1071,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 1.0747897624969482,
-                            "y": -0.17538586258888245
+                            "x": 0.44999998807907104,
+                            "y": 0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1092,14 +1092,14 @@
                             "r": 255.0
                         },
                         "enabled": false,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2.0,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.5,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 1,
-                        "text": "Go!"
+                        "sortingOrder": 11,
+                        "text": "GO!"
                     },
                     "type": "TextComponent"
                 }
