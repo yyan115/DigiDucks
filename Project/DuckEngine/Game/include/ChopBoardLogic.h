@@ -17,7 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "IngredientType.h"
-#include "SliderLogic.h"
+#include <SliderLogic.h>
 #include <iostream>
 
 
