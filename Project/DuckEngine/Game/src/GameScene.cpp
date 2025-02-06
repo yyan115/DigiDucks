@@ -229,7 +229,6 @@ void GameScene::Load()
 		}
 	}
 
-
 	// MiniGame_1
 	{
 		gameMiniGame_Text = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Text").get();
@@ -597,7 +596,7 @@ void GameScene::Load()
 	dust.speedMax = 0.1f;
 	dust.baseColor = { 160,160,160,255 };
 	// Gameplay layer
-	dust.layer = 1;
+	dust.layer = 0;
 	// Behind player which has sorting order 1
 	dust.sortingOrder = 0;
 	DuckEngine::RegisterEmitter("Dust", dust);
