@@ -1,6 +1,21 @@
 #include "CustomerLogic.h"
 #include "GameScene.h"
 
+void CustomerLogic::SetOrder(ItemType order)
+{
+	customerOrderType = order;
+
+	if (order == ItemType::CHEESE_BURGER_PLATE)
+	{
+		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_buncheesepattyplate");
+	}
+	else if (order == ItemType::SALAD_PLATE)
+	{
+		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettucetomatoshrimp");
+
+	}
+}
+
 void CustomerLogic::Start()
 {
 	IdleState = std::make_shared<CustomerIdleState>(this);
@@ -10,24 +25,6 @@ void CustomerLogic::Start()
 
 	customerOrder = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer1_Order").get();
 	customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(customerOrder->entityID);
-
-	int randomDishOrder = DuckEngine::RandomRange(1, 2);
-
-	// 1 is Hamburger
-	// 2 is Salad
-	if (randomDishOrder == 1)
-	{
-
-		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_1");
-		customerOrderType = ItemType::CHEESE_BURGER_PLATE;
-	}
-	else
-	{
-		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_2");
-		customerOrderType = ItemType::SALAD_PLATE;
-	}
-
-
 
 	gameScene = DuckEngine::DUCKENGINE_SceneManager.GetScene<GameScene>("GameScene").get();
 }

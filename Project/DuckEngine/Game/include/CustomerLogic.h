@@ -36,6 +36,7 @@ public:
 		return clone;
 	}
 
+	void SetOrder(ItemType order);
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
 	GameScene* GetGameScene() { return gameScene; }
 	ItemType GetCustomerOrderType() { return customerOrderType; }

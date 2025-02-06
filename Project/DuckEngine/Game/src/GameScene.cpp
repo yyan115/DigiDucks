@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
 #include "ScoreLogic.h"
+#include "CustomerLogic.h"
 
 #include "Emitter.h"
 
@@ -616,6 +617,7 @@ void GameScene::Load()
 	// Behind pan which has sorting order 3
 	sparks.sortingOrder = 2;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
+
 }
 
 /****************************************************************
@@ -676,6 +678,27 @@ void GameScene::Update()
 				else {
 					TimeLeftSound->Play(4);
 					CountdownText->text = "Go!";
+
+					// set customer order
+					Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
+					CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
+
+					if (customer1Logic)
+					{
+						int randomDishOrder = DuckEngine::RandomRange(1, 2);
+
+						// 1 is Hamburger
+						// 2 is Salad
+						if (randomDishOrder == 1)
+						{
+
+							customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+						}
+						else
+						{
+							customer1Logic->SetOrder(ItemType::SALAD_PLATE);
+						}
+					}
 				}
 			}
 
