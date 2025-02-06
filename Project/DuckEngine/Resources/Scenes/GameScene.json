@@ -1059,7 +1059,7 @@
                         "isVertical": false,
                         "maxValue": 2.3499999046325684,
                         "minValue": 0.0,
-                        "step": 0.012000000104308128
+                        "step": 0.013000000268220901
                     },
                     "type": "SliderComponent"
                 }
@@ -5815,7 +5815,7 @@
                         "isVertical": false,
                         "maxValue": 2.3499999046325684,
                         "minValue": 0.0,
-                        "step": 0.012000000104308128
+                        "step": 0.013000000268220901
                     },
                     "type": "SliderComponent"
                 }
