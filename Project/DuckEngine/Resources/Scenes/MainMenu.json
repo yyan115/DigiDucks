@@ -162,7 +162,7 @@
                         "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MainMenu/howtoplay.png",
+                        "texture": "Resources/Sprites/MainMenu/mainmenu_howtoplay.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

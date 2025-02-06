@@ -114,8 +114,8 @@ void MainMenu::Load()
 	quitNormalTexture = AssetManager::GetTextureByName("quit");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
 
-	htpNormalTexture = AssetManager::GetTextureByName("howtoplay");
-	htpHoverTexture = AssetManager::GetTextureByName("howtoplay_click");
+	htpNormalTexture = AssetManager::GetTextureByName("mainmenu_howtoplay");
+	htpHoverTexture = AssetManager::GetTextureByName("mainmenu_howtoplay_hover");
 
 	start->onHover = [this]()
 		{
