@@ -122,7 +122,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
 
     newTransform->SetPosition(position);
     newTransform->scale = scale;
-    sprite->sortingOrder = 3;
+    sprite->sortingOrder = 7;
 
     ItemType newItem = ItemType::EMPTY;
 
