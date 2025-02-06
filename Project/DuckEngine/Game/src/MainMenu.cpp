@@ -248,7 +248,7 @@ void MainMenu::Unload()
 	Scene::Unload();
 }
 
-void MainMenu::OnPlayButtonClicked(std::string sceneName)
+void MainMenu::OnPlayButtonClicked(std::string sceneNaming)
 {
 	if (menusound && !isFadingOut) 
 	{
@@ -256,7 +256,7 @@ void MainMenu::OnPlayButtonClicked(std::string sceneName)
 		fadeOutDuration = 3.0f; // 3 seconds fade duration
 		fadeElapsedTime = 0.0f;
 		isFadingOut = true;
-		nextScene = sceneName;
+		nextScene = sceneNaming;
 		GameManager::SetGlobalVariable("LastPlayedScene", nextScene);
 	}
 }

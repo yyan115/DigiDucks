@@ -78,14 +78,13 @@ void EndScene::Start()
 	Scene::Start();
 	//DuckEngine::showDebugColliders = false;
 
-	std::string sceneName = GameManager::GetGlobalVariable("LastPlayedScene");
-	std::cout << "sceneName " << sceneName << std::endl;
-	if (!sceneName.empty() && sceneName.find("Level") != std::string::npos)
+	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+	std::cout << "sceneName " << lastPlayedSceneName << std::endl;
+	if (!lastPlayedSceneName.empty() && lastPlayedSceneName.find("Level") != std::string::npos)
 	{
-		int day = std::stoi(sceneName.substr(5, 1));
+		int day = std::stoi(lastPlayedSceneName.substr(5, 1));
 		std::string EndScenePath = "Resources/Sprites/EndScene/DAY" + std::to_string(day) + ".png";
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Background->entityID)->texture = *AssetManager::GetTexture(EndScenePath).get();
-
 	}
 }
 

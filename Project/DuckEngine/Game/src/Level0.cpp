@@ -742,7 +742,8 @@ void Level0::Update()
 			if (FadeOutSprite) {
 				FadeOutSprite->isVisible = true;
 				float fadeValue = (countdownTime / 3.0f) * 255.0f;
-				FadeOutSprite->color.a = (fadeValue >= 0.0f) ? static_cast<int>(fadeValue) : 0;  // Prevent negative values
+				FadeOutSprite->color.a = (fadeValue >= 0.0f) ? fadeValue : 0.0f;  // Prevent negative values
+
 			}
 
 			return;  // Skip game logic until countdown is done
@@ -802,7 +803,7 @@ void Level0::Update()
 					else {
 						float newVolume = TimeLeftSound->volume * (1.0f - fadeProgress);
 						SoundSystem::SetSoundVolume(TimeLeftSound->soundID[1], newVolume);
-						FadeOutSprite->color.a = static_cast<int>(fadeProgress * 255.0f);
+						FadeOutSprite->color.a = fadeProgress * 255.0f;
 					}
 				}
 			}

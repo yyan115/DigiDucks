@@ -144,15 +144,15 @@ Layer* Scene::GetLayer(const std::string& name)
 **************************************************************************/
 Layer* Scene::GetLayer(int layerInt)
 {
-    for (auto layer : layers) {
+    for (auto& layer : layers) {
         if (layer.second.GetOrder() == layerInt) {
             return &(layer.second);
         }
     }
 
     return nullptr;
-
 }
+
 
 /**************************************************************************
 @brief Gets a constant reference to the layers map in the scene.

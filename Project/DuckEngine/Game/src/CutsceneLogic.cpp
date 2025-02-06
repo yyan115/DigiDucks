@@ -77,7 +77,7 @@ void CutSceneLogic::Update()
 		}
 		else
 		{
-			FadeOutSprite->color.a = static_cast<int>(255 * (1.0f - fadeProgress));
+			FadeOutSprite->color.a = 255.0f * (1.0f - fadeProgress);
 			return;
 		}
 	}
@@ -133,9 +133,9 @@ void CutSceneLogic::Update()
 			FadeOutSprite->isVisible = true;
 
 			float fadeRatio = (DialoguefadeProgress - 2.0f) / (6.0f - 2.0f);
-			FadeOutSprite->color.a = static_cast<int>(fadeRatio * 255.0f);
-
+			FadeOutSprite->color.a = fadeRatio * 255.0f;
 		}
+
 	}
 
 
