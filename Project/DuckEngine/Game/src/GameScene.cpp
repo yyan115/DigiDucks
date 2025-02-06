@@ -1197,6 +1197,8 @@ void GameScene::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
 	{
+		gameMiniGame_Input_Txt->text = "";
+
 		if (gameMiniGame_BG)
 		{
 			gameMiniGame_BG_Spt->isVisible = false;
@@ -1317,5 +1319,9 @@ void GameScene::enterPassword()
 		{
 			gameMiniGame_Input_Txt->isEnabled = false;
 		}
+	}
+	else
+	{
+		gameMiniGame_Input_Txt->text = "";
 	}
 }
