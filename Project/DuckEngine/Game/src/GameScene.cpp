@@ -273,7 +273,7 @@ void GameScene::Load()
 			gameMiniGame_K1_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K1->entityID);
 			if (gameMiniGame_K1_Btn)
 			{
-				gameMiniGame_K1_Btn->onClick = [this]() {std::cout << "1" << std::endl; };
+				gameMiniGame_K1_Btn->onClick = [this]() {passwordInput("1"); };
 			}
 		}
 
@@ -298,7 +298,7 @@ void GameScene::Load()
 			gameMiniGame_K2_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K2->entityID);
 			if (gameMiniGame_K2_Btn)
 			{
-				gameMiniGame_K2_Btn->onClick = [this]() { std::cout << "2" << std::endl; };
+				gameMiniGame_K2_Btn->onClick = [this]() { passwordInput("2"); };
 			}
 		}
 
@@ -323,7 +323,7 @@ void GameScene::Load()
 			gameMiniGame_K3_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K3->entityID);
 			if (gameMiniGame_K3_Btn)
 			{
-				gameMiniGame_K3_Btn->onClick = [this]() {std::cout << "3" << std::endl; };
+				gameMiniGame_K3_Btn->onClick = [this]() {passwordInput("3"); };
 			}
 		}
 
@@ -348,7 +348,7 @@ void GameScene::Load()
 			gameMiniGame_K4_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K4->entityID);
 			if (gameMiniGame_K4_Btn)
 			{
-				gameMiniGame_K4_Btn->onClick = [this]() { std::cout << "4" << std::endl; };
+				gameMiniGame_K4_Btn->onClick = [this]() {passwordInput("4"); };
 			}
 		}
 
@@ -373,7 +373,7 @@ void GameScene::Load()
 			gameMiniGame_K5_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K5->entityID);
 			if (gameMiniGame_K5_Btn)
 			{
-				gameMiniGame_K5_Btn->onClick = [this]() {std::cout << "5" << std::endl; };
+				gameMiniGame_K5_Btn->onClick = [this]() {passwordInput("5"); };
 			}
 		}
 
@@ -398,7 +398,7 @@ void GameScene::Load()
 			gameMiniGame_K6_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K6->entityID);
 			if (gameMiniGame_K6_Btn)
 			{
-				gameMiniGame_K6_Btn->onClick = [this]() { std::cout << "6" << std::endl; };
+				gameMiniGame_K6_Btn->onClick = [this]() {passwordInput("6"); };
 			}
 		}
 
@@ -423,7 +423,7 @@ void GameScene::Load()
 			gameMiniGame_K7_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K7->entityID);
 			if (gameMiniGame_K7_Btn)
 			{
-				gameMiniGame_K7_Btn->onClick = [this]() {std::cout << "7" << std::endl; };
+				gameMiniGame_K7_Btn->onClick = [this]() {passwordInput("7"); };
 			}
 		}
 
@@ -448,7 +448,7 @@ void GameScene::Load()
 			gameMiniGame_K8_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K8->entityID);
 			if (gameMiniGame_K8_Btn)
 			{
-				gameMiniGame_K8_Btn->onClick = [this]() { std::cout << "8" << std::endl; };
+				gameMiniGame_K8_Btn->onClick = [this]() {passwordInput("8"); };
 			}
 		}
 
@@ -473,7 +473,7 @@ void GameScene::Load()
 			gameMiniGame_K9_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K9->entityID);
 			if (gameMiniGame_K9_Btn)
 			{
-				gameMiniGame_K9_Btn->onClick = [this]() {std::cout << "9" << std::endl; };
+				gameMiniGame_K9_Btn->onClick = [this]() {passwordInput("9"); };
 			}
 		}
 
@@ -498,7 +498,7 @@ void GameScene::Load()
 			gameMiniGame_K0_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K0->entityID);
 			if (gameMiniGame_K0_Btn)
 			{
-				gameMiniGame_K0_Btn->onClick = [this]() { std::cout << "0" << std::endl; };
+				gameMiniGame_K0_Btn->onClick = [this]() {passwordInput("0"); };
 			}
 		}
 
@@ -559,6 +559,33 @@ void GameScene::Load()
 			if (gameMiniGame_TextDelete_Txt)
 			{
 				gameMiniGame_TextDelete_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Password = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Password").get();
+		gameMiniGame_Password_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameMiniGame_Password->entityID);
+		if (gameMiniGame_Password_Spt)
+		{
+			gameMiniGame_Password_Spt->isVisible = false;
+		}
+
+		gameMiniGame_TextPassword = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_TextPassword").get();
+		if (gameMiniGame_TextPassword)
+		{
+			gameMiniGame_TextPassword_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_TextPassword->entityID);
+			if (gameMiniGame_TextPassword_Txt)
+			{
+				gameMiniGame_TextPassword_Txt->isEnabled = false;
+			}
+		}
+
+		gameMiniGame_Input = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Input").get();
+		if (gameMiniGame_Input)
+		{
+			gameMiniGame_Input_Txt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(gameMiniGame_Input->entityID);
+			if (gameMiniGame_Input_Txt)
+			{
+				gameMiniGame_Input_Txt->isEnabled = false;
 			}
 		}
 	}
@@ -812,7 +839,6 @@ void GameScene::Update()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
 	{
 		std::cout << "L is pressed!\n";
-		
 		GameScene::MiniGame_1(true);
 	}
 
@@ -1144,4 +1170,25 @@ void GameScene::MiniGame_1(bool state)
 	{
 		gameMiniGame_Text_Txt->isEnabled = state;
 	}
+	if (gameMiniGame_Password)
+	{
+		gameMiniGame_Password_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextPassword)
+	{
+		gameMiniGame_TextPassword_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Input)
+	{
+		gameMiniGame_Input_Txt->isEnabled = !state;
+	}
+	
+}
+
+void GameScene::passwordInput(std::string num)
+{
+	gameMiniGame_Text_Txt->isEnabled = false;
+	gameMiniGame_Input_Txt->isEnabled = true;
+	gameMiniGame_Input_Txt->text += num;
+
 }

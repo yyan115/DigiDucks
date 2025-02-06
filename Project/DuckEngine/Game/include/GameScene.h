@@ -48,6 +48,7 @@ private:
     void ExitConfirm(bool state);
     void changePage();
     void MiniGame_1(bool state);
+    void passwordInput(std::string num);
 
     // Member variables
     Entity* duck = nullptr;
@@ -126,6 +127,9 @@ private:
     Entity* gameMiniGame_Text = nullptr;
     TextComponent* gameMiniGame_Text_Txt = nullptr;
 
+    Entity* gameMiniGame_Input = nullptr;
+    TextComponent* gameMiniGame_Input_Txt = nullptr;
+
     Entity* gameMiniGame_K1 = nullptr;
     SpriteRendererComponent* gameMiniGame_K1_Spt = nullptr;
     ButtonComponent* gameMiniGame_K1_Btn = nullptr;
@@ -198,7 +202,10 @@ private:
     Entity* gameMiniGame_TextDelete = nullptr;
     TextComponent* gameMiniGame_TextDelete_Txt = nullptr;
     
-
+    Entity* gameMiniGame_Password = nullptr;
+    SpriteRendererComponent* gameMiniGame_Password_Spt = nullptr;
+    Entity* gameMiniGame_TextPassword = nullptr;
+    TextComponent* gameMiniGame_TextPassword_Txt = nullptr;
 
 	// Other Variables
     TextComponent* CountdownText = nullptr;

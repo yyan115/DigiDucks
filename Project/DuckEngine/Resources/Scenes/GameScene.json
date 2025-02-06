@@ -1403,8 +1403,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -28.700000762939453,
-                            "y": -4.199999809265137
+                            "x": -28.43637466430664,
+                            "y": -4.300257682800293
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -2081,7 +2081,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
                         "position": {
@@ -2155,7 +2155,7 @@
                         },
                         "enabled": false,
                         "fontName": "Kenney High Square",
-                        "fontSize": 1.0,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -2249,6 +2249,46 @@
                         }
                     },
                     "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_Input": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.25,
+                            "y": 0.625
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 4,
+                        "text": ""
+                    },
+                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"
@@ -2752,6 +2792,19 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
@@ -2929,6 +2982,45 @@
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/MiniGame/INPUT.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_Password": {
+            "childNames": [
+                "MiniGame_TextPassword"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4950000047683716,
+                            "y": -0.10000000149011612
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.25,
+                            "y": 0.15000000596046448
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 1,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MiniGame/paper.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -3362,14 +3454,14 @@
                             "r": 255.0
                         },
                         "enabled": false,
-                        "fontName": "Kenney High Square",
-                        "fontSize": 2.0,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 3,
-                        "text": "hello "
+                        "text": "Input Password"
                     },
                     "type": "TextComponent"
                 }
@@ -3381,7 +3473,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.6200000047683716,
+                            "x": 0.625,
                             "y": 0.3149999976158142
                         },
                         "relativeToCamera": false,
@@ -3403,7 +3495,7 @@
                         },
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.0,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -3421,7 +3513,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.625,
+                            "x": 0.6299999952316284,
                             "y": 0.46000003814697266
                         },
                         "relativeToCamera": false,
@@ -3443,13 +3535,53 @@
                         },
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.0,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 3,
                         "text": "Enter"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MiniGame_TextPassword": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4449999928474426,
+                            "y": 0.875
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": false,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 3,
+                        "text": "12345"
                     },
                     "type": "TextComponent"
                 }
