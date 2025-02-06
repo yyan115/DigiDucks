@@ -144,7 +144,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
 
     case ItemType::WHITE_PLATE:
         if (rhs.second == ItemType::C_LETTUCE) {
-            sprite->texture = AssetManager::GetTextureByName("lettuce_plate");
+            sprite->texture = AssetManager::GetTextureByName("plate_lettuce");
             newItem = ItemType::LETTUCE_PLATE;
         }
         else if (rhs.second == ItemType::C_TOMATO) {
@@ -272,7 +272,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
         // SALAD INGREDIENTS
     case ItemType::C_LETTUCE:
         if (rhs.second == ItemType::WHITE_PLATE) {
-            sprite->texture = AssetManager::GetTextureByName("lettuce_plate");
+            sprite->texture = AssetManager::GetTextureByName("plate_lettuce");
             newItem = ItemType::LETTUCE_PLATE;
         }
         else if (rhs.second == ItemType::TOMATO_PLATE) {
