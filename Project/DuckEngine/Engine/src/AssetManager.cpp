@@ -14,6 +14,7 @@
 * /
 /******************************************************************************/
 
+#include "ShaderManager.h"
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"
@@ -32,6 +33,8 @@ std::unordered_map<std::string, FMOD::Sound*> AssetManager::soundMap;
 FMOD::System* AssetManager::fmodSystem = nullptr;
 std::vector<std::string> AssetManager::fontNames;
 std::unordered_map<std::string, nlohmann::json> AssetManager::levelDataMap;
+
+std::map<std::string, GLShader*> AssetManager::shaders;
 
 std::string NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;

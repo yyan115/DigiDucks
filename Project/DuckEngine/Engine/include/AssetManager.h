@@ -18,6 +18,7 @@
 #include <string>
 #include <memory>
 #include <fmod.hpp>
+//#include "ShaderManager.h"
 #include "Serialization.h"
 
 #ifdef DUCKENGINE_EXPORTS
@@ -27,6 +28,7 @@
 #endif
 
 typedef unsigned int Texture;
+class GLShader;
 
 class AssetManager
 {
@@ -239,6 +241,7 @@ public:
 	*************************************************************************/
 	static DUCKENGINE_API void UnloadShader(const std::string& shaderName);
 
+	static std::map<std::string, GLShader*> shaders;
 
 private:
 	// Stores all loaded textures with their file paths as keys

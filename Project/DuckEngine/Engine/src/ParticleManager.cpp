@@ -26,6 +26,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 std::vector<Particle> ParticleManager::m_particles;            // The global pool
 std::unordered_map<std::string, Emitter> ParticleManager::m_defs;  // Emitter definitions
 
+Scene* ParticleManager::currentScene = nullptr;
+
 namespace {
     /**
      * A small helper for random floats in [minVal, maxVal].
@@ -102,6 +104,12 @@ void ParticleManager::RegisterEmitter(const std::string& type, const Emitter& de
 
 void ParticleManager::Emit(const std::string& type, const Vector2D& pos, const Vector2D& baseVel /*= {0,0}*/)
 {
+    if (currentScene && currentScene != DuckEngine::DUCKENGINE_SceneManager.GetActiveScene()) {
+        ResetParticles();
+    }
+
+    currentScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+
     auto it = m_defs.find(type);
     if (it == m_defs.end())
     {
@@ -158,5 +166,12 @@ void ParticleManager::UpdateParticles(float dt)
         {
             p.active = false;
         }
+    }
+}
+
+void ParticleManager::ResetParticles() {
+    for (auto& p : m_particles)
+    {
+        p.active = false;
     }
 }

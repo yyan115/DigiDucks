@@ -99,6 +99,8 @@ public:
     /// </summary>
     static void UnbindFBO();
 
+    static void ClearDrawQueue();
+
     /// <summary>
     /// Get the texture from FBO.
     /// </summary>

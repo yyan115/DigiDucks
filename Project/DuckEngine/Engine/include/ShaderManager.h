@@ -137,5 +137,5 @@ private:
     /// <summary>
     /// A map storing shader programs by their names.
     /// </summary>
-    static std::map<std::string, GLShader*> shaders;
+    //static std::map<std::string, GLShader*> shaders;
 };

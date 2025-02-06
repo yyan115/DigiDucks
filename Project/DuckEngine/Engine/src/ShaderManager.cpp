@@ -5,7 +5,7 @@
 \par        y.yan@digipen.edu
 \date       October 3 2024
 \brief      Implements the ShaderManager class, which manages the compilation
-            of vertex and fragment shaders, as well as handling shader program
+            of vertex and fragment AssetManager::shaders, as well as handling shader program
             linking and resource cleanup.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
@@ -21,7 +21,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <sstream>
 #include <string>
 
-std::map<std::string, GLShader*> ShaderManager::shaders;
+#include "AssetManager.h"
+
+//std::map<std::string, GLShader*> ShaderManager::AssetManager::shaders;
 
 /// <summary>
 /// Constructor for the GLShader class. Initializes the shader program ID to 0.
@@ -38,12 +40,12 @@ GLShader::~GLShader() {
 }
 
 /// <summary>
-/// Compiles the vertex and fragment shaders from the specified files, links them into a shader program,
+/// Compiles the vertex and fragment AssetManager::shaders from the specified files, links them into a shader program,
 /// and checks for compilation and linking errors.
 /// </summary>
 /// <param name="vertexShaderFile">Path to the vertex shader file.</param>
 /// <param name="fragmentShaderFile">Path to the fragment shader file.</param>
-/// <returns>Returns true if the shaders were compiled and linked successfully, false otherwise.</returns>
+/// <returns>Returns true if the AssetManager::shaders were compiled and linked successfully, false otherwise.</returns>
 bool GLShader::CompileShaders(const std::string& vertexShaderFile, const std::string& fragmentShaderFile) {
     std::string vertexCode = ReadShaderCode(vertexShaderFile);
     std::string fragmentCode = ReadShaderCode(fragmentShaderFile);
@@ -82,7 +84,7 @@ bool GLShader::CompileShaders(const std::string& vertexShaderFile, const std::st
         return false;
     }
 
-    // Delete the shaders as they're linked into our program now and no longer necessary
+    // Delete the AssetManager::shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
@@ -188,7 +190,7 @@ GLuint GLShader::GetProgram() const {
 }
 
 /// <summary>
-/// Inserts a new shader program into the manager by compiling the vertex and fragment shaders from files.
+/// Inserts a new shader program into the manager by compiling the vertex and fragment AssetManager::shaders from files.
 /// </summary>
 /// <param name="shaderName">The name of the shader program.</param>
 /// <param name="vertexShaderFile">Path to the vertex shader file.</param>
@@ -196,7 +198,7 @@ GLuint GLShader::GetProgram() const {
 /// <returns>Returns true if the shader program was inserted successfully, false otherwise.</returns>
 bool ShaderManager::InsertShader(const std::string& shaderName, const std::string& vertexShaderFile, const std::string& fragmentShaderFile) {
     // Check if shader already exists
-    if (shaders.find(shaderName) != shaders.end()) {
+    if (AssetManager::shaders.find(shaderName) != AssetManager::shaders.end()) {
         std::cerr << "Shader with name '" << shaderName << "' already exists.\n";
         return false;
     }
@@ -210,7 +212,7 @@ bool ShaderManager::InsertShader(const std::string& shaderName, const std::strin
     }
 
     // Insert the shader into the map
-    shaders[shaderName] = shader;
+    AssetManager::shaders[shaderName] = shader;
     return true;
 }
 
@@ -220,8 +222,8 @@ bool ShaderManager::InsertShader(const std::string& shaderName, const std::strin
 /// <param name="shaderName">The name of the shader program to retrieve.</param>
 /// <returns>A pointer to the GLShader object, or nullptr if the shader is not found.</returns>
 GLShader* ShaderManager::GetShader(const std::string& shaderName) {
-    auto it = shaders.find(shaderName);
-    if (it != shaders.end()) {
+    auto it = AssetManager::shaders.find(shaderName);
+    if (it != AssetManager::shaders.end()) {
         return it->second;
     }
     else {
@@ -234,22 +236,22 @@ GLShader* ShaderManager::GetShader(const std::string& shaderName) {
 /// Deletes all shader programs managed by the ShaderManager and frees associated resources.
 /// </summary>
 void ShaderManager::DeleteAllShaders() {
-    for (auto& pair : shaders) {
+    for (auto& pair : AssetManager::shaders) {
         pair.second->DeleteProgram();
         delete pair.second;
     }
-    shaders.clear();
+    AssetManager::shaders.clear();
 }
 
 /// <summary>
 /// Deletes shader programs by name and frees associated resources.
 /// </summary>
 void ShaderManager::DeleteShader(const std::string& shaderName) {
-	auto it = shaders.find(shaderName);
-	if (it != shaders.end()) {
+	auto it = AssetManager::shaders.find(shaderName);
+	if (it != AssetManager::shaders.end()) {
 		it->second->DeleteProgram();
 		delete it->second;
-		shaders.erase(it);
+		AssetManager::shaders.erase(it);
 	}
 	else {
 		std::cerr << "Shader with name '" << shaderName << "' not found.\n";

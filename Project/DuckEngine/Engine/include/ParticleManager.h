@@ -24,6 +24,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Vector2.h"
 #include "Color.h"
 #include "Emitter.h"
+#include "Scene.h"
+
 
 #ifdef DUCKENGINE_EXPORTS
 #define DUCKENGINE_API __declspec(dllexport)
@@ -86,4 +88,8 @@ private:
 
     static void UpdateParticles(float dt);
     static void SpawnOneParticle(const Emitter& def, const Vector2D& pos, const Vector2D& baseVel);
+
+    static Scene* currentScene;
+
+    static void ResetParticles();
 };

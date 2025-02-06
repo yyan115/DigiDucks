@@ -1462,3 +1462,7 @@ GLuint GraphicsManager::GetFBOTexture()
 {
     return fboTexture;
 }
+
+void GraphicsManager::ClearDrawQueue() {
+    drawQueue.clear();
+}
