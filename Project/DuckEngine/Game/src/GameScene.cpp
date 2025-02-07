@@ -778,7 +778,9 @@ void GameScene::Update()
 			timeLeft -= DuckEngine::DeltaTime();
 			int minutes = static_cast<int>(timeLeft) / 60;
 			int seconds = static_cast<int>(timeLeft) % 60;
-			timerText->text = "TIME: " + std::to_string(minutes) + ":" + std::to_string(seconds);
+
+			std::string secStr = (seconds < 10 ? "0" : "") + std::to_string(seconds);
+			timerText->text = "TIME: " + std::to_string(minutes) + ":" + secStr;
 
 			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 				timerText->color = { 255, 0, 0, 255 };
@@ -786,6 +788,7 @@ void GameScene::Update()
 				GamefadeElapsedTime = 0.0f;
 			}
 		}
+
 		else {
 			timerText->text = "TIME'S UP!";
 

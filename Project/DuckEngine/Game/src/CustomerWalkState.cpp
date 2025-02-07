@@ -35,7 +35,7 @@ void CustomerWalkState::Enter()
 	{
 		currentQueueTarget = finalPath;
 		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
-		quackSound->Play(2);
+		quackSound->Play(-1);
 
 	}
 

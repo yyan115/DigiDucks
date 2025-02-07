@@ -43,7 +43,7 @@ void CustomerWaitingOrderState::Update()
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 
 			SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
-			quackSound->Play(3);
+			quackSound->Play(-1);
 		}
 	}
 	else
