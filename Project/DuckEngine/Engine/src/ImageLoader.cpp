@@ -16,6 +16,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #pragma once
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#define _CRT_SECURE_NO_WARNINGS
+#include <cstdio>
+#include "stb_image_write.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include "ImageLoader.h"
@@ -87,111 +91,126 @@ GLuint ImageLoader::LoadTexture(const std::string& filePath)
         loading failed.
 *************************************************************************/
 std::vector<GLuint> ImageLoader::LoadSpriteSheet(const std::string& filePath,
-    int spriteWidth,
-    int spriteHeight)
+	int spriteWidth,
+	int spriteHeight)
 {
 
-    int width, height, nrChannels;
-    unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
-    if (!data)
-    {
-        std::cerr << "Failed to load sprite sheet: " << filePath << std::endl;
-        std::cerr << "STB Reason: " << stbi_failure_reason() << std::endl;
-        return {};
-    }
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+	if (!data)
+	{
+		std::cerr << "Failed to load sprite sheet: " << filePath << std::endl;
+		std::cerr << "STB Reason: " << stbi_failure_reason() << std::endl;
+		return {};
+	}
 
-    // Calculate how many columns fit (should be 3).
-    int numSpritesX = width / spriteWidth;
+	int numSpritesX = width / spriteWidth;
+	int numSpritesY = 1; // We only take the first row
+	int leftoverX = width % spriteWidth;
+	int leftoverY = height % spriteHeight;
 
-    // Force only one row, ignoring the rest
-    int numSpritesY = 1;
+	if (leftoverX != 0)
+	{
+		std::cerr << "Warning: Sprite sheet width has leftover "
+			<< leftoverX << " pixels not used.\n";
+	}
+	if (leftoverY < (height - spriteHeight))
+	{
+		std::cerr << "Warning: The sprite sheet is taller than 'spriteHeight'; "
+			<< "extra rows will be ignored.\n";
+	}
 
-    // (Optional) check leftover
-    int leftoverX = width % spriteWidth;
-    int leftoverY = height % spriteHeight;
-    if (leftoverX != 0)
-    {
-        std::cerr << "Warning: Sprite sheet width has leftover "
-            << leftoverX << " pixels not used.\n";
-    }
-    if (leftoverY < (height - spriteHeight))
-    {
-        std::cerr << "Warning: The sprite sheet is taller than 'spriteHeight'; "
-            << "extra rows will be ignored.\n";
-    }
+	GLenum format;
+	if (nrChannels == 1)
+	{
+		format = GL_RED;
+	}
+	else if (nrChannels == 3)
+	{
+		format = GL_RGB;
+	}
+	else if (nrChannels == 4)
+	{
+		format = GL_RGBA;
+	}
+	else
+	{
+		std::cerr << "Unsupported number of channels: " << nrChannels << std::endl;
+		stbi_image_free(data);
+		return {};
+	}
 
-    // Determine the OpenGL format
-    GLenum format;
-    if (nrChannels == 1)
-    {
-        format = GL_RED;
-    }
-    else if (nrChannels == 3)
-    {
-        format = GL_RGB;
-    }
-    else if (nrChannels == 4)
-    {
-        format = GL_RGBA;
-    }
-    else
-    {
-        std::cerr << "Unsupported number of channels: " << nrChannels << std::endl;
-        stbi_image_free(data);
-        return {};
-    }
+	std::cout << "Sprite Sheet Dimensions: " << width << "x" << height
+		<< " | Frame Size: " << spriteWidth << "x" << spriteHeight << std::endl;
+	std::cout << "Loading only: " << numSpritesX << "x" << numSpritesY
+		<< " = " << (numSpritesX * numSpritesY) << " frames total.\n";
 
-    std::cout << "Sprite Sheet Dimensions: " << width << "x" << height
-        << " | Frame Size: " << spriteWidth << "x" << spriteHeight << std::endl;
-    std::cout << "Loading only: " << numSpritesX << "x" << numSpritesY
-        << " = " << (numSpritesX * numSpritesY) << " frames total.\n";
+	std::vector<GLuint> textures;
+	textures.reserve(numSpritesX * numSpritesY);
+	std::vector<unsigned char> spriteData(spriteWidth * spriteHeight * nrChannels);
 
-    std::vector<GLuint> textures;
-    textures.reserve(numSpritesX * numSpritesY);
+	// Extract the directory and filename
+	size_t lastSlash = filePath.find_last_of("/\\");
+	std::string directory = (lastSlash == std::string::npos) ? "" : filePath.substr(0, lastSlash + 1);
+	std::string filename = filePath.substr(lastSlash + 1);
+	std::string baseName = filename.substr(0, filename.find_last_of('.'));
 
-    // Temporary buffer for one sub-sprite
-    std::vector<unsigned char> spriteData(spriteWidth * spriteHeight * nrChannels);
+	for (int x = 0; x < numSpritesX; ++x)
+	{
+		// Copy from the "big" image to a sub-sprite buffer
+		for (int row = 0; row < spriteHeight; ++row)
+		{
+			int srcRowOffset = (0 * spriteHeight + row) * width * nrChannels;
+			int dstRowOffset = (spriteHeight - row - 1) * spriteWidth * nrChannels; // Flip for saving PNG
 
-    // Always load just the top row: y = 0
-    for (int x = 0; x < numSpritesX; ++x)
-    {
-        // Copy from the "big" image to a sub-sprite buffer
-        for (int row = 0; row < spriteHeight; ++row)
-        {
-            int srcRowOffset = (0 * spriteHeight + row) * width * nrChannels;
-            int dstRowOffset = row * spriteWidth * nrChannels;
+			memcpy(spriteData.data() + dstRowOffset,
+				data + srcRowOffset + x * spriteWidth * nrChannels,
+				spriteWidth * nrChannels);
+		}
 
-            memcpy(spriteData.data() + dstRowOffset,
-                data + srcRowOffset + x * spriteWidth * nrChannels,
-                spriteWidth * nrChannels);
-        }
+		// Save sprite as PNG
+		std::string outputFile = directory + baseName + "_" + std::to_string(x + 1) + ".png";
+		stbi_write_png(outputFile.c_str(), spriteWidth, spriteHeight, nrChannels, spriteData.data(), spriteWidth * nrChannels);
 
-        // Generate OpenGL texture for the sub-sprite
-        GLuint textureID = 0;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
+		std::cout << "Saved slice: " << outputFile << std::endl;
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		// Flip the data back for OpenGL texture
+		for (int row = 0; row < spriteHeight / 2; ++row)
+		{
+			int topRowOffset = row * spriteWidth * nrChannels;
+			int bottomRowOffset = (spriteHeight - row - 1) * spriteWidth * nrChannels;
 
-        glTexImage2D(GL_TEXTURE_2D, 0, format,
-            spriteWidth, spriteHeight, 0,
-            format, GL_UNSIGNED_BYTE, spriteData.data());
+			for (int col = 0; col < spriteWidth * nrChannels; ++col)
+			{
+				std::swap(spriteData[topRowOffset + col], spriteData[bottomRowOffset + col]);
+			}
+		}
 
-        glBindTexture(GL_TEXTURE_2D, 0);
+		// Generate OpenGL texture for the sub-sprite
+		GLuint textureID = 0;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
 
-        textures.push_back(textureID);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-        std::cout << "Added texture ID: " << textureID
-            << " for frame (" << x << ", 0)\n";
-    }
+		glTexImage2D(GL_TEXTURE_2D, 0, format,
+			spriteWidth, spriteHeight, 0,
+			format, GL_UNSIGNED_BYTE, spriteData.data());
 
-    // Free the big image
-    stbi_image_free(data);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
-    return textures;
+		textures.push_back(textureID);
+
+		std::cout << "Added texture ID: " << textureID
+			<< " for frame (" << x << ", 0)\n";
+	}
+
+
+	stbi_image_free(data);
+	return textures;
 }
 
 

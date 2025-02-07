@@ -247,15 +247,24 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 				std::vector<GLuint> frames = ImageLoader::LoadSpriteSheet(spriteSheetPath, spriteWidth, spriteHeight);
 				if (!frames.empty())
 				{
-					for (GLuint textureID : frames)
+					// Generate the sliced sprite names
+					size_t lastSlash = spriteSheetPath.find_last_of("/\\");
+					std::string directory = (lastSlash == std::string::npos) ? "" : spriteSheetPath.substr(0, lastSlash + 1);
+					std::string baseName = spriteSheetPath.substr(lastSlash + 1);
+					baseName = baseName.substr(0, baseName.find_last_of('.'));
+
+					for (int i = 0; i < frames.size(); ++i)
 					{
+						GLuint textureID = frames[i];
 						auto texture = std::make_shared<Texture>(textureID);
 						animation.Frames.push_back(texture);
-						animation.texturePaths.push_back(spriteSheetPath);
 
-						std::cout << "Added frame from sprite sheet: "
-							<< spriteSheetPath << " with Texture ID: "
-							<< textureID << std::endl;
+						// Generate sliced sprite file path
+						std::string relativePath = "Resources/Sprites/" + baseName + "_" + std::to_string(i + 1) + ".png";
+						animation.texturePaths.push_back(relativePath);
+
+						std::cout << "Added frame from sprite sheet: " << relativePath
+							<< " with Texture ID: " << textureID << std::endl;
 					}
 				}
 				else
