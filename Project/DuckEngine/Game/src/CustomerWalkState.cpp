@@ -121,7 +121,8 @@ void CustomerWalkState::FixedUpdate()
 	if (distance > 0.1f)
 	{
 		rigidbody->velocity = direction * moveSpeed;
-
+		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
+		
 		if (customerAnimator) 
 		{
 			if (std::abs(direction.x) > std::abs(direction.y)) 
@@ -129,10 +130,12 @@ void CustomerWalkState::FixedUpdate()
 				if (direction.x > 0)
 				{
 					customerAnimator->PlayAnimation("RIGHT_WALK");
+					quackSound->Play(5);
 				}
 				else
 				{
 					customerAnimator->PlayAnimation("LEFT_WALK");
+					quackSound->Play(5);
 				}
 			}
 			else 
@@ -140,10 +143,12 @@ void CustomerWalkState::FixedUpdate()
 				if (direction.y > 0)
 				{
 					customerAnimator->PlayAnimation("BACK_WALK");
+					quackSound->Play(5);
 				}
 				else
 				{
 					customerAnimator->PlayAnimation("FRONT_WALK");
+					quackSound->Play(5);
 				}
 			}
 		}
