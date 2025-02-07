@@ -34,8 +34,6 @@ void CustomerWalkState::Enter()
 	if (isOrderTaken && orderCollected)
 	{
 		currentQueueTarget = finalPath;
-		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
-		quackSound->Play(-1);
 
 	}
 
@@ -121,7 +119,7 @@ void CustomerWalkState::FixedUpdate()
 	if (distance > 0.1f)
 	{
 		rigidbody->velocity = direction * moveSpeed;
-		SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
+		SoundComponent* Footstep = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CustomerFootstepSFX").get()->entityID);
 		
 		if (customerAnimator) 
 		{
@@ -130,12 +128,12 @@ void CustomerWalkState::FixedUpdate()
 				if (direction.x > 0)
 				{
 					customerAnimator->PlayAnimation("RIGHT_WALK");
-					quackSound->Play(5);
+					Footstep->Play();
 				}
 				else
 				{
 					customerAnimator->PlayAnimation("LEFT_WALK");
-					quackSound->Play(5);
+					Footstep->Play();
 				}
 			}
 			else 
@@ -143,12 +141,12 @@ void CustomerWalkState::FixedUpdate()
 				if (direction.y > 0)
 				{
 					customerAnimator->PlayAnimation("BACK_WALK");
-					quackSound->Play(5);
+					Footstep->Play();
 				}
 				else
 				{
 					customerAnimator->PlayAnimation("FRONT_WALK");
-					quackSound->Play(5);
+					Footstep->Play();
 				}
 			}
 		}

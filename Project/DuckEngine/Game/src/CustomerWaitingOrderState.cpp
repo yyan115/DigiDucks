@@ -37,13 +37,14 @@ void CustomerWaitingOrderState::Update()
 
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J))
 		{
+			SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
+			quackSound->Play(-1);
 			orderTabLogic->AddOrder(owner->GetCustomerOrderType(), owner);
 			orderTaken = true;
 			owner->stateMachine.ChangeState(owner->WalkState);
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 
-			SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
-			quackSound->Play(-1);
+			
 		}
 	}
 	else
