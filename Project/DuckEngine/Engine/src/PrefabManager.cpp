@@ -225,32 +225,34 @@ std::shared_ptr<Prefab> PrefabManager::GetPrefabFromEntity(const Entity* entity)
 
 bool PrefabManager::RemovePrefab(const std::string& name)
 {
-	auto it = prefabs.find(name);
-	if (it == prefabs.end()) {
-		std::cerr << "Error: Prefab not found: " << name << std::endl;
+	if (name.empty()) {
+		std::cerr << "[ERROR] Attempted to delete a prefab with an empty name." << std::endl;
 		return false;
 	}
 
-	// Remove from memory
+	auto it = prefabs.find(name);
+	if (it == prefabs.end()) {
+		std::cerr << "[ERROR] Prefab '" << name << "' not found in memory!" << std::endl;
+		return false;
+	}
+
+	// Clear the prefab before erasing to prevent dangling pointers**
+	it->second.reset(); // Remove shared pointer reference
 	prefabs.erase(it);
 
-	// Construct file path
 	std::string filePath = "Resources/Prefabs/" + name + ".json";
+	if (!std::filesystem::exists(filePath)) {
+		std::cerr << "[ERROR] Prefab file not found on disk: " << filePath << std::endl;
+		return false;
+	}
 
-	// Delete the JSON file
 	try {
-		if (std::filesystem::exists(filePath)) {
-			std::filesystem::remove(filePath);
-			std::cout << "Prefab deleted: " << filePath << std::endl;
-			return true;
-		}
-		else {
-			std::cerr << "Error: Prefab file does not exist: " << filePath << std::endl;
-			return false;
-		}
+		std::filesystem::remove(filePath);
+		std::cout << "[INFO] Prefab deleted successfully: " << filePath << std::endl;
+		return true;
 	}
 	catch (const std::exception& e) {
-		std::cerr << "Error deleting prefab file: " << e.what() << std::endl;
+		std::cerr << "[ERROR] Exception while deleting prefab file: " << e.what() << std::endl;
 		return false;
 	}
 }

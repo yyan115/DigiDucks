@@ -521,17 +521,24 @@ bool AssetManager::RemoveAsset(const std::string& assetPath) {
 			std::string shaderName = fs::path(assetPath).stem().string();
 			UnloadShader(shaderName);
 		}
-		else if (extension == ".json") {
-			// Assume it's a prefab
+		if (extension == ".json") {
 			std::string prefabName = fs::path(assetPath).stem().string();
+			if (prefabName.empty()) {
+				std::cerr << "[ERROR] Prefab name is empty when removing JSON asset." << std::endl;
+				return false;
+			}
+
+			std::cout << "[DEBUG] Removing prefab in assetmanager: " << prefabName << std::endl;
+
 			if (!PrefabManager::RemovePrefab(prefabName)) {
-				return false;  // If prefab removal fails, return early
+				std::cerr << "[ERROR] Failed to remove prefab: " << prefabName << std::endl;
+				return false;
 			}
 		}
 
 		// Delete the asset from disk
 		fs::remove(assetPath);
-		std::cout << "Asset removed: " << assetPath << std::endl;
+		std::cout << "[INFO] Asset removed successfully: " << assetPath << std::endl;
 
 		return true;
 	}

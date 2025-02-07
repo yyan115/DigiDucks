@@ -449,18 +449,24 @@ void AssetsBrowser::RenderPrefabsGrid() {
 	int itemIndex = 0;
 	bool isAssetContextOpen = false;
 
-	// Retrieve all prefabs loaded in PrefabManager
-	auto &prefabs = PrefabManager::GetAllPrefabs();
-	for (const auto& [prefabName, prefab] : prefabs) {
-		ImGui::PushID(itemIndex);
+	auto prefabsCopy = PrefabManager::GetAllPrefabs();
 
-		ImGui::BeginGroup();
-		// Retrieve and display prefab texture
-		if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
-			ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+	for (const auto& [prefabName, prefab] : prefabsCopy) {
+		if (!prefab) {
+			std::cerr << "[ERROR] Prefab '" << prefabName << "' is NULL in memory!" << std::endl;
+			continue;
 		}
-		else {
-			ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
+
+		ImGui::PushID(itemIndex);
+		ImGui::BeginGroup();
+
+		if (!prefab->texturePath.empty()) {
+			if (auto texture = DuckEngine::DUCKENGINE_AssetManager.GetTexture(prefab->texturePath)) {
+				ImGui::Image((void*)(intptr_t)(*texture), ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
+			}
+			else {
+				ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
+			}
 		}
 
 		// Drag/drop source for the prefab
@@ -470,21 +476,30 @@ void AssetsBrowser::RenderPrefabsGrid() {
 			ImGui::EndDragDropSource();
 		}
 
-		// Right-click context menu for deleting individual assets
-		if (ImGui::BeginPopupContextItem(("##ContextMenu_" + prefabName).c_str())) {
-			isAssetContextOpen = true;  // Mark that an asset menu is open
-			//TODO: FIX DELETED PREFAB ERROR
-			/*if (ImGui::MenuItem("Delete")) {
-				std::string prefabPath = "Resources/Prefabs/" + prefabName + ".json";
-				AssetManager::RemoveAsset(prefabPath);
-			}*/
+		// **Check if prefab still exists before showing context menu**
+		if (PrefabManager::GetPrefab(prefabName)) {
+			if (ImGui::BeginPopupContextItem(("##ContextMenu_" + prefabName).c_str())) {
+				isAssetContextOpen = true;
 
-			ImGui::EndPopup();
+				if (ImGui::MenuItem("Delete")) {
+					std::string prefabPath = "Resources/Prefabs/" + prefabName + ".json";
+					std::cout << "[DEBUG] Requesting deletion of prefab: " << prefabName << std::endl;
+
+					if (AssetManager::RemoveAsset(prefabPath)) {
+						std::cout << "[INFO] Prefab deleted in assetbrowser: " << prefabName << std::endl;
+					}
+					else {
+						std::cerr << "[ERROR] Failed to remove prefab: " << prefabName << std::endl;
+					}
+				}
+				ImGui::EndPopup();
+			}
 		}
 
-		if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
-		{
-			PrefabEditor::OpenPrefabEditor(prefabName);
+		if (ImGui::IsItemClicked(ImGuiMouseButton_Left) && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left)) {
+			if (PrefabManager::GetPrefab(prefabName)) {
+				PrefabEditor::OpenPrefabEditor(prefabName);
+			}
 		}
 
 		std::string truncatedPrefabName = prefabName;
