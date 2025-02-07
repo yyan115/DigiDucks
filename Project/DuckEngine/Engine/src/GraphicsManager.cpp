@@ -1464,5 +1464,8 @@ GLuint GraphicsManager::GetFBOTexture()
 }
 
 void GraphicsManager::ClearDrawQueue() {
+    
     drawQueue.clear();
+	glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+	glClear(GL_COLOR_BUFFER_BIT);
 }

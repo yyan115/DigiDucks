@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "DuckEngine.h"
 #include "SoundSystem.h"
+#include "GraphicsManager.h"
 
 /**************************************************************************
 @brief Loads resources and initializes the scene.
@@ -107,6 +108,8 @@ void Scene::Unload()
 
     DuckEngine::DUCKENGINE_EntityManager.ResetEntityID();
     GameLogicManager::Clear();
+
+    GraphicsManager::ClearDrawQueue();
 }
 
 /**************************************************************************
