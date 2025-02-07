@@ -111,12 +111,12 @@ void EndScene::Update()
 		Star3->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (ScoreLogic::scoreValue > 10) {
+	if (ScoreLogic::scoreValue >= 10) {
 
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (ScoreLogic::scoreValue > 30) {
+	if (ScoreLogic::scoreValue >= 30) {
 
 		//Star1->texture = AssetManager::GetTextureByName("star");
 		Star2->texture = AssetManager::GetTextureByName("star");
