@@ -1248,7 +1248,7 @@
                             "",
                             "",
                             "",
-                            "",
+                            "Resources/Sounds/cutscene/affirmative sfx.mp3",
                             "",
                             "",
                             "",
@@ -1258,7 +1258,7 @@
                             "Resources/Sounds/clicks/click 2.wav",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
-                        "volume": 0.800000011920929
+                        "volume": 0.6000000238418579
                     },
                     "type": "SoundComponent"
                 },
