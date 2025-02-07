@@ -204,7 +204,7 @@ void AnimationEditor::RenderTimeline(AnimatorComponent* animator)
 			newName != currentAnimationName &&
 			animator->animations.find(newName) == animator->animations.end())
 		{
-			auto tempData = animator->animations[currentAnimationName];
+			Animation tempData = animator->animations[currentAnimationName];
 			animator->animations.erase(currentAnimationName);
 			animator->animations[newName] = tempData;
 
