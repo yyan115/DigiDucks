@@ -154,7 +154,7 @@ void GraphicsManager::Render() {
     BindFBO();
     //glEnable(GL_BLEND);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+    glClearColor(0.f, 0.f, 0.f, 0.f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // For each command in the unified queue, dispatch according to its type.
@@ -254,6 +254,8 @@ void GraphicsManager::RenderGameObject(const GameRenderCommand& cmd) {
 
     if (cmd.useTexture)
     {
+        if (!cmd.texture) return;
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, *cmd.texture);
 
@@ -1466,6 +1468,6 @@ GLuint GraphicsManager::GetFBOTexture()
 void GraphicsManager::ClearDrawQueue() {
     
     drawQueue.clear();
-	glClearColor(backgroundColor.r / 255.f, backgroundColor.g / 255.f, backgroundColor.b / 255.f, backgroundColor.a / 255.f);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
