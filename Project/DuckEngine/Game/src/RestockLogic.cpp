@@ -393,6 +393,8 @@ void RestockLogic::UpdateCartMenu()
 
 void RestockLogic::AddToCart(ItemType type)
 {
+	if (maintenanceLevel >= 3)
+		return;
 	if (cartStock.size() >= MAX_CART_STOCK)
 		return;
 	cartStock.push_back(type);
