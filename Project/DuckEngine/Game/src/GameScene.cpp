@@ -847,11 +847,10 @@ void GameScene::Update()
 	}
 	ScoreLogic::scoreValue = submitLogic->getScore();
 
-	//if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_L))
-	//{
-	//	std::cout << "L is pressed!\n";
-	//	MiniGame_1(true);
-	//}
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_O))
+	{
+		timeLeft = 11.f;
+	}
 
 	// Uncomment When Sorting Order Fixed.
 	if (robotRestockLogic)
