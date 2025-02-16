@@ -29,6 +29,7 @@ private:
 	SpriteRendererComponent* spriteRenderer;
 	TextComponent* textComponent;
 	int stock;
+	const int MAX_STOCK = 5;
 
 public:
 
@@ -130,7 +131,7 @@ public:
 	/****************************************************************
 	* @brief Restock function for the StockLogic
 	* ***************************************************************/
-	virtual void addStock() { stock++; }
+	virtual void addStock() { if (stock < MAX_STOCK) stock++; }
 
 	/****************************************************************
 	* @brief Use Stock function for the StockLogic
@@ -152,6 +153,6 @@ public:
 	* 
 	* @type_ - ItemType to change to
 	* ***************************************************************/
-	void changeType(ItemType type_) { type = type_; }
+	void changeType(ItemType newType) { type = newType; }
 
 };
