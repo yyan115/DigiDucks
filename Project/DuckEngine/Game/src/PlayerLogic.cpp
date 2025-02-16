@@ -29,6 +29,7 @@ void PlayerLogic::Start()
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+	holding = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
 
 	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
@@ -125,8 +126,7 @@ void PlayerLogic::Update()
 		if (!isHolding) {
 			ItemType cheatType = ItemType::SALAD_PLATE;
 			Entity* newObject = makeObject(cheatType);
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			holding->setObject(std::make_pair(newObject->entityID, cheatType));
 			isHolding = true;
 		}
 	}
@@ -135,8 +135,7 @@ void PlayerLogic::Update()
 		if (!isHolding) {
 			ItemType cheatType = ItemType::CHEESE_BURGER_PLATE;
 			Entity* newObject = makeObject(cheatType);
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(std::make_pair(newObject->entityID, cheatType));
+			holding->setObject(std::make_pair(newObject->entityID, cheatType));
 			isHolding = true;
 		}
 	}
@@ -238,8 +237,7 @@ void PlayerLogic::InteractPressed()
 			stockLogic->useStock();
 
 			Entity* newObject = makeObject(stockLogic->getType());
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
+			holding->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
 			if (sound) sound->Play(-1);
 			isHolding = true;
 			return;
@@ -250,10 +248,9 @@ void PlayerLogic::InteractPressed()
 		{
 			// If Table is occupied, take object from table
 			if (tableLogic->isOccupied)
-			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());				
-				holdingLogic->setObject(tableLogic->moveObject());
-				type = holdingLogic->getType();
+			{			
+				holding->setObject(tableLogic->moveObject());
+				type = holding->getType();
 				if (SFXsound) {
 					if (static_cast<int>(type) <= 15) {
 						SFXsound->Play(0);
@@ -271,9 +268,8 @@ void PlayerLogic::InteractPressed()
 			// If Board is occupied, take object from board
 			if (chopBoardLogic->isOccupied)
 			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				holdingLogic->setObject(chopBoardLogic->moveObject());
-				type = holdingLogic->getType();
+				holding->setObject(chopBoardLogic->moveObject());
+				type = holding->getType();
 				if (SFXsound)
 				{
 					if (static_cast<int>(type) <= 15) {
@@ -292,9 +288,8 @@ void PlayerLogic::InteractPressed()
 			// If Pan is occupied, take object from pan
 			if (panLogic->isOccupied)
 			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				holdingLogic->setObject(panLogic->moveObject());
-				type = holdingLogic->getType();
+				holding->setObject(panLogic->moveObject());
+				type = holding->getType();
 				if (SFXsound)
 				{
 					if (static_cast<int>(type) <= 15) {
@@ -326,8 +321,7 @@ void PlayerLogic::InteractPressed()
 			// If Object is Not BIN, do nothing
 			if(stockLogic->getType() != ItemType::BIN) return;
 			// If Object is BIN, Destroy Object
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-			holdingLogic->deleteObject();
+			holding->deleteObject();
 			if (sound) sound->Play(-1);
 			isHolding = false;
 			return;
@@ -339,8 +333,7 @@ void PlayerLogic::InteractPressed()
 			// If Table is occupied, take object from table
 			if (!tableLogic->isOccupied)
 			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				tableLogic->setObject(holdingLogic->moveObject());
+				tableLogic->setObject(holding->moveObject());
 				type = tableLogic->getType();
 				if (SFXsound)
 				{
@@ -353,12 +346,11 @@ void PlayerLogic::InteractPressed()
 			}
 			else if (tableLogic->isOccupied)
 			{
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				if (canCombine(holdingLogic->getType(), tableLogic->getType()))
+				if (canCombine(holding->getType(), tableLogic->getType()))
 				{
-					std::pair<int, ItemType> combined = combineObjects(holdingLogic->moveObject(), tableLogic->moveObject());
-					holdingLogic->setObject(combined);
-					type = holdingLogic->getType();
+					std::pair<int, ItemType> combined = combineObjects(holding->moveObject(), tableLogic->moveObject());
+					holding->setObject(combined);
+					type = holding->getType();
 					if (static_cast<int>(type) <= 15) {
 						if (SFXsound) SFXsound->Play(0);
 					}
@@ -372,18 +364,22 @@ void PlayerLogic::InteractPressed()
 		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
 		if (chopBoardLogic)
 		{
-			if (!chopBoardLogic->isOccupied) {
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				chopBoardLogic->setObject(holdingLogic->moveObject());
-				type = chopBoardLogic->getType();
-				if (SFXsound)
+			if (!chopBoardLogic->isOccupied) 
+			{
+				// If Object is Ingredient, put on board
+				if (chopBoardLogic->checkIngredient(holding->getType()))
 				{
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
+					chopBoardLogic->setObject(holding->moveObject());
+					type = chopBoardLogic->getType();
+					if (SFXsound)
+					{
+						if (static_cast<int>(type) <= 15) {
+							SFXsound->Play(0);
+						}
+						else SFXsound->Play(1);
 					}
-					else SFXsound->Play(1);
+					isHolding = false;
 				}
-				isHolding = false;
 			}
 			return;
 		}
@@ -391,10 +387,10 @@ void PlayerLogic::InteractPressed()
 		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
 		if (panLogic)
 		{
-			if (!panLogic->isOccupied) {
-				auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-				if (holdingLogic->getType() != ItemType::R_PATTY) return;
-				type = holdingLogic->getType();
+			if (!panLogic->isOccupied) 
+			{
+				if (holding->getType() != ItemType::R_PATTY) return;
+				type = holding->getType();
 				if (SFXsound)
 				{
 					if (static_cast<int>(type) <= 15) {
@@ -402,7 +398,7 @@ void PlayerLogic::InteractPressed()
 					}
 					else SFXsound->Play(1);
 				}
-				panLogic->setObject(holdingLogic->moveObject());
+				panLogic->setObject(holding->moveObject());
 				isHolding = false;
 			}
 			return;
@@ -411,12 +407,11 @@ void PlayerLogic::InteractPressed()
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
 		if (submitLogic)
 		{
-			auto holdingLogic = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 			if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() == "Level0")
 			{
-				if (holdingLogic->getType() == ItemType::LETTUCE_PLATE)
+				if (holding->getType() == ItemType::LETTUCE_PLATE)
 				{
-					submitLogic->removeObject(holdingLogic->moveObject());
+					submitLogic->removeObject(holding->moveObject());
 					if (sound) sound->Play();
 					isHolding = false;
 				}
@@ -424,10 +419,10 @@ void PlayerLogic::InteractPressed()
 			else
 			{
 				if (orderTabLogic) {
-					if ((holdingLogic->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
+					if ((holding->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
 					{
 						orderTabLogic->GetCurrentCustomer()->OrderCompleted();
-						submitLogic->removeObject(holdingLogic->moveObject());
+						submitLogic->removeObject(holding->moveObject());
 						if (sound) sound->Play();
 						isHolding = false;
 					}
@@ -454,7 +449,10 @@ void PlayerLogic::InteractHold()
 		{
 			// Something on the board
 			if (chopBoardLogic->isOccupied)
-			{				
+			{
+				// If object is already chopped, do nothing
+				if (chopBoardLogic->isChopped) return;
+
 				chopBoardLogic->chopObject();
 				if (animator)
 				{

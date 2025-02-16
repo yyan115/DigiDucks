@@ -43,26 +43,25 @@ class PlayerLogic : public GameLogic
 {
 private:
     OrderTabLogic* orderTabLogic = nullptr;
-    BoundingCircle* circleCollider;
-    BoundingBox* boxCollider;
-    AnimatorComponent* animator;
-    FacingDirection dir;
-    Entity* interactObject;
-    SoundComponent* sound;
-    SoundComponent* SFXsound;
-	std::shared_ptr<MovementLogic> movement;
-	std::shared_ptr<RestockLogic> restockLogic;
+    BoundingCircle* circleCollider = nullptr;
+    BoundingBox* boxCollider = nullptr;
+    AnimatorComponent* animator = nullptr;
+    FacingDirection dir = FRONT;
+    Entity* interactObject = nullptr;
+    SoundComponent* sound = nullptr;
+    SoundComponent* SFXsound = nullptr;
+	std::shared_ptr<HoldingLogic> holding = nullptr;
+	std::shared_ptr<MovementLogic> movement = nullptr;
+	std::shared_ptr<RestockLogic> restockLogic = nullptr;
 
 public:
     bool isHolding = false;
     bool isIdle = false;
 	Vec2 offSet = Vec2{ 0.f, 1.5f };
 
-    PlayerLogic()
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), restockLogic(nullptr), SFXsound(nullptr) {}
+    PlayerLogic() : GameLogic(nullptr) {}
 
-    PlayerLogic(GameLogicComponent* component)
-        : GameLogic(nullptr), circleCollider(nullptr), boxCollider(nullptr), animator(nullptr), dir(FRONT), sound(nullptr), interactObject(nullptr), movement(nullptr), restockLogic(nullptr), SFXsound(nullptr)
+    PlayerLogic(GameLogicComponent* component) : GameLogic(nullptr)
     {
         UNREFERENCED_PARAMETER(component);
     }

@@ -96,4 +96,14 @@ public:
 	* @return ItemType - the type of the object
 	* ***************************************************************/
 	ItemType getType() const { return type; }
+
+
+	/****************************************************************
+	* @brief Check if the object can be put on the chopping board
+	* 
+	* @param type - the type of the object
+	* 
+	* @return true if the object can be put on the chopping board, false otherwise
+	* ***************************************************************/
+	bool checkIngredient(ItemType ingredientType);
 };

@@ -165,3 +165,27 @@ void ChopBoardLogic::chopObject()
 		isChopped = true;
 	}
 }
+
+
+/****************************************************************
+* @brief Check if the object can be put on the chopping board
+*
+* @param type - the type of the object
+*
+* @return true if the object can be put on the chopping board, false otherwise
+* ***************************************************************/
+bool ChopBoardLogic::checkIngredient(ItemType ingredientType)
+{
+	switch (ingredientType)
+	{
+	case ItemType::CHEESE:
+	case ItemType::LETTUCE:
+	case ItemType::MUSHROOM:
+	case ItemType::SHRIMP:
+	case ItemType::STEAK:
+	case ItemType::TOMATO:
+		return true;
+	default:
+		return false;
+	}
+}
