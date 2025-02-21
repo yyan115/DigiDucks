@@ -18,7 +18,6 @@
 #include "AssetManager.h"
 #include "ImageLoader.h"
 #include "Texture.h"
-#include "ShaderManager.h"
 #include "FontManager.h"
 #include "LevelManager.h"
 #include "PrefabManager.h"

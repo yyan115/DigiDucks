@@ -267,10 +267,6 @@
     <ClInclude Include="..\include\TableLogic.h" />
     <ClInclude Include="..\include\TomatoStockLogic.h" />
     <ClInclude Include="..\include\WhitePlateStockLogic.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Quack_Kitchen.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Resources\GameIcon.ico" />

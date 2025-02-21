@@ -231,7 +231,6 @@
     <ClInclude Include="..\include\HowToPlay.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="..\include\PlayerLogic.h">
       <Filter>include\Logic\Game\Player</Filter>
     </ClInclude>
@@ -304,9 +303,6 @@
     <ClInclude Include="..\include\HowToPlayLogic.h">
       <Filter>include\Logic\MainMenu</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Quack_Kitchen.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Resources\GameIcon.ico" />
