@@ -35,7 +35,7 @@ void SceneManager::AddScene(const std::string& name, std::shared_ptr<Scene> scen
 
 void SceneManager::ReloadScene()
 {
-    SetActiveScene(SceneManager::GetActiveSceneName());
+    SetActiveScene(GetActiveSceneName());
 }
 
 /**************************************************************************
@@ -45,44 +45,46 @@ void SceneManager::ReloadScene()
 **************************************************************************/
 void SceneManager::SetActiveScene(const std::string& name)
 {
-    if (activeSceneName == name)
-    {
-        std::cout << "Scene '" << name << "' is already active. Resetting the scene." << std::endl;
+	if (activeSceneName == name)
+	{
+		std::cout << "Scene '" << name << "' is already active. Reloading from JSON..." << std::endl;
 
-        if (activeScene)
-        {
-            activeScene->Unload(); 
-        }
+		if (activeScene)
+		{
+			activeScene->Unload();
+		}
 
-        LevelManager::LoadLevel(name); 
-        if (activeScene)
-        {
-            activeScene->Load();
-            activeScene->Start(); 
-        }
+		LevelManager::LoadLevel(name);
 
-        return;
-    }
+		if (activeScene)
+		{
+			activeScene->Load();
+			activeScene->Start();
+		}
+		return;
+	}
 
-    auto it = scenes.find(name);
-    if (it == scenes.end())
-    {
-        std::cerr << "Scene '" << name << "' not found!" << std::endl;
-        return;
-    }
+	auto it = scenes.find(name);
+	if (it == scenes.end())
+	{
+		std::cerr << "Scene '" << name << "' not found!" << std::endl;
+		return;
+	}
 
-    if (activeScene)
-    {
-        activeScene->Unload(); 
-    }
+	if (activeScene)
+	{
+		activeScene->Unload();
+	}
 
-    activeScene = scenes[name];
-    activeSceneName = name;
+	activeScene = scenes[name];
+	activeSceneName = name;
 
-    LevelManager::LoadLevel(name);
-    activeScene->Load();
-    activeScene->Start();
+	LevelManager::LoadLevel(name);
+
+	activeScene->Load();
+	activeScene->Start();
 }
+
 
 
 

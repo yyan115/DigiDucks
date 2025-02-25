@@ -91,21 +91,26 @@ void LevelManager::LoadLevelGame(const std::string& levelFile)
 @brief Loads a level from a JSON file and initializes its entities and layers.
 @param levelFile The path to the JSON file containing level data.
 *************************************************************************/
-void LevelManager::LoadLevel(const std::string& levelName) 
+void LevelManager::LoadLevel(const std::string& levelName)
 {
 	nlohmann::json levelData = AssetManager::GetLevelData(levelName);
-	if (levelData.empty()) 
+	if (levelData.empty())
 	{
 		std::cerr << "Failed to load level: " << levelName << std::endl;
 		return;
 	}
 
-	auto* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
-
-	// Add layers to the scene
-	if (levelData.contains("layers")) 
+	Scene* activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene();
+	if (!activeScene)
 	{
-		for (auto& [layerName, layerData] : levelData["layers"].items()) {
+		std::cerr << "Error: No active scene found for " << levelName << std::endl;
+		return;
+	}
+
+	if (levelData.contains("layers"))
+	{
+		for (auto& [layerName, layerData] : levelData["layers"].items())
+		{
 			Layer layer;
 			layer.SetOrder(layerData.value("order", 0));
 			layer.SetVisible(layerData.value("visible", true));
@@ -113,19 +118,19 @@ void LevelManager::LoadLevel(const std::string& levelName)
 		}
 	}
 
-	// Add game objects to the scene
-	if (levelData.contains("gameObjects")) 
+	if (levelData.contains("gameObjects"))
 	{
-		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items()) 
+		for (auto& [gameObjectName, gameObjectData] : levelData["gameObjects"].items())
 		{
 			std::string prefabName = gameObjectData.value("prefab", "");
 			std::string layerName = gameObjectData.value("layer", "Gameplay");
 
 			Entity* entity = nullptr;
-			if (!prefabName.empty()) 
+
+			if (!prefabName.empty())
 			{
 				auto prefab = PrefabManager::GetPrefab(prefabName.c_str());
-				if (prefab) 
+				if (prefab)
 				{
 					entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
 					entity->name = gameObjectName;
@@ -135,8 +140,7 @@ void LevelManager::LoadLevel(const std::string& levelName)
 					ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
 				}
 			}
-
-			else if (gameObjectData.contains("components")) 
+			else if (gameObjectData.contains("components"))
 			{
 				entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
 				entity->name = gameObjectName;
@@ -145,21 +149,23 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				ComponentFactory::AddComponentsToEntity(entity, gameObjectData["components"]);
 			}
 
-			if (entity) 
+			if (entity)
 			{
 				if (gameObjectData.contains("childNames"))
 				{
 					entity->childNames = gameObjectData["childNames"].get<std::vector<std::string>>();
 				}
 
-				auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-				if (transform && gameObjectData.contains("position")) 
+				auto* transform = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<TransformComponent>(entity->entityID);
+				if (transform && gameObjectData.contains("position"))
 				{
-					transform->SetPosition(Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f }));
+					transform->SetPosition(
+						Serialization::GetVec2(gameObjectData, "position", { 0.f, 0.f })
+					);
 				}
 
-				auto* layer = activeScene->GetLayer(layerName);
-				if (layer) 
+				if (auto* layer = activeScene->GetLayer(layerName))
 				{
 					layer->AddEntity(entity);
 				}
@@ -167,35 +173,38 @@ void LevelManager::LoadLevel(const std::string& levelName)
 		}
 	}
 
-	for (const auto& entity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+	// 5) Link child entities (if any)
+	for (const auto& parentEntity : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
 	{
-		if (entity && !entity->childNames.empty())
+		if (parentEntity && !parentEntity->childNames.empty())
 		{
-			entity->childEntities.clear();
-
+			parentEntity->childEntities.clear();
 			std::vector<std::string> validChildNames;
 
-			for (const auto& childName : entity->childNames)
+			for (const auto& childName : parentEntity->childNames)
 			{
-				std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
+				std::shared_ptr<Entity> childEntity =
+					DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
 
 				if (childEntity)
 				{
-					entity->childEntities.push_back(childEntity);
+					parentEntity->childEntities.push_back(childEntity);
 					validChildNames.push_back(childName);
-					std::cout << "Linked child entity: " << childEntity->name << " to parent: " << entity->name << std::endl;
+					std::cout << "Linked child entity: " << childEntity->name
+						<< " to parent: " << parentEntity->name << std::endl;
 				}
 				else
 				{
-					std::cerr << "Warning: Child entity '" << childName << "' not found for parent: " << entity->name << ". Removing from child list." << std::endl;
+					std::cerr << "Warning: Child entity '" << childName
+						<< "' not found for parent: " << parentEntity->name
+						<< ". Removing from child list." << std::endl;
 				}
 			}
-			entity->childNames = validChildNames;
+
+			parentEntity->childNames = validChildNames;
 		}
 	}
-
 }
-
 
 
 /****************************************************************
