@@ -1,6 +1,8 @@
 #include "GameManager.h"
 #include "AssetManager.h"
+#include "DuckEngine.h"
 #include "DuckEngine_Input.h"
+#include "ProjectSettings.h"
 
 static GameManager gManager;
 
@@ -33,7 +35,7 @@ int WINAPI WinMain(
     gManager.DuckEngine.Initialize();
 
     gManager.InitScenes();
-    gManager.SetActiveScene("MainMenu");
+    gManager.SetActiveScene(ProjectSettings::GetStartLevel());
     gManager.DuckEngine.SetupSystems();
 
     // load all assets before game loop starts
@@ -41,10 +43,8 @@ int WINAPI WinMain(
 
     DuckEngine::ToggleFullScreen();
 
-
     while (gManager.DuckEngine.Running())
     {
-
         if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
             || DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
             ) {

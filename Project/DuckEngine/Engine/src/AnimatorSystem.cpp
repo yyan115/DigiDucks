@@ -41,7 +41,7 @@ void AnimatorSystem::Update()
 
         if (!animator->currentAnimation || animator->isPaused) continue;
 
-        animator->currentAnimation->frameTimer += DuckEngine::DeltaTime();
+        animator->currentAnimation->frameTimer += DuckEngine::FixedDeltaTime();
 
         if (animator->currentAnimation->frameTimer >= animator->currentAnimation->frameDuration)
         {

@@ -157,6 +157,9 @@
     <ClCompile Include="..\src\ParticleManager.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ProjectSettings.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -377,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Emitter.h">
       <Filter>include\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ProjectSettings.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

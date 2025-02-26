@@ -34,6 +34,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GizmoManager.h"
 #include "SnapshotManager.h"
 #include "AnimationEditor.h"
+#include "ProjectSettingsWindow.h"
 
 #include <Windows.h>
 
@@ -46,6 +47,7 @@ std::unordered_map<WindowType, bool> UIManager::windowStates = {
 	{WindowType::DebugInfo, false},
 	{WindowType::Inspector, false},
 	{WindowType::NewScene, false},
+	{WindowType::ProjectSettings, false},
 };
 
 void UIManager::Initialize() 
@@ -197,6 +199,12 @@ void UIManager::ShowMenuBar()
 			{
 				windowStates[WindowType::Layer] = true;
 			}
+
+			if (ImGui::MenuItem("Project Settings", NULL))
+			{
+				windowStates[WindowType::ProjectSettings] = true;
+			}
+
 			ImGui::EndMenu();
 		}
 
@@ -475,6 +483,9 @@ void UIManager::RenderWindows() {
 				break;
 			case WindowType::Layer:
 				ShowLayerWindow();
+				break;
+			case WindowType::ProjectSettings:
+				ProjectSettingsWindow::Show(windowStates[WindowType::ProjectSettings]);
 				break;
 			default:
 				break;

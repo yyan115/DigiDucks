@@ -15,8 +15,12 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "DuckEngine.h"
+#include <thread>
+#include <chrono>
 #include <iostream>
+
+
+#include "DuckEngine.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
 
@@ -43,6 +47,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLogicSystem.h"
 #include "SoundSystem.h"
 #include "SpatialGridSystem.h"
+#include "ProjectSettings.h"
+
 
 //GraphicsManager graphicsManager;
 EntityManager DuckEngine::DUCKENGINE_EntityManager;
@@ -76,17 +82,23 @@ const double DuckEngine::FIXED_TIMESTEP = 1.0 / 60.0;
 void DuckEngine::Initialize(bool _isEditor) 
 {
 	isEditor = _isEditor;
-	// need to grab width and height from XML for rubrics in the future
-	// Init Window, then Graphics, then Input
-	//Serialization::InitJson("Resources/windows_init.json");
+	
+	// load project settings
+	ProjectSettings::Load("Resources/settings.json");
+
 	WindowInit window = Serialization::GetWindowInit();
-	WindowManager::Initialize(1600, 900, "DigiDucks");
+	WindowManager::Initialize(ProjectSettings::GetWindowWidth(), ProjectSettings::GetWindowHeight(), "DigiDucks");
 	GraphicsManager::Initialize();
 	InputManager::Initialize(WindowManager::getWindow());
 	CameraManager::Initialize(0.f, 0.f, 10);
 	//FontManager::Initialize("../Resources/Roboto-Black.ttf", 48);
 
 	DuckEngine::DUCKENGINE_AssetManager.LoadAll();
+
+	if (ProjectSettings::GetUseVSync())
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
 
 	GraphicsManager::Start();
 	ParticleManager::Start(2000);

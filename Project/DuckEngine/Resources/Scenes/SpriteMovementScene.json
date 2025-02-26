@@ -1569,8 +1569,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -774.5,
-                            "y": 403.0
+                            "x": 100.0,
+                            "y": -50.0
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,

@@ -17,7 +17,8 @@ enum class WindowType {
     DebugInfo,
     Inspector,
 	NewScene,
-    Layer
+    Layer,
+    ProjectSettings,
 };
 
 class UIManager {
