@@ -53,12 +53,18 @@ void GameScene::Load()
 
 	OrderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
 
+	ui = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("UI").get();
+	if (ui)
+	{
+		uiSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ui->entityID);
+	}
+
 	timer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Timer_Text").get();
 	if(timer)
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "TIME:";
+			timerText->text = "5:00";
 			timeLeft = 300.f;
 		}
 	}
@@ -69,7 +75,7 @@ void GameScene::Load()
 		scoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(score->entityID);
 		if (scoreText) 
 		{
-			scoreText->text = "SCORE: 0";
+			scoreText->text = "0";
 			ScoreLogic::scoreValue = 0;
 		}
 	}
@@ -780,7 +786,7 @@ void GameScene::Update()
 			int seconds = static_cast<int>(timeLeft) % 60;
 
 			std::string secStr = (seconds < 10 ? "0" : "") + std::to_string(seconds);
-			timerText->text = "TIME: " + std::to_string(minutes) + ":" + secStr;
+			timerText->text = std::to_string(minutes) + ":" + secStr;
 
 			if (timeLeft < 10.f && TimeLeftSound != nullptr) {
 				timerText->color = { 255, 0, 0, 255 };
@@ -952,17 +958,9 @@ void GameScene::PauseGame(bool state)
 {
 	isPaused = state;
 	// Hide Texts
-	if (scoreText)
+	if(ui)
 	{
-		scoreText->isEnabled = !state;
-	}
-	if (timerText)
-	{
-		timerText->isEnabled = !state;
-	}
-	if (FPSText)
-	{
-		FPSText->isEnabled = !state;
+		uiSprite->isVisible = !state;
 	}
 
 	// Show Pause Menu

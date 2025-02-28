@@ -51,7 +51,7 @@ void SubmitLogic::increaseScore(int score)
 {
 	totalScore += score;
 	if (score_Text) {
-		score_Text->text = "Score: " + std::to_string(totalScore);
+		score_Text->text = std::to_string(totalScore);
 	}
 	newOrderGenerated = true;
 }

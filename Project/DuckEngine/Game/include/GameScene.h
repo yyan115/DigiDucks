@@ -70,6 +70,10 @@ private:
     SpriteRendererComponent* orderSprite = nullptr;
     TextComponent* FPSText = nullptr;
 
+    // UI
+    Entity* ui = nullptr;
+	SpriteRendererComponent* uiSprite = nullptr;
+
     // Timer
     Entity* timer = nullptr;
     TextComponent* timerText = nullptr;
