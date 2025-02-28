@@ -389,7 +389,7 @@ void PlayerLogic::InteractPressed()
 		{
 			if (!panLogic->isOccupied) 
 			{
-				if (holding->getType() != ItemType::R_PATTY) return;
+				if (holding->getType() != ItemType::R_PATTY && holding->getType() != ItemType::C_PATTY) return;
 				type = holding->getType();
 				if (SFXsound)
 				{
@@ -464,29 +464,31 @@ void PlayerLogic::InteractHold()
 			return;
 		}
 
-		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
-		if (panLogic)
-		{
-			if (panLogic->isOccupied)
-			{
-				panLogic->cookObject();
-				if (animator)
-				{
-					if (sound) sound->Play();
-					//animator->PlayAnimation("Cook");
 
-					panLogic->EmitSparks();
-					//	// Then inside your stove/cooking system:
-					//if (foodIsCooking && someRandomChance())
-					//{
-					//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
-					//	DuckEngine::Emit("CookingSparks", , {0.2f, 0.2f});
-					//}
-				}
-			}
+		// Patty Auto Cooks
+		//auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
+		//if (panLogic)
+		//{
+		//	if (panLogic->isOccupied)
+		//	{
+		//		panLogic->cookObject();
+		//		if (animator)
+		//		{
+		//			if (sound) sound->Play();
+		//			//animator->PlayAnimation("Cook");
 
-			return;
-		}
+		//			panLogic->EmitSparks();
+		//			//	// Then inside your stove/cooking system:
+		//			//if (foodIsCooking && someRandomChance())
+		//			//{
+		//			//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
+		//			//	DuckEngine::Emit("CookingSparks", , {0.2f, 0.2f});
+		//			//}
+		//		}
+		//	}
+
+		//	return;
+		//}
 
 	}
 }

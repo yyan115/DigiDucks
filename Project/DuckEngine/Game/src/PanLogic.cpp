@@ -75,12 +75,24 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 	objectTransform->SetPosition(tableTransform->GetPosition());
 
 	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
-	objectSprite->texture = AssetManager::GetTextureByName("fryingpan_raw");
 	objectSprite->sortingOrder = 7;
 
 	type = objData.second;
+
+	if(type == ItemType::R_PATTY)
+	{
+		objectSprite->texture = AssetManager::GetTextureByName("fryingpan_raw");
+	}
+	else if (type == ItemType::C_PATTY)
+	{
+		objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
+	}
+	else if (type == ItemType::B_PATTY)
+	{
+		objectSprite->texture = AssetManager::GetTextureByName("fryingpan_burnt");
+	}
+
 	isOccupied = true;
-	isCooked = false;
 	cookTime = 3.0f;
 }
 
@@ -137,26 +149,25 @@ void PanLogic::cookObject()
 		sliderLogic->EnableSlider(true);
 
 	cookTime -= DuckEngine::FixedDeltaTime();
+	EmitSparks();
 	if (cookTime <= 0.f)
 	{
 		if (objectSprite)
 		{
 			// If object is R_PATTY and not cooked.
-			if (type == ItemType::R_PATTY && !isCooked)
+			if (type == ItemType::R_PATTY)
 			{
 				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
 				type = ItemType::C_PATTY;
-				isCooked = true;
 				cookTime = 3.0f;
 
 				if (sliderLogic)
 					sliderLogic->ResetSlider();
 			}
-			else if (type == ItemType::C_PATTY && isCooked)
+			else if (type == ItemType::C_PATTY)
 			{
 				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_burnt");
 				type = ItemType::B_PATTY;
-				isCooked = true;
 			}
 		}
 	}
