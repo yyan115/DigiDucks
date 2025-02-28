@@ -39,6 +39,7 @@ enum class ItemType
     C_SHRIMP,              // Cut Shrimp
     R_PATTY,               // Raw Patty
     C_PATTY,               // Cooked Patty
+	B_PATTY,			   // Burnt Patty
     C_TOMATO,              // Cut Tomato
 
     // Burger Types

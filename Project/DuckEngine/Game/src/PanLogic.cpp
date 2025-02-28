@@ -47,6 +47,10 @@ void PanLogic::Start()
 * ****************************************************************/
 void PanLogic::Update()
 {
+	if (isOccupied && type != ItemType::B_PATTY)
+	{
+		cookObject();
+	}
 }
 
 /****************************************************************
@@ -76,6 +80,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 
 	type = objData.second;
 	isOccupied = true;
+	isCooked = false;
 	cookTime = 3.0f;
 }
 
@@ -100,6 +105,10 @@ std::pair<int, ItemType> PanLogic::moveObject()
 	else if (type == ItemType::C_PATTY)
 	{
 		objectSprite->texture = AssetManager::GetTextureByName("cooked_patty");
+	}
+	else if (type == ItemType::B_PATTY)
+	{
+		objectSprite->texture = AssetManager::GetTextureByName("burnt_patty");
 	}
 
 	std::cout << "Object ID: " << object->entityID << " Type: " << whatType(type) << std::endl;
@@ -132,8 +141,23 @@ void PanLogic::cookObject()
 	{
 		if (objectSprite)
 		{
-			objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
-			type = ItemType::C_PATTY;
+			// If object is R_PATTY and not cooked.
+			if (type == ItemType::R_PATTY && !isCooked)
+			{
+				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
+				type = ItemType::C_PATTY;
+				isCooked = true;
+				cookTime = 3.0f;
+
+				if (sliderLogic)
+					sliderLogic->ResetSlider();
+			}
+			else if (type == ItemType::C_PATTY && isCooked)
+			{
+				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_burnt");
+				type = ItemType::B_PATTY;
+				isCooked = true;
+			}
 		}
 	}
 }

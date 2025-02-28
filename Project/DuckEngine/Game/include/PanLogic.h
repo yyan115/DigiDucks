@@ -36,6 +36,7 @@ private:
 
 public:
 	bool isOccupied = false;
+	bool isCooked = false;
 
 	PanLogic() :
 		GameLogic(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
