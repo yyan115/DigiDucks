@@ -39,7 +39,6 @@ void PanLogic::Start()
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 	isOccupied = false;
-	cookTime = 1.f;
 }
 
 /****************************************************************
@@ -47,10 +46,7 @@ void PanLogic::Start()
 * ****************************************************************/
 void PanLogic::Update()
 {
-	if (isOccupied && type != ItemType::B_PATTY)
-	{
-		cookObject();
-	}
+
 }
 
 /****************************************************************
@@ -58,6 +54,10 @@ void PanLogic::Update()
 * ****************************************************************/
 void PanLogic::FixedUpdate()
 {
+	if (isOccupied && type != ItemType::B_PATTY)
+	{
+		cookObject();
+	}
 }
 
 /****************************************************************
@@ -93,7 +93,7 @@ void PanLogic::setObject(std::pair<int, ItemType> objData)
 	}
 
 	isOccupied = true;
-	cookTime = 3.0f;
+	currCookTime = cookTime;
 }
 
 /****************************************************************
@@ -148,9 +148,9 @@ void PanLogic::cookObject()
 	if(sliderLogic)
 		sliderLogic->EnableSlider(true);
 
-	cookTime -= DuckEngine::FixedDeltaTime();
+	currCookTime -= DuckEngine::FixedDeltaTime();
 	EmitSparks();
-	if (cookTime <= 0.f)
+	if (currCookTime <= 0.f)
 	{
 		if (objectSprite)
 		{
@@ -159,7 +159,7 @@ void PanLogic::cookObject()
 			{
 				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
 				type = ItemType::C_PATTY;
-				cookTime = 3.0f;
+				currCookTime = cookTime;
 
 				if (sliderLogic)
 					sliderLogic->ResetSlider();

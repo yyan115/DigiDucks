@@ -30,7 +30,8 @@ private:
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;
 	ItemType type;
-	float cookTime;
+	float currCookTime;
+	const float cookTime = 3.5f;
 
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
 
@@ -38,10 +39,10 @@ public:
 	bool isOccupied = false;
 
 	PanLogic() :
-		GameLogic(nullptr), type(ItemType::EMPTY), cookTime(1.f) {}
+		GameLogic(nullptr), type(ItemType::EMPTY), currCookTime(1.f) {}
 
 	PanLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), type(ItemType::EMPTY), cookTime(1.f)
+		GameLogic(nullptr), type(ItemType::EMPTY), currCookTime(1.f)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
