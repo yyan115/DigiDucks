@@ -1,4 +1,7 @@
-﻿#include "WindowManager.h"
+﻿#include <thread>
+#include <chrono>
+
+#include "WindowManager.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "LoggerManager.h"
@@ -73,38 +76,72 @@ int WINAPI WinMain(
 		DUCKLOG_INFO("Game Started.");
 		while (engine.Running())
 		{
-			TimeManager::StartTotalTimer();  
-			
+			double frameStartTime = glfwGetTime();
+
+			TimeManager::StartTotalTimer();
 			EditorInputManager::Update();
-			
+
 			if (!engine.isPaused)
 			{
 				engine.Update();
 				GameManager::Update();
 			}
 
+			GizmoManager::Update();
+			engine.StartDraw();
+			engine.Draw();
+			uiManager.StartRender();
+			uiManager.Render();
+			SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
+			uiManager.EndRender();
+			TimeManager::EndTotalTimer();
+			engine.EndDraw();
+
+			static double accumulatedError = 0.0;
+			if (!ProjectSettings::GetUseVSync() && ProjectSettings::GetTargetFPS() > 0)
+			{
+				double targetFrameTime = 1.0 / ProjectSettings::GetTargetFPS();
+				double compensationFactor = 0.97; 
+
+				if (accumulatedError < -0.005)
+				{
+					accumulatedError = -0.005;
+				}
+				else if (accumulatedError > 0.005)
+				{
+					accumulatedError = 0.005;
+				}
+				double adjustedFrameTime = (targetFrameTime * compensationFactor) - accumulatedError;
+
+				double frameEndTarget = frameStartTime + adjustedFrameTime;
+				double currentTime = glfwGetTime();
+
+				if (currentTime < frameEndTarget)
+				{
+					double timeToWait = frameEndTarget - currentTime;
+
+					if (timeToWait > 0.001) 
+					{
+						std::this_thread::sleep_for(std::chrono::duration<double>(timeToWait - 0.001));
+					}
+
+					while (glfwGetTime() < frameEndTarget) 
+					{
+						// Just spin
+					}
+				}
+
+				double frameEndActual = glfwGetTime();
+				double actualFrameTime = frameEndActual - frameStartTime;
+				accumulatedError += (actualFrameTime - targetFrameTime) * 0.1; // Smooth correction
+			}
+
+
 #ifdef EDITOR_DEBUG
 			DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 #else
 			DuckEngine::SetWindowTitle("Quack Kitchen");
 #endif
-
-			GizmoManager::Update();
-
-			engine.StartDraw();
-			
-			engine.Draw();
-			
-			uiManager.StartRender();
-			
-			uiManager.Render();
-
-			SceneWindow::RenderSceneWindow(WindowManager::GetWindowWidth(), WindowManager::GetWindowHeight());
-			
-			uiManager.EndRender();
-			
-			TimeManager::EndTotalTimer();
-			engine.EndDraw(); 
 		}
 	}
 

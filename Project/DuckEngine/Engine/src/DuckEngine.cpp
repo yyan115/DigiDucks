@@ -588,3 +588,8 @@ int DuckEngine::RandomRange(int minVal, int maxVal)
 void DuckEngine::RegisterEmitter(const std::string& ParticleType, Emitter& emitter) {
 	ParticleManager::RegisterEmitter(ParticleType, emitter);
 }
+
+double DuckEngine::GetGLFWTime() 
+{
+	return glfwGetTime();
+}

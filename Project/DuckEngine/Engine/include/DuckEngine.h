@@ -224,6 +224,9 @@ public:
 
     static DUCKENGINE_API int RandomRange(int minVal, int maxVal);
 
+    static DUCKENGINE_API double GetGLFWTime();
+
+
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;
