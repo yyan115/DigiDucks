@@ -31,6 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "RestockLogic.h"
 #include "CustomerLogic.h"
+#include "PauseMenuLogic.h"
 
 class GameScene : public Scene
 {
@@ -51,10 +52,6 @@ public:
 private:
     // Helper functions
     void UpdateOrderTexture();
-    void PauseGame(bool state);
-    void HTPShow(bool state);
-    void ExitConfirm(bool state);
-    void changePage();
     void MiniGame_1(bool state);
     void passwordInput(std::string num);
     void enterPassword();
@@ -83,50 +80,8 @@ private:
     Entity* score = nullptr;
     TextComponent* scoreText = nullptr;
 
-    // Game State
-    bool isPaused = false;
-
     // Pause Menu
-    Entity* gamePauseBg = nullptr;
-    SpriteRendererComponent* gamePauseBgSpt = nullptr;
-    ButtonComponent* gameResumeButton = nullptr;
-	SpriteRendererComponent* gameResumeBtnSpt = nullptr;
-    Texture gameResumeBtn_Normal{};
-	Texture gameResumeBtn_Hover{};
-    ButtonComponent* gameExitButton = nullptr;
-	SpriteRendererComponent* gameExitBtnSpt = nullptr;
-	Texture gameExitBtn_Normal{};
-	Texture gameExitBtn_Hover{};
-    ButtonComponent* gameHTPButton = nullptr;
-	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
-	Texture gameHTPBtn_Normal{};
-	Texture gameHTPBtn_Hover{};
-
-
-    // HTP Page
-    int pageNumb = 1;
-
-    // HTP Menu
-    Entity* gameJournal = nullptr;
-    SpriteRendererComponent* gameJournalSpt = nullptr;
-    Entity* gameHTPExitBtn = nullptr;
-    ButtonComponent* gameHTPExitButton = nullptr;
-    Entity* gameHTPBackBtn = nullptr;
-    ButtonComponent* gameHTPBackButton = nullptr;
-    Entity* gameHTPNextBtn = nullptr;
-    ButtonComponent* gameHTPNextButton = nullptr;
-
-    // Exit Confirm
-    Entity* gameExitCfmBg = nullptr;
-    SpriteRendererComponent* gameExitCfmBgSpt = nullptr;
-    ButtonComponent* gameExitYesButton = nullptr;
-	SpriteRendererComponent* gameExitYesBtnSpt = nullptr;
-	Texture gameExitYesBtn_Normal{};
-	Texture gameExitYesBtn_Hover{};
-    ButtonComponent* gameExitNoButton = nullptr;
-	SpriteRendererComponent* gameExitNoBtnSpt = nullptr;
-	Texture gameExitNoBtn_Normal{};
-	Texture gameExitNoBtn_Hover{};
+    std::shared_ptr<PauseMenuLogic> pauseMenuLogic = nullptr;
 
     // Restock Menu
 	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;

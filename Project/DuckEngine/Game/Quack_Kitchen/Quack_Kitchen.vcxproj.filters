@@ -92,6 +92,9 @@
     <ClCompile Include="..\src\HowToPlayLogic.cpp">
       <Filter>src\Logic\MainMenu</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PauseMenuLogic.cpp">
+      <Filter>src\Logic\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="..\include\HowToPlayLogic.h">
       <Filter>include\Logic\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PauseMenuLogic.h">
+      <Filter>include\Logic\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

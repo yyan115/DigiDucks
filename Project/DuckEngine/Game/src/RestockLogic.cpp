@@ -144,7 +144,6 @@ void RestockLogic::Start()
 	std::string spriteName = "Cart_Stock_";
 	for (int i = 0; i < MAX_CART_STOCK; i++)
 	{
-		std::cout << "Cart_Stock_" << i << std::endl;
 		auto cartStockSprite = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(spriteName + std::to_string(i)).get();
 		if (cartStockSprite)
 		{
@@ -417,9 +416,5 @@ void RestockLogic::RemoveFromCart(ItemType type)
 
 void RestockLogic::MiniGame_1(bool state)
 {
-	/*
-	*  Minigame Logic here.
-	*/
-	std::cout << "MiniGame_1: Start"  << std::endl;
 	isMiniGame = state;
 }

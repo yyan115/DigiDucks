@@ -212,6 +212,7 @@
     <ClCompile Include="..\src\MovementLogic.cpp" />
     <ClCompile Include="..\src\OrderTabLogic.cpp" />
     <ClCompile Include="..\src\PanLogic.cpp" />
+    <ClCompile Include="..\src\PauseMenuLogic.cpp" />
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RestockLogic.cpp" />
     <ClCompile Include="..\src\RoamingLogic.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="..\include\OrderTabLogic.h" />
     <ClInclude Include="..\include\PanLogic.h" />
     <ClInclude Include="..\include\GreyPlateStockLogic.h" />
+    <ClInclude Include="..\include\PauseMenuLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />
     <ClInclude Include="..\include\RestockLogic.h" />
     <ClInclude Include="..\include\RoamingLogic.h" />

@@ -95,6 +95,12 @@ public:
 		UNREFERENCED_PARAMETER(component);
 	}
 
+	std::shared_ptr<GameLogic> Clone() const override
+	{
+		auto clone = std::make_shared<RestockLogic>(*this);
+		clone->component = nullptr;
+		return clone;
+	}
 
 	/****************************************************************
 	* @brief Start function for the Restock Station Logic.
@@ -110,14 +116,6 @@ public:
 	* @brief Fixed Update function for the Restock Station Logic.
 	* ****************************************************************/
 	void FixedUpdate() override;
-
-
-	std::shared_ptr<GameLogic> Clone() const override
-	{
-		auto clone = std::make_shared<RestockLogic>(*this);
-		clone->component = nullptr;
-		return clone;
-	}
 
 	/****************************************************************
 	* @brief Function that handles the state of the restock menu.

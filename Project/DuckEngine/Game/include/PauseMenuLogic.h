@@ -1,0 +1,118 @@
+/******************************************************************************/
+/*!
+\file       PauseMenuLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       March 4 2025
+\brief      Declartion of all Pause Menu Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+#pragma once
+
+#include "DuckEngine.h"
+#include "DuckEngine_Input.h"
+
+class PauseMenuLogic : public GameLogic
+{
+private:
+	//Pause Menu
+	Entity* gamePauseBg = nullptr;
+	SpriteRendererComponent* gamePauseBgSpt = nullptr;
+	ButtonComponent* gameResumeButton = nullptr;
+	SpriteRendererComponent* gameResumeBtnSpt = nullptr;
+	Texture gameResumeBtn_Normal{};
+	Texture gameResumeBtn_Hover{};
+	ButtonComponent* gameExitButton = nullptr;
+	SpriteRendererComponent* gameExitBtnSpt = nullptr;
+	Texture gameExitBtn_Normal{};
+	Texture gameExitBtn_Hover{};
+	ButtonComponent* gameHTPButton = nullptr;
+	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
+	Texture gameHTPBtn_Normal{};
+	Texture gameHTPBtn_Hover{};
+
+	// HTP Menu
+	Entity* gameJournal = nullptr;
+	SpriteRendererComponent* gameJournalSpt = nullptr;
+	Entity* gameHTPExitBtn = nullptr;
+	ButtonComponent* gameHTPExitButton = nullptr;
+	Entity* gameHTPBackBtn = nullptr;
+	ButtonComponent* gameHTPBackButton = nullptr;
+	Entity* gameHTPNextBtn = nullptr;
+	ButtonComponent* gameHTPNextButton = nullptr;
+
+	// Exit Confirm
+	Entity* gameExitCfmBg = nullptr;
+	SpriteRendererComponent* gameExitCfmBgSpt = nullptr;
+	ButtonComponent* gameExitYesButton = nullptr;
+	SpriteRendererComponent* gameExitYesBtnSpt = nullptr;
+	Texture gameExitYesBtn_Normal{};
+	Texture gameExitYesBtn_Hover{};
+	ButtonComponent* gameExitNoButton = nullptr;
+	SpriteRendererComponent* gameExitNoBtnSpt = nullptr;
+	Texture gameExitNoBtn_Normal{};
+	Texture gameExitNoBtn_Hover{};
+
+	// UI
+	Entity* ui = nullptr;
+	SpriteRendererComponent* uiSprite = nullptr;
+
+public:
+	// HTP Page
+	int pageNumb = 1;
+	bool isPaused = false;
+
+	PauseMenuLogic() : GameLogic(nullptr) {}
+
+	PauseMenuLogic(GameLogicComponent* component) : GameLogic(nullptr)
+	{
+		UNREFERENCED_PARAMETER(component);
+	}
+
+	std::shared_ptr<GameLogic> Clone() const override
+	{
+		auto clone = std::make_shared<PauseMenuLogic>(*this);
+		clone->component = nullptr;
+		return clone;
+	}
+
+	/****************************************************************
+	* @brief Start function for the Pause Menu Logic
+	* ****************************************************************/
+	void Start() override;
+
+	/****************************************************************
+	* @brief Update function for the Pause Menu Logic
+	* ****************************************************************/
+	void Update() override;
+
+	/****************************************************************
+	* @brief FixedUpdate function for the Pause Menu Logic
+	* ****************************************************************/
+	void FixedUpdate() override;
+
+	/****************************************************************
+	* @brief Function to Pause/Unpause the game
+	* ****************************************************************/
+	void PauseGame(bool state);
+
+	/****************************************************************
+	* @brief Function to Enable/Disable the How To Play menu
+	* ****************************************************************/
+	void HTPShow(bool state);
+
+	/****************************************************************
+	* @brief Function to Enable/Disable the Exit Confirmation menu
+	* ****************************************************************/
+	void ExitConfirm(bool state);
+
+	/****************************************************************
+	* @brief Function to change the page of the How To Play menu
+	* ****************************************************************/
+	void changePage();
+};

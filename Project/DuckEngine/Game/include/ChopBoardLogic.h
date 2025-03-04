@@ -29,8 +29,8 @@ private:
 	Entity* object = nullptr;
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;
-	ItemType type;
-	float chopTime;
+	ItemType type = ItemType::EMPTY;
+	float chopTime = 1.0f;
 
 
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
@@ -39,11 +39,9 @@ public:
 	bool isChopped = false;
 	bool isOccupied = false;
 
-	ChopBoardLogic() : 
-		GameLogic(nullptr), type(ItemType::EMPTY), chopTime(1.f) {}
+	ChopBoardLogic() : GameLogic(nullptr) {}
 
-	ChopBoardLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), type(ItemType::EMPTY), chopTime(1.f) 
+	ChopBoardLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
