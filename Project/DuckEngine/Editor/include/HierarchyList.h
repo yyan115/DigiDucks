@@ -41,4 +41,5 @@ public:
     static bool IsRootEntity(const std::vector<std::shared_ptr<Entity>>& allEntities, const Entity* entity);
     static std::vector<std::shared_ptr<Entity>> GetRootEntities(const std::vector<std::shared_ptr<Entity>>& entities);
 
+    static void RenameEntity(int entityID, const std::string& newName);
 };

@@ -142,9 +142,7 @@ void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
 		if (ImGui::InputText("##Rename", nameBuffer, sizeof(nameBuffer),
 			ImGuiInputTextFlags_EnterReturnsTrue))
 		{
-			entity->name = nameBuffer;
-			LevelManager::SaveSceneChanges(
-				DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+			RenameEntity(entity->entityID, nameBuffer);
 			renamingEntityID = -1;
 		}
 
@@ -226,3 +224,33 @@ void Hierarchy::DisplayEntity(std::shared_ptr<Entity> entity,
 
 	ImGui::PopID();
 }
+
+void Hierarchy::RenameEntity(int entityID, const std::string& newName)
+{
+	std::shared_ptr<Entity> entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID);
+	if (!entity)
+	{
+		std::cerr << "RenameEntity failed: entityID " << entityID << " not found.\n";
+		return;
+	}
+
+	std::string oldName = entity->name;
+	entity->name = newName;
+
+	for (auto& potentialParent : DuckEngine::DUCKENGINE_EntityManager.GetEntities())
+	{
+		auto& childNames = potentialParent->childNames;
+		for (std::string& childName : childNames)
+		{
+			if (childName == oldName)
+			{
+				childName = newName;
+			}
+		}
+	}
+
+	LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
+
+	std::cout << "Entity renamed from " << oldName << " to " << newName << std::endl;
+}
+
