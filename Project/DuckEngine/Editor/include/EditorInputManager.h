@@ -49,6 +49,10 @@ public:
 	static void SetIsDragging(bool enable) { isDragging = enable; }
 	static bool GetIsDragging() { return isDragging; }
 
+	static std::shared_ptr<Entity> DuplicateEntityHierarchy(int oldEntityID);
+	static std::shared_ptr<Entity> CloneSingleEntity(const Entity& oldEntity);
+
+
 private:
 	static bool isDragging;
 

@@ -1,4 +1,4 @@
-/******************************************************************************
+﻿/******************************************************************************
 \file       EditorInputManager.h
 \author     Lucas Yee 2301212
 \par        l.yee@digipen.edu
@@ -23,6 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "HierarchyList.h"
 #include "SnapshotManager.h"
+#include "ComponentFactory.h"
 
 float cameraSensitivity = 0.05f;
 bool EditorInputManager::isDragging = false;
@@ -103,10 +104,17 @@ void EditorInputManager::Update()
         SnapshotManager::Redo();
     }
 
+	if (UIManager::selectedEntityID != -1
+		&& InputManager::IsKeyDown(DuckEngine_Input::KEY_CTRL)
+		&& InputManager::IsKeyPressed('D'))
+	{
+        DuplicateEntityHierarchy(UIManager::selectedEntityID);
+	}
+
 }
 
 /**************************************************************************
-@brief Processes scroll input to adjust the camera�s height, effectively zooming
+@brief Processes scroll input to adjust the camera’s height, effectively zooming
        in or out in the scene view.
 @param offsetY The scroll offset in the Y direction.
 **************************************************************************/
@@ -132,4 +140,77 @@ void EditorInputManager::HandleMouseDrag(double deltaX, double deltaY)
     float adjustedDeltaY = static_cast<float>(deltaY) * cameraSensitivity;
 
     CameraManager::MoveCamera(adjustedDeltaX, adjustedDeltaY);
+}
+
+std::shared_ptr<Entity> EditorInputManager::DuplicateEntityHierarchy(int oldEntityID)
+{
+	// 1) Get the old entity
+	std::shared_ptr<Entity> oldEntity =
+		DuckEngine::DUCKENGINE_EntityManager.GetEntity(oldEntityID);
+	if (!oldEntity)
+	{
+		return nullptr;
+	}
+
+	std::shared_ptr<Entity> newEntity =
+		DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+	newEntity->name = oldEntity->name + "_copy";
+	newEntity->layerName = oldEntity->layerName;
+	newEntity->prefabName = oldEntity->prefabName;
+
+	nlohmann::json tempJson;
+	ComponentFactory::SaveComponentsToJson(oldEntityID, tempJson["components"]);
+	ComponentFactory::AddComponentsToEntity(newEntity.get(), tempJson["components"]);
+
+	TransformComponent* oldTransform =
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(oldEntityID);
+	TransformComponent* newTransform =
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(newEntity->entityID);
+
+	if (oldTransform && newTransform)
+	{
+		newTransform->SetPosition(oldTransform->GetPosition());
+	}
+
+	for (auto& oldChild : oldEntity->childEntities)
+	{
+		if (!oldChild)
+		{
+			continue;
+		}
+		std::shared_ptr<Entity> newChild = DuplicateEntityHierarchy(oldChild->entityID);
+		if (newChild)
+		{
+			newEntity->childEntities.push_back(newChild);
+			newEntity->childNames.push_back(newChild->name);
+		}
+	}
+
+	return newEntity;
+}
+
+
+std::shared_ptr<Entity> EditorInputManager::CloneSingleEntity(const Entity& oldEntity)
+{
+	nlohmann::json tempJson;
+	ComponentFactory::SaveComponentsToJson(oldEntity.entityID, tempJson["components"]);
+
+	std::shared_ptr<Entity> newEntity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
+
+	newEntity->name = oldEntity.name + "_copy";
+	newEntity->layerName = oldEntity.layerName;
+	newEntity->prefabName = oldEntity.prefabName;
+
+	ComponentFactory::AddComponentsToEntity(newEntity.get(), tempJson["components"]);
+
+	if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(newEntity->entityID))
+	{
+		transform->localPosition.x += 50.f;
+		transform->localPosition.y += 50.f;
+
+		transform->worldPosition = transform->localPosition;
+
+	}
+
+	return newEntity;
 }
