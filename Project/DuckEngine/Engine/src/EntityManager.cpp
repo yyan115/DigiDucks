@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "EntityManager.h"
 #include "DuckEngine.h"
+#include "ComponentFactory.h"
 
 /************************************************************************
 @brief Creates a new entity, assigns it a unique ID, and adds it to the list
@@ -132,4 +133,57 @@ bool EntityManager::ShouldSkipDueToInvisibleAncestor(int entityID)
 		currentParent = GetParentEntity(currentParent->entityID);
 	}
 	return false;
+}
+
+std::shared_ptr<Entity> EntityManager::DuplicateEntity(int oldEntityID)
+{
+	std::shared_ptr<Entity> oldEntity = GetEntity(oldEntityID);
+	if (!oldEntity)
+	{
+		return nullptr;
+	}
+
+	std::string baseName = oldEntity->name + "_copy";
+	std::string uniqueName = baseName;
+	int copyIndex = 1;
+
+	while (GetEntityByName(uniqueName))
+	{
+		uniqueName = baseName + "_" + std::to_string(copyIndex);
+		copyIndex++;
+	}
+
+	std::shared_ptr<Entity> newEntity = CreateEntity();
+	newEntity->name = uniqueName;
+	newEntity->layerName = oldEntity->layerName;
+	newEntity->prefabName = oldEntity->prefabName;
+
+	nlohmann::json tempJson;
+	ComponentFactory::SaveComponentsToJson(oldEntityID, tempJson["components"]);
+	ComponentFactory::AddComponentsToEntity(newEntity.get(), tempJson["components"]);
+
+	TransformComponent* oldTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(oldEntityID);
+	TransformComponent* newTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(newEntity->entityID);
+
+	if (oldTransform && newTransform)
+	{
+		newTransform->SetPosition(oldTransform->GetPosition());
+	}
+
+	for (const auto& oldChild : oldEntity->childEntities)
+	{
+		if (!oldChild)
+		{
+			continue;
+		}
+
+		std::shared_ptr<Entity> newChild = DuplicateEntity(oldChild->entityID);
+		if (newChild)
+		{
+			newEntity->childEntities.push_back(newChild);
+			newEntity->childNames.push_back(newChild->name);
+		}
+	}
+
+	return newEntity;
 }
