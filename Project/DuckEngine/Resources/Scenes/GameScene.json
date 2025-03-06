@@ -1850,6 +1850,102 @@
             },
             "prefab": "Txt_Bg"
         },
+        "GameObject_157": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.0,
+                "y": -8.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_158": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -18.0,
+                "y": -7.957606315612793
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_159": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -20.0,
+                "y": -8.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_160": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -22.0,
+                "y": -8.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_161": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": -8.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_162": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": -6.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_163": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": -4.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_164": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": -2.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_165": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": 0.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_166": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": 2.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_167": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -24.0,
+                "y": 4.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
+        "GameObject_168": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -22.0,
+                "y": 4.0
+            },
+            "prefab": "NormalTablePrefab"
+        },
         "Grey_Plate": {
             "components": [
                 {
@@ -5579,7 +5675,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 100,
-                        "text": "0"
+                        "text": "SCORE: 0"
                     },
                     "type": "TextComponent"
                 }
@@ -6985,7 +7081,7 @@
                     "properties": {
                         "position": {
                             "x": -4.0,
-                            "y": -8.0
+                            "y": -7.960600852966309
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -7016,7 +7112,7 @@
                     "properties": {
                         "center": {
                             "x": -4.0,
-                            "y": -8.0
+                            "y": -7.960600852966309
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7293,7 +7389,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 100,
-                        "text": "5:00"
+                        "text": "TIME:"
                     },
                     "type": "TextComponent"
                 }
