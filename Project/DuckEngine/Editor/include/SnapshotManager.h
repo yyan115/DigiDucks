@@ -56,7 +56,7 @@ public:
 private:
     static std::stack<nlohmann::json> undoStack;
     static std::stack<nlohmann::json> redoStack;
-    static const size_t MAX_UNDO_STEPS = 20;
+    static const size_t MAX_UNDO_STEPS = 30;
 
     /**************************************************************************
     * @brief Captures the current scene state as a JSON object.
