@@ -35,15 +35,27 @@ void SnapshotManager::SaveUndoState()
 
 	if (undoStack.size() > MAX_UNDO_STEPS)
 	{
+		std::stack<nlohmann::json> tempStack;
+
+		while (undoStack.size() > 1)
+		{
+			tempStack.push(undoStack.top());
+			undoStack.pop();
+		}
+
 		undoStack.pop();
+
+		while (!tempStack.empty())
+		{
+			undoStack.push(tempStack.top());
+			tempStack.pop();
+		}
 	}
 
 	while (!redoStack.empty())
 	{
 		redoStack.pop();
 	}
-
-	std::cout << "Saved undo state. Undo stack size: " << undoStack.size() << std::endl;
 }
 
 /**************************************************************************

@@ -72,6 +72,8 @@ public:
     ***************************************************************/
     static std::unordered_set<std::string> GetAllowedImageExtensions();
 
+    static void HandlePropertyChange(bool& hasChanged);
+
 
 
 private:

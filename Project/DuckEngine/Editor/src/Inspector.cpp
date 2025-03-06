@@ -49,6 +49,15 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
 
 bool isEditing = false;
 
+void InspectorRenderer::HandlePropertyChange(bool& hasChanged)
+{
+	hasChanged = true;
+	if (!isEditing)
+	{
+		SnapshotManager::SaveUndoState();
+		isEditing = true;
+	}
+}
 
 template <typename ComponentName>
 void ComponentMenu(int entityID)
@@ -65,6 +74,7 @@ void ComponentMenu(int entityID)
 	{
 		if (ImGui::MenuItem("Remove Component"))
 		{
+			SnapshotManager::SaveUndoState();
 			DuckEngine::DUCKENGINE_ComponentManager.RemoveComponent<ComponentName>(entityID);
 			ImGui::CloseCurrentPopup();
 			ImGui::EndPopup();
@@ -113,6 +123,7 @@ void InspectorRenderer::RenderLayer(int entityID)
 			bool isSelected = (currentLayerIndex == i);
 			if (ImGui::Selectable(layerNames[i].c_str(), isSelected))
 			{
+				SnapshotManager::SaveUndoState();
 				currentLayerIndex = i;
 				entity->layerName = layerNames[i];  // Update entity layer
 				LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
@@ -179,40 +190,25 @@ void InspectorRenderer::RenderComponents(int entityID)
 				Vec2 delta = transform->worldPosition - oldWorldPos;
 				transform->UpdateChildPositions(delta);
 
-				hasChanged = true;
-				if (!isEditing)
-				{
-					SnapshotManager::SaveUndoState();
-					isEditing = true;
-				}
+				HandlePropertyChange(hasChanged);
 			}
 
 			ImGui::Text("Rotation");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat("##Rotation", &transform->angle, 1.0f, 0.0f, 360.0f))
 			{
-				hasChanged = true;
-				if (!isEditing)
-				{
-					SnapshotManager::SaveUndoState();
-					isEditing = true;
-				}
+				HandlePropertyChange(hasChanged);
 			}
 
 			ImGui::Text("Scale");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat2("##Scale", &transform->scale.x, 0.1f, 0.1f, 10000.0f))
 			{
-				hasChanged = true;
-				if (!isEditing)
-				{
-					SnapshotManager::SaveUndoState();
-					isEditing = true;
-				}
+				HandlePropertyChange(hasChanged);
 			}
 
 			ImGui::Checkbox("Relative To Camera", &transform->relativeToCamera);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 		}
 	}
 
@@ -222,10 +218,10 @@ void InspectorRenderer::RenderComponents(int entityID)
 		if (ImGui::CollapsingHeader("Sprite Renderer Component"))
 		{
 			ImGui::Checkbox("Use Color", &spriteRenderer->useColor);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			ImGui::Checkbox("Visible", &spriteRenderer->isVisible);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			// Normalize the color values
 			float color[4] = {
@@ -243,7 +239,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				spriteRenderer->color.g = color[1] * 255.0f;
 				spriteRenderer->color.b = color[2] * 255.0f;
 				spriteRenderer->color.a = color[3] * 255.0f;
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			ImGui::Text("Sorting Order");
@@ -251,7 +247,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::PushItemWidth(130);
 			if (ImGui::InputInt("##SortingOrder", &spriteRenderer->sortingOrder))
 			{
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 			ImGui::PopItemWidth();
 
@@ -290,7 +286,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 						if (newTexture) {
 							spriteRenderer->texture = *newTexture;
-							hasChanged = true;
+							HandlePropertyChange(hasChanged);
 							std::cout << "Texture replaced with: " << spriteRenderer->texturePath << std::endl;
 						}
 						else {
@@ -314,13 +310,13 @@ void InspectorRenderer::RenderComponents(int entityID)
 		if (ImGui::CollapsingHeader("Rigidbody Component"))
 		{
 			ImGui::Checkbox("Is Static", &rb->isStatic);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			// Remove component button
 			ComponentMenu<RigidbodyComponent>(entityID);
 		}
 
-		
+
 	}
 
 	// Render BoundingBox if it exists
@@ -333,19 +329,19 @@ void InspectorRenderer::RenderComponents(int entityID)
 			Vec2 Offset = box->getOffSet();
 
 			ImGui::Checkbox("Is Kinematic", &box->isKinematic);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			ImGui::Text("Size");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##BoundingBoxSize", &size.x, 0.1f, 0.1f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingBoxSize", &size.x, 0.1f, 0.1f, 10000.0f)) HandlePropertyChange(hasChanged);
 
 			ImGui::Text("Rotation");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##BoundingBoxRotation", &box->rotation, 1.0f, 0.0f, 360.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##BoundingBoxRotation", &box->rotation, 1.0f, 0.0f, 360.0f)) HandlePropertyChange(hasChanged);
 
 			ImGui::Text("Offset");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##BoundingBoxOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingBoxOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 
 			// Update component with modified values
 			box->setCenter(center);
@@ -363,7 +359,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 		{
 			box->showDebugCollider = false;
 		}
-		
+
 	}
 
 	// Render BoundingCircle if it exists
@@ -376,15 +372,15 @@ void InspectorRenderer::RenderComponents(int entityID)
 			Vec2 Offset = circle->getOffSet();
 
 			ImGui::Checkbox("Is Kinematic", &circle->isKinematic);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			ImGui::Text("Radius");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##BoundingCircleRadius", &radius, 0.1f, 0.0f, 360.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##BoundingCircleRadius", &radius, 0.1f, 0.0f, 360.0f)) HandlePropertyChange(hasChanged);
 
 			ImGui::Text("Offset");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat2("##BoundingCircleOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat2("##BoundingCircleOffset", &Offset.x, 0.1f, -10000.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 
 			// Update component with modified values
 			circle->setCenter(center);
@@ -416,7 +412,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				if (ImGui::Selectable(name.c_str(), animator->currentAnimation && animator->currentAnimation->name == name))
 				{
 					animator->SetAnimation(name);
-					hasChanged = true;
+					HandlePropertyChange(hasChanged);
 				}
 			}
 
@@ -430,7 +426,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ComponentMenu<AnimatorComponent>(entityID);
 		}
 
-		
+
 	}
 
 	// Render SoundComponent if it exists
@@ -440,17 +436,17 @@ void InspectorRenderer::RenderComponents(int entityID)
 		{
 			// Checkbox for looping
 			ImGui::Checkbox("Loop", &sound->loop);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 
 			// Checkbox for playing on start
 			ImGui::Checkbox("Play on Start", &sound->playOnStart);
-			if (ImGui::IsItemEdited()) hasChanged = true;
-			
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
+
 			// Slider for volume
 			ImGui::Text("Volume");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Volume", &sound->volume, 0.01f, 0.0f, 1.0f)) hasChanged = true;
-			
+			if (ImGui::DragFloat("##Volume", &sound->volume, 0.01f, 0.0f, 1.0f)) HandlePropertyChange(hasChanged);
+
 			// Display sound paths
 			ImGui::Text("Sound Paths:");
 			for (size_t i = 0; i < sound->soundID.size(); ++i) {
@@ -479,7 +475,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 							sound->soundID[i] = newSoundPath;
 							DuckEngine::DUCKENGINE_AssetManager.LoadSound(sound->soundID[i], newSoundPath);
 
-							hasChanged = true;
+							HandlePropertyChange(hasChanged);
 							std::cout << "Sound file set to: " << sound->soundID[i] << std::endl;
 						}
 						else {
@@ -493,7 +489,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				ImGui::SameLine();
 				if (ImGui::Button("Remove")) {
 					sound->soundID.erase(sound->soundID.begin() + i);
-					hasChanged = true;
+					HandlePropertyChange(hasChanged);
 					ImGui::PopID();
 					break;
 				}
@@ -504,7 +500,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			// "Add New" button to add a new sound
 			if (ImGui::Button("Add New")) {
 				sound->soundID.push_back(""); // Add a new empty sound slot
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			// Category dropdown
@@ -527,7 +523,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 					if (ImGui::Selectable(categories[i].c_str(), isSelected)) {
 						currentCategoryIndex = static_cast<int>(i);
 						sound->category = categories[i];
-						hasChanged = true;
+						HandlePropertyChange(hasChanged);
 					}
 					if (isSelected) ImGui::SetItemDefaultFocus();
 				}
@@ -536,8 +532,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 			// Remove component button
 			ComponentMenu<SoundComponent>(entityID);
-		}      
-		
+		}
+
 	}
 
 	// Render TextComponent if it exists
@@ -559,7 +555,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 					if (ImGui::Selectable(Fonts[i].c_str(), isSelected)) {
 						currentFontIndex = i;
 						text->fontName = Fonts[i]; // Update the font name
-						hasChanged = true;
+						HandlePropertyChange(hasChanged);
 					}
 					if (isSelected) ImGui::SetItemDefaultFocus();
 				}
@@ -574,7 +570,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::SameLine(100);
 			if (ImGui::InputText("##Text", textBuffer.data(), textBuffer.size())) {
 				text->text = std::string(textBuffer.data());
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			// Position
@@ -588,7 +584,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Text("Font Size");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat("##FontSize", &text->fontSize, 0.1f, 0.1f, 1000.f)) {
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			// Color input
@@ -605,7 +601,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				text->color.g = color[1] * 255.0f;
 				text->color.b = color[2] * 255.0f;
 				text->color.a = color[3] * 255.0f;
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			ImGui::Text("Sorting Order");
@@ -613,13 +609,13 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::PushItemWidth(130);
 			if (ImGui::InputInt("##SortingOrder", &text->sortingOrder))
 			{
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 			ImGui::PopItemWidth();
 
 			// Enabled checkbox
 			if (ImGui::Checkbox("Enabled", &text->isEnabled)) {
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			// Component menu for removal
@@ -632,7 +628,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 		if (ImGui::CollapsingHeader("Button Component")) {
 			// Enabled checkbox
 			if (ImGui::Checkbox("Enabled", &button->isEnabled)) {
-				hasChanged = true;
+				HandlePropertyChange(hasChanged);
 			}
 
 			// Component menu for removal
@@ -656,7 +652,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				if (ImGui::Button(("Remove##" + std::to_string(i)).c_str()))
 				{
 					gameLogicComponent->RemoveLogic(gameLogicComponent->logicNames[i]);
-					hasChanged = true;
+					HandlePropertyChange(hasChanged);
 				}
 			}
 
@@ -707,7 +703,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 				if (std::find(gameLogicComponent->logicNames.begin(), gameLogicComponent->logicNames.end(), selectedLogic) == gameLogicComponent->logicNames.end())
 				{
 					gameLogicComponent->AddLogic(selectedLogic);
-					hasChanged = true;
+					HandlePropertyChange(hasChanged);
 				}
 			}
 
@@ -723,19 +719,19 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Checkbox("Is Increase", &sliderComponent->isIncrease);
 			ImGui::Checkbox("Horizontally", &sliderComponent->isHorizontal);
 			ImGui::Checkbox("Vertically", &sliderComponent->isVertical);
-			if (ImGui::IsItemEdited()) hasChanged = true;
+			if (ImGui::IsItemEdited()) HandlePropertyChange(hasChanged);
 			ImGui::Text("Min Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##MinValue", &sliderComponent->minValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##MinValue", &sliderComponent->minValue, 0.01f, 0.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 			ImGui::Text("Max Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##MaxValue", &sliderComponent->maxValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##MaxValue", &sliderComponent->maxValue, 0.01f, 0.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 			ImGui::Text("Current Value");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##CurrentValue", &sliderComponent->currentValue, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##CurrentValue", &sliderComponent->currentValue, 0.01f, 0.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 			ImGui::Text("Step");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.01f, 0.0f, 10000.0f)) hasChanged = true;
+			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.01f, 0.0f, 10000.0f)) HandlePropertyChange(hasChanged);
 			// Remove component button
 			ComponentMenu<SliderComponent>(entityID);
 		}
@@ -746,23 +742,25 @@ void InspectorRenderer::RenderComponents(int entityID)
 		//SnapshotManager::SaveUndoState(); 
 		isEditing = false;
 	}
-   
+
 
 	// Display Save and Overwrite buttons if changes were detected
 	if (hasChanged)
 	{
 		if (ImGui::Button("Save Entity Changes"))
 		{
+			SnapshotManager::SaveUndoState();
 			LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
-			hasChanged = false; 
+			hasChanged = false;
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Overwrite Prefab"))
 		{
+			SnapshotManager::SaveUndoState();
 			LevelManager::OverwritePrefab(entityID);
 			LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
 			DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
-			hasChanged = false; 
+			hasChanged = false;
 		}
 	}
 
@@ -829,6 +827,7 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 	}
 
 	else if (ImGui::Button("Add Component")) {
+		SnapshotManager::SaveUndoState();
 		AddComponentToEntity(componentTypes[selectedComponentIndex], entityID);
 		hasChanged = true;
 	}
@@ -868,7 +867,7 @@ void InspectorRenderer::AddComponentToEntity(const std::string& componentName, i
 	}
 	else if (componentName == "BoundingBox" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingBox>(entityID)) {
 		auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
-		if (transform) 
+		if (transform)
 		{
 			Vec2 position = transform->GetPosition();
 			Vec2 size = transform->scale;
@@ -885,7 +884,7 @@ void InspectorRenderer::AddComponentToEntity(const std::string& componentName, i
 	}
 	else if (componentName == "BoundingCircle" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<BoundingCircle>(entityID)) {
 		auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityID);
-		if (transform) 
+		if (transform)
 		{
 			Vec2 position = transform->GetPosition();
 			auto entityCircle = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<BoundingCircle>(entityID, position, 0.5f);
