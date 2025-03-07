@@ -34,6 +34,8 @@ public:
 
     DUCKENGINE_API void Update() override;
 
+    DUCKENGINE_API void FixedUpdate() override;
+
 private:
     std::unordered_map<AnimatorComponent*, Animation*> activeAnimations;
 };
