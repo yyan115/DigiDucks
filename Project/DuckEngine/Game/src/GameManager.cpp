@@ -28,9 +28,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "TomatoStockLogic.h"
 #include "GreyPlateStockLogic.h"
 #include "WhitePlateStockLogic.h"
+#include "BowlStockLogic.h"
 #include "BinLogic.h"
 #include "TableLogic.h"
-#include "PanLogic.h"
+#include "StoveLogic.h"
 #include "ChopBoardLogic.h"
 #include "SubmitLogic.h"
 #include "RobotLogic.h"
@@ -43,6 +44,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "OrderTabLogic.h"
 #include "HowToPlayLogic.h"
 #include "PauseMenuLogic.h"
+#include "GetPanLogic.h"
+#include "GetPotLogic.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -81,9 +84,10 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
 	GameLogicManager::AddLogic("GreyPlateStockLogic", std::make_shared<GreyPlateStockLogic>());
 	GameLogicManager::AddLogic("WhitePlateStockLogic", std::make_shared<WhitePlateStockLogic>());
+	GameLogicManager::AddLogic("BowlStockLogic", std::make_shared<BowlStockLogic>());
 	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());
 	GameLogicManager::AddLogic("TableLogic", std::make_shared<TableLogic>());
-	GameLogicManager::AddLogic("PanLogic", std::make_shared<PanLogic>());
+	GameLogicManager::AddLogic("StoveLogic", std::make_shared<StoveLogic>());
 	GameLogicManager::AddLogic("ChopBoardLogic", std::make_shared<ChopBoardLogic>());
 	GameLogicManager::AddLogic("SubmitLogic", std::make_shared<SubmitLogic>());
 	GameLogicManager::AddLogic("RestockLogic", std::make_shared<RestockLogic>());
@@ -93,6 +97,8 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("LevelSelectScreenLogic", std::make_shared<LevelSelectScreenLogic>());
 	GameLogicManager::AddLogic("OrderTabLogic", std::make_shared<OrderTabLogic>());
 	GameLogicManager::AddLogic("PauseMenuLogic", std::make_shared<PauseMenuLogic>());
+	GameLogicManager::AddLogic("GetPanLogic", std::make_shared<GetPanLogic>());
+	GameLogicManager::AddLogic("GetPotLogic", std::make_shared<GetPotLogic>());
 	// Main Menu Logic
 	GameLogicManager::AddLogic("HowToPlayLogic", std::make_shared<HowToPlayLogic>());
 	// Customer Logic

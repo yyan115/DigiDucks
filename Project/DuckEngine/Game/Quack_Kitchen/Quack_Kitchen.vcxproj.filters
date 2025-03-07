@@ -44,40 +44,10 @@
     <ClCompile Include="..\src\Level0.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ChopBoardLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\CombineLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\CutSceneLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\HoldingLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MovementLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\PanLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\RestockLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\RobotLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ScoreLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\SliderLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\SubmitLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\TableLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp">
@@ -94,6 +64,36 @@
     </ClCompile>
     <ClCompile Include="..\src\PauseMenuLogic.cpp">
       <Filter>src\Logic\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HoldingLogic.cpp">
+      <Filter>src\Logic\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MovementLogic.cpp">
+      <Filter>src\Logic\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ChopBoardLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CombineLogic.cpp">
+      <Filter>src\Logic\Game\Ingredient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ScoreLogic.cpp">
+      <Filter>src\Logic\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TableLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StoveLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RestockLogic.cpp">
+      <Filter>src\Logic\Game\Restock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RobotLogic.cpp">
+      <Filter>src\Logic\Game\Restock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SubmitLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +171,21 @@
     </Filter>
     <Filter Include="include\Logic\Game\UI">
       <UniqueIdentifier>{ae8864fa-b379-46e1-b9ab-fe371b9c0ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Game\Station">
+      <UniqueIdentifier>{6022d8ed-c568-488c-9de0-c6651ac0383f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Game\Station">
+      <UniqueIdentifier>{60f8b87b-af02-4a1d-8f88-f5a6490938a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Game\Ingredient">
+      <UniqueIdentifier>{aa06d2f9-09cf-4682-a1eb-24394b803536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Logic\Game\Restock">
+      <UniqueIdentifier>{9f6729d2-c39e-42a8-b67b-0e9be9ab580e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Logic\Game\Restock">
+      <UniqueIdentifier>{7461eda7-fe07-4c3c-a213-7a0df6d1366c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -255,43 +270,10 @@
     <ClInclude Include="..\include\Level0.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\ChopBoardLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\CombineLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\CutSceneLogic.h">
       <Filter>include\Logic\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\HoldingLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\IngredientType.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\MovementLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\PanLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\RestockLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\RobotLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ScoreLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\SliderLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\SubmitLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\TableLogic.h">
       <Filter>include\Logic\Game</Filter>
     </ClInclude>
     <ClInclude Include="..\include\LevelSelectScreenLogic.h">
@@ -308,6 +290,48 @@
     </ClInclude>
     <ClInclude Include="..\include\PauseMenuLogic.h">
       <Filter>include\Logic\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MovementLogic.h">
+      <Filter>include\Logic\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HoldingLogic.h">
+      <Filter>include\Logic\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ChopBoardLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\CombineLogic.h">
+      <Filter>include\Logic\Game\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\IngredientType.h">
+      <Filter>include\Logic\Game\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ScoreLogic.h">
+      <Filter>include\Logic\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TableLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\StoveLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SubmitLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RobotLogic.h">
+      <Filter>include\Logic\Game\Restock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RestockLogic.h">
+      <Filter>include\Logic\Game\Restock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GetPotLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GetPanLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\BowlStockLogic.h">
+      <Filter>include\Logic\Game\Ingredient</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

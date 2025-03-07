@@ -21,6 +21,7 @@ void TableLogic::Start()
 {
 	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+
 	objectOnTable = nullptr;
 	objectTransform = nullptr;
 	isOccupied = false;
@@ -49,7 +50,10 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
     objectOnTable = entity;
     objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
     if (objectTransform) {
-        objectTransform->SetPosition(tableTransform->GetPosition());
+        if (isIngredient(objData.second))
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
+        else
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
     }
     type = objData.second;
     isOccupied = true;
@@ -87,4 +91,49 @@ std::pair<int, ItemType> TableLogic::moveObject() {
     type = ItemType::EMPTY;
 
     return std::make_pair(objectID, tempType);
+}
+
+
+/****************************************************************
+* @brief Find and Set the Pan on the table.
+* ****************************************************************/
+void TableLogic::setPan()
+{
+	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pan").get();
+    if (objectOnTable)
+    {
+		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
+        if (objectTransform)
+        {
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+	        type = ItemType::PAN;
+	        isOccupied = true;
+        }
+    }
+    else
+    {
+		std::cout << "Pan not found" << std::endl;
+    }
+}
+
+/****************************************************************
+* @brief Find and Set the Pot on the table.
+* ****************************************************************/
+void TableLogic::setPot() 
+{
+    objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pot").get();
+	if (objectOnTable)
+	{
+		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
+		if (objectTransform)
+		{
+			objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+			type = ItemType::POT;
+			isOccupied = true;
+		}
+	}
+    else
+    {
+        std::cout << "Pot not found" << std::endl;
+    }
 }

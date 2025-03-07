@@ -1,31 +1,21 @@
-/******************************************************************************/
-/*!
-\file       ScoreLogic.h
-\author     Ernest Ho, h.yonghengernest, 2301223
-\par        h.yonghengernestt@digipen.edu
-\brief      Declaration of the Score Logic.
-
-Copyright (C) 2025 DigiPen Institute of Technology.
-Reproduction or disclosure of this file or its contents without the prior
-written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
-
 #pragma once
 
 #include "DuckEngine.h"
+#include "DuckEngine_Input.h"
+#include "TableLogic.h"
 
-class ScoreLogic : public GameLogic
+
+// This Logic is Only for Entity with TableLogic
+// This Logic is used to find the Pot and set it to TableLogic Item
+class GetPotLogic : public GameLogic
 {
 private:
 
-
 public:
-	static int scoreValue;
 
-	ScoreLogic() : GameLogic(nullptr){}
+	GetPotLogic() : GameLogic(nullptr) {}
 
-	ScoreLogic(GameLogicComponent* component) : GameLogic(nullptr)
+	GetPotLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -34,12 +24,25 @@ public:
 	/****************************************************************
 	* @brief Start function for the Score Logic.
 	* ****************************************************************/
-	void Start() override;
+	void Start() override
+	{
+
+		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(component->GetEntityID());
+
+		if (tableLogic)
+		{
+			tableLogic->setPot();
+		}
+		else
+		{
+			std::cout << "Table Logic Not Found" << std::endl;
+		}
+	}
 
 	/****************************************************************
 	* @brief Update function for the Score Logic.
 	* ****************************************************************/
-	void Update() override;
+	void Update() override {}
 
 	/****************************************************************
 	* @brief Fixed Update function for the Score Logic.
@@ -49,7 +52,7 @@ public:
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
-		auto clone = std::make_shared<ScoreLogic>(*this);
+		auto clone = std::make_shared<GetPotLogic>(*this);
 		clone->component = nullptr;
 		return clone;
 	}

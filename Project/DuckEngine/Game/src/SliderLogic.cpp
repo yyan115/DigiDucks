@@ -52,6 +52,13 @@ void SliderLogic::Start()
 * ****************************************************************/
 void SliderLogic::Update()
 {
+}
+
+/****************************************************************
+* @brief FixedUpdate function for the Slider Logic
+* ****************************************************************/
+void SliderLogic::FixedUpdate()
+{
 	if (slider->isEnable)
 	{
 		// Increase
@@ -65,7 +72,7 @@ void SliderLogic::Update()
 
 			slider->currentValue += slider->step;
 
-			if(slider->currentValue >= slider->maxValue)
+			if (slider->currentValue >= slider->maxValue)
 				slider->currentValue = slider->maxValue;
 		}
 		// Decrease
@@ -75,23 +82,15 @@ void SliderLogic::Update()
 			DecreaseHorizontal();
 
 			// Vertical
-			DecreaseVertical();				
+			DecreaseVertical();
 
 			slider->currentValue -= slider->step;
 
 			if (slider->currentValue <= slider->minValue)
 				slider->currentValue = slider->minValue;
-		}		
+		}
 	}
 	slider->isEnable = false;
-}
-
-/****************************************************************
-* @brief FixedUpdate function for the Slider Logic
-* ****************************************************************/
-void SliderLogic::FixedUpdate()
-{
-
 }
 
 

@@ -211,7 +211,7 @@
     <ClCompile Include="..\src\MessagingSystem.cpp" />
     <ClCompile Include="..\src\MovementLogic.cpp" />
     <ClCompile Include="..\src\OrderTabLogic.cpp" />
-    <ClCompile Include="..\src\PanLogic.cpp" />
+    <ClCompile Include="..\src\StoveLogic.cpp" />
     <ClCompile Include="..\src\PauseMenuLogic.cpp" />
     <ClCompile Include="..\src\PlayerLogic.cpp" />
     <ClCompile Include="..\src\RestockLogic.cpp" />
@@ -225,6 +225,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\BinLogic.h" />
+    <ClInclude Include="..\include\BowlStockLogic.h" />
     <ClInclude Include="..\include\BunStockLogic.h" />
     <ClInclude Include="..\include\CheeseStockLogic.h" />
     <ClInclude Include="..\include\ChopBoardLogic.h" />
@@ -237,6 +238,8 @@
     <ClInclude Include="..\include\EndGame.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
+    <ClInclude Include="..\include\GetPanLogic.h" />
+    <ClInclude Include="..\include\GetPotLogic.h" />
     <ClInclude Include="..\include\HoldingLogic.h" />
     <ClInclude Include="..\include\HowToPlay.h" />
     <ClInclude Include="..\include\HowToPlayLogic.h" />
@@ -250,7 +253,7 @@
     <ClInclude Include="..\include\MovementLogic.h" />
     <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\OrderTabLogic.h" />
-    <ClInclude Include="..\include\PanLogic.h" />
+    <ClInclude Include="..\include\StoveLogic.h" />
     <ClInclude Include="..\include\GreyPlateStockLogic.h" />
     <ClInclude Include="..\include\PauseMenuLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />

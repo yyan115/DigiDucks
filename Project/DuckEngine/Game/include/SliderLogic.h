@@ -30,9 +30,8 @@ private:
 
 public:
 
-	SliderLogic()
-		: GameLogic(nullptr){
-	}
+	SliderLogic() : GameLogic(nullptr) {}
+
 	SliderLogic(GameLogicComponent* component) : GameLogic(component) {}
 
 	std::shared_ptr<GameLogic> Clone() const override

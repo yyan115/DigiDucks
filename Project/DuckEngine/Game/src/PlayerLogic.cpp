@@ -282,13 +282,28 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
-		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
-		if (panLogic)
+		auto stoveLogic = GameLogicManager::GetLogicForEntity<StoveLogic>(interactObject->entityID);
+		if (stoveLogic)
 		{
-			// If Pan is occupied, take object from pan
-			if (panLogic->isOccupied)
+			if ((stoveLogic->isPot || stoveLogic->isPan) && !stoveLogic->isOccupied)
 			{
-				holding->setObject(panLogic->moveObject());
+				holding->setObject(stoveLogic->moveObject());
+				type = holding->getType();
+				if (SFXsound)
+				{
+					if (static_cast<int>(type) <= 15)
+					{
+						SFXsound->Play(0);
+					}
+					else SFXsound->Play(1);
+				}
+				isHolding = true;
+			}
+			else if (stoveLogic->isPan && stoveLogic->isOccupied)
+			{
+				ItemType temp = stoveLogic->movePatty();
+				Entity* newObject = makeObject(temp);
+				holding->setObject(std::make_pair(newObject->entityID, temp));
 				type = holding->getType();
 				if (SFXsound)
 				{
@@ -384,12 +399,12 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
-		auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
-		if (panLogic)
+		auto stoveLogic = GameLogicManager::GetLogicForEntity<StoveLogic>(interactObject->entityID);
+		if (stoveLogic)
 		{
-			if (!panLogic->isOccupied) 
+			if (!stoveLogic->isPot && !stoveLogic->isPan)
 			{
-				if (holding->getType() != ItemType::R_PATTY && holding->getType() != ItemType::C_PATTY) return;
+				if (holding->getType() != ItemType::PAN && holding->getType() != ItemType::POT) return;
 				type = holding->getType();
 				if (SFXsound)
 				{
@@ -398,9 +413,64 @@ void PlayerLogic::InteractPressed()
 					}
 					else SFXsound->Play(1);
 				}
-				panLogic->setObject(holding->moveObject());
+				stoveLogic->setCookingType(holding->moveObject());
 				isHolding = false;
 			}
+			else if (stoveLogic->isPan) 
+			{
+				if (!stoveLogic->isOccupied)
+				{
+					if (holding->getType() != ItemType::R_PATTY && holding->getType() != ItemType::C_PATTY) return;
+					type = holding->getType();
+					if (SFXsound)
+					{
+						if (static_cast<int>(type) <= 15) {
+							SFXsound->Play(0);
+						}
+						else SFXsound->Play(1);
+					}
+					// Delete Holding object and assign 
+					stoveLogic->setObject(holding->moveObject());
+					isHolding = false;
+				}
+			}
+			else if (stoveLogic->isPot)
+			{
+				if (!stoveLogic->isOccupied)
+				{
+					if (!isIngredient(holding->getType())) return;
+					type = holding->getType();
+					if (SFXsound)
+					{
+						if (static_cast<int>(type) <= 15) {
+							SFXsound->Play(0);
+						}
+						else SFXsound->Play(1);
+					}
+					stoveLogic->setObject(holding->moveObject());
+					isHolding = false;
+				}
+				else if(stoveLogic->isOccupied)
+				{
+					if (holding->getType() == ItemType::BOWL)
+					{
+						holding->deleteObject();
+						ItemType temp = stoveLogic->moveSoup();
+						Entity* newObject = makeObject(temp);
+						holding->setObject(std::make_pair(newObject->entityID, temp));
+						type = holding->getType();
+						if (SFXsound)
+						{
+							if (static_cast<int>(type) <= 15) {
+								SFXsound->Play(0);
+							}
+							else SFXsound->Play(1);
+						}
+						isHolding = true;
+					}
+				}
+			}
+
 			return;
 		}
 
@@ -530,11 +600,58 @@ Entity* PlayerLogic::makeObject(ItemType type)
 	case ItemType::TOMATO:
 		spriteRenderer->texture = AssetManager::GetTextureByName("tomato");
 		break;
+
+	case ItemType::C_CHEESE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("c_cheese");
+		break;
+	case ItemType::C_LETTUCE:
+		spriteRenderer->texture = AssetManager::GetTextureByName("c_lettuce");
+		break;
+	case ItemType::C_MUSHROOM:
+		spriteRenderer->texture = AssetManager::GetTextureByName("c_mushroom");
+		break;
+	case ItemType::C_SHRIMP:
+		spriteRenderer->texture = AssetManager::GetTextureByName("c_shrimp");
+		break;
+	case ItemType::R_PATTY:
+		spriteRenderer->texture = AssetManager::GetTextureByName("patty");
+		break;
+	case ItemType::C_TOMATO:
+		spriteRenderer->texture = AssetManager::GetTextureByName("c_tomato");
+		break;
+
+	case ItemType::C_PATTY:
+		spriteRenderer->texture = AssetManager::GetTextureByName("cooked_patty");
+		break;
+	case ItemType::B_PATTY:
+		spriteRenderer->texture = AssetManager::GetTextureByName("burnt_patty");
+		break;
+
+	case ItemType::BOWL_MUSHROOM:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bowl_mushroom");
+		break;
+	case ItemType::BOWL_TOMATO:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bowl_tomato");
+		break;
+	case ItemType::BOWL_SUS:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bowl_sus");
+		break;
+
 	case ItemType::GREY_PLATE:
 		spriteRenderer->texture = AssetManager::GetTextureByName("grey_plate");
 		break;
 	case ItemType::WHITE_PLATE:
 		spriteRenderer->texture = AssetManager::GetTextureByName("white_plate");
+		break;
+	case ItemType::BOWL:
+		spriteRenderer->texture = AssetManager::GetTextureByName("bowl");
+		break;
+
+	case ItemType::PAN:
+		spriteRenderer->texture = AssetManager::GetTextureByName("fryingpan");
+		break;
+	case ItemType::POT:
+		spriteRenderer->texture = AssetManager::GetTextureByName("pot");
 		break;
 
 	/*Cheats*/
@@ -548,6 +665,7 @@ Entity* PlayerLogic::makeObject(ItemType type)
 
 	return newObject;
 }
+
 
 /****************************************************************
 * @brief Function to set the restock menu

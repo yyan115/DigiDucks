@@ -23,7 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "StockLogic.h"
 #include "TableLogic.h"
 #include "HoldingLogic.h"
-#include "PanLogic.h"
+#include "StoveLogic.h"
 #include "ChopBoardLogic.h"
 #include "RobotLogic.h"
 #include "RestockLogic.h"
@@ -106,6 +106,7 @@ public:
 	* @return - Pointer to the object
 	* ****************************************************************/
     Entity* makeObject(ItemType type);
+
     
 	/****************************************************************
 	* @brief Function that handles the state of the restock menu

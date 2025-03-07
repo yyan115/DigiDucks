@@ -21,7 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 
 
-class PanLogic : public GameLogic
+class StoveLogic : public GameLogic
 {
 private:
 	Entity* table = nullptr;
@@ -29,72 +29,104 @@ private:
 	Entity* object = nullptr;
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;
-	ItemType type;
-	float currCookTime;
+	ItemType type = ItemType::EMPTY;
+	float currCookTime = 1.0f;
 	const float cookTime = 3.5f;
 
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
 
+	bool isCooked = false;
+
 public:
+	bool isPot = false;
+	bool isPan = false;
 	bool isOccupied = false;
 
-	PanLogic() :
-		GameLogic(nullptr), type(ItemType::EMPTY), currCookTime(1.f) {}
+	StoveLogic() : GameLogic(nullptr) {}
 
-	PanLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), type(ItemType::EMPTY), currCookTime(1.f)
+	StoveLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
 
 	std::shared_ptr<GameLogic> Clone() const override
 	{
-		auto clone = std::make_shared<PanLogic>(*this);
+		auto clone = std::make_shared<StoveLogic>(*this);
 		clone->component = nullptr;
 		return clone;
 	}
 
 
 	/****************************************************************
-	* @brief Start function for the Pan Logic
+	* @brief Start function for the Stove Logic
 	* ****************************************************************/
 	void Start() override;
 
 	/****************************************************************
-	* @brief Update function for the Pan Logic
+	* @brief Update function for the Stove Logic
 	* ****************************************************************/
 	void Update() override;
 	
 	/****************************************************************
-	* @brief FixedUpdate function for the Pan Logic
+	* @brief FixedUpdate function for the Stove Logic
 	* ****************************************************************/
 	void FixedUpdate() override;
 
 	/****************************************************************
-	* @brief Set the object in the pan
+	* @brief Set the object on the stove.
 	* 
-	* @param objData - the object to be set in the pan
+	* @param objData - the object to be set on the stove
 	* ****************************************************************/
 	void setObject(std::pair<int, ItemType> objData);
 
 	/****************************************************************
-	* @brief Get the object in the pan
+	* @brief Get the object on the stove
 	* 
-	* @return - the object in the pan
+	* @return - Id and type of the object on the Stove
 	* ****************************************************************/
 	std::pair<int, ItemType> moveObject();
 
 	/****************************************************************
-	* @brief Cook the object in the pan
+	* @brief Clear the Pot and return type of Soup
+	* 
+	* @return - the type of soup
+	* ****************************************************************/
+	ItemType moveSoup();
+
+	/****************************************************************
+	* @brief Clear the Pan and return type of Patty
+	* 
+	* @return - the type of patty
+	* ****************************************************************/
+	ItemType movePatty();
+
+	/****************************************************************
+	* @brief Cook the object on the stove
 	* ****************************************************************/
 	void cookObject();
 
 	/****************************************************************
-	* @brief Get the type of the object in the pan
+	* @brief Get the type of the object on the Stove
 	* 
-	* @return - the type of the object in the pan
+	* @return - the type of the object on the stove
 	* ****************************************************************/
 	ItemType getType() const { return type; }
+
+	/****************************************************************
+	* @brief Set the Object on the Stove to the provided Item Type.
+	* 
+	* @param objType - the type of object to be set
+	* 
+	* @return - true if the object is set
+	* ****************************************************************/
+	bool setObjectSprite(ItemType objType);
+
+	/****************************************************************
+	* @brief Set the cooking type of the stove
+	* 
+	* @param objType - Either Pan or Pot
+	* ****************************************************************/
+	void setCookingType(std::pair<int, ItemType> objData);
 
 	void EmitSparks();
 };

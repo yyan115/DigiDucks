@@ -21,20 +21,18 @@ written consent of DigiPen Institute of Technology is prohibited.
 class TableLogic : public GameLogic
 {
 private:
-	Entity* table;
-	TransformComponent* tableTransform;
-	Entity* objectOnTable;
-	TransformComponent* objectTransform;
-	ItemType type;
+	Entity* table = nullptr;
+	TransformComponent* tableTransform = nullptr;
+	Entity* objectOnTable = nullptr;
+	TransformComponent* objectTransform = nullptr;
+	ItemType type = ItemType::EMPTY;
 
 public:
 	bool isOccupied = false;
 
-	TableLogic() : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) {}
+	TableLogic() : GameLogic(nullptr) {}
 
-	TableLogic(GameLogicComponent* component) : 
-		GameLogic(nullptr), table(nullptr), tableTransform(nullptr), objectOnTable(nullptr), objectTransform(nullptr), type(ItemType::EMPTY) 
+	TableLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -76,6 +74,16 @@ public:
 	* @return The object data to move.
 	* ****************************************************************/
 	std::pair<int, ItemType> moveObject();
+
+	/****************************************************************
+	* @brief Find and Set the Pan on the table.
+	* ****************************************************************/
+	void setPan();
+
+	/****************************************************************
+	* @brief Find and Set the Pot on the table.
+	* ****************************************************************/
+	void setPot();
 
 	/****************************************************************
 	* @brief Get the object type on the table.
