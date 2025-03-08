@@ -183,7 +183,7 @@ void CustomerWalkState::FixedUpdate()
 
 		if (!isOrderTaken && currentTargetIndex == 0)
 		{
-			customerAnimator->PlayAnimation("LEFT_IDLE");
+			customerAnimator->PlayAnimation("BACK_IDLE");
 			owner->stateMachine.ChangeState(owner->WaitingOrderState);
 			return;
 		}
