@@ -92,97 +92,100 @@ inline std::string whatType(ItemType type)
 		return "EMPTY";
 	case ItemType::BIN:
 		return "BIN";
+
 	case ItemType::BUN:
-		return "BUN";
+		return "bun";
 	case ItemType::CHEESE:
-		return "CHEESE";
+		return "cheese";
 	case ItemType::LETTUCE:
-		return "LETTUCE";
+		return "lettuce";
 	case ItemType::MUSHROOM:
-		return "MUSHROOM";
+		return "mushroom";
 	case ItemType::SHRIMP:
-		return "SHRIMP";
+		return "shrimp";
 	case ItemType::STEAK:
-		return "STEAK";
+		return "steak";
 	case ItemType::TOMATO:
-		return "TOMATO";
+		return "tomato";
 
 	case ItemType::C_CHEESE:    
-		return "C_CHEESE";
+		return "cheese_chop";
 	case ItemType::C_LETTUCE:
-		return "C_LETTUCE";
+		return "lettuce_chop";
 	case ItemType::C_MUSHROOM:
-		return "C_MUSHROOM";
+		return "mushroom_chop";
 	case ItemType::C_SHRIMP:
-		return "C_SHRIMP";
-	case ItemType::R_PATTY:
-		return "R_PATTY";
+		return "shrimp_chop";
 	case ItemType::C_TOMATO:
-		return "C_TOMATO";
+		return "tomato_chop";
 
+	case ItemType::R_PATTY:
+		return "patty";
 	case ItemType::C_PATTY:
-		return "C_PATTY";
+		return "cooked_patty";
 	case ItemType::B_PATTY:
-		return "B_PATTY";
+		return "burnt_patty";
 
 	case ItemType::PAN:
-		return "PAN";
+		return "pan";
+	case ItemType::PAN_R_PATTY:
+		return "pan_raw";
 	case ItemType::PAN_C_PATTY:
-		return "PAN_C_PATTY";
+		return "pan_cooked";
 	case ItemType::PAN_B_PATTY:
-		return "PAN_B_PATTY";
+		return "pan_burnt";
 
 	case ItemType::POT:
-		return "POT";
+		return "pot";
 	case ItemType::POT_MUSHROOM:
-		return "POT_MUSHROOM";
+		return "pot_mushroom";
 	case ItemType::POT_TOMATO:
-		return "POT_TOMATO";
+		return "pot_tomato";
 	case ItemType::POT_SUS:
-		return "POT_SUS";
+		return "pot_sus";
 
 	case ItemType::GREY_PLATE:
-		return "GREY_PLATE";
+		return "grey_plate";
 	case ItemType::BUN_PLATE:
-		return "BUN_PLATE";
+		return "bun_plate";
 	case ItemType::CHEESE_PLATE:
-		return "CHEESE_PLATE";
+		return "cheese_plate";
 	case ItemType::PATTY_PLATE:
-		return "PATTY_PLATE";
+		return "patty_plate";
 	case ItemType::BUN_CHEESE_PLATE:
-		return "BUN_CHEESE_PLATE";
+		return "bun_cheese_plate";
 	case ItemType::BURGER_PLATE:
-		return "BURGER_PLATE";
+		return "burger_plate";
 	case ItemType::CHEESE_PATTY_PLATE:
-		return "CHEESE_PATTY_PLATE";
+		return "cheese_patty_plate";
 	case ItemType::CHEESE_BURGER_PLATE:
-		return "CHEESE_BURGER_PLATE";
+		return "cheese_burger_plate";
 
 	case ItemType::WHITE_PLATE:
-		return "WHITE_PLATE";
+		return "white_plate";
 	case ItemType::LETTUCE_PLATE:
-		return "LETTUCE_PLATE";
+		return "lettuce_plate";
 	case ItemType::SHRIMP_PLATE:
-		return "SHRIMP_PLATE";
+		return "shrimp_plate";
 	case ItemType::TOMATO_PLATE:
-		return "TOMATO_PLATE";
+		return "tomato_plate";
 	case ItemType::LETTUCE_SHRIMP_PLATE:
-		return "LETTUCE_SHRIMP_PLATE";
+		return "lettuce_shrimp_plate";
 	case ItemType::LETTUCE_TOMATO_PLATE:
-		return "LETTUCE_TOMATO_PLATE";
+		return "lettuce_tomato_plate";
 	case ItemType::TOMATO_SHRIMP_PLATE:
-		return "TOMATO_SHRIMP_PLATE";
+		return "tomato_shrimp_plate";
 	case ItemType::SALAD_PLATE:
-		return "SALAD_PLATE";
+		return "salad_plate";
 
 	case ItemType::BOWL:
-		return "BOWL";
+		return "bowl";
 	case ItemType::BOWL_MUSHROOM:
-		return "BOWL_MUSHROOM";
+		return "bowl_mushroom";
 	case ItemType::BOWL_TOMATO:
-		return "BOWL_TOMATO";
+		return "bowl_tomato";
 	case ItemType::BOWL_SUS:
-		return "BOWL_SUS";
+		return "bowl_sus";
 
 	default:
 		return "UNKNOWN";

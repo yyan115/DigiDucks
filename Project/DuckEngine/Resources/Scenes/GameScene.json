@@ -4287,7 +4287,7 @@
                         "isVisible": true,
                         "sortingOrder": 7,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/Hamburger/fryingpan.png",
+                        "texture": "Resources/Sprites/Ingredients/Hamburger/pan.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

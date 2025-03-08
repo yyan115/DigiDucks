@@ -292,25 +292,13 @@ bool StoveLogic::setObjectSprite(ItemType objType)
 			switch (objType)
 			{
 			case ItemType::PAN:
-				objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
-				break;
 			case ItemType::R_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("patty");
-				break;
 			case ItemType::C_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("cooked_patty");
-				break;
 			case ItemType::B_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("burnt_patty");
-				break;
 			case ItemType::PAN_R_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_raw");
-				break;
 			case ItemType::PAN_C_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_cooked");
-				break;
 			case ItemType::PAN_B_PATTY:
-				objectSprite->texture = AssetManager::GetTextureByName("fryingpan_burnt");
+				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType));
 				break;
 			default:
 				std::cout << "Invalid Object Type" << std::endl;
@@ -325,13 +313,9 @@ bool StoveLogic::setObjectSprite(ItemType objType)
 			switch (objType)
 			{
 			case ItemType::POT_MUSHROOM:
-				objectSprite->texture = AssetManager::GetTextureByName("pot_mushroom");
-				break;
 			case ItemType::POT_TOMATO:
-				objectSprite->texture = AssetManager::GetTextureByName("pot_tomato");
-				break;
 			case ItemType::POT_SUS:
-				objectSprite->texture = AssetManager::GetTextureByName("pot_sus");
+				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType));
 				break;
 			default:
 				objectSprite->texture = AssetManager::GetTextureByName("pot");
@@ -365,13 +349,11 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 
 	if (objData.second == ItemType::PAN)
 	{
-		objectSprite->texture = AssetManager::GetTextureByName("fryingpan");
 		isPan = true;
 		isPot = false;
 	}
 	else if (objData.second == ItemType::POT)
 	{
-		objectSprite->texture = AssetManager::GetTextureByName("pot");
 		isPan = false;
 		isPot = true;
 	}
@@ -381,6 +363,7 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 		return;
 	}
 
+	objectSprite->texture = AssetManager::GetTextureByName(whatType(objData.second));
 	type = objData.second;
 
 }
