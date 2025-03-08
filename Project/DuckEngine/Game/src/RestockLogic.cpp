@@ -59,9 +59,10 @@ void RestockLogic::Start()
 		if (restockExitButton)
 		{
 
-			restockExitButton->onClick = [this, restockExitBtn]() {
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockExitBtn->entityID)->Play();
-				RestockMenu(false);
+			restockExitButton->onClick = [this, restockExitBtn]() 
+				{
+					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockExitBtn->entityID)->Play();
+					RestockMenu(false);
 				};
 
 		}
@@ -200,10 +201,14 @@ void RestockLogic::Start()
 					{
 						AddToCart(static_cast<ItemType>(i));
 					};
+
+				// Change Texture when Hovering
 				ingredientButtons[i]->onHover = [this, i]()
 					{
 						ingredientSprites[i]->texture = ingredientBtnTextures[i * 2 + 1];
 					};
+
+				// Change Texture when not Hovering
 				ingredientButtons[i]->onFinishHover = [this, i]()
 					{
 						ingredientSprites[i]->texture = ingredientBtnTextures[i * 2];
@@ -212,10 +217,11 @@ void RestockLogic::Start()
 		}
 	}
 
-
+	// Find Restock Confirm Button
 	auto restockConfirmBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Confirm_Btn").get();
 	if (restockConfirmBtn)
 	{
+		// Set Button Functionality
 		restockConfirmButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockConfirmBtn->entityID);
 		if (restockConfirmButton)
 		{
@@ -229,6 +235,8 @@ void RestockLogic::Start()
 				};
 			restockConfirmButton->isEnabled = false;
 		}
+
+		// Set Button Texture
 		restockConfirmSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockConfirmBtn->entityID);
 		if (restockConfirmSpt)
 		{
@@ -238,9 +246,11 @@ void RestockLogic::Start()
 		}
 	}
 
+	// Find Clear Cart Button
 	auto restockClearAllBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Clear_Btn").get();
 	if (restockClearAllBtn)
 	{
+		// Set Button Functionality
 		restockClearAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockClearAllBtn->entityID);
 		if (restockClearAllButton)
 		{
