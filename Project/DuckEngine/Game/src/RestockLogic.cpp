@@ -33,7 +33,7 @@ void RestockLogic::Start()
 	if (restockIngredientMenu)
 	{
 		restockIngredientMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockIngredientMenu->entityID);
-		if(restockIngredientMenuSpt)
+		if (restockIngredientMenuSpt)
 			std::cout << "Restock Ingredient Menu Found" << std::endl;
 	}
 
@@ -58,7 +58,7 @@ void RestockLogic::Start()
 		restockExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockExitBtn->entityID);
 		if (restockExitButton)
 		{
-			
+
 			restockExitButton->onClick = [this, restockExitBtn]() {
 				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockExitBtn->entityID)->Play();
 				RestockMenu(false);
@@ -95,7 +95,7 @@ void RestockLogic::Start()
 
 	auto restockMaintenanceBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Maintenance_Btn").get();
 	if (restockMaintenanceBtn)
-	{		
+	{
 		restockMaintenanceOn = AssetManager::GetTextureByName("restock_maintenance_on");
 		restockMaintenanceOff = AssetManager::GetTextureByName("restock_maintenance_off");
 		restockMaintenanceSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockMaintenanceBtn->entityID);
@@ -168,12 +168,15 @@ void RestockLogic::Start()
 		}
 	}
 
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("lettucebutton"));
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("lettucebutton_active"));
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("shrimpbutton"));
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("shrimpbutton_active"));
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("tomatobutton"));
-	ingredientBtnTextures.push_back(AssetManager::GetTextureByName("tomatobutton_active"));
+	// Add Images Of Ingredients Buttons
+	for (int i = 0; i < 7; i++)
+	{
+		std::string ingredient = whatType(static_cast<ItemType>(i));
+		ingredientBtnTextures.push_back(AssetManager::GetTextureByName(ingredient + "_unselected"));
+		ingredientBtnTextures.push_back(AssetManager::GetTextureByName(ingredient + "_selected"));
+
+		itemTextures.push_back(AssetManager::GetTextureByName(ingredient));
+	}
 
 
 	// Ingredient Stock Buttons
@@ -208,15 +211,6 @@ void RestockLogic::Start()
 			}
 		}
 	}
-
-	// Texture for all items
-	//itemTextures.push_back(AssetManager::GetTextureByName("bun"));
-	//itemTextures.push_back(AssetManager::GetTextureByName("cheese"));
-	itemTextures.push_back(AssetManager::GetTextureByName("lettuce"));
-	//itemTextures.push_back(AssetManager::GetTextureByName("mushroom"));
-	itemTextures.push_back(AssetManager::GetTextureByName("shrimp"));
-	//itemTextures.push_back(AssetManager::GetTextureByName("steak"));
-	itemTextures.push_back(AssetManager::GetTextureByName("tomato"));
 
 
 	auto restockConfirmBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Confirm_Btn").get();

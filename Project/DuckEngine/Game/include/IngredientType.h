@@ -17,20 +17,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #pragma once
 
-enum class ItemType
+enum class ItemType : int
 {
     // Ingredient Types
     EMPTY = -2,
     BIN = -1,
 
-	/* Reset to 0 when Sprites are done*/
-    LETTUCE = 0,	// Change back to 2
-	SHRIMP = 1,		// Change back to 4
-    TOMATO = 2,		// Change back to 6
-    MUSHROOM,
+	// Ingredients
     BUN,
-    STEAK,
     CHEESE,
+    LETTUCE,
+    MUSHROOM,
+	SHRIMP,
+    STEAK,
+    TOMATO,
 
     // Cutted Ingredients
     C_CHEESE,				// Cut Cheese
