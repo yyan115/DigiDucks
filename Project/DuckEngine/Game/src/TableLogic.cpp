@@ -35,13 +35,15 @@ void TableLogic::Start()
 * ****************************************************************/
 void TableLogic::setObject(std::pair<int, ItemType> objData) {
 
-    if (objData.first < 0) {
+    if (objData.first < 0) 
+    {
         std::cerr << "Attempted to set invalid object ID: " << objData.first << std::endl;
         return;
     }
 
     Entity* entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first).get();
-    if (!entity) {
+    if (!entity) 
+    {
         std::cerr << "Entity not found for ID: " << objData.first << std::endl;
         return;
     }
@@ -49,11 +51,12 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
     std::cout << "Table Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
     objectOnTable = entity;
     objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
-    if (objectTransform) {
-        if (isIngredient(objData.second))
-            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
-        else
+    if (objectTransform) 
+    {
+		if (isEquipment(objData.second))
             objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+        else
+			objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
     }
     type = objData.second;
     isOccupied = true;

@@ -39,6 +39,7 @@ void StoveLogic::Start()
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 
+	currCookTime = cookTime;
 	isCooked = false;
 
 	isPan = false;

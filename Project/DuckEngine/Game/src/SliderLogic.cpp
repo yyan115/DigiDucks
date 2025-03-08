@@ -89,7 +89,11 @@ void SliderLogic::FixedUpdate()
 			if (slider->currentValue <= slider->minValue)
 				slider->currentValue = slider->minValue;
 		}
+		
+		//timeTaken += DuckEngine::FixedDeltaTime();
+		//std::cout << " Time Taken: "<< timeTaken << std::endl;
 	}
+
 	slider->isEnable = false;
 }
 
@@ -103,7 +107,7 @@ void SliderLogic::IncreaseHorizontal()
 	{
 		if (slider->isHorizontal)
 		{
-			sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x + slider->step / 2.0f, sliderTrfm->GetPosition().y));
+			sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x + slider->step / 2.0f, originalPos.y));
 			sliderTrfm->scale.x += slider->step;
 		}
 	}
@@ -123,7 +127,7 @@ void SliderLogic::DecreaseHorizontal()
 		if (slider->isHorizontal)
 		{
 			if (sliderTrfm->scale.x > 0) {
-				sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x - slider->step / 2.0f, sliderTrfm->GetPosition().y));
+				sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x - slider->step / 2.0f, originalPos.y));
 				sliderTrfm->scale.x -= slider->step;
 			}
 		}
@@ -143,7 +147,7 @@ void SliderLogic::IncreaseVertical()
 	{
 		if (slider->isVertical)
 		{
-			sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x, sliderTrfm->GetPosition().y + slider->step / 2.0f));
+			sliderTrfm->SetPosition(Vec2(originalPos.x, sliderTrfm->GetPosition().y + slider->step / 2.0f));
 			sliderTrfm->scale.y += slider->step;
 		}
 	}
@@ -163,7 +167,7 @@ void SliderLogic::DecreaseVertical()
 		if (slider->isVertical)
 		{
 			if (sliderTrfm->scale.y > 0) {
-				sliderTrfm->SetPosition(Vec2(sliderTrfm->GetPosition().x, sliderTrfm->GetPosition().y - slider->step / 2.0f));
+				sliderTrfm->SetPosition(Vec2(originalPos.x, sliderTrfm->GetPosition().y - slider->step / 2.0f));
 				sliderTrfm->scale.y -= slider->step;
 			}
 		}

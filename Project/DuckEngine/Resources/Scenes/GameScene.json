@@ -746,7 +746,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -1156,7 +1156,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -1251,11 +1251,47 @@
                         "isHorizontal": true,
                         "isIncrease": true,
                         "isVertical": false,
-                        "maxValue": 1.7000000476837158,
+                        "maxValue": 1.7050000429153442,
                         "minValue": 0.0,
-                        "step": 0.008999999612569809
+                        "step": 0.00800000037997961
                     },
                     "type": "SliderComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Chopping_Slider_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 1.5500001907348633,
+                            "y": -2.9000000953674316
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.0,
+                            "y": 0.3499999940395355
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -2908,7 +2944,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -4725,7 +4761,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -4782,7 +4818,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": 10.0,
                             "y": -7.400000095367432
                         },
                         "relativeToCamera": true,
@@ -5100,8 +5136,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -2.0,
-                            "y": -7.400000095367432
+                            "x": 12.0,
+                            "y": -4.900000095367432
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6893,7 +6929,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -7063,7 +7099,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"
@@ -7281,9 +7317,9 @@
                         "isHorizontal": true,
                         "isIncrease": true,
                         "isVertical": false,
-                        "maxValue": 1.7000000476837158,
+                        "maxValue": 1.7050000429153442,
                         "minValue": 0.0,
-                        "step": 0.008999999612569809
+                        "step": 0.00800000037997961
                     },
                     "type": "SliderComponent"
                 }
@@ -7414,7 +7450,8 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic"
+                            "TableLogic",
+                            "GetPanLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -7563,8 +7600,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "GetPanLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -7753,8 +7789,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "GetPotLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -7867,7 +7902,8 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic"
+                            "TableLogic",
+                            "GetPotLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -8546,7 +8582,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 2,
+                        "sortingOrder": 4,
                         "text": "5"
                     },
                     "type": "TextComponent"

@@ -218,3 +218,67 @@ inline bool isIngredient(ItemType type)
 		break;
 	}
 }
+
+inline bool isPlate(ItemType type)
+{
+	switch (type)
+	{
+	case ItemType::GREY_PLATE:
+	case ItemType::BUN_PLATE:
+	case ItemType::CHEESE_PLATE:
+	case ItemType::PATTY_PLATE:
+	case ItemType::BUN_CHEESE_PLATE:
+	case ItemType::BURGER_PLATE:
+	case ItemType::CHEESE_PATTY_PLATE:
+	case ItemType::CHEESE_BURGER_PLATE:
+	case ItemType::WHITE_PLATE:
+	case ItemType::LETTUCE_PLATE:
+	case ItemType::SHRIMP_PLATE:
+	case ItemType::TOMATO_PLATE:
+	case ItemType::LETTUCE_SHRIMP_PLATE:
+	case ItemType::LETTUCE_TOMATO_PLATE:
+	case ItemType::TOMATO_SHRIMP_PLATE:
+	case ItemType::SALAD_PLATE:
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+inline bool isBowl(ItemType type)
+{
+	switch (type)
+	{
+	case ItemType::BOWL:
+	case ItemType::BOWL_MUSHROOM:
+	case ItemType::BOWL_TOMATO:
+	case ItemType::BOWL_SUS:
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+inline bool isEquipment(ItemType type)
+{
+	switch (type)
+	{
+	case ItemType::PAN:
+	case ItemType::PAN_R_PATTY:
+	case ItemType::PAN_C_PATTY:
+	case ItemType::PAN_B_PATTY:
+	case ItemType::POT:
+	case ItemType::POT_MUSHROOM:
+	case ItemType::POT_TOMATO:
+	case ItemType::POT_SUS:
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}

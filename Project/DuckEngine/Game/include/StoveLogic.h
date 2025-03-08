@@ -30,7 +30,7 @@ private:
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;
 	ItemType type = ItemType::EMPTY;
-	float currCookTime = 1.0f;
+	float currCookTime = 0.0f;
 	const float cookTime = 3.5f;
 
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;

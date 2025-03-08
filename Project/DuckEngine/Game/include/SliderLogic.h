@@ -29,6 +29,7 @@ private:
 	Vec2 originalScale{};
 
 public:
+	float timeTaken = 0.0f;
 
 	SliderLogic() : GameLogic(nullptr) {}
 

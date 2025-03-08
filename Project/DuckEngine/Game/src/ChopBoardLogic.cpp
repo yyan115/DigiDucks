@@ -40,11 +40,12 @@ void ChopBoardLogic::Start()
 		}
 	}
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+
 	object = nullptr;
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 	type = ItemType::EMPTY;
-	chopTime = 1.f;
+	currChopTime = chopTime;
 	isOccupied = false;
 	isChopped = false;
 
@@ -108,13 +109,13 @@ void ChopBoardLogic::setObject(std::pair<int, ItemType> objData)
 	if (!object) {
 		object = DuckEngine::DUCKENGINE_EntityManager.GetEntity(objData.first).get();
 		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
-		objectTransform->SetPosition(tableTransform->GetPosition());
+		objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
 
 		objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
 		type = objData.second;
 		isOccupied = true;
 		isChopped = false;
-		chopTime = 3.0f;
+		currChopTime = chopTime;
 	}
 }
 
@@ -159,8 +160,8 @@ void ChopBoardLogic::chopObject()
 	if (sliderLogic)
 		sliderLogic->EnableSlider(true);
 
-	chopTime -= DuckEngine::FixedDeltaTime();
-	if (chopTime <= 0.f)
+	currChopTime -= DuckEngine::FixedDeltaTime();
+	if (currChopTime <= 0.f)
 	{
 		isChopped = true;
 	}
@@ -170,7 +171,9 @@ void ChopBoardLogic::chopObject()
 /****************************************************************
 * @brief Check if the object can be put on the chopping board
 *
-* @param type - the type of the object
+* @param type - the type of the object.
+* 
+* Types Allowed: CHEESE, LETTUCE, MUSHROOM, SHRIMP, STEAK, TOMATO
 *
 * @return true if the object can be put on the chopping board, false otherwise
 * ***************************************************************/
