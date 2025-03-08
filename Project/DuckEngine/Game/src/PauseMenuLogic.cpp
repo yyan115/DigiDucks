@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "PauseMenuLogic.h"
 #include "GameManager.h"
+#include "ProjectSettings.h"
 
 /****************************************************************
 * @brief Start function for the Pause Menu Logic
@@ -62,7 +63,7 @@ void PauseMenuLogic::Start()
 			}
 		}
 
-		auto gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
+		/*auto gameHTPBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Btn").get();
 		if (gameHTPBtn)
 		{
 			gameHTPBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameHTPBtn->entityID);
@@ -74,6 +75,21 @@ void PauseMenuLogic::Start()
 				gameHTPButton->onClick = [this]() { HTPShow(true); };
 				gameHTPButton->onHover = [this]() {  gameHTPBtnSpt->texture = gameHTPBtn_Hover; };
 				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
+			}
+		}*/
+
+		// Settings Button
+		auto gameSettingsBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
+		if (gameSettingsBtn)
+		{
+			gameSettingsBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSettingsBtn->entityID);
+			gameHTPBtn_Normal = AssetManager::GetTextureByName("pause_howtoplay");
+			gameHTPBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
+			gameSettingsButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSettingsBtn->entityID);
+			if (gameSettingsButton) { 
+				gameSettingsButton->onClick = [this]() { ShowSettings(true); }; 
+				gameSettingsButton->onHover = [this]() { gameSettingsBtnSpt->texture = gameHTPBtn_Hover; };
+				gameSettingsButton->onFinishHover = [this]() { gameSettingsBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
 	}
@@ -165,6 +181,73 @@ void PauseMenuLogic::Start()
 		}
 	}
 
+	
+
+	// Settings Background
+	settingsBg = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Menu").get();
+	if (settingsBg)
+	{
+		settingsBgSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(settingsBg->entityID);
+		if (settingsBgSpt) { settingsBgSpt->isVisible = false; }
+	}
+
+	// Volume Sliders
+	masterVolumeSlider = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MasterVolume_Slider").get();
+	if (masterVolumeSlider)
+	{
+		masterVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(masterVolumeSlider->entityID);
+		if (masterVolumeSliderComp) { 
+			masterVolumeSliderComp->currentValue = ProjectSettings::GetMasterVolume();
+			masterVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MasterVolume_Text").get()->entityID);
+		}
+	}
+
+	bgmVolumeSlider = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BGMVolume_Slider").get();
+	if (bgmVolumeSlider)
+	{
+		bgmVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(bgmVolumeSlider->entityID);
+		if (bgmVolumeSliderComp) { 
+			bgmVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("BGM");
+			bgmVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BGMVolume_Text").get()->entityID);
+		}
+	}
+
+	sfxVolumeSlider = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXVolume_Slider").get();
+	if (sfxVolumeSlider)
+	{
+		sfxVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(sfxVolumeSlider->entityID);
+		if (sfxVolumeSliderComp) { 
+			sfxVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("SFX");
+			sfxVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXVolume_Text").get()->entityID);
+		}
+	}
+
+	// FPS Slider
+	fpsSlider = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPSTarget_Slider").get();
+	if (fpsSlider)
+	{
+		fpsSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(fpsSlider->entityID);
+		if (fpsSliderComp) { 
+			fpsSliderComp->currentValue = static_cast<float>(ProjectSettings::GetTargetFPS());
+			fpsText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPSTarget_Text").get()->entityID);
+		}
+	}
+
+	// VSync Toggle
+	vsyncToggle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("VSync_Toggle").get();
+	if (vsyncToggle)
+	{
+		vsyncButtonComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(vsyncToggle->entityID);
+		if (vsyncButtonComp)
+		{
+			vsyncButtonComp->onClick = []() {
+				bool vsync = !ProjectSettings::GetUseVSync();
+				ProjectSettings::SetUseVSync(vsync);
+				std::cout << "VSync: " << (vsync ? "Enabled" : "Disabled") << std::endl;
+				};
+		}
+	}
+
 	ui = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("UI").get();
 	if (ui)
 	{
@@ -173,6 +256,7 @@ void PauseMenuLogic::Start()
 
 	isPaused = false;
 	pageNumb = 1;
+	isSettingsOpen = false;
 
 	PauseGame(false);
 }
@@ -216,6 +300,7 @@ void PauseMenuLogic::PauseGame(bool state)
 
 	HTPShow(false);
 	ExitConfirm(false);
+	ShowSettings(false);
 	DuckEngine::SetPaused(state);
 }
 
@@ -289,4 +374,44 @@ void PauseMenuLogic::changePage()
 	default:
 		break;
 	};
+}
+
+void PauseMenuLogic::ShowSettings(bool state)
+{
+	isSettingsOpen = state;
+	if (settingsBgSpt) { settingsBgSpt->isVisible = state; }
+
+	if (masterVolumeSliderComp)
+	{
+		masterVolumeSliderComp->currentValue = ProjectSettings::GetMasterVolume();
+		masterVolumeText->text = std::to_string(static_cast<int>(masterVolumeSliderComp->currentValue * 100));
+	}
+
+	if (bgmVolumeSliderComp)
+	{
+		bgmVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("BGM");
+		bgmVolumeText->text = std::to_string(static_cast<int>(bgmVolumeSliderComp->currentValue * 100));
+	}
+
+	if (sfxVolumeSliderComp)
+	{
+		sfxVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("SFX");
+		sfxVolumeText->text = std::to_string(static_cast<int>(sfxVolumeSliderComp->currentValue * 100));
+	}
+
+	if (fpsSliderComp)
+	{
+		fpsSliderComp->currentValue = static_cast<float>(ProjectSettings::GetTargetFPS());
+		fpsText->text = std::to_string(static_cast<int>(fpsSliderComp->currentValue));
+	}
+
+	// Disable Quit and Resume Btn
+	if (gameResumeButton)
+	{
+		gameResumeButton->isEnabled = !state;
+	}
+	if (gameExitButton)
+	{
+		gameExitButton->isEnabled = !state;
+	}
 }

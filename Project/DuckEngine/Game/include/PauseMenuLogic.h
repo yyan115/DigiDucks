@@ -58,6 +58,32 @@ private:
 	Texture gameExitNoBtn_Normal{};
 	Texture gameExitNoBtn_Hover{};
 
+	// Settings Menu
+	SpriteRendererComponent* gameSettingsBtnSpt = nullptr;
+	ButtonComponent* gameSettingsButton = nullptr;
+
+	Entity* settingsBg = nullptr;
+	SpriteRendererComponent* settingsBgSpt = nullptr;
+
+	Entity* masterVolumeSlider = nullptr;
+	SliderComponent* masterVolumeSliderComp = nullptr;
+	TextComponent* masterVolumeText = nullptr;
+
+	Entity* bgmVolumeSlider = nullptr;
+	SliderComponent* bgmVolumeSliderComp = nullptr;
+	TextComponent* bgmVolumeText = nullptr;
+
+	Entity* sfxVolumeSlider = nullptr;
+	SliderComponent* sfxVolumeSliderComp = nullptr;
+	TextComponent* sfxVolumeText = nullptr;
+
+	Entity* fpsSlider = nullptr;
+	SliderComponent* fpsSliderComp = nullptr;
+	TextComponent* fpsText = nullptr;
+
+	Entity* vsyncToggle = nullptr;
+	ButtonComponent* vsyncButtonComp = nullptr;
+
 	// UI
 	Entity* ui = nullptr;
 	SpriteRendererComponent* uiSprite = nullptr;
@@ -66,6 +92,7 @@ public:
 	// HTP Page
 	int pageNumb = 1;
 	bool isPaused = false;
+	bool isSettingsOpen = false;
 
 	PauseMenuLogic() : GameLogic(nullptr) {}
 
@@ -115,4 +142,6 @@ public:
 	* @brief Function to change the page of the How To Play menu
 	* ****************************************************************/
 	void changePage();
+
+	void ShowSettings(bool state);
 };

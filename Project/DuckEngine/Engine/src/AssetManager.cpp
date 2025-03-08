@@ -35,6 +35,7 @@ std::unordered_map<std::string, nlohmann::json> AssetManager::levelDataMap;
 
 std::map<std::string, GLShader*> AssetManager::shaders;
 
+// Helper function to load a texture from the file
 std::string NormalizePath(const std::string& path) {
 	std::string normalizedPath = path;
 	std::replace(normalizedPath.begin(), normalizedPath.end(), '\\', '/');

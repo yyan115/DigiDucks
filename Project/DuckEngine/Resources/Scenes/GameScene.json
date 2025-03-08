@@ -1,5 +1,97 @@
 {
     "gameObjects": {
+        "BGMVolume_Slider": {
+            "childNames": [
+                "BGMVolume_Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.44999998807907104
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 0.20000000298023224,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 1.0,
+                        "minValue": 0.0,
+                        "step": 0.10000000149011612
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "BGMVolume_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.12000000476837158,
+                            "y": 0.5400000214576721
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "20"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "BG_1": {
             "components": [
                 {
@@ -1748,6 +1840,98 @@
             ],
             "layer": "UI"
         },
+        "FPSTarget_Slider": {
+            "childNames": [
+                "FPSTarget_Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 60.0,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 1.0,
+                        "minValue": 0.0,
+                        "step": 0.10000000149011612
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "FPSTarget_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.12000000476837158,
+                            "y": 0.2900000214576721
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "60"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "FPS_Text": {
             "components": [
                 {
@@ -1773,7 +1957,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {
@@ -2731,6 +2915,98 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "MasterVolume_Slider": {
+            "childNames": [
+                "MasterVolume_Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.3499999940395355
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 1.0,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 1.0,
+                        "minValue": 0.0,
+                        "step": 0.10000000149011612
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MasterVolume_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.12000000476837158,
+                            "y": 0.6399999856948853
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "100"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "MiniGame_BG": {
             "components": [
@@ -4578,7 +4854,8 @@
                 "Pause_Bg",
                 "Quit_Btn",
                 "HTP_Btn",
-                "Resume_Btn"
+                "Resume_Btn",
+                "Settings_Btn"
             ],
             "components": [
                 {
@@ -4693,36 +4970,13 @@
                         "soundID": [
                             "Resources/Sounds/player sfx/footstep.mp3"
                         ],
-                        "volume": 0.699999988079071
+                        "volume": 0.6000000238418579
                     },
                     "type": "SoundComponent"
                 },
                 {
                     "properties": {
                         "animations": [
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
                             {
                                 "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
@@ -4739,11 +4993,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -4753,6 +5021,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -6164,6 +6441,98 @@
             ],
             "layer": "UI"
         },
+        "SFXVolume_Slider": {
+            "childNames": [
+                "SFXVolume_Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.550000011920929
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "currentValue": 1.0,
+                        "isEnable": false,
+                        "isHorizontal": true,
+                        "isIncrease": true,
+                        "isVertical": false,
+                        "maxValue": 1.0,
+                        "minValue": 0.0,
+                        "step": 0.10000000149011612
+                    },
+                    "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "SFXVolume_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.12000000476837158,
+                            "y": 0.4399999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "100"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Score": {
             "childNames": [
                 "Score_Box",
@@ -6313,6 +6682,101 @@
                         "text": "0"
                     },
                     "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Settings_Btn": {
+            "childNames": [
+                "Settings_Menu"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.5699999928474426
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.18000000715255737,
+                            "y": 0.12999999523162842
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/pause_howtoplay.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Settings_Menu": {
+            "childNames": [
+                "MasterVolume_Slider",
+                "BGMVolume_Slider",
+                "SFXVolume_Slider",
+                "FPSTarget_Slider",
+                "VSync_Toggle"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "UI"
@@ -8127,6 +8591,98 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "VSync_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.11900000274181366,
+                            "y": 0.17000001668930054
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.800000011920929,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "VSync"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "VSync_Toggle": {
+            "childNames": [
+                "VSync_Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.2750000059604645,
+                            "y": -0.8199999928474426
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.05000000074505806,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
