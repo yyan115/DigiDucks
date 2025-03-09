@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "SoundComponent.h"
 #include "SceneWindow.h"
+#include "ProjectSettings.h"
 #include <iostream>
 #include <thread>
 
@@ -43,20 +44,28 @@ void SoundSystem::Start() {
         std::cerr << "FMOD system is already initialized in AssetManager." << std::endl;
     }                                                                   
 
-    /*masterVolume = 1.0f;*/
+	masterVolume = ProjectSettings::GetMasterVolume();
+	SetMasterVolume(masterVolume);
     categoryVolumes.clear();
     activeChannels.clear();
 
-    //// Set default volumes for categories
-    //categoryVolumes["Default"] = 1.0f;
-    //categoryVolumes["BGM"] = 1.0f;
-    //categoryVolumes["SFX"] = 1.0f;
-    //categoryVolumes["UI"] = 1.0f;
+    // Set default volumes for categories
+	categoryVolumes["Default"] = ProjectSettings::GetVolumeCategory("Default");
+    categoryVolumes["BGM"] = ProjectSettings::GetVolumeCategory("BGM");
+    categoryVolumes["SFX"] = ProjectSettings::GetVolumeCategory("SFX");
+    categoryVolumes["UI"] = ProjectSettings::GetVolumeCategory("UI");
+	for (const auto& [category, volume] : categoryVolumes) {
+		SetCategoryVolume(category, volume);
+		//.std::cout << "Category: " << category << " Volume: " << volume << std::endl;
+	}
 }
 
 
 void SoundSystem::Update() {
     AssetManager::GetFMODSystem()->update();
+
+    SetMasterVolume(masterVolume);
+    for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
 }
 
 FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category) {
@@ -79,7 +88,7 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     AssetManager::GetFMODSystem()->playSound(sound, nullptr, false, &channel);
 
     if (channel) {
-        float categoryVolume = categoryVolumes[category]; // Get category volume
+        float categoryVolume = categoryVolumes[category];
         channel->setVolume(volume * categoryVolume * masterVolume);
 
         // Store the channel in the active channels map

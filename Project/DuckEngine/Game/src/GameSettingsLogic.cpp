@@ -120,19 +120,17 @@ void GameSettingsLogic::ShowSettings(bool state) {
 ****************************************************************/
 void GameSettingsLogic::UpdateSliders() {
     if (masterVolumeSliderComp) {
-        ProjectSettings::SetMasterVolume(masterVolumeSliderComp->currentValue);
         SoundSystem::SetMasterVolume(masterVolumeSliderComp->currentValue);
-		std::cout << "Master Volume: " << masterVolumeSliderComp->currentValue << std::endl;
         masterVolumeText->text = std::to_string(static_cast<int>(masterVolumeSliderComp->currentValue * 100));
     }
 
     if (bgmVolumeSliderComp) {
-        ProjectSettings::SetVolumeCategory("BGM", bgmVolumeSliderComp->currentValue);
+		SoundSystem::SetCategoryVolume("BGM", bgmVolumeSliderComp->currentValue);
         bgmVolumeText->text = std::to_string(static_cast<int>(bgmVolumeSliderComp->currentValue * 100));
     }
 
     if (sfxVolumeSliderComp) {
-        ProjectSettings::SetVolumeCategory("SFX", sfxVolumeSliderComp->currentValue);
+		SoundSystem::SetCategoryVolume("SFX", sfxVolumeSliderComp->currentValue);
         sfxVolumeText->text = std::to_string(static_cast<int>(sfxVolumeSliderComp->currentValue * 100));
     }
 

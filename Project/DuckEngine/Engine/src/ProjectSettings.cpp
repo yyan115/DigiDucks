@@ -1,5 +1,6 @@
 #include "ProjectSettings.h"
 #include "Serialization.h"
+#include "SoundSystem.h"
 #include <iostream>
 
 DUCKENGINE_API std::string ProjectSettings::startLevel = ProjectSettings::DEFAULT_START_LEVEL;
@@ -126,11 +127,14 @@ void ProjectSettings::Save(const std::string& filePath)
 	nlohmann::json& volJson = settingsJson["volume"];
 
 	volJson["Master"] = masterVolume;
+	SoundSystem::SetMasterVolume(masterVolume);
 
 	volJson["category"] = nlohmann::json::object();
 	for (auto& kv : volumeCategories)
 	{
 		volJson["category"][kv.first] = kv.second;
+
+		SoundSystem::SetCategoryVolume(kv.first, kv.second);
 	}
 
 	Serialization::SaveJsonFile(filePath, settingsJson);
