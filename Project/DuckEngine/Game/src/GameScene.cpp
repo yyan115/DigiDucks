@@ -538,6 +538,15 @@ void GameScene::Update()
 				pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
 			}
 		}
+
+		if (!gameSettingsLogic)
+		{
+			auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
+			if (settingsMenu)
+			{
+				gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
+			}
+		}
 	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);

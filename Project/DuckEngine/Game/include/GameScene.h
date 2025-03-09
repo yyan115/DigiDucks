@@ -32,6 +32,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
+#include "GamesettingsLogic.h"
 
 class GameScene : public Scene
 {
@@ -85,6 +86,9 @@ private:
 
     // Restock Menu
 	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
+
+    // Settings Menu
+    std::shared_ptr<GameSettingsLogic> gameSettingsLogic = nullptr;
 
     // MiniGame_1
     Entity* gameMiniGame_BG = nullptr;

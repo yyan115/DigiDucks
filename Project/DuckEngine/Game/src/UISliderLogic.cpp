@@ -15,7 +15,7 @@ void UISliderLogic::Start() {
 
 			// Get slider handle (child entity)
 			if (!sliderEntity->childEntities.empty()) {
-				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[0]->entityID);
+				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[1]->entityID);
 				if (sliderTrfm) {
 					originalPos = sliderTrfm->GetPosition();
 					originalScale = sliderTrfm->scale;
@@ -51,7 +51,7 @@ void UISliderLogic::HandleMouseDrag() {
 	if (!slider) return;
 
 	Vec2 mousePos(DuckEngine_Input::GetMouseX(), DuckEngine_Input::GetMouseY());
-
+	//std::cout << "Mouse Pos: " << mousePos.x << ", " << mousePos.y << std::endl;
 	// Detect if mouse clicks inside the slider bar
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT)) {
 		float leftBound = slider->sliderStartPos.x;
@@ -59,6 +59,7 @@ void UISliderLogic::HandleMouseDrag() {
 		std::cout << "Left Bound: " << leftBound << " Right Bound: " << rightBound << std::endl;
 		// Check if mouse is inside the slider bounds
 		if (mousePos.x >= leftBound && mousePos.x <= rightBound) {
+			std::cout << "Mouse is inside the slider bounds" << std::endl;
 			slider->isDragging = true;
 		}
 	}

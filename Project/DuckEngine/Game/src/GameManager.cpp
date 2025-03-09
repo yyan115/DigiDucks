@@ -47,7 +47,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GetPanLogic.h"
 #include "GetPotLogic.h"
 #include "UISliderLogic.h"
-
+#include "GameSettingsLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -103,6 +103,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("UISliderLogic", std::make_shared<UISliderLogic>());
 	// Main Menu Logic
 	GameLogicManager::AddLogic("HowToPlayLogic", std::make_shared<HowToPlayLogic>());
+	GameLogicManager::AddLogic("GameSettingsLogic", std::make_shared<GameSettingsLogic>());
 	// Customer Logic
 	GameLogicManager::AddLogic("CustomerLogic", std::make_shared<CustomerLogic>());
 	GameLogicManager::AddLogic("CutSceneLogic", std::make_shared<CutSceneLogic>());
