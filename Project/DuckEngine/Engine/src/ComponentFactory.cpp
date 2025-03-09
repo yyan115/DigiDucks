@@ -299,6 +299,9 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		sliderData["properties"]["maxValue"] = sliderComponent->maxValue;
 		sliderData["properties"]["currentValue"] = sliderComponent->currentValue;
 		sliderData["properties"]["step"] = sliderComponent->step;
+		sliderData["properties"]["isUISlider"] = sliderComponent->isUISlider;
+		sliderData["properties"]["isDragging"] = sliderComponent->isDragging;
+		sliderData["properties"]["sliderWidth"] = sliderComponent->sliderWidth;
 		componentsArray.push_back(sliderData);
 	}
 
@@ -462,7 +465,10 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		float maxValue = componentJson["properties"].value("maxValue", 1.0f);
 		float currentValue = componentJson["properties"].value("currentValue", 0.0f);
 		float step = componentJson["properties"].value("step", 0.1f);
-		auto sliderComponent = std::make_shared<SliderComponent>(isEnable, isIncrease, isHorizontal, isVertical, minValue, maxValue, currentValue, step);
+		bool isUISlider = componentJson["properties"].value("isUISlider", false);
+		bool isDragging = componentJson["properties"].value("isDragging", false);
+		float sliderWidth = componentJson["properties"].value("sliderWidth", 200.0f);
+		auto sliderComponent = std::make_shared<SliderComponent>(isEnable, isIncrease, isHorizontal, isVertical, minValue, maxValue, currentValue, step, isUISlider, isDragging, sliderWidth);
 		return sliderComponent;
 	}
 

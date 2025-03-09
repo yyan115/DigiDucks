@@ -95,6 +95,9 @@
     <ClCompile Include="..\src\SubmitLogic.cpp">
       <Filter>src\Logic\Game\Station</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\UISliderLogic.cpp">
+      <Filter>src\Logic\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -332,6 +335,9 @@
     </ClInclude>
     <ClInclude Include="..\include\BowlStockLogic.h">
       <Filter>include\Logic\Game\Ingredient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\UISliderLogic.h">
+      <Filter>include\Logic\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

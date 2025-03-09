@@ -2,7 +2,8 @@
     "gameObjects": {
         "BGMVolume_Slider": {
             "childNames": [
-                "BGMVolume_Text"
+                "BGMVolume_Text",
+                "BGMVolume_SliderFill"
             ],
             "components": [
                 {
@@ -38,16 +39,63 @@
                 },
                 {
                     "properties": {
+                        "logicNames": [
+                            "UISliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
                         "currentValue": 0.20000000298023224,
+                        "isDragging": false,
                         "isEnable": false,
-                        "isHorizontal": true,
-                        "isIncrease": true,
+                        "isHorizontal": false,
+                        "isIncrease": false,
+                        "isUISlider": true,
                         "isVertical": false,
                         "maxValue": 1.0,
                         "minValue": 0.0,
+                        "sliderWidth": 0.30000001192092896,
                         "step": 0.10000000149011612
                     },
                     "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "BGMVolume_SliderFill": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.44999998807907104
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 18.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 103,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "UI"
@@ -1247,12 +1295,15 @@
                 {
                     "properties": {
                         "currentValue": 0.0,
+                        "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": true,
                         "isIncrease": true,
+                        "isUISlider": false,
                         "isVertical": false,
                         "maxValue": 1.7050000429153442,
                         "minValue": 0.0,
+                        "sliderWidth": 200.0,
                         "step": 0.00800000037997961
                     },
                     "type": "SliderComponent"
@@ -1878,7 +1929,8 @@
         },
         "FPSTarget_Slider": {
             "childNames": [
-                "FPSTarget_Text"
+                "FPSTarget_Text",
+                "FPSTarget_SliderFill"
             ],
             "components": [
                 {
@@ -1914,16 +1966,63 @@
                 },
                 {
                     "properties": {
+                        "logicNames": [
+                            "UISliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
                         "currentValue": 60.0,
+                        "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": true,
                         "isIncrease": true,
+                        "isUISlider": true,
                         "isVertical": false,
                         "maxValue": 1.0,
                         "minValue": 0.0,
+                        "sliderWidth": 0.30000001192092896,
                         "step": 0.10000000149011612
                     },
                     "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "FPSTarget_SliderFill": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.699999988079071
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 18.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 103,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "UI"
@@ -1993,7 +2092,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {
@@ -2954,7 +3053,8 @@
         },
         "MasterVolume_Slider": {
             "childNames": [
-                "MasterVolume_Text"
+                "MasterVolume_Text",
+                "MasterVolume_SliderFill"
             ],
             "components": [
                 {
@@ -2990,16 +3090,63 @@
                 },
                 {
                     "properties": {
+                        "logicNames": [
+                            "UISliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
                         "currentValue": 1.0,
+                        "isDragging": false,
                         "isEnable": false,
-                        "isHorizontal": true,
-                        "isIncrease": true,
+                        "isHorizontal": false,
+                        "isIncrease": false,
+                        "isUISlider": true,
                         "isVertical": false,
                         "maxValue": 1.0,
                         "minValue": 0.0,
+                        "sliderWidth": 0.30000001192092896,
                         "step": 0.10000000149011612
                     },
                     "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MasterVolume_SliderFill": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.3499999940395355
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 17.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 103,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "UI"
@@ -6479,7 +6626,8 @@
         },
         "SFXVolume_Slider": {
             "childNames": [
-                "SFXVolume_Text"
+                "SFXVolume_Text",
+                "SFXVolume_SliderFill"
             ],
             "components": [
                 {
@@ -6515,16 +6663,63 @@
                 },
                 {
                     "properties": {
+                        "logicNames": [
+                            "UISliderLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                },
+                {
+                    "properties": {
                         "currentValue": 1.0,
+                        "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": true,
                         "isIncrease": true,
+                        "isUISlider": true,
                         "isVertical": false,
                         "maxValue": 1.0,
                         "minValue": 0.0,
+                        "sliderWidth": 0.30000001192092896,
                         "step": 0.10000000149011612
                     },
                     "type": "SliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "SFXVolume_SliderFill": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.4000000059604645,
+                            "y": -0.550000011920929
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.30000001192092896,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 18.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 103,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "UI"
@@ -7313,12 +7508,15 @@
                 {
                     "properties": {
                         "currentValue": 0.0,
+                        "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": true,
                         "isIncrease": true,
+                        "isUISlider": false,
                         "isVertical": false,
                         "maxValue": 1.7050000429153442,
                         "minValue": 0.0,
+                        "sliderWidth": 200.0,
                         "step": 0.00800000037997961
                     },
                     "type": "SliderComponent"

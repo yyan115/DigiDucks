@@ -34,9 +34,22 @@ public:
 	float currentValue;		// Current value of the slider
 	float step;				// Step value of the slider
 
+	// UI-Specific
+	bool isUISlider;		
+	bool isDragging;		// **Tracks if the UI slider is being dragged**
+	Vec2 sliderStartPos;	// **Starting position of the UI slider bar**
+	float sliderWidth;
+
 	// Constructor initializes the SliderComponent with default values
-	DUCKENGINE_API SliderComponent(bool enable = false, bool increase = true, bool sides = true, bool heights = false, float min = 0.0f, float max = 1.0f, float current = 0.0f, float step = 0.1f) :
-		isEnable(enable), isIncrease(increase), isHorizontal(sides), isVertical(heights), minValue(min), maxValue(max), currentValue(current), step(step) { }
+	DUCKENGINE_API SliderComponent(
+		bool enable = false, bool increase = true, bool sides = true, bool heights = false,
+		float min = 0.0f, float max = 1.0f, float current = 0.0f, float step = 0.1f,
+		bool uiSlider = false, bool Dragging = false, float width = 200.0f
+	) :
+		isEnable(enable), isIncrease(increase), isHorizontal(sides), isVertical(heights),
+		minValue(min), maxValue(max), currentValue(current), step(step),
+		isUISlider(uiSlider), isDragging(Dragging), sliderWidth(width) {
+	}
 
 	std::shared_ptr<Component> Clone() const override 
 	{

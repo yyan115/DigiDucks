@@ -732,6 +732,15 @@ void InspectorRenderer::RenderComponents(int entityID)
 			ImGui::Text("Step");
 			ImGui::SameLine(100);
 			if (ImGui::DragFloat("##Step", &sliderComponent->step, 0.01f, 0.0f, 10000.0f)) HandlePropertyChange(hasChanged);
+
+			ImGui::Separator();
+			ImGui::Checkbox("Is UI Slider", &sliderComponent->isUISlider);
+			if (sliderComponent->isUISlider) {
+				ImGui::Checkbox("Is Dragging", &sliderComponent->isDragging);
+				ImGui::Text("Slider Width");
+				ImGui::SameLine(100);
+				if (ImGui::DragFloat("##SliderWidth", &sliderComponent->sliderWidth, 1.0f, 10.0f, 1000.0f)) HandlePropertyChange(hasChanged);
+			}
 			// Remove component button
 			ComponentMenu<SliderComponent>(entityID);
 		}
