@@ -42,12 +42,33 @@ void PlayerLogic::Start()
 		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID);
 	}
 
-	// Incase Scene does not have a SFXManager
+	// SFX Managers
 	Entity* SFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get();
 	if (SFX)
 	{
 		SFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(SFX->entityID);
 	}
+	Entity* PlateSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PlateSFXManager").get();
+	if (PlateSFX)
+	{
+		PlateSFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PlateSFX->entityID);
+	}
+	Entity* BowlSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BowlSFXManager").get();
+	if (BowlSFX)
+	{
+		BowlSFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(BowlSFX->entityID);
+	}
+	Entity* PanSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PanSFXManager").get();
+	if (PanSFX)
+	{
+		PanSFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PanSFX->entityID);
+	}
+	Entity* PotSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PotSFXManager").get();
+	if (PotSFX)
+	{
+		PotSFXsound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PotSFX->entityID);
+	}
+
 	dir = FRONT;
 	isHolding = false;
 	actionCounter = actionCooldown;
@@ -211,6 +232,17 @@ void PlayerLogic::FixedUpdate()
 
 }
 
+/****************************************************************
+* @brief Helper function to get the SFX type of object
+* ****************************************************************/
+SoundComponent* PlayerLogic::GetSFXForType(int type) {
+	if (type <= 14) return SFXsound;
+	if (type >= 15 && type <= 18) return PanSFXsound;
+	if (type >= 19 && type <= 22) return PotSFXsound;
+	if (type >= 23 && type <= 38) return PlateSFXsound;
+	if (type >= 39 && type <= 42) return BowlSFXsound;
+	return SFXsound;
+}
 
 /****************************************************************
 * @brief Function to handle when player press a key
@@ -251,11 +283,9 @@ void PlayerLogic::InteractPressed()
 			{			
 				holding->setObject(tableLogic->moveObject());
 				type = holding->getType();
-				if (SFXsound) {
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				isHolding = true;
 			}
@@ -270,12 +300,9 @@ void PlayerLogic::InteractPressed()
 			{
 				holding->setObject(chopBoardLogic->moveObject());
 				type = holding->getType();
-				if (SFXsound)
-				{
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				isHolding = true;
 			}
@@ -289,13 +316,9 @@ void PlayerLogic::InteractPressed()
 			{
 				holding->setObject(stoveLogic->moveObject());
 				type = holding->getType();
-				if (SFXsound)
-				{
-					if (static_cast<int>(type) <= 15)
-					{
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				isHolding = true;
 			}
@@ -305,12 +328,9 @@ void PlayerLogic::InteractPressed()
 				Entity* newObject = makeObject(temp);
 				holding->setObject(std::make_pair(newObject->entityID, temp));
 				type = holding->getType();
-				if (SFXsound)
-				{
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				isHolding = true;
 			}
@@ -350,12 +370,9 @@ void PlayerLogic::InteractPressed()
 			{
 				tableLogic->setObject(holding->moveObject());
 				type = tableLogic->getType();
-				if (SFXsound)
-				{
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				isHolding = false;
 			}
@@ -366,10 +383,10 @@ void PlayerLogic::InteractPressed()
 					std::pair<int, ItemType> combined = combineObjects(holding->moveObject(), tableLogic->moveObject());
 					holding->setObject(combined);
 					type = holding->getType();
-					if (static_cast<int>(type) <= 15) {
-						if (SFXsound) SFXsound->Play(0);
+					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+					if (soundToPlay) {
+						soundToPlay->Play(-1);
 					}
-					else SFXsound->Play(1);
 					isHolding = true;
 				}
 			}
@@ -386,12 +403,9 @@ void PlayerLogic::InteractPressed()
 				{
 					chopBoardLogic->setObject(holding->moveObject());
 					type = chopBoardLogic->getType();
-					if (SFXsound)
-					{
-						if (static_cast<int>(type) <= 15) {
-							SFXsound->Play(0);
-						}
-						else SFXsound->Play(1);
+					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+					if (soundToPlay) {
+						soundToPlay->Play(-1);
 					}
 					isHolding = false;
 				}
@@ -406,12 +420,9 @@ void PlayerLogic::InteractPressed()
 			{
 				if (holding->getType() != ItemType::PAN && holding->getType() != ItemType::POT) return;
 				type = holding->getType();
-				if (SFXsound)
-				{
-					if (static_cast<int>(type) <= 15) {
-						SFXsound->Play(0);
-					}
-					else SFXsound->Play(1);
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Play(-1);
 				}
 				stoveLogic->setCookingType(holding->moveObject());
 				isHolding = false;
@@ -422,12 +433,9 @@ void PlayerLogic::InteractPressed()
 				{
 					if (holding->getType() != ItemType::R_PATTY && holding->getType() != ItemType::C_PATTY) return;
 					type = holding->getType();
-					if (SFXsound)
-					{
-						if (static_cast<int>(type) <= 15) {
-							SFXsound->Play(0);
-						}
-						else SFXsound->Play(1);
+					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+					if (soundToPlay) {
+						soundToPlay->Play(-1);
 					}
 					// Delete Holding object and assign 
 					stoveLogic->setObject(holding->moveObject());
@@ -440,12 +448,9 @@ void PlayerLogic::InteractPressed()
 				{
 					if (!isIngredient(holding->getType())) return;
 					type = holding->getType();
-					if (SFXsound)
-					{
-						if (static_cast<int>(type) <= 15) {
-							SFXsound->Play(0);
-						}
-						else SFXsound->Play(1);
+					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+					if (soundToPlay) {
+						soundToPlay->Play(-1);
 					}
 					stoveLogic->setObject(holding->moveObject());
 					isHolding = false;
@@ -459,12 +464,9 @@ void PlayerLogic::InteractPressed()
 						Entity* newObject = makeObject(temp);
 						holding->setObject(std::make_pair(newObject->entityID, temp));
 						type = holding->getType();
-						if (SFXsound)
-						{
-							if (static_cast<int>(type) <= 15) {
-								SFXsound->Play(0);
-							}
-							else SFXsound->Play(1);
+						SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+						if (soundToPlay) {
+							soundToPlay->Play(-1);
 						}
 						isHolding = true;
 					}

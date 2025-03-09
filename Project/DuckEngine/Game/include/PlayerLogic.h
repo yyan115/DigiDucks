@@ -50,9 +50,14 @@ private:
     Entity* interactObject = nullptr;
     SoundComponent* sound = nullptr;
     SoundComponent* SFXsound = nullptr;
+	SoundComponent* PlateSFXsound = nullptr;
+	SoundComponent* BowlSFXsound = nullptr;
+	SoundComponent* PanSFXsound = nullptr;
+	SoundComponent* PotSFXsound = nullptr;
 	std::shared_ptr<HoldingLogic> holding = nullptr;
 	std::shared_ptr<MovementLogic> movement = nullptr;
 	std::shared_ptr<RestockLogic> restockLogic = nullptr;
+
 
 public:
     bool isHolding = false;
@@ -112,4 +117,6 @@ public:
 	* @brief Function that handles the state of the restock menu
 	* ****************************************************************/
     void setRestockMenu(bool state);
+
+    SoundComponent* GetSFXForType(int type);
 };

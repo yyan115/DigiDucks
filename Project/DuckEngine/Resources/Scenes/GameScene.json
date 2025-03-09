@@ -651,6 +651,66 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "BowlSFXManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.0004711151123046875,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot 2.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -709,6 +769,18 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -5119,6 +5191,54 @@
             ],
             "layer": "Gameplay"
         },
+        "PanSFXManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Pause_Bg": {
             "components": [
                 {
@@ -5204,6 +5324,57 @@
                 }
             ],
             "layer": "UI"
+        },
+        "PlateSFXManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/plate/plate 1.wav",
+                            "Resources/Sounds/plate/plate 2.wav",
+                            "Resources/Sounds/plate/plate 3.wav",
+                            ""
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "Player": {
             "components": [
@@ -5432,6 +5603,55 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "PotSFXManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot.wav",
+                            "Resources/Sounds/pot and pan/pot 2.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -6696,7 +6916,11 @@
             "childNames": [
                 "TimerSFXManager",
                 "QuackSound",
-                "CustomerFootstepSFX"
+                "CustomerFootstepSFX",
+                "PanSFXManager",
+                "PotSFXManager",
+                "BowlSFXManager",
+                "PlateSFXManager"
             ],
             "components": [
                 {
@@ -6736,8 +6960,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/plate/plate 1.wav"
+                            "Resources/Sounds/ingredients/ingredients 1.wav"
                         ],
                         "volume": 0.6000000238418579
                     },
