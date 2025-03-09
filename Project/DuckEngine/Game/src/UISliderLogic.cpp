@@ -86,13 +86,11 @@ Vec2 UISliderLogic::GetNormalizedMousePosition() {
 * @brief Check if the mouse is inside the slider bounds
 ****************************************************************/
 bool UISliderLogic::IsMouseInsideSlider(const Vec2& mousePos) {
-	std::cout << "Mouse Pos: " << mousePos.x << ", " << mousePos.y << std::endl;
 	Vec2 position = MainsliderTrfm->GetPosition();
-	std::cout << "Slider Pos: " << position.x << ", " << position.y << std::endl;
 	Vec2 scale = MainsliderTrfm->scale;
 	Vec2 min = position - (scale * 0.5f);
 	Vec2 max = position + (scale * 0.5f);
-	std::cout << "Min: " << min.x << ", " << min.y << std::endl;
+
 	return (mousePos.x >= min.x && mousePos.x <= max.x) &&
 		(mousePos.y >= min.y && mousePos.y <= max.y);
 }

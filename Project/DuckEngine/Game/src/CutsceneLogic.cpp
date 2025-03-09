@@ -67,7 +67,7 @@ void CutSceneLogic::Start()
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 		CutSceneSkip->onClick = [this]()
 		{
-			currentCutsceneIndex = 13;
+			currentCutsceneIndex = 12;
 		};
 	}
 
@@ -110,7 +110,7 @@ void CutSceneLogic::Update()
 	}
 	
 	// If playing cutscene
-	if (isPlaying && currentCutsceneIndex < 14)
+	if (isPlaying && currentCutsceneIndex < 13)
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
@@ -133,7 +133,7 @@ void CutSceneLogic::Update()
 				CutSceneSFX->Play(currentCutsceneIndex);
 			}
 			
-			if (currentCutsceneIndex == 14) {
+			if (currentCutsceneIndex == 13) {
 				isCutSceneFading = true;
 				FadeOutSprite->color.a = 0; // Start fade
 			}
@@ -199,7 +199,7 @@ void CutSceneLogic::Update()
 			// Play sound effect for dialogues between soundtrack 15 and 16
 			if (CutSceneSFX)
 			{
-				CutSceneSFX->Play(15 + (std::rand() % 2));
+				CutSceneSFX->Play(14 + (std::rand() % 2));
 			}
 
 			

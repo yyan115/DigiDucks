@@ -37,7 +37,7 @@ void GameSettingsLogic::Start() {
         if (masterVolumeSliderComp) {
             masterVolumeSliderComp->currentValue = ProjectSettings::GetMasterVolume();
             masterVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
-                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MasterVolume_Text").get()->entityID);
+                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MasterVolume_Value").get()->entityID);
             masterVolumeSliderComp->isEnable = false;
         }
     }
@@ -48,7 +48,7 @@ void GameSettingsLogic::Start() {
         if (bgmVolumeSliderComp) {
             bgmVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("BGM");
             bgmVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
-                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BGMVolume_Text").get()->entityID);
+                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BGMVolume_Value").get()->entityID);
 			bgmVolumeSliderComp->isEnable = false;
         }
     }
@@ -59,7 +59,7 @@ void GameSettingsLogic::Start() {
         if (sfxVolumeSliderComp) {
             sfxVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("SFX");
             sfxVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
-                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXVolume_Text").get()->entityID);
+                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXVolume_Value").get()->entityID);
 			sfxVolumeSliderComp->isEnable = false;
         }
     }
@@ -71,7 +71,7 @@ void GameSettingsLogic::Start() {
         if (fpsSliderComp) {
             fpsSliderComp->currentValue = static_cast<float>(ProjectSettings::GetTargetFPS());
             fpsText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
-                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPSTarget_Text").get()->entityID);
+                DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPSTarget_Value").get()->entityID);
 			fpsSliderComp->isEnable = false;
         }
     }

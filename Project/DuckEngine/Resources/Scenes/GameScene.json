@@ -3,13 +3,14 @@
         "BGMVolume_Slider": {
             "childNames": [
                 "BGMVolume_Text",
-                "BGMVolume_SliderFill"
+                "BGMVolume_SliderFill",
+                "BGMVolume_Value"
             ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.5
                         },
                         "relativeToCamera": false,
@@ -69,7 +70,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.5
                         },
                         "relativeToCamera": false,
@@ -105,7 +106,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.25,
+                            "x": 0.20000004768371582,
                             "y": 0.49000027775764465
                         },
                         "relativeToCamera": false,
@@ -132,8 +133,48 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
-                        "text": "20"
+                        "sortingOrder": 10,
+                        "text": "BGM"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "BGMVolume_Value": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.6500000357627869,
+                            "y": 0.49000000953674316
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 10,
+                        "text": "100"
                     },
                     "type": "TextComponent"
                 }
@@ -1930,13 +1971,14 @@
         "FPSTarget_Slider": {
             "childNames": [
                 "FPSTarget_Text",
-                "FPSTarget_SliderFill"
+                "FPSTarget_SliderFill",
+                "FPSTarget_Value"
             ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.800000011920929
                         },
                         "relativeToCamera": false,
@@ -1996,7 +2038,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.800000011920929
                         },
                         "relativeToCamera": false,
@@ -2032,7 +2074,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.25,
+                            "x": 0.20000004768371582,
                             "y": 0.19000029563903809
                         },
                         "relativeToCamera": false,
@@ -2060,7 +2102,47 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "60"
+                        "text": "FPS"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "FPSTarget_Value": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.6500000357627869,
+                            "y": 0.1899999976158142
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 10,
+                        "text": "100"
                     },
                     "type": "TextComponent"
                 }
@@ -2092,7 +2174,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {
@@ -3054,13 +3136,14 @@
         "MasterVolume_Slider": {
             "childNames": [
                 "MasterVolume_Text",
-                "MasterVolume_SliderFill"
+                "MasterVolume_SliderFill",
+                "MasterVolume_Value"
             ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.4000000059604645
                         },
                         "relativeToCamera": false,
@@ -3120,7 +3203,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.4000000059604645
                         },
                         "relativeToCamera": false,
@@ -3156,7 +3239,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.2500014305114746,
+                            "x": 0.19700002670288086,
                             "y": 0.5900002717971802
                         },
                         "relativeToCamera": false,
@@ -3183,7 +3266,47 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
+                        "sortingOrder": 10,
+                        "text": "MAIN"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "MasterVolume_Value": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.6500000357627869,
+                            "y": 0.5900000333786011
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 10,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -5161,29 +5284,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -5198,11 +5298,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -5212,6 +5326,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -6626,13 +6749,14 @@
         "SFXVolume_Slider": {
             "childNames": [
                 "SFXVolume_Text",
-                "SFXVolume_SliderFill"
+                "SFXVolume_SliderFill",
+                "SFXVolume_Value"
             ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.6000000238418579
                         },
                         "relativeToCamera": false,
@@ -6692,7 +6816,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.6000000238418579
                         },
                         "relativeToCamera": false,
@@ -6728,7 +6852,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.25,
+                            "x": 0.20000004768371582,
                             "y": 0.39000028371810913
                         },
                         "relativeToCamera": false,
@@ -6755,7 +6879,47 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
+                        "sortingOrder": 10,
+                        "text": "SFX"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "SFXVolume_Value": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.6500000357627869,
+                            "y": 0.38999998569488525
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 10.0,
+                            "g": 10.0,
+                            "r": 10.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 10,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -6988,7 +7152,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5299999713897705,
+                            "x": 0.48000001907348633,
                             "y": -0.5
                         },
                         "relativeToCamera": false,
@@ -8842,7 +9006,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.24900007247924805,
+                            "x": 0.19900012016296387,
                             "y": 0.0899999737739563
                         },
                         "relativeToCamera": false,
@@ -8885,7 +9049,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4049999713897705,
+                            "x": 0.35500001907348633,
                             "y": -0.8999999761581421
                         },
                         "relativeToCamera": false,
