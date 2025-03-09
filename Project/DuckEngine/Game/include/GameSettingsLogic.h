@@ -38,7 +38,7 @@ private:
     
 
     bool isSettingsOpen = false;
-
+    bool settingsVisible = false;
 public:
     GameSettingsLogic() : GameLogic(nullptr) {}
 

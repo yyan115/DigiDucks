@@ -91,7 +91,7 @@ public:
 	@param volume The volume to set
 	@return void
 	*************************************************************************/
-	static void SetMasterVolume(float volume);
+	static DUCKENGINE_API void SetMasterVolume(float volume);
 
 	/************************************************************************
 	@brief Sets the volume of a sound category
@@ -99,7 +99,7 @@ public:
 	@param volume The volume to set
 	@return void
 	*************************************************************************/
-	static void SetCategoryVolume(const std::string& category, float volume);
+	static DUCKENGINE_API void SetCategoryVolume(const std::string& category, float volume);
 
 	/************************************************************************
 	@brief Adds a sound to a category

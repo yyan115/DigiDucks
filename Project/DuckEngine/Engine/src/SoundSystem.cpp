@@ -19,7 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 #include <thread>
 
-float SoundSystem::masterVolume = 1.0f;
+float SoundSystem::masterVolume;
 std::unordered_map<std::string, std::string> SoundSystem::soundCategories;
 std::unordered_map<std::string, float> SoundSystem::categoryVolumes;
 std::unordered_map<std::string, FMOD::Channel*> SoundSystem::activeChannels;
@@ -43,15 +43,15 @@ void SoundSystem::Start() {
         std::cerr << "FMOD system is already initialized in AssetManager." << std::endl;
     }                                                                   
 
-    masterVolume = 1.0f;
+    /*masterVolume = 1.0f;*/
     categoryVolumes.clear();
     activeChannels.clear();
 
-    // Set default volumes for categories
-    categoryVolumes["Default"] = 1.0f;
-    categoryVolumes["BGM"] = 1.0f;
-    categoryVolumes["SFX"] = 1.0f;
-    categoryVolumes["UI"] = 1.0f;
+    //// Set default volumes for categories
+    //categoryVolumes["Default"] = 1.0f;
+    //categoryVolumes["BGM"] = 1.0f;
+    //categoryVolumes["SFX"] = 1.0f;
+    //categoryVolumes["UI"] = 1.0f;
 }
 
 

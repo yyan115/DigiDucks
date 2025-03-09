@@ -226,7 +226,7 @@ public:
 
     static DUCKENGINE_API double GetGLFWTime();
 
-
+    static DUCKENGINE_API bool GetEditorBool();
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;

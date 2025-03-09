@@ -538,6 +538,11 @@ float DuckEngine::GetViewportWidth()
 	return static_cast<float>(WindowManager::GetViewportWidth());
 }
 
+bool DuckEngine::GetEditorBool()
+{
+	return DuckEngine::isEditor;
+}
+
 float DuckEngine::GetViewportHeight()
 {
 	return static_cast<float>(WindowManager::GetViewportHeight());

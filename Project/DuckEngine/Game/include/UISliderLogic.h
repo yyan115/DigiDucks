@@ -10,6 +10,7 @@ private:
 	SliderComponent* slider = nullptr;
 	SpriteRendererComponent* sliderBgSpt = nullptr;
 	TransformComponent* sliderTrfm = nullptr;
+	TransformComponent* MainsliderTrfm = nullptr;
 	Vec2 originalPos{};
 	Vec2 originalScale{};
 	bool isDragging = false; // Track if the slider is being dragged
@@ -51,4 +52,7 @@ public:
 	void EnableSlider(bool state) {
 		slider->isEnable = state;
 	}
+
+	Vec2 GetNormalizedMousePosition();
+	bool IsMouseInsideSlider(const Vec2& mousePos);
 };

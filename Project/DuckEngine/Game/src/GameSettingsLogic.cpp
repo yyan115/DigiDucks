@@ -1,4 +1,5 @@
 #include "GameSettingsLogic.h"
+#include "SoundSystem.h"
 #include <iostream>
 
 /****************************************************************
@@ -13,7 +14,11 @@ void GameSettingsLogic::Start() {
         gameSettingsBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
         gameSettingsButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSettingsBtn->entityID);
         if (gameSettingsButton) {
-            gameSettingsButton->onClick = [this]() { ShowSettings(true); };
+            gameSettingsButton->onClick = [this]() {
+                settingsVisible = !settingsVisible;
+                std::cout << "Settings: " << settingsVisible << std::endl;
+                ShowSettings(settingsVisible);
+                };
             gameSettingsButton->onHover = [this]() { gameSettingsBtnSpt->texture = gameSettingsBtn_Hover; };
             gameSettingsButton->onFinishHover = [this]() { gameSettingsBtnSpt->texture = gameSettingsBtn_Normal; };
         }
@@ -116,6 +121,8 @@ void GameSettingsLogic::ShowSettings(bool state) {
 void GameSettingsLogic::UpdateSliders() {
     if (masterVolumeSliderComp) {
         ProjectSettings::SetMasterVolume(masterVolumeSliderComp->currentValue);
+        SoundSystem::SetMasterVolume(masterVolumeSliderComp->currentValue);
+		std::cout << "Master Volume: " << masterVolumeSliderComp->currentValue << std::endl;
         masterVolumeText->text = std::to_string(static_cast<int>(masterVolumeSliderComp->currentValue * 100));
     }
 
