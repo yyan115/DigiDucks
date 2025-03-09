@@ -1,19 +1,17 @@
-/******************************************************************************/
-/*!
+/******************************************************************************
 \file       SnapshotManager.cpp
 \author     Lucas Yee JunJie, l.yee, 2301212
 \par        l.yee@digipen.edu
 \date       November 30 2024
 \brief      Implements the SnapshotManager class, which provides functionality
-			for managing undo and redo operations in the game editor. This
-			includes taking scene snapshots, applying snapshots, and managing
-			undo/redo history.
+            for managing undo and redo operations in the game editor. This
+            includes taking scene snapshots, applying snapshots, and managing
+            undo/redo history.
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-*/
-/******************************************************************************/
+******************************************************************************/
 
 #include <iostream>
 #include "SnapshotManager.h"
@@ -21,8 +19,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "ComponentFactory.h"
 
-std::stack<nlohmann::json> SnapshotManager::undoStack;
-std::stack<nlohmann::json> SnapshotManager::redoStack;
+// Now using deques
+std::deque<nlohmann::json> SnapshotManager::undoStack;
+std::deque<nlohmann::json> SnapshotManager::redoStack;
 
 /**************************************************************************
 * @brief Saves the current scene state to the undo stack.
@@ -30,32 +29,19 @@ std::stack<nlohmann::json> SnapshotManager::redoStack;
 **************************************************************************/
 void SnapshotManager::SaveUndoState()
 {
-	nlohmann::json snapshot = TakeSceneSnapshot();
-	undoStack.push(snapshot);
+    nlohmann::json snapshot = TakeSceneSnapshot();
 
-	if (undoStack.size() > MAX_UNDO_STEPS)
-	{
-		std::stack<nlohmann::json> tempStack;
+    while (!redoStack.empty())
+    {
+        redoStack.pop_back();
+    }
 
-		while (undoStack.size() > 1)
-		{
-			tempStack.push(undoStack.top());
-			undoStack.pop();
-		}
+    undoStack.push_back(snapshot);
 
-		undoStack.pop();
-
-		while (!tempStack.empty())
-		{
-			undoStack.push(tempStack.top());
-			tempStack.pop();
-		}
-	}
-
-	while (!redoStack.empty())
-	{
-		redoStack.pop();
-	}
+    if (undoStack.size() > MAX_UNDO_STEPS)
+    {
+        undoStack.pop_front();
+    }
 }
 
 /**************************************************************************
@@ -65,20 +51,21 @@ void SnapshotManager::SaveUndoState()
 **************************************************************************/
 void SnapshotManager::Undo()
 {
-	if (undoStack.empty())
-	{
-		std::cout << "Undo stack is empty. Nothing to undo." << std::endl;
-		return;
-	}
+    if (undoStack.empty())
+    {
+        std::cout << "Undo stack is empty. Nothing to undo." << std::endl;
+        return;
+    }
 
-	redoStack.push(TakeSceneSnapshot());
+    nlohmann::json currentState = TakeSceneSnapshot();
+    redoStack.push_back(currentState);
 
-	nlohmann::json lastState = undoStack.top();
-	undoStack.pop();
+    nlohmann::json lastState = undoStack.back();
+    undoStack.pop_back();
 
-	ApplySceneSnapshot(lastState);
+    ApplySceneSnapshot(lastState);
 
-	std::cout << "Undo performed. Undo stack size: " << undoStack.size() << std::endl;
+    std::cout << "Undo performed. Undo stack size: " << undoStack.size() << std::endl;
 }
 
 /**************************************************************************
@@ -88,20 +75,21 @@ void SnapshotManager::Undo()
 **************************************************************************/
 void SnapshotManager::Redo()
 {
-	if (redoStack.empty())
-	{
-		std::cout << "Redo stack is empty. Nothing to redo." << std::endl;
-		return;
-	}
+    if (redoStack.empty())
+    {
+        std::cout << "Redo stack is empty. Nothing to redo." << std::endl;
+        return;
+    }
 
-	undoStack.push(TakeSceneSnapshot());
+    nlohmann::json currentState = TakeSceneSnapshot();
+    undoStack.push_back(currentState);
 
-	nlohmann::json nextState = redoStack.top();
-	redoStack.pop();
+    nlohmann::json nextState = redoStack.back();
+    redoStack.pop_back();
 
-	ApplySceneSnapshot(nextState);
+    ApplySceneSnapshot(nextState);
 
-	std::cout << "Redo performed. Redo stack size: " << redoStack.size() << std::endl;
+    std::cout << "Redo performed. Redo stack size: " << redoStack.size() << std::endl;
 }
 
 /**************************************************************************
@@ -109,17 +97,10 @@ void SnapshotManager::Redo()
 **************************************************************************/
 void SnapshotManager::ClearHistory()
 {
-	while (!undoStack.empty())
-	{
-		undoStack.pop();
-	}
+    undoStack.clear();
+    redoStack.clear();
 
-	while (!redoStack.empty())
-	{
-		redoStack.pop();
-	}
-
-	std::cout << "Undo and redo history cleared." << std::endl;
+    std::cout << "Undo and redo history cleared." << std::endl;
 }
 
 /**************************************************************************
@@ -130,44 +111,44 @@ void SnapshotManager::ClearHistory()
 **************************************************************************/
 nlohmann::json SnapshotManager::TakeSceneSnapshot()
 {
-	auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
-	nlohmann::json sceneSnapshot;
-	sceneSnapshot["gameObjects"] = nlohmann::json::object();
+    auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    nlohmann::json sceneSnapshot;
+    sceneSnapshot["gameObjects"] = nlohmann::json::object();
 
-	for (const auto& entity : entities)
-	{
-		nlohmann::json entityData;
-		std::string entityName = entity->name.empty()
-			? "GameObject_" + std::to_string(entity->entityID)
-			: entity->name;
-		entityData["layer"] = entity->layerName;
+    for (const auto& entity : entities)
+    {
+        nlohmann::json entityData;
+        std::string entityName = entity->name.empty()
+            ? "GameObject_" + std::to_string(entity->entityID)
+            : entity->name;
 
-		if (!entity->childNames.empty())
-		{
-			entityData["childNames"] = entity->childNames;
-		}
+        entityData["layer"] = entity->layerName;
 
-		if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
-		{
-			entityData["position"]["x"] = transform->GetPosition().x;
-			entityData["position"]["y"] = transform->GetPosition().y;
-		}
+        if (!entity->childNames.empty())
+        {
+            entityData["childNames"] = entity->childNames;
+        }
 
-		if (!entity->prefabName.empty())
-		{
-			entityData["prefab"] = entity->prefabName;
-		}
-		else
-		{
-			ComponentFactory::SaveComponentsToJson(entity->entityID, entityData["components"]);
-		}
+        if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
+        {
+            entityData["position"]["x"] = transform->GetPosition().x;
+            entityData["position"]["y"] = transform->GetPosition().y;
+        }
 
-		sceneSnapshot["gameObjects"][entityName] = entityData;
-	}
+        if (!entity->prefabName.empty())
+        {
+            entityData["prefab"] = entity->prefabName;
+        }
+        else
+        {
+            ComponentFactory::SaveComponentsToJson(entity->entityID, entityData["components"]);
+        }
 
-	return sceneSnapshot;
+        sceneSnapshot["gameObjects"][entityName] = entityData;
+    }
+
+    return sceneSnapshot;
 }
-
 
 /**************************************************************************
 * @brief Applies a scene snapshot to restore a specific state.
@@ -177,64 +158,64 @@ nlohmann::json SnapshotManager::TakeSceneSnapshot()
 **************************************************************************/
 void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 {
-	DuckEngine::DUCKENGINE_EntityManager.RemoveAllEntities();
+    DuckEngine::DUCKENGINE_EntityManager.RemoveAllEntities();
 
-	for (auto& [entityName, entityData] : snapshot["gameObjects"].items())
-	{
-		Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
-		entity->name = entityName;
-		entity->layerName = entityData.value("layer", "Default");
+    for (auto& [entityName, entityData] : snapshot["gameObjects"].items())
+    {
+        Entity* entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity().get();
+        entity->name = entityName;
+        entity->layerName = entityData.value("layer", "Default");
 
-		if (entityData.contains("childNames"))
-		{
-			entity->childNames = entityData["childNames"].get<std::vector<std::string>>();
-		}
+        if (entityData.contains("childNames"))
+        {
+            entity->childNames = entityData["childNames"].get<std::vector<std::string>>();
+        }
 
-		if (entityData.contains("prefab"))
-		{
-			entity->prefabName = entityData["prefab"].get<std::string>();
-			auto prefab = PrefabManager::GetPrefab(entity->prefabName);
-			if (prefab)
-			{
-				ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
-			}
-		}
-		else
-		{
-			ComponentFactory::AddComponentsToEntity(entity, entityData["components"]);
-		}
+        if (entityData.contains("prefab"))
+        {
+            entity->prefabName = entityData["prefab"].get<std::string>();
+            auto prefab = PrefabManager::GetPrefab(entity->prefabName);
+            if (prefab)
+            {
+                ComponentFactory::AddComponentsToEntity(entity, prefab->componentsData);
+            }
+        }
+        else
+        {
+            ComponentFactory::AddComponentsToEntity(entity, entityData["components"]);
+        }
 
-		if (entityData.contains("position"))
-		{
-			if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
-			{
-				transform->SetPosition(Serialization::GetVec2(entityData, "position", { 0.f, 0.f }));
-			}
-		}
-	}
+        if (entityData.contains("position"))
+        {
+            if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID))
+            {
+                transform->SetPosition(Serialization::GetVec2(entityData, "position", { 0.f, 0.f }));
+            }
+        }
+    }
 
-	auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
-	for (auto& entity : allEntities)
-	{
-		if (!entity->childNames.empty())
-		{
-			entity->childEntities.clear();
-			for (const auto& childName : entity->childNames)
-			{
-				std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
-				if (childEntity)
-				{
-					entity->childEntities.push_back(childEntity);
-					auto* childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(childEntity->entityID);
-					auto* parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
-					if (childTransform && parentTransform)
-					{
-						childTransform->localPosition = childTransform->worldPosition - parentTransform->worldPosition;
-					}
-				}
-			}
-		}
-	}
+    auto& allEntities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+    for (auto& entity : allEntities)
+    {
+        if (!entity->childNames.empty())
+        {
+            entity->childEntities.clear();
+            for (const auto& childName : entity->childNames)
+            {
+                std::shared_ptr<Entity> childEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(childName);
+                if (childEntity)
+                {
+                    entity->childEntities.push_back(childEntity);
+                    auto* childTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(childEntity->entityID);
+                    auto* parentTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+                    if (childTransform && parentTransform)
+                    {
+                        childTransform->localPosition = childTransform->worldPosition - parentTransform->worldPosition;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**************************************************************************
@@ -242,8 +223,8 @@ void SnapshotManager::ApplySceneSnapshot(const nlohmann::json& snapshot)
 **************************************************************************/
 void SnapshotManager::RemoveLatestUndoState()
 {
-	if (!undoStack.empty())
-	{
-		undoStack.pop();
-	}
+    if (!undoStack.empty())
+    {
+        undoStack.pop_back();
+    }
 }
