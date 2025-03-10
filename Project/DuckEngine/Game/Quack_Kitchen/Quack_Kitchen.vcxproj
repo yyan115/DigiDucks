@@ -257,7 +257,6 @@
     <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\OrderTabLogic.h" />
     <ClInclude Include="..\include\StoveLogic.h" />
-    <ClInclude Include="..\include\GreyPlateStockLogic.h" />
     <ClInclude Include="..\include\PauseMenuLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />
     <ClInclude Include="..\include\RestockLogic.h" />

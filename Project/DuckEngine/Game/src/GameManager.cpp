@@ -26,7 +26,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ShrimpStockLogic.h"
 #include "SteakStockLogic.h"
 #include "TomatoStockLogic.h"
-#include "GreyPlateStockLogic.h"
 #include "WhitePlateStockLogic.h"
 #include "BowlStockLogic.h"
 #include "BinLogic.h"
@@ -83,7 +82,6 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("ShrimpStockLogic", std::make_shared<ShrimpStockLogic>());
 	GameLogicManager::AddLogic("SteakStockLogic", std::make_shared<SteakStockLogic>());
 	GameLogicManager::AddLogic("TomatoStockLogic", std::make_shared<TomatoStockLogic>());
-	GameLogicManager::AddLogic("GreyPlateStockLogic", std::make_shared<GreyPlateStockLogic>());
 	GameLogicManager::AddLogic("WhitePlateStockLogic", std::make_shared<WhitePlateStockLogic>());
 	GameLogicManager::AddLogic("BowlStockLogic", std::make_shared<BowlStockLogic>());
 	GameLogicManager::AddLogic("BinLogic", std::make_shared<BinLogic>());

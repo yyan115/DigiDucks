@@ -55,8 +55,10 @@ enum class ItemType : int
 	POT_TOMATO,				// Pot with Tomato
 	POT_SUS,				// Pot with Suspicious Soup
 
+	//Plate
+    WHITE_PLATE,			// Empty Plate
+
     // Burger Types
-    GREY_PLATE,				// Empty Plate
     BUN_PLATE,				// Plate with Bun
     CHEESE_PLATE,			// Plate with Cheese
     PATTY_PLATE,			// Plate with Patty
@@ -66,7 +68,6 @@ enum class ItemType : int
     CHEESE_BURGER_PLATE,	// Plate with Bun, Cheese, and Patty
 
     // Salad Types
-    WHITE_PLATE,			// Empty Plate
     LETTUCE_PLATE,			// Plate with Lettuce
     SHRIMP_PLATE,			// Plate with Shrimp
     TOMATO_PLATE,			// Plate with Tomato
@@ -144,14 +145,12 @@ inline std::string whatType(ItemType type)
 	case ItemType::POT_SUS:
 		return "pot_sus";
 
-	case ItemType::GREY_PLATE:
-		return "grey_plate";
 	case ItemType::BUN_PLATE:
 		return "bun_plate";
 	case ItemType::CHEESE_PLATE:
 		return "cheese_plate";
 	case ItemType::PATTY_PLATE:
-		return "patty_plate";
+		return "cooked_patty_plate";
 	case ItemType::BUN_CHEESE_PLATE:
 		return "bun_cheese_plate";
 	case ItemType::BURGER_PLATE:
@@ -223,7 +222,7 @@ inline bool isPlate(ItemType type)
 {
 	switch (type)
 	{
-	case ItemType::GREY_PLATE:
+	case ItemType::WHITE_PLATE:
 	case ItemType::BUN_PLATE:
 	case ItemType::CHEESE_PLATE:
 	case ItemType::PATTY_PLATE:
@@ -231,7 +230,7 @@ inline bool isPlate(ItemType type)
 	case ItemType::BURGER_PLATE:
 	case ItemType::CHEESE_PATTY_PLATE:
 	case ItemType::CHEESE_BURGER_PLATE:
-	case ItemType::WHITE_PLATE:
+
 	case ItemType::LETTUCE_PLATE:
 	case ItemType::SHRIMP_PLATE:
 	case ItemType::TOMATO_PLATE:

@@ -627,14 +627,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 4.800000190734863
+                            "x": -10.0,
+                            "y": -0.30000001192092896
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.5,
-                            "y": 1.5
+                            "x": 1.2999999523162842,
+                            "y": 1.2999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -644,14 +644,14 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 0.0,
+                            "g": 255.0,
                             "r": 255.0
                         },
                         "isVisible": true,
                         "sortingOrder": 2,
-                        "sprite": true,
+                        "sprite": false,
                         "texture": "Resources/Sprites/Ingredients/stack_bowl.png",
-                        "useColor": true
+                        "useColor": false
                     },
                     "type": "SpriteRendererComponent"
                 },
@@ -728,8 +728,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 4.5
+                            "x": -10.0,
+                            "y": -0.30000001192092896
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -749,9 +749,9 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 0,
+                        "sortingOrder": 1,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -759,12 +759,12 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 4.5
+                            "x": -10.0,
+                            "y": -0.30000001192092896
                         },
                         "size": {
-                            "x": 0.8999999761581421,
-                            "y": 1.25
+                            "x": 1.0,
+                            "y": 1.100000023841858
                         }
                     },
                     "type": "BoundingBox"
@@ -782,9 +782,11 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/pot and pan/pot.wav"
+                            "Resources/Sounds/plate/plate 1.wav",
+                            "Resources/Sounds/plate/plate 2.wav",
+                            "Resources/Sounds/plate/plate 3.wav"
                         ],
-                        "volume": 0.6000000238418579
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
@@ -2734,123 +2736,6 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Grey_Plate": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -10.0,
-                            "y": -0.30000001192092896
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 2,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/stack_plate_grey.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Grey_Plate_Station": {
-            "childNames": [
-                "Grey_Plate"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -10.0,
-                            "y": -0.30000001192092896
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 1,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Stations/table01_back.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "center": {
-                            "x": -10.0,
-                            "y": -0.30000001192092896
-                        },
-                        "size": {
-                            "x": 1.0,
-                            "y": 1.100000023841858
-                        }
-                    },
-                    "type": "BoundingBox"
-                },
-                {
-                    "properties": {
-                        "isStatic": true
-                    },
-                    "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "category": "SFX",
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/plate/plate 1.wav",
-                            "Resources/Sounds/plate/plate 2.wav",
-                            "Resources/Sounds/plate/plate 3.wav"
-                        ],
-                        "volume": 0.5
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "GreyPlateStockLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -8716,6 +8601,81 @@
             ],
             "layer": "Gameplay"
         },
+        "Table_7": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 4.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Stations/table01_front.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 0.0,
+                            "y": 4.5
+                        },
+                        "size": {
+                            "x": 0.8999999761581421,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/pot and pan/pot.wav"
+                        ],
+                        "volume": 0.6000000238418579
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "TableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Table_8": {
             "components": [
                 {
@@ -8844,7 +8804,8 @@
                 "Table_2",
                 "Table_10",
                 "Table_1",
-                "Table_15"
+                "Table_15",
+                "Table_7"
             ],
             "components": [
                 {

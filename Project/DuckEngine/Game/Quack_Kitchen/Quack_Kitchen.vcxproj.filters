@@ -246,9 +246,6 @@
     <ClInclude Include="..\include\EndGame.h">
       <Filter>include\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\GreyPlateStockLogic.h">
-      <Filter>include\Logic\Game\Ingredient</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\WhitePlateStockLogic.h">
       <Filter>include\Logic\Game\Ingredient</Filter>
     </ClInclude>
