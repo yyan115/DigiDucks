@@ -48,7 +48,7 @@ void SoundComponent::Play(int index) {
 
         // Play a new sound only if the current one has finished
         if (!isPlaying) {
-            channel = SoundSystem::PlaySounds(soundID[index], loop, volume, category);
+            channel = SoundSystem::PlaySounds(soundID[index], loop, volume, category, effects);
         }
     }
     else {

@@ -243,6 +243,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -318,6 +319,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -393,6 +395,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -496,6 +499,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -906,6 +910,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -1192,6 +1197,7 @@
                 {
                     "properties": {
                         "category": "BGM",
+                        "effects": "Default",
                         "loop": true,
                         "playOnStart": false,
                         "soundID": [
@@ -1240,6 +1246,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -1425,6 +1432,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -1622,6 +1630,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -2097,6 +2106,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -2417,6 +2427,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -4087,6 +4098,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -4338,6 +4350,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -4350,29 +4363,6 @@
                 {
                     "properties": {
                         "animations": [
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
                             {
                                 "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
@@ -4389,11 +4379,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -4403,6 +4407,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -4504,6 +4517,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -4959,6 +4973,7 @@
                 {
                     "properties": {
                         "category": "Default",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -5561,6 +5576,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -5713,6 +5729,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -5810,6 +5827,7 @@
                 {
                     "properties": {
                         "category": "BGM",
+                        "effects": "Default",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
@@ -5880,6 +5898,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -6048,6 +6067,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -6216,6 +6236,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -7202,6 +7223,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -7316,6 +7338,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -7474,6 +7497,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [

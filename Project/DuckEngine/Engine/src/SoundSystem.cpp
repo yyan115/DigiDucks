@@ -24,7 +24,7 @@ float SoundSystem::masterVolume;
 std::unordered_map<std::string, std::string> SoundSystem::soundCategories;
 std::unordered_map<std::string, float> SoundSystem::categoryVolumes;
 std::unordered_map<std::string, FMOD::Channel*> SoundSystem::activeChannels;
-
+std::unordered_map<std::string, FMOD::DSP*> SoundSystem::dspCache;
 
 void SoundSystem::Start() {
     if (!AssetManager::GetFMODSystem()) {  // Check if fmodSystem is null
@@ -68,7 +68,7 @@ void SoundSystem::Update() {
     for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
 }
 
-FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category) {
+FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category, const std::string& effects) {
     if (!AssetManager::GetFMODSystem()) return nullptr;
 
     FMOD::Sound* sound = AssetManager::GetSounds(soundID);
@@ -80,11 +80,6 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     // Assign soundID with its category
     if (soundCategories.find(soundID) == soundCategories.end()) {
         AddSoundToCategory(soundID, category);
-
-        if (category == "BGM") {
-            sound->setMode(FMOD_2D);  // Ensures it's treated as stereo
-        }
-
     }
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
@@ -95,6 +90,11 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     if (channel) {
         float categoryVolume = categoryVolumes[category];
         channel->setVolume(volume * categoryVolume * masterVolume);
+
+        sound->setMode(FMOD_2D);
+
+        RemoveEffect(channel); // Remove any existing DSP effects
+        ApplyEffect(channel, effects);
 
         // Store the channel in the active channels map
         activeChannels[soundID] = channel;
@@ -223,3 +223,57 @@ void SoundSystem::FadeOutSound(SoundComponent* soundComponent, float duration) {
     StopSounds(soundID);
 }
 
+void SoundSystem::ApplyEffect(FMOD::Channel* channel, const std::string& effect) {
+    if (!channel || effect == "Default") return;  // Skip if no effect needed
+
+    // Check if the effect is already created in cache
+    if (dspCache.find(effect) == dspCache.end()) {
+        FMOD::DSP* dspEffect = nullptr;
+
+        if (effect == "Reverb") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_SFXREVERB, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_SFXREVERB_DECAYTIME, 5000.0f);
+        }
+        else if (effect == "LowPass") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_LOWPASS_CUTOFF, 2000.0f);
+        }
+        else if (effect == "HighPass") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_HIGHPASS, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_HIGHPASS_CUTOFF, 500.0f);
+        }
+        else if (effect == "Flange") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_FLANGE, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_FLANGE_MIX, 0.7f);
+        }
+        else if (effect == "Distortion") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_DISTORTION, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.5f);
+        }
+        else if (effect == "Delay") {
+            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_ECHO, &dspEffect);
+            dspEffect->setParameterFloat(FMOD_DSP_ECHO_DELAY, 300.0f);
+        }
+
+        if (dspEffect) {
+            dspCache[effect] = dspEffect;  // Cache the DSP effect
+        }
+    }
+
+    // Apply the cached DSP effect
+    if (dspCache[effect]) {
+        channel->addDSP(0, dspCache[effect]);  // Add DSP at the start of the DSP chain
+    }
+}
+
+
+
+
+void SoundSystem::RemoveEffect(FMOD::Channel* channel) {
+    FMOD::DSP* existingDSP = nullptr;
+    channel->getDSP(FMOD_CHANNELCONTROL_DSP_HEAD, &existingDSP);
+
+    if (existingDSP) {
+        channel->removeDSP(existingDSP);
+    }
+}

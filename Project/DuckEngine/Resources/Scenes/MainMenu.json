@@ -72,6 +72,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -255,6 +256,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -414,6 +416,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -930,6 +933,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -1091,6 +1095,7 @@
                 {
                     "properties": {
                         "category": "BGM",
+                        "effects": "Default",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
@@ -1139,6 +1144,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [

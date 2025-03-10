@@ -36,6 +36,7 @@
                 {
                     "properties": {
                         "category": "BGM",
+                        "effects": "Reverb",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
@@ -84,6 +85,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
@@ -146,6 +148,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
