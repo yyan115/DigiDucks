@@ -32,9 +32,13 @@ private:
 	// points for customer to move to to the queue area to wait for his order
 	std::vector<Entity*> queueTargets{};
 
+	std::vector<std::pair<Entity*, bool>> seatingLocations{};
+
+	std::pair<Entity*, bool>* customerSeat{};
 
 	bool isOrderTaken = false;
 	bool orderCollected = false;
+	bool isWalkingToSeat = false;
 	bool isWaitingToCollectOrder = false;
 	size_t currentTargetIndex = 0;
 	bool customerEnded = false;

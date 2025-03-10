@@ -19,33 +19,26 @@ void CustomerWalkState::Enter()
     // Get all entities
     auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
 
-    // Collect all "QueueUp" entities
+    // Collect all "Queue", "Wait" "Seat" and "Leave" entities
     for (auto& entity : entities)
     {
-        if (entity->name.find("QueueUpPoint") != std::string::npos)
-        {
+        if (entity->name.find("QueueUpPoint") != std::string::npos) {
             queueTargets.push_back(entity.get());
-            std::cout << "Added queue target: " << entity->name << "\n";
+            //std::cout << "Added queue target: " << entity->name << "\n";
         }
-    }
-
-    // Collect all "Wait" entities
-    for (auto& entity : entities)
-    {
-        if (entity->name.find("WaitPoint") != std::string::npos)
+        else if (entity->name.find("WaitPoint") != std::string::npos)
         {
             waitTargets.push_back(entity.get());
-            std::cout << "Added wait target: " << entity->name << "\n";
+            //std::cout << "Added wait target: " << entity->name << "\n";
         }
-    }
-
-    // Collect all "Leave" entities
-    for (auto& entity : entities)
-    {
-        if (entity->name.find("LeavePoint") != std::string::npos)
+        else if (entity->name.find("LeavePoint") != std::string::npos)
         {
             leaveTargets.push_back(entity.get());
-            std::cout << "Added leave target: " << entity->name << "\n";
+            //std::cout << "Added leave target: " << entity->name << "\n";
+        }
+        else if (entity->name.find("Seat") != std::string::npos) {
+            seatingLocations.emplace_back(entity.get(), false);
+            //std::cout << "emplaced " << entity->name << "\n";
         }
     }
 
@@ -56,9 +49,38 @@ void CustomerWalkState::Enter()
         return numA < numB;
         };
 
+    // Different sort as this uses a pair
+    auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
+        std::string nameA = a.first->name;
+        std::string nameB = b.first->name;
+
+        // Find the underscore position
+        size_t posA = nameA.find_last_of('_');
+        size_t posB = nameB.find_last_of('_');
+
+        // Ensure that there is a number after the underscore
+        if (posA == std::string::npos || posB == std::string::npos) return false;
+
+        std::string numStrA = nameA.substr(posA + 1);
+        std::string numStrB = nameB.substr(posB + 1);
+
+        // Validate if the extracted part is actually a number
+        if (!std::all_of(numStrA.begin(), numStrA.end(), ::isdigit) ||
+            !std::all_of(numStrB.begin(), numStrB.end(), ::isdigit)) {
+            std::cerr << "Warning: Invalid entity name format -> " << nameA << " or " << nameB << "\n";
+            return false; // Keep original order if invalid
+        }
+
+        int numA = std::stoi(numStrA);
+        int numB = std::stoi(numStrB);
+        return numA < numB;
+        };
+
+
     std::sort(queueTargets.begin(), queueTargets.end(), sortEntities);
     std::sort(waitTargets.begin(), waitTargets.end(), sortEntities);
     std::sort(leaveTargets.begin(), leaveTargets.end(), sortEntities);
+    std::sort(seatingLocations.begin(), seatingLocations.end(), sortEntitiesSeats);
 
     // Grab animator
     customerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(owner->GetComponentID());
@@ -80,9 +102,9 @@ void CustomerWalkState::Enter()
         currentQueueTarget = leaveTargets[0];
     }
 
-    std::cout << "Queue size = " << queueTargets.size()
-        << ", Wait size = " << waitTargets.size()
-        << ", Leave size = " << leaveTargets.size() << std::endl;
+    //std::cout << "Queue size = " << queueTargets.size()
+    //    << ", Wait size = " << waitTargets.size()
+    //    << ", Leave size = " << leaveTargets.size() << std::endl;
 }
 
 // Update (not used, but kept for completeness)
@@ -162,19 +184,16 @@ void CustomerWalkState::FixedUpdate()
         }
     }
 
-
-
-
     // If close enough to the current target, we do transitions
     if (distance <= 0.1f)
     {
         // Stop moving
         rigidbody->velocity = Vec2(0.0f, 0.0f);
 
-        // 1) Walking the queue
+        // Walking to the queue
         if (!isOrderTaken && currentTargetIndex < queueTargets.size() - 1)
         {
-            std::cout << "walking to queue\n";
+            std::cout << "Customer walking to queue.\n";
 
             // Go to the next queue point
             currentTargetIndex++;
@@ -182,7 +201,7 @@ void CustomerWalkState::FixedUpdate()
         }
         else if (!isOrderTaken && currentTargetIndex == queueTargets.size() - 1)
         {
-            std::cout << "waiting for order\n";
+            std::cout << "Customer waiting to order.\n";
 
             // Arrived at the last queue point, go to WaitingOrderState
             owner->stateMachine.ChangeState(owner->WaitingOrderState);
@@ -194,40 +213,62 @@ void CustomerWalkState::FixedUpdate()
             }
             return;
         }
-        // 2) Once the order is taken, move through waitTargets
+        // Once the order is taken, move through waitTargets
         else if (isOrderTaken && !orderCollected && currentTargetIndex < waitTargets.size() - 1)
         {
-            std::cout << "order taken, go move to wait\n";
+            std::cout << "Customer order taken. Moving in to dining area.";
 
             currentTargetIndex++;
             currentQueueTarget = waitTargets[currentTargetIndex];
         }
-        else if (isOrderTaken && !orderCollected && currentTargetIndex == waitTargets.size() - 1)
-        {
-            // At last wait point, do idle
+        // Walking to seat
+        else if (isOrderTaken && !orderCollected && isWalkingToSeat) {
+            // At seat, do idle
             if (customerAnimator)
             {
-                customerAnimator->PlayAnimation("BACK_IDLE");
+                customerAnimator->PlayAnimation("RIGHT_IDLE");
                 isWaitingToCollectOrder = true;
             }
-            std::cout << "Waiting at last wait point for order to be collected...\n";
+            //std::cout << "Waiting at last wait point for order to be collected...\n";
+        }
+        else if (isOrderTaken && !orderCollected && currentTargetIndex == waitTargets.size() - 1)
+        {
+            for (auto& pairSeat : seatingLocations) {
+                // if seat is not taken
+                if (pairSeat.second == false) {
+
+                    // set point and go walk there now
+                    currentQueueTarget = pairSeat.first;
+                    isWalkingToSeat = true;
+
+                    // seat is now occupied, set bool to true
+                    pairSeat.second = true;
+
+                    customerSeat = &pairSeat;
+                }
+            }
+
+            std::cout << "Customer found a seat. Moving now.\n";
         }
         // 3) If the order is collected, move through leaveTargets
         else if (isOrderTaken && orderCollected && currentTargetIndex < leaveTargets.size() - 1)
         {
+            // not sure if needed, not removing cause dont want to find out
             if (isWaitingToCollectOrder) {
                 currentTargetIndex = 0;
                 isWaitingToCollectOrder = false;
             }
 
-            std::cout << "index: " << currentTargetIndex << "\n";
+            std::cout << "Customer is now leaving.\n";
             
             currentTargetIndex++;
             currentQueueTarget = leaveTargets[currentTargetIndex];
         }
         else if (isOrderTaken && orderCollected && currentTargetIndex == leaveTargets.size() - 1)
         {
-            std::cout << "left\n";
+            std::cout << "Customer has left.\n";
+
+            customerSeat->second = false;
 
             // Reached final leave point
             owner->stateMachine.ChangeState(owner->IdleState);
@@ -244,7 +285,7 @@ void CustomerWalkState::FixedUpdate()
     }
     else
     {
-        std::cout << "walking...\n";
+        //std::cout << "walking...\n";
 
         // We're still walking
         rigidbody->velocity = direction * moveSpeed;
