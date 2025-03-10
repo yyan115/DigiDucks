@@ -531,12 +531,12 @@ void InspectorRenderer::RenderComponents(int entityID)
 			}
 
 			// Effects dropdown
-			const std::vector<std::string> effects = { "Default", "Reverb", "LowPass", "HighPass", "Flange", "Distortion","Delay"};
+			const std::vector<std::string> effectsList = { "Default", "Reverb", "LowPass", "HighPass", "Flange", "Distortion","Delay"};
 			static int currentEffectsIndex = 0;
 
-			// Update index to match the current category
-			for (size_t i = 0; i < effects.size(); ++i) {
-				if (effects[i] == sound->category) {
+			// Update index to match the current effect
+			for (size_t i = 0; i < effectsList.size(); ++i) {
+				if (effectsList[i] == sound->effects.first) {
 					currentEffectsIndex = static_cast<int>(i);
 					break;
 				}
@@ -544,17 +544,30 @@ void InspectorRenderer::RenderComponents(int entityID)
 
 			ImGui::Text("Effects");
 			ImGui::SameLine(100);
-			if (ImGui::BeginCombo("##Effects", effects[currentEffectsIndex].c_str())) {
-				for (size_t i = 0; i < effects.size(); ++i) {
+			if (ImGui::BeginCombo("##Effects", effectsList[currentEffectsIndex].c_str())) {
+				for (size_t i = 0; i < effectsList.size(); ++i) {
 					bool isSelected = (currentEffectsIndex == static_cast<int>(i));
-					if (ImGui::Selectable(effects[i].c_str(), isSelected)) {
+					if (ImGui::Selectable(effectsList[i].c_str(), isSelected)) {
 						currentEffectsIndex = static_cast<int>(i);
-						sound->effects = effects[i];
+						sound->effects.first = effectsList[i];
+
+						// Reset effect value when selecting a new effect
+						sound->effects.second = 0.0f;
+
 						HandlePropertyChange(hasChanged);
 					}
 					if (isSelected) ImGui::SetItemDefaultFocus();
 				}
 				ImGui::EndCombo();
+			}
+
+			// Show effect value slider only if the effect is NOT Default
+			if (sound->effects.first != "Default") {
+				ImGui::Text("Strength");
+				ImGui::SameLine(100);
+				if (ImGui::DragFloat("##EffectValue", &sound->effects.second, 0.01f, 0.0f, 1.0f)) {
+					HandlePropertyChange(hasChanged);
+				}
 			}
 
 			// Remove component button

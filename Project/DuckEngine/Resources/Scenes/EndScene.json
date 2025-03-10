@@ -36,6 +36,7 @@
                 {
                     "properties": {
                         "category": "BGM",
+                        "effectValue": 100.0,
                         "effects": "Reverb",
                         "loop": true,
                         "playOnStart": true,
@@ -85,6 +86,7 @@
                 {
                     "properties": {
                         "category": "UI",
+                        "effectValue": 0.0,
                         "effects": "Default",
                         "loop": false,
                         "playOnStart": false,
@@ -148,6 +150,7 @@
                 {
                     "properties": {
                         "category": "SFX",
+                        "effectValue": 0.0,
                         "effects": "Default",
                         "loop": false,
                         "playOnStart": false,

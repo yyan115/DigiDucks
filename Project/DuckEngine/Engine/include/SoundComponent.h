@@ -32,14 +32,14 @@ public:
     bool loop;                    // Whether to loop the sound
     bool playOnStart;             // Play sound when the entity is created
     float volume;                 // Sound volume
-    std::string effects;
+    std::pair<std::string, float> effects;
 
     /****************************************************************
 	* @brief Constructor for the SoundComponent class
     *
     * @return void
     ***************************************************************/
-    SoundComponent(const std::vector<std::string>& _soundID = {}, const std::string& _category = "Default", bool _loop = false, bool _playOnStart = false, float _volume = 1.0f, const std::string& _effects = "Default")
+    SoundComponent(const std::vector<std::string>& _soundID = {}, const std::string& _category = "Default", bool _loop = false, bool _playOnStart = false, float _volume = 1.0f, const std::pair<std::string, float>& _effects = { "Default", 0.0f })
         : soundID(_soundID), category(_category), channel(nullptr), loop(_loop), playOnStart(_playOnStart), volume(_volume), effects(_effects) {}
 
     /****************************************************************

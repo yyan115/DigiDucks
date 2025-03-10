@@ -67,7 +67,7 @@ public:
 	@param category The category of the sound
 	@return FMOD::Channel* The channel that the sound is playing on
     *************************************************************************/
-	static FMOD::Channel* PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f, const std::string& category = "Default", const std::string& effects = "Default");
+	static FMOD::Channel* PlaySounds(const std::string& soundID, bool loop = false, float volume = 1.0f, const std::string& category = "Default", const std::pair<std::string, float>& _effects = { "Default", 0.0f });
 
 	/************************************************************************
 	@brief Stops a sound effect with the specified sound ID
@@ -138,7 +138,7 @@ public:
 	*************************************************************************/
     static DUCKENGINE_API void FadeOutSound(SoundComponent* soundComponent, float duration);
 
-	static void ApplyEffect(FMOD::Channel* channel, const std::string& effects);
+	static void ApplyEffect(FMOD::Channel* channel, const std::pair<std::string, float>& effects);
 	static void RemoveEffect(FMOD::Channel* channel);
 
 private:

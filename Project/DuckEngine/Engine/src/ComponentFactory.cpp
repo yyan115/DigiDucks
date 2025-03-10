@@ -201,7 +201,8 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		soundData["properties"]["playOnStart"] = sound->playOnStart;
 		soundData["properties"]["volume"] = sound->volume;
 		soundData["properties"]["category"] = sound->category;
-		soundData["properties"]["effects"] = sound->effects;
+		soundData["properties"]["effects"] = sound->effects.first;
+		soundData["properties"]["effectValue"] = sound->effects.second;
 		componentsArray.push_back(soundData);
 	}
 
@@ -403,10 +404,11 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		bool loop = componentJson["properties"].value("loop", false);
 		bool playOnStart = componentJson["properties"].value("playOnStart", false);
 		float volume = componentJson["properties"].value("volume", 1.0f);
-		std::string category = componentJson["properties"].value("category", "Default");
-		std::string effects = componentJson["properties"].value("effects", "Default");
+		std::string category = componentJson["properties"].value("category", "Default");		
+		std::string effectName = componentJson["properties"].value("effects", "Default");
+		float effectValue = componentJson["properties"].value("effectValue", 0.0f);
 
-		auto soundComponent = std::make_shared<SoundComponent>(soundID, category, loop, playOnStart, volume, effects);
+		auto soundComponent = std::make_shared<SoundComponent>(soundID, category, loop, playOnStart, volume, std::make_pair(effectName, effectValue));
 		return soundComponent;
 	}
 

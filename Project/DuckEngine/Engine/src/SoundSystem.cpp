@@ -68,7 +68,7 @@ void SoundSystem::Update() {
     for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
 }
 
-FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category, const std::string& effects) {
+FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category, const std::pair<std::string, float>& effects) {
     if (!AssetManager::GetFMODSystem()) return nullptr;
 
     FMOD::Sound* sound = AssetManager::GetSounds(soundID);
@@ -223,57 +223,95 @@ void SoundSystem::FadeOutSound(SoundComponent* soundComponent, float duration) {
     StopSounds(soundID);
 }
 
-void SoundSystem::ApplyEffect(FMOD::Channel* channel, const std::string& effect) {
-    if (!channel || effect == "Default") return;  // Skip if no effect needed
+void SoundSystem::ApplyEffect(FMOD::Channel* channel, const std::pair<std::string, float>& effects) {
+    if (!channel || effects.first == "Default") return;  // Skip if no effect needed
 
-    // Check if the effect is already created in cache
-    if (dspCache.find(effect) == dspCache.end()) {
+    const std::string& effectName = effects.first;  // Effect type (e.g., "Reverb")
+    float effectValue = effects.second;            // Effect intensity (e.g., 0.3)
+
+    // Check if the effect is already created in the cache
+    if (dspCache.find(effectName) == dspCache.end()) {
         FMOD::DSP* dspEffect = nullptr;
+        FMOD_RESULT result;
 
-        if (effect == "Reverb") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_SFXREVERB, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_SFXREVERB_DECAYTIME, 5000.0f);
+        if (effectName == "Reverb") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_SFXREVERB, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_SFXREVERB_DECAYTIME, effectValue); // Scale decay time
+            }
         }
-        else if (effect == "LowPass") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_LOWPASS_CUTOFF, 2000.0f);
+        else if (effectName == "LowPass") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_LOWPASS, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_LOWPASS_CUTOFF, effectValue); // Lower cutoff for stronger effect
+            }
         }
-        else if (effect == "HighPass") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_HIGHPASS, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_HIGHPASS_CUTOFF, 500.0f);
+        else if (effectName == "HighPass") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_HIGHPASS, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_HIGHPASS_CUTOFF, effectValue); // Increase cutoff for stronger effect
+            }
         }
-        else if (effect == "Flange") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_FLANGE, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_FLANGE_MIX, 0.7f);
+        else if (effectName == "Flange") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_FLANGE, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_FLANGE_MIX, effectValue);
+            }
         }
-        else if (effect == "Distortion") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_DISTORTION, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, 0.5f);
+        else if (effectName == "Distortion") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_DISTORTION, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_DISTORTION_LEVEL, effectValue);
+            }
         }
-        else if (effect == "Delay") {
-            AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_ECHO, &dspEffect);
-            dspEffect->setParameterFloat(FMOD_DSP_ECHO_DELAY, 300.0f);
+        else if (effectName == "Delay") {
+            result = AssetManager::GetFMODSystem()->createDSPByType(FMOD_DSP_TYPE_ECHO, &dspEffect);
+            if (result == FMOD_OK) {
+                dspEffect->setParameterFloat(FMOD_DSP_ECHO_DELAY, effectValue); // Scale delay time
+            }
         }
 
+        // If DSP effect is valid, store it in the cache
         if (dspEffect) {
-            dspCache[effect] = dspEffect;  // Cache the DSP effect
+            dspCache[effectName] = dspEffect;
         }
     }
 
     // Apply the cached DSP effect
-    if (dspCache[effect]) {
-        channel->addDSP(0, dspCache[effect]);  // Add DSP at the start of the DSP chain
+    if (dspCache[effectName]) {
+        bool dspAlreadyAdded = false;
+        int numDSPs = 0;
+        channel->getNumDSPs(&numDSPs);
+
+        // Check if DSP is already applied to the channel
+        for (int i = 0; i < numDSPs; i++) {
+            FMOD::DSP* existingDSP = nullptr;
+            channel->getDSP(i, &existingDSP);
+            if (existingDSP == dspCache[effectName]) {
+                dspAlreadyAdded = true;
+                break;
+            }
+        }
+
+        if (!dspAlreadyAdded) {
+            channel->addDSP(0, dspCache[effectName]);  // Add DSP at the start of the DSP chain
+        }
     }
 }
 
-
-
-
 void SoundSystem::RemoveEffect(FMOD::Channel* channel) {
-    FMOD::DSP* existingDSP = nullptr;
-    channel->getDSP(FMOD_CHANNELCONTROL_DSP_HEAD, &existingDSP);
+    if (!channel) return;
 
-    if (existingDSP) {
-        channel->removeDSP(existingDSP);
+    int numDSPs = 0;
+    channel->getNumDSPs(&numDSPs);
+
+    if (numDSPs == 0) return; // No DSPs to remove
+
+    // Iterate through all DSPs and remove them
+    for (int i = 0; i < numDSPs; i++) {
+        FMOD::DSP* existingDSP = nullptr;
+        if (channel->getDSP(i, &existingDSP) == FMOD_OK && existingDSP) {
+            channel->removeDSP(existingDSP);
+        }
     }
 }
