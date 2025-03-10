@@ -33,6 +33,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "Emitter.h"
 
+#include "CustomerStateManager.h"
+
+// state manger for this level
+CustomerStateManager stateManager;
+
 /****************************************************************
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
@@ -498,7 +503,6 @@ void GameScene::Load()
 	// Behind pan which has sorting order 3
 	sparks.sortingOrder = 4;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
-
 }
 
 /****************************************************************
@@ -510,6 +514,8 @@ void GameScene::Start()
 {
 	Scene::Start();
 	//DuckEngine::showDebugColliders = false;
+
+	//stateManager.Start();
 }
 
 /****************************************************************

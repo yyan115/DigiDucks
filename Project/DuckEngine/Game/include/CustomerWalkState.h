@@ -19,10 +19,18 @@ public:
 
 
 private:
-	std::vector<Entity*> queueTargets{};
 	Entity* currentQueueTarget = nullptr;
 	Entity* finalPath = nullptr;
 	AnimatorComponent* customerAnimator = nullptr;
+
+	// points for customer to move to when leaving
+	std::vector<Entity*> leaveTargets{};
+
+	// points for customer to move to after taking order
+	std::vector<Entity*> waitTargets{};
+
+	// points for customer to move to to the queue area to wait for his order
+	std::vector<Entity*> queueTargets{};
 
 
 	bool isOrderTaken = false;
