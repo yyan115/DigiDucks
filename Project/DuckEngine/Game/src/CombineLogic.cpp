@@ -42,26 +42,6 @@ bool canCombine(ItemType lhs, ItemType rhs)
     case ItemType::C_PATTY:
         return (rhs == ItemType::WHITE_PLATE || rhs == ItemType::CHEESE_PLATE || rhs == ItemType::BUN_PLATE || rhs == ItemType::BUN_CHEESE_PLATE);
 
-		//// Partial plate combine with single ingredients
-  //  case ItemType::BUN_PLATE:
-  //      return (rhs == ItemType::C_CHEESE || rhs == ItemType::C_PATTY);
-
-  //  case ItemType::CHEESE_PLATE:
-  //      return (rhs == ItemType::BUN || rhs == ItemType::C_PATTY);
-
-  //  case ItemType::PATTY_PLATE:
-  //      return (rhs == ItemType::BUN || rhs == ItemType::C_CHEESE);
-
-  //  case ItemType::BUN_CHEESE_PLATE:
-  //      return (rhs == ItemType::C_PATTY);
-
-  //  case ItemType::BURGER_PLATE:
-  //      return (rhs == ItemType::C_CHEESE);
-
-  //  case ItemType::CHEESE_PATTY_PLATE:
-  //      return (rhs == ItemType::BUN);
-
-
 		// SALAD INGREDIENTS
 		// Single ingredients can combine with empty or partial plates
     case ItemType::C_LETTUCE:
@@ -70,25 +50,6 @@ bool canCombine(ItemType lhs, ItemType rhs)
         return (rhs == ItemType::WHITE_PLATE || rhs == ItemType::LETTUCE_PLATE || rhs == ItemType::SHRIMP_PLATE || rhs == ItemType::LETTUCE_SHRIMP_PLATE);
     case ItemType::C_SHRIMP:
         return (rhs == ItemType::WHITE_PLATE || rhs == ItemType::TOMATO_PLATE || rhs == ItemType::LETTUCE_PLATE || rhs == ItemType::LETTUCE_TOMATO_PLATE);
-
-    //    // Partial plate combine with single ingredients
-    //case ItemType::LETTUCE_PLATE:
-    //    return (rhs == ItemType::C_TOMATO || rhs == ItemType::C_SHRIMP);
-
-    //case ItemType::TOMATO_PLATE:
-    //    return (rhs == ItemType::C_LETTUCE || rhs == ItemType::C_SHRIMP);
-
-    //case ItemType::SHRIMP_PLATE:
-    //    return (rhs == ItemType::C_LETTUCE || rhs == ItemType::C_TOMATO);
-
-    //case ItemType::LETTUCE_TOMATO_PLATE:
-    //    return (rhs == ItemType::C_SHRIMP);
-
-    //case ItemType::LETTUCE_SHRIMP_PLATE:
-    //    return (rhs == ItemType::C_TOMATO);
-
-    //case ItemType::TOMATO_SHRIMP_PLATE:
-    //    return (rhs == ItemType::C_LETTUCE);
 
     default:
         return false;
@@ -176,72 +137,7 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             newItem = ItemType::CHEESE_BURGER_PLATE;
         }
         break;
-    //    
-    //case ItemType::WHITE_PLATE:
-    //    if (rhs.second == ItemType::BUN) {
-    //        newItem = ItemType::BUN_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_CHEESE) {
-    //        newItem = ItemType::CHEESE_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_PATTY) {
-    //        newItem = ItemType::PATTY_PLATE;
-    //    }
-    //    if (rhs.second == ItemType::C_LETTUCE) {
-    //        newItem = ItemType::LETTUCE_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_TOMATO) {
-    //        newItem = ItemType::TOMATO_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_SHRIMP) {
-    //        newItem = ItemType::SHRIMP_PLATE;
-    //    }
-    //    break;
-    //    // Partial plate combine with single ingredients
-    //case ItemType::BUN_PLATE:
-    //    if (rhs.second == ItemType::C_CHEESE) {
-    //        newItem = ItemType::BUN_CHEESE_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_PATTY) {
-    //        newItem = ItemType::BURGER_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::CHEESE_PLATE:
-    //    if (rhs.second == ItemType::BUN) {
-    //        newItem = ItemType::BUN_CHEESE_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_PATTY) {
-    //        newItem = ItemType::CHEESE_PATTY_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::PATTY_PLATE:
-    //    if (rhs.second == ItemType::BUN) {
-    //        newItem = ItemType::BURGER_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_CHEESE) {
-    //        newItem = ItemType::CHEESE_PATTY_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::BUN_CHEESE_PLATE:
-    //    if (rhs.second == ItemType::C_PATTY) {
-    //        newItem = ItemType::CHEESE_BURGER_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::BURGER_PLATE:
-    //    if (rhs.second == ItemType::C_CHEESE) {
-    //        newItem = ItemType::CHEESE_BURGER_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::CHEESE_PATTY_PLATE:
-    //    if (rhs.second == ItemType::BUN) {
-    //        newItem = ItemType::CHEESE_BURGER_PLATE;
-    //    }
-    //    break;
+    
 
         // SALAD INGREDIENTS
     case ItemType::C_LETTUCE:
@@ -288,51 +184,6 @@ std::pair<int, ItemType> combineObjects(std::pair<int, ItemType> lhs, std::pair<
             newItem = ItemType::SALAD_PLATE;
         }
         break;
-
-    //case ItemType::LETTUCE_PLATE:
-    //    if (rhs.second == ItemType::C_TOMATO) {
-    //        newItem = ItemType::LETTUCE_TOMATO_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_SHRIMP) {
-    //        newItem = ItemType::LETTUCE_SHRIMP_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::TOMATO_PLATE:
-    //    if (rhs.second == ItemType::C_LETTUCE) {
-    //        newItem = ItemType::LETTUCE_TOMATO_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_SHRIMP) {
-    //        newItem = ItemType::TOMATO_SHRIMP_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::SHRIMP_PLATE:
-    //    if (rhs.second == ItemType::C_LETTUCE) {
-    //        newItem = ItemType::LETTUCE_SHRIMP_PLATE;
-    //    }
-    //    else if (rhs.second == ItemType::C_TOMATO) {
-    //        newItem = ItemType::TOMATO_SHRIMP_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::LETTUCE_TOMATO_PLATE:
-    //    if (rhs.second == ItemType::C_SHRIMP) {
-    //        newItem = ItemType::SALAD_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::LETTUCE_SHRIMP_PLATE:
-    //    if (rhs.second == ItemType::C_TOMATO) {
-    //        newItem = ItemType::SALAD_PLATE;
-    //    }
-    //    break;
-
-    //case ItemType::TOMATO_SHRIMP_PLATE:
-    //    if (rhs.second == ItemType::C_LETTUCE) {
-    //        newItem = ItemType::SALAD_PLATE;
-    //    }
-    //    break;
 
     default:
         break;
