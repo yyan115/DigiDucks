@@ -538,20 +538,6 @@
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "SFX",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/pot and pan/pot.wav"
-                        ],
-                        "volume": 0.6000000238418579
-                    },
-                    "type": "SoundComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -597,7 +583,8 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/pot and pan/pot 2.wav"
+                            "Resources/Sounds/pot and pan/bowl.wav",
+                            "Resources/Sounds/pot and pan/bowl 2.wav"
                         ],
                         "volume": 0.6000000238418579
                     },
@@ -669,9 +656,8 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/plate/plate 1.wav",
-                            "Resources/Sounds/plate/plate 2.wav",
-                            "Resources/Sounds/plate/plate 3.wav"
+                            "Resources/Sounds/pot and pan/bowl.wav",
+                            "Resources/Sounds/pot and pan/bowl 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -5758,7 +5744,8 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/pot and pan/pot.wav"
+                            "Resources/Sounds/pot and pan/pan.wav",
+                            "Resources/Sounds/pot and pan/pan 2.wav"
                         ],
                         "volume": 0.6000000238418579
                     },
@@ -8432,9 +8419,14 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/chop and cook/sizzle.mp3"
+                            "Resources/Sounds/chop and cook/raw_patty_sizzle.mp3",
+                            "Resources/Sounds/chop and cook/cooked_patty_sizzle.mp3",
+                            "Resources/Sounds/chop and cook/sizzle.mp3",
+                            "Resources/Sounds/chop and cook/boiling.mp3",
+                            "Resources/Sounds/chop and cook/continue boiling.mp3",
+                            "Resources/Sounds/chop and cook/cooking_done.mp3"
                         ],
-                        "volume": 0.5
+                        "volume": 0.6000000238418579
                     },
                     "type": "SoundComponent"
                 },
@@ -8585,7 +8577,7 @@
                     "properties": {
                         "center": {
                             "x": -10.0,
-                            "y": -4.300000190734863
+                            "y": -4.5
                         },
                         "size": {
                             "x": 1.0,

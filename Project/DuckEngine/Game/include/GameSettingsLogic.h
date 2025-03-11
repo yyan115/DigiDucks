@@ -102,4 +102,9 @@ public:
 	* @brief Update slider values in real time.
     ****************************************************************/
     void UpdateSliders();
+
+    /****************************************************************
+	* @brief Check if the settings menu is visible
+    ****************************************************************/
+	bool isSettingsVisible() { return settingsVisible; }
 };

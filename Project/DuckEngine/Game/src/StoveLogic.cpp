@@ -34,7 +34,7 @@ void StoveLogic::Start()
 		}
 	}
 	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
-
+	tableSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
 	object = nullptr;
 	objectTransform = nullptr;
 	objectSprite = nullptr;
@@ -63,6 +63,11 @@ void StoveLogic::FixedUpdate()
 	if (isOccupied && !isCooked)
 	{
 		cookObject();
+	}
+	else if (isOccupied && isCooked)
+	{
+		if (isPan) if (tableSFX) tableSFX->Play(2);
+		if (isPot) if (tableSFX) tableSFX->Play(4);
 	}
 }
 
@@ -231,23 +236,32 @@ void StoveLogic::cookObject()
 
 	currCookTime -= DuckEngine::FixedDeltaTime();
 	EmitSparks();
+	
+
 	if (currCookTime <= 0.f && !isCooked)
 	{
+		
 		if (objectSprite)
-		{
+		{			
 			// If object is R_PATTY and not cooked.
 			if(isPan)
 			{
+				
 				if (type == ItemType::PAN_R_PATTY)
 				{
 					type = ItemType::PAN_C_PATTY;
 					currCookTime = cookTime;
-
+					if (tableSFX) {
+						tableSFX->Stop();
+						tableSFX->Play(5);
+					}
+						
 					if (sliderLogic)
 						sliderLogic->ResetSlider();
 				}
 				else if (type == ItemType::PAN_C_PATTY)
 				{
+					
 					type = ItemType::PAN_B_PATTY;
 					isCooked = true;
 				}
@@ -255,23 +269,49 @@ void StoveLogic::cookObject()
 			
 			else if(isPot)
 			{
+				if (tableSFX) tableSFX->Play(1);
 				if (type == ItemType::C_TOMATO)
 				{
 					type = ItemType::POT_TOMATO;
+					if (tableSFX) {
+						tableSFX->Stop();
+						tableSFX->Play(5);
+					}
 				}
 				else if (type == ItemType::C_MUSHROOM)
 				{
 					type = ItemType::POT_MUSHROOM;
+					if (tableSFX) {
+						tableSFX->Stop();
+						tableSFX->Play(5);
+					}
 				}
 				else if (isIngredient(type))
 				{
 					type = ItemType::POT_SUS;
+					if (tableSFX) {
+						tableSFX->Stop();
+						tableSFX->Play(5);
+					}
 				}
 				isCooked = true;
 			}
 
 			setObjectSprite(type);
 		}
+	}
+
+	// SFX
+	if (isPan)
+	{
+		if (type == ItemType::PAN_R_PATTY) if (tableSFX) tableSFX->Play();
+		if (type == ItemType::PAN_C_PATTY) if (tableSFX) tableSFX->Play(1);
+	}
+	else if (isPot)
+	{
+		if (type == ItemType::C_TOMATO) if (tableSFX) tableSFX->Play(3);
+		if (type == ItemType::C_MUSHROOM) if (tableSFX) tableSFX->Play(3);
+		if (isIngredient(type)) if (tableSFX) tableSFX->Play(3);
 	}
 }
 

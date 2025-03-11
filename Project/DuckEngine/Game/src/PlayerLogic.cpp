@@ -239,8 +239,8 @@ SoundComponent* PlayerLogic::GetSFXForType(int type) {
 	if (type <= 14) return SFXsound;
 	if (type >= 15 && type <= 18) return PanSFXsound;
 	if (type >= 19 && type <= 22) return PotSFXsound;
-	if (type >= 23 && type <= 38) return PlateSFXsound;
-	if (type >= 39 && type <= 42) return BowlSFXsound;
+	if (type >= 23 && type <= 37) return PlateSFXsound;
+	if (type >= 38 && type <= 41) return BowlSFXsound;
 	return SFXsound;
 }
 

@@ -26,6 +26,7 @@ class StoveLogic : public GameLogic
 private:
 	Entity* table = nullptr;
 	TransformComponent* tableTransform = nullptr;
+	SoundComponent* tableSFX = nullptr;
 	Entity* object = nullptr;
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;

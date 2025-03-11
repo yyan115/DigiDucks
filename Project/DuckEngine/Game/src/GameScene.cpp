@@ -579,37 +579,49 @@ void GameScene::Update()
 					CountdownText->text = "Go!";
 
 					// set customer order
-					Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
-					CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
-
-					Entity* customer2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_2").get();
-					CustomerLogic* customer2Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer2->entityID).get();
-					
-					Entity* customer3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_3").get();
-					CustomerLogic* customer3Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer3->entityID).get();
-					
-					Entity* customer4 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_4").get();
-					CustomerLogic* customer4Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer4->entityID).get();
-					
 					currentCustomerIndex = 0;
-					customers.push_back(customer1Logic);
-					customers.push_back(customer2Logic);
-					customers.push_back(customer3Logic);
-					customers.push_back(customer4Logic);
 
-					if (customer1Logic)
+					Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
+					if (customer1)
 					{
-						int randomDishOrder = DuckEngine::RandomRange(1, 2);
-						if (randomDishOrder == 1)
-						{
+						CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
+						customers.push_back(customer1Logic);
 
-							customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-						}
-						else
+						if (customer1Logic)
 						{
-							customer1Logic->SetOrder(ItemType::SALAD_PLATE);
+							int randomDishOrder = DuckEngine::RandomRange(1, 2);
+							if (randomDishOrder == 1)
+							{
+
+								customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+							}
+							else
+							{
+								customer1Logic->SetOrder(ItemType::SALAD_PLATE);
+							}
 						}
 					}
+					
+					Entity* customer2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_2").get();
+					if (customer2)
+					{
+						CustomerLogic* customer2Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer2->entityID).get();
+						customers.push_back(customer2Logic);
+					}
+					
+					Entity* customer3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_3").get();
+					if (customer3)
+					{
+						CustomerLogic* customer3Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer3->entityID).get();
+						customers.push_back(customer3Logic);
+					}
+					
+					Entity* customer4 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_4").get();
+					if (customer4)
+					{
+						CustomerLogic* customer4Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer4->entityID).get();
+						customers.push_back(customer4Logic);
+					}	
 				}
 			}
 
