@@ -56,6 +56,26 @@ void SubmitLogic::increaseScore(int score)
 	newOrderGenerated = true;
 }
 
+
+/****************************************************************
+* @brief Decrease the score of the player.
+*
+* @param score - The score to decrease by.
+* ****************************************************************/
+void SubmitLogic::decreaseScore(int score)
+{
+	totalScore -= score;
+	if (score_Text) {
+		score_Text->text = std::to_string(totalScore);
+	}
+}
+
+
+/****************************************************************
+* @brief Check if a new order has been generated.
+*
+* @return bool - True if a new order has been generated.
+* ****************************************************************/
 bool SubmitLogic::CheckNewOrder() {
 	if (newOrderGenerated) {
 		newOrderGenerated = false;

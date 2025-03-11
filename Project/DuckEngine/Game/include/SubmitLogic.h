@@ -76,6 +76,13 @@ public:
 	void increaseScore(int score = 10);
 
 	/****************************************************************
+	* @brief Decrease the score of the player.
+	* 
+	* @param score - The score to decrease by.
+	* ****************************************************************/
+	void decreaseScore(int score = 10);
+
+	/****************************************************************
 	* @brief Get the score of the player.
 	* 
 	* @return int - The score of the player.
