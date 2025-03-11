@@ -180,7 +180,7 @@ void PlayerLogic::FixedUpdate()
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(0.f, 1.5f);
+			boxCollider->setOffSet(0.f, 1.f);
 		}
 		if (animator)
 		{
@@ -193,7 +193,7 @@ void PlayerLogic::FixedUpdate()
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(0.f, -1.5f);
+			boxCollider->setOffSet(0.f, -1.f);
 		}
 		if (animator)
 		{
@@ -206,7 +206,7 @@ void PlayerLogic::FixedUpdate()
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(-1.5f, 0.f);
+			boxCollider->setOffSet(-1.f, 0.f);
 		}
 		if (animator)
 		{
@@ -219,7 +219,7 @@ void PlayerLogic::FixedUpdate()
 	{
 		if (boxCollider)
 		{
-			boxCollider->setOffSet(1.5f, 0.f);
+			boxCollider->setOffSet(1.f, 0.f);
 		}
 		if (animator)
 		{
