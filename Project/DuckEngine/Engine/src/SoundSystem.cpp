@@ -44,19 +44,25 @@ void SoundSystem::Start() {
         std::cerr << "FMOD system is already initialized in AssetManager." << std::endl;
     }                                                                   
 
-	masterVolume = ProjectSettings::GetMasterVolume();
-	SetMasterVolume(masterVolume);
-    categoryVolumes.clear();
-    activeChannels.clear();
+    static bool initialized = false;
 
-    // Set default volumes for categories
-	categoryVolumes["Default"] = ProjectSettings::GetVolumeCategory("Default");
-    categoryVolumes["BGM"] = ProjectSettings::GetVolumeCategory("BGM");
-    categoryVolumes["SFX"] = ProjectSettings::GetVolumeCategory("SFX");
-    categoryVolumes["UI"] = ProjectSettings::GetVolumeCategory("UI");
+    //categoryVolumes.clear();
+    //activeChannels.clear();
+
+    if (!initialized) {
+        // First-time setup: Load from ProjectSettings
+        masterVolume = ProjectSettings::GetMasterVolume();
+        categoryVolumes["Default"] = ProjectSettings::GetVolumeCategory("Default");
+        categoryVolumes["BGM"] = ProjectSettings::GetVolumeCategory("BGM");
+        categoryVolumes["SFX"] = ProjectSettings::GetVolumeCategory("SFX");
+        categoryVolumes["UI"] = ProjectSettings::GetVolumeCategory("UI");
+
+        initialized = true;
+    }
+
+    //SetMasterVolume(masterVolume);
 	for (const auto& [category, volume] : categoryVolumes) {
-		SetCategoryVolume(category, volume);
-		//.std::cout << "Category: " << category << " Volume: " << volume << std::endl;
+		//SetCategoryVolume(category, volume);
 	}
 }
 
