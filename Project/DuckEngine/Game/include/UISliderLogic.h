@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file     UISliderLogic.h
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the declaration of the UISliderLogic class
+		  which is responsible for handling the logic of the UI slider component.
+		  The class is responsible for updating the slider handle position and scale
+		  based on the slider's current value.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -53,6 +69,15 @@ public:
 		slider->isEnable = state;
 	}
 
+	/****************************************************************
+	* @brief Convert Screen Mouse Position to World/UI Space
+	****************************************************************/
 	Vec2 GetNormalizedMousePosition();
+
+	/****************************************************************
+	* @brief Check if the mouse is inside the slider bounds
+	* @param mousePos The current mouse position
+
+	****************************************************************/
 	bool IsMouseInsideSlider(const Vec2& mousePos);
 };

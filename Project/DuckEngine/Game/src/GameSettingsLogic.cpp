@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\file     GameSettingsLogic.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the GameSettingsLogic class
+		  which is responsible for handling the logic of the game settings.
+		  The class is responsible for toggling the visibility of the settings menu
+		  and updating the master volume slider based on the current master volume.
+		  The class also updates the master volume based on the slider's current value.
+		  The class is also responsible for updating the volume of the sound categories
+		  based on the sliders in the settings menu.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "GameSettingsLogic.h"
 #include "SoundSystem.h"
 #include <iostream>
@@ -10,16 +29,20 @@ void GameSettingsLogic::Start() {
     if (gameSettingsBtn)
     {
         gameSettingsBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSettingsBtn->entityID);
-        gameSettingsBtn_Normal = AssetManager::GetTextureByName("pause_howtoplay");
-        gameSettingsBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
+        gameSettingsBtn_Normal = AssetManager::GetTextureByName("optionbutton");
+        gameSettingsBtn_Hover = AssetManager::GetTextureByName("optionbutton_hover");
         gameSettingsButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSettingsBtn->entityID);
+		gameSettingsBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameSettingsBtn->entityID);
         if (gameSettingsButton) {
             gameSettingsButton->onClick = [this]() {
                 settingsVisible = !settingsVisible;
-                std::cout << "Settings: " << settingsVisible << std::endl;
+				gameSettingsBtnSound->Play();
                 ShowSettings(settingsVisible);
                 };
-            gameSettingsButton->onHover = [this]() { gameSettingsBtnSpt->texture = gameSettingsBtn_Hover; };
+            gameSettingsButton->onHover = [this]() { 
+                gameSettingsBtnSpt->texture = gameSettingsBtn_Hover;
+                gameSettingsBtnSound->Play(1);
+                };
             gameSettingsButton->onFinishHover = [this]() { gameSettingsBtnSpt->texture = gameSettingsBtn_Normal; };
         }
     }
@@ -81,12 +104,42 @@ void GameSettingsLogic::Start() {
     if (vsyncToggle) {
         vsyncButtonComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(vsyncToggle->entityID);
         if (vsyncButtonComp) {
+            vsyncToggleSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(vsyncToggle->entityID);
+			vsyncToggle_Enabled = AssetManager::GetTextureByName("vsyncbox_tick");
+			vsyncToggle_Disabled = AssetManager::GetTextureByName("vsyncbox");
+			vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
 			vsyncButtonComp->isEnabled = false;
-            vsyncButtonComp->onClick = []() {
+            vsyncButtonComp->onClick = [this]() {
                 bool vsync = !ProjectSettings::GetUseVSync();
                 ProjectSettings::SetUseVSync(vsync);
-                std::cout << "VSync: " << (vsync ? "Enabled" : "Disabled") << std::endl;
+                vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
                 };
+        }
+    }
+
+	// close settings button
+    auto CloseSettingsBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CloseSettings_Button").get();
+    if (CloseSettingsBtn)
+    {
+        closeSettingsBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CloseSettingsBtn->entityID);
+        closeSettingsBtn_Normal = AssetManager::GetTextureByName("options_close");
+        closeSettingsBtn_Hover = AssetManager::GetTextureByName("options_close_hover");
+        closeSettingsButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(CloseSettingsBtn->entityID);
+        closeSettingsBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CloseSettingsBtn->entityID);
+		
+        if (closeSettingsButton) {
+            closeSettingsButton->isEnabled = false;
+
+            closeSettingsButton->onClick = [this]() {
+                settingsVisible = !settingsVisible;
+                closeSettingsBtnSound->Play();
+                ShowSettings(settingsVisible);
+                };
+            closeSettingsButton->onHover = [this]() {
+                closeSettingsBtnSpt->texture = closeSettingsBtn_Hover;
+                closeSettingsBtnSound->Play(1);
+                };
+            closeSettingsButton->onFinishHover = [this]() { closeSettingsBtnSpt->texture = closeSettingsBtn_Normal; };
         }
     }
 }
@@ -112,6 +165,7 @@ void GameSettingsLogic::ShowSettings(bool state) {
 		sfxVolumeSliderComp->isEnable = state;
 		fpsSliderComp->isEnable = state;
 		vsyncButtonComp->isEnabled = state;
+        closeSettingsButton->isEnabled = state;
     }
 }
 

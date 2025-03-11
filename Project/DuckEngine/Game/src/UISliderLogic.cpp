@@ -1,3 +1,19 @@
+/******************************************************************************/
+/*!
+\file     UISliderLogic.cpp
+\author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
+\par      muhammadzikry.b@digipen.edu
+\brief    This file contains the implementation of the UISliderLogic class
+		  which is responsible for handling the logic of the UI slider component.
+		  The class is responsible for updating the slider handle position and scale
+		  based on the slider's current value.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "UISliderLogic.h"
 #include "DuckEngine.h"
 #include <iostream>
@@ -16,7 +32,7 @@ void UISliderLogic::Start() {
 
 			// Get slider handle (child entity)
 			if (!sliderEntity->childEntities.empty()) {
-				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[1]->entityID);
+				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[0]->entityID);
 				if (sliderTrfm) {
 					originalPos = sliderTrfm->GetPosition();
 					originalScale = sliderTrfm->scale;
@@ -76,7 +92,7 @@ Vec2 UISliderLogic::GetNormalizedMousePosition() {
 	// Normalize X: (0 to 1)
 	float normalizedX = mouseX / screenWidth;
 
-	// Normalize Y: (0 to -1) because Y is inverted in UI space
+	// Normalize Y: (0 to -1)
 	float normalizedY = -(mouseY / screenHeight);
 
 	return { normalizedX, normalizedY };

@@ -6,7 +6,7 @@
 \brief    This file contains the declaration of the SoundSystem class
 		  which is responsible for managing the sound system in the engine.
 
-Copyright (C) 2024 DigiPen Institute of Technology.
+Copyright (C) 2025 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 */
