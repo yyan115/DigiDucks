@@ -157,7 +157,7 @@ void CustomerWalkState::FixedUpdate()
     {
         owner->stateMachine.ChangeState(owner->IdleState);
 
-        if (owner->GetGameLoopLogic()->currentCustomerIndex < owner->GetGameLoopLogic()->customers.size() - 1)
+        if (owner->GetGameLoopLogic()->currentCustomerIndex < owner->GetGameLoopLogic()->customerCount - 1)
         {
             std::cout << "NEXT CUSTOMER" << std::endl;
 

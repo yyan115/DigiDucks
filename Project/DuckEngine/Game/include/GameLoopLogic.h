@@ -23,6 +23,7 @@ public:
 	}
 	std::vector<CustomerLogic*> customers{};
 	int currentCustomerIndex = 0;
+	int customerCount = 0;
 
 private:
 	void UpdateOrderTexture();
