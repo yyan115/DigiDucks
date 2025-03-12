@@ -361,175 +361,159 @@ void MiniGameLogic::Start()
 			gameMiniGame_Input_Txt->isEnabled = false;
 		}
 	}
-	}
+}
 
 void MiniGameLogic::Update()
 {
-	
-		if (MiniGame)
+	if (MiniGame)
+	{
+		MiniGame_1(true);
+	}
+	else
+	{
+		MiniGame_1(false);
+	}
+}
+
+void MiniGameLogic::MiniGame_1(bool state)
+{
+	if (gameMiniGame_BG)
+	{
+		gameMiniGame_BG_Spt->isVisible = state;
+	}
+	if (gameMiniGame_Keypad)
+	{
+		gameMiniGame_Keypad_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K1)
+	{
+		gameMiniGame_K1_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K2)
+	{
+		gameMiniGame_K2_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T1)
+	{
+		gameMiniGame_T1_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T2)
+	{
+		gameMiniGame_T2_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_K3)
+	{
+		gameMiniGame_K3_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K4)
+	{
+		gameMiniGame_K4_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T3)
+	{
+		gameMiniGame_T3_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T4)
+	{
+		gameMiniGame_T4_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_K5)
+	{
+		gameMiniGame_K5_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K6)
+	{
+		gameMiniGame_K6_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T5)
+	{
+		gameMiniGame_T5_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T6)
+	{
+		gameMiniGame_T6_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_K7)
+	{
+		gameMiniGame_K7_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K8)
+	{
+		gameMiniGame_K8_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T7)
+	{
+		gameMiniGame_T7_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T8)
+	{
+		gameMiniGame_T8_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_K9)
+	{
+		gameMiniGame_K9_Spt->isVisible = state;
+	}
+	if (gameMiniGame_K0)
+	{
+		gameMiniGame_K0_Spt->isVisible = state;
+	}
+	if (gameMiniGame_T9)
+	{
+		gameMiniGame_T9_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_T0)
+	{
+		gameMiniGame_T0_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Enter)
+	{
+		gameMiniGame_Enter_Spt->isVisible = state;
+	}
+	if (gameMiniGame_Delete)
+	{
+		gameMiniGame_Delete_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextEnter)
+	{
+		gameMiniGame_TextEnter_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_TextDelete)
+	{
+		gameMiniGame_TextDelete_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Text)
+	{
+		if (textcount == true)
 		{
-			MiniGame_1(true);
+			gameMiniGame_Text_Txt->isEnabled = state;
 		}
 		else
 		{
-			MiniGame_1(false);
-		}
-	
-}
-
- void MiniGameLogic::MiniGame_1(bool state)
-{
-
-	// show minigame
-	{
-		if (gameMiniGame_BG)
-		{
-			gameMiniGame_BG_Spt->isVisible = state;
-		}
-		if (gameMiniGame_Keypad)
-		{
-			gameMiniGame_Keypad_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K1)
-		{
-			gameMiniGame_K1_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K2)
-		{
-			gameMiniGame_K2_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T1)
-		{
-			gameMiniGame_T1_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T2)
-		{
-			gameMiniGame_T2_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K3)
-		{
-			gameMiniGame_K3_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K4)
-		{
-			gameMiniGame_K4_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T3)
-		{
-			gameMiniGame_T3_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T4)
-		{
-			gameMiniGame_T4_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K5)
-		{
-			gameMiniGame_K5_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K6)
-		{
-			gameMiniGame_K6_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T5)
-		{
-			gameMiniGame_T5_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T6)
-		{
-			gameMiniGame_T6_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K7)
-		{
-			gameMiniGame_K7_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K8)
-		{
-			gameMiniGame_K8_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T7)
-		{
-			gameMiniGame_T7_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T8)
-		{
-			gameMiniGame_T8_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K9)
-		{
-			gameMiniGame_K9_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K0)
-		{
-			gameMiniGame_K0_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T9)
-		{
-			gameMiniGame_T9_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T0)
-		{
-			gameMiniGame_T0_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Enter)
-		{
-			gameMiniGame_Enter_Spt->isVisible = state;
-		}
-		if (gameMiniGame_Delete)
-		{
-			gameMiniGame_Delete_Spt->isVisible = state;
-		}
-		if (gameMiniGame_TextEnter)
-		{
-			gameMiniGame_TextEnter_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_TextDelete)
-		{
-			gameMiniGame_TextDelete_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Text)
-		{
-			if (textcount == true)
-			{
-				gameMiniGame_Text_Txt->isEnabled = state;
-			}
-			else
-			{
-				gameMiniGame_Text_Txt->isEnabled = !state;
-			}
-
-		}
-
-		if (gameMiniGame_Password)
-		{
-			gameMiniGame_Password_Spt->isVisible = state;
-		}
-		if (gameMiniGame_TextPassword)
-		{
-			gameMiniGame_TextPassword_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Input)
-		{
-			gameMiniGame_Input_Txt->isEnabled = state;
+			gameMiniGame_Text_Txt->isEnabled = !state;
 		}
 	}
-
+	if (gameMiniGame_Password)
+	{
+		gameMiniGame_Password_Spt->isVisible = state;
+	}
+	if (gameMiniGame_TextPassword)
+	{
+		gameMiniGame_TextPassword_Txt->isEnabled = state;
+	}
+	if (gameMiniGame_Input)
+	{
+		gameMiniGame_Input_Txt->isEnabled = state;
+	}
 }
 
-/****************************************************************
-* @brief To record input of typing the password
-* ****************************************************************/
 void MiniGameLogic::passwordInput(std::string num)
 {
 	textcount = false;
 	gameMiniGame_Text_Txt->isEnabled = false;
 	gameMiniGame_Input_Txt->isEnabled = true;
 	gameMiniGame_Input_Txt->text += num;
-
 }
 
-/****************************************************************
-* @brief To allow user to enter the password by clicking the keys
-* ****************************************************************/
 void MiniGameLogic::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
@@ -545,14 +529,10 @@ void MiniGameLogic::enterPassword()
 	}
 }
 
-/****************************************************************
-* @brief To allow user to delete the password
-* ****************************************************************/
 void MiniGameLogic::deletePassword()
 {
 	if (!gameMiniGame_Input_Txt->text.empty())
 	{
 		gameMiniGame_Input_Txt->text.pop_back();
 	}
-
 }

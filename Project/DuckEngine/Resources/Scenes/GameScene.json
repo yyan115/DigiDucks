@@ -1932,7 +1932,8 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "RobotLogic"
+                            "RobotLogic",
+                            "MiniGameLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -2359,6 +2360,50 @@
                 }
             ],
             "layer": "UI"
+        },
+        "GameLoopManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "GameLoopLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "GameObject_131": {
             "layer": "Gameplay",
@@ -6088,29 +6133,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -6125,11 +6147,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -6139,6 +6175,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {

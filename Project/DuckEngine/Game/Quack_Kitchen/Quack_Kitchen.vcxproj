@@ -200,6 +200,7 @@
     <ClCompile Include="..\src\CustomerWalkState.cpp" />
     <ClCompile Include="..\src\CutSceneLogic.cpp" />
     <ClCompile Include="..\src\EndGame.cpp" />
+    <ClCompile Include="..\src\GameLoopLogic.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
     <ClCompile Include="..\src\GameScene.cpp" />
     <ClCompile Include="..\src\GameSettingsLogic.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\include\CustomerWalkState.h" />
     <ClInclude Include="..\include\CutSceneLogic.h" />
     <ClInclude Include="..\include\EndGame.h" />
+    <ClInclude Include="..\include\GameLoopLogic.h" />
     <ClInclude Include="..\include\GameManager.h" />
     <ClInclude Include="..\include\GameScene.h" />
     <ClInclude Include="..\include\GameSettingsLogic.h" />

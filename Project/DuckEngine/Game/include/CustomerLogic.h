@@ -12,7 +12,7 @@
 
 
 class GameScene;
-
+class GameLoopLogic;
 class CustomerLogic : public GameLogic
 {
 public:
@@ -36,6 +36,7 @@ public:
 		return clone;
 	}
 
+	GameLoopLogic* GetGameLoopLogic();
 	void SetOrder(ItemType order);
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
 	GameScene* GetGameScene() { return gameScene; }

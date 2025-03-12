@@ -1,5 +1,9 @@
 #include "CustomerLogic.h"
 #include "GameScene.h"
+#include "GameLogicManager.h"
+#include "GameLoopLogic.h"
+
+GameLoopLogic* gameLoopLogic = nullptr;
 
 void CustomerLogic::SetOrder(ItemType order)
 {
@@ -37,21 +41,21 @@ void CustomerLogic::Start()
 		customerOrderSpriteRenderer->isVisible = false;
 	}
 
-	gameScene = DuckEngine::DUCKENGINE_SceneManager.GetScene<GameScene>("GameScene").get();
+	gameLoopLogic = GameLogicManager::GetSingleLogic<GameLoopLogic>().get();
 
 	stateMachine.ChangeState(IdleState);
 }
 
 void CustomerLogic::Update()
 {
-	if (!gameScene->IsGameStarted()) return;
+	if (!gameLoopLogic->IsGameStarted()) return;
 	stateMachine.currentState->Update();
 
 }
 
 void CustomerLogic::FixedUpdate()
 {
-	if (!gameScene->IsGameStarted()) return;
+	if (!gameLoopLogic->IsGameStarted()) return;
 	stateMachine.currentState->FixedUpdate();
 }
 
@@ -59,4 +63,9 @@ void CustomerLogic::OrderCompleted()
 {
 	WalkState->CustomerOrderCollected();
 	stateMachine.ChangeState(WalkState);
+}
+
+GameLoopLogic* CustomerLogic::GetGameLoopLogic()
+{
+	return gameLoopLogic;
 }

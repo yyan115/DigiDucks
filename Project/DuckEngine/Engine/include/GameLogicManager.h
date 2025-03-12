@@ -122,6 +122,34 @@ public:
         return entitiesWithLogic;
     }
 
+	template <typename T>
+	static std::shared_ptr<T> GetSingleLogic()
+	{
+		static_assert(std::is_base_of<GameLogic, T>::value,
+			"T must inherit from GameLogic.");
+
+		std::shared_ptr<T> singleInstance = nullptr;
+
+		for (auto& [name, logic] : logicMap)
+		{
+			std::shared_ptr<T> castedLogic = std::dynamic_pointer_cast<T>(logic);
+
+			if (castedLogic)
+			{
+				if (singleInstance)
+				{
+					throw std::runtime_error(
+						"More than one instance of the requested logic type found."
+					);
+				}
+
+				singleInstance = castedLogic;
+			}
+		}
+
+		return singleInstance;
+	}
+
 
     /**************************************************************************
     * @brief Removes all logic objects associated with a specific entity.

@@ -3,6 +3,7 @@
 #include "CustomerWalkState.h"
 #include "CustomerLogic.h"
 #include "GameManager.h"
+#include "GameLoopLogic.h"
 
 // Constructor
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
@@ -156,12 +157,12 @@ void CustomerWalkState::FixedUpdate()
     {
         owner->stateMachine.ChangeState(owner->IdleState);
 
-        if (owner->GetGameScene()->currentCustomerIndex < owner->GetGameScene()->customers.size() - 1)
+        if (owner->GetGameLoopLogic()->currentCustomerIndex < owner->GetGameLoopLogic()->customers.size() - 1)
         {
             std::cout << "NEXT CUSTOMER" << std::endl;
 
-            owner->GetGameScene()->currentCustomerIndex++;
-            CustomerLogic* nextCustomer = owner->GetGameScene()->customers[owner->GetGameScene()->currentCustomerIndex];
+            owner->GetGameLoopLogic()->currentCustomerIndex++;
+            CustomerLogic* nextCustomer = owner->GetGameLoopLogic()->customers[owner->GetGameLoopLogic()->currentCustomerIndex];
 
             int randomDishOrder = DuckEngine::RandomRange(1, 2);
             if (randomDishOrder == 1)
