@@ -46,7 +46,7 @@ void HowToPlayLogic::Start()
         back->onClick = [this, SFX]() {
 			SFX->Play();
             howToPlayScreenSpriteRenderer->isVisible = false;
-            mainMenuScreenSpriteRenderer->isVisible = true;
+            if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
             };
     }
 

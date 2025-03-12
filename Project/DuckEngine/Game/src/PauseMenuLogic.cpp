@@ -40,10 +40,21 @@ void PauseMenuLogic::Start()
 			gameResumeBtn_Normal = AssetManager::GetTextureByName("pause_resumegame");
 			gameResumeBtn_Hover = AssetManager::GetTextureByName("pause_resumegame_hover");
 			gameResumeButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameResumeBtn->entityID);
+			gameResumeBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
-				gameResumeButton->onClick = [this]() { if (isPaused) { PauseGame(false); } };
-				gameResumeButton->onHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Hover; };
+				gameResumeButton->onClick = [this]() { 
+					if (isPaused) { 
+						gameResumeBtnSound->Resume();
+						gameResumeBtnSound->Play();
+						PauseGame(false); 
+					
+					} };
+				gameResumeButton->onHover = [this]() {
+					gameResumeBtnSound->Resume();
+					gameResumeBtnSound->Play(1);
+					gameResumeBtnSpt->texture = gameResumeBtn_Hover;
+					};
 				gameResumeButton->onFinishHover = [this]() { gameResumeBtnSpt->texture = gameResumeBtn_Normal; };
 			}
 		}
@@ -55,10 +66,17 @@ void PauseMenuLogic::Start()
 			gameExitBtn_Normal = AssetManager::GetTextureByName("pause_quitgame");
 			gameExitBtn_Hover = AssetManager::GetTextureByName("pause_quitgame_hover");
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
+			gameExitBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
-				gameExitButton->onClick = [this]() { ExitConfirm(true); };
-				gameExitButton->onHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Hover; };
+				gameExitButton->onClick = [this]() { 
+					gameExitBtnSound->Resume();
+					gameExitBtnSound->Play();
+					ExitConfirm(true); };
+				gameExitButton->onHover = [this]() { 
+					gameExitBtnSound->Resume();
+					gameExitBtnSound->Play(1);
+					gameExitBtnSpt->texture = gameExitBtn_Hover; };
 				gameExitButton->onFinishHover = [this]() { gameExitBtnSpt->texture = gameExitBtn_Normal; };
 			}
 		}
@@ -70,10 +88,20 @@ void PauseMenuLogic::Start()
 			gameHTPBtn_Normal = AssetManager::GetTextureByName("pause_howtoplay");
 			gameHTPBtn_Hover = AssetManager::GetTextureByName("pause_howtoplay_hover");
 			gameHTPButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBtn->entityID);
+			gameHTPBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameHTPBtn->entityID);
+
 			if (gameHTPButton)
 			{
-				gameHTPButton->onClick = [this]() { HTPShow(true); };
-				gameHTPButton->onHover = [this]() {  gameHTPBtnSpt->texture = gameHTPBtn_Hover; };
+				gameHTPButton->onClick = [this]() { 
+					if (gameJournal) {
+						gameHTPBtnSound->Resume();
+						gameHTPBtnSound->Play();
+						gameJournalSpt->isVisible = true;
+					} };						
+				gameHTPButton->onHover = [this]() {  
+					gameHTPBtnSound->Resume();
+					gameHTPBtnSound->Play(1);
+					gameHTPBtnSpt->texture = gameHTPBtn_Hover; };
 				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
@@ -82,7 +110,7 @@ void PauseMenuLogic::Start()
 
 	// H.T.P Menu
 	{
-		gameJournal = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Journal").get();
+		gameJournal = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlayScreen").get();
 		if (gameJournal)
 		{
 			gameJournalSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameJournal->entityID);
@@ -91,37 +119,6 @@ void PauseMenuLogic::Start()
 				gameJournalSpt->isVisible = false;
 			}
 		}
-
-		gameHTPExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Exit_Btn").get();
-		if (gameHTPExitBtn)
-		{
-			gameHTPExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPExitBtn->entityID);
-			if (gameHTPExitButton)
-			{
-				gameHTPExitButton->onClick = [this]() { std::cout << "EXIT\n"; HTPShow(false); };
-			}
-		}
-
-		gameHTPBackBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Back_Btn").get();
-		if (gameHTPBackBtn)
-		{
-			gameHTPBackButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPBackBtn->entityID);
-			if (gameHTPBackButton)
-			{
-				gameHTPBackButton->onClick = [this]() { std::cout << "BACK\n"; if (pageNumb > 1) { pageNumb--; changePage(); } };
-			}
-		}
-
-		gameHTPNextBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HTP_Next_Btn").get();
-		if (gameHTPNextBtn)
-		{
-			gameHTPNextButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameHTPNextBtn->entityID);
-			if (gameHTPNextButton)
-			{
-				gameHTPNextButton->onClick = [this]() { std::cout << "NEXT\n"; if (pageNumb < 3) { pageNumb++; changePage(); } };
-			}
-		}
-
 	}
 
 	// Exit Confirmation
@@ -143,10 +140,17 @@ void PauseMenuLogic::Start()
 			gameExitYesBtn_Normal = AssetManager::GetTextureByName("exit_yes");
 			gameExitYesBtn_Hover = AssetManager::GetTextureByName("exit_yes_hover");
 			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
+			gameExitYesBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
-				gameExitYesButton->onClick = []() { GameManager::DuckEngine.CloseWindow(); };
-				gameExitYesButton->onHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Hover; };
+				gameExitYesButton->onClick = [this]() { 
+					gameExitYesBtnSound->Resume();
+					gameExitYesBtnSound->Play();
+					GameManager::DuckEngine.CloseWindow(); };
+				gameExitYesButton->onHover = [this]() { 
+					gameExitYesBtnSound->Resume();
+					gameExitYesBtnSound->Play(1);
+					gameExitYesBtnSpt->texture = gameExitYesBtn_Hover; };
 				gameExitYesButton->onFinishHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Normal; };
 			}
 		}
@@ -158,10 +162,17 @@ void PauseMenuLogic::Start()
 			gameExitNoBtn_Normal = AssetManager::GetTextureByName("exit_no");
 			gameExitNoBtn_Hover = AssetManager::GetTextureByName("exit_no_hover");
 			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
+			gameExitNoBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitNoBtn->entityID);
 			if (gameExitNoButton)
 			{
-				gameExitNoButton->onClick = [this]() { ExitConfirm(false); };
-				gameExitNoButton->onHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Hover; };
+				gameExitNoButton->onClick = [this]() { 
+					gameExitNoBtnSound->Resume();
+					gameExitNoBtnSound->Play();
+					ExitConfirm(false); };
+				gameExitNoButton->onHover = [this]() { 
+					gameExitNoBtnSound->Resume();
+					gameExitNoBtnSound->Play(1);
+					gameExitNoBtnSpt->texture = gameExitNoBtn_Hover; };
 				gameExitNoButton->onFinishHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Normal; };
 			}
 		}
@@ -216,32 +227,10 @@ void PauseMenuLogic::PauseGame(bool state)
 		gamePauseBgSpt->isVisible = state;
 	}
 
-	HTPShow(false);
 	ExitConfirm(false);
 	DuckEngine::SetPaused(state);
 }
 
-
-/****************************************************************
-* @brief Display the How To Play menu.
-* ****************************************************************/
-void PauseMenuLogic::HTPShow(bool state)
-{
-	if (gameJournalSpt)
-	{
-		gameJournalSpt->isVisible = state;
-	}
-
-	// Disable Quit and Resume Btn
-	if (gameResumeButton)
-	{
-		gameResumeButton->isEnabled = !state;
-	}
-	if (gameExitButton)
-	{
-		gameExitButton->isEnabled = !state;
-	}
-}
 
 
 
@@ -266,29 +255,4 @@ void PauseMenuLogic::ExitConfirm(bool state)
 		gameResumeButton->isEnabled = !state;
 	}
 
-}
-
-
-/****************************************************************
-* @brief Change the current page of the How To Play menu.
-* ****************************************************************/
-void PauseMenuLogic::changePage()
-{
-	switch (pageNumb)
-	{
-	case 1:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_1");
-		break;
-	case 2:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_2");
-		break;
-	case 3:
-		if (gameJournalSpt)
-			gameJournalSpt->texture = AssetManager::GetTextureByName("journal_3");
-		break;
-	default:
-		break;
-	};
 }

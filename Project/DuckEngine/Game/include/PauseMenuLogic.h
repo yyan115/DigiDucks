@@ -23,28 +23,28 @@ private:
 	//Pause Menu
 	Entity* gamePauseBg = nullptr;
 	SpriteRendererComponent* gamePauseBgSpt = nullptr;
+
 	ButtonComponent* gameResumeButton = nullptr;
 	SpriteRendererComponent* gameResumeBtnSpt = nullptr;
 	Texture gameResumeBtn_Normal{};
 	Texture gameResumeBtn_Hover{};
+	SoundComponent* gameResumeBtnSound = nullptr;
+
 	ButtonComponent* gameExitButton = nullptr;
 	SpriteRendererComponent* gameExitBtnSpt = nullptr;
 	Texture gameExitBtn_Normal{};
 	Texture gameExitBtn_Hover{};
+	SoundComponent* gameExitBtnSound = nullptr;
+
 	ButtonComponent* gameHTPButton = nullptr;
 	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
 	Texture gameHTPBtn_Normal{};
 	Texture gameHTPBtn_Hover{};
+	SoundComponent* gameHTPBtnSound = nullptr;
 
 	// HTP Menu
 	Entity* gameJournal = nullptr;
 	SpriteRendererComponent* gameJournalSpt = nullptr;
-	Entity* gameHTPExitBtn = nullptr;
-	ButtonComponent* gameHTPExitButton = nullptr;
-	Entity* gameHTPBackBtn = nullptr;
-	ButtonComponent* gameHTPBackButton = nullptr;
-	Entity* gameHTPNextBtn = nullptr;
-	ButtonComponent* gameHTPNextButton = nullptr;
 
 	// Exit Confirm
 	Entity* gameExitCfmBg = nullptr;
@@ -53,10 +53,13 @@ private:
 	SpriteRendererComponent* gameExitYesBtnSpt = nullptr;
 	Texture gameExitYesBtn_Normal{};
 	Texture gameExitYesBtn_Hover{};
+	SoundComponent* gameExitYesBtnSound = nullptr;
+
 	ButtonComponent* gameExitNoButton = nullptr;
 	SpriteRendererComponent* gameExitNoBtnSpt = nullptr;
 	Texture gameExitNoBtn_Normal{};
 	Texture gameExitNoBtn_Hover{};
+	SoundComponent* gameExitNoBtnSound = nullptr;
 
 	// UI
 	Entity* ui = nullptr;
@@ -102,17 +105,8 @@ public:
 	void PauseGame(bool state);
 
 	/****************************************************************
-	* @brief Function to Enable/Disable the How To Play menu
-	* ****************************************************************/
-	void HTPShow(bool state);
-
-	/****************************************************************
 	* @brief Function to Enable/Disable the Exit Confirmation menu
 	* ****************************************************************/
 	void ExitConfirm(bool state);
 
-	/****************************************************************
-	* @brief Function to change the page of the How To Play menu
-	* ****************************************************************/
-	void changePage();
 };

@@ -678,7 +678,7 @@ void GameScene::Update()
 		}
 
 		else {
-			timerText->text = "TIME'S UP!";
+			timerText->text = "END!";
 
 			if (!hasStartedFade && TimeLeftSound != nullptr) {
 				SoundSystem::StopSounds(TimeLeftSound->soundID[0]); // Stop warning sound

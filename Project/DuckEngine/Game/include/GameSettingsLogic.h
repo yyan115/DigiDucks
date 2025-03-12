@@ -63,6 +63,7 @@ private:
     Texture vsyncToggle_Enabled{};
     Texture vsyncToggle_Disabled{};
     ButtonComponent* vsyncButtonComp = nullptr;
+	SoundComponent* vsyncBtnSound = nullptr;
 
     
 

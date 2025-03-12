@@ -1719,7 +1719,7 @@
                         "soundID": [
                             "Resources/Sounds/player sfx/footstep.mp3"
                         ],
-                        "volume": 0.0
+                        "volume": 0.15000000596046448
                     },
                     "type": "SoundComponent"
                 }
@@ -2015,6 +2015,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/hover 1.mp3"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -2061,6 +2076,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/hover 1.mp3"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -2243,7 +2273,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {
@@ -2386,13 +2416,13 @@
             },
             "prefab": "Txt_Bg"
         },
-        "HTP_Back_Btn": {
+        "HTPBack": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.09999999403953552,
-                            "y": -0.8600000143051147
+                            "x": 0.11000001430511475,
+                            "y": -0.7900000214576721
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2435,71 +2465,19 @@
             ],
             "layer": "UI"
         },
-        "HTP_Btn": {
-            "childNames": [
-                "Journal"
-            ],
+        "HTPExit": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.5699999928474426
+                            "x": 0.06000000238418579,
+                            "y": -0.13999998569488525
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.18000000715255737,
-                            "y": 0.12999999523162842
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 101,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Pause/pause_howtoplay.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "HTP_Exit_Btn": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.08000001311302185,
-                            "y": -0.20999997854232788
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.05000000074505806
+                            "x": 0.07999999821186066,
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -2522,6 +2500,20 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -2536,13 +2528,54 @@
             ],
             "layer": "UI"
         },
-        "HTP_Next_Btn": {
+        "HTPJournal": {
+            "childNames": [
+                "HTPNext",
+                "HTPBack",
+                "HTPExit"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.6899999380111694,
-                            "y": -0.8600000143051147
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.8999999761581421,
+                            "y": 0.8999999761581421
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/journal_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "HTPNext": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8899999856948853,
+                            "y": -0.7900000214576721
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2585,11 +2618,9 @@
             ],
             "layer": "UI"
         },
-        "Journal": {
+        "HTP_Btn": {
             "childNames": [
-                "HTP_Next_Btn",
-                "HTP_Back_Btn",
-                "HTP_Exit_Btn"
+                "HowToPlayScreen"
             ],
             "components": [
                 {
@@ -2601,8 +2632,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.699999988079071,
-                            "y": 0.800000011920929
+                            "x": 0.18000000715255737,
+                            "y": 0.12999999523162842
                         }
                     },
                     "type": "TransformComponent"
@@ -2615,13 +2646,88 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
-                        "sortingOrder": 102,
+                        "isVisible": true,
+                        "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/journal_1.png",
+                        "texture": "Resources/Sprites/Pause/pause_howtoplay.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/hover 1.mp3"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "HowToPlayScreen": {
+            "childNames": [
+                "HTPJournal"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "HowToPlayLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "UI"
@@ -5973,36 +6079,13 @@
                             "Resources/Sounds/player sfx/footstep8.mp3",
                             "Resources/Sounds/player sfx/footstep9.mp3"
                         ],
-                        "volume": 0.0
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
                 {
                     "properties": {
                         "animations": [
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
                             {
                                 "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
@@ -6019,11 +6102,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -6033,6 +6130,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -6350,6 +6456,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/hover 1.mp3"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7297,6 +7418,21 @@
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/hover 1.mp3"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -8434,7 +8570,7 @@
                             "Resources/Sounds/chop and cook/continue boiling.mp3",
                             "Resources/Sounds/chop and cook/cooking_done.mp3"
                         ],
-                        "volume": 0.0
+                        "volume": 0.44999998807907104
                     },
                     "type": "SoundComponent"
                 },
@@ -9766,7 +9902,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 100,
+                        "sortingOrder": 9,
                         "text": "5:00"
                     },
                     "type": "TextComponent"
@@ -9972,6 +10108,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/click 1.wav"
+                        ],
+                        "volume": 0.699999988079071
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {

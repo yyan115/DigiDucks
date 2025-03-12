@@ -107,9 +107,11 @@ void GameSettingsLogic::Start() {
             vsyncToggleSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(vsyncToggle->entityID);
 			vsyncToggle_Enabled = AssetManager::GetTextureByName("vsyncbox_tick");
 			vsyncToggle_Disabled = AssetManager::GetTextureByName("vsyncbox");
+			vsyncBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(vsyncToggle->entityID);
 			vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
 			vsyncButtonComp->isEnabled = false;
             vsyncButtonComp->onClick = [this]() {
+				vsyncBtnSound->Play();
                 bool vsync = !ProjectSettings::GetUseVSync();
                 ProjectSettings::SetUseVSync(vsync);
                 vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
