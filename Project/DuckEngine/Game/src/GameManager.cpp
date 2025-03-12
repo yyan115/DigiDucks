@@ -48,6 +48,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "UISliderLogic.h"
 #include "GameSettingsLogic.h"
 #include "GameLoopLogic.h"
+#include "MiniGameLogic.h"
 
 DuckEngine GameManager::DuckEngine;
 
@@ -109,6 +110,7 @@ void GameManager::InitScenes()
 
 
 	GameLogicManager::AddLogic("GameLoopLogic", std::make_shared<GameLoopLogic>());
+	GameLogicManager::AddLogic("MiniGameLogic", std::make_shared<MiniGameLogic>());
 }
 
  /****************************************************************
