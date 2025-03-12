@@ -286,6 +286,7 @@ void PlayerLogic::InteractPressed()
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				isHolding = true;
@@ -303,6 +304,7 @@ void PlayerLogic::InteractPressed()
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				isHolding = true;
@@ -319,6 +321,7 @@ void PlayerLogic::InteractPressed()
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				isHolding = true;
@@ -331,6 +334,7 @@ void PlayerLogic::InteractPressed()
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				isHolding = true;
@@ -373,6 +377,7 @@ void PlayerLogic::InteractPressed()
 				type = tableLogic->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				isHolding = false;
@@ -386,6 +391,7 @@ void PlayerLogic::InteractPressed()
 					type = holding->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
+						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
 					isHolding = true;
@@ -406,6 +412,7 @@ void PlayerLogic::InteractPressed()
 					type = chopBoardLogic->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
+						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
 					isHolding = false;
@@ -423,6 +430,7 @@ void PlayerLogic::InteractPressed()
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
+					soundToPlay->Stop();
 					soundToPlay->Play(-1);
 				}
 				stoveLogic->setCookingType(holding->moveObject());
@@ -436,6 +444,7 @@ void PlayerLogic::InteractPressed()
 					type = holding->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
+						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
 					// Delete Holding object and assign 
@@ -451,6 +460,7 @@ void PlayerLogic::InteractPressed()
 					type = holding->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
+						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
 					stoveLogic->setObject(holding->moveObject());
@@ -467,6 +477,7 @@ void PlayerLogic::InteractPressed()
 						type = holding->getType();
 						SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 						if (soundToPlay) {
+							soundToPlay->Stop();
 							soundToPlay->Play(-1);
 						}
 						isHolding = true;
@@ -501,7 +512,9 @@ void PlayerLogic::InteractPressed()
 * ****************************************************************/
 void PlayerLogic::InteractHold()
 {
-	
+	if (DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SoundComponent>(interactObject->entityID)) {
+		sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(interactObject->entityID);
+	}
 	// Hold down is for Cutting/Cooking
 	// Player Must Not be Holding Anything
 	if (!isHolding)

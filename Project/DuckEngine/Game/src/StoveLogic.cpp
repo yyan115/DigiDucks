@@ -69,6 +69,7 @@ void StoveLogic::FixedUpdate()
 		if (isPan) if (tableSFX) tableSFX->Play(2);
 		if (isPot) if (tableSFX) tableSFX->Play(4);
 	}
+	else tableSFX->Stop();
 }
 
 /****************************************************************
