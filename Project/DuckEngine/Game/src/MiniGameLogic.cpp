@@ -1,7 +1,8 @@
 #include "GameLogic.h"
+#include "RestockLogic.h"
 #include "MiniGameLogic.h"
+#include "GameScene.h"
 
-// MiniGame_1
 void MiniGameLogic::Start()
 {
 	gameMiniGame_Text = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Text").get();
@@ -362,9 +363,21 @@ void MiniGameLogic::Start()
 	}
 	}
 
+void MiniGameLogic::Update()
+{
+	
+		if (MiniGame)
+		{
+			MiniGame_1(true);
+		}
+		else
+		{
+			MiniGame_1(false);
+		}
+	
+}
 
-
-void MiniGameLogic::MiniGame_1(bool state)
+ void MiniGameLogic::MiniGame_1(bool state)
 {
 
 	// show minigame

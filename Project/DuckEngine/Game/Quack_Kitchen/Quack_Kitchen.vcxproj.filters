@@ -104,6 +104,9 @@
     <ClCompile Include="..\src\CustomerStateManager.cpp">
       <Filter>src\Logic\Game\Customer</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\MiniGameLogic.cpp">
+      <Filter>src\Logic\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -347,6 +350,9 @@
     </ClInclude>
     <ClInclude Include="..\include\CustomerStateManager.h">
       <Filter>include\Logic\Game\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MiniGameLogic.h">
+      <Filter>include\Logic\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

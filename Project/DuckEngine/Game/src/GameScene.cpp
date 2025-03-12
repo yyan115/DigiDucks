@@ -91,7 +91,7 @@ void GameScene::Load()
 	}
 
 	// MiniGame_1
-	{
+	/*{
 		gameMiniGame_Text = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGame_Text").get();
 		if (gameMiniGame_Text)
 		{
@@ -448,7 +448,7 @@ void GameScene::Load()
 				gameMiniGame_Input_Txt->isEnabled = false;
 			}
 		}
-	}
+	}*/
 	
 	auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
 	if (TimeLeftEntity) {
@@ -469,7 +469,7 @@ void GameScene::Load()
 	gameStarted = false;
 	countdownTime = 3.0f;
 
-	MiniGame_1(false);
+	//MiniGameLogic::MiniGame_1(false);
 
 	// MOVEMENT WALKING DUST PARTICLE SETUP
 	Emitter dust;
@@ -745,11 +745,11 @@ void GameScene::Update()
 	{
 		if (robotRestockLogic->isMiniGame)
 		{
-			MiniGame_1(true);
+			miniGameLogic->MiniGame = true;
 		}
 		else
 		{
-			MiniGame_1(false);
+			miniGameLogic->MiniGame = false;
 		}
 	}
 
@@ -790,8 +790,8 @@ void GameScene::PostUpdate()
 			{
 				robotRestockLogic->RestockMenu(false);
 				robotRestockLogic->isMiniGame = false;
-				MiniGame_1(false);
-				textcount = true;
+				//MiniGame_1(false);
+				//textcount = true;
 				return;
 			}
 		}
@@ -836,197 +836,197 @@ void GameScene::Unload()
 /****************************************************************
 * @brief To launch the MiniGame
 * ****************************************************************/
-void GameScene::MiniGame_1(bool state)
-{
-	// Hide Texts
-	if (scoreText)
-	{
-		scoreText->isEnabled = !state;
-	}
-	if (timerText)
-	{
-		timerText->isEnabled = !state;
-	}
-
-	// Hide Order Tab
-	if (orderSprite)
-	{
-		orderSprite->isVisible = !state;
-	}
-
-	// show minigame
-	{
-		if (gameMiniGame_BG)
-		{
-			gameMiniGame_BG_Spt->isVisible = state;
-		}
-		if (gameMiniGame_Keypad)
-		{
-			gameMiniGame_Keypad_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K1)
-		{
-			gameMiniGame_K1_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K2)
-		{
-			gameMiniGame_K2_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T1)
-		{
-			gameMiniGame_T1_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T2)
-		{
-			gameMiniGame_T2_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K3)
-		{
-			gameMiniGame_K3_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K4)
-		{
-			gameMiniGame_K4_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T3)
-		{
-			gameMiniGame_T3_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T4)
-		{
-			gameMiniGame_T4_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K5)
-		{
-			gameMiniGame_K5_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K6)
-		{
-			gameMiniGame_K6_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T5)
-		{
-			gameMiniGame_T5_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T6)
-		{
-			gameMiniGame_T6_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K7)
-		{
-			gameMiniGame_K7_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K8)
-		{
-			gameMiniGame_K8_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T7)
-		{
-			gameMiniGame_T7_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T8)
-		{
-			gameMiniGame_T8_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_K9)
-		{
-			gameMiniGame_K9_Spt->isVisible = state;
-		}
-		if (gameMiniGame_K0)
-		{
-			gameMiniGame_K0_Spt->isVisible = state;
-		}
-		if (gameMiniGame_T9)
-		{
-			gameMiniGame_T9_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_T0)
-		{
-			gameMiniGame_T0_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Enter)
-		{
-			gameMiniGame_Enter_Spt->isVisible = state;
-		}
-		if (gameMiniGame_Delete)
-		{
-			gameMiniGame_Delete_Spt->isVisible = state;
-		}
-		if (gameMiniGame_TextEnter)
-		{
-			gameMiniGame_TextEnter_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_TextDelete)
-		{
-			gameMiniGame_TextDelete_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Text)
-		{
-			if (textcount == true)
-			{
-				gameMiniGame_Text_Txt->isEnabled = state;
-			}
-			else
-			{
-				gameMiniGame_Text_Txt->isEnabled = !state;
-			}
-
-		}
-
-		if (gameMiniGame_Password)
-		{
-			gameMiniGame_Password_Spt->isVisible = state;
-		}
-		if (gameMiniGame_TextPassword)
-		{
-			gameMiniGame_TextPassword_Txt->isEnabled = state;
-		}
-		if (gameMiniGame_Input)
-		{
-			gameMiniGame_Input_Txt->isEnabled = state;
-		}
-	}
-	
-}
+//void GameScene::MiniGame_1(bool state)
+//{
+//	// Hide Texts
+//	if (scoreText)
+//	{
+//		scoreText->isEnabled = !state;
+//	}
+//	if (timerText)
+//	{
+//		timerText->isEnabled = !state;
+//	}
+//
+//	// Hide Order Tab
+//	if (orderSprite)
+//	{
+//		orderSprite->isVisible = !state;
+//	}
+//
+//	// show minigame
+//	{
+//		if (gameMiniGame_BG)
+//		{
+//			gameMiniGame_BG_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_Keypad)
+//		{
+//			gameMiniGame_Keypad_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K1)
+//		{
+//			gameMiniGame_K1_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K2)
+//		{
+//			gameMiniGame_K2_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_T1)
+//		{
+//			gameMiniGame_T1_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_T2)
+//		{
+//			gameMiniGame_T2_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_K3)
+//		{
+//			gameMiniGame_K3_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K4)
+//		{
+//			gameMiniGame_K4_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_T3)
+//		{
+//			gameMiniGame_T3_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_T4)
+//		{
+//			gameMiniGame_T4_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_K5)
+//		{
+//			gameMiniGame_K5_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K6)
+//		{
+//			gameMiniGame_K6_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_T5)
+//		{
+//			gameMiniGame_T5_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_T6)
+//		{
+//			gameMiniGame_T6_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_K7)
+//		{
+//			gameMiniGame_K7_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K8)
+//		{
+//			gameMiniGame_K8_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_T7)
+//		{
+//			gameMiniGame_T7_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_T8)
+//		{
+//			gameMiniGame_T8_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_K9)
+//		{
+//			gameMiniGame_K9_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_K0)
+//		{
+//			gameMiniGame_K0_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_T9)
+//		{
+//			gameMiniGame_T9_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_T0)
+//		{
+//			gameMiniGame_T0_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_Enter)
+//		{
+//			gameMiniGame_Enter_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_Delete)
+//		{
+//			gameMiniGame_Delete_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_TextEnter)
+//		{
+//			gameMiniGame_TextEnter_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_TextDelete)
+//		{
+//			gameMiniGame_TextDelete_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_Text)
+//		{
+//			if (textcount == true)
+//			{
+//				gameMiniGame_Text_Txt->isEnabled = state;
+//			}
+//			else
+//			{
+//				gameMiniGame_Text_Txt->isEnabled = !state;
+//			}
+//
+//		}
+//
+//		if (gameMiniGame_Password)
+//		{
+//			gameMiniGame_Password_Spt->isVisible = state;
+//		}
+//		if (gameMiniGame_TextPassword)
+//		{
+//			gameMiniGame_TextPassword_Txt->isEnabled = state;
+//		}
+//		if (gameMiniGame_Input)
+//		{
+//			gameMiniGame_Input_Txt->isEnabled = state;
+//		}
+//	}
+//	
+//}
 
 /****************************************************************
 * @brief To record input of typing the password
 * ****************************************************************/
-void GameScene::passwordInput(std::string num)
-{
-	textcount = false;
-	gameMiniGame_Text_Txt->isEnabled = false;
-	gameMiniGame_Input_Txt->isEnabled = true;
-	gameMiniGame_Input_Txt->text += num;
-
-}
+//void GameScene::passwordInput(std::string num)
+//{
+//	textcount = false;
+//	gameMiniGame_Text_Txt->isEnabled = false;
+//	gameMiniGame_Input_Txt->isEnabled = true;
+//	gameMiniGame_Input_Txt->text += num;
+//
+//}
 
 /****************************************************************
 * @brief To allow user to enter the password by clicking the keys
 * ****************************************************************/
-void GameScene::enterPassword()
-{
-	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
-	{
-		textcount = true;
-		gameMiniGame_Input_Txt->text = "";
-		robotRestockLogic->isMiniGame = false;
-		robotRestockLogic->LowerMaintenanceLevel();
-	}
-	else
-	{
-		gameMiniGame_Input_Txt->text = "";
-	}
-}
+//void GameScene::enterPassword()
+//{
+//	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
+//	{
+//		textcount = true;
+//		gameMiniGame_Input_Txt->text = "";
+//		robotRestockLogic->isMiniGame = false;
+//		robotRestockLogic->LowerMaintenanceLevel();
+//	}
+//	else
+//	{
+//		gameMiniGame_Input_Txt->text = "";
+//	}
+//}
 
 /****************************************************************
 * @brief To allow user to delete the password 
 * ****************************************************************/
-void GameScene::deletePassword()
-{
-	if (!gameMiniGame_Input_Txt->text.empty())
-	{
-		gameMiniGame_Input_Txt->text.pop_back();
-	}
-	
-}
+//void GameScene::deletePassword()
+//{
+//	if (!gameMiniGame_Input_Txt->text.empty())
+//	{
+//		gameMiniGame_Input_Txt->text.pop_back();
+//	}
+//	
+//}

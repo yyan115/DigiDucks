@@ -14,7 +14,6 @@
 class MiniGameLogic : public GameLogic
 {
 public:
-    void Start() override;
     //helper functions
 
     void MiniGame_1(bool state);
@@ -22,6 +21,31 @@ public:
     void enterPassword();
     void deletePassword();
 
+    MiniGameLogic() : GameLogic(nullptr) {}
+
+    MiniGameLogic(GameLogicComponent* component) : GameLogic(nullptr)
+    {
+        UNREFERENCED_PARAMETER(component);
+    }
+
+    std::shared_ptr<GameLogic> Clone() const override
+    {
+        auto clone = std::make_shared<MiniGameLogic>(*this);
+        clone->component = nullptr;
+        return clone;
+    }
+
+    /****************************************************************
+    * @brief Start function for the Restock Station Logic.
+    * ****************************************************************/
+    void Start() override;
+
+    /****************************************************************
+    * @brief Update function for the Restock Station Logic.
+    * ****************************************************************/
+    void Update() override;
+
+    bool MiniGame = false;
 
 private:
 

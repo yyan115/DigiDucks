@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
 #include "GamesettingsLogic.h"
+#include "MiniGameLogic.h"
 
 class GameScene : public Scene
 {
@@ -53,10 +54,10 @@ public:
 private:
     // Helper functions
     void UpdateOrderTexture();
-    void MiniGame_1(bool state);
-    void passwordInput(std::string num);
-    void enterPassword();
-    void deletePassword();
+    //void MiniGame_1(bool state);
+    //void passwordInput(std::string num);
+    //void enterPassword();
+   // void deletePassword();
 
     // Member variables
     Entity* duck = nullptr;
@@ -91,6 +92,8 @@ private:
     std::shared_ptr<GameSettingsLogic> gameSettingsLogic = nullptr;
 
     // MiniGame_1
+    std::shared_ptr<MiniGameLogic> miniGameLogic = nullptr;
+
     Entity* gameMiniGame_BG = nullptr;
     SpriteRendererComponent* gameMiniGame_BG_Spt = nullptr;
 
@@ -184,7 +187,7 @@ private:
     TextComponent* CountdownText = nullptr;
     float countdownTime = 4.0f;
     bool gameStarted = false;
-    bool textcount = true;
+    //bool textcount = true;
 
 	// Fade out
     bool hasStartedFade = false;

@@ -211,6 +211,7 @@
     <ClCompile Include="..\src\MainMenu.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
+    <ClCompile Include="..\src\MiniGameLogic.cpp" />
     <ClCompile Include="..\src\MovementLogic.cpp" />
     <ClCompile Include="..\src\OrderTabLogic.cpp" />
     <ClCompile Include="..\src\StoveLogic.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
+    <ClInclude Include="..\include\MiniGameLogic.h" />
     <ClInclude Include="..\include\MovementLogic.h" />
     <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\OrderTabLogic.h" />
