@@ -41,7 +41,8 @@ void CustomerLogic::Start()
 		customerOrderSpriteRenderer->isVisible = false;
 	}
 
-	gameLoopLogic = GameLogicManager::GetSingleLogic<GameLoopLogic>().get();
+	Entity* gameLogicManager = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
+	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLogicManager->entityID).get();
 
 	stateMachine.ChangeState(IdleState);
 }
