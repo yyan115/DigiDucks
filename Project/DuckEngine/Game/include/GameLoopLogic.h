@@ -2,11 +2,9 @@
 
 #include "DuckEngine.h"
 #include "CustomerLogic.h"
-#include "RestockLogic.h"
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
 #include "GamesettingsLogic.h"
-#include "MiniGameLogic.h"
 
 class GameLoopLogic : public GameLogic
 {
@@ -25,9 +23,6 @@ public:
 	std::vector<CustomerLogic*> customers{};
 	int currentCustomerIndex = 0;
 
-
 private:
-	// Helper functions
 	void UpdateOrderTexture();
-
 };

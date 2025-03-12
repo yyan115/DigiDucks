@@ -1,8 +1,4 @@
 #include "GameLoopLogic.h"
-
-/******************************************************************************/
-// File header block (unchanged)
-/******************************************************************************/
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ImageLoader.h"
@@ -42,103 +38,8 @@ TextComponent* scoreText = nullptr;
 // Pause Menu
 std::shared_ptr<PauseMenuLogic> pauseMenuLogic = nullptr;
 
-// Restock Menu
-std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
-
 // Settings Menu
 std::shared_ptr<GameSettingsLogic> gameSettingsLogic = nullptr;
-
-// MiniGame
-std::shared_ptr<MiniGameLogic> miniGameLogic = nullptr;
-
-Entity* gameMiniGame_BG = nullptr;
-SpriteRendererComponent* gameMiniGame_BG_Spt = nullptr;
-
-Entity* gameMiniGame_Keypad = nullptr;
-SpriteRendererComponent* gameMiniGame_Keypad_Spt = nullptr;
-
-Entity* gameMiniGame_Text = nullptr;
-TextComponent* gameMiniGame_Text_Txt = nullptr;
-
-Entity* gameMiniGame_Input = nullptr;
-TextComponent* gameMiniGame_Input_Txt = nullptr;
-
-Entity* gameMiniGame_K1 = nullptr;
-SpriteRendererComponent* gameMiniGame_K1_Spt = nullptr;
-ButtonComponent* gameMiniGame_K1_Btn = nullptr;
-Entity* gameMiniGame_T1 = nullptr;
-TextComponent* gameMiniGame_T1_Txt = nullptr;
-
-Entity* gameMiniGame_K2 = nullptr;
-SpriteRendererComponent* gameMiniGame_K2_Spt = nullptr;
-ButtonComponent* gameMiniGame_K2_Btn = nullptr;
-Entity* gameMiniGame_T2 = nullptr;
-TextComponent* gameMiniGame_T2_Txt = nullptr;
-
-Entity* gameMiniGame_K3 = nullptr;
-SpriteRendererComponent* gameMiniGame_K3_Spt = nullptr;
-ButtonComponent* gameMiniGame_K3_Btn = nullptr;
-Entity* gameMiniGame_T3 = nullptr;
-TextComponent* gameMiniGame_T3_Txt = nullptr;
-
-Entity* gameMiniGame_K4 = nullptr;
-SpriteRendererComponent* gameMiniGame_K4_Spt = nullptr;
-ButtonComponent* gameMiniGame_K4_Btn = nullptr;
-Entity* gameMiniGame_T4 = nullptr;
-TextComponent* gameMiniGame_T4_Txt = nullptr;
-
-Entity* gameMiniGame_K5 = nullptr;
-SpriteRendererComponent* gameMiniGame_K5_Spt = nullptr;
-ButtonComponent* gameMiniGame_K5_Btn = nullptr;
-Entity* gameMiniGame_T5 = nullptr;
-TextComponent* gameMiniGame_T5_Txt = nullptr;
-
-Entity* gameMiniGame_K6 = nullptr;
-SpriteRendererComponent* gameMiniGame_K6_Spt = nullptr;
-ButtonComponent* gameMiniGame_K6_Btn = nullptr;
-Entity* gameMiniGame_T6 = nullptr;
-TextComponent* gameMiniGame_T6_Txt = nullptr;
-
-Entity* gameMiniGame_K7 = nullptr;
-SpriteRendererComponent* gameMiniGame_K7_Spt = nullptr;
-ButtonComponent* gameMiniGame_K7_Btn = nullptr;
-Entity* gameMiniGame_T7 = nullptr;
-TextComponent* gameMiniGame_T7_Txt = nullptr;
-
-Entity* gameMiniGame_K8 = nullptr;
-SpriteRendererComponent* gameMiniGame_K8_Spt = nullptr;
-ButtonComponent* gameMiniGame_K8_Btn = nullptr;
-Entity* gameMiniGame_T8 = nullptr;
-TextComponent* gameMiniGame_T8_Txt = nullptr;
-
-Entity* gameMiniGame_K9 = nullptr;
-SpriteRendererComponent* gameMiniGame_K9_Spt = nullptr;
-ButtonComponent* gameMiniGame_K9_Btn = nullptr;
-Entity* gameMiniGame_T9 = nullptr;
-TextComponent* gameMiniGame_T9_Txt = nullptr;
-
-Entity* gameMiniGame_K0 = nullptr;
-SpriteRendererComponent* gameMiniGame_K0_Spt = nullptr;
-ButtonComponent* gameMiniGame_K0_Btn = nullptr;
-Entity* gameMiniGame_T0 = nullptr;
-TextComponent* gameMiniGame_T0_Txt = nullptr;
-
-Entity* gameMiniGame_Enter = nullptr;
-SpriteRendererComponent* gameMiniGame_Enter_Spt = nullptr;
-ButtonComponent* gameMiniGame_Enter_Btn = nullptr;
-Entity* gameMiniGame_TextEnter = nullptr;
-TextComponent* gameMiniGame_TextEnter_Txt = nullptr;
-
-Entity* gameMiniGame_Delete = nullptr;
-SpriteRendererComponent* gameMiniGame_Delete_Spt = nullptr;
-ButtonComponent* gameMiniGame_Delete_Btn = nullptr;
-Entity* gameMiniGame_TextDelete = nullptr;
-TextComponent* gameMiniGame_TextDelete_Txt = nullptr;
-
-Entity* gameMiniGame_Password = nullptr;
-SpriteRendererComponent* gameMiniGame_Password_Spt = nullptr;
-Entity* gameMiniGame_TextPassword = nullptr;
-TextComponent* gameMiniGame_TextPassword_Txt = nullptr;
 
 // Other Variables
 TextComponent* CountdownText = nullptr;
@@ -243,29 +144,11 @@ void GameLoopLogic::Start()
 	sparks.layer = 1;
 	sparks.sortingOrder = 4;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
-
-	if (!miniGameLogic)
-	{
-		auto entity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MiniGameLogic").get();
-		if (entity)
-		{
-			miniGameLogic = GameLogicManager::GetLogicForEntity<MiniGameLogic>(entity->entityID);
-		}
-	}
 }
 
 void GameLoopLogic::Update()
 {
 	{
-		if (!robotRestockLogic)
-		{
-			auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
-			if (gameRestockMenu)
-			{
-				robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockMenu->entityID);
-			}
-		}
-
 		if (!pauseMenuLogic)
 		{
 			auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
@@ -452,11 +335,6 @@ void GameLoopLogic::Update()
 		timeLeft = 11.f;
 	}
 
-	if (robotRestockLogic && miniGameLogic)
-	{
-		miniGameLogic->MiniGame = robotRestockLogic->isMiniGame;
-	}
-
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
@@ -470,16 +348,6 @@ void GameLoopLogic::Update()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
 	{
-		if (robotRestockLogic)
-		{
-			if (robotRestockLogic->isRestock)
-			{
-				robotRestockLogic->RestockMenu(false);
-				robotRestockLogic->isMiniGame = false;
-				return;
-			}
-		}
-
 		std::cout << "Escape is pressed!\n";
 		TimeLeftSound->Play(2);
 		if (pauseMenuLogic)

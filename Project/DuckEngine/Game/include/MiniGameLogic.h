@@ -8,14 +8,12 @@
 #include "SubmitLogic.h"
 #include "SpriteRendererComponent.h"
 #include "SoundSystem.h"
-#include "RestockLogic.h"
 #include "CustomerLogic.h"
+#include "RestockLogic.h"
 
 class MiniGameLogic : public GameLogic
 {
 public:
-	//helper functions
-
 	void MiniGame_1(bool state);
 	void passwordInput(std::string num);
 	void enterPassword();
@@ -41,6 +39,8 @@ public:
 	bool MiniGame = false;
 
 private:
+	std::shared_ptr<RestockLogic> robotRestockLogic = nullptr;
+
 	Entity* gameMiniGame_BG = nullptr;
 	SpriteRendererComponent* gameMiniGame_BG_Spt = nullptr;
 

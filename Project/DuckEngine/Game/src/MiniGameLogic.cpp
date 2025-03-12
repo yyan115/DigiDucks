@@ -365,6 +365,20 @@ void MiniGameLogic::Start()
 
 void MiniGameLogic::Update()
 {
+	if (!robotRestockLogic)
+	{
+		auto gameRestockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+		if (gameRestockMenu)
+		{
+			robotRestockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(gameRestockMenu->entityID);
+		}
+	}
+
+	if (robotRestockLogic)
+	{
+		MiniGame = robotRestockLogic->isMiniGame;
+	}
+
 	if (MiniGame)
 	{
 		MiniGame_1(true);
@@ -520,8 +534,8 @@ void MiniGameLogic::enterPassword()
 	{
 		textcount = true;
 		gameMiniGame_Input_Txt->text = "";
-		//robotRestockLogic->isMiniGame = false;
-		//robotRestockLogic->LowerMaintenanceLevel();
+		robotRestockLogic->isMiniGame = false;
+		robotRestockLogic->LowerMaintenanceLevel();
 	}
 	else
 	{
