@@ -112,6 +112,11 @@ void GameLoopLogic::Start()
 		CountdownText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(CountdownEntity->entityID);
 		CountdownText->isEnabled = false;
 	}
+
+	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
+	if (CutScene) CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
+	
+
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
 	gameStarted = false;
@@ -148,25 +153,27 @@ void GameLoopLogic::Start()
 
 void GameLoopLogic::Update()
 {
-	{
-		if (!pauseMenuLogic)
-		{
-			auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
-			if (pauseMenu)
-			{
-				pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
-			}
-		}
+	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
 
-		if (!gameSettingsLogic)
+
+	if (!pauseMenuLogic)
+	{
+		auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
+		if (pauseMenu)
 		{
-			auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
-			if (settingsMenu)
-			{
-				gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
-			}
+			pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
 		}
 	}
+
+	if (!gameSettingsLogic)
+	{
+		auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
+		if (settingsMenu)
+		{
+			gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
+		}
+	}
+
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -249,9 +256,13 @@ void GameLoopLogic::Update()
 		return;
 	}
 
-	if (!pauseMenuLogic->isPaused)
+	if (pauseMenuLogic)
 	{
-		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		if (!pauseMenuLogic->isPaused)
+		{
+			CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		}
+
 	}
 
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {

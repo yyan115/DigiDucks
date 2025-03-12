@@ -5,6 +5,7 @@
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
 #include "GamesettingsLogic.h"
+#include "CutSceneLogic.h"
 
 class GameLoopLogic : public GameLogic
 {
@@ -25,4 +26,6 @@ public:
 
 private:
 	void UpdateOrderTexture();
+	Entity* CutScene = nullptr;
+	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;
 };

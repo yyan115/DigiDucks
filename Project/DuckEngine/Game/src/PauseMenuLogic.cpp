@@ -215,6 +215,9 @@ void PauseMenuLogic::FixedUpdate()
 void PauseMenuLogic::PauseGame(bool state)
 {
 	isPaused = state;
+
+	std::cout << "PauseGame: " << isPaused << std::endl;
+
 	// Hide Texts
 	if (ui)
 	{

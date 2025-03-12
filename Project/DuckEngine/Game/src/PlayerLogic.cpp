@@ -479,28 +479,17 @@ void PlayerLogic::InteractPressed()
 
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
 		if (submitLogic)
-		{
-			if (DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName() == "Level0")
-			{
-				if (holding->getType() == ItemType::LETTUCE_PLATE)
+		{			
+			if (orderTabLogic) {
+				if ((holding->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
 				{
+					orderTabLogic->GetCurrentCustomer()->OrderCompleted();
 					submitLogic->removeObject(holding->moveObject());
 					if (sound) sound->Play();
 					isHolding = false;
 				}
 			}
-			else
-			{
-				if (orderTabLogic) {
-					if ((holding->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
-					{
-						orderTabLogic->GetCurrentCustomer()->OrderCompleted();
-						submitLogic->removeObject(holding->moveObject());
-						if (sound) sound->Play();
-						isHolding = false;
-					}
-				}
-			}
+			
 			return;
 		}
 	}
