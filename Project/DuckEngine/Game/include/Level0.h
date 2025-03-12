@@ -31,7 +31,5 @@ public:
     bool GetIsFinishedTutorial() { return finishedTutorial; }
     void FinishedTutorial() { finishedTutorial = true; }
 private:
-	Entity* CutScene = nullptr;
-	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;
     bool finishedTutorial = false;
 };

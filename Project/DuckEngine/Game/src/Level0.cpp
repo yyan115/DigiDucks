@@ -42,8 +42,6 @@ void Level0::Load()
 void Level0::Start()
 {
 	Scene::Start();
-	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
-	CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
 }
 
 /****************************************************************
@@ -53,7 +51,7 @@ void Level0::Start()
 * ****************************************************************/
 void Level0::Update()
 {
-	if (CutSceneManager->CutscenePlay()) return;
+
 }
 
 /****************************************************************
