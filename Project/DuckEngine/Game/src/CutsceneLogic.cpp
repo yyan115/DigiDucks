@@ -65,8 +65,10 @@ void CutSceneLogic::Start()
 	{
 		auto CutSceneSkip = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(CutSceneButton->entityID);
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
-		CutSceneSkip->onClick = [this]()
+		auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
+		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
 		{
+			CutSceneSkipSound->Play();
 			currentCutsceneIndex = 12;
 		};
 	}
@@ -78,8 +80,10 @@ void CutSceneLogic::Start()
 	{
 		auto DialogueSkip = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(DialogueButton->entityID);
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
-		DialogueSkip->onClick = [this]()
+		auto DialogueSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DialogueButton->entityID);
+		DialogueSkip->onClick = [this, DialogueSkipSound]()
 		{
+			DialogueSkipSound->Play();
 			currentDialogueIndex = 29;
 		};
 	}

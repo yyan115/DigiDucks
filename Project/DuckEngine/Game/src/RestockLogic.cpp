@@ -80,8 +80,9 @@ void RestockLogic::Start()
 			restockIngredientSpt->texture = restockIngredientOn;
 			restockIngredientButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockIngredientBtn->entityID);
 			if (restockIngredientButton) {
-				restockIngredientButton->onClick = [this]()
+				restockIngredientButton->onClick = [this, restockIngredientBtn]()
 					{
+						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockIngredientBtn->entityID)->Play();
 						// Swap Texture
 						restockIngredientSpt->texture = restockIngredientOn;
 						restockMaintenanceSpt->texture = restockMaintenanceOff;
@@ -106,8 +107,9 @@ void RestockLogic::Start()
 			restockMaintenanceButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockMaintenanceBtn->entityID);
 			if (restockMaintenanceButton)
 			{
-				restockMaintenanceButton->onClick = [this]()
+				restockMaintenanceButton->onClick = [this, restockMaintenanceBtn]()
 					{
+						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockMaintenanceBtn->entityID)->Play();
 						// Swap Texture
 						restockIngredientSpt->texture = restockIngredientOff;
 						restockMaintenanceSpt->texture = restockMaintenanceOn;
@@ -127,7 +129,9 @@ void RestockLogic::Start()
 		maintainenceStartButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(maintainenceStartBtn->entityID);
 		if (maintainenceStartButton)
 		{
-			maintainenceStartButton->onClick = [this]() { MiniGame_1(true); };
+			maintainenceStartButton->onClick = [this, maintainenceStartBtn]() {
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(maintainenceStartBtn->entityID)->Play();
+				MiniGame_1(true); };
 		}
 	}
 
@@ -137,7 +141,9 @@ void RestockLogic::Start()
 		restockAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockAllBtn->entityID);
 		if (restockAllButton)
 		{
-			restockAllButton->onClick = [this]() { RestockAll(); };
+			restockAllButton->onClick = [this, restockAllBtn]() {
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockAllBtn->entityID)->Play();
+				RestockAll(); };
 		}
 	}
 
@@ -158,8 +164,9 @@ void RestockLogic::Start()
 			if (cartStockButton)
 			{
 				cartStockButtons.push_back(cartStockButton);
-				cartStockButtons[i]->onClick = [this, i]()
+				cartStockButtons[i]->onClick = [this, i, cartStockSprite]()
 					{
+						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(cartStockSprite->entityID)->Play();
 						if (cartStock.size() > i)
 						{
 							RemoveFromCart(cartStock[i]);
@@ -197,8 +204,9 @@ void RestockLogic::Start()
 			if (ingredientButton)
 			{
 				ingredientButtons.push_back(ingredientButton);
-				ingredientButtons[i]->onClick = [this, i]()
+				ingredientButtons[i]->onClick = [this, i, ingredientBtn]()
 					{
+						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(ingredientBtn->entityID)->Play();
 						AddToCart(static_cast<ItemType>(i));
 					};
 
@@ -225,8 +233,9 @@ void RestockLogic::Start()
 		restockConfirmButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockConfirmBtn->entityID);
 		if (restockConfirmButton)
 		{
-			restockConfirmButton->onClick = [this]()
+			restockConfirmButton->onClick = [this, restockConfirmBtn]()
 				{
+					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockConfirmBtn->entityID)->Play();
 					for (ItemType type : cartStock)
 					{
 						Restock(type);
@@ -254,8 +263,9 @@ void RestockLogic::Start()
 		restockClearAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockClearAllBtn->entityID);
 		if (restockClearAllButton)
 		{
-			restockClearAllButton->onClick = [this]()
+			restockClearAllButton->onClick = [this, restockClearAllBtn]()
 				{
+					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockClearAllBtn->entityID)->Play();
 					RefreshCart();
 				};
 		}

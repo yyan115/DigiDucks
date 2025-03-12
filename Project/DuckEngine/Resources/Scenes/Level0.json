@@ -876,6 +876,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -922,6 +937,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -974,6 +1004,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -1023,6 +1068,21 @@
                 },
                 {
                     "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -1069,6 +1129,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -1611,7 +1686,7 @@
                         "soundID": [
                             "Resources/Sounds/player sfx/footstep.mp3"
                         ],
-                        "volume": 0.15000000596046448
+                        "volume": 0.009999999776482582
                     },
                     "type": "SoundComponent"
                 }
@@ -1757,9 +1832,6 @@
             "layer": "UI"
         },
         "CutSceneSkip": {
-            "childNames": [
-                "CutSceneSkipText"
-            ],
             "components": [
                 {
                     "properties": {
@@ -1771,7 +1843,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.15000000596046448,
-                            "y": 0.07000000029802322
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -1787,10 +1859,24 @@
                         "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/paper.png",
+                        "texture": "Resources/Sprites/UI/SKIP_cutscene.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -1804,46 +1890,6 @@
                         }
                     },
                     "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "CutSceneSkipText": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.8549999594688416,
-                            "y": 0.08500003814697266
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "enabled": true,
-                        "fontName": "HVD Fonts  MikadoBlack",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 103,
-                        "text": "SKIP"
-                    },
-                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"
@@ -1968,21 +2014,18 @@
             "layer": "UI"
         },
         "DialogueSkip": {
-            "childNames": [
-                "DialogueSkipText"
-            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.8999999761581421,
-                            "y": -0.8999999761581421
+                            "x": 0.7799999713897705,
+                            "y": -0.9199999570846558
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.15000000596046448,
-                            "y": 0.07000000029802322
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -1998,10 +2041,24 @@
                         "isVisible": false,
                         "sortingOrder": 102,
                         "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/paper.png",
+                        "texture": "Resources/Sprites/UI/SKIP.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -2015,46 +2072,6 @@
                         }
                     },
                     "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "DialogueSkipText": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.8549999594688416,
-                            "y": 0.08500003814697266
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "enabled": true,
-                        "fontName": "HVD Fonts  MikadoBlack",
-                        "fontSize": 1.0,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 103,
-                        "text": "SKIP"
-                    },
-                    "type": "TextComponent"
                 }
             ],
             "layer": "UI"
@@ -6797,6 +6814,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -6846,6 +6878,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -6892,6 +6939,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7052,6 +7114,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -7098,6 +7175,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7150,6 +7242,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -7196,6 +7303,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7248,6 +7370,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -7294,6 +7431,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7346,6 +7498,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -7392,6 +7559,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -7487,6 +7669,21 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -7533,6 +7730,21 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
