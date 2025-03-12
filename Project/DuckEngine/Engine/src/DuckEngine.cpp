@@ -598,3 +598,17 @@ double DuckEngine::GetGLFWTime()
 {
 	return glfwGetTime();
 }
+
+void DuckEngine::PauseGame(bool pause) 
+{
+
+	TimeManager::FreezeTime(pause);
+
+	if (pause) 
+	{
+		SoundSystem::PauseAllSounds();
+	}
+	else {
+		SoundSystem::ResumeAllSounds();
+	}
+}

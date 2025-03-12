@@ -67,6 +67,7 @@ public:
     static void DUCKENGINE_API SetPlaying(bool playing);
     static bool DUCKENGINE_API IsPlaying();
     static void DUCKENGINE_API SetPaused(bool paused);
+    static void DUCKENGINE_API PauseGame(bool paused);
     static bool DUCKENGINE_API IsPaused();
 
     /************************************************************************

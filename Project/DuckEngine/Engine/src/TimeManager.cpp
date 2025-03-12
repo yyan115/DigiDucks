@@ -31,6 +31,8 @@ std::unordered_map<std::string, double> TimeManager::managerData;
 
 double TimeManager::prev_time = glfwGetTime();
 
+bool TimeManager::timeFrozen = false;
+
 /// <summary>
 /// Returns the current frames per second (FPS).
 /// </summary>
@@ -59,6 +61,16 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
     double curr_time = glfwGetTime();
     double raw_delta = curr_time - prev_time;
     delta_time = raw_delta;
+
+	if (timeFrozen) 
+    {
+		delta_time = 0.0;
+	}
+	else 
+    {
+		delta_time = raw_delta;
+	}
+
     prev_time = curr_time;
 
     // fps calculations
@@ -149,4 +161,17 @@ const std::unordered_map<std::string, double>& TimeManager::GetManagerData() {
 void TimeManager::ResetPrevTime()
 {
     prev_time = glfwGetTime();
+}
+
+void TimeManager::FreezeTime(bool freeze) 
+{
+	timeFrozen = freeze;
+	if (!freeze) {
+		ResetPrevTime();
+	}
+}
+
+bool TimeManager::IsTimeFrozen() 
+{
+	return timeFrozen;
 }

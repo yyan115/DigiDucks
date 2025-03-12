@@ -37,6 +37,7 @@ public:
     /// </summary>
     /// <returns>The current FPS as a double.</returns>
     static double FPS();
+    static bool timeFrozen;
 
     /// <summary>
     /// Returns the delta time, which is the time taken to complete the most recent game loop.
@@ -85,6 +86,9 @@ public:
     static DUCKENGINE_API const std::unordered_map<std::string, double>& GetManagerData();
 
     static DUCKENGINE_API void ResetPrevTime();
+
+	static void FreezeTime(bool freeze);
+	static bool IsTimeFrozen();
 
 
 private:
