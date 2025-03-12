@@ -1954,7 +1954,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
@@ -4337,6 +4337,14 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "PauseMenuLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "UI"
@@ -5723,7 +5731,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 100,
-                        "text": "SCORE: 0"
+                        "text": "0"
                     },
                     "type": "TextComponent"
                 }
@@ -7339,7 +7347,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 100,
-                        "text": "TIME:"
+                        "text": "5:00"
                     },
                     "type": "TextComponent"
                 }

@@ -249,9 +249,13 @@ void GameLoopLogic::Update()
 		return;
 	}
 
-	if (!pauseMenuLogic->isPaused)
+	if (pauseMenuLogic)
 	{
-		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		if (!pauseMenuLogic->isPaused)
+		{
+			CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+		}
+
 	}
 
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
