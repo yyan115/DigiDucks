@@ -76,9 +76,13 @@ void SoundComponent::Play(int index) {
 
 // Stop all sounds
 void SoundComponent::Stop() {
+    if (soundID.empty()) return;
+
     for (const auto& sound : soundID) {
         SoundSystem::StopSounds(sound);
     }
+
+    channel = nullptr;  // Clear channel reference
 }
 
 // Pause all sounds

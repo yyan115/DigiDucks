@@ -25,6 +25,7 @@ std::unordered_map<std::string, std::string> SoundSystem::soundCategories;
 std::unordered_map<std::string, float> SoundSystem::categoryVolumes;
 std::unordered_map<std::string, FMOD::Channel*> SoundSystem::activeChannels;
 std::unordered_map<std::string, FMOD::DSP*> SoundSystem::dspCache;
+std::unordered_map<std::string, float> SoundSystem::soundVolumes;
 
 void SoundSystem::Start() {
     if (!AssetManager::GetFMODSystem()) {  // Check if fmodSystem is null
@@ -60,9 +61,9 @@ void SoundSystem::Start() {
         initialized = true;
     }
 
-    //SetMasterVolume(masterVolume);
+    SetMasterVolume(masterVolume);
 	for (const auto& [category, volume] : categoryVolumes) {
-		//SetCategoryVolume(category, volume);
+		SetCategoryVolume(category, volume);
 	}
 }
 
@@ -70,8 +71,8 @@ void SoundSystem::Start() {
 void SoundSystem::Update() {
     AssetManager::GetFMODSystem()->update();
 
-    SetMasterVolume(masterVolume);
-    for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
+    //SetMasterVolume(masterVolume);
+    //for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
 }
 
 FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category, const std::pair<std::string, float>& effects) {
@@ -85,7 +86,7 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
 
     // Assign soundID with its category
     if (soundCategories.find(soundID) == soundCategories.end()) {
-        AddSoundToCategory(soundID, category);
+        AddSoundToCategory(soundID, category);                                              
     }
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
@@ -96,6 +97,9 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     if (channel) {
         float categoryVolume = categoryVolumes[category];
         channel->setVolume(volume * categoryVolume * masterVolume);
+
+        // Store sound volume
+        soundVolumes[soundID] = volume;
 
         sound->setMode(FMOD_2D);
 
@@ -151,25 +155,33 @@ void SoundSystem::SetSoundVolume(const std::string& soundID, float volume) {
 
 void SoundSystem::SetMasterVolume(float volume) {
     masterVolume = volume;
-    for (auto& [soundID, channel] : activeChannels) {
-        if (channel) {
-            float categoryVolume = 1.0f;
-            if (soundCategories.find(soundID) != soundCategories.end()) {
-                categoryVolume = categoryVolumes[soundCategories[soundID]];
-            }
-            channel->setVolume(categoryVolume * masterVolume);
+
+    for (const auto& [soundID, channel] : activeChannels) {
+        auto it = soundVolumes.find(soundID);
+        if (it != soundVolumes.end()) {
+            float soundVolume = it->second;
+            float categoryVolume = categoryVolumes[soundCategories[soundID]];
+            channel->setVolume(soundVolume * categoryVolume * masterVolume);
         }
     }
 }
 
+
 void SoundSystem::SetCategoryVolume(const std::string& category, float volume) {
     categoryVolumes[category] = volume;
-    for (auto& [soundID, channel] : activeChannels) {
-        if (soundCategories[soundID] == category && channel) {
-            channel->setVolume(volume * masterVolume);
+
+    for (const auto& [soundID, channel] : activeChannels) {
+        if (soundCategories[soundID] == category) {
+            auto it = soundVolumes.find(soundID);
+            if (it != soundVolumes.end()) {
+                float soundVolume = it->second;
+                channel->setVolume(soundVolume * categoryVolumes[category] * masterVolume);
+            }
         }
     }
 }
+
+
 
 void SoundSystem::AddSoundToCategory(const std::string& soundID, const std::string& category) {
     soundCategories[soundID] = category;

@@ -400,18 +400,22 @@ void PrefabEditor::RenderPrefabProperties()
 		{
 			if (ImGui::CollapsingHeader("Sound Component"))
 			{
-				std::string soundID = properties.value("soundID", "");
-				float volume = properties.value("volume", 1.0f);
+				// Loop Checkbox
 				bool loop = properties.value("loop", false);
-				bool playOnStart = properties.value("playOnStart", false);
-
-				ImGui::Text("Sound ID");
-				ImGui::SameLine(100);
-				if (ImGui::InputText("##SoundID", soundID.data(), soundID.size()))
+				if (ImGui::Checkbox("Loop", &loop))
 				{
-					properties["soundID"] = soundID;
+					properties["loop"] = loop;
 				}
 
+				// Play on Start Checkbox
+				bool playOnStart = properties.value("playOnStart", false);
+				if (ImGui::Checkbox("Play on Start", &playOnStart))
+				{
+					properties["playOnStart"] = playOnStart;
+				}
+
+				// Volume Slider
+				float volume = properties.value("volume", 1.0f);
 				ImGui::Text("Volume");
 				ImGui::SameLine(100);
 				if (ImGui::DragFloat("##Volume", &volume, 0.01f, 0.0f, 1.0f))
@@ -419,20 +423,145 @@ void PrefabEditor::RenderPrefabProperties()
 					properties["volume"] = volume;
 				}
 
-				if (ImGui::Checkbox("Loop", &loop))
+				// Ensure `soundID` is a valid array
+				if (!properties.contains("soundID") || !properties["soundID"].is_array())
 				{
-					properties["loop"] = loop;
+					properties["soundID"] = nlohmann::json::array();
 				}
 
-				if (ImGui::Checkbox("Play On Start", &playOnStart))
+				// Sound Paths
+				ImGui::Text("Sound Paths:");
+				auto& soundIDs = properties["soundID"];
+
+				for (size_t i = 0; i < soundIDs.size(); ++i)
 				{
-					properties["playOnStart"] = playOnStart;
+					ImGui::PushID(static_cast<int>(i));
+
+					// Show current sound path
+					ImGui::Text("Sound %d:", static_cast<int>(i + 1));
+					ImGui::SameLine();
+
+					
+					if (!soundIDs[i].empty())
+					{
+						ImGui::Text(soundIDs[i].get<std::string>().c_str());
+					}
+					else
+					{
+						ImGui::Text("None");
+					}
+
+					// Drag-and-Drop for Sound Files
+					if (ImGui::BeginDragDropTarget()) {
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("SOUND_PAYLOAD")) {
+							const char* newSoundPath = static_cast<const char*>(payload->Data);
+							if (InspectorRenderer::IsAllowedExtension(newSoundPath, { "ogg", "mp3", "wav" })) {
+								std::cout << "Sound file dropped: " << newSoundPath << std::endl;
+
+								// Update the JSON properties (not the actual component)
+								if (soundIDs[i] != newSoundPath)
+								{
+									properties["soundID"][i] = newSoundPath;
+									soundIDs[i] = newSoundPath;
+								}	
+							}
+							else {
+								std::cerr << "Error: Only OGG, MP3, and WAV audio files are allowed." << std::endl;
+							}
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+					// Remove button for individual sounds
+					ImGui::SameLine();
+					if (ImGui::Button("Remove"))
+					{
+						soundIDs.erase(soundIDs.begin() + i);
+						ImGui::PopID();
+						break;
+					}
+
+					ImGui::PopID();
 				}
 
+				// Add New Sound Slot Button
+				if (ImGui::Button("Add New"))
+				{
+					soundIDs.push_back("None");
+				}
+
+				// Category Dropdown
+				std::string currentCategory = properties.value("category", "Default");
+				const std::vector<std::string> categories = { "Default", "BGM", "SFX", "UI" };
+
+				ImGui::Text("Category");
+				ImGui::SameLine(100);
+				if (ImGui::BeginCombo("##Category", currentCategory.c_str()))
+				{
+					for (const auto& category : categories)
+					{
+						bool isSelected = (currentCategory == category);
+						if (ImGui::Selectable(category.c_str(), isSelected))
+						{
+							currentCategory = category;
+						}
+						if (isSelected)
+						{
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+					ImGui::EndCombo();
+				}
+
+				properties["category"] = currentCategory;  // Store back into JSON
+
+				// Effects Dropdown
+				std::string currentEffect = properties.value("effects", "Default");
+				float effectValue = properties.value("effectValue", 0.0f);
+				const std::vector<std::string> effectsList = { "Default", "Reverb", "LowPass", "HighPass", "Flange", "Distortion", "Delay" };
+
+				ImGui::Text("Effects");
+				ImGui::SameLine(100);
+				if (ImGui::BeginCombo("##Effects", currentEffect.c_str()))
+				{
+					for (const auto& effect : effectsList)
+					{
+						bool isSelected = (currentEffect == effect);
+						if (ImGui::Selectable(effect.c_str(), isSelected))
+						{
+							currentEffect = effect;
+							effectValue = 0.0f;  // Reset effect value when selecting a new effect
+						}
+						if (isSelected)
+						{
+							ImGui::SetItemDefaultFocus();
+						}
+					}
+					ImGui::EndCombo();
+				}
+
+				properties["effects"] = currentEffect;  // Store back into JSON
+				properties["effectValue"] = effectValue;
+
+				// Strength Slider for Effect (Only if effect is not Default)
+				if (currentEffect != "Default")
+				{
+					ImGui::Text("Strength");
+					ImGui::SameLine(100);
+					if (ImGui::DragFloat("##EffectValue", &effectValue, 0.01f, 0.0f, 1.0f))
+					{
+						properties["effectValue"] = effectValue;
+					}
+				}
+
+				// Remove Component Button
 				ComponentMenu(index);
 			}
 			index++;
 		}
+
+
+
 		else if (type == "TextComponent")
 		{
 			if (ImGui::CollapsingHeader("Text Component"))
@@ -762,10 +891,13 @@ void PrefabEditor::AddComponent()
 		else if (selectedComponentType == "SoundComponent")
 		{
 			newComponent["properties"] = {
-				{ "soundID", "" },
-				{ "volume", 1.0f },
+				{ "soundID", nlohmann::json::array() },
 				{ "loop", false },
-				{ "playOnStart", false }
+				{ "playOnStart", false },
+				{ "volume", 1.0f },
+				{ "category", "Default" },  // Default category
+				{ "effects", "Default" },   // Default effect name
+				{ "effectValue", 0.0f }     // Default effect intensity
 			};
 		}
 		else if (selectedComponentType == "TextComponent")

@@ -172,6 +172,7 @@ void PlayerLogic::FixedUpdate()
 	// If player is not moving, do nothing
 	if (!movement->isMoving)
 	{
+		playersound->Stop();
 		animator->Pause();
 		return;
 	}
@@ -184,7 +185,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->Play();
+			playersound->Play(-1);
 			animator->PlayAnimation("BACK_WALK");
 			dir = BACK;
 		}
@@ -197,7 +198,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->Play();
+			playersound->Play(-1);
 			animator->PlayAnimation("FRONT_WALK");
 			dir = FRONT;
 		}
@@ -210,7 +211,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->Play();
+			playersound->Play(-1);
 			animator->PlayAnimation("LEFT_WALK");
 			dir = LEFT;
 		}
@@ -223,7 +224,7 @@ void PlayerLogic::FixedUpdate()
 		}
 		if (animator)
 		{
-			playersound->Play();
+			playersound->Play(-1);
 			animator->PlayAnimation("RIGHT_WALK");
 			dir = RIGHT;
 		}

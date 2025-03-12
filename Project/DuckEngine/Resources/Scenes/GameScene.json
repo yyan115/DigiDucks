@@ -47,7 +47,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 0.20000000298023224,
+                        "currentValue": 0.5,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -1719,7 +1719,7 @@
                         "soundID": [
                             "Resources/Sounds/player sfx/footstep.mp3"
                         ],
-                        "volume": 0.05000000074505806
+                        "volume": 0.0
                     },
                     "type": "SoundComponent"
                 }
@@ -5963,9 +5963,17 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/player sfx/footstep.mp3"
+                            "Resources/Sounds/player sfx/footstep1.mp3",
+                            "Resources/Sounds/player sfx/footstep2.mp3",
+                            "Resources/Sounds/player sfx/footstep3.mp3",
+                            "Resources/Sounds/player sfx/footstep4.mp3",
+                            "Resources/Sounds/player sfx/footstep5.mp3",
+                            "Resources/Sounds/player sfx/footstep6.mp3",
+                            "Resources/Sounds/player sfx/footstep7.mp3",
+                            "Resources/Sounds/player sfx/footstep8.mp3",
+                            "Resources/Sounds/player sfx/footstep9.mp3"
                         ],
-                        "volume": 0.550000011920929
+                        "volume": 0.0
                     },
                     "type": "SoundComponent"
                 },
@@ -8426,7 +8434,7 @@
                             "Resources/Sounds/chop and cook/continue boiling.mp3",
                             "Resources/Sounds/chop and cook/cooking_done.mp3"
                         ],
-                        "volume": 0.6000000238418579
+                        "volume": 0.0
                     },
                     "type": "SoundComponent"
                 },

@@ -148,5 +148,6 @@ private:
 	static DUCKENGINE_API std::unordered_map<std::string, FMOD::Channel*> activeChannels;
 
 	static DUCKENGINE_API std::unordered_map<std::string, FMOD::DSP*> dspCache;
+	static DUCKENGINE_API std::unordered_map<std::string, float> soundVolumes;
 };
 
