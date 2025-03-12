@@ -26,7 +26,7 @@ private:
 	SpriteRendererComponent* DialogueSprite = nullptr;
 	Entity* CutSceneButton = nullptr;
 	Entity* DialogueButton = nullptr;
-	
+	Entity* CutSceneEntity = nullptr;
 	int currentCutsceneIndex = 0;
 	float cutsceneTimer = 0.0f;
 	float fadeProgress = 0.0f;

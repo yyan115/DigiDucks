@@ -21,7 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 void CutSceneLogic::Start()
 {
-	auto CutSceneEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
+	CutSceneEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutSceneEntity)
 	{
 		CutSceneSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID);
@@ -187,6 +187,7 @@ void CutSceneLogic::Update()
 				isShowingDialogue = false;
 				isPlaying = false;
 				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID)->isVisible = false;
 				CutSceneBGM->Stop();
 
 				return;
