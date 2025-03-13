@@ -93,30 +93,33 @@ void OrderTabLogic::AddOrder(ItemType order, CustomerLogic* customer)
 		return;
 	}
 
-	if (order == ItemType::CHEESE_BURGER_PLATE)
-	{
-		freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_1");
-	}
-	else if (order == ItemType::SALAD_PLATE)
-	{
-		freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_2");
-	}
-	else if (order == ItemType::LETTUCE_PLATE)
-	{
-		freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_Lettuce_Plate");
-	}
-	else
-	{
-		std::cerr << "Unknown order ItemType, no texture set." << std::endl;
-	}
+	
+	//if (order == ItemType::CHEESE_BURGER_PLATE)
+	//{
+	//	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_1");
+	//}
+	//else if (order == ItemType::SALAD_PLATE)
+	//{
+	//	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_2");
+	//}
+	//else if (order == ItemType::LETTUCE_PLATE)
+	//{
+	//	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("Dish_Lettuce_Plate");
+	//}
+	//else
+	//{
+	//	std::cerr << "Unknown order ItemType, no texture set." << std::endl;
+	//}
+
+	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(order));
 
 	freeTab->spriteRenderer->isVisible = true;
 	freeTab->tabOrder = order;
 	freeTab->tabCustomer = customer;
 
 	freeTab->startPosition = freeTab->transform->GetPosition();
-	freeTab->targetPosition = Vec2(freeTab->startPosition.x, -0.15f);
-	freeTab->transform->SetPosition(Vec2(freeTab->startPosition.x, 0.25f));
+	freeTab->targetPosition = Vec2(freeTab->startPosition.x, -0.175f);
+	freeTab->transform->SetPosition(Vec2(freeTab->startPosition.x, 0.15f));
 
 	freeTab->animationTime = 1.0f;
 	freeTab->elapsedTime = 0.0f;
