@@ -129,9 +129,14 @@ void RestockLogic::Start()
 		maintainenceStartButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(maintainenceStartBtn->entityID);
 		if (maintainenceStartButton)
 		{
-			maintainenceStartButton->onClick = [this, maintainenceStartBtn]() {
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(maintainenceStartBtn->entityID)->Play();
-				MiniGame_1(true); };
+			maintainenceStartButton->onClick = [this, maintainenceStartBtn]() 
+				{
+					if(maintenanceLevel >= 1)
+					{
+						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(maintainenceStartBtn->entityID)->Play();
+						MiniGame_1(true);
+					}
+				};
 		}
 	}
 
@@ -141,9 +146,11 @@ void RestockLogic::Start()
 		restockAllButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockAllBtn->entityID);
 		if (restockAllButton)
 		{
-			restockAllButton->onClick = [this, restockAllBtn]() {
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockAllBtn->entityID)->Play();
-				RestockAll(); };
+			restockAllButton->onClick = [this, restockAllBtn]() 
+				{
+					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockAllBtn->entityID)->Play();
+					RestockAll(); 
+				};
 		}
 	}
 
