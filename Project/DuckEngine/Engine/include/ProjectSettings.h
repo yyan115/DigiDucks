@@ -1,3 +1,20 @@
+/******************************************************************************/
+/*!
+\file       ProjectSettings.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Declares the ProjectSettings class, which manages global game
+			settings such as window resolution, frame rate, VSync, and audio
+			volumes. These settings are loaded from and saved to a JSON file,
+			ensuring configurability within DuckEngine.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include <string>

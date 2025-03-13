@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       ProjectSettings.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the ProjectSettings class, responsible for managing
+			global game settings such as resolution, frame rate, VSync, and
+			audio volumes. The class handles loading and saving settings
+			via JSON, enabling runtime configuration updates.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "ProjectSettings.h"
 #include "Serialization.h"
 #include "SoundSystem.h"

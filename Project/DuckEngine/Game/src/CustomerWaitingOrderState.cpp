@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\file       CustomerWaitingOrderState.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the CustomerWaitingOrderState class, managing the
+			logic for customers waiting to place an order. This includes
+			detecting player proximity, playing sound effects, interacting
+			with the order tab system, and transitioning the customer to the
+			next state once the order is taken.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "CustomerWaitingOrderState.h"
 #include "CustomerLogic.h"
 #include "OrderTabLogic.h"
