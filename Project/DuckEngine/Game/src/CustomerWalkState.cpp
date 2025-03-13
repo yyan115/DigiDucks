@@ -165,11 +165,27 @@ void CustomerWalkState::FixedUpdate()
 	{
 		owner->stateMachine.ChangeState(owner->IdleState);
 
+		GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+		if (gameLoop)
+		{
+			gameLoop->customersFinished++;
+
+			std::cout << "Customer finished: " << gameLoop->customersFinished
+				<< " out of " << gameLoop->customerCount << std::endl;
+
+			// Check if all customers have been served and have left
+			if (gameLoop->customersFinished >= gameLoop->customerCount)
+			{
+				std::cout << "All customers have completed their journey. Transitioning to EndScene." << std::endl;
+				GameManager::SetActiveScene("EndScene");
+				return; // Add a return here to ensure we exit the function
+			}
+		}
+
 		if (owner->GetGameLoopLogic()->currentCustomerIndex < owner->GetGameLoopLogic()->customerCount - 1)
 		{
 			std::cout << "NEXT CUSTOMER" << std::endl;
 
-			GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
 			if (gameLoop && !gameLoop->isSpawningCustomer)
 			{
 				// Check if any customer is currently waiting to place an order
@@ -197,11 +213,6 @@ void CustomerWalkState::FixedUpdate()
 					std::cout << "Not spawning next customer - someone is already at the counter!" << std::endl;
 				}
 			}
-		}
-		else
-		{
-			std::cout << "All customers served. Transitioning to EndScene." << std::endl;
-			GameManager::SetActiveScene("EndScene");
 		}
 	}
 
