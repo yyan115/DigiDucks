@@ -398,6 +398,117 @@ void MiniGameLogic::Start()
 			gameMiniGame_Input_Txt->isEnabled = false;
 		}
 	}
+
+	gameSS_BG = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_BG").get();
+	if (gameSS_BG)
+	{
+		gameSS_BG_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_BG->entityID);
+		if (gameSS_BG_Spt)
+		{
+			gameSS_BG_Spt->isVisible = false;
+		}
+	}
+
+	gameSS_Pad = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Pad").get();
+	if (gameSS_Pad)
+	{
+		gameSS_Pad_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_Pad->entityID);
+		if (gameSS_Pad_Spt)
+		{
+			gameSS_Pad_Spt->isVisible = false;
+		}
+	}
+
+	gameSS_RedButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Red").get();
+	if (gameSS_RedButton)
+	{
+		gameSS_RedButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_RedButton->entityID);
+		if (gameSS_RedButton_Spt)
+		{
+			gameSS_RedButton_Spt->isVisible = false;
+		}
+
+		gameSS_RedButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_RedButton->entityID);
+	}
+
+	gameSS_YellowButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Yellow").get();
+	if (gameSS_YellowButton)
+	{
+		gameSS_YellowButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_YellowButton->entityID);
+		if (gameSS_YellowButton_Spt)
+		{
+			gameSS_YellowButton_Spt->isVisible = false;
+		}
+
+		gameSS_YellowButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_YellowButton->entityID);
+	}
+
+	gameSS_GreenButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Green").get();
+	if (gameSS_GreenButton)
+	{
+		gameSS_GreenButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_GreenButton->entityID);
+		if (gameSS_GreenButton_Spt)
+		{
+			gameSS_GreenButton_Spt->isVisible = false;
+		}
+
+		gameSS_GreenButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_GreenButton->entityID);
+	}
+
+	gameSS_BlueButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Blue").get();
+	if (gameSS_BlueButton)
+	{
+		gameSS_BlueButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_BlueButton->entityID);
+		if (gameSS_BlueButton_Spt)
+		{
+			gameSS_BlueButton_Spt->isVisible = false;
+		}
+
+		gameSS_BlueButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_BlueButton->entityID);
+	}
+
+	gameSS_RedButtonL = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_RedL").get();
+	if (gameSS_RedButtonL)
+	{
+		gameSS_RedButtonL_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_RedButtonL->entityID);
+		if (gameSS_RedButtonL_Spt)
+		{
+			gameSS_RedButtonL_Spt->isVisible = false;
+		}
+	}
+
+	gameSS_YellowButtonL = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_YellowL").get();
+	if (gameSS_YellowButtonL)
+	{
+		gameSS_YellowButtonL_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_YellowButtonL->entityID);
+		if (gameSS_YellowButtonL_Spt)
+		{
+			gameSS_YellowButtonL_Spt->isVisible = false;
+		}
+	}
+
+	gameSS_GreenButtonL = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_GreenL").get();
+	if (gameSS_GreenButtonL)
+	{
+		gameSS_GreenButtonL_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_GreenButtonL->entityID);
+		if (gameSS_GreenButtonL_Spt)
+		{
+			gameSS_GreenButtonL_Spt->isVisible = false;
+		}
+	}
+
+	gameSS_BlueButtonL = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_BlueL").get();
+	if (gameSS_BlueButtonL)
+	{
+		gameSS_BlueButtonL_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_BlueButtonL->entityID);
+		if (gameSS_BlueButtonL_Spt)
+		{
+			gameSS_BlueButtonL_Spt->isVisible = false;
+		}
+	}
+
+
+
 }
 
 void MiniGameLogic::Update()
@@ -609,19 +720,19 @@ std::string MiniGameLogic::GenerateRandomNumericString(int minLength, int maxLen
 	return result;
 }
 
-void MiniGameLogic::MiniGame_2(bool state)
-{
-	for (int i = 0; i < round; i++)
-	{
-		SimonSaysColor();
-	}
-}
-
-std::string MiniGameLogic:: SimonSaysColor()
-{
-	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
-	std::string result;
-	result += std::to_string(std::rand() % 4 + 1);
-
-	return result;
-}
+//void MiniGameLogic::MiniGame_2(bool state)
+//{
+//	for (int i = 0; i < round; i++)
+//	{
+//		SimonSaysColor();
+//	}
+//}
+//
+//std::string MiniGameLogic:: SimonSaysColor()
+//{
+//	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
+//	std::string result;
+//	result += std::to_string(std::rand() % 4 + 1);
+//
+//	return result;
+//}

@@ -139,9 +139,48 @@ private:
 	Entity* gameMiniGame_TextPassword = nullptr;
 	TextComponent* gameMiniGame_TextPassword_Txt = nullptr;
 
+	Entity* gameSS_RedButton = nullptr;
+	SpriteRendererComponent* gameSS_RedButton_Spt = nullptr;
+	ButtonComponent* gameSS_RedButton_Btn = nullptr;
+
+	Entity* gameSS_YellowButton = nullptr;
+	SpriteRendererComponent* gameSS_YellowButton_Spt = nullptr;
+	ButtonComponent* gameSS_YellowButton_Btn = nullptr;
+
+	Entity* gameSS_GreenButton = nullptr;
+	SpriteRendererComponent* gameSS_GreenButton_Spt = nullptr;
+	ButtonComponent* gameSS_GreenButton_Btn = nullptr;
+
+	Entity* gameSS_BlueButton = nullptr;
+	SpriteRendererComponent* gameSS_BlueButton_Spt = nullptr;
+	ButtonComponent* gameSS_BlueButton_Btn = nullptr;
+
+	Entity* gameSS_RedButtonL = nullptr;
+	SpriteRendererComponent* gameSS_RedButtonL_Spt = nullptr;
+	ButtonComponent* gameSS_RedButtonL_Btn = nullptr;
+
+	Entity* gameSS_YellowButtonL = nullptr;
+	SpriteRendererComponent* gameSS_YellowButtonL_Spt = nullptr;
+	ButtonComponent* gameSS_YellowButtonL_Btn = nullptr;
+
+	Entity* gameSS_GreenButtonL = nullptr;
+	SpriteRendererComponent* gameSS_GreenButtonL_Spt = nullptr;
+	ButtonComponent* gameSS_GreenButtonL_Btn = nullptr;
+
+	Entity* gameSS_BlueButtonL = nullptr;
+	SpriteRendererComponent* gameSS_BlueButtonL_Spt = nullptr;
+	ButtonComponent* gameSS_BlueButtonL_Btn = nullptr;
+
+	Entity* gameSS_BG = nullptr;
+	SpriteRendererComponent* gameSS_BG_Spt = nullptr;
+
+	Entity* gameSS_Pad = nullptr;
+	SpriteRendererComponent* gameSS_Pad_Spt = nullptr;
+
 	bool textcount = true;
 	int round = 5;
 	int score = 0;
 
 	std::string GenerateRandomNumericString(int minLength, int maxLength);
+	
 };
