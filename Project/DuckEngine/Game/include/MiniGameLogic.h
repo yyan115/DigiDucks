@@ -11,10 +11,18 @@
 #include "CustomerLogic.h"
 #include "RestockLogic.h"
 
+enum SimonSays {
+	RED = 1,
+	GREEN = 2,
+	BLUE = 3,
+	YELLOW = 4
+};
+
 class MiniGameLogic : public GameLogic
 {
 public:
 	void MiniGame_1(bool state);
+	void MiniGame_2(bool state);
 	void passwordInput(std::string num);
 	void enterPassword();
 	void deletePassword();
@@ -132,6 +140,8 @@ private:
 	TextComponent* gameMiniGame_TextPassword_Txt = nullptr;
 
 	bool textcount = true;
+	int round = 5;
+	int score = 0;
 
 	std::string GenerateRandomNumericString(int minLength, int maxLength);
 };
