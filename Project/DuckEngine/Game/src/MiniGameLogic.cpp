@@ -737,14 +737,14 @@ std::string MiniGameLogic::GenerateRandomNumericString(int minLength, int maxLen
 	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
 
 	int length = minLength + (std::rand() % (maxLength - minLength + 1)); // Random length
-	std::string result;
-	result.reserve(length);
+	std::string results;
+	results.reserve(length);
 
 	for (int i = 0; i < length; ++i) {
-		result += std::to_string(std::rand() % 10); // Generate a random digit (0-9)
+		results += std::to_string(std::rand() % 10); // Generate a random digit (0-9)
 	}
 
-	return result;
+	return results;
 }
 
 void MiniGameLogic::MiniGame_2(bool state)
