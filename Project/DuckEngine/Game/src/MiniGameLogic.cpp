@@ -473,7 +473,8 @@ void MiniGameLogic::Start()
 		{
 			gameSS_RedButton_Btn->onClick = [this]()
 			{
-					gameSS_RedButtonL_Spt->isVisible = true;
+					//gameSS_RedButtonL_Spt->isVisible = true;
+					ButtonLight('1');
 			};
 		}
 	}
@@ -555,11 +556,11 @@ void MiniGameLogic::Update()
 
 	if (MiniGame)
 	{
-		MiniGame_2(true);
+		MiniGame_1(true);
 	}
 	else
 	{
-		MiniGame_2(false);
+		MiniGame_1(false);
 	}
 }
 
