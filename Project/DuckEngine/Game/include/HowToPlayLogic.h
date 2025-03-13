@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "DuckEngine.h"
 #include "GameLogicComponent.h"
+#include "PauseMenuLogic.h"
 
 class MainMenu;
 
@@ -49,6 +50,8 @@ private:
     SpriteRendererComponent* howToPlayScreenSpriteRenderer = nullptr;
     SpriteRendererComponent* mainMenuScreenSpriteRenderer = nullptr;
     SpriteRendererComponent* JournalSprite = nullptr;
+
+	std::shared_ptr<PauseMenuLogic> pauseMenuLogic = nullptr;
 
     int pageNum = 1;  // Tracks the current journal page
 };

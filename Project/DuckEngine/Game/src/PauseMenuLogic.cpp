@@ -97,6 +97,9 @@ void PauseMenuLogic::Start()
 						gameHTPBtnSound->Resume();
 						gameHTPBtnSound->Play();
 						gameJournalSpt->isVisible = true;
+
+						// Disable Pause Menu Buttons
+						DisableButtons(true);
 					} };						
 				gameHTPButton->onHover = [this]() {  
 					gameHTPBtnSound->Resume();
@@ -248,14 +251,28 @@ void PauseMenuLogic::ExitConfirm(bool state)
 		gameExitCfmBgSpt->isVisible = state;
 	}
 
-	// Disable HTP  and Quit Btn
-	if (gameHTPButton)
-	{
-		gameHTPButton->isEnabled = !state;
-	}
+	DisableButtons(state);
+
+}
+
+
+/****************************************************************
+* @brief Function to Enable/Disable the Buttons
+*
+* @param state - true to disable, false to enable
+* ****************************************************************/
+void PauseMenuLogic::DisableButtons(bool state)
+{
 	if (gameResumeButton)
 	{
 		gameResumeButton->isEnabled = !state;
 	}
-
+	if (gameExitButton)
+	{
+		gameExitButton->isEnabled = !state;
+	}
+	if (gameHTPButton)
+	{
+		gameHTPButton->isEnabled = !state;
+	}
 }

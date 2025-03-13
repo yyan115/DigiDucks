@@ -36,6 +36,12 @@ void HowToPlayLogic::Start()
         mainMenu = DuckEngine::DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu").get();
 	}
 
+	auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
+    if (pauseMenu)
+    {
+        pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
+    }
+
     // Set initial page
     pageNum = 1;
     UpdateJournalPage();
@@ -47,7 +53,7 @@ void HowToPlayLogic::Start()
 			SFX->Play();
             howToPlayScreenSpriteRenderer->isVisible = false;
             if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
-			isShow = false;
+            if (pauseMenuLogic) pauseMenuLogic->DisableButtons(false);
             };
     }
 

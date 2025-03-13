@@ -106,7 +106,15 @@ public:
 
 	/****************************************************************
 	* @brief Function to Enable/Disable the Exit Confirmation menu
+	* 
+	* @param state - true to disable, false to enable
 	* ****************************************************************/
 	void ExitConfirm(bool state);
 
+	/****************************************************************
+	* @brief Function to Enable/Disable the Buttons
+	* 
+	* @param state - true to disable, false to enable
+	* ****************************************************************/
+	void DisableButtons(bool state);
 };
