@@ -46,7 +46,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K1_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K1->entityID);
 		if (gameMiniGame_K1_Btn)
 		{
-			gameMiniGame_K1_Btn->onClick = [this]() {passwordInput("1"); };
+			auto gameMiniGame_K1_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K1->entityID);
+			gameMiniGame_K1_Btn->onClick = [this, gameMiniGame_K1_Sound]() {
+				gameMiniGame_K1_Sound->Play(-1);
+				passwordInput("1"); };
 		}
 	}
 
@@ -71,7 +74,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K2_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K2->entityID);
 		if (gameMiniGame_K2_Btn)
 		{
-			gameMiniGame_K2_Btn->onClick = [this]() { passwordInput("2"); };
+			auto gameMiniGame_K2_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K2->entityID);
+			gameMiniGame_K2_Btn->onClick = [this, gameMiniGame_K2_Sound]() {
+				gameMiniGame_K2_Sound->Play(-1);
+				passwordInput("2"); };
 		}
 	}
 
@@ -96,7 +102,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K3_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K3->entityID);
 		if (gameMiniGame_K3_Btn)
 		{
-			gameMiniGame_K3_Btn->onClick = [this]() {passwordInput("3"); };
+			auto gameMiniGame_K3_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K3->entityID);
+			gameMiniGame_K3_Btn->onClick = [this, gameMiniGame_K3_Sound]() {
+				gameMiniGame_K3_Sound->Play(-1);
+				passwordInput("3"); };
 		}
 	}
 
@@ -121,7 +130,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K4_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K4->entityID);
 		if (gameMiniGame_K4_Btn)
 		{
-			gameMiniGame_K4_Btn->onClick = [this]() {passwordInput("4"); };
+			auto gameMiniGame_K4_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K4->entityID);
+			gameMiniGame_K4_Btn->onClick = [this, gameMiniGame_K4_Sound]() {
+				gameMiniGame_K4_Sound->Play(-1);
+				passwordInput("4"); };
 		}
 	}
 
@@ -146,7 +158,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K5_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K5->entityID);
 		if (gameMiniGame_K5_Btn)
 		{
-			gameMiniGame_K5_Btn->onClick = [this]() {passwordInput("5"); };
+			auto gameMiniGame_K5_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K5->entityID);
+			gameMiniGame_K5_Btn->onClick = [this, gameMiniGame_K5_Sound]() {
+				gameMiniGame_K5_Sound->Play(-1);
+				passwordInput("5"); };
 		}
 	}
 
@@ -171,7 +186,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K6_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K6->entityID);
 		if (gameMiniGame_K6_Btn)
 		{
-			gameMiniGame_K6_Btn->onClick = [this]() {passwordInput("6"); };
+			auto gameMiniGame_K6_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K6->entityID);
+			gameMiniGame_K6_Btn->onClick = [this, gameMiniGame_K6_Sound]() {
+				gameMiniGame_K6_Sound->Play(-1);
+				passwordInput("6"); };
 		}
 	}
 
@@ -196,7 +214,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K7_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K7->entityID);
 		if (gameMiniGame_K7_Btn)
 		{
-			gameMiniGame_K7_Btn->onClick = [this]() {passwordInput("7"); };
+			auto gameMiniGame_K7_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K7->entityID);
+			gameMiniGame_K7_Btn->onClick = [this, gameMiniGame_K7_Sound]() {
+				gameMiniGame_K7_Sound->Play(-1);
+				passwordInput("7"); };
 		}
 	}
 
@@ -221,7 +242,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K8_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K8->entityID);
 		if (gameMiniGame_K8_Btn)
 		{
-			gameMiniGame_K8_Btn->onClick = [this]() {passwordInput("8"); };
+			auto gameMiniGame_K8_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K8->entityID);
+			gameMiniGame_K8_Btn->onClick = [this, gameMiniGame_K8_Sound]() {
+				gameMiniGame_K8_Sound->Play(-1);
+				passwordInput("8"); };
 		}
 	}
 
@@ -246,7 +270,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K9_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K9->entityID);
 		if (gameMiniGame_K9_Btn)
 		{
-			gameMiniGame_K9_Btn->onClick = [this]() {passwordInput("9"); };
+			auto gameMiniGame_K9_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K9->entityID);
+			gameMiniGame_K9_Btn->onClick = [this, gameMiniGame_K9_Sound]() {
+				gameMiniGame_K9_Sound->Play(-1);
+				passwordInput("9"); };
 		}
 	}
 
@@ -271,7 +298,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_K0_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_K0->entityID);
 		if (gameMiniGame_K0_Btn)
 		{
-			gameMiniGame_K0_Btn->onClick = [this]() {passwordInput("0"); };
+			auto gameMiniGame_K0_Sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_K0->entityID);
+			gameMiniGame_K0_Btn->onClick = [this, gameMiniGame_K0_Sound]() {
+				gameMiniGame_K0_Sound->Play(-1);
+				passwordInput("0"); };
 		}
 	}
 
@@ -296,7 +326,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_Enter_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Enter->entityID);
 		if (gameMiniGame_Enter_Btn)
 		{
-			gameMiniGame_Enter_Btn->onClick = [this]() { enterPassword(); };
+			gameMiniGame_Enter_BtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_Enter->entityID);
+			gameMiniGame_Enter_Btn->onClick = [this]() { 
+				gameMiniGame_Enter_BtnSound->Play();
+				enterPassword(); };
 		}
 	}
 
@@ -321,7 +354,10 @@ void MiniGameLogic::Start()
 		gameMiniGame_Delete_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameMiniGame_Delete->entityID);
 		if (gameMiniGame_Delete_Btn)
 		{
-			gameMiniGame_Delete_Btn->onClick = [this]() { deletePassword(); };
+			auto gameMiniGame_Delete_BtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameMiniGame_Delete->entityID);
+			gameMiniGame_Delete_Btn->onClick = [this, gameMiniGame_Delete_BtnSound]() { 
+				gameMiniGame_Delete_BtnSound->Play(-1);
+				deletePassword(); };
 		}
 	}
 
@@ -349,6 +385,7 @@ void MiniGameLogic::Start()
 		if (gameMiniGame_TextPassword_Txt)
 		{
 			gameMiniGame_TextPassword_Txt->isEnabled = false;
+			gameMiniGame_TextPassword_Txt->text = GenerateRandomNumericString(5, 5);
 		}
 	}
 
@@ -532,14 +569,21 @@ void MiniGameLogic::enterPassword()
 {
 	if (gameMiniGame_Input_Txt->text == gameMiniGame_TextPassword_Txt->text)
 	{
+		gameMiniGame_Enter_BtnSound->Stop();
+		gameMiniGame_Enter_BtnSound->Play(1);
 		textcount = true;
 		gameMiniGame_Input_Txt->text = "";
 		robotRestockLogic->isMiniGame = false;
 		robotRestockLogic->LowerMaintenanceLevel();
+		gameMiniGame_TextPassword_Txt->text = GenerateRandomNumericString(5, 5);
+		
 	}
 	else
 	{
+		gameMiniGame_Enter_BtnSound->Stop();
+		gameMiniGame_Enter_BtnSound->Play(2);
 		gameMiniGame_Input_Txt->text = "";
+		
 	}
 }
 
@@ -549,4 +593,18 @@ void MiniGameLogic::deletePassword()
 	{
 		gameMiniGame_Input_Txt->text.pop_back();
 	}
+}
+
+std::string MiniGameLogic::GenerateRandomNumericString(int minLength, int maxLength) {
+	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
+
+	int length = minLength + (std::rand() % (maxLength - minLength + 1)); // Random length
+	std::string result;
+	result.reserve(length);
+
+	for (int i = 0; i < length; ++i) {
+		result += std::to_string(std::rand() % 10); // Generate a random digit (0-9)
+	}
+
+	return result;
 }

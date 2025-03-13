@@ -118,6 +118,7 @@ private:
 	ButtonComponent* gameMiniGame_Enter_Btn = nullptr;
 	Entity* gameMiniGame_TextEnter = nullptr;
 	TextComponent* gameMiniGame_TextEnter_Txt = nullptr;
+	SoundComponent* gameMiniGame_Enter_BtnSound = nullptr;
 
 	Entity* gameMiniGame_Delete = nullptr;
 	SpriteRendererComponent* gameMiniGame_Delete_Spt = nullptr;
@@ -131,4 +132,6 @@ private:
 	TextComponent* gameMiniGame_TextPassword_Txt = nullptr;
 
 	bool textcount = true;
+
+	std::string GenerateRandomNumericString(int minLength, int maxLength);
 };
