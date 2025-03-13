@@ -137,6 +137,18 @@ void GameLoopLogic::Start()
 		CountdownText->isEnabled = false;
 	}
 
+	auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
+	if (pauseMenu)
+	{
+		pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
+	}
+
+	auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
+	if (settingsMenu)
+	{
+		gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
+	}
+
 	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutScene) CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
 	
@@ -247,24 +259,6 @@ void GameLoopLogic::Update()
 
 	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
 
-
-	if (!pauseMenuLogic)
-	{
-		auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
-		if (pauseMenu)
-		{
-			pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
-		}
-	}
-
-	if (!gameSettingsLogic)
-	{
-		auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
-		if (settingsMenu)
-		{
-			gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
-		}
-	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
