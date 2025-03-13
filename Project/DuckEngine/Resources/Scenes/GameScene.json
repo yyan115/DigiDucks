@@ -2349,7 +2349,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {
@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "86785"
+                        "text": "97446"
                     },
                     "type": "TextComponent"
                 }

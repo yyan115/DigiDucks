@@ -80,10 +80,8 @@ void CutSceneLogic::Start()
 	{
 		auto DialogueSkip = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(DialogueButton->entityID);
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
-		auto DialogueSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DialogueButton->entityID);
-		DialogueSkip->onClick = [this, DialogueSkipSound]()
+		DialogueSkip->onClick = [this]()
 		{
-			DialogueSkipSound->Play();
 			currentDialogueIndex = 29;
 		};
 	}

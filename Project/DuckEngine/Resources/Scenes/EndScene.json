@@ -50,6 +50,46 @@
             ],
             "layer": "Background"
         },
+        "FPS_Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.009999999776482582,
+                            "y": 0.009999999776482582
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 0.5,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 110,
+                        "text": "test"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Quit": {
             "components": [
                 {
@@ -198,7 +238,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 10"
+                        "text": "Score: 0"
                     },
                     "type": "TextComponent"
                 },

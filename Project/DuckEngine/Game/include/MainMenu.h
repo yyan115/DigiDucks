@@ -98,4 +98,5 @@ private:
 
 	std::string nextScene = "";
 	
+	TextComponent* FPSText = nullptr;
 };

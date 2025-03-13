@@ -96,6 +96,9 @@ void GameLoopLogic::Start()
 	auto fpsTextEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPS_Text");
 	if (fpsTextEntity) {
 		FPSText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(fpsTextEntity->entityID);
+		if (GameManager::GetGlobalVariable("ShowFPS").empty()) { FPSText->isEnabled = false; }
+		else if (GameManager::GetGlobalVariable("ShowFPS") == "true") { FPSText->isEnabled = true; }
+		else { FPSText->isEnabled = false; }
 	}
 
 	auto TimeLeftEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TimerSFXManager");
@@ -172,6 +175,16 @@ void GameLoopLogic::Start()
 
 void GameLoopLogic::Update()
 {
+	if (FPSText) FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U))
+	{
+		if (FPSText)
+		{
+			FPSText->isEnabled = !FPSText->isEnabled;
+			GameManager::SetGlobalVariable("ShowFPS", FPSText->isEnabled ? "true" : "false");
+		}
+	}
+
 	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
 
 
@@ -296,9 +309,7 @@ void GameLoopLogic::Update()
 		}
 	}
 
-	if (FPSText != nullptr) {
-		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
-	}
+	
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M))
 	{
@@ -345,13 +356,7 @@ void GameLoopLogic::Update()
 		}
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U))
-	{
-		if (FPSText)
-		{
-			FPSText->isEnabled = !FPSText->isEnabled;
-		}
-	}
+	
 }
 
 void GameLoopLogic::FixedUpdate()
