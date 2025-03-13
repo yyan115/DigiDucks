@@ -608,3 +608,20 @@ std::string MiniGameLogic::GenerateRandomNumericString(int minLength, int maxLen
 
 	return result;
 }
+
+void MiniGameLogic::MiniGame_2(bool state)
+{
+	for (int i = 0; i < round; i++)
+	{
+		SimonSaysColor();
+	}
+}
+
+std::string MiniGameLogic:: SimonSaysColor()
+{
+	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
+	std::string result;
+	result += std::to_string(std::rand() % 4 + 1);
+
+	return result;
+}
