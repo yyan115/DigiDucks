@@ -42,11 +42,27 @@ void EndScene::Load()
 		MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
 	}
 	
-	MainMenu->onClick = []()
+	// Find fade-in screen entity
+	FadeInScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeInMenu").get();
+	if (FadeInScreen)
+	{
+		FadeInSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeInScreen->entityID);
+		if (FadeInSpriteRenderer)
+		{
+			FadeInSpriteRenderer->color.a = 0; // Start fully transparent
+			FadeInSpriteRenderer->isVisible = true;
+			fadeInElapsedTime = 0.0f;
+			isFadingIn = false;
+		}
+	}
+
+	MainMenu->onClick = [this]()
 		{ 
 			std::cout << "Button clicked QUIT!!!!!!\n"; 
 			MainMenuSound->Play(1);
 			isQuitButtonClicked = true;
+			isFadingIn = true; // Start fade-in
+			fadeInElapsedTime = 0.0f;
 		};
 
 	MainMenu->onHover = []()
@@ -63,7 +79,7 @@ void EndScene::Load()
 		ScoreText->isEnabled = true;
 	}
 
-	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject").get();
+	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("EndBGM").get();
 	backgroundSR = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(background->entityID);
 	backgroundSR->texture = AssetManager::GetTextureByName("DAY" + ScoreLogic::dayNumber);
 
@@ -75,7 +91,7 @@ void EndScene::Load()
 	Star2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_2->entityID);
 	Star3 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Star_3->entityID);
 
-	Background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject").get();
+	Background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("EndBGM").get();
 	BGMSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(Background->entityID);
 
 	auto fpsTextEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPS_Text");
@@ -109,10 +125,32 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
-	if (isQuitButtonClicked && !MainMenuSound->IsSoundPlaying())
+	if (isFadingIn && FadeInSpriteRenderer && BGMSound)
 	{
-		GameManager::SetActiveScene("MainMenu");
-		isQuitButtonClicked = false;
+		if ((fadeInElapsedTime += DuckEngine::DeltaTime()) >= fadeInDuration)
+		{
+			// Ensure full fade-in effect
+			FadeInSpriteRenderer->color.a = 255;
+			isFadingIn = false;
+			fadeInElapsedTime = 0.0f;
+
+			// Ensure music volume is fully off and stop the sound
+			SoundSystem::SetSoundVolume(BGMSound->soundID[0], 0.0f);
+			SoundSystem::StopSounds(BGMSound->soundID[0]);
+
+			// Switch to MainMenu scene after fade-in
+			GameManager::SetActiveScene("MainMenu");
+			return;
+		}
+
+		// Calculate fade-in progress (0.0 to 1.0)
+		float fadeProgress = fadeInElapsedTime / fadeInDuration;
+
+		// Update transparency
+		FadeInSpriteRenderer->color.a = static_cast<unsigned char>(fadeProgress * 255);
+
+		// Gradually decrease the background music volume
+		SoundSystem::SetSoundVolume(BGMSound->soundID[0], BGMSound->volume * (1.0f - fadeProgress));
 	}
 	
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
@@ -166,6 +204,8 @@ void EndScene::PostUpdate()
 void EndScene::Exit()
 {
 	ScoreText->isEnabled = false;
+	fadeInElapsedTime = 0.0f;
+	isFadingIn = false;
 }
 
 void EndScene::Unload()

@@ -93,6 +93,9 @@ private:
 	float fadeOutDuration = 3.0f;
 	float fadeElapsedTime = 0.0f;
 	bool isFadingOut = false;
+	float fadeInDuration = 3.0f;
+	float fadeInElapsedTime = 0.0f;
+	bool isFadingIn = true;
 
 	bool shouldClose = false;
 

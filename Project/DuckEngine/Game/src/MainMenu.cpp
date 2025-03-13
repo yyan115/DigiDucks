@@ -59,6 +59,10 @@ void MainMenu::Load()
 		};
 
 	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
+	if (menusound)
+	{
+		SoundSystem::SetSoundVolume(menusound->soundID[0], 0.0f); // Start at 0 volume
+	}
 	FadeOutScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeOutMenu").get();
 	// Ensure the FadeOutSprite is reset
 	FadeOutSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeOutScreen->entityID);
@@ -67,6 +71,10 @@ void MainMenu::Load()
 	fadeOutDuration = 3.0f;
 	fadeElapsedTime = 0.0f;
 	isFadingOut = false;
+	fadeInDuration = 3.0f;
+	fadeInElapsedTime = 0.0f;
+	isFadingIn = true;
+
 	start->onClick = [this]() 
 		{
 			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
@@ -190,17 +198,28 @@ void MainMenu ::Start()
 * ****************************************************************/
 void MainMenu ::Update()
 {
-	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
-	// For each sound component, play the sound if it is set to play on start
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+	if (isFadingIn && FadeOutSpriteRenderer && menusound)
+	{
+		if ((fadeInElapsedTime += DuckEngine::DeltaTime()) >= fadeInDuration)
+		{
+			// Fadein
+			FadeOutSpriteRenderer->color.a = 0;
+			isFadingIn = false;
+			fadeInElapsedTime = 0.0f;
 
-		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
-			soundComponent->Play();
+			// Set the final volume for the background music
+			SoundSystem::SetSoundVolume(menusound->soundID[0], menusound->volume);
+		}
+		else
+		{
+			// Gradually decrease alpha from 255 to 0
+			float fadeProgress = fadeInElapsedTime / fadeInDuration;
+			FadeOutSpriteRenderer->color.a = static_cast<unsigned char>((1.0f - fadeProgress) * 255);
 		}
 	}
 
-	if (isFadingOut && menusound) {
+
+	if (isFadingOut && FadeOutSpriteRenderer && menusound) {
 		if ((fadeElapsedTime += DuckEngine::DeltaTime()) >= fadeOutDuration) {
 			SoundSystem::SetSoundVolume(menusound->soundID[0], 0.0f);
 			SoundSystem::StopSounds(menusound->soundID[0]);
@@ -220,6 +239,15 @@ void MainMenu ::Update()
 
 	if (FPSText != nullptr) {
 		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
+	}
+
+	// For each sound component, play the sound if it is set to play on start
+	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
+		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+
+		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
+			soundComponent->Play();
+		}
 	}
 
 }

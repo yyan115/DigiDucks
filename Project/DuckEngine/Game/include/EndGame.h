@@ -73,4 +73,11 @@ private:
     bool isHover = false;
 
 	TextComponent* FPSText = nullptr;
+
+    Entity* FadeInScreen = nullptr;
+    SpriteRendererComponent* FadeInSpriteRenderer = nullptr;
+
+    float fadeInDuration = 3.0f;  // Duration for fade-in effect
+    float fadeInElapsedTime = 0.0f;
+    bool isFadingIn = false;
 };
