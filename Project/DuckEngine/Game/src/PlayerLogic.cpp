@@ -518,6 +518,7 @@ void PlayerLogic::InteractPressed()
 
 						isHolding = false;
 						orderSubmitted = true;
+						return;
 					}
 				}
 			}
