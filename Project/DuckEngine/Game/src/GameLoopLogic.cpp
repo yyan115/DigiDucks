@@ -227,7 +227,7 @@ void GameLoopLogic::Start()
 	}
 
 	customers[0]->StartWalking();
-	customerCount = customers.size();
+	customerCount = static_cast<int>(customers.size());
 	timeSinceLastCustomer = 0.0f;
 
 	
@@ -361,8 +361,9 @@ void GameLoopLogic::Update()
 
 	}
 
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+	for (const auto& [entityId, sComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) 
+	{
+		SoundComponent* soundComponent = static_cast<SoundComponent*>(sComponent.get());
 		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
 			soundComponent->Play();
 		}

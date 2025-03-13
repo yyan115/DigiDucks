@@ -127,8 +127,8 @@ void InspectorRenderer::RenderLayer(int entityID)
 				SnapshotManager::SaveUndoState();
 				currentLayerIndex = i;
 				entity->layerName = layerNames[i];  // Update entity layer
-				std::string activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName();
-				LevelManager::SaveEntityChanges(entityID, activeScene);
+				std::string currentActiveScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName();
+				LevelManager::SaveEntityChanges(entityID, currentActiveScene);
 			}
 
 			if (isSelected) {
