@@ -42,7 +42,7 @@ void Level35::Start()
 {
 	Scene::Start();
 
-	ScoreLogic::dayNumber = 1;
+	ScoreLogic::dayNumber = 3;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
