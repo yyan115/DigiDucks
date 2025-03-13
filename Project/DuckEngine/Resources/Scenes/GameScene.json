@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "58440"
+                        "text": "76073"
                     },
                     "type": "TextComponent"
                 }
@@ -6419,7 +6419,7 @@
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6435,7 +6435,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "Gameplay"
+            "layer": "UI"
         },
         "PlateSFXManager": {
             "components": [
