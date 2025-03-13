@@ -22,6 +22,7 @@ private:
 
 public:
 	static int scoreValue;
+	static int dayNumber;
 
 	ScoreLogic() : GameLogic(nullptr){}
 

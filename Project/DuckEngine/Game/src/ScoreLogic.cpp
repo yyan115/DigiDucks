@@ -15,6 +15,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLogicManager.h"
 
 int ScoreLogic::scoreValue = 0;
+int ScoreLogic::dayNumber = 0;
+
 /****************************************************************
 * @brief Start function for the Score Logic.
 * ****************************************************************/

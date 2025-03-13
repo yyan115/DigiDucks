@@ -20,6 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "GameScene.h"
 #include "Scene.h"
+#include "ScoreLogic.h"
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -42,6 +43,8 @@ void GameScene::Load()
 void GameScene::Start() 
 {
 	Scene::Start();
+
+	ScoreLogic::dayNumber = 1;
 }
 
 /****************************************************************

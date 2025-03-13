@@ -56,13 +56,16 @@ public:
 	void Start() override 
 	{
 		entity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
-		spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
-		textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->entityID);
-		if (textComponent == nullptr)
+		if (entity)
 		{
-			if (entity->childEntities.size() > 0)
+			spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
+			textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->entityID);
+			if (textComponent == nullptr)
 			{
-				textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->childEntities[0]->entityID);
+				if (entity->childEntities.size() > 0)
+				{
+					textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->childEntities[0]->entityID);
+				}
 			}
 		}
 	}

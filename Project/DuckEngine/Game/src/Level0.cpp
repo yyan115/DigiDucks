@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level0.h"
 #include "Scene.h"
 #include "CutSceneLogic.h"
+#include "ScoreLogic.h"
 
 
 /****************************************************************
@@ -42,6 +43,7 @@ void Level0::Load()
 void Level0::Start()
 {
 	Scene::Start();
+	ScoreLogic::dayNumber = 0;
 }
 
 /****************************************************************

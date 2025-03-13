@@ -28,6 +28,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
 
+SpriteRendererComponent* backgroundSR;
+
 void EndScene::Load()
 {
 	DuckEngine::EnableLogging(false);
@@ -60,6 +62,10 @@ void EndScene::Load()
 		ScoreText->isEnabled = true;
 	}
 
+	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BackgroundGameObject").get();
+	backgroundSR = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(background->entityID);
+	backgroundSR->texture = AssetManager::GetTextureByName("DAY" + ScoreLogic::dayNumber);
+
 	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
 	Star_2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_2").get();
 	Star_3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_3").get();
@@ -86,6 +92,9 @@ void EndScene::Start()
 		std::string EndScenePath = "Resources/Sprites/EndScene/DAY" + std::to_string(day) + ".png";
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(Background->entityID)->texture = *AssetManager::GetTexture(EndScenePath).get();
 	}
+
+	std::string dayTextureName = "DAY" + std::to_string(ScoreLogic::dayNumber);
+	backgroundSR->texture = AssetManager::GetTextureByName(dayTextureName);
 }
 
 void EndScene::Update()
