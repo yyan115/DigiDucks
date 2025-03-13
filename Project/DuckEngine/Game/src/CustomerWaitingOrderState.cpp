@@ -46,7 +46,7 @@ void CustomerWaitingOrderState::Update()
 		(playerPosition.y - customerPosition.y) * (playerPosition.y - customerPosition.y)
 	);
 
-	float proximityThreshold = 5.02f;
+	float proximityThreshold = 5.1f;
 	if (distance < proximityThreshold && !orderTaken)
 	{
 		owner->GetCustomerOrderSpriteRenderer()->isVisible = true;

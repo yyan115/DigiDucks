@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "89499"
+                        "text": "57712"
                     },
                     "type": "TextComponent"
                 }
@@ -6495,8 +6495,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -6.190356731414795,
-                            "y": -5.64991569519043
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6526,8 +6526,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -6.190356731414795,
-                            "y": -5.64991569519043
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -6539,8 +6539,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": -6.190356731414795,
-                            "y": -5.64991569519043
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "radius": 1.0
                     },
@@ -6720,7 +6720,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 7,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
