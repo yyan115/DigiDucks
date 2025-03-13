@@ -153,6 +153,43 @@ void GameLoopLogic::Start()
 	sparks.sortingOrder = 4;
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
 
+	// initialize seats
+	seatingLocations.clear();
+	auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
+	for (auto& entity : entities)
+	{
+		if (entity->name.find("Seat_") != std::string::npos)
+		{
+			seatingLocations.emplace_back(entity.get(), false);
+			std::cout << "Added seat: " << entity->name << "\n";
+		}
+	}
+
+	// Sort seats by number
+	auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
+		std::string nameA = a.first->name;
+		std::string nameB = b.first->name;
+
+		size_t posA = nameA.find_last_of('_');
+		size_t posB = nameB.find_last_of('_');
+
+		if (posA == std::string::npos || posB == std::string::npos) return false;
+
+		std::string numStrA = nameA.substr(posA + 1);
+		std::string numStrB = nameB.substr(posB + 1);
+
+		if (!std::all_of(numStrA.begin(), numStrA.end(), ::isdigit) ||
+			!std::all_of(numStrB.begin(), numStrB.end(), ::isdigit)) {
+			return false;
+		}
+
+		int numA = std::stoi(numStrA);
+		int numB = std::stoi(numStrB);
+		return numA < numB;
+		};
+
+	std::sort(seatingLocations.begin(), seatingLocations.end(), sortEntitiesSeats);
+
 
 	for (int i = 1; ; ++i)
 	{
@@ -169,8 +206,10 @@ void GameLoopLogic::Start()
 	}
 
 	customers[0]->StartWalking();
-
 	customerCount = customers.size();
+	timeSinceLastCustomer = 0.0f;
+
+	
 }
 
 void GameLoopLogic::Update()
@@ -246,6 +285,51 @@ void GameLoopLogic::Update()
 
 		return;
 	}
+	else 
+	{
+		if (!isSpawningCustomer) 
+		{
+			timeSinceLastCustomer += DuckEngine::DeltaTime();
+		}
+		else 
+		{
+			customerSpawnCooldown -= DuckEngine::DeltaTime();
+			if (customerSpawnCooldown <= 0.0f) 
+			{
+				isSpawningCustomer = false;
+				customerSpawnCooldown = 3.0f;
+			}
+		}
+
+		if (timeSinceLastCustomer >= customerSpawnInterval &&
+			currentCustomerIndex < customerCount - 1 &&
+			!isSpawningCustomer) 
+		{
+
+			bool anyCustomerWaiting = false;
+			// Check if any customer is waiting to place an order
+			for (auto* customer : customers) 
+			{
+				if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
+					customer->stateMachine.currentState == customer->WaitingOrderState) 
+				{
+					anyCustomerWaiting = true;
+					break;
+				}
+			}
+
+			if (!anyCustomerWaiting) 
+			{
+				timeSinceLastCustomer = 0.0f;
+				isSpawningCustomer = true;
+
+				currentCustomerIndex++;
+				std::cout << "Spawning next customer due to time interval" << std::endl;
+				customers[currentCustomerIndex]->StartWalking();
+			}
+		}
+	}
+
 
 	if (pauseMenuLogic)
 	{
@@ -320,10 +404,6 @@ void GameLoopLogic::Update()
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
 	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
-	if (submitLogic && submitLogic->CheckNewOrder()) {
-		UpdateOrderTexture();
-	}
-
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
 	{
 		submitLogic->increaseScore(10);
@@ -363,15 +443,44 @@ void GameLoopLogic::FixedUpdate()
 {
 }
 
-void GameLoopLogic::UpdateOrderTexture()
-{
-	auto* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OrderTab->entityID);
-	if (spriteRenderer) {
-		spriteRenderer->isVisible = false;
-	}
-}
-
 bool GameLoopLogic::IsGameStarted()
 {
 	return gameStarted;
+}
+
+bool GameLoopLogic::IsSeatOccupied(Entity* seat)
+{
+	for (auto& pairSeat : seatingLocations)
+	{
+		if (pairSeat.first == seat)
+		{
+			return pairSeat.second;
+		}
+	}
+	return false;
+}
+
+bool GameLoopLogic::OccupySeat(Entity* seat)
+{
+	for (auto& pairSeat : seatingLocations)
+	{
+		if (pairSeat.first == seat && !pairSeat.second)
+		{
+			pairSeat.second = true;
+			return true;
+		}
+	}
+	return false;
+}
+
+void GameLoopLogic::FreeSeat(Entity* seat)
+{
+	for (auto& pairSeat : seatingLocations)
+	{
+		if (pairSeat.first == seat)
+		{
+			pairSeat.second = false;
+			return;
+		}
+	}
 }

@@ -24,9 +24,22 @@ public:
 	std::vector<CustomerLogic*> customers{};
 	int currentCustomerIndex = 0;
 	int customerCount = 0;
+	bool isCustomerWaitingForOrder = false;
+	float timeSinceLastCustomer = 0.0f;
+	float customerSpawnInterval = 10.0f;
+	float customerSpawnCooldown = 3.0f;
+	bool isSpawningCustomer = false; 
+	int maxActiveOrders = 3;
+	int currentActiveOrders = 0;
+	int customersFinished = 0;
+
+
+	std::vector<std::pair<Entity*, bool>> seatingLocations{};
+	bool IsSeatOccupied(Entity* seat);
+	bool OccupySeat(Entity* seat);
+	void FreeSeat(Entity* seat);
 
 private:
-	void UpdateOrderTexture();
 	Entity* CutScene = nullptr;
 	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;
 };

@@ -32,7 +32,7 @@ void PlayerLogic::Start()
 	holding = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
 
-	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
+	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 	if(orderTabEntity)
 		orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
 
@@ -490,19 +490,40 @@ void PlayerLogic::InteractPressed()
 
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
 		if (submitLogic)
-		{			
-			if (orderTabLogic) {
-				if ((holding->getType() == orderTabLogic->GetCurrentOrder()) && orderTabLogic->GetCurrentCustomer()->WalkState->GetIsWaitingToCollectOrder())
+		{
+			ItemType heldType = holding->getType();
+
+			auto& allOrderTabs = orderTabLogic->GetOrderTabs();
+			bool orderSubmitted = false;
+
+			for (auto& tab : allOrderTabs)
+			{
+				if (tab.tabCustomer && !orderSubmitted)
 				{
-					orderTabLogic->GetCurrentCustomer()->OrderCompleted();
-					submitLogic->removeObject(holding->moveObject());
-					if (sound) sound->Play();
-					isHolding = false;
+					ItemType requestedItem = tab.tabOrder;
+					bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
+
+					if (heldType == requestedItem && isReadyToCollect)
+					{
+						tab.tabCustomer->OrderCompleted();
+
+						submitLogic->removeObject(holding->moveObject());
+
+						orderTabLogic->RemoveOrder(tab.tabCustomer);
+
+						if (sound)
+						{
+							sound->Play();
+						}
+
+						isHolding = false;
+						orderSubmitted = true;
+					}
 				}
 			}
-			
 			return;
 		}
+
 	}
 	
 }

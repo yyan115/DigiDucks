@@ -20,6 +20,7 @@ public:
 	std::shared_ptr<CustomerIdleState> IdleState;
 	std::shared_ptr<CustomerWalkState> WalkState;
 	std::shared_ptr<CustomerWaitingOrderState> WaitingOrderState;
+	bool isWaitingToGiveOrder = false;
 
 	CustomerLogic()
 		: IdleState(nullptr), WalkState(nullptr) {

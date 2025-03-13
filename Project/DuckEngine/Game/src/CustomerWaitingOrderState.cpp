@@ -2,6 +2,8 @@
 #include "CustomerLogic.h"
 #include "OrderTabLogic.h"
 #include "DuckEngine_Input.h"
+#include "GameLoopLogic.h"
+
 
 CustomerWaitingOrderState::CustomerWaitingOrderState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}
@@ -9,6 +11,13 @@ CustomerWaitingOrderState::CustomerWaitingOrderState(CustomerLogic* customerLogi
 void CustomerWaitingOrderState::Enter()
 {
 	std::cout << "Customer enters Waiting Order State" << std::endl;
+	owner->isWaitingToGiveOrder = true;
+
+	GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+	if (gameLoop) 
+	{
+		gameLoop->isCustomerWaitingForOrder = true;
+	}
 }
 
 
@@ -32,19 +41,35 @@ void CustomerWaitingOrderState::Update()
 	{
 		owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
 
-		Entity* orderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tab").get();
+		Entity* orderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 		OrderTabLogic* orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTab->entityID).get();
 
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J))
 		{
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
+
+			if (!orderTabLogic->HasFreeTab())
+			{
+				std::cout << "No free Order Tabs! Max order limit reached.\n";
+				return;
+			}
+
 			SoundComponent* quackSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("QuackSound").get()->entityID);
 			quackSound->Play(-1);
 			orderTabLogic->AddOrder(owner->GetCustomerOrderType(), owner);
 			orderTaken = true;
+			owner->isWaitingToGiveOrder = false;
 			owner->stateMachine.ChangeState(owner->WalkState);
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 
-			
+			GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+			if (gameLoop)
+			{
+				gameLoop->isCustomerWaitingForOrder = false;
+				gameLoop->currentActiveOrders++;
+			}
+
+
 		}
 	}
 	else
@@ -60,4 +85,9 @@ void CustomerWaitingOrderState::FixedUpdate()
 void CustomerWaitingOrderState::Exit()
 {
 	std::cout << "Customer exits Waiting Order State" << std::endl;
+	GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+	if (gameLoop) 
+	{
+		gameLoop->isCustomerWaitingForOrder = false;
+	}
 }

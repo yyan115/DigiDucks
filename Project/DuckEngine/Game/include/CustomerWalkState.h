@@ -17,6 +17,12 @@ public:
 	void CustomerOrderCollected() { orderCollected = true; }
 	bool GetIsWaitingToCollectOrder() { return isWaitingToCollectOrder; }
 
+	bool isOrderTaken = false;
+	bool orderCollected = false;
+	bool isWalkingToSeat = false;
+	bool isWaitingToCollectOrder = false;
+	size_t currentTargetIndex = 0;
+	std::pair<Entity*, bool>* customerSeat{};
 
 private:
 	Entity* currentQueueTarget = nullptr;
@@ -34,14 +40,7 @@ private:
 
 	std::vector<std::pair<Entity*, bool>> seatingLocations{};
 
-	std::pair<Entity*, bool>* customerSeat{};
 
-	bool isOrderTaken = false;
-	bool orderCollected = false;
-	bool isWalkingToSeat = false;
-	bool isWaitingToCollectOrder = false;
-	size_t currentTargetIndex = 0;
-	bool customerEnded = false;
 
 
 

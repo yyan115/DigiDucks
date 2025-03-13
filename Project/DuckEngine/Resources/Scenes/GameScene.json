@@ -2894,7 +2894,7 @@
                     "properties": {
                         "position": {
                             "x": -15.0,
-                            "y": -19.399999618530273
+                            "y": -21.200000762939453
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -4954,7 +4954,11 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
+<<<<<<< Updated upstream
                         "text": "77784"
+=======
+                        "text": "79521"
+>>>>>>> Stashed changes
                     },
                     "type": "TextComponent"
                 }
@@ -5085,7 +5089,7 @@
             ],
             "layer": "Gameplay"
         },
-        "Order_Tab": {
+        "Order_Tab_1": {
             "components": [
                 {
                     "properties": {
@@ -5117,6 +5121,156 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.2199999988079071,
+                            "y": -0.15000000596046448
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000012516975403,
+                            "y": 0.3500000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.36000001430511475,
+                            "y": -0.15000000596046448
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000012516975403,
+                            "y": 0.3500000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.15000000596046448
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000012516975403,
+                            "y": 0.3500000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tabs": {
+            "childNames": [
+                "Order_Tab_1",
+                "Order_Tab_2",
+                "Order_Tab_3",
+                "Order_Tab_4"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 },
                 {
                     "properties": {
@@ -5127,7 +5281,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Out_Table_1": {
             "components": [
@@ -6234,7 +6388,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "PlateSFXManager": {
             "components": [

@@ -13,6 +13,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "SubmitLogic.h"
+#include "GameLoopLogic.h"
 
 Entity* orderTab = nullptr;
 bool newOrderGenerated = false;
@@ -40,6 +41,16 @@ void SubmitLogic::removeObject(std::pair<int, ItemType> objData)
 {
 	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objData.first);
 	increaseScore();
+
+	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
+	if (gameLoopEntity) 
+	{
+		GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+		if (gameLoopLogic && gameLoopLogic->currentActiveOrders > 0) 
+		{
+			gameLoopLogic->currentActiveOrders--;
+		}
+	}
 }
 
 /****************************************************************

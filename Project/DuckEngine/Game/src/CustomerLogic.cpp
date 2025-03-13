@@ -63,7 +63,7 @@ void CustomerLogic::FixedUpdate()
 	stateMachine.currentState->FixedUpdate();
 }
 
-void CustomerLogic::OrderCompleted()
+void CustomerLogic::OrderCompleted() 
 {
 	WalkState->CustomerOrderCollected();
 	stateMachine.ChangeState(WalkState);
