@@ -75,18 +75,49 @@ void MainMenu::Load()
 	fadeInElapsedTime = 0.0f;
 	isFadingIn = true;
 
-	start->onClick = [this]() 
+	start->onClick = [this]()
 		{
-			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
 			StartSound->Play(1);
-			if (level0Scene->GetIsFinishedTutorial())
+
+			std::string sceneToLoad;
+
+			if (LevelSelectScreenLogic::currentStage >= 5)
 			{
-				OnPlayButtonClicked("GameScene");
+				sceneToLoad = "Level35";
+				std::cout << "Starting Level 3.5" << std::endl;
+			}
+			else if (LevelSelectScreenLogic::currentStage == 4)
+			{
+				sceneToLoad = "Level3";
+				std::cout << "Starting Level 3" << std::endl;
+			}
+			else if (LevelSelectScreenLogic::currentStage == 3)
+			{
+				sceneToLoad = "Level25";
+				std::cout << "Starting Level 2.5" << std::endl;
+			}
+			else if (LevelSelectScreenLogic::currentStage == 2)
+			{
+				sceneToLoad = "Level2";
+				std::cout << "Starting Level 2" << std::endl;
+			}
+			else if (LevelSelectScreenLogic::currentStage == 1)
+			{
+				sceneToLoad = "Level15";
+				std::cout << "Starting Level 1.5" << std::endl;
+			}
+			else if (LevelSelectScreenLogic::currentStage == 0)
+			{
+				sceneToLoad = "Level1";
+				std::cout << "Starting Level 1" << std::endl;
 			}
 			else
 			{
-				OnPlayButtonClicked("Level0");
+				sceneToLoad = "Level0"; // Default to tutorial if no progress
+				std::cout << "Starting Tutorial Level 0" << std::endl;
 			}
+
+			OnPlayButtonClicked(sceneToLoad);
 		};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
