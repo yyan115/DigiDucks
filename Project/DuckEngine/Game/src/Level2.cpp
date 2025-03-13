@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-\file       Level0.cpp
+\file       Level2.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\date       November 18 2024
-\brief      Implementation of the GameScene class, which handles the game logic
+\date       March 13 2025
+\brief      Implementation of the Level2 class, which handles the game logic
 			for the main game scene. This includes loading assets, initializing
 			game objects, updating game logic, and cleaning up resources.
 
@@ -14,24 +14,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "Level0.h"
+#include "Level2.h"
 #include "Scene.h"
-#include "CutSceneLogic.h"
 #include "ScoreLogic.h"
-#include "GameLogicManager.h"
 #include "GameLoopLogic.h"
 #include "LevelSelectScreenLogic.h"
 
-/****************************************************************
-* @brief Load all necessary resources for the scene.
-* This function is called before the scene starts.
-* ****************************************************************/
+// state manger for this level
+//CustomerStateManager stateManager;
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
 * ****************************************************************/
-void Level0::Load()
+void Level2::Load()
 {
 	Scene::Load();
 
@@ -42,17 +38,46 @@ void Level0::Load()
 * setting up the initial state. This function is called when
 * the scene begins running.
 * ****************************************************************/
-void Level0::Start()
+void Level2::Start()
 {
 	Scene::Start();
-	ScoreLogic::dayNumber = 0;
+
+	ScoreLogic::dayNumber = 1;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
-	
-	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
 
-	LevelSelectScreenLogic::currentStage = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		// Random number from 0 to 4
+		int random = rand() % 4;
+		switch (random)
+		{
+		case 0:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			break;
+		case 1:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
+			break;
+		case 2:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
+			break;
+		case 3:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_MUSHROOM);
+			break;
+		case 4:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_TOMATO);
+			break;
+		};
+	}
+
+	LevelSelectScreenLogic::currentStage = 3;
+
+	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
+	//gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+	//gameLoopLogic->customers[3]->SetOrder(ItemType::SALAD_PLATE);
 }
 
 /****************************************************************
@@ -60,8 +85,9 @@ void Level0::Start()
 * input and updating game objects. This function is called
 * every frame.
 * ****************************************************************/
-void Level0::Update()
+void Level2::Update()
 {
+
 
 }
 
@@ -70,7 +96,7 @@ void Level0::Update()
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void Level0::PostUpdate()
+void Level2::PostUpdate()
 {
 
 }
@@ -79,7 +105,7 @@ void Level0::PostUpdate()
 * @brief Exit the scene, performing any cleanup necessary before
 * the scene is unloaded.
 * ****************************************************************/
-void Level0::Exit()
+void Level2::Exit()
 {
 
 }
@@ -88,7 +114,7 @@ void Level0::Exit()
 * @brief Unload the scene and free any resources that were loaded
 * during the Load() phase.
 * ****************************************************************/
-void Level0::Unload()
+void Level2::Unload()
 {
 	// base unload
 	Scene::Unload();

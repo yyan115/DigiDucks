@@ -110,6 +110,21 @@
     <ClCompile Include="..\src\GameLoopLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Level15.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level2.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level3.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level25.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level35.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -359,6 +374,21 @@
     </ClInclude>
     <ClInclude Include="..\include\GameLoopLogic.h">
       <Filter>include\Logic\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level15.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level2.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level3.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level25.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Level35.h">
+      <Filter>include\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

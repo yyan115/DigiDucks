@@ -2231,7 +2231,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 70.0,
+                        "currentValue": 60.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "64027"
+                        "text": "88061"
                     },
                     "type": "TextComponent"
                 }

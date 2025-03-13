@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "GameScene.h"
 #include "ScoreLogic.h"
+#include "LevelSelectScreenLogic.h"
 
 SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
@@ -102,6 +103,8 @@ void EndScene::Start()
 
 	std::string dayTextureName = "DAY" + std::to_string(ScoreLogic::dayNumber);
 	backgroundSR->texture = AssetManager::GetTextureByName(dayTextureName);
+
+	LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage++;
 }
 
 void EndScene::Update()

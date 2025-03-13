@@ -50,6 +50,13 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLoopLogic.h"
 #include "MiniGameLogic.h"
 
+#include "Level15.h"
+#include "Level2.h"
+#include "Level25.h"
+#include "Level3.h"
+#include "Level35.h"
+
+
 DuckEngine GameManager::DuckEngine;
 
 std::string GameManager::ActiveSceneName = "SpriteMovementScene";
@@ -70,6 +77,11 @@ void GameManager::InitScenes()
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level15", std::make_shared<Level15>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2", std::make_shared<Level2>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level25", std::make_shared<Level25>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3", std::make_shared<Level3>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level35", std::make_shared<Level35>());
 
 
 	// add game logic

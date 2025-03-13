@@ -1,6 +1,8 @@
 #include "LevelSelectScreenLogic.h"
 #include "MainMenu.h"
 
+int LevelSelectScreenLogic::currentStage = -1;
+int LevelSelectScreenLogic::stageLevel = 0;
 
 //LevelSelectScreen
 void LevelSelectScreenLogic::Start()
@@ -12,46 +14,162 @@ void LevelSelectScreenLogic::Start()
 	ButtonComponent* XButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(XButtonEntity->entityID);
 	SoundComponent* SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(XButtonEntity->entityID);
 
+	// Get all level buttons
 	Entity* level0ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level0Button").get();
 	ButtonComponent* level0Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level0ButtonEntity->entityID);
+	SpriteRendererComponent* level0Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level0ButtonEntity->entityID);
 
 	Entity* level1ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level1Button").get();
 	ButtonComponent* level1Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level1ButtonEntity->entityID);
+	SpriteRendererComponent* level1Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level1ButtonEntity->entityID);
+
+	Entity* level1_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level1.5Button").get();
+	ButtonComponent* level1_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level1_5ButtonEntity->entityID);
+	SpriteRendererComponent* level1_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level1_5ButtonEntity->entityID);
+
+	Entity* level2ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level2Button").get();
+	ButtonComponent* level2Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level2ButtonEntity->entityID);
+	SpriteRendererComponent* level2Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level2ButtonEntity->entityID);
+
+	Entity* level2_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level2.5Button").get();
+	ButtonComponent* level2_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level2_5ButtonEntity->entityID);
+	SpriteRendererComponent* level2_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level2_5ButtonEntity->entityID);
+
+	Entity* level3ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level3Button").get();
+	ButtonComponent* level3Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level3ButtonEntity->entityID);
+	SpriteRendererComponent* level3Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level3ButtonEntity->entityID);
+
+	Entity* level3_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level3.5Button").get();
+	ButtonComponent* level3_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level3_5ButtonEntity->entityID);
+	SpriteRendererComponent* level3_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level3_5ButtonEntity->entityID);
 
 	levelSelectScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID);
 	mainMenuScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID);
 
 	mainMenu = DuckEngine::DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu").get();
 
+	// X Button to return to main menu
 	XButton->onClick = [this, SFX]()
 		{
 			SFX->Play();
 			levelSelectScreenSpriteRenderer->isVisible = false;
 			mainMenuScreenSpriteRenderer->isVisible = true;
-			
 		};
 
+	// Set up level button visibility based on current stage
+	// Level 0 (Tutorial) - Always available
 	level0Button->onClick = [this, SFX]()
 		{
 			std::cout << "Level 0 button clicked!" << std::endl;
 			SFX->Play();
+			stageLevel = 0;
 			mainMenu->OnPlayButtonClicked("Level0");
 		};
 
+	// Level 1 - Available if currentStage >= 0
 	level1Button->onClick = [this, SFX]()
 		{
-			std::cout << "Level 1 button clicked!" << std::endl;
-			SFX->Play();
-			mainMenu->OnPlayButtonClicked("GameScene");
+			if (currentStage >= 0) {
+				std::cout << "Level 1 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 1;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
 		};
+
+	// Level 1.5 - Available if currentStage >= 1
+	level1_5Button->onClick = [this, SFX]()
+		{
+			if (currentStage >= 1) {
+				std::cout << "Level 1.5 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 2;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
+		};
+
+	// Level 2 - Available if currentStage >= 2
+	level2Button->onClick = [this, SFX]()
+		{
+			if (currentStage >= 2) {
+				std::cout << "Level 2 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 3;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
+		};
+
+	// Level 2.5 - Available if currentStage >= 3
+	level2_5Button->onClick = [this, SFX]()
+		{
+			if (currentStage >= 3) {
+				std::cout << "Level 2.5 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 4;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
+		};
+
+	// Level 3 - Available if currentStage >= 4
+	level3Button->onClick = [this, SFX]()
+		{
+			if (currentStage >= 4) {
+				std::cout << "Level 3 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 5;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
+		};
+
+	// Level 3.5 - Available if currentStage >= 5
+	level3_5Button->onClick = [this, SFX]()
+		{
+			if (currentStage >= 5) {
+				std::cout << "Level 3.5 button clicked!" << std::endl;
+				SFX->Play();
+				stageLevel = 6;
+				mainMenu->OnPlayButtonClicked("GameScene");
+			}
+		};
+
+	// Update button visuals based on currentStage
+	UpdateLevelButtonVisuals(level0Sprite, level1Sprite, level1_5Sprite, level2Sprite,
+		level2_5Sprite, level3Sprite, level3_5Sprite);
 }
 
 void LevelSelectScreenLogic::Update()
 {
-
+	// No additional updates needed in each frame
 }
 
 void LevelSelectScreenLogic::FixedUpdate()
 {
+	// No fixed update logic needed
+}
 
+void LevelSelectScreenLogic::UpdateLevelButtonVisuals(
+	SpriteRendererComponent* level0Sprite,
+	SpriteRendererComponent* level1Sprite,
+	SpriteRendererComponent* level1_5Sprite,
+	SpriteRendererComponent* level2Sprite,
+	SpriteRendererComponent* level2_5Sprite,
+	SpriteRendererComponent* level3Sprite,
+	SpriteRendererComponent* level3_5Sprite)
+{
+	float lockedAlpha = 0.5f; 
+	float unlockedAlpha = 1.0f; 
+
+	level0Sprite->color.a = unlockedAlpha;
+
+	level1Sprite->color.a = (currentStage >= 0) ? unlockedAlpha : lockedAlpha;
+	level1_5Sprite->color.a = (currentStage >= 1) ? unlockedAlpha : lockedAlpha;
+	level2Sprite->color.a = (currentStage >= 2) ? unlockedAlpha : lockedAlpha;
+	level2_5Sprite->color.a = (currentStage >= 3) ? unlockedAlpha : lockedAlpha;
+	level3Sprite->color.a = (currentStage >= 4) ? unlockedAlpha : lockedAlpha;
+	level3_5Sprite->color.a = (currentStage >= 5) ? unlockedAlpha : lockedAlpha;
+}
+
+void LevelSelectScreenLogic::LevelCompleted() 
+{
+	currentStage++;
 }

@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
+#include "LevelSelectScreenLogic.h"
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -70,6 +71,8 @@ void GameScene::Start()
 			break;
 		};
 	}
+
+	LevelSelectScreenLogic::currentStage = 1;
 
 	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
 	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);

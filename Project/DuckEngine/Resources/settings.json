@@ -1,7 +1,7 @@
 {
     "project": {
         "startLevel": "MainMenu",
-        "targetFPS": 60,
+        "targetFPS": 70,
         "useVSync": false,
         "windowResolution": {
             "height": 900,

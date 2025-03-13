@@ -208,6 +208,11 @@
     <ClCompile Include="..\src\HowToPlay.cpp" />
     <ClCompile Include="..\src\HowToPlayLogic.cpp" />
     <ClCompile Include="..\src\Level0.cpp" />
+    <ClCompile Include="..\src\Level15.cpp" />
+    <ClCompile Include="..\src\Level2.cpp" />
+    <ClCompile Include="..\src\Level25.cpp" />
+    <ClCompile Include="..\src\Level3.cpp" />
+    <ClCompile Include="..\src\Level35.cpp" />
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp" />
     <ClCompile Include="..\src\MainMenu.cpp" />
     <ClCompile Include="..\src\MaxLoadScene.cpp" />
@@ -254,6 +259,11 @@
     <ClInclude Include="..\include\IngredientType.h" />
     <ClInclude Include="..\include\LettuceStockLogic.h" />
     <ClInclude Include="..\include\Level0.h" />
+    <ClInclude Include="..\include\Level15.h" />
+    <ClInclude Include="..\include\Level2.h" />
+    <ClInclude Include="..\include\Level25.h" />
+    <ClInclude Include="..\include\Level3.h" />
+    <ClInclude Include="..\include\Level35.h" />
     <ClInclude Include="..\include\LevelSelectScreenLogic.h" />
     <ClInclude Include="..\include\MainMenu.h" />
     <ClInclude Include="..\include\MaxLoadScene.h" />
