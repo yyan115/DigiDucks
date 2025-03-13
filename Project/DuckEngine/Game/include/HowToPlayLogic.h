@@ -1,8 +1,7 @@
 /******************************************************************************/
 /*!
 \file       HowToPlayLogic.h
-\author     Ernest Ho, h.yonghengernest, 2301223 (50%)
-\author
+\author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu,
 \date       Feb 6 2025
 \brief      Definition of all Chopping Board Logic functions
@@ -34,7 +33,7 @@ public:
         return clone;
     }
 
-    void Show();  // Call this to show the HowToPlay screen
+    //void Show();  // Call this to show the HowToPlay screen
 
 private:
     void UpdateJournalPage();  // Updates the journal page texture

@@ -1,3 +1,17 @@
+/******************************************************************************/
+/*!
+\file       GetPanLogic.h
+\author     Ernest Ho, h.yonghengernest, 2301223
+\par        h.yonghengernestt@digipen.edu
+\date       March 4 2025
+\brief      Declartion of all GetPan Logic functions
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "DuckEngine.h"
@@ -41,16 +55,12 @@ public:
 	/****************************************************************
 	* @brief Update function for the Score Logic.
 	* ****************************************************************/
-	void Update() override
-	{
-	}
+	void Update() override {}
 
 	/****************************************************************
 	* @brief Fixed Update function for the Score Logic.
 	* ****************************************************************/
-	void FixedUpdate() override 
-	{
-	}
+	void FixedUpdate() override {}
 
 
 	std::shared_ptr<GameLogic> Clone() const override

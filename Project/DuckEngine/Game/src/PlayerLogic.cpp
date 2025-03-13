@@ -1,9 +1,9 @@
 /******************************************************************************/
 /*!
-\file       PlayerLogic.h
+\file       PlayerLogic.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\date       November 27 2024
+\date       March 13 2025
 \brief      Definition of all Player Logic functions
 
 Copyright (C) 2024 DigiPen Institute of Technology.

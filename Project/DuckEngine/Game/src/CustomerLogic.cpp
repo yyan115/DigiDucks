@@ -9,20 +9,6 @@ void CustomerLogic::SetOrder(ItemType order)
 {
 	customerOrderType = order;
 
-	//if (order == ItemType::CHEESE_BURGER_PLATE)
-	//{
-	//	customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_buncheesepattyplate");
-	//}
-	//else if (order == ItemType::SALAD_PLATE)
-	//{
-	//	customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettucetomatoshrimp");
-
-	//}
-	//else if (order == ItemType::LETTUCE_PLATE)
-	//{
-	//	customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettuce");
-	//}
-
 	customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_" + whatType(order));
 }
 

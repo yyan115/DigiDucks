@@ -3,8 +3,8 @@
 \file       BowlStockLogic.h
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\date       November 25 2024
-\brief      Declartion of all White Plate Stock Logic functions
+\date       March 4 2025
+\brief      Declartion of all Bowl Stock Logic functions
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior

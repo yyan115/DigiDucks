@@ -422,7 +422,7 @@ void GameLoopLogic::Update()
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_P))
 	{
-		std::cout << "K is pressed!\n";
+		std::cout << "P is pressed!\n";
 		DuckEngine::ToggleShowDebugColliders();
 	}
 

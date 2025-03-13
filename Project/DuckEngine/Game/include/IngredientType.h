@@ -84,7 +84,8 @@ enum class ItemType : int
 
 };
 
-
+// Get the string representation of the ItemType
+// Can be used for debugging or getting image file names
 inline std::string whatType(ItemType type)
 {
     switch (type)
@@ -191,6 +192,7 @@ inline std::string whatType(ItemType type)
     };
 }
 
+// Check if the item is an ingredient
 inline bool isIngredient(ItemType type)
 {
 	switch (type)
@@ -218,6 +220,7 @@ inline bool isIngredient(ItemType type)
 	}
 }
 
+// Check if the item is/on a plate
 inline bool isPlate(ItemType type)
 {
 	switch (type)
@@ -246,6 +249,7 @@ inline bool isPlate(ItemType type)
 	}
 }
 
+// Check if the item is a bowl
 inline bool isBowl(ItemType type)
 {
 	switch (type)
@@ -262,6 +266,7 @@ inline bool isBowl(ItemType type)
 	}
 }
 
+// Check if the item is part of/a equipment
 inline bool isEquipment(ItemType type)
 {
 	switch (type)

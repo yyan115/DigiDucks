@@ -1,13 +1,9 @@
 /******************************************************************************/
 /*!
 \file       GameScene.cpp
-\author     Ernest Ho, h.yonghengernest, 2301223 (50%)
+\author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
-\author     Jovan Chua, c.shengkaijovan, 2301244 (25%)
-\par        c.shengkaijovan@digipen.edu
-\author     Tan Yan Kai, yankai.tan, 2301312 (25%)
-\par        yankai.tan@digipen.edu
-\date       November 18 2024
+\date       March 13 2025
 \brief      Implementation of the GameScene class, which handles the game logic
 			for the main game scene. This includes loading assets, initializing
 			game objects, updating game logic, and cleaning up resources.

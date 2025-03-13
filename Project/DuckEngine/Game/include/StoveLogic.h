@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-\file       PanLogic.h
+\file       StoveLogic.h
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
 \date       November 27 2024
-\brief      Declartion of all Pan Logic functions
+\brief      Declartion of all Stove Logic functions
 
 Copyright (C) 2024 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
