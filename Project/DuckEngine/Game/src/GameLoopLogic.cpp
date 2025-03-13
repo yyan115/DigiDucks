@@ -151,46 +151,21 @@ void GameLoopLogic::Start()
 	DuckEngine::RegisterEmitter("CookingSparks", sparks);
 
 
-	Entity* customer1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_1").get();
-	if (customer1)
+	for (int i = 1; ; ++i)
 	{
-		CustomerLogic* customer1Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer1->entityID).get();
-		customers.push_back(customer1Logic);
+		std::string customerName = "Customer_" + std::to_string(i);
+		Entity* customer = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(customerName).get();
 
-		if (customer1Logic)
+		if (!customer) break;
+
+		CustomerLogic* customerLogic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer->entityID).get();
+		if (customerLogic)
 		{
-			int randomDishOrder = DuckEngine::RandomRange(1, 2);
-			if (randomDishOrder == 1)
-			{
-				customer1Logic->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-			}
-			else
-			{
-				customer1Logic->SetOrder(ItemType::SALAD_PLATE);
-			}
+			customers.push_back(customerLogic);
 		}
 	}
 
-	Entity* customer2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_2").get();
-	if (customer2)
-	{
-		CustomerLogic* customer2Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer2->entityID).get();
-		customers.push_back(customer2Logic);
-	}
-
-	Entity* customer3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_3").get();
-	if (customer3)
-	{
-		CustomerLogic* customer3Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer3->entityID).get();
-		customers.push_back(customer3Logic);
-	}
-
-	Entity* customer4 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Customer_4").get();
-	if (customer4)
-	{
-		CustomerLogic* customer4Logic = GameLogicManager::GetLogicForEntity<CustomerLogic>(customer4->entityID).get();
-		customers.push_back(customer4Logic);
-	}
+	customers[0]->StartWalking();
 
 	customerCount = customers.size();
 }

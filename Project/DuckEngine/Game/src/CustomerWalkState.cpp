@@ -162,17 +162,8 @@ void CustomerWalkState::FixedUpdate()
             std::cout << "NEXT CUSTOMER" << std::endl;
 
             owner->GetGameLoopLogic()->currentCustomerIndex++;
-            CustomerLogic* nextCustomer = owner->GetGameLoopLogic()->customers[owner->GetGameLoopLogic()->currentCustomerIndex];
-
-            int randomDishOrder = DuckEngine::RandomRange(1, 2);
-            if (randomDishOrder == 1)
-            {
-                nextCustomer->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-            }
-            else
-            {
-                nextCustomer->SetOrder(ItemType::SALAD_PLATE);
-            }
+			CustomerLogic* nextCustomer = owner->GetGameLoopLogic()->customers[owner->GetGameLoopLogic()->currentCustomerIndex];
+            nextCustomer->StartWalking();
             customerEnded = true;
 
         }

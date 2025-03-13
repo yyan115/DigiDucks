@@ -42,6 +42,7 @@ public:
 	GameScene* GetGameScene() { return gameScene; }
 	ItemType GetCustomerOrderType() { return customerOrderType; }
 	void OrderCompleted();
+	void StartWalking();
 
 private:
 	GameScene* gameScene = nullptr;

@@ -21,8 +21,11 @@ void CustomerLogic::SetOrder(ItemType order)
 	else if (order == ItemType::LETTUCE_PLATE)
 	{
 		customerOrderSpriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("speech_lettuce");
-
 	}
+}
+
+void CustomerLogic::StartWalking()
+{
 	stateMachine.ChangeState(WalkState);
 }
 

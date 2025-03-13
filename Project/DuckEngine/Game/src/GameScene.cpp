@@ -21,6 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameScene.h"
 #include "Scene.h"
 #include "ScoreLogic.h"
+#include "GameLoopLogic.h"
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -45,6 +46,14 @@ void GameScene::Start()
 	Scene::Start();
 
 	ScoreLogic::dayNumber = 1;
+
+	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
+	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+
+	gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+	gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
+	gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+	gameLoopLogic->customers[3]->SetOrder(ItemType::SALAD_PLATE);
 }
 
 /****************************************************************

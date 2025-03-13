@@ -18,6 +18,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "CutSceneLogic.h"
 #include "ScoreLogic.h"
+#include "GameLogicManager.h"
+#include "GameLoopLogic.h"
 
 
 /****************************************************************
@@ -44,6 +46,12 @@ void Level0::Start()
 {
 	Scene::Start();
 	ScoreLogic::dayNumber = 0;
+
+	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
+	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+	
+	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_PLATE);
+
 }
 
 /****************************************************************
