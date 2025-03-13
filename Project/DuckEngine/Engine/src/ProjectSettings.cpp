@@ -1,3 +1,21 @@
+/******************************************************************************/
+/*!
+\file       ProjectSettings.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the ProjectSettings class, responsible for managing
+			global game settings such as resolution, frame rate, VSync, and
+			audio volumes. The class handles loading and saving settings
+			via JSON, enabling runtime configuration updates.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "ProjectSettings.h"
 #include "Serialization.h"
 #include "SoundSystem.h"
@@ -12,15 +30,6 @@ int ProjectSettings::targetFPS = ProjectSettings::DEFAULT_TARGET_FPS;
 // Volume
 DUCKENGINE_API float ProjectSettings::masterVolume = ProjectSettings::DEFAULT_MASTER_VOLUME;
 DUCKENGINE_API std::unordered_map<std::string, float> ProjectSettings::volumeCategories;
-
-static float SafeGetFloat(const nlohmann::json& j, const std::string& key, float defaultVal)
-{
-	if (j.contains(key) && j[key].is_number_float())
-	{
-		return j[key].get<float>();
-	}
-	return defaultVal;
-}
 
 void ProjectSettings::LoadDefaults()
 {

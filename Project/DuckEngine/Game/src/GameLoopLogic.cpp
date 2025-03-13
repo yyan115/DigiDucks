@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\file       GameLoopLogic.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the GameLoopLogic class, which manages the core
+			gameplay loop, including initialization, updates, and fixed
+			updates. It handles UI elements, timers, scoring, customer
+			logic, and player interactions. This system interacts with
+			DuckEngine’s entity and component managers, as well as various
+			logic systems such as PauseMenuLogic, GameSettingsLogic, and
+			CutSceneLogic.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "GameLoopLogic.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
@@ -116,6 +137,18 @@ void GameLoopLogic::Start()
 		CountdownText->isEnabled = false;
 	}
 
+	auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
+	if (pauseMenu)
+	{
+		pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
+	}
+
+	auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
+	if (settingsMenu)
+	{
+		gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
+	}
+
 	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutScene) CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
 	
@@ -206,7 +239,7 @@ void GameLoopLogic::Start()
 	}
 
 	customers[0]->StartWalking();
-	customerCount = customers.size();
+	customerCount = static_cast<int>(customers.size());
 	timeSinceLastCustomer = 0.0f;
 
 	
@@ -226,24 +259,6 @@ void GameLoopLogic::Update()
 
 	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
 
-
-	if (!pauseMenuLogic)
-	{
-		auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu").get();
-		if (pauseMenu)
-		{
-			pauseMenuLogic = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID);
-		}
-	}
-
-	if (!gameSettingsLogic)
-	{
-		auto settingsMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn").get();
-		if (settingsMenu)
-		{
-			gameSettingsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(settingsMenu->entityID);
-		}
-	}
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -340,8 +355,9 @@ void GameLoopLogic::Update()
 
 	}
 
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) {
-		SoundComponent* soundComponent = static_cast<SoundComponent*>(component.get());
+	for (const auto& [entityId, sComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) 
+	{
+		SoundComponent* soundComponent = static_cast<SoundComponent*>(sComponent.get());
 		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
 			soundComponent->Play();
 		}

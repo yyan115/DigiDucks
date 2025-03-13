@@ -418,55 +418,7 @@ void MiniGameLogic::Start()
 			gameSS_Pad_Spt->isVisible = false;
 		}
 	}
-
-	gameSS_RedButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Red").get();
-	if (gameSS_RedButton)
-	{
-		gameSS_RedButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_RedButton->entityID);
-		if (gameSS_RedButton_Spt)
-		{
-			gameSS_RedButton_Spt->isVisible = false;
-		}
-
-		gameSS_RedButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_RedButton->entityID);
-	}
-
-	gameSS_YellowButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Yellow").get();
-	if (gameSS_YellowButton)
-	{
-		gameSS_YellowButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_YellowButton->entityID);
-		if (gameSS_YellowButton_Spt)
-		{
-			gameSS_YellowButton_Spt->isVisible = false;
-		}
-
-		gameSS_YellowButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_YellowButton->entityID);
-	}
-
-	gameSS_GreenButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Green").get();
-	if (gameSS_GreenButton)
-	{
-		gameSS_GreenButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_GreenButton->entityID);
-		if (gameSS_GreenButton_Spt)
-		{
-			gameSS_GreenButton_Spt->isVisible = false;
-		}
-
-		gameSS_GreenButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_GreenButton->entityID);
-	}
-
-	gameSS_BlueButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Blue").get();
-	if (gameSS_BlueButton)
-	{
-		gameSS_BlueButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_BlueButton->entityID);
-		if (gameSS_BlueButton_Spt)
-		{
-			gameSS_BlueButton_Spt->isVisible = false;
-		}
-
-		gameSS_BlueButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_BlueButton->entityID);
-	}
-
+	
 	gameSS_RedButtonL = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_RedL").get();
 	if (gameSS_RedButtonL)
 	{
@@ -507,7 +459,81 @@ void MiniGameLogic::Start()
 		}
 	}
 
+	gameSS_RedButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Red").get();
+	if (gameSS_RedButton)
+	{
+		gameSS_RedButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_RedButton->entityID);
+		if (gameSS_RedButton_Spt)
+		{
+			gameSS_RedButton_Spt->isVisible = false;
+		}
 
+		gameSS_RedButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_RedButton->entityID);
+		if (gameSS_RedButton_Btn)
+		{
+			gameSS_RedButton_Btn->onClick = [this]()
+			{
+					gameSS_RedButtonL_Spt->isVisible = true;
+			};
+		}
+	}
+
+	gameSS_YellowButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Yellow").get();
+	if (gameSS_YellowButton)
+	{
+		gameSS_YellowButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_YellowButton->entityID);
+		if (gameSS_YellowButton_Spt)
+		{
+			gameSS_YellowButton_Spt->isVisible = false;
+		}
+
+		gameSS_YellowButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_YellowButton->entityID);
+		if (gameSS_YellowButton_Btn)
+		{
+			gameSS_YellowButton_Btn->onClick = [this]()
+			{
+				gameSS_YellowButtonL_Spt->isVisible = true;
+			};
+		}
+	}
+
+	gameSS_GreenButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Green").get();
+	if (gameSS_GreenButton)
+	{
+		gameSS_GreenButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_GreenButton->entityID);
+		if (gameSS_GreenButton_Spt)
+		{
+			gameSS_GreenButton_Spt->isVisible = false;
+		}
+
+		gameSS_GreenButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_GreenButton->entityID);
+		if (gameSS_GreenButton_Btn)
+		{
+			gameSS_GreenButton_Btn->onClick = [this]()
+			{
+				gameSS_GreenButtonL_Spt->isVisible = true;
+			};
+		}
+	}
+
+	gameSS_BlueButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SS_Blue").get();
+	if (gameSS_BlueButton)
+	{
+		gameSS_BlueButton_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameSS_BlueButton->entityID);
+		if (gameSS_BlueButton_Spt)
+		{
+			gameSS_BlueButton_Spt->isVisible = false;
+		}
+
+		gameSS_BlueButton_Btn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameSS_BlueButton->entityID);
+		if (gameSS_BlueButton_Btn)
+		{
+			gameSS_BlueButton_Btn->onClick = [this]()
+			{
+				gameSS_BlueButtonL_Spt->isVisible = true;
+			};
+		}
+	}
 
 }
 
@@ -529,11 +555,11 @@ void MiniGameLogic::Update()
 
 	if (MiniGame)
 	{
-		MiniGame_1(true);
+		MiniGame_2(true);
 	}
 	else
 	{
-		MiniGame_1(false);
+		MiniGame_2(false);
 	}
 }
 
@@ -720,19 +746,97 @@ std::string MiniGameLogic::GenerateRandomNumericString(int minLength, int maxLen
 	return result;
 }
 
-//void MiniGameLogic::MiniGame_2(bool state)
-//{
-//	for (int i = 0; i < round; i++)
-//	{
-//		SimonSaysColor();
-//	}
-//}
-//
-//std::string MiniGameLogic:: SimonSaysColor()
-//{
-//	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
-//	std::string result;
-//	result += std::to_string(std::rand() % 4 + 1);
-//
-//	return result;
-//}
+void MiniGameLogic::MiniGame_2(bool state)
+{
+	if (gameSS_BG)
+	{
+		gameSS_BG_Spt->isVisible = state;
+	}
+	if (gameSS_Pad)
+	{
+		gameSS_Pad_Spt->isVisible = state;
+	}
+	if (gameSS_RedButton)
+	{
+		gameSS_RedButton_Spt->isVisible = state;
+	}
+	if (gameSS_YellowButton)
+	{
+		gameSS_YellowButton_Spt->isVisible = state;
+	}
+	if (gameSS_GreenButton)
+	{
+		gameSS_GreenButton_Spt->isVisible = state;
+	}
+	if (gameSS_BlueButton)
+	{
+		gameSS_BlueButton_Spt->isVisible = state;
+	}
+
+}
+
+std::string MiniGameLogic:: SimonSaysColor()
+{
+	std::srand(static_cast<unsigned int>(std::time(nullptr))); // Seed the random generator
+	result += std::to_string(std::rand() % 4 + 1);
+
+	for (size_t i = 0; i < result.size(); i++)
+	{
+		ButtonLight(result[i]);
+
+		buffertime();
+
+		ButtonOff(result[i]);
+	}
+
+	return result;
+}
+
+void MiniGameLogic::ButtonLight(char light)
+{
+	if (light == '1')
+	{
+		gameSS_RedButtonL_Spt->isVisible = true;
+	}
+	else if (light == '2')
+	{
+		gameSS_YellowButtonL_Spt->isVisible = true;
+	}
+	else if (light == '3')
+	{
+		gameSS_GreenButtonL_Spt->isVisible = true;
+	}
+	else if (light == '4')
+	{
+		gameSS_BlueButtonL_Spt->isVisible = true;
+	}
+}
+
+void MiniGameLogic::ButtonOff(char light)
+{
+	if (light == '1')
+	{
+		gameSS_RedButtonL_Spt->isVisible = false;
+	}
+	else if (light == '2')
+	{
+		gameSS_YellowButtonL_Spt->isVisible = false;
+	}
+	else if (light == '3')
+	{
+		gameSS_GreenButtonL_Spt->isVisible = false;
+	}
+	else if (light == '4')
+	{
+		gameSS_BlueButtonL_Spt->isVisible = false;
+	}
+}
+
+void MiniGameLogic::buffertime()
+{
+	while (buffer < 3)
+	{
+		buffer += DuckEngine::DeltaTime();
+	}
+}
+

@@ -13,9 +13,9 @@
 
 enum SimonSays {
 	RED = 1,
-	GREEN = 2,
-	BLUE = 3,
-	YELLOW = 4
+	YELLOW = 2,
+	GREEN = 3,
+	BLUE = 4
 };
 
 class MiniGameLogic : public GameLogic
@@ -26,6 +26,9 @@ public:
 	void passwordInput(std::string num);
 	void enterPassword();
 	void deletePassword();
+	void ButtonLight(char light);
+	void ButtonOff(char light);
+	void buffertime();
 
 	MiniGameLogic() : GameLogic(nullptr) {}
 
@@ -178,9 +181,12 @@ private:
 	SpriteRendererComponent* gameSS_Pad_Spt = nullptr;
 
 	bool textcount = true;
-	int round = 5;
+	int round = 3;
 	int score = 0;
+	std::string result = "";
+	float buffer = 0 ;
 
 	std::string GenerateRandomNumericString(int minLength, int maxLength);
-	
+	std::string SimonSaysColor();
+
 };

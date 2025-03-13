@@ -1,4 +1,23 @@
-﻿#pragma once
+﻿/******************************************************************************/
+/*!
+\file       GameLoopLogic.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Declares the GameLoopLogic class, which defines the core game
+			loop, managing customer interactions, seating logic, and
+			gameplay states. This class integrates with DuckEngine’s
+			component system and various logic managers, including
+			PauseMenuLogic, GameSettingsLogic, and CutSceneLogic.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
+#pragma once
 
 #include "DuckEngine.h"
 #include "CustomerLogic.h"

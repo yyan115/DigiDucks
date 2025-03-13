@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\file       CustomerWalkState.h
+\author     Lucas Yee JunJie, l.yee, 2301212 (50%)
+			Yan Yu, y.yan, 2301213 (50%)
+\par        l.yee@digipen.edu, y.yan@digipen.edu
+\date       March 13 2025
+\brief      Declares the CustomerWalkState class, which represents the state
+			where a customer moves through different waypoints, including the
+			queue, waiting area, and seating area. The class handles movement,
+			animations, and transitions between states based on order status.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 
 #include <iostream>

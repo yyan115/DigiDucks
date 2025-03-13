@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\file       ProjectSettingsWindow.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the ProjectSettingsWindow class, providing an ImGui-
+			based interface for modifying project settings such as window
+			resolution, frame rate, VSync, and volume controls. This window
+			interacts with the ProjectSettings system and allows users to
+			adjust settings dynamically within the LevelEditor.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "ProjectSettingsWindow.h"
 #include "ProjectSettings.h"
 #include "imgui.h"

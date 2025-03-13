@@ -33,9 +33,9 @@ public:
 
 	void AddOrder(ItemType order, CustomerLogic* customer);
 	void RemoveOrder(CustomerLogic* customer);
-	bool OrderTabLogic::HasFreeTab() const;
-	int OrderTabLogic::GetUsedTabCount() const;
-	int OrderTabLogic::GetMaxTabCount() const;
+	bool HasFreeTab() const;
+	int GetUsedTabCount() const;
+	int GetMaxTabCount() const;
 
 	const std::vector<OrderTabData>& GetOrderTabs() const { return orderTabs; }
 

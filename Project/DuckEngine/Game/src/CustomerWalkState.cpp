@@ -1,4 +1,24 @@
-﻿#include <iostream>
+﻿/******************************************************************************/
+/*!
+\file       CustomerWalkState.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212 (50%)
+			Yan Yu, y.yan, 2301213 (50%)
+\par        l.yee@digipen.edu, y.yan@digipen.edu
+\date       March 13 2025
+\brief      Implements the CustomerWalkState class, handling customer movement
+			through predefined waypoints such as queue positions, waiting
+			areas, and seating locations. The state determines movement speed,
+			manages animations, and transitions based on order collection and
+			completion.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
+#include <iostream>
 #include <algorithm>
 #include "CustomerWalkState.h"
 #include "CustomerLogic.h"

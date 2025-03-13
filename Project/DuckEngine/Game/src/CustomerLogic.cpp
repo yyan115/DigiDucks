@@ -1,3 +1,22 @@
+/******************************************************************************/
+/*!
+\file       CustomerLogic.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       March 13 2025
+\brief      Implements the CustomerLogic class, which controls customer
+			behavior through a finite state machine. The class manages
+			state transitions for customer movement, waiting for orders,
+			and order completion. It also updates order-related sprites
+			and interacts with the game’s logic systems.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "CustomerLogic.h"
 #include "GameScene.h"
 #include "GameLogicManager.h"
