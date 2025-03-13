@@ -9,14 +9,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.3610000014305115
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -69,14 +69,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.3610000014305115
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -105,8 +105,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.6289999485015869
+                            "x": 0.6649999022483826,
+                            "y": 0.6230000257492065
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1514,8 +1514,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.15000000596046448
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -1600,7 +1600,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 11,
-                        "text": "2.."
+                        "text": "Go!"
                     },
                     "type": "TextComponent"
                 }
@@ -1612,8 +1612,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.3996262550354,
-                            "y": -13.758999824523926
+                            "x": -19.2573299407959,
+                            "y": 2.407712459564209
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1807,8 +1807,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.0,
-                "y": -15.0
+                "x": -20.857704162597656,
+                "y": 1.1667118072509766
             },
             "prefab": "Customer"
         },
@@ -2193,14 +2193,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -2253,14 +2253,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -2289,8 +2289,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.42000001668930054
+                            "x": 0.6649999022483826,
+                            "y": 0.4140000343322754
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2357,7 +2357,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 5,
-                        "text": "FPS: 573"
+                        "text": "FPS: 60"
                     },
                     "type": "TextComponent"
                 }
@@ -2420,12 +2420,12 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 133.0,
+                            "a": 0.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
@@ -3057,14 +3057,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.2929999828338623
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -3117,14 +3117,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.2929999828338623
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -3153,8 +3153,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.6970000267028809
+                            "x": 0.6649999022483826,
+                            "y": 0.6910000443458557
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4954,7 +4954,8 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "31070"
+                        "text": "31070",
+                        "text": "70683"
                     },
                     "type": "TextComponent"
                 }
@@ -5147,8 +5148,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000012516975403,
-                            "y": 0.3500000238418579
+                            "x": 0.125,
+                            "y": 0.3499999940395355
                         }
                     },
                     "type": "TransformComponent"
@@ -5161,7 +5162,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
@@ -5183,7 +5184,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000012516975403,
+                            "x": 0.125,
                             "y": 0.3500000238418579
                         }
                     },
@@ -5219,7 +5220,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000012516975403,
+                            "x": 0.125,
                             "y": 0.3500000238418579
                         }
                     },
@@ -5255,7 +5256,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000012516975403,
+                            "x": 0.125,
                             "y": 0.3500000238418579
                         }
                     },
@@ -6495,8 +6496,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -6.190356731414795,
+                            "y": -5.64991569519043
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6526,8 +6527,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -6.190356731414795,
+                            "y": -6.64991569519043
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -6539,8 +6540,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": -6.190356731414795,
+                            "y": -5.64991569519043
                         },
                         "radius": 1.0
                     },
@@ -6707,7 +6708,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
-                            "y": 2.0
+                            "y": 1.7000000476837158
                         }
                     },
                     "type": "TransformComponent"
@@ -6720,7 +6721,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 7,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
@@ -8225,14 +8226,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.429999977350235
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -8285,14 +8286,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.429999977350235
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -8321,8 +8322,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.5600000619888306
+                            "x": 0.6649999022483826,
+                            "y": 0.5540000200271606
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8475,7 +8476,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8899999856948853,
-                            "y": 0.032999999821186066
+                            "y": 0.03600001335144043
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8819,7 +8820,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.800000011920929,
+                            "x": 0.6000000238418579,
                             "y": 0.8999999761581421
                         }
                     },
@@ -10563,7 +10564,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8899999856948853,
-                            "y": 0.13499999046325684
+                            "y": 0.13599997758865356
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -10590,7 +10591,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 9,
-                        "text": "5:00"
+                        "text": "4:51"
                     },
                     "type": "TextComponent"
                 }
@@ -10768,7 +10769,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.800000011920929,
+                            "x": 0.6999999284744263,
                             "y": -0.699999988079071
                         },
                         "relativeToCamera": false,
