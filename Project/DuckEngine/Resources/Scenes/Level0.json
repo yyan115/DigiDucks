@@ -9,14 +9,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.3610000014305115
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -69,14 +69,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.3610000014305115
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -105,8 +105,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.6289999485015869
+                            "x": 0.6649999022483826,
+                            "y": 0.6230000257492065
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1514,8 +1514,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.15000000596046448
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
                         }
                     },
                     "type": "TransformComponent"
@@ -1600,7 +1600,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 11,
-                        "text": "2.."
+                        "text": "Go!"
                     },
                     "type": "TextComponent"
                 }
@@ -1612,116 +1612,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.3996262550354,
-                            "y": -13.758999824523926
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer2_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.499626159667969,
-                            "y": -19.40000343322754
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer3_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.4996256828308105,
-                            "y": -22.600000381469727
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer4_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.699626445770264,
-                            "y": -25.900001525878906
+                            "x": -4.457625865936279,
+                            "y": -16.99199867248535
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1807,41 +1699,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.0,
-                "y": -15.0
-            },
-            "prefab": "Customer"
-        },
-        "Customer_2": {
-            "childNames": [
-                "Customer2_Order"
-            ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.099999904632568,
-                "y": -20.641000747680664
-            },
-            "prefab": "Customer"
-        },
-        "Customer_3": {
-            "childNames": [
-                "Customer3_Order"
-            ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.099999904632568,
-                "y": -23.840999603271484
-            },
-            "prefab": "Customer"
-        },
-        "Customer_4": {
-            "childNames": [
-                "Customer4_Order"
-            ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.300000190734863,
-                "y": -27.141000747680664
+                "x": -6.058000087738037,
+                "y": -18.232999801635742
             },
             "prefab": "Customer"
         },
@@ -2485,14 +2344,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -2545,14 +2404,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.5699999928474426
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -2581,8 +2440,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.42000001668930054
+                            "x": 0.6649999022483826,
+                            "y": 0.4140000343322754
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -2649,7 +2508,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 5,
-                        "text": "FPS: 573"
+                        "text": "FPS: 60"
                     },
                     "type": "TextComponent"
                 }
@@ -3186,7 +3045,7 @@
                     "properties": {
                         "position": {
                             "x": -15.0,
-                            "y": -19.399999618530273
+                            "y": -21.200000762939453
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -3349,14 +3208,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.2929999828338623
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -3409,14 +3268,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.2929999828338623
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -3445,8 +3304,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.6970000267028809
+                            "x": 0.6649999022483826,
+                            "y": 0.6910000443458557
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5246,7 +5105,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "12413"
+                        "text": "28477"
                     },
                     "type": "TextComponent"
                 }
@@ -5377,18 +5236,105 @@
             ],
             "layer": "Gameplay"
         },
-        "Order_Tab": {
+        "OrderComeSFX": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/orders/order come 1.mp3",
+                            "Resources/Sounds/orders/order come 2.mp3"
+                        ],
+                        "volume": 0.20000000298023224
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Order_Tab_1": {
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": 0.07999999821186066,
-                            "y": -0.15000000596046448
+                            "y": -0.17499999701976776
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.15000012516975403,
+                            "x": 0.125,
+                            "y": 0.3499999940395355
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.23000000417232513,
+                            "y": -0.17499999701976776
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.125,
                             "y": 0.3500000238418579
                         }
                     },
@@ -5405,7 +5351,121 @@
                         "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/Dishes/Dish_1.png",
+                        "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3799999952316284,
+                            "y": -0.17499999701976776
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.125,
+                            "y": 0.3500000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tab_4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5299999713897705,
+                            "y": -0.17499999701976776
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.125,
+                            "y": 0.3500000238418579
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Order_Tabs": {
+            "childNames": [
+                "Order_Tab_1",
+                "Order_Tab_2",
+                "Order_Tab_3",
+                "Order_Tab_4"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -5419,7 +5479,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "Out_Table_1": {
             "components": [
@@ -6510,7 +6570,7 @@
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 4,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6526,7 +6586,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "PlateSFXManager": {
             "components": [
@@ -6798,7 +6858,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.5,
-                            "y": 2.0
+                            "y": 1.7000000476837158
                         }
                     },
                     "type": "TransformComponent"
@@ -8255,7 +8315,8 @@
                 "PanSFXManager",
                 "PotSFXManager",
                 "BowlSFXManager",
-                "PlateSFXManager"
+                "PlateSFXManager",
+                "OrderComeSFX"
             ],
             "components": [
                 {
@@ -8315,14 +8376,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.429999977350235
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -8375,14 +8436,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5699999928474426,
+                            "x": 0.5199999213218689,
                             "y": -0.429999977350235
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.3499999940395355,
-                            "y": 0.05000000074505806
+                            "x": 0.25,
+                            "y": 0.03999999910593033
                         }
                     },
                     "type": "TransformComponent"
@@ -8411,8 +8472,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.7599999308586121,
-                            "y": 0.5600000619888306
+                            "x": 0.6649999022483826,
+                            "y": 0.5540000200271606
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8565,7 +8626,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8899999856948853,
-                            "y": 0.032999999821186066
+                            "y": 0.03600001335144043
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8909,7 +8970,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.800000011920929,
+                            "x": 0.6000000238418579,
                             "y": 0.8999999761581421
                         }
                     },
@@ -9101,7 +9162,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/gameplay bgm.wav"
                         ],
-                        "volume": 0.05000000074505806
+                        "volume": 0.10000000149011612
                     },
                     "type": "SoundComponent"
                 }
@@ -10653,7 +10714,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8899999856948853,
-                            "y": 0.13499999046325684
+                            "y": 0.13599997758865356
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -10858,7 +10919,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.800000011920929,
+                            "x": 0.6999999284744263,
                             "y": -0.699999988079071
                         },
                         "relativeToCamera": false,

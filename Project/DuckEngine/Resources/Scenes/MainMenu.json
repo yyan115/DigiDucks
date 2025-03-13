@@ -1559,42 +1559,6 @@
             ],
             "layer": "Background"
         },
-        "Pot": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 12.0,
-                            "y": -4.900000095367432
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.5,
-                            "y": 1.7000000476837158
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
         "SFXVolume_Slider": {
             "childNames": [
                 "SFXVolume_SliderFill",
@@ -1735,46 +1699,6 @@
             ],
             "layer": "UI"
         },
-        "Score_Text": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.8899999856948853,
-                            "y": 0.03600001335144043
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "enabled": false,
-                        "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.8999999761581421,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 100,
-                        "text": "0"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "Settings_Menu": {
             "childNames": [
                 "MasterVolume_Slider",
@@ -1882,46 +1806,6 @@
                 }
             ],
             "layer": "Gameplay"
-        },
-        "Timer_Text": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.8899999856948853,
-                            "y": 0.13599997758865356
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "enabled": false,
-                        "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.8999999761581421,
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "sortingOrder": 9,
-                        "text": "5:00"
-                    },
-                    "type": "TextComponent"
-                }
-            ],
-            "layer": "UI"
         },
         "VSync_Toggle": {
             "components": [

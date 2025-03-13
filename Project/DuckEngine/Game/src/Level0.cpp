@@ -50,7 +50,7 @@ void Level0::Start()
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 	
-	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_PLATE);
+	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
 
 }
 
