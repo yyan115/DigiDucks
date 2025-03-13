@@ -132,16 +132,32 @@ void OrderTabLogic::RemoveOrder(CustomerLogic* customer)
 {
 	if (!customer) return;
 
+	std::vector<std::pair<ItemType, CustomerLogic*>> activeOrders;
+	for (const auto& tab : orderTabs)
+	{
+		if (tab.tabCustomer && tab.tabCustomer != customer)
+		{
+			activeOrders.push_back(std::make_pair(tab.tabOrder, tab.tabCustomer));
+		}
+	}
+
 	for (auto& tab : orderTabs)
 	{
-		if (tab.tabCustomer == customer)
+		tab.spriteRenderer->isVisible = false;
+		tab.tabOrder = ItemType::EMPTY;
+		tab.tabCustomer = nullptr;
+		tab.isAnimating = false;
+		tab.elapsedTime = 0.0f;
+	}
+
+	for (size_t i = 0; i < activeOrders.size(); i++)
+	{
+		if (i < orderTabs.size())
 		{
-			tab.spriteRenderer->isVisible = false;
-			tab.tabOrder = ItemType::EMPTY;
-			tab.tabCustomer = nullptr;
-			tab.isAnimating = false;
-			tab.elapsedTime = 0.0f;
-			break;
+			orderTabs[i].spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(activeOrders[i].first));
+			orderTabs[i].spriteRenderer->isVisible = true;
+			orderTabs[i].tabOrder = activeOrders[i].first;
+			orderTabs[i].tabCustomer = activeOrders[i].second;
 		}
 	}
 }
