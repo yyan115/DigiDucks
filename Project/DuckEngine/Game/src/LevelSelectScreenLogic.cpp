@@ -1,5 +1,6 @@
 #include "LevelSelectScreenLogic.h"
 #include "MainMenu.h"
+#include "DuckEngine_Input.h"
 
 int LevelSelectScreenLogic::currentStage = -1;
 int LevelSelectScreenLogic::stageLevel = 0;
@@ -138,6 +139,14 @@ void LevelSelectScreenLogic::Start()
 
 void LevelSelectScreenLogic::Update()
 {
+
+	// unlock every level
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_0))
+	{
+		currentStage = 100;
+		Start();
+	}
+
 }
 
 void LevelSelectScreenLogic::FixedUpdate()
