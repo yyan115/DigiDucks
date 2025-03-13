@@ -51,6 +51,7 @@ void Level0::Start()
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 	
 	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
+
 }
 
 /****************************************************************
