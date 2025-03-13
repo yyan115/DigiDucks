@@ -176,326 +176,6 @@
             ],
             "layer": "Gameplay"
         },
-        "Cart_Stock_0": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.621999979019165,
-                            "y": -0.4400000274181366
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "UI",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Cart_Stock_1": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.722000002861023,
-                            "y": -0.4400000274181366
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "UI",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Cart_Stock_2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.621999979019165,
-                            "y": -0.5600000023841858
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "UI",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Cart_Stock_3": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.722000002861023,
-                            "y": -0.5600000023841858
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/shrimp.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "SFX",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "Cart_Stock_4": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.621999979019165,
-                            "y": -0.6800000071525574
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "UI",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "CloseSettings_Button": {
             "components": [
                 {
@@ -1168,7 +848,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -2.299999952316284,
+                            "x": -12.0,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -1237,7 +917,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -2.75,
+                            "x": -12.450000762939453,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1272,6 +952,98 @@
             ],
             "layer": "Gameplay"
         },
+        "Level1.5Button": {
+            "childNames": [
+                "Level1.5Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level1.5Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.900000095367432,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "1.5"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Level1Button": {
             "childNames": [
                 "Level1Text"
@@ -1280,7 +1052,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 1.899999976158142,
+                            "x": -8.0,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -1329,7 +1101,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 1.5999999046325684,
+                            "x": -8.30000114440918,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1364,10 +1136,383 @@
             ],
             "layer": "Gameplay"
         },
+        "Level2.5Button": {
+            "childNames": [
+                "Level2.5Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 4.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level2.5Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 3.0,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "2.5"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level2Button": {
+            "childNames": [
+                "Level2Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level2Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -0.30000001192092896,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "2"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level3.5Button": {
+            "childNames": [
+                "Level3.5Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level3.5Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 11.0,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "3.5"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level3Button": {
+            "childNames": [
+                "Level3Text"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 8.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Level3Text": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 7.699999809265137,
+                            "y": -1.9700000286102295
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontSize": 1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 0,
+                        "text": "3"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "LevelButtons": {
             "childNames": [
                 "Level0Button",
-                "Level1Button"
+                "Level1Button",
+                "Level1.5Button",
+                "Level2Button",
+                "Level2.5Button",
+                "Level3Button",
+                "Level3.5Button"
             ],
             "components": [
                 {
@@ -1878,57 +2023,6 @@
                 }
             ],
             "layer": "Background"
-        },
-        "Restock_Menu": {
-            "childNames": [
-                "Restock_Exit_Btn",
-                "Restock_Ingredient_Btn",
-                "Restock_Maintenance_Btn",
-                "Restock_Ingredient_Menu",
-                "Restock_Maintenance_Menu"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 220.0,
-                            "b": 2.0,
-                            "g": 5.0,
-                            "r": 0.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 2,
-                        "sprite": false,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "RestockLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
-                }
-            ],
-            "layer": "UI"
         },
         "SFXVolume_Slider": {
             "childNames": [
