@@ -1612,8 +1612,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -19.2573299407959,
-                            "y": 2.407712459564209
+                            "x": -4.457625865936279,
+                            "y": -16.99199867248535
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1807,8 +1807,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -20.857704162597656,
-                "y": 1.1667118072509766
+                "x": -6.058000087738037,
+                "y": -18.232999801635742
             },
             "prefab": "Customer"
         },
@@ -2425,7 +2425,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
@@ -4954,8 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "31070",
-                        "text": "70683"
+                        "text": "89499"
                     },
                     "type": "TextComponent"
                 }
@@ -5162,7 +5161,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Dishes/order_cheese_burger_plate.png",
@@ -6528,7 +6527,7 @@
                     "properties": {
                         "center": {
                             "x": -6.190356731414795,
-                            "y": -6.64991569519043
+                            "y": -5.64991569519043
                         },
                         "size": {
                             "x": 0.10000000149011612,
@@ -10591,7 +10590,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 9,
-                        "text": "4:51"
+                        "text": "5:00"
                     },
                     "type": "TextComponent"
                 }
