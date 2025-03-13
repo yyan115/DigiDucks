@@ -4,6 +4,7 @@
 #include "DuckEngine_Input.h"
 #include "GameLoopLogic.h"
 
+SoundComponent* orderComeSFX = nullptr;
 
 CustomerWaitingOrderState::CustomerWaitingOrderState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}
@@ -18,6 +19,15 @@ void CustomerWaitingOrderState::Enter()
 	{
 		gameLoop->isCustomerWaitingForOrder = true;
 	}
+
+	Entity* SFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("OrderComeSFX").get();
+	if (SFX)
+	{
+		orderComeSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(SFX->entityID);
+	}
+
+	orderComeSFX->Play(-1);
+
 }
 
 

@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "87688"
+                        "text": "31070"
                     },
                     "type": "TextComponent"
                 }
@@ -5081,6 +5081,57 @@
                         "text": "5"
                     },
                     "type": "TextComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "OrderComeSFX": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/orders/order come 1.mp3",
+                            "Resources/Sounds/orders/order come 2.mp3"
+                        ],
+                        "volume": 0.20000000298023224
+                    },
+                    "type": "SoundComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -8113,7 +8164,8 @@
                 "PanSFXManager",
                 "PotSFXManager",
                 "BowlSFXManager",
-                "PlateSFXManager"
+                "PlateSFXManager",
+                "OrderComeSFX"
             ],
             "components": [
                 {
