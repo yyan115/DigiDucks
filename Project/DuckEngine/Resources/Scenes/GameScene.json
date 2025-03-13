@@ -852,8 +852,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05999999865889549,
-                            "y": 0.07999999821186066
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -870,7 +870,7 @@
                         "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": false
+                        "useColor": true
                     },
                     "type": "SpriteRendererComponent"
                 },
@@ -916,8 +916,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05999999865889549,
-                            "y": 0.07999999821186066
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -980,8 +980,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05999999865889549,
-                            "y": 0.07999999821186066
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -1044,8 +1044,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05999999865889549,
-                            "y": 0.07999999821186066
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -1108,8 +1108,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.05999999865889549,
-                            "y": 0.07999999821186066
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
                         }
                     },
                     "type": "TransformComponent"
@@ -4954,7 +4954,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "90078"
+                        "text": "94316"
                     },
                     "type": "TextComponent"
                 }
@@ -6579,29 +6579,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -6616,11 +6593,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -6630,6 +6621,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -8053,7 +8053,7 @@
                             "g": 5.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 2,
                         "sprite": false,
                         "texture": "",

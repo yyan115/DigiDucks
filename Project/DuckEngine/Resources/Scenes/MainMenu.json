@@ -176,6 +176,326 @@
             ],
             "layer": "Gameplay"
         },
+        "Cart_Stock_0": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.4400000274181366
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.722000002861023,
+                            "y": -0.4400000274181366
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.5600000023841858
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.722000002861023,
+                            "y": -0.5600000023841858
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/shrimp.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Cart_Stock_4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.621999979019165,
+                            "y": -0.6800000071525574
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.03999999910593033,
+                            "y": 0.07000000029802322
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Ingredients/lettuce.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "CloseSettings_Button": {
             "components": [
                 {
