@@ -72,8 +72,6 @@ void Level15::Start()
 		};
 	}
 
-	LevelSelectScreenLogic::currentStage = 2;
-
 	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
 	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
 	//gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);

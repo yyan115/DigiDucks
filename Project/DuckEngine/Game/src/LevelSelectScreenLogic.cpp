@@ -121,7 +121,7 @@ void LevelSelectScreenLogic::Start()
 			}
 		};
 
-	// Level 3.5 - Available if currentStage >= 5
+	// Level 3.5 - Available if currentStage >= 
 	level3_5Button->onClick = [this, SFX]()
 		{
 			if (currentStage >= 5) {
@@ -132,19 +132,16 @@ void LevelSelectScreenLogic::Start()
 			}
 		};
 
-	// Update button visuals based on currentStage
 	UpdateLevelButtonVisuals(level0Sprite, level1Sprite, level1_5Sprite, level2Sprite,
 		level2_5Sprite, level3Sprite, level3_5Sprite);
 }
 
 void LevelSelectScreenLogic::Update()
 {
-	// No additional updates needed in each frame
 }
 
 void LevelSelectScreenLogic::FixedUpdate()
 {
-	// No fixed update logic needed
 }
 
 void LevelSelectScreenLogic::UpdateLevelButtonVisuals(
@@ -156,18 +153,19 @@ void LevelSelectScreenLogic::UpdateLevelButtonVisuals(
 	SpriteRendererComponent* level3Sprite,
 	SpriteRendererComponent* level3_5Sprite)
 {
-	float lockedAlpha = 0.5f; 
-	float unlockedAlpha = 1.0f; 
+	std::string lockedTexture = "lvlselectbutton_locked";
+	std::string unlockedTexture = "lvlselectbutton";
 
-	level0Sprite->color.a = unlockedAlpha;
+	level0Sprite->texture = AssetManager::GetTextureByName(unlockedTexture);
 
-	level1Sprite->color.a = (currentStage >= 0) ? unlockedAlpha : lockedAlpha;
-	level1_5Sprite->color.a = (currentStage >= 1) ? unlockedAlpha : lockedAlpha;
-	level2Sprite->color.a = (currentStage >= 2) ? unlockedAlpha : lockedAlpha;
-	level2_5Sprite->color.a = (currentStage >= 3) ? unlockedAlpha : lockedAlpha;
-	level3Sprite->color.a = (currentStage >= 4) ? unlockedAlpha : lockedAlpha;
-	level3_5Sprite->color.a = (currentStage >= 5) ? unlockedAlpha : lockedAlpha;
+	level1Sprite->texture = AssetManager::GetTextureByName((currentStage >= 0) ? unlockedTexture : lockedTexture);
+	level1_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 1) ? unlockedTexture : lockedTexture);
+	level2Sprite->texture = AssetManager::GetTextureByName((currentStage >= 2) ? unlockedTexture : lockedTexture);
+	level2_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 3) ? unlockedTexture : lockedTexture);
+	level3Sprite->texture = AssetManager::GetTextureByName((currentStage >= 4) ? unlockedTexture : lockedTexture);
+	level3_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 5) ? unlockedTexture : lockedTexture);
 }
+
 
 void LevelSelectScreenLogic::LevelCompleted() 
 {
