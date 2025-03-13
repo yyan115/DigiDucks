@@ -108,7 +108,7 @@ void MainMenu::Load()
 			}
 			else if (LevelSelectScreenLogic::currentStage == 0)
 			{
-				sceneToLoad = "Level1";
+				sceneToLoad = "GameScene";
 				std::cout << "Starting Level 1" << std::endl;
 			}
 			else
@@ -328,6 +328,7 @@ void MainMenu::OnPlayButtonClicked(std::string sceneNaming)
 		fadeElapsedTime = 0.0f;
 		isFadingOut = true;
 		nextScene = sceneNaming;
+		std::cout << "LOADING SCENE NAME: " << sceneNaming << std::endl;
 		GameManager::SetGlobalVariable("LastPlayedScene", nextScene);
 	}
 }

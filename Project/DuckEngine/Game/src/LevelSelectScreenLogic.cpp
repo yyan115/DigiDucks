@@ -74,7 +74,7 @@ void LevelSelectScreenLogic::Start()
 				std::cout << "Level 1 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 1;
-				mainMenu->OnPlayButtonClicked("Level1");
+				mainMenu->OnPlayButtonClicked("GameScene");
 			}
 		};
 
