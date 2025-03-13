@@ -43,7 +43,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/end of level bgm.mp3"
                         ],
-                        "volume": 0.05000000074505806
+                        "volume": 0.10000000149011612
                     },
                     "type": "SoundComponent"
                 }
@@ -75,7 +75,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": true,
+                        "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "position": {

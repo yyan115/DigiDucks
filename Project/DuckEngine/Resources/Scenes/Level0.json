@@ -390,7 +390,7 @@
                         "soundID": [
                             "Resources/Sounds/bin/trash.wav"
                         ],
-                        "volume": 0.4000000059604645
+                        "volume": 0.25
                     },
                     "type": "SoundComponent"
                 },
@@ -467,7 +467,7 @@
                         "soundID": [
                             "Resources/Sounds/bin/trash.wav"
                         ],
-                        "volume": 0.4000000059604645
+                        "volume": 0.25
                     },
                     "type": "SoundComponent"
                 },
@@ -1643,6 +1643,114 @@
             ],
             "layer": "Gameplay"
         },
+        "Customer2_Order": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.499626159667969,
+                            "y": -19.40000343322754
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer3_Order": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.4996256828308105,
+                            "y": -22.600000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer4_Order": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.699626445770264,
+                            "y": -25.900001525878906
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "CustomerFootstepSFX": {
             "components": [
                 {
@@ -1704,6 +1812,39 @@
             },
             "prefab": "Customer"
         },
+        "Customer_2": {
+            "childNames": [
+                "Customer2_Order"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.099999904632568,
+                "y": -20.641000747680664
+            },
+            "prefab": "Customer"
+        },
+        "Customer_3": {
+            "childNames": [
+                "Customer3_Order"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.099999904632568,
+                "y": -23.840999603271484
+            },
+            "prefab": "Customer"
+        },
+        "Customer_4": {
+            "childNames": [
+                "Customer4_Order"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.300000190734863,
+                "y": -27.141000747680664
+            },
+            "prefab": "Customer"
+        },
         "CutSceneBGM": {
             "components": [
                 {
@@ -1747,7 +1888,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/cutscene_bgm.wav"
                         ],
-                        "volume": 0.15000000596046448
+                        "volume": 0.10000000894069672
                     },
                     "type": "SoundComponent"
                 }
@@ -1806,8 +1947,8 @@
                             "",
                             "",
                             "",
-                            "",
                             "Resources/Sounds/cutscene/affirmative sfx.mp3",
+                            "",
                             "",
                             "",
                             "",
@@ -2507,7 +2648,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 110,
+                        "sortingOrder": 5,
                         "text": "FPS: 573"
                     },
                     "type": "TextComponent"
@@ -5105,7 +5246,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "71544"
+                        "text": "12413"
                     },
                     "type": "TextComponent"
                 }
@@ -6740,7 +6881,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "relativeToCamera": true,
+                        "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 5.0,
@@ -6779,7 +6920,7 @@
                             "Resources/Sounds/duck sounds/AnimalDuckCart 5.wav",
                             "Resources/Sounds/duck sounds/AnimalDuckCart 6.wav"
                         ],
-                        "volume": 0.4000000059604645
+                        "volume": 0.10000000149011612
                     },
                     "type": "SoundComponent"
                 }
@@ -9206,7 +9347,7 @@
                             "Resources/Sounds/chop and cook/continue boiling.mp3",
                             "Resources/Sounds/chop and cook/cooking_done.mp3"
                         ],
-                        "volume": 0.44999998807907104
+                        "volume": 0.3499999940395355
                     },
                     "type": "SoundComponent"
                 },

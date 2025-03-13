@@ -1146,7 +1146,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/start menu bgm.wav"
                         ],
-                        "volume": 0.05000000074505806
+                        "volume": 0.10000000149011612
                     },
                     "type": "SoundComponent"
                 }

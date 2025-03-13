@@ -1,6 +1,6 @@
 {
     "project": {
-        "startLevel": "GameScene",
+        "startLevel": "MainMenu",
         "targetFPS": 60,
         "useVSync": false,
         "windowResolution": {
