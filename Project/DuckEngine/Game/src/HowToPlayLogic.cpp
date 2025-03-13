@@ -47,6 +47,7 @@ void HowToPlayLogic::Start()
 			SFX->Play();
             howToPlayScreenSpriteRenderer->isVisible = false;
             if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
+			isShow = false;
             };
     }
 
@@ -54,7 +55,7 @@ void HowToPlayLogic::Start()
         auto next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
         next->onClick = [this, SFX]() {
             SFX->Play();
-            if (pageNum < 3) {
+            if (pageNum < 4) {
                 pageNum++;
                 UpdateJournalPage();
             }
