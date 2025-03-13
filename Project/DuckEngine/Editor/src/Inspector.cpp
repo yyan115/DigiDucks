@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include <iostream>
+#include "DuckEngine.h"
 #include "Inspector.h"
 #include "TransformComponent.h"
 #include "SpriteRendererComponent.h"
@@ -126,7 +127,8 @@ void InspectorRenderer::RenderLayer(int entityID)
 				SnapshotManager::SaveUndoState();
 				currentLayerIndex = i;
 				entity->layerName = layerNames[i];  // Update entity layer
-				LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
+				std::string activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName();
+				LevelManager::SaveEntityChanges(entityID, activeScene);
 			}
 
 			if (isSelected) {
@@ -799,7 +801,8 @@ void InspectorRenderer::RenderComponents(int entityID)
 		if (ImGui::Button("Save Entity Changes"))
 		{
 			SnapshotManager::SaveUndoState();
-			LevelManager::SaveEntityChanges(entityID, GameManager::ActiveSceneName);
+			std::string activeScene = DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName();
+			LevelManager::SaveEntityChanges(entityID, activeScene);
 			hasChanged = false;
 		}
 		ImGui::SameLine();
@@ -807,7 +810,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 		{
 			SnapshotManager::SaveUndoState();
 			LevelManager::OverwritePrefab(entityID);
-			LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+			LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
 			DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
 			hasChanged = false;
 		}

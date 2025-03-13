@@ -82,7 +82,7 @@ void PrefabEditor::Render()
 				if (ImGui::Button("Save Prefab"))
 				{
 					PrefabManager::SavePrefab(currentPrefabName);
-					LevelManager::SaveSceneChanges(GameManager::ActiveSceneName);
+					LevelManager::SaveSceneChanges(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName());
 					DuckEngine::DUCKENGINE_SceneManager.ReloadScene();
 					currentPrefab = PrefabManager::GetPrefab(currentPrefabName);
 				}
