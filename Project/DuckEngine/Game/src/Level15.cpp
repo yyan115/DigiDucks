@@ -48,34 +48,27 @@ void Level15::Start()
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
 
+	// Level 1.5 Salad with more Customers
+	// 4 Customers
 	for (int i = 0; i < 4; i++)
 	{
-		// Random number from 0 to 4
 		int random = rand() % 4;
 		switch (random)
 		{
 		case 0:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-			break;
-		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
-			break;
-		case 2:
 			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
 			break;
-		case 3:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_MUSHROOM);
+		case 1:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
 			break;
-		case 4:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_TOMATO);
+		case 2:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
+			break;
+		case 3:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
 			break;
 		};
 	}
-
-	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
-	//gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[3]->SetOrder(ItemType::SALAD_PLATE);
 }
 
 /****************************************************************

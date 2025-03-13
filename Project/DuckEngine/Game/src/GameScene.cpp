@@ -48,34 +48,31 @@ void GameScene::Start()
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
 
-	for (int i = 0; i < 4; i++)
+	// Level 1 Salad Only
+	// 2 Customers
+	for (int i = 0; i < 2; i++)
 	{
-		// Random number from 0 to 4
 		int random = rand() % 4;
 		switch (random)
 		{
 		case 0:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
+			std::cout << whatType(ItemType::LETTUCE_PLATE) << std::endl;
 			break;
 		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
+			std::cout << whatType(ItemType::LETTUCE_SHRIMP_PLATE) << std::endl;
 			break;
 		case 2:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
+			std::cout << whatType(ItemType::LETTUCE_TOMATO_PLATE) << std::endl;
 			break;
 		case 3:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_MUSHROOM);
-			break;
-		case 4:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_TOMATO);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
+			std::cout << whatType(ItemType::SALAD_PLATE) << std::endl;
 			break;
 		};
 	}
-
-	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
-	//gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[3]->SetOrder(ItemType::SALAD_PLATE);
 }
 
 /****************************************************************

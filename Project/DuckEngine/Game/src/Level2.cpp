@@ -47,35 +47,21 @@ void Level2::Start()
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
-
-	for (int i = 0; i < 4; i++)
+	// Level 2 Burger and Cheese Burger
+	// 2 Customers
+	for (int i = 0; i < 2; i++)
 	{
-		// Random number from 0 to 4
-		int random = rand() % 4;
+		int random = rand() % 2;
 		switch (random)
 		{
 		case 0:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
 			break;
 		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
-			break;
-		case 2:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
-			break;
-		case 3:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_MUSHROOM);
-			break;
-		case 4:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_TOMATO);
+			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
 			break;
 		};
 	}
-
-	//gameLoopLogic->customers[0]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[1]->SetOrder(ItemType::SALAD_PLATE);
-	//gameLoopLogic->customers[2]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-	//gameLoopLogic->customers[3]->SetOrder(ItemType::SALAD_PLATE);
 }
 
 /****************************************************************
