@@ -1879,6 +1879,57 @@
             ],
             "layer": "Background"
         },
+        "Restock_Menu": {
+            "childNames": [
+                "Restock_Exit_Btn",
+                "Restock_Ingredient_Btn",
+                "Restock_Maintenance_Btn",
+                "Restock_Ingredient_Menu",
+                "Restock_Maintenance_Menu"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 220.0,
+                            "b": 2.0,
+                            "g": 5.0,
+                            "r": 0.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 2,
+                        "sprite": false,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "RestockLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "SFXVolume_Slider": {
             "childNames": [
                 "SFXVolume_SliderFill",
