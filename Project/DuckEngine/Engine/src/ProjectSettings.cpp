@@ -31,15 +31,6 @@ int ProjectSettings::targetFPS = ProjectSettings::DEFAULT_TARGET_FPS;
 DUCKENGINE_API float ProjectSettings::masterVolume = ProjectSettings::DEFAULT_MASTER_VOLUME;
 DUCKENGINE_API std::unordered_map<std::string, float> ProjectSettings::volumeCategories;
 
-static float SafeGetFloat(const nlohmann::json& j, const std::string& key, float defaultVal)
-{
-	if (j.contains(key) && j[key].is_number_float())
-	{
-		return j[key].get<float>();
-	}
-	return defaultVal;
-}
-
 void ProjectSettings::LoadDefaults()
 {
 	if (startLevel.empty())
