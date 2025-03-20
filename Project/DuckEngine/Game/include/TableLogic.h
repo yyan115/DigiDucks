@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "IngredientType.h"
+#include "PotLogic.h"
 
 class TableLogic : public GameLogic
 {
@@ -25,7 +26,9 @@ private:
 	TransformComponent* tableTransform = nullptr;
 	Entity* objectOnTable = nullptr;
 	TransformComponent* objectTransform = nullptr;
-	ItemType type = ItemType::EMPTY;
+	ItemType objType = ItemType::EMPTY;
+
+	std::shared_ptr<PotLogic> potLogic = nullptr;
 
 public:
 	bool isOccupied = false;
@@ -90,5 +93,17 @@ public:
 	* 
 	* @return The object type.
 	* ****************************************************************/
-	ItemType getType() const { return type; }
+	ItemType getType() const { return objType; }
+
+	/****************************************************************
+	* @brief Set the object type on the table.
+	* 
+	* @param type - The object type to set.
+	* ****************************************************************/
+	void setType(ItemType type) { objType = type; }
+
+
+	bool isPotFilled();
+
+	ItemType moveSoup();
 };

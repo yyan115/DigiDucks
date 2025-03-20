@@ -86,4 +86,9 @@ public:
 	void EnableSlider(bool state) {
 		slider->isEnable = state;
 	}
+
+	void SetSliderStep(float step) {
+		slider->step = step;
+		ResetSlider();
+	}
 };

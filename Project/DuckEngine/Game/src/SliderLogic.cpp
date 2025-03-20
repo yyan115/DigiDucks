@@ -114,6 +114,7 @@ void SliderLogic::IncreaseHorizontal()
 	else 
 	{
 		slider->isEnable = false;
+		timeTaken = 0.0f;
 	}
 }
 
@@ -134,6 +135,7 @@ void SliderLogic::DecreaseHorizontal()
 	}
 	else {
 		slider->isEnable = false;
+		timeTaken = 0.0f;
 	}
 }
 
@@ -154,6 +156,7 @@ void SliderLogic::IncreaseVertical()
 	else 
 	{
 		slider->isEnable = false;
+		timeTaken = 0.0f;
 	}
 }
 
@@ -174,6 +177,7 @@ void SliderLogic::DecreaseVertical()
 	}
 	else {
 		slider->isEnable = false;
+		timeTaken = 0.0f;
 	}
 }
 
@@ -188,4 +192,5 @@ void SliderLogic::ResetSlider()
 		sliderTrfm->SetPosition(originalPos);
 		sliderTrfm->scale = originalScale;
 	}
+	timeTaken = 0.0f;
 }

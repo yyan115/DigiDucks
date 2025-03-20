@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "IngredientType.h"
 #include "SliderLogic.h"
+#include "PotLogic.h"
 #include <iostream>
 
 
@@ -32,8 +33,11 @@ private:
 	SpriteRendererComponent* objectSprite = nullptr;
 	ItemType type = ItemType::EMPTY;
 	float currCookTime = 0.0f;
-	const float cookTime = 3.5f;
 
+	const float cookTimePan = 3.5f;
+	const float cookTimePot = 7.0f;
+
+	std::shared_ptr<PotLogic> potLogic = nullptr;
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
 
 public:
@@ -127,6 +131,8 @@ public:
 	* @param objType - Either Pan or Pot
 	* ****************************************************************/
 	void setCookingType(std::pair<int, ItemType> objData);
+
+	bool isPotFilled() { return potLogic->isPotFilled; }
 
 	void EmitSparks();
 };

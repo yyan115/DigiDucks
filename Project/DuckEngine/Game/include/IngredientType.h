@@ -266,6 +266,40 @@ inline bool isBowl(ItemType type)
 	}
 }
 
+// Check if the item is a pan
+inline bool isTypePan(ItemType type)
+{
+	switch (type)
+	{
+	case ItemType::PAN:
+	case ItemType::PAN_R_PATTY:
+	case ItemType::PAN_C_PATTY:
+	case ItemType::PAN_B_PATTY:
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
+// Check if the item is a pot
+inline bool isTypePot(ItemType type)
+{
+	switch (type)
+	{
+	case ItemType::POT:
+	case ItemType::POT_MUSHROOM:
+	case ItemType::POT_TOMATO:
+	case ItemType::POT_SUS:
+		return true;
+		break;
+	default:
+		return false;
+		break;
+	}
+}
+
 // Check if the item is part of/a equipment
 inline bool isEquipment(ItemType type)
 {

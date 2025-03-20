@@ -13,6 +13,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "TableLogic.h"
+#include "PotLogic.h"
 
 /****************************************************************
 * @brief Start function for the Table Logic.
@@ -48,6 +49,7 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
         return;
     }
 
+
     std::cout << "Table Object ID: " << objData.first << " Type: " << whatType(objData.second) << std::endl;
     objectOnTable = entity;
     objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
@@ -58,7 +60,10 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
         else
 			objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
     }
-    type = objData.second;
+
+    potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(objData.first);
+
+    objType = objData.second;
     isOccupied = true;
 }
 
@@ -80,18 +85,18 @@ std::pair<int, ItemType> TableLogic::moveObject() {
         objectOnTable = nullptr;
         objectTransform = nullptr;
         isOccupied = false;
-        type = ItemType::EMPTY;
+        objType = ItemType::EMPTY;
         return std::pair<int, ItemType>();
     }
 
-    std::cout << "Object ID: " << objectOnTable->entityID << " Type: " << whatType(type) << std::endl;
+    std::cout << "Object ID: " << objectOnTable->entityID << " Type: " << whatType(objType) << std::endl;
 
-    ItemType tempType = type;
+    ItemType tempType = objType;
 
     objectOnTable = nullptr;
     objectTransform = nullptr;
     isOccupied = false;
-    type = ItemType::EMPTY;
+    objType = ItemType::EMPTY;
 
     return std::make_pair(objectID, tempType);
 }
@@ -102,41 +107,60 @@ std::pair<int, ItemType> TableLogic::moveObject() {
 * ****************************************************************/
 void TableLogic::setPan()
 {
-	objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pan").get();
+    objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pan").get();
     if (objectOnTable)
     {
-		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
+        objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
         if (objectTransform)
         {
             objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
-	        type = ItemType::PAN;
-	        isOccupied = true;
+            objType = ItemType::PAN;
+            isOccupied = true;
         }
     }
     else
     {
-		std::cout << "Pan not found" << std::endl;
+        std::cout << "Pan not found" << std::endl;
     }
 }
 
 /****************************************************************
 * @brief Find and Set the Pot on the table.
 * ****************************************************************/
-void TableLogic::setPot() 
+void TableLogic::setPot()
 {
     objectOnTable = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pot").get();
-	if (objectOnTable)
-	{
-		objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
-		if (objectTransform)
-		{
-			objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
-			type = ItemType::POT;
-			isOccupied = true;
-		}
-	}
+    if (objectOnTable)
+    {
+        objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
+        if (objectTransform)
+        {
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+            objType = ItemType::POT;
+            isOccupied = true;
+        }
+    }
     else
     {
         std::cout << "Pot not found" << std::endl;
     }
+}
+
+bool TableLogic::isPotFilled()
+{
+    if (potLogic)
+    {
+        return potLogic->isPotFilled;
+    }
+    return false;
+}
+
+ItemType TableLogic::moveSoup()
+{
+    ItemType temp = potLogic->TakeSoup();
+    if (!potLogic->isPotFilled)
+    {
+		objType = potLogic->getType();
+    }
+	return temp;
 }

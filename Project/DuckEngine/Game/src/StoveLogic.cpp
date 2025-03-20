@@ -39,7 +39,7 @@ void StoveLogic::Start()
 	objectTransform = nullptr;
 	objectSprite = nullptr;
 
-	currCookTime = cookTime;
+	currCookTime = 0.0f;
 	isCooked = false;
 
 	isPan = false;
@@ -80,42 +80,39 @@ void StoveLogic::FixedUpdate()
 void StoveLogic::setObject(std::pair<int, ItemType> objData)
 {
 	// If either is true, change the sprite and type to the respective one.
-	if (isPan || isPot)
+	if (isPan)
 	{
-		// Delete the ingredient entity.
-		DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objData.first);
-
-		if (isPan)
+		if (objData.second == ItemType::R_PATTY)
 		{
-			if (objData.second == ItemType::R_PATTY)
-			{
-				type = ItemType::PAN_R_PATTY;
-			}
-			else if (objData.second == ItemType::C_PATTY)
-			{
-				type = ItemType::PAN_C_PATTY;
-			}
-			else if (objData.second == ItemType::B_PATTY)
-			{
-				type = ItemType::PAN_B_PATTY;
-			}
+			type = ItemType::PAN_R_PATTY;
 		}
-		else if (isPot)
+		else if (objData.second == ItemType::C_PATTY)
 		{
-			type = objData.second;
-			std::cout << "Ingredient Type: " << whatType(type) << std::endl;
+			type = ItemType::PAN_C_PATTY;
 		}
-		else
+		else if (objData.second == ItemType::B_PATTY)
 		{
-			std::cout << "No Cooking Type" << std::endl;
-			return;
+			type = ItemType::PAN_B_PATTY;
 		}
 
-		setObjectSprite(type);
-
-		isOccupied = true;
-		currCookTime = cookTime;
+		currCookTime = cookTimePan;
 	}
+	else if (isPot)
+	{
+		type = objData.second;
+		std::cout << "Ingredient Type: " << whatType(type) << std::endl;
+		currCookTime = cookTimePot;
+	}
+	else
+	{
+		std::cerr << "Stove is not a Pan or Pot" << std::endl;
+		return;
+	}
+
+	// Delete the ingredient entity.
+	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objData.first);
+	setObjectSprite(type);
+	isOccupied = true;
 }
 
 /****************************************************************
@@ -147,6 +144,7 @@ std::pair<int, ItemType> StoveLogic::moveObject()
 	isPan = false;
 	isPot = false;
 
+	potLogic = nullptr;
 
 	if(sliderLogic)
 		sliderLogic->ResetSlider();
@@ -163,30 +161,12 @@ std::pair<int, ItemType> StoveLogic::moveObject()
 * ****************************************************************/
 ItemType StoveLogic::moveSoup()
 {
-	ItemType temp{};
-	switch (type)
+	ItemType temp = potLogic->TakeSoup();
+	if (!potLogic->isPotFilled)
 	{
-	case ItemType::POT_TOMATO:
-		temp = ItemType::BOWL_TOMATO;
-		break;
-	case ItemType::POT_MUSHROOM:
-		temp = ItemType::BOWL_MUSHROOM;
-		break;
-	case ItemType::POT_SUS:
-		temp = ItemType::BOWL_SUS;
-		break;
+		type = potLogic->getType();
+		setObjectSprite(type);
 	}
-	std::cout << whatType(temp) << std::endl;
-
-	type = ItemType::POT;
-	setObjectSprite(type);
-
-	isCooked = false;
-	isOccupied = false;
-
-	if(sliderLogic)
-		sliderLogic->ResetSlider();
-
 	return temp;
 }
 
@@ -198,7 +178,6 @@ ItemType StoveLogic::moveSoup()
 * ****************************************************************/
 ItemType StoveLogic::movePatty()
 {
-	
 	ItemType temp{};
 	switch (type)
 	{
@@ -251,7 +230,7 @@ void StoveLogic::cookObject()
 				if (type == ItemType::PAN_R_PATTY)
 				{
 					type = ItemType::PAN_C_PATTY;
-					currCookTime = cookTime;
+					currCookTime = cookTimePan;
 					if (tableSFX) {
 						tableSFX->Stop();
 						tableSFX->Play(5);
@@ -295,6 +274,7 @@ void StoveLogic::cookObject()
 						tableSFX->Play(5);
 					}
 				}
+				potLogic->SetSoup(type);
 				isCooked = true;
 			}
 
@@ -357,6 +337,8 @@ bool StoveLogic::setObjectSprite(ItemType objType)
 			case ItemType::POT_MUSHROOM:
 			case ItemType::POT_TOMATO:
 			case ItemType::POT_SUS:
+				if(potLogic)
+					potLogic->SetSoup(objType);
 				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType));
 				break;
 			default:
@@ -393,11 +375,14 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 	{
 		isPan = true;
 		isPot = false;
+		sliderLogic->SetSliderStep(0.008f);
 	}
 	else if (objData.second == ItemType::POT)
 	{
 		isPan = false;
 		isPot = true;
+		sliderLogic->SetSliderStep(0.004f);
+		potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(objData.first);
 	}
 	else
 	{
@@ -407,7 +392,6 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 
 	objectSprite->texture = AssetManager::GetTextureByName(whatType(objData.second));
 	type = objData.second;
-
 }
 
 

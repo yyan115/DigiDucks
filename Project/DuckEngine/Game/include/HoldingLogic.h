@@ -87,4 +87,9 @@ public:
 	* @return ItemType - type of object
 	* ****************************************************************/
 	ItemType getType() const { return type; }
+
+	/****************************************************************
+	* @brief Get the object ID
+	* ****************************************************************/
+	int getObjectID() const { return object->entityID; }
 };

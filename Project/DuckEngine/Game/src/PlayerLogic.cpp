@@ -341,7 +341,7 @@ void PlayerLogic::InteractPressed()
 			}
 			else if (stoveLogic->isPot && stoveLogic->isOccupied)
 			{
-				// If Pot is still cooking, returnl
+				// If Pot is still cooking, return
 				if (!stoveLogic->isCooked) return;
 				holding->setObject(stoveLogic->moveObject());
 				type = holding->getType();
@@ -373,8 +373,21 @@ void PlayerLogic::InteractPressed()
 		{
 			// If Stock is Not BIN, do nothing
 			if(stockLogic->getType() != ItemType::BIN) return;
+
+			// If Holding is Filled Pot, Empty Pot
+			if (isTypePot(holding->getType()))
+			{
+				auto potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(holding->getObjectID());
+				if (potLogic)
+				{
+					potLogic->EmptyPot();
+					return;
+				}
+			}
+
 			// If Holding Item is Pan or Pot, do nothing
 			if (isEquipment(holding->getType())) return;
+
 			// If Stock is BIN, Destroy Object
 			holding->deleteObject();
 			if (sound) sound->Play(-1);
@@ -399,6 +412,24 @@ void PlayerLogic::InteractPressed()
 			}
 			else if (tableLogic->isOccupied)
 			{
+				if (holding->getType() == ItemType::BOWL)
+				{
+					if (tableLogic->isPotFilled())
+					{
+						holding->deleteObject();
+						ItemType temp = tableLogic->moveSoup();
+						Entity* newObject = makeObject(temp);
+						holding->setObject(std::make_pair(newObject->entityID, temp));
+						type = holding->getType();
+						SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+						if (soundToPlay) {
+							soundToPlay->Stop();
+							soundToPlay->Play(-1);
+						}
+						isHolding = true;
+					}
+				}
+
 				if (canCombine(holding->getType(), tableLogic->getType()))
 				{
 					std::pair<int, ItemType> combined = combineObjects(holding->moveObject(), tableLogic->moveObject());
@@ -485,6 +516,7 @@ void PlayerLogic::InteractPressed()
 				{
 					if (holding->getType() == ItemType::BOWL)
 					{
+						if (!stoveLogic->isPotFilled()) return;
 						holding->deleteObject();
 						ItemType temp = stoveLogic->moveSoup();
 						Entity* newObject = makeObject(temp);

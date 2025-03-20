@@ -125,6 +125,9 @@
     <ClCompile Include="..\src\Level35.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PotLogic.cpp">
+      <Filter>src\Logic\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -389,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Level35.h">
       <Filter>include\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PotLogic.h">
+      <Filter>include\Logic\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
