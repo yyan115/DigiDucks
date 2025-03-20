@@ -47,9 +47,6 @@
     <ClCompile Include="..\src\CutSceneLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SliderLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp">
       <Filter>src\Logic\MainMenu</Filter>
     </ClCompile>
@@ -126,7 +123,13 @@
       <Filter>src\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PotLogic.cpp">
-      <Filter>src\Logic\Game</Filter>
+      <Filter>src\Logic\Game\Station</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SliderLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\HighlightLogic.cpp">
+      <Filter>src\Logic\Game\Station</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +306,6 @@
     <ClInclude Include="..\include\CutSceneLogic.h">
       <Filter>include\Logic\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\SliderLogic.h">
-      <Filter>include\Logic\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\LevelSelectScreenLogic.h">
       <Filter>include\Logic\MainMenu</Filter>
     </ClInclude>
@@ -394,7 +394,13 @@
       <Filter>include\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\include\PotLogic.h">
-      <Filter>include\Logic\Game</Filter>
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SliderLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\HighlightLogic.h">
+      <Filter>include\Logic\Game\Station</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

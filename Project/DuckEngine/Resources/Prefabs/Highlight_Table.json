@@ -1,0 +1,33 @@
+{
+    "components": [
+        {
+            "properties": {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "rotation": 0.0,
+                "scale": {
+                    "x": 2.299999952316284,
+                    "y": 2.700000047683716
+                }
+            },
+            "type": "TransformComponent"
+        },
+        {
+            "properties": {
+                "color": {
+                    "a": 255,
+                    "b": 255,
+                    "g": 255,
+                    "r": 255
+                },
+                "isVisible": true,
+                "sortingOrder": 0,
+                "texture": "",
+                "useColor": true
+            },
+            "type": "SpriteRendererComponent"
+        }
+    ]
+}

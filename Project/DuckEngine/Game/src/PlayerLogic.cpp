@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 #include "RestockLogic.h"
 #include "CustomerLogic.h"
+#include "HighlightLogic.h"
 
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
@@ -79,6 +80,14 @@ void PlayerLogic::Start()
 		boxCollider->SetCollisionCallback([this](int otherEntityID)
 			{
 				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID).get();
+				if (interactObject)
+				{
+					auto highlightLogic = GameLogicManager::GetLogicForEntity<HighlightLogic>(interactObject->entityID);
+					if (highlightLogic)
+					{
+						highlightLogic->isHighlighted = true;
+					}
+				}
 				// Pickup Object
 				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) && actionCounter <= 0)
 				{
