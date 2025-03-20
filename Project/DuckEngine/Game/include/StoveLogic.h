@@ -36,12 +36,11 @@ private:
 
 	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
 
-	bool isCooked = false;
-
 public:
 	bool isPot = false;
 	bool isPan = false;
 	bool isOccupied = false;
+	bool isCooked = false;
 
 	StoveLogic() : GameLogic(nullptr) {}
 

@@ -339,6 +339,19 @@ void PlayerLogic::InteractPressed()
 				}
 				isHolding = true;
 			}
+			else if (stoveLogic->isPot && stoveLogic->isOccupied)
+			{
+				// If Pot is still cooking, returnl
+				if (!stoveLogic->isCooked) return;
+				holding->setObject(stoveLogic->moveObject());
+				type = holding->getType();
+				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
+				if (soundToPlay) {
+					soundToPlay->Stop();
+					soundToPlay->Play(-1);
+				}
+				isHolding = true;
+			}
 			return;
 		}
 
@@ -358,9 +371,11 @@ void PlayerLogic::InteractPressed()
 		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
 		if (stockLogic)
 		{
-			// If Object is Not BIN, do nothing
+			// If Stock is Not BIN, do nothing
 			if(stockLogic->getType() != ItemType::BIN) return;
-			// If Object is BIN, Destroy Object
+			// If Holding Item is Pan or Pot, do nothing
+			if (isEquipment(holding->getType())) return;
+			// If Stock is BIN, Destroy Object
 			holding->deleteObject();
 			if (sound) sound->Play(-1);
 			isHolding = false;
