@@ -389,7 +389,7 @@ void PlayerLogic::InteractPressed()
 				auto potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(holding->getObjectID());
 				if (potLogic)
 				{
-					potLogic->EmptyPot();
+					holding->setType(potLogic->EmptyPot());
 					return;
 				}
 			}
@@ -481,7 +481,7 @@ void PlayerLogic::InteractPressed()
 		{
 			if (!stoveLogic->isPot && !stoveLogic->isPan)
 			{
-				if (holding->getType() != ItemType::PAN && holding->getType() != ItemType::POT) return;
+				if (!isEquipment(holding->getType())) return;
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
@@ -658,7 +658,7 @@ Entity* PlayerLogic::makeObject(ItemType type)
 	Entity* newObject = nullptr;
 	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
 	SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
-	spriteRenderer->sortingOrder = 7;
+	spriteRenderer->sortingOrder = 11;
 
 	spriteRenderer->texture = AssetManager::GetTextureByName(whatType(type));
 

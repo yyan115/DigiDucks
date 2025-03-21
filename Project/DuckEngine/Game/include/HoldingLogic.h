@@ -89,6 +89,13 @@ public:
 	ItemType getType() const { return type; }
 
 	/****************************************************************
+	* @brief setType function for HoldingLogic
+	*
+	* @param type_ - type of object
+	* ****************************************************************/
+	void setType(ItemType type_) { type = type_; }
+
+	/****************************************************************
 	* @brief Get the object ID
 	* ****************************************************************/
 	int getObjectID() const { return object->entityID; }

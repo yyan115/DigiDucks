@@ -84,7 +84,7 @@ public:
 	/****************************************************************
 	* @brief Empty the pot
 	* ****************************************************************/
-	void EmptyPot()
+	ItemType EmptyPot()
 	{
 		type = ItemType::POT;
 		currPortion = 0;
@@ -93,6 +93,7 @@ public:
 		{
 			potSprite->texture = AssetManager::GetTextureByName(whatType(type));
 		}
+		return type;
 	}
 
 };

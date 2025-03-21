@@ -20,21 +20,21 @@ written consent of DigiPen Institute of Technology is prohibited.
 * ****************************************************************/
 void StoveLogic::Start()
 {
-	table = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
-	if (table)
+	stove = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
+	if (stove)
 	{
-		if (table->childEntities.size() > 0)
+		if (stove->childEntities.size() > 0)
 		{
-			for (int i = 0; i < table->childEntities.size(); i++)
+			for (int i = 0; i < stove->childEntities.size(); i++)
 			{
-				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(table->childEntities[i]->entityID);
+				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(stove->childEntities[i]->entityID);
 				if (sliderLogic)
 					break;
 			}
 		}
 	}
-	tableTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
-	tableSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
+	stoveTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+	stoveSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(component->GetEntityID());
 	object = nullptr;
 	objectTransform = nullptr;
 	objectSprite = nullptr;
@@ -66,10 +66,10 @@ void StoveLogic::FixedUpdate()
 	}
 	else if (isOccupied && isCooked)
 	{
-		if (isPan) if (tableSFX) tableSFX->Play(2);
-		if (isPot) if (tableSFX) tableSFX->Play(4);
+		if (isPan) if (stoveSFX) stoveSFX->Play(2);
+		if (isPot) if (stoveSFX) stoveSFX->Play(4);
 	}
-	else tableSFX->Stop();
+	else stoveSFX->Stop();
 }
 
 /****************************************************************
@@ -231,9 +231,9 @@ void StoveLogic::cookObject()
 				{
 					type = ItemType::PAN_C_PATTY;
 					currCookTime = cookTimePan;
-					if (tableSFX) {
-						tableSFX->Stop();
-						tableSFX->Play(5);
+					if (stoveSFX) {
+						stoveSFX->Stop();
+						stoveSFX->Play(5);
 					}
 						
 					if (sliderLogic)
@@ -249,29 +249,29 @@ void StoveLogic::cookObject()
 			
 			else if(isPot)
 			{
-				if (tableSFX) tableSFX->Play(1);
+				if (stoveSFX) stoveSFX->Play(1);
 				if (type == ItemType::C_TOMATO)
 				{
 					type = ItemType::POT_TOMATO;
-					if (tableSFX) {
-						tableSFX->Stop();
-						tableSFX->Play(5);
+					if (stoveSFX) {
+						stoveSFX->Stop();
+						stoveSFX->Play(5);
 					}
 				}
 				else if (type == ItemType::C_MUSHROOM)
 				{
 					type = ItemType::POT_MUSHROOM;
-					if (tableSFX) {
-						tableSFX->Stop();
-						tableSFX->Play(5);
+					if (stoveSFX) {
+						stoveSFX->Stop();
+						stoveSFX->Play(5);
 					}
 				}
 				else if (isIngredient(type))
 				{
 					type = ItemType::POT_SUS;
-					if (tableSFX) {
-						tableSFX->Stop();
-						tableSFX->Play(5);
+					if (stoveSFX) {
+						stoveSFX->Stop();
+						stoveSFX->Play(5);
 					}
 				}
 				potLogic->SetSoup(type);
@@ -285,14 +285,14 @@ void StoveLogic::cookObject()
 	// SFX
 	if (isPan)
 	{
-		if (type == ItemType::PAN_R_PATTY) if (tableSFX) tableSFX->Play();
-		if (type == ItemType::PAN_C_PATTY) if (tableSFX) tableSFX->Play(1);
+		if (type == ItemType::PAN_R_PATTY) if (stoveSFX) stoveSFX->Play();
+		if (type == ItemType::PAN_C_PATTY) if (stoveSFX) stoveSFX->Play(1);
 	}
 	else if (isPot)
 	{
-		if (type == ItemType::C_TOMATO) if (tableSFX) tableSFX->Play(3);
-		if (type == ItemType::C_MUSHROOM) if (tableSFX) tableSFX->Play(3);
-		if (isIngredient(type)) if (tableSFX) tableSFX->Play(3);
+		if (type == ItemType::C_TOMATO) if (stoveSFX) stoveSFX->Play(3);
+		if (type == ItemType::C_MUSHROOM) if (stoveSFX) stoveSFX->Play(3);
+		if (isIngredient(type)) if (stoveSFX) stoveSFX->Play(3);
 	}
 }
 
@@ -365,11 +365,10 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 	objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
 	if (objectTransform)
 	{
-		objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+		objectTransform->SetPosition(stoveTransform->GetPosition() + Vec2(0.0f, 0.6f));
 	}
 
-	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);
-	objectSprite->sortingOrder = 7;
+	objectSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(objData.first);;
 
 	if (objData.second == ItemType::PAN)
 	{
@@ -396,5 +395,5 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 
 
 void StoveLogic::EmitSparks() {
-	DuckEngine::Emit("CookingSparks", tableTransform->GetPosition(), {0.2f, 0.2f});
+	DuckEngine::Emit("CookingSparks", stoveTransform->GetPosition(), {0.2f, 0.2f});
 }

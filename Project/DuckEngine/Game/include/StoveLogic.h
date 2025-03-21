@@ -25,9 +25,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 class StoveLogic : public GameLogic
 {
 private:
-	Entity* table = nullptr;
-	TransformComponent* tableTransform = nullptr;
-	SoundComponent* tableSFX = nullptr;
+	Entity* stove = nullptr;
+	TransformComponent* stoveTransform = nullptr;
+	SoundComponent* stoveSFX = nullptr;
 	Entity* object = nullptr;
 	TransformComponent* objectTransform = nullptr;
 	SpriteRendererComponent* objectSprite = nullptr;
