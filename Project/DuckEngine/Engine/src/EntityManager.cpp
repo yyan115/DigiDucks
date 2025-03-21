@@ -35,20 +35,47 @@ std::shared_ptr<Entity> EntityManager::CreateEntity()
 @brief Removes an entity by its ID, including all associated components.
 @param entityID The ID of the entity to be removed.
 *************************************************************************/
-void EntityManager::RemoveEntity(int entityID) 
+void EntityManager::RemoveEntity(int entityID)
 {
-    DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
+	for (auto& potentialParent : entities)
+	{
+		auto& kids = potentialParent->childEntities;
+		auto& names = potentialParent->childNames;
 
-    auto it = std::find_if(entities.begin(), entities.end(),
-        [entityID](const std::shared_ptr<Entity>& entity) 
-        {
-            return entity->entityID == entityID;
-        });
+		kids.erase(
+			std::remove_if(
+				kids.begin(), kids.end(),
+				[entityID](std::shared_ptr<Entity> const& child)
+				{
+					return child->entityID == entityID;
+				}
+			),
+			kids.end()
+		);
+		names.erase(
+			std::remove_if(
+				names.begin(), names.end(),
+				[&](std::string const& childName)
+				{
+					return false;
+				}
+			),
+			names.end()
+		);
+	}
 
-    if (it != entities.end()) {
-        entities.erase(it);
-    }
+	DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);
+
+	auto it = std::find_if(entities.begin(), entities.end(),
+		[entityID](const std::shared_ptr<Entity>& entity)
+		{
+			return entity->entityID == entityID;
+		});
+
+	if (it != entities.end())
+		entities.erase(it);
 }
+
 
 /************************************************************************
 @brief Retrieves a reference to the list of all entities managed by this
