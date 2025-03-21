@@ -23,6 +23,7 @@ void HighlightLogic::Start()
 		{
 			ogSortingOrder = sprite->sortingOrder;
 		}
+		transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
 
 		if (entity->childEntities.size() > 0)
 		{
@@ -38,6 +39,11 @@ void HighlightLogic::Start()
 						highlightSprite->sortingOrder = sprite->sortingOrder + additionalSortingOrder -1;
 					}
 					highlightSprite->isVisible = false;
+				}
+				highlightTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(highlightEntity->entityID);
+				if (highlightTransform && transform)
+				{
+					highlightTransform->SetPosition(transform->GetPosition());
 				}
 			}
 		}

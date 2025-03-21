@@ -60,11 +60,18 @@ public:
 		{
 			spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(entity->entityID);
 			textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->entityID);
-			if (textComponent == nullptr)
+			if (!textComponent)
 			{
 				if (entity->childEntities.size() > 0)
 				{
-					textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(entity->childEntities[0]->entityID);
+					for (auto& child : entity->childEntities)
+					{
+						textComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(child->entityID);
+						if (textComponent)
+						{
+							break;
+						}
+					}
 				}
 			}
 		}

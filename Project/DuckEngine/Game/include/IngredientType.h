@@ -86,6 +86,15 @@ enum class ItemType : int
 
 // Get the string representation of the ItemType
 // Can be used for debugging or getting image file names
+
+/****************************************************************
+* @brief Get the string representation of the ItemType,
+*        used for debugging or getting image file names
+* 
+* @param type - the type of item
+* 
+* @return - the string representation of the ItemType
+* ****************************************************************/
 inline std::string whatType(ItemType type)
 {
     switch (type)
@@ -192,7 +201,14 @@ inline std::string whatType(ItemType type)
     };
 }
 
-// Check if the item is an ingredient
+
+/****************************************************************
+* @brief Check if the item is an ingredient
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is an ingredient, false otherwise
+* ****************************************************************/
 inline bool isIngredient(ItemType type)
 {
 	switch (type)
@@ -220,7 +236,13 @@ inline bool isIngredient(ItemType type)
 	}
 }
 
-// Check if the item is/on a plate
+/****************************************************************
+* @brief Check if the item is a plate
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is a plate, false otherwise
+* ****************************************************************/
 inline bool isPlate(ItemType type)
 {
 	switch (type)
@@ -249,7 +271,13 @@ inline bool isPlate(ItemType type)
 	}
 }
 
-// Check if the item is a bowl
+/****************************************************************
+* @brief Check if the item is a bowl
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is a bowl, false otherwise
+* ****************************************************************/
 inline bool isBowl(ItemType type)
 {
 	switch (type)
@@ -266,7 +294,13 @@ inline bool isBowl(ItemType type)
 	}
 }
 
-// Check if the item is a pan
+/****************************************************************
+* @brief Check if the item is a pan
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is pan, false otherwise
+* ****************************************************************/
 inline bool isTypePan(ItemType type)
 {
 	switch (type)
@@ -283,7 +317,13 @@ inline bool isTypePan(ItemType type)
 	}
 }
 
-// Check if the item is a pot
+/****************************************************************
+* @brief Check if the item is a pot
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is pot, false otherwise
+* ****************************************************************/
 inline bool isTypePot(ItemType type)
 {
 	switch (type)
@@ -300,7 +340,13 @@ inline bool isTypePot(ItemType type)
 	}
 }
 
-// Check if the item is part of/a equipment
+/****************************************************************
+* @brief Check if the item is part of/a equipment
+* 
+* @param type - the type of item
+* 
+* @return - true if the item is a pan or pot, false otherwise
+* ****************************************************************/
 inline bool isEquipment(ItemType type)
 {
 	switch (type)

@@ -24,14 +24,16 @@ private:
 	// Entity and sprite of the object
 	Entity* entity = nullptr;
 	SpriteRendererComponent* sprite = nullptr;
+	TransformComponent* transform = nullptr;
 	int ogSortingOrder = 0;
 
 	// Highlight object
 	Entity* highlightEntity = nullptr;
 	SpriteRendererComponent* highlightSprite = nullptr;
+	TransformComponent* highlightTransform = nullptr;
 	int ogHighlightSortingOrder = 0;
 
-	const int additionalSortingOrder = 5;
+	const int additionalSortingOrder = 3;
 	
 public:
 	bool isHighlighted = false;

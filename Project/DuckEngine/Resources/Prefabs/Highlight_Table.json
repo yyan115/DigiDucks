@@ -3,12 +3,13 @@
         {
             "properties": {
                 "position": {
-                    "x": 0.0,
-                    "y": 0.0
+                    "x": 9.988649368286133,
+                    "y": -7.775423526763916
                 },
+                "relativeToCamera": true,
                 "rotation": 0.0,
                 "scale": {
-                    "x": 2.299999952316284,
+                    "x": 2.200000047683716,
                     "y": 2.700000047683716
                 }
             },
@@ -17,13 +18,14 @@
         {
             "properties": {
                 "color": {
-                    "a": 255,
-                    "b": 255,
-                    "g": 255,
-                    "r": 255
+                    "a": 255.0,
+                    "b": 255.0,
+                    "g": 255.0,
+                    "r": 255.0
                 },
                 "isVisible": true,
-                "sortingOrder": 0,
+                "sortingOrder": 7,
+                "sprite": true,
                 "texture": "",
                 "useColor": true
             },
