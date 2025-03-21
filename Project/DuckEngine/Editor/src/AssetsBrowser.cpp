@@ -468,6 +468,10 @@ void AssetsBrowser::RenderPrefabsGrid() {
 				ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
 			}
 		}
+		else
+		{
+			ImGui::Button(prefabName.c_str(), ImVec2(128, 128));
+		}
 
 		// Drag/drop source for the prefab
 		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_SourceAllowNullID)) {
