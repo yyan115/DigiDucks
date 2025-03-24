@@ -49,6 +49,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 #include "SpatialGridSystem.h"
 #include "ProjectSettings.h"
+#include "RadialSliderSystem.h"
 
 
 //GraphicsManager graphicsManager;
@@ -148,6 +149,9 @@ void DuckEngine::SetupSystems()
 
 	auto buttonSystem = std::make_shared<ButtonSystem>();
 	DUCKENGINE_SystemManager.AddSystem(buttonSystem);
+
+	auto radialSliderSystem = std::make_shared<RadialSliderSystem>();
+	DUCKENGINE_SystemManager.AddSystem(radialSliderSystem);
 
 	//auto particleSystem = std::make_shared<ParticleSystem>(2000);
 	//DUCKENGINE_SystemManager.AddSystem(particleSystem);

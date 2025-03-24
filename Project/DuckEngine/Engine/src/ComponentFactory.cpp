@@ -93,6 +93,10 @@ void ComponentFactory::AddComponentsToEntity(Entity* entity, const nlohmann::jso
 			{
 				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SliderComponent>(entity->entityID, *sliderComponent);
 			}
+			else if (auto radialSlider = std::dynamic_pointer_cast<RadialSliderComponent>(component))
+			{
+				DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RadialSliderComponent>(entity->entityID, *radialSlider);
+			}
 		}
 		else
 		{
@@ -307,6 +311,36 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		componentsArray.push_back(sliderData);
 	}
 
+	if (auto* radialSliderComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RadialSliderComponent>(entityID))
+	{
+		json radialSliderData;
+		radialSliderData["type"] = "RadialSliderComponent";
+		radialSliderData["properties"]["isEnabled"] = radialSliderComponent->isEnabled;
+		radialSliderData["properties"]["isVisible"] = radialSliderComponent->isVisible;
+		radialSliderData["properties"]["sortingOrder"] = radialSliderComponent->sortingOrder;
+		radialSliderData["properties"]["minValue"] = radialSliderComponent->minValue;
+		radialSliderData["properties"]["maxValue"] = radialSliderComponent->maxValue;
+		radialSliderData["properties"]["currentValue"] = radialSliderComponent->currentValue;
+		radialSliderData["properties"]["step"] = radialSliderComponent->step;
+		radialSliderData["properties"]["minAngle"] = radialSliderComponent->minAngle;
+		radialSliderData["properties"]["maxAngle"] = radialSliderComponent->maxAngle;
+		radialSliderData["properties"]["radius"] = radialSliderComponent->radius;
+		radialSliderData["properties"]["thickness"] = radialSliderComponent->thickness;
+		radialSliderData["properties"]["backgroundColor"] = {
+			{"r", radialSliderComponent->backgroundColor.r},
+			{"g", radialSliderComponent->backgroundColor.g},
+			{"b", radialSliderComponent->backgroundColor.b},
+			{"a", radialSliderComponent->backgroundColor.a}
+		};
+		radialSliderData["properties"]["fillColor"] = {
+			{"r", radialSliderComponent->fillColor.r},
+			{"g", radialSliderComponent->fillColor.g},
+			{"b", radialSliderComponent->fillColor.b},
+			{"a", radialSliderComponent->fillColor.a}
+		};
+		componentsArray.push_back(radialSliderData);
+	}
+
 }
 
 std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohmann::json& componentJson)
@@ -476,6 +510,37 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		return sliderComponent;
 	}
 
+	else if (type == "RadialSliderComponent")
+	{
+		auto radialSlider = std::make_shared<RadialSliderComponent>();
+
+		radialSlider->isEnabled = componentJson["properties"].value("isEnabled", false);
+		radialSlider->isVisible = componentJson["properties"].value("isVisible", true);
+		radialSlider->sortingOrder = componentJson["properties"].value("sortingOrder", 0);
+		radialSlider->minValue = componentJson["properties"].value("minValue", 0.0f);
+		radialSlider->maxValue = componentJson["properties"].value("maxValue", 1.0f);
+		radialSlider->currentValue = componentJson["properties"].value("currentValue", 0.0f);
+		radialSlider->step = componentJson["properties"].value("step", 0.1f);
+		radialSlider->minAngle = componentJson["properties"].value("minAngle", 0.0f);
+		radialSlider->maxAngle = componentJson["properties"].value("maxAngle", 360.0f);
+		radialSlider->radius = componentJson["properties"].value("radius", 100.0f);
+		radialSlider->thickness = componentJson["properties"].value("thickness", 1.0f);
+
+		if (componentJson["properties"].contains("backgroundColor")) {
+			radialSlider->backgroundColor.r = componentJson["properties"]["backgroundColor"].value("r", 100.0f);
+			radialSlider->backgroundColor.g = componentJson["properties"]["backgroundColor"].value("g", 100.0f);
+			radialSlider->backgroundColor.b = componentJson["properties"]["backgroundColor"].value("b", 100.0f);
+			radialSlider->backgroundColor.a = componentJson["properties"]["backgroundColor"].value("a", 255.0f);
+		}
+
+		if (componentJson["properties"].contains("fillColor")) {
+			radialSlider->fillColor.r = componentJson["properties"]["fillColor"].value("r", 50.0f);
+			radialSlider->fillColor.g = componentJson["properties"]["fillColor"].value("g", 150.0f);
+			radialSlider->fillColor.b = componentJson["properties"]["fillColor"].value("b", 255.0f);
+			radialSlider->fillColor.a = componentJson["properties"]["fillColor"].value("a", 255.0f);
+		}
+		return radialSlider;
+		}
 
 	std::cerr << "Error: Unknown component type: " << type << std::endl;
 	return nullptr;

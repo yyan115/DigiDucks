@@ -175,6 +175,16 @@ void GraphicsManager::Render() {
             DrawFilledCircle(particleData.translation, particleData.scale.x, particleData.color, /*relativeToCamera=*/ true);
             break;
         }
+		case RenderCommandType::Slider:
+		{
+			SliderRenderCommand sliderData = std::get<SliderRenderCommand>(cmd.command);
+			DrawFilledCircle(sliderData.position,
+				sliderData.radius,
+				sliderData.color,
+				sliderData.relativeToCamera);
+
+			break;
+		}
         default:
             break;
         }
@@ -455,8 +465,6 @@ void GraphicsManager::RenderDebugObject(const DebugRenderCommand& cmd) {
         DrawCircle(cmd.position1, cmd.sizeOrRadius, cmd.color, useCamera, cameraViewMatrix);
         break;
     }
-
-    std::cout << "rendered debug for watever reason\n";
 }
 
 /// <summary>

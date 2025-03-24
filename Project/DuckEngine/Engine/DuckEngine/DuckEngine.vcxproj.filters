@@ -160,6 +160,9 @@
     <ClCompile Include="..\src\ProjectSettings.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\RadialSliderSystem.cpp">
+      <Filter>src\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Bounding.h">
@@ -386,6 +389,12 @@
     </ClInclude>
     <ClInclude Include="..\include\EntityDestroyer.h">
       <Filter>include\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RadialSliderComponent.h">
+      <Filter>include\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\RadialSliderSystem.h">
+      <Filter>include\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -178,12 +178,21 @@ struct ParticleRenderCommand {
     bool relativeToCamera = true;
 };
 
+struct SliderRenderCommand
+{
+	Vector2D position;
+	float radius;
+	Color color;
+	bool relativeToCamera;
+};
+
 // Define the three types of commands.
 enum class RenderCommandType {
     Game,   // For game objects (using GameRenderCommand)
     Text,   // For text (using TextRenderCommand)
     Debug,   // For debug drawing (using DebugRenderCommand)
-    Particle
+    Particle,
+    Slider
 };
 
 // Our unified render command – each command carries a layer and a variant.
@@ -191,5 +200,5 @@ struct UnifiedRenderCommand {
     int layer = 0;
     int sortingOrder = 0;
     RenderCommandType type = RenderCommandType::Game;
-    std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand, ParticleRenderCommand> command;
+    std::variant<GameRenderCommand, TextRenderCommand, DebugRenderCommand, ParticleRenderCommand, SliderRenderCommand> command;
 };

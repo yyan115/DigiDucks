@@ -33,6 +33,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundComponent.h"
 #include "GameLogicComponent.h"
 #include "SliderComponent.h"
+#include "RadialSliderComponent.h"
 
 #include "TextComponent.h"
 #include "ButtonComponent.h"

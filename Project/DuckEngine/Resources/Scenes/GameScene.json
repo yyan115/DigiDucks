@@ -69,8 +69,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -253.53297424316406,
-                            "y": 171.02903747558594
+                            "x": -279.09381103515625,
+                            "y": 172.5105438232422
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -105,8 +105,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -253.3879852294922,
-                            "y": 172.01304626464844
+                            "x": -278.9488220214844,
+                            "y": 173.4945526123047
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3019,14 +3019,6 @@
             },
             "prefab": "Highlight_Table"
         },
-        "GameObject_252": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
         "HTPBack": {
             "components": [
                 {
@@ -5447,7 +5439,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "24553"
+                        "text": "19406"
                     },
                     "type": "TextComponent"
                 }
@@ -5456,7 +5448,7 @@
         },
         "Mushroom_Box": {
             "childNames": [
-                "GameObject_252",
+                "Table_252",
                 "Mushroom_Txt"
             ],
             "components": [
@@ -10777,6 +10769,14 @@
             ],
             "layer": "Gameplay"
         },
+        "Table_252": {
+            "layer": "Gameplay",
+            "position": {
+                "x": -6.0,
+                "y": 4.5
+            },
+            "prefab": "Highlight_Table"
+        },
         "Table_3": {
             "childNames": [
                 "GameObject_233"
@@ -11899,6 +11899,54 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "slider2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0,
+                            "y": -10.399999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 44.402000427246094,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 49.999996185302734,
+                            "g": 255.0,
+                            "r": 97.67444610595703
+                        },
+                        "isEnabled": true,
+                        "isVisible": true,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.49999991059303284,
+                        "sortingOrder": 3,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.20000001788139343
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
         }
     },
     "layers": {

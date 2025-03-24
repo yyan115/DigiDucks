@@ -315,6 +315,8 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\Prefab.h" />
     <ClInclude Include="..\include\PrefabManager.h" />
     <ClInclude Include="..\include\ProjectSettings.h" />
+    <ClInclude Include="..\include\RadialSliderComponent.h" />
+    <ClInclude Include="..\include\RadialSliderSystem.h" />
     <ClInclude Include="..\include\RenderData.h" />
     <ClInclude Include="..\include\RigidbodyComponent.h" />
     <ClInclude Include="..\include\RigidbodySystem.h" />
@@ -378,6 +380,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\PrefabManager.cpp" />
     <ClCompile Include="..\src\ProjectSettings.cpp" />
+    <ClCompile Include="..\src\RadialSliderSystem.cpp" />
     <ClCompile Include="..\src\RigidbodySystem.cpp" />
     <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\SceneManager.cpp" />

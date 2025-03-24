@@ -27,6 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SnapshotManager.h"
 #include "AnimationEditor.h"
 #include "SliderComponent.h"
+#include "RadialSliderComponent.h"
 
 
 std::unordered_map<int, bool> InspectorRenderer::entityChanges;
@@ -45,7 +46,8 @@ const std::vector<std::string> InspectorRenderer::componentTypes = {
 	"TextComponent",
 	"ButtonComponent",
 	"GameLogicComponent",
-	"SliderComponent"
+	"SliderComponent",
+	"RadialSliderComponent"
 };
 
 bool isEditing = false;
@@ -788,6 +790,109 @@ void InspectorRenderer::RenderComponents(int entityID)
 		}
 	}
 
+	if (auto* slider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RadialSliderComponent>(entityID))
+	{
+		if (ImGui::CollapsingHeader("Radial Slider Component"))
+		{
+			ImGui::Checkbox("Enabled", &slider->isEnabled);
+			ImGui::Checkbox("Visible", &slider->isVisible);
+
+			// Sorting Order
+			int sortingOrder = slider->sortingOrder;
+			if (ImGui::InputInt("Sorting Order", &sortingOrder))
+			{
+				slider->sortingOrder = sortingOrder;
+			}
+
+			// Radius
+			float radius = slider->radius;
+			if (ImGui::InputFloat("Radius", &radius, 0.1f, 1.0f, "%.3f"))
+			{
+				slider->radius = radius;
+			}
+
+			// New Thickness property
+			float thickness = slider->thickness;
+			if (ImGui::InputFloat("Thickness", &thickness, 0.1f, 1.0f, "%.3f"))
+			{
+				slider->thickness = thickness;
+			}
+
+			// Min Value
+			float minValue = slider->minValue;
+			if (ImGui::InputFloat("Min Value", &minValue, 0.1f, 1.0f, "%.3f"))
+			{
+				slider->minValue = minValue;
+			}
+
+			// Max Value
+			float maxValue = slider->maxValue;
+			if (ImGui::InputFloat("Max Value", &maxValue, 0.1f, 1.0f, "%.3f"))
+			{
+				slider->maxValue = maxValue;
+			}
+
+			// Current Value
+			float currentValue = slider->currentValue;
+			if (ImGui::SliderFloat("Current Value", &currentValue, slider->minValue, slider->maxValue))
+			{
+				slider->currentValue = currentValue;
+			}
+
+			// Step
+			float step = slider->step;
+			if (ImGui::InputFloat("Step", &step, 0.01f, 0.1f, "%.3f"))
+			{
+				slider->step = step;
+			}
+
+			// Min Angle
+			float minAngle = slider->minAngle;
+			if (ImGui::InputFloat("Min Angle", &minAngle, 1.0f, 10.0f, "%.3f"))
+			{
+				slider->minAngle = minAngle;
+			}
+
+			// Max Angle
+			float maxAngle = slider->maxAngle;
+			if (ImGui::InputFloat("Max Angle", &maxAngle, 1.0f, 10.0f, "%.3f"))
+			{
+				slider->maxAngle = maxAngle;
+			}
+
+			float bgColor[4] = {
+				slider->backgroundColor.r / 255.0f,
+				slider->backgroundColor.g / 255.0f,
+				slider->backgroundColor.b / 255.0f,
+				slider->backgroundColor.a / 255.0f
+			};
+
+			if (ImGui::ColorEdit4("Background Color", bgColor))
+			{
+				slider->backgroundColor.r = bgColor[0] * 255.0f;
+				slider->backgroundColor.g = bgColor[1] * 255.0f;
+				slider->backgroundColor.b = bgColor[2] * 255.0f;
+				slider->backgroundColor.a = bgColor[3] * 255.0f;
+			}
+
+			float fillColor[4] = {
+				slider->fillColor.r / 255.0f,
+				slider->fillColor.g / 255.0f,
+				slider->fillColor.b / 255.0f,
+				slider->fillColor.a / 255.0f
+			};
+
+			if (ImGui::ColorEdit4("Fill Color", fillColor))
+			{
+				slider->fillColor.r = fillColor[0] * 255.0f;
+				slider->fillColor.g = fillColor[1] * 255.0f;
+				slider->fillColor.b = fillColor[2] * 255.0f;
+				slider->fillColor.a = fillColor[3] * 255.0f;
+			}
+		}
+	}
+
+
 	if (isEditing && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
 	{
 		//SnapshotManager::SaveUndoState(); 
@@ -864,6 +969,8 @@ void InspectorRenderer::AddComponents(int entityID, bool& hasChanged)
 		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<GameLogicComponent>(entityID);
 	else if (selectedType == "SliderComponent")
 		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SliderComponent>(entityID);
+	else if (selectedType == "RadialSliderComponent")
+		componentExists = DuckEngine::DUCKENGINE_ComponentManager.HasComponent<RadialSliderComponent>(entityID);
 
 	// Disable the Add Component button if component exists
 	if (componentExists)
@@ -966,5 +1073,8 @@ void InspectorRenderer::AddComponentToEntity(const std::string& componentName, i
 	}
 	else if (componentName == "SliderComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<SliderComponent>(entityID)) {
 		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SliderComponent>(entityID);
+	}
+	else if (componentName == "RadialSliderComponent" && !DuckEngine::DUCKENGINE_ComponentManager.HasComponent<RadialSliderComponent>(entityID)) {
+		DuckEngine::DUCKENGINE_ComponentManager.AddComponent<RadialSliderComponent>(entityID);
 	}
 }

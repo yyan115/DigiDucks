@@ -190,8 +190,6 @@ void LevelManager::LoadLevel(const std::string& levelName)
 				{
 					parentEntity->childEntities.push_back(childEntity);
 					validChildNames.push_back(childName);
-					std::cout << "Linked child entity: " << childEntity->name
-						<< " to parent: " << parentEntity->name << std::endl;
 				}
 				else
 				{
