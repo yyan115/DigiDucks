@@ -238,6 +238,8 @@ public:
     static double accumulatedTime;
     static int currentSteps;
 
+    static DUCKENGINE_API void DestroyEntity(int entityID);
+
     /// <summary>
     /// Spawn (emit) a new particle at 'pos' with velocity 'vel'.
     /// Randomizes some properties like lifetime, scale, color, etc.

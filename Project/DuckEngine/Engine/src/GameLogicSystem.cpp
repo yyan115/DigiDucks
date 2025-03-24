@@ -69,7 +69,17 @@ void GameLogicSystem::Start()
 void GameLogicSystem::Update()
 {
 	auto& components = DuckEngine::DUCKENGINE_ComponentManager.GetComponents<GameLogicComponent>();
-	for (auto& [entityID, component] : components)
+
+	std::vector<int> validEntityIDs;
+	for (const auto& [entityID, component] : components)
+	{
+		if (DuckEngine::DUCKENGINE_EntityManager.GetEntity(entityID))
+		{
+			validEntityIDs.push_back(entityID);
+		}
+	}
+
+	for (int entityID : validEntityIDs)
 	{
 		auto logics = GameLogicManager::GetAllLogicsForEntity(entityID);
 		for (auto& logic : logics)

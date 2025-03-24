@@ -384,6 +384,9 @@
     <ClInclude Include="..\include\ProjectSettings.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\EntityDestroyer.h">
+      <Filter>include\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game\Resources\Shaders\fontFragShader.frag">

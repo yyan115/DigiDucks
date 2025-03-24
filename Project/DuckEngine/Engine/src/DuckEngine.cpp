@@ -34,6 +34,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "FontManager.h"
 #include "CameraManager.h"
 #include "ParticleManager.h"
+#include "EntityDestroyer.h"
 
 //include systems
 #include "SpriteRendererSystem.h"
@@ -271,6 +272,8 @@ void DuckEngine::Update()
 	}
 		
 	TimeManager::EndManagerTimer("Systems Update");
+
+	EntityDestroyer::ProcessDestructions();
 
 	// Render at whatever FPS we can achieve
 	TimeManager::StartManagerTimer("Font System");
@@ -611,4 +614,9 @@ void DuckEngine::PauseGame(bool pause)
 	else {
 		SoundSystem::ResumeAllSounds();
 	}
+}
+
+void DuckEngine::DestroyEntity(int entityID)
+{
+	EntityDestroyer::MarkForDestruction(entityID);
 }

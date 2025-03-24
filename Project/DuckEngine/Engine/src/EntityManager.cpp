@@ -42,26 +42,20 @@ void EntityManager::RemoveEntity(int entityID)
 		auto& kids = potentialParent->childEntities;
 		auto& names = potentialParent->childNames;
 
-		kids.erase(
-			std::remove_if(
-				kids.begin(), kids.end(),
-				[entityID](std::shared_ptr<Entity> const& child)
-				{
-					return child->entityID == entityID;
-				}
-			),
-			kids.end()
-		);
-		names.erase(
-			std::remove_if(
-				names.begin(), names.end(),
-				[&](std::string const& childName)
-				{
-					return false;
-				}
-			),
-			names.end()
-		);
+		std::vector<size_t> indicesToRemove;
+		for (size_t i = 0; i < kids.size(); ++i)
+		{
+			if (kids[i]->entityID == entityID)
+			{
+				indicesToRemove.push_back(i);
+			}
+		}
+
+		for (auto it = indicesToRemove.rbegin(); it != indicesToRemove.rend(); ++it)
+		{
+			kids.erase(kids.begin() + *it);
+			names.erase(names.begin() + *it);
+		}
 	}
 
 	DuckEngine::DUCKENGINE_ComponentManager.RemoveAllComponents(entityID);

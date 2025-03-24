@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "GameLogicManager.h"
+#include "DuckEngine.h"
 
 std::unordered_map<std::string, std::shared_ptr<GameLogic>> GameLogicManager::logicMap;
 std::unordered_map<int, std::vector<std::shared_ptr<GameLogic>>> GameLogicManager::entityLogicMap;
@@ -127,4 +128,29 @@ void GameLogicManager::Clear()
 std::vector<std::shared_ptr<GameLogic>>& GameLogicManager::GetLogicsForEntity(int entityID)
 {
 	return entityLogicMap[entityID];
+}
+
+bool GameLogicManager::InitializeEntityLogic(int entityID)
+{
+	auto* logicComponent = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<GameLogicComponent>(entityID);
+	if (!logicComponent)
+	{
+		return false;
+	}
+
+	bool anyLogicInitialized = false;
+	for (const auto& logicName : logicComponent->logicNames)
+	{
+		auto baseLogic = GameLogicManager::GetLogic(logicName);
+		if (baseLogic)
+		{
+			auto logic = baseLogic->Clone();
+			logic->SetComponent(logicComponent);
+			GameLogicManager::AddLogicToEntity(entityID, logic);
+			logic->Start();
+			anyLogicInitialized = true;
+		}
+	}
+
+	return anyLogicInitialized;
 }

@@ -64,6 +64,8 @@ public:
     **************************************************************************/
     static DUCKENGINE_API std::vector<std::shared_ptr<GameLogic>> GetAllLogicsForEntity(int entityID);
 
+    static DUCKENGINE_API bool InitializeEntityLogic(int entityID);
+
     /**************************************************************************
     * @brief Retrieves a specific type of logic object associated with an entity.
     * @tparam T The type of logic to retrieve.

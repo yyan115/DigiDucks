@@ -280,6 +280,7 @@ xcopy /E /I /Y "$(SolutionDir)\Resources" "$(SolutionDir)Build\$(Configuration)\
     <ClInclude Include="..\include\DuckEngine_Input.h" />
     <ClInclude Include="..\include\Emitter.h" />
     <ClInclude Include="..\include\Entity.h" />
+    <ClInclude Include="..\include\EntityDestroyer.h" />
     <ClInclude Include="..\include\EntityFactory.h" />
     <ClInclude Include="..\include\EntityManager.h" />
     <ClInclude Include="..\include\File.h" />

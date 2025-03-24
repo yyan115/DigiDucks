@@ -61,15 +61,21 @@ const std::unordered_map<std::string, std::shared_ptr<Prefab>>& PrefabManager::G
 Entity* PrefabManager::InstantiatePrefab(const std::string& name, Vec2 newPosition)
 {
 	std::shared_ptr<Prefab> prefab = GetPrefab(name);
-	
+
 	if (prefab)
 	{
-		return prefab->Instantiate(newPosition);
+		Entity* entity = prefab->Instantiate(newPosition);
+
+		if (entity && DuckEngine::DUCKENGINE_ComponentManager.HasComponent<GameLogicComponent>(entity->entityID))
+		{
+			GameLogicManager::InitializeEntityLogic(entity->entityID);
+		}
+
+		return entity;
 	}
 
 	return nullptr;
 }
-
 /************************************************************************
 @brief Loads prefabs from a JSON file and adds them to the PrefabManager's collection.
 @param filePath The path to the JSON file containing prefab definitions.

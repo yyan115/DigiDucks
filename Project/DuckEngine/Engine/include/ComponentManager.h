@@ -92,11 +92,14 @@ class ComponentManager
     @param entityID The ID of the entity.
     @param component A shared pointer to the component to be added.
     *************************************************************************/
-    DUCKENGINE_API void AddComponent(int entityID, const std::shared_ptr<Component>& component)
-    {
-        auto& typeMap = componentStorage[typeid(*component)];
-        typeMap[entityID] = component;
-    }
+	DUCKENGINE_API void AddComponent(int entityID, const std::shared_ptr<Component>& component)
+	{
+		auto& typeMap = componentStorage[typeid(*component)];
+
+		component->SetEntityID(entityID);
+
+		typeMap[entityID] = component;
+	}
 
     /************************************************************************
     @brief Retrieves a component of a specific type associated with an entity.
