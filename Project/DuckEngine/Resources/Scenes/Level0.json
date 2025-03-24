@@ -69,8 +69,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -253.53297424316406,
-                            "y": 171.02903747558594
+                            "x": 0.5199999213218689,
+                            "y": -0.3610000014305115
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -105,8 +105,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -253.3879852294922,
-                            "y": 172.01304626464844
+                            "x": 0.6649999022483826,
+                            "y": 0.6230000257492065
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -329,9 +329,6 @@
             "layer": "Background"
         },
         "Bin_1": {
-            "childNames": [
-                "GameObject_247"
-            ],
             "components": [
                 {
                     "properties": {
@@ -400,8 +397,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "BinLogic",
-                            "HighlightLogic"
+                            "BinLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -410,9 +406,6 @@
             "layer": "Gameplay"
         },
         "Bin_3": {
-            "childNames": [
-                "GameObject_249"
-            ],
             "components": [
                 {
                     "properties": {
@@ -438,7 +431,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
@@ -481,8 +474,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "BinLogic",
-                            "HighlightLogic"
+                            "BinLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -540,7 +532,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 7,
+                        "sortingOrder": 2,
                         "sprite": false,
                         "texture": "Resources/Sprites/Ingredients/stack_bowl.png",
                         "useColor": false
@@ -603,7 +595,6 @@
         },
         "Bowl_Station": {
             "childNames": [
-                "GameObject_246",
                 "Bowl"
             ],
             "components": [
@@ -675,8 +666,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "BowlStockLogic",
-                            "HighlightLogic"
+                            "BowlStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -686,7 +676,6 @@
         },
         "Bun_Box": {
             "childNames": [
-                "GameObject_241",
                 "Bun_Txt"
             ],
             "components": [
@@ -758,8 +747,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "BunStockLogic",
-                            "HighlightLogic"
+                            "BunStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -864,8 +852,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -882,7 +870,7 @@
                         "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/lettuce.png",
-                        "useColor": true
+                        "useColor": false
                     },
                     "type": "SpriteRendererComponent"
                 },
@@ -928,8 +916,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -992,8 +980,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -1056,8 +1044,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -1120,8 +1108,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.07000000029802322
+                            "x": 0.05999999865889549,
+                            "y": 0.07999999821186066
                         }
                     },
                     "type": "TransformComponent"
@@ -1182,7 +1170,7 @@
                     "properties": {
                         "position": {
                             "x": -6.0,
-                            "y": -7.800000190734863
+                            "y": -7.769999980926514
                         },
                         "relativeToCamera": true,
                         "rotation": 270.0,
@@ -1202,7 +1190,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 4,
                         "sprite": false,
                         "texture": "Resources/Sprites/Stations/cashregistertable.png",
                         "useColor": false
@@ -1213,7 +1201,7 @@
                     "properties": {
                         "center": {
                             "x": -6.0,
-                            "y": -7.800000190734863
+                            "y": -7.769999980926514
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -1238,9 +1226,6 @@
             "layer": "Gameplay"
         },
         "Cashier_Table": {
-            "childNames": [
-                "GameObject_233_copy"
-            ],
             "components": [
                 {
                     "properties": {
@@ -1262,11 +1247,11 @@
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
-                            "g": 255.0,
+                            "g": 0.0,
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1291,21 +1276,12 @@
                         "isStatic": true
                     },
                     "type": "RigidbodyComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "HighlightLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
         },
         "Cheese_Fridge": {
             "childNames": [
-                "GameObject_243",
                 "Cheese_Txt"
             ],
             "components": [
@@ -1377,8 +1353,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "CheeseStockLogic",
-                            "HighlightLogic"
+                            "CheeseStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -1455,7 +1430,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -1494,7 +1469,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -1658,115 +1633,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer2_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.499626159667969,
-                            "y": -19.40000343322754
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 10,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer3_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.4996256828308105,
-                            "y": -22.600000381469727
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 10,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Customer4_Order": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.699626445770264,
-                            "y": -25.900001525878906
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.0,
-                            "y": 2.5
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
@@ -1837,42 +1704,198 @@
             },
             "prefab": "Customer"
         },
-        "Customer_2": {
-            "childNames": [
-                "Customer2_Order"
+        "CutSceneBGM": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "BGM",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": true,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/bgm/cutscene_bgm.wav"
+                        ],
+                        "volume": 0.10000000894069672
+                    },
+                    "type": "SoundComponent"
+                }
             ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.099999904632568,
-                "y": -20.641000747680664
-            },
-            "prefab": "Customer"
+            "layer": "Background"
         },
-        "Customer_3": {
+        "CutSceneManager": {
             "childNames": [
-                "Customer3_Order"
+                "CutSceneBGM",
+                "CutSceneSkip"
             ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.099999904632568,
-                "y": -23.840999603271484
-            },
-            "prefab": "Customer"
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/cutscene/1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "",
+                            "Resources/Sounds/cutscene/Snoring.mp3",
+                            "Resources/Sounds/cutscene/door knocking.mp3",
+                            "Resources/Sounds/cutscene/door open.mp3",
+                            "",
+                            "",
+                            "",
+                            "Resources/Sounds/cutscene/affirmative sfx.mp3",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "Resources/Sounds/cutscene/door knocking.mp3",
+                            "Resources/Sounds/duck sounds/AnimalDuckCart 9.wav",
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/click 1.wav"
+                        ],
+                        "volume": 0.5
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CutSceneLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "UI"
         },
-        "Customer_4": {
-            "childNames": [
-                "Customer4_Order"
+        "CutSceneSkip": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8999999761581421,
+                            "y": -0.8999999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 250.0,
+                            "g": 229.0,
+                            "r": 250.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/UI/SKIP_cutscene.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
             ],
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.300000190734863,
-                "y": -27.141000747680664
-            },
-            "prefab": "Customer"
+            "layer": "UI"
         },
         "Cutting_Station": {
             "childNames": [
-                "GameObject_233_copy_1",
                 "Chopping_Slider_Bg"
             ],
             "components": [
@@ -1900,7 +1923,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
@@ -1943,14 +1966,115 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "ChopBoardLogic",
-                            "HighlightLogic"
+                            "ChopBoardLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
+        },
+        "DialogueManager": {
+            "childNames": [
+                "DialogueSkip"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.699999988079071,
+                            "y": 0.8999999761581421
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Dialogues/intro/1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "DialogueSkip": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.7799999713897705,
+                            "y": -0.9199999570846558
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 227.0,
+                            "r": 254.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/UI/SKIP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Drone": {
             "components": [
@@ -2447,13 +2571,13 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 0.0,
+                            "a": 255.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 12,
+                        "sortingOrder": 110,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2562,470 +2686,6 @@
                 "y": 6.5
             },
             "prefab": "Txt_Bg"
-        },
-        "GameObject_222": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -2.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy_copy_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 2.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy_copy_copy_1": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 6.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy_copy_copy_1_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -10.0,
-                            "y": -4.099999904632568
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 5.699999809265137
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_227": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -8.0,
-                "y": -8.0
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_231": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 10.0,
-                "y": -8.0
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_232": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -7.999999523162842
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_233": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -5.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_233_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -6.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_233_copy_1": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 4.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 7,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_234": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -0.699999988079071
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_235": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 8.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_236": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 0.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_237": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_238": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 2.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_239": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 6.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_240": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -4.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_241": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -8.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_242": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -1.9999998807907104,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_243": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 4.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_244": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": 2.200000047683716
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_246": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": -0.30000001192092896
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_247": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 9.999999046325684,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_248": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": -8.0
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_249": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -3.0999999046325684
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_250": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 8.0,
-                "y": -8.0
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_251": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_252": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -6.0,
-                "y": 4.5
-            },
-            "prefab": "Highlight_Table"
         },
         "HTPBack": {
             "components": [
@@ -3417,7 +3077,6 @@
         },
         "Lettuce_Box": {
             "childNames": [
-                "GameObject_242",
                 "Lettuce_Txt"
             ],
             "components": [
@@ -3489,8 +3148,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "LettuceStockLogic",
-                            "HighlightLogic"
+                            "LettuceStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -5447,7 +5105,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "24553"
+                        "text": "33663"
                     },
                     "type": "TextComponent"
                 }
@@ -5456,7 +5114,6 @@
         },
         "Mushroom_Box": {
             "childNames": [
-                "GameObject_252",
                 "Mushroom_Txt"
             ],
             "components": [
@@ -5528,8 +5185,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "MushroomStockLogic",
-                            "HighlightLogic"
+                            "MushroomStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -6785,7 +6441,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 11,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/pan.png",
                         "useColor": true
@@ -6914,7 +6570,7 @@
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 90,
+                        "sortingOrder": 99,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6930,7 +6586,7 @@
                     "type": "GameLogicComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         },
         "PlateSFXManager": {
             "components": [
@@ -7010,7 +6666,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Duck/duck_walk1.png",
                         "useColor": true
@@ -7073,29 +6729,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -7110,11 +6743,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -7124,6 +6771,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -7215,20 +6871,12 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 11,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "PotLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -8858,305 +8506,6 @@
             ],
             "layer": "UI"
         },
-        "SS_Bg": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 200.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "SS_Blue": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.574999988079071,
-                            "y": -0.625
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.125,
-                            "y": 0.25
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 6,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/blue.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "SS_Green": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.42500001192092896,
-                            "y": -0.625
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.125,
-                            "y": 0.25
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 6,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/green.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "SS_Pad": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.5
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.4000000059604645,
-                            "y": 0.699999988079071
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/game1.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "SS_Parent": {
-            "childNames": [
-                "SS_Pad",
-                "SS_Bg",
-                "SS_Red",
-                "SS_Yellow",
-                "SS_Green",
-                "SS_Blue"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 5.0,
-                            "y": 5.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "SS_Red": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.42500001192092896,
-                            "y": -0.375
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.125,
-                            "y": 0.25
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 6,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/red.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "SS_Yellow": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.574999988079071,
-                            "y": -0.375
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.125,
-                            "y": 0.25
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 6,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/MiniGame/orange.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
         "Score": {
             "childNames": [
                 "Score_Box",
@@ -9647,7 +8996,6 @@
         },
         "Shrimp_Fridge": {
             "childNames": [
-                "GameObject_238",
                 "Shrimp_Txt"
             ],
             "components": [
@@ -9719,8 +9067,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "ShrimpStockLogic",
-                            "HighlightLogic"
+                            "ShrimpStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -9823,7 +9170,6 @@
         },
         "Steak_Fridge": {
             "childNames": [
-                "GameObject_239",
                 "Steak_Txt"
             ],
             "components": [
@@ -9895,8 +9241,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "SteakStockLogic",
-                            "HighlightLogic"
+                            "SteakStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -9994,7 +9339,6 @@
         },
         "Stove": {
             "childNames": [
-                "GameObject_250",
                 "Stove_Sliver_Bg"
             ],
             "components": [
@@ -10022,7 +9366,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -10070,8 +9414,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "StoveLogic",
-                            "HighlightLogic"
+                            "StoveLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10105,7 +9448,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -10144,7 +9487,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -10179,21 +9522,18 @@
             "layer": "Gameplay"
         },
         "Submit_Station": {
-            "childNames": [
-                "GameObject_222_copy_copy_copy_1_copy"
-            ],
             "components": [
                 {
                     "properties": {
                         "position": {
                             "x": -10.0,
-                            "y": -4.099999904632568
+                            "y": -4.5
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
                             "x": 2.0,
-                            "y": 5.5
+                            "y": 6.0
                         }
                     },
                     "type": "TransformComponent"
@@ -10207,7 +9547,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/serving.png",
                         "useColor": true
@@ -10218,7 +9558,7 @@
                     "properties": {
                         "center": {
                             "x": -10.0,
-                            "y": -4.099999904632568
+                            "y": -4.5
                         },
                         "size": {
                             "x": 1.0,
@@ -10244,8 +9584,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "SubmitLogic",
-                            "HighlightLogic"
+                            "SubmitLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10254,9 +9593,6 @@
             "layer": "Gameplay"
         },
         "Table_1": {
-            "childNames": [
-                "GameObject_231"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10282,7 +9618,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10312,8 +9648,7 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "GetPanLogic",
-                            "HighlightLogic"
+                            "GetPanLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10322,9 +9657,6 @@
             "layer": "Gameplay"
         },
         "Table_10": {
-            "childNames": [
-                "GameObject_227"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10350,7 +9682,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10379,8 +9711,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10389,9 +9720,6 @@
             "layer": "Gameplay"
         },
         "Table_11": {
-            "childNames": [
-                "GameObject_222_copy_copy"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10417,7 +9745,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10446,8 +9774,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10456,9 +9783,6 @@
             "layer": "Gameplay"
         },
         "Table_12": {
-            "childNames": [
-                "GameObject_222_copy"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10484,7 +9808,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10513,8 +9837,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10523,9 +9846,6 @@
             "layer": "Gameplay"
         },
         "Table_13": {
-            "childNames": [
-                "GameObject_222"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10551,7 +9871,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10580,8 +9900,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10590,9 +9909,6 @@
             "layer": "Gameplay"
         },
         "Table_14": {
-            "childNames": [
-                "GameObject_222_copy_copy_copy"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10618,7 +9934,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10647,8 +9963,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10657,9 +9972,6 @@
             "layer": "Gameplay"
         },
         "Table_15": {
-            "childNames": [
-                "GameObject_222_copy_copy_copy_1"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10685,7 +9997,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10714,8 +10026,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10724,9 +10035,6 @@
             "layer": "Gameplay"
         },
         "Table_2": {
-            "childNames": [
-                "GameObject_232"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10752,7 +10060,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10768,8 +10076,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10778,9 +10085,6 @@
             "layer": "Gameplay"
         },
         "Table_3": {
-            "childNames": [
-                "GameObject_233"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10806,7 +10110,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10836,8 +10140,7 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "GetPotLogic",
-                            "HighlightLogic"
+                            "GetPotLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10846,9 +10149,6 @@
             "layer": "Gameplay"
         },
         "Table_4": {
-            "childNames": [
-                "GameObject_234"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10874,7 +10174,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": -1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10903,8 +10203,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10913,9 +10212,6 @@
             "layer": "Gameplay"
         },
         "Table_5": {
-            "childNames": [
-                "GameObject_251"
-            ],
             "components": [
                 {
                     "properties": {
@@ -10947,23 +10243,11 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "logicNames": [
-                            "HighlightLogic",
-                            "TableLogic"
-                        ]
-                    },
-                    "type": "GameLogicComponent"
                 }
             ],
             "layer": "Gameplay"
         },
         "Table_6": {
-            "childNames": [
-                "GameObject_235"
-            ],
             "components": [
                 {
                     "properties": {
@@ -11018,8 +10302,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -11028,9 +10311,6 @@
             "layer": "Gameplay"
         },
         "Table_7": {
-            "childNames": [
-                "GameObject_236"
-            ],
             "components": [
                 {
                     "properties": {
@@ -11099,8 +10379,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -11109,9 +10388,6 @@
             "layer": "Gameplay"
         },
         "Table_8": {
-            "childNames": [
-                "GameObject_237"
-            ],
             "components": [
                 {
                     "properties": {
@@ -11153,8 +10429,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -11163,9 +10438,6 @@
             "layer": "Gameplay"
         },
         "Table_9": {
-            "childNames": [
-                "GameObject_248"
-            ],
             "components": [
                 {
                     "properties": {
@@ -11191,7 +10463,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -11207,8 +10479,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TableLogic",
-                            "HighlightLogic"
+                            "TableLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -11478,7 +10749,6 @@
         },
         "Tomato_Box": {
             "childNames": [
-                "GameObject_240",
                 "Tomato_Txt"
             ],
             "components": [
@@ -11550,8 +10820,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "TomatoStockLogic",
-                            "HighlightLogic"
+                            "TomatoStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -11806,7 +11075,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 7,
+                        "sortingOrder": 2,
                         "sprite": false,
                         "texture": "Resources/Sprites/Ingredients/stack_plate.png",
                         "useColor": false
@@ -11818,7 +11087,6 @@
         },
         "White_Plate_Station": {
             "childNames": [
-                "GameObject_244",
                 "White_Plate"
             ],
             "components": [
@@ -11891,8 +11159,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "WhitePlateStockLogic",
-                            "HighlightLogic"
+                            "WhitePlateStockLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
