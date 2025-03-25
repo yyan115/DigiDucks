@@ -44,8 +44,8 @@ public:
 		return clone;
 	}
 
-	void Start() override;
-	void Update() override;
+	void Start() override { std::cout << "IM ALIVE" << std::endl; }
+	void Update() override {}
 
 	bool MiniGame = false;
 

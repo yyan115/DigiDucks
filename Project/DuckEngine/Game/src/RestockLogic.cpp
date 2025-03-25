@@ -27,6 +27,16 @@ void RestockLogic::Start()
 		{
 			restockMenuSpt->isVisible = false;
 		}
+
+		if (restockMenu->childEntities.size() > 0)
+		{
+			for (int i = 0; i < restockMenu->childEntities.size(); i++)
+			{
+				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(restockMenu->childEntities[i]->entityID);
+				if (sliderLogic)
+					break;
+			}
+		}
 	}
 
 	auto restockIngredientMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Ingredient_Menu").get();
@@ -35,21 +45,6 @@ void RestockLogic::Start()
 		restockIngredientMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockIngredientMenu->entityID);
 		if (restockIngredientMenuSpt)
 			std::cout << "Restock Ingredient Menu Found" << std::endl;
-	}
-
-	auto restockMaintenanceMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Maintenance_Menu").get();
-	if (restockMaintenanceMenu)
-	{
-		restockMaintenanceMenuSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockMaintenanceMenu->entityID);
-		if (restockMaintenanceMenuSpt)
-		{
-			maintenanceTextures.push_back(AssetManager::GetTextureByName("maintenance1"));
-			maintenanceTextures.push_back(AssetManager::GetTextureByName("maintenance2"));
-			maintenanceTextures.push_back(AssetManager::GetTextureByName("maintenance3"));
-			maintenanceTextures.push_back(AssetManager::GetTextureByName("maintenance4"));
-
-			UpdateMaintenanceMenu();
-		}
 	}
 
 	auto restockExitBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Exit_Btn").get();
@@ -68,77 +63,6 @@ void RestockLogic::Start()
 		}
 	}
 
-
-	auto restockIngredientBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Ingredient_Btn").get();
-	if (restockIngredientBtn)
-	{
-		restockIngredientOn = AssetManager::GetTextureByName("restock_ingredient_on");
-		restockIngredientOff = AssetManager::GetTextureByName("restock_ingredient_off");
-		restockIngredientSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockIngredientBtn->entityID);
-		if (restockIngredientSpt)
-		{
-			restockIngredientSpt->texture = restockIngredientOn;
-			restockIngredientButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockIngredientBtn->entityID);
-			if (restockIngredientButton) {
-				restockIngredientButton->onClick = [this, restockIngredientBtn]()
-					{
-						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockIngredientBtn->entityID)->Play();
-						// Swap Texture
-						restockIngredientSpt->texture = restockIngredientOn;
-						restockMaintenanceSpt->texture = restockMaintenanceOff;
-
-						// Enable Ingredient Menu, Disable Maintenance Menu
-						restockIngredientMenuSpt->isVisible = true;
-						restockMaintenanceMenuSpt->isVisible = false;
-					};
-			}
-		}
-	}
-
-	auto restockMaintenanceBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Maintenance_Btn").get();
-	if (restockMaintenanceBtn)
-	{
-		restockMaintenanceOn = AssetManager::GetTextureByName("restock_maintenance_on");
-		restockMaintenanceOff = AssetManager::GetTextureByName("restock_maintenance_off");
-		restockMaintenanceSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(restockMaintenanceBtn->entityID);
-		if (restockMaintenanceSpt)
-		{
-			restockMaintenanceSpt->texture = restockMaintenanceOff;
-			restockMaintenanceButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(restockMaintenanceBtn->entityID);
-			if (restockMaintenanceButton)
-			{
-				restockMaintenanceButton->onClick = [this, restockMaintenanceBtn]()
-					{
-						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockMaintenanceBtn->entityID)->Play();
-						// Swap Texture
-						restockIngredientSpt->texture = restockIngredientOff;
-						restockMaintenanceSpt->texture = restockMaintenanceOn;
-
-						// Enable Maintenance Menu, Disable Ingredient Menu
-						restockIngredientMenuSpt->isVisible = false;
-						restockMaintenanceMenuSpt->isVisible = true;
-					};
-			}
-		}
-	}
-
-
-	auto maintainenceStartBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Maintainence_Start_Btn").get();
-	if (maintainenceStartBtn)
-	{
-		maintainenceStartButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(maintainenceStartBtn->entityID);
-		if (maintainenceStartButton)
-		{
-			maintainenceStartButton->onClick = [this, maintainenceStartBtn]() 
-				{
-					if(maintenanceLevel >= 1)
-					{
-						DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(maintainenceStartBtn->entityID)->Play();
-						MiniGame_1(true);
-					}
-				};
-		}
-	}
 
 	auto restockAllBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_All_Btn").get();
 	if (restockAllBtn)
@@ -277,8 +201,6 @@ void RestockLogic::Start()
 				};
 		}
 	}
-
-	isMiniGame = false;
 }
 
 
@@ -287,15 +209,6 @@ void RestockLogic::Start()
 * ****************************************************************/
 void RestockLogic::Update()
 {
-	if (maintenanceLevel >= 5)
-	{
-		// Disable restock button
-		if (restockAllButton)
-		{
-			restockAllButton->isEnabled = false;
-		}
-	}
-
 	// If cart stock has changed
 	if (changeCartStock)
 	{
@@ -342,37 +255,13 @@ void RestockLogic::Restock(ItemType type)
 		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(entityID);
 		if (stockLogic->getType() == type)
 		{
-			stockLogic->addStock(); 
-			IncreaseMaintenanceLevel();
+			stockLogic->addStock();
 			return;
 		}
 	}
 
 	// Error message
 	std::cout << "RestockLogic::Restock: No stock of type " << static_cast<int>(type) << " found." << std::endl;
-}
-
-
-void RestockLogic::UpdateMaintenanceMenu()
-{
-	if(restockMaintenanceSpt)
-		restockMaintenanceMenuSpt->texture = maintenanceTextures[maintenanceLevel];
-}
-
-void RestockLogic::LowerMaintenanceLevel()
-{
-	if (maintenanceLevel <= 0)
-		return;
-	maintenanceLevel--;
-	UpdateMaintenanceMenu();
-}
-
-void RestockLogic::IncreaseMaintenanceLevel()
-{
-	if (maintenanceLevel >= 3)
-		return;
-	maintenanceLevel++;
-	UpdateMaintenanceMenu();
 }
 
 void RestockLogic::RefreshCart()
@@ -413,8 +302,6 @@ void RestockLogic::UpdateCartMenu()
 
 void RestockLogic::AddToCart(ItemType type)
 {
-	if (maintenanceLevel >= 3)
-		return;
 	if (cartStock.size() >= MAX_CART_STOCK)
 		return;
 	cartStock.push_back(type);
@@ -433,9 +320,4 @@ void RestockLogic::RemoveFromCart(ItemType type)
 		}
 	}
 	std::cout << "No item of type " << static_cast<int>(type) << " found in cart." << std::endl;
-}
-
-void RestockLogic::MiniGame_1(bool state)
-{
-	isMiniGame = state;
 }
