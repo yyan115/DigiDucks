@@ -80,6 +80,10 @@ void StoveLogic::FixedUpdate()
 void StoveLogic::setObject(std::pair<int, ItemType> objData)
 {
 	// If either is true, change the sprite and type to the respective one.
+
+	// Set slider color to Green
+	sliderLogic->SetSliderColor({ 0.f,255.f,0.f,255.f });
+
 	if (isPan)
 	{
 		if (objData.second == ItemType::R_PATTY)
@@ -89,6 +93,8 @@ void StoveLogic::setObject(std::pair<int, ItemType> objData)
 		else if (objData.second == ItemType::C_PATTY)
 		{
 			type = ItemType::PAN_C_PATTY;
+			// Set slider color to Red
+			sliderLogic->SetSliderColor({ 255.f,0.f,0.f,255.f });
 		}
 		else if (objData.second == ItemType::B_PATTY)
 		{
@@ -238,10 +244,12 @@ void StoveLogic::cookObject()
 						
 					if (sliderLogic)
 						sliderLogic->ResetSlider();
+
+					// Set slider color to Red
+					sliderLogic->SetSliderColor({ 255.f,0.f,0.f,255.f });
 				}
 				else if (type == ItemType::PAN_C_PATTY)
 				{
-					
 					type = ItemType::PAN_B_PATTY;
 					isCooked = true;
 				}
@@ -388,6 +396,8 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 		std::cout << "Invalid Object Type : "<< whatType(objData.second) << std::endl;
 		return;
 	}
+	// Set slider color to Green
+	sliderLogic->SetSliderColor({ 0.f,255.f,0.f,255.f });
 
 	objectSprite->texture = AssetManager::GetTextureByName(whatType(objData.second));
 	type = objData.second;

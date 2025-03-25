@@ -25,6 +25,7 @@ private:
 	SliderComponent* slider = nullptr;
 	SpriteRendererComponent* sliderBgSpt = nullptr;
 	TransformComponent* sliderTrfm = nullptr;
+	SpriteRendererComponent* sliderSpt = nullptr;
 	Vec2 originalPos{};
 	Vec2 originalScale{};
 
@@ -90,5 +91,9 @@ public:
 	void SetSliderStep(float step) {
 		slider->step = step;
 		ResetSlider();
+	}
+
+	void SetSliderColor(Color color) {
+		sliderSpt->color = color;
 	}
 };

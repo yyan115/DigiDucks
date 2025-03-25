@@ -35,11 +35,13 @@ void SliderLogic::Start()
 			if (sliderEntity->childEntities.size() > 0)
 			{
 				sliderTrfm = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(sliderEntity->childEntities[0]->entityID);
+				sliderSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(sliderEntity->childEntities[0]->entityID);
 
-				if (sliderTrfm)
+				if (sliderTrfm && sliderSpt)
 				{
 					originalPos = sliderTrfm->GetPosition();
 					originalScale = sliderTrfm->scale;
+					sliderSpt->color = { 0.f,255.f,0.f,255.f };
 				}
 			}
 		}
