@@ -141,7 +141,7 @@ void LevelSelectScreenLogic::Update()
 {
 
 	// unlock every level
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_0))
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_0) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		currentStage = 100;
 		Start();

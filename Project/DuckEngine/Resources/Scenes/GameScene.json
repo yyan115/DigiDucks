@@ -2447,13 +2447,13 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 0.0,
+                            "a": 255.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5439,7 +5439,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 10,
-                        "text": "19406"
+                        "text": "99312"
                     },
                     "type": "TextComponent"
                 }
@@ -11939,14 +11939,14 @@
                         "minAngle": 0.0,
                         "minValue": 0.0,
                         "radius": 0.49999991059303284,
-                        "sortingOrder": 3,
+                        "sortingOrder": 0,
                         "step": 0.10000000149011612,
                         "thickness": 0.20000001788139343
                     },
                     "type": "RadialSliderComponent"
                 }
             ],
-            "layer": "UI"
+            "layer": "Gameplay"
         }
     },
     "layers": {
