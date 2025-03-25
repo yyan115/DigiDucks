@@ -146,10 +146,11 @@ void PauseMenuLogic::Start()
 			gameExitYesBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitYesBtn->entityID);
 			if (gameExitYesButton)
 			{
-				gameExitYesButton->onClick = [this]() { 
+				gameExitYesButton->onClick = [this]() {
 					gameExitYesBtnSound->Resume();
 					gameExitYesBtnSound->Play();
-					GameManager::DuckEngine.CloseWindow(); };
+					// need to transition
+					GameManager::SetActiveScene("MainMenu"); };
 				gameExitYesButton->onHover = [this]() { 
 					gameExitYesBtnSound->Resume();
 					gameExitYesBtnSound->Play(1);
