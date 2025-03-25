@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "CustomerIdleState.h"
 #include "CustomerLogic.h"
-#include "GameScene.h"
 
 CustomerIdleState::CustomerIdleState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}

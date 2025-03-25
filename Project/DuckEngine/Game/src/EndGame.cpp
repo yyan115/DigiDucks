@@ -22,10 +22,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <map>
 #include "Scene.h"
 #include "GameManager.h"
-#include "GameScene.h"
 #include "ScoreLogic.h"
 #include "LevelSelectScreenLogic.h"
-
+#include "SoundSystem.h"
 SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
 

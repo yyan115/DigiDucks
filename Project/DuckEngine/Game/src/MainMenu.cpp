@@ -115,7 +115,7 @@ void MainMenu::Load()
 			}
 			else if (LevelSelectScreenLogic::currentStage == 0)
 			{
-				sceneToLoad = "GameScene";
+				sceneToLoad = "Level1";
 				std::cout << "Starting Level 1" << std::endl;
 			}
 			else

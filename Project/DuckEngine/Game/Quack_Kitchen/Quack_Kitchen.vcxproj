@@ -202,7 +202,7 @@
     <ClCompile Include="..\src\EndGame.cpp" />
     <ClCompile Include="..\src\GameLoopLogic.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
-    <ClCompile Include="..\src\GameScene.cpp" />
+    <ClCompile Include="..\src\Level1.cpp" />
     <ClCompile Include="..\src\GameSettingsLogic.cpp" />
     <ClCompile Include="..\src\HighlightLogic.cpp" />
     <ClCompile Include="..\src\HoldingLogic.cpp" />
@@ -216,7 +216,6 @@
     <ClCompile Include="..\src\Level35.cpp" />
     <ClCompile Include="..\src\LevelSelectScreenLogic.cpp" />
     <ClCompile Include="..\src\MainMenu.cpp" />
-    <ClCompile Include="..\src\MaxLoadScene.cpp" />
     <ClCompile Include="..\src\MessagingSystem.cpp" />
     <ClCompile Include="..\src\MiniGameLogic.cpp" />
     <ClCompile Include="..\src\MovementLogic.cpp" />
@@ -231,7 +230,6 @@
     <ClCompile Include="..\src\RobotLogic.cpp" />
     <ClCompile Include="..\src\ScoreLogic.cpp" />
     <ClCompile Include="..\src\SliderLogic.cpp" />
-    <ClCompile Include="..\src\SpriteMovementScene.cpp" />
     <ClCompile Include="..\src\SubmitLogic.cpp" />
     <ClCompile Include="..\src\TableLogic.cpp" />
     <ClCompile Include="..\src\UISliderLogic.cpp" />
@@ -252,7 +250,7 @@
     <ClInclude Include="..\include\EndGame.h" />
     <ClInclude Include="..\include\GameLoopLogic.h" />
     <ClInclude Include="..\include\GameManager.h" />
-    <ClInclude Include="..\include\GameScene.h" />
+    <ClInclude Include="..\include\Level1.h" />
     <ClInclude Include="..\include\GameSettingsLogic.h" />
     <ClInclude Include="..\include\GetPanLogic.h" />
     <ClInclude Include="..\include\GetPotLogic.h" />
@@ -270,7 +268,6 @@
     <ClInclude Include="..\include\Level35.h" />
     <ClInclude Include="..\include\LevelSelectScreenLogic.h" />
     <ClInclude Include="..\include\MainMenu.h" />
-    <ClInclude Include="..\include\MaxLoadScene.h" />
     <ClInclude Include="..\include\MessagingSystem.h" />
     <ClInclude Include="..\include\MiniGameLogic.h" />
     <ClInclude Include="..\include\MovementLogic.h" />
@@ -287,7 +284,6 @@
     <ClInclude Include="..\include\ScoreLogic.h" />
     <ClInclude Include="..\include\ShrimpStockLogic.h" />
     <ClInclude Include="..\include\SliderLogic.h" />
-    <ClInclude Include="..\include\SpriteMovementScene.h" />
     <ClInclude Include="..\include\State.h" />
     <ClInclude Include="..\include\StateMachine.h" />
     <ClInclude Include="..\include\SteakStockLogic.h" />

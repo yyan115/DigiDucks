@@ -31,7 +31,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GamesettingsLogic.h"
 #include "MiniGameLogic.h"
 
-class GameScene : public Scene
+class Level1 : public Scene
 {
 public:
     void Load() override;

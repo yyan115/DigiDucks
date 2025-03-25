@@ -52,11 +52,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PotLogic.h"
 #include "HighlightLogic.h"
 
+// scenes
+#include "MainMenu.h"
+#include "HowToPlay.h"
+#include "Level0.h"
+#include "Level1.h"
 #include "Level15.h"
 #include "Level2.h"
 #include "Level25.h"
 #include "Level3.h"
 #include "Level35.h"
+#include "EndGame.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -72,13 +78,12 @@ std::unordered_map<std::string, std::string> GameManager::GlobalVariables;
  * ****************************************************************/
 void GameManager::InitScenes()
 {
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("MaxLoadScene", std::make_shared<MaxLoadScene>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("SpriteMovementScene", std::make_shared<SpriteMovementScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("HowToPlay", std::make_shared<HowToPlay>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<GameScene>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<Level1>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level1", std::make_shared<Level1>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level15", std::make_shared<Level15>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2", std::make_shared<Level2>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level25", std::make_shared<Level25>());

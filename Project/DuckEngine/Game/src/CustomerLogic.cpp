@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 
 #include "CustomerLogic.h"
-#include "GameScene.h"
 #include "GameLogicManager.h"
 #include "GameLoopLogic.h"
 

@@ -1,7 +1,6 @@
 #include "GameLogic.h"
 #include "RestockLogic.h"
 #include "MiniGameLogic.h"
-#include "GameScene.h"
 
 void MiniGameLogic::Start()
 {

@@ -30,7 +30,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "IngredientType.h"
 
 
-class GameScene;
+class Level1;
 class GameLoopLogic;
 class CustomerLogic : public GameLogic
 {
@@ -59,13 +59,13 @@ public:
 	GameLoopLogic* GetGameLoopLogic();
 	void SetOrder(ItemType order);
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
-	GameScene* GetGameScene() { return gameScene; }
+	Level1* GetGameScene() { return gameScene; }
 	ItemType GetCustomerOrderType() { return customerOrderType; }
 	void OrderCompleted();
 	void StartWalking();
 
 private:
-	GameScene* gameScene = nullptr;
+	Level1* gameScene = nullptr;
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;
 	ItemType customerOrderType = ItemType::EMPTY;

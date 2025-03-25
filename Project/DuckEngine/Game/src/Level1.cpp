@@ -14,7 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "GameScene.h"
+#include "Level1.h"
 #include "Scene.h"
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
@@ -27,7 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
 * ****************************************************************/
-void GameScene::Load() 
+void Level1::Load() 
 {
 	Scene::Load();
 
@@ -38,7 +38,7 @@ void GameScene::Load()
 * setting up the initial state. This function is called when
 * the scene begins running.
 * ****************************************************************/
-void GameScene::Start() 
+void Level1::Start() 
 {
 	Scene::Start();
 
@@ -80,7 +80,7 @@ void GameScene::Start()
 * input and updating game objects. This function is called
 * every frame.
 * ****************************************************************/
-void GameScene::Update() 
+void Level1::Update() 
 {	
 
 
@@ -91,7 +91,7 @@ void GameScene::Update()
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void GameScene::PostUpdate()
+void Level1::PostUpdate()
 {
 	
 }
@@ -100,7 +100,7 @@ void GameScene::PostUpdate()
 * @brief Exit the scene, performing any cleanup necessary before
 * the scene is unloaded.
 * ****************************************************************/
-void GameScene::Exit() 
+void Level1::Exit() 
 {
 
 }
@@ -109,7 +109,7 @@ void GameScene::Exit()
 * @brief Unload the scene and free any resources that were loaded
 * during the Load() phase.
 * ****************************************************************/
-void GameScene::Unload() 
+void Level1::Unload() 
 {
 	// base unload
 	Scene::Unload();
