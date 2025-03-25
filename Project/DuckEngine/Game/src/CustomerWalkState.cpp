@@ -121,8 +121,11 @@ void CustomerWalkState::Enter()
 		std::cerr << "No valid queue targets found!" << std::endl;
 	}
 
-	if (isOrderTaken && orderCollected) {
+	if (isOrderTaken && orderCollected && !leaveTargets.empty()) {
 		currentQueueTarget = leaveTargets[0];
+	}
+	else if (isOrderTaken && !orderCollected && !waitTargets.empty()) {
+		currentQueueTarget = waitTargets[0];
 	}
 
 	//std::cout << "Queue size = " << queueTargets.size()
@@ -270,7 +273,8 @@ void CustomerWalkState::FixedUpdate()
 		{
 			if (customerAnimator)
 			{
-				customerAnimator->PlayAnimation("RIGHT_IDLE");
+				// WAIT FOR ORDER IN SEAT
+				customerAnimator->PlayAnimation("BACK_IDLE");
 				isWaitingToCollectOrder = true;
 			}
 		}

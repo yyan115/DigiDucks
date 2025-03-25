@@ -810,7 +810,6 @@
             ],
             "layer": "Gameplay"
         },
-
         "Cart_Stock": {
             "childNames": [
                 "Cart_Stock_4",
@@ -1638,8 +1637,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.457625865936279,
-                            "y": -16.99199867248535
+                            "x": -11.399625778198242,
+                            "y": 15.24100112915039
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1674,8 +1673,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.499626159667969,
-                            "y": -19.40000343322754
+                            "x": -11.399625778198242,
+                            "y": 18.240995407104492
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1710,8 +1709,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.4996256828308105,
-                            "y": -22.600000381469727
+                            "x": -11.399625778198242,
+                            "y": 21.240999221801758
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1746,8 +1745,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.699626445770264,
-                            "y": -25.900001525878906
+                            "x": -11.399625778198242,
+                            "y": 24.240997314453125
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -1833,8 +1832,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.058000087738037,
-                "y": -18.232999801635742
+                "x": -13.0,
+                "y": 14.0
             },
             "prefab": "Customer"
         },
@@ -1844,8 +1843,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.099999904632568,
-                "y": -20.641000747680664
+                "x": -13.0,
+                "y": 17.0
             },
             "prefab": "Customer"
         },
@@ -1855,8 +1854,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.099999904632568,
-                "y": -23.840999603271484
+                "x": -13.0,
+                "y": 20.0
             },
             "prefab": "Customer"
         },
@@ -1866,8 +1865,8 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -6.300000190734863,
-                "y": -27.141000747680664
+                "x": -13.0,
+                "y": 23.0
             },
             "prefab": "Customer"
         },
@@ -2390,42 +2389,6 @@
                 }
             ],
             "layer": "UI"
-        },
-        "FinalPath": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -28.43637466430664,
-                            "y": -4.300257682800293
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 0.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
         },
         "GameFadeScreen": {
             "components": [
@@ -4634,7 +4597,7 @@
         "QueueUpPaths": {
             "childNames": [
                 "QueueUpPoint_1",
-                "FinalPath"
+                "QueueUpPoint_2"
             ],
             "components": [
                 {
@@ -4672,6 +4635,42 @@
             "layer": "Gameplay"
         },
         "QueueUpPoint_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.0,
+                            "y": -10.600000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "QueueUpPoint_2": {
             "components": [
                 {
                     "properties": {
@@ -6439,8 +6438,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -20.899999618530273,
-                            "y": 1.2000000476837158
+                            "x": -1.0,
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6475,8 +6474,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -17.299999237060547,
-                            "y": 1.2000000476837158
+                            "x": 2.0,
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6511,8 +6510,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -17.299999237060547,
-                            "y": -1.399999976158142
+                            "x": 5.0,
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6547,80 +6546,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -20.899999618530273,
-                            "y": -1.399999976158142
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 0.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Seat_5": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -20.899999618530273,
-                            "y": -5.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 0.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "Seat_6": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -17.299999237060547,
-                            "y": -5.0
+                            "x": 8.0,
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -8833,12 +8760,15 @@
             "layer": "UI"
         },
         "WaitPoint_1": {
+            "childNames": [
+                "WaitPoint_2"
+            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": -13.0,
-                            "y": -10.600000381469727
+                            "x": -6.0,
+                            "y": -16.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -8873,8 +8803,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -13.0,
-                            "y": -5.0
+                            "x": 1.5999999046325684,
+                            "y": -16.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
