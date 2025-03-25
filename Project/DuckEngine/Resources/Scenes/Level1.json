@@ -7437,7 +7437,7 @@
                         "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/pause_quitgame.png",
+                        "texture": "Resources/Sprites/Pause/pause_mainmenu.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
