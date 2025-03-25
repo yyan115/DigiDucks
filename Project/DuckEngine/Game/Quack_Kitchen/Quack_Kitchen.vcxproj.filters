@@ -131,6 +131,9 @@
     <ClCompile Include="..\src\HighlightLogic.cpp">
       <Filter>src\Logic\Game\Station</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SaveLoadManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -401,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="..\include\HighlightLogic.h">
       <Filter>include\Logic\Game\Station</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\SaveLoadManager.h">
+      <Filter>include\Managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

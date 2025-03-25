@@ -106,7 +106,6 @@ void EndScene::Load()
 void EndScene::Start()
 {
 	Scene::Start();
-	//DuckEngine::showDebugColliders = false;
 
 	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
 	std::cout << "sceneName " << lastPlayedSceneName << std::endl;
@@ -120,7 +119,9 @@ void EndScene::Start()
 	std::string dayTextureName = "DAY" + std::to_string(ScoreLogic::dayNumber);
 	backgroundSR->texture = AssetManager::GetTextureByName(dayTextureName);
 
-	LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage++;
+	LevelSelectScreenLogic::LevelCompleted();
+
+	LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
 }
 
 void EndScene::Update()

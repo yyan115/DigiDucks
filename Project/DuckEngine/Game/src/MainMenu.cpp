@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "SoundSystem.h"
 #include "HowToPlayLogic.h"
+#include "SaveLoadManager.h"
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -36,6 +37,12 @@ void MainMenu::Load()
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
 	DuckEngine::SetCameraHeight(20);
+	SaveLoadManager::InitializeSaveFile();
+
+	// Apply the saved audio settings
+	SoundSystem::SetMasterVolume(SaveLoadManager::masterVolume);
+	SoundSystem::SetCategoryVolume("BGM", SaveLoadManager::musicVolume);
+	SoundSystem::SetCategoryVolume("SFX", SaveLoadManager::sfxVolume);
 
 	levelSelectScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectScreen").get();
 	mainMenuScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenuScreen").get();

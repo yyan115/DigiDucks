@@ -1,6 +1,7 @@
 #include "LevelSelectScreenLogic.h"
 #include "MainMenu.h"
 #include "DuckEngine_Input.h"
+#include "SaveLoadManager.h"
 
 int LevelSelectScreenLogic::currentStage = -1;
 int LevelSelectScreenLogic::stageLevel = 0;
@@ -8,6 +9,11 @@ int LevelSelectScreenLogic::stageLevel = 0;
 //LevelSelectScreen
 void LevelSelectScreenLogic::Start()
 {
+	if (currentStage < SaveLoadManager::currentLevel) 
+	{
+		currentStage = SaveLoadManager::currentLevel;
+	}
+
 	levelSelectScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
 	mainMenuScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenuScreen").get();
 
@@ -176,13 +182,20 @@ void LevelSelectScreenLogic::UpdateLevelButtonVisuals(
 }
 
 
-void LevelSelectScreenLogic::LevelCompleted() 
+void LevelSelectScreenLogic::LevelCompleted()
 {
 	currentStage++;
 
 	if (currentStage > 5)
 	{
 		currentStage = 5;
+	}
+
+	if (currentStage > SaveLoadManager::currentLevel) 
+	{
+		SaveLoadManager::currentLevel = currentStage;
+		SaveLoadManager::SaveGame();
+		std::cout << "Game progress saved: Level " << currentStage << std::endl;
 	}
 
 }

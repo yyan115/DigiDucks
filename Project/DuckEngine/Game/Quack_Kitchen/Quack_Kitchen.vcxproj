@@ -222,6 +222,7 @@
     <ClCompile Include="..\src\MovementLogic.cpp" />
     <ClCompile Include="..\src\OrderTabLogic.cpp" />
     <ClCompile Include="..\src\PotLogic.cpp" />
+    <ClCompile Include="..\src\SaveLoadManager.cpp" />
     <ClCompile Include="..\src\StoveLogic.cpp" />
     <ClCompile Include="..\src\PauseMenuLogic.cpp" />
     <ClCompile Include="..\src\PlayerLogic.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="..\include\MushroomStockLogic.h" />
     <ClInclude Include="..\include\OrderTabLogic.h" />
     <ClInclude Include="..\include\PotLogic.h" />
+    <ClInclude Include="..\include\SaveLoadManager.h" />
     <ClInclude Include="..\include\StoveLogic.h" />
     <ClInclude Include="..\include\PauseMenuLogic.h" />
     <ClInclude Include="..\include\PlayerLogic.h" />
