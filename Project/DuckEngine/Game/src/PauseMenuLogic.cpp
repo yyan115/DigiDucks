@@ -238,6 +238,7 @@ void PauseMenuLogic::PauseGame(bool state)
 	}
 
 	ExitConfirm(false);
+	DuckEngine::isGamePaused = state;
 	DuckEngine::PauseGame(state);
 }
 

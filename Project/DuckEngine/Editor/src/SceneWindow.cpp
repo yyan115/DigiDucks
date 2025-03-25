@@ -102,7 +102,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		{
 			SoundSystem::StopAllSounds();
 			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName(), false);
-			DuckEngine::SetPaused(false);
+			DuckEngine::isPaused = false;
 			CameraManager::ResetToDefault();
 		}
 		else
@@ -111,7 +111,7 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 			DuckEngine::DUCKENGINE_SystemManager.StartAll();
 			GameManager::SetActiveScene(DuckEngine::DUCKENGINE_SceneManager.GetActiveSceneName(), false);
 			SoundSystem::ResumeAllSounds();
-			DuckEngine::SetPaused(false);
+			DuckEngine::isPaused = false;
 		}
 	}
 
@@ -124,15 +124,6 @@ void SceneWindow::RenderSceneWindow(int newWidth, int newHeight)
 		{
 			isPaused = !isPaused;
 			DuckEngine::SetPaused(isPaused);
-
-			if (isPaused)
-			{
-				SoundSystem::PauseAllSounds();  // Pause all sounds
-			}
-			else
-			{
-				SoundSystem::ResumeAllSounds();  // Resume all sounds
-			}
 		}
 	}
 	ImGui::EndChild();

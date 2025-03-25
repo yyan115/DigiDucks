@@ -230,6 +230,7 @@ public:
     static DUCKENGINE_API bool GetEditorBool();
     static bool isEditor;
     static DUCKENGINE_API bool isPaused;
+    static DUCKENGINE_API bool isGamePaused;
     static DUCKENGINE_API Vector2D editorMouseWorldPos;
     static DUCKENGINE_API Vector2D editorMouseScreenPos;
     static DUCKENGINE_API Vector2D editorContentRegion;

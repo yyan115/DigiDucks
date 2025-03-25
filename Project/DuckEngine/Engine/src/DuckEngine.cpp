@@ -67,6 +67,7 @@ LevelManager DuckEngine::DUCKENGINE_LevelManager;
 bool DuckEngine::isEditor = false;
 bool isPlaying = false;
 bool DuckEngine::isPaused = false;
+bool DuckEngine::isGamePaused = false;
 Vector2D DuckEngine::editorMouseWorldPos;
 Vector2D DuckEngine::editorMouseScreenPos;
 Vector2D DuckEngine::editorContentRegion;
@@ -172,6 +173,7 @@ void DuckEngine::SetPlaying(bool playing)
 	if (!playing)
 	{
 		isPaused = false;
+		isGamePaused = false;
 		GameLogicManager::Clear();
 	}
 	else
@@ -222,7 +224,7 @@ void DuckEngine::Update()
 		}
 		return;
 	}
-	else if (pausedOrMinimized)
+	else if (pausedOrMinimized && !isGamePaused)
 	{
 		SoundSystem::ResumeAllSounds();
 		pausedOrMinimized = false;
