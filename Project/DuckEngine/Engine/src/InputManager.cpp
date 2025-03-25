@@ -27,6 +27,9 @@ std::unordered_map<int, bool> InputManager::keyStates;
 std::unordered_map<int, bool> InputManager::mouseButtonStates;
 std::unordered_map<int, bool> InputManager::previousKeyStates;
 std::unordered_map<int, bool> InputManager::previousMouseButtonStates;
+std::unordered_map<int, std::unordered_map<int, bool>> InputManager::gamepadButtonStates;
+std::unordered_map<int, std::unordered_map<int, bool>> InputManager::previousGamepadButtonStates;
+std::unordered_map<int, std::unordered_map<int, float>> InputManager::gamepadAxisStates;
 
 double InputManager::mouseX = 0.0;
 double InputManager::mouseY = 0.0;
@@ -48,6 +51,19 @@ bool InputManager::Initialize(GLFWwindow* window) {
     glfwSetCursorPosCallback(window, InputManager::mousePosCB);
     glfwSetScrollCallback(window, InputManager::mouseScrollCB);
 
+    // Set up joystick/gamepad callback
+    glfwSetJoystickCallback(joystickCB);
+
+    // Check for already connected gamepads
+    for (int jid = GLFW_JOYSTICK_1; jid <= GLFW_JOYSTICK_LAST; jid++) {
+        if (glfwJoystickPresent(jid)) {
+            // Initialize gamepad state maps for this joystick
+            gamepadButtonStates[jid] = std::unordered_map<int, bool>();
+            previousGamepadButtonStates[jid] = std::unordered_map<int, bool>();
+            gamepadAxisStates[jid] = std::unordered_map<int, float>();
+        }
+    }
+
     return true;
 }
 
@@ -56,11 +72,31 @@ bool InputManager::Initialize(GLFWwindow* window) {
 /// and polling for new input events.
 /// </summary>
 void InputManager::Update() {
-    // Save previous states
+    // Update previous states
     previousKeyStates = keyStates;
     previousMouseButtonStates = mouseButtonStates;
+    previousGamepadButtonStates = gamepadButtonStates;
 
-    // Reset scroll offsets
+    // Update gamepad states
+    for (int jid = GLFW_JOYSTICK_1; jid <= GLFW_JOYSTICK_LAST; jid++) {
+        if (glfwJoystickPresent(jid)) {
+            // Get gamepad button states
+            int buttonCount;
+            const unsigned char* buttons = glfwGetJoystickButtons(jid, &buttonCount);
+            for (int i = 0; i < buttonCount; i++) {
+                gamepadButtonStates[jid][i] = (buttons[i] == GLFW_PRESS);
+            }
+
+            // Get gamepad axis states
+            int axisCount;
+            const float* axes = glfwGetJoystickAxes(jid, &axisCount);
+            for (int i = 0; i < axisCount; i++) {
+                gamepadAxisStates[jid][i] = axes[i];
+            }
+        }
+    }
+
+    // Reset scroll values
     scrollX = 0.0;
     scrollY = 0.0;
 
@@ -228,5 +264,58 @@ void InputManager::ResetLastMousePosition()
 {
     lastMouseX = mouseX;
     lastMouseY = mouseY;
+}
+
+bool InputManager::IsGamepadConnected(int gamepadIndex) {
+    return glfwJoystickPresent(gamepadIndex) == GLFW_TRUE;
+}
+
+bool InputManager::IsGamepadButtonDown(int gamepadIndex, int button) {
+    if (!IsGamepadConnected(gamepadIndex)) return false;
+    auto& buttonStates = gamepadButtonStates[gamepadIndex];
+    return buttonStates.find(button) != buttonStates.end() && buttonStates[button];
+}
+
+bool InputManager::IsGamepadButtonPressed(int gamepadIndex, int button) {
+    if (!IsGamepadConnected(gamepadIndex)) return false;
+    auto& currentStates = gamepadButtonStates[gamepadIndex];
+    auto& prevStates = previousGamepadButtonStates[gamepadIndex];
+    
+    bool currentlyPressed = currentStates.find(button) != currentStates.end() && currentStates[button];
+    bool previouslyPressed = prevStates.find(button) != prevStates.end() && prevStates[button];
+    
+    return currentlyPressed && !previouslyPressed;
+}
+
+bool InputManager::IsGamepadButtonReleased(int gamepadIndex, int button) {
+    if (!IsGamepadConnected(gamepadIndex)) return false;
+    auto& currentStates = gamepadButtonStates[gamepadIndex];
+    auto& prevStates = previousGamepadButtonStates[gamepadIndex];
+    
+    bool currentlyPressed = currentStates.find(button) != currentStates.end() && currentStates[button];
+    bool previouslyPressed = prevStates.find(button) != prevStates.end() && prevStates[button];
+    
+    return !currentlyPressed && previouslyPressed;
+}
+
+float InputManager::GetGamepadAxisValue(int gamepadIndex, int axis) {
+    if (!IsGamepadConnected(gamepadIndex)) return 0.0f;
+    auto& axisStates = gamepadAxisStates[gamepadIndex];
+    return axisStates.find(axis) != axisStates.end() ? axisStates[axis] : 0.0f;
+}
+
+void InputManager::joystickCB(int jid, int event) {
+    if (event == GLFW_CONNECTED) {
+        // Initialize state maps for the newly connected gamepad
+        gamepadButtonStates[jid] = std::unordered_map<int, bool>();
+        previousGamepadButtonStates[jid] = std::unordered_map<int, bool>();
+        gamepadAxisStates[jid] = std::unordered_map<int, float>();
+    }
+    else if (event == GLFW_DISCONNECTED) {
+        // Clean up state maps for the disconnected gamepad
+        gamepadButtonStates.erase(jid);
+        previousGamepadButtonStates.erase(jid);
+        gamepadAxisStates.erase(jid);
+    }
 }
 

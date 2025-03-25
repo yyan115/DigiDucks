@@ -177,6 +177,52 @@ public:
     /// <param name="ypos">The new y-coordinate of the mouse in window space.</param>
     static void mousePosCB(GLFWwindow* pwin, double xpos, double ypos);
 
+    /// <summary>
+    /// Returns true if a gamepad is currently connected at the specified index.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <returns>True if the gamepad is connected, false otherwise.</returns>
+    static DUCKENGINE_API bool IsGamepadConnected(int gamepadIndex);
+
+    /// <summary>
+    /// Returns true if the specified gamepad button is currently held down.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to query</param>
+    /// <returns>True if the button is held down, false otherwise.</returns>
+    static DUCKENGINE_API bool IsGamepadButtonDown(int gamepadIndex, int button);
+
+    /// <summary>
+    /// Returns true only in the frame when the specified gamepad button was pressed.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to query</param>
+    /// <returns>True if the button was pressed this frame, false otherwise.</returns>
+    static DUCKENGINE_API bool IsGamepadButtonPressed(int gamepadIndex, int button);
+
+    /// <summary>
+    /// Returns true only in the frame when the specified gamepad button was released.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to query</param>
+    /// <returns>True if the button was released this frame, false otherwise.</returns>
+    static DUCKENGINE_API bool IsGamepadButtonReleased(int gamepadIndex, int button);
+
+    /// <summary>
+    /// Gets the current value of the specified gamepad axis.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="axis">The axis to query</param>
+    /// <returns>The axis value between -1.0 and 1.0</returns>
+    static DUCKENGINE_API float GetGamepadAxisValue(int gamepadIndex, int axis);
+
+    /// <summary>
+    /// Handles gamepad connection/disconnection events.
+    /// </summary>
+    /// <param name="jid">The joystick ID that was connected or disconnected</param>
+    /// <param name="event">The event type (GLFW_CONNECTED or GLFW_DISCONNECTED)</param>
+    static void joystickCB(int jid, int event);
+
 private:
     /// <summary>
     /// Stores the current state of keys, where true represents a key being pressed and false represents a key being released.
@@ -227,4 +273,22 @@ private:
     /// The previous y-coordinate of the mouse (used for calculating movement deltas if necessary).
     /// </summary>
     static double lastMouseY;
+
+    /// <summary>
+    /// Stores the current state of gamepad buttons for each connected gamepad.
+    /// First key is gamepad index, second key is button index.
+    /// </summary>
+    static std::unordered_map<int, std::unordered_map<int, bool>> gamepadButtonStates;
+
+    /// <summary>
+    /// Stores the previous state of gamepad buttons for each connected gamepad.
+    /// First key is gamepad index, second key is button index.
+    /// </summary>
+    static std::unordered_map<int, std::unordered_map<int, bool>> previousGamepadButtonStates;
+
+    /// <summary>
+    /// Stores the current state of gamepad axes for each connected gamepad.
+    /// First key is gamepad index, second key is axis index.
+    /// </summary>
+    static std::unordered_map<int, std::unordered_map<int, float>> gamepadAxisStates;
 };

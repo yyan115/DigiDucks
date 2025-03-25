@@ -80,3 +80,34 @@ const int DuckEngine_Input::MOUSE_BUTTON_MIDDLE = GLFW_MOUSE_BUTTON_MIDDLE;
 // Define constants for scroll directions (pseudo-constants for easier readability in the code)
 const double DuckEngine_Input::SCROLL_UP = 1.0;   // Scroll up equivalent
 const double DuckEngine_Input::SCROLL_DOWN = -1.0; // Scroll down equivalent
+
+// Constants for gamepad buttons (Xbox controller layout)
+const int DuckEngine_Input::GAMEPAD_BUTTON_A = GLFW_GAMEPAD_BUTTON_A;
+const int DuckEngine_Input::GAMEPAD_BUTTON_B = GLFW_GAMEPAD_BUTTON_B;
+const int DuckEngine_Input::GAMEPAD_BUTTON_X = GLFW_GAMEPAD_BUTTON_X;
+const int DuckEngine_Input::GAMEPAD_BUTTON_Y = GLFW_GAMEPAD_BUTTON_Y;
+const int DuckEngine_Input::GAMEPAD_BUTTON_LEFT_BUMPER = GLFW_GAMEPAD_BUTTON_LEFT_BUMPER;
+const int DuckEngine_Input::GAMEPAD_BUTTON_RIGHT_BUMPER = GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER;
+const int DuckEngine_Input::GAMEPAD_BUTTON_BACK = GLFW_GAMEPAD_BUTTON_BACK;
+const int DuckEngine_Input::GAMEPAD_BUTTON_START = GLFW_GAMEPAD_BUTTON_START;
+const int DuckEngine_Input::GAMEPAD_BUTTON_GUIDE = GLFW_GAMEPAD_BUTTON_GUIDE;
+const int DuckEngine_Input::GAMEPAD_BUTTON_LEFT_THUMB = GLFW_GAMEPAD_BUTTON_LEFT_THUMB;
+const int DuckEngine_Input::GAMEPAD_BUTTON_RIGHT_THUMB = GLFW_GAMEPAD_BUTTON_RIGHT_THUMB;
+const int DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP = GLFW_GAMEPAD_BUTTON_DPAD_UP;
+const int DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT = GLFW_GAMEPAD_BUTTON_DPAD_RIGHT;
+const int DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN = GLFW_GAMEPAD_BUTTON_DPAD_DOWN;
+const int DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT = GLFW_GAMEPAD_BUTTON_DPAD_LEFT;
+
+// Constants for gamepad axes
+const int DuckEngine_Input::GAMEPAD_AXIS_LEFT_X = GLFW_GAMEPAD_AXIS_LEFT_X;
+const int DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y = GLFW_GAMEPAD_AXIS_LEFT_Y;
+const int DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X = GLFW_GAMEPAD_AXIS_RIGHT_X;
+const int DuckEngine_Input::GAMEPAD_AXIS_RIGHT_Y = GLFW_GAMEPAD_AXIS_RIGHT_Y;
+const int DuckEngine_Input::GAMEPAD_AXIS_LEFT_TRIGGER = GLFW_GAMEPAD_AXIS_LEFT_TRIGGER;
+const int DuckEngine_Input::GAMEPAD_AXIS_RIGHT_TRIGGER = GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER;
+
+// Constants for gamepad indices
+const int DuckEngine_Input::GAMEPAD_1 = GLFW_JOYSTICK_1;
+const int DuckEngine_Input::GAMEPAD_2 = GLFW_JOYSTICK_2;
+const int DuckEngine_Input::GAMEPAD_3 = GLFW_JOYSTICK_3;
+const int DuckEngine_Input::GAMEPAD_4 = GLFW_JOYSTICK_4;

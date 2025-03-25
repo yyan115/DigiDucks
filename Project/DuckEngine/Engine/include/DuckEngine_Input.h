@@ -97,6 +97,45 @@ public:
     /// <returns>The vertical scroll offset.</returns>
     static inline double GetScrollOffsetY() { return InputManager::GetScrollOffsetY(); }
 
+    /// <summary>
+    /// Checks if a gamepad is currently connected at the specified index.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <returns>Returns true if the gamepad is connected.</returns>
+    static inline bool IsGamepadConnected(int gamepadIndex) { return InputManager::IsGamepadConnected(gamepadIndex); }
+
+    /// <summary>
+    /// Checks if the specified gamepad button is currently held down.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to check.</param>
+    /// <returns>Returns true if the button is held down.</returns>
+    static inline bool IsGamepadButtonDown(int gamepadIndex, int button) { return InputManager::IsGamepadButtonDown(gamepadIndex, button); }
+
+    /// <summary>
+    /// Checks if the specified gamepad button was pressed during the current frame.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to check.</param>
+    /// <returns>Returns true if the button was pressed this frame.</returns>
+    static inline bool IsGamepadButtonPressed(int gamepadIndex, int button) { return InputManager::IsGamepadButtonPressed(gamepadIndex, button); }
+
+    /// <summary>
+    /// Checks if the specified gamepad button was released during the current frame.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="button">The gamepad button to check.</param>
+    /// <returns>Returns true if the button was released this frame.</returns>
+    static inline bool IsGamepadButtonReleased(int gamepadIndex, int button) { return InputManager::IsGamepadButtonReleased(gamepadIndex, button); }
+
+    /// <summary>
+    /// Gets the current value of the specified gamepad axis.
+    /// </summary>
+    /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
+    /// <param name="axis">The axis to query</param>
+    /// <returns>The axis value between -1.0 and 1.0</returns>
+    static inline float GetGamepadAxisValue(int gamepadIndex, int axis) { return InputManager::GetGamepadAxisValue(gamepadIndex, axis); }
+
     // Constants for key codes (A-Z)
     static const int KEY_A;
     static const int KEY_B;
@@ -162,4 +201,35 @@ public:
     // Constants for scroll directions
     static const double SCROLL_UP;
     static const double SCROLL_DOWN;
+
+    // Constants for gamepad buttons (Xbox controller layout)
+    static const int GAMEPAD_BUTTON_A;           // A button (Xbox) / Cross button (PlayStation)
+    static const int GAMEPAD_BUTTON_B;           // B button (Xbox) / Circle button (PlayStation)
+    static const int GAMEPAD_BUTTON_X;           // X button (Xbox) / Square button (PlayStation)
+    static const int GAMEPAD_BUTTON_Y;           // Y button (Xbox) / Triangle button (PlayStation)
+    static const int GAMEPAD_BUTTON_LEFT_BUMPER; // Left bumper (LB)
+    static const int GAMEPAD_BUTTON_RIGHT_BUMPER;// Right bumper (RB)
+    static const int GAMEPAD_BUTTON_BACK;        // Back button
+    static const int GAMEPAD_BUTTON_START;       // Start button
+    static const int GAMEPAD_BUTTON_GUIDE;       // Guide button (Xbox button)
+    static const int GAMEPAD_BUTTON_LEFT_THUMB;  // Left thumbstick press
+    static const int GAMEPAD_BUTTON_RIGHT_THUMB; // Right thumbstick press
+    static const int GAMEPAD_BUTTON_DPAD_UP;     // D-pad up
+    static const int GAMEPAD_BUTTON_DPAD_RIGHT;  // D-pad right
+    static const int GAMEPAD_BUTTON_DPAD_DOWN;   // D-pad down
+    static const int GAMEPAD_BUTTON_DPAD_LEFT;   // D-pad left
+
+    // Constants for gamepad axes
+    static const int GAMEPAD_AXIS_LEFT_X;        // Left stick X axis
+    static const int GAMEPAD_AXIS_LEFT_Y;        // Left stick Y axis
+    static const int GAMEPAD_AXIS_RIGHT_X;       // Right stick X axis
+    static const int GAMEPAD_AXIS_RIGHT_Y;       // Right stick Y axis
+    static const int GAMEPAD_AXIS_LEFT_TRIGGER;  // Left trigger
+    static const int GAMEPAD_AXIS_RIGHT_TRIGGER; // Right trigger
+
+    // Constants for gamepad indices
+    static const int GAMEPAD_1;                  // First gamepad
+    static const int GAMEPAD_2;                  // Second gamepad
+    static const int GAMEPAD_3;                  // Third gamepad
+    static const int GAMEPAD_4;                  // Fourth gamepad
 };
