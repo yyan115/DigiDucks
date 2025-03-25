@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "StockLogic.h"
+#include "SliderLogic.h"
 
 const int MAX_CART_STOCK = 5;
 
@@ -29,28 +30,9 @@ private:
 
 	// Restock Ingredient Menu Sprite
 	SpriteRendererComponent* restockIngredientMenuSpt = nullptr;
-	// Restock Maintenance Menu Sprite
-	SpriteRendererComponent* restockMaintenanceMenuSpt = nullptr;
-	std::vector<Texture> maintenanceTextures;
 
 	// Exit Button
 	ButtonComponent* restockExitButton = nullptr;
-
-	// Restock Ingredient Button & Sprite
-	ButtonComponent* restockIngredientButton = nullptr;
-	SpriteRendererComponent* restockIngredientSpt = nullptr;
-	Texture restockIngredientOn{};
-	Texture restockIngredientOff{};
-
-	// Restock Maintenance Button & Sprite
-	ButtonComponent* restockMaintenanceButton = nullptr;
-	SpriteRendererComponent* restockMaintenanceSpt = nullptr;
-	Texture restockMaintenanceOn{};
-	Texture restockMaintenanceOff{};
-	int maintenanceLevel = 0;
-
-	// Maintainence Start Button
-	ButtonComponent* maintainenceStartButton = nullptr;
 
 	// Ingredient Restocks
 	ButtonComponent* restockBunButton = nullptr;
@@ -84,9 +66,11 @@ private:
 	std::vector<ItemType> cartStock;
 	bool changeCartStock = false;
 
+	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
+
+
 public:
 	bool isRestock = false;
-	bool isMiniGame = false;
 
 	RestockLogic() : GameLogic(nullptr) {}
 
@@ -135,16 +119,6 @@ public:
 	void Restock(ItemType type);
 
 	/****************************************************************
-	* @brief Decrease the maintenance level of the Restock station.
-	* ****************************************************************/
-	void LowerMaintenanceLevel();
-
-	/****************************************************************
-	* @brief Increase the maintenance level of the Restock station.
-	* ****************************************************************/
-	void IncreaseMaintenanceLevel();
-
-	/****************************************************************
 	* @brief Add an item to the cart.
 	* 
 	* @param type - The type of item to add to the cart.
@@ -168,15 +142,4 @@ public:
 	* ****************************************************************/
 	void UpdateCartMenu();
 
-	/****************************************************************
-	* @brief Update the sprite renderers for the maintenance menu.
-	* ****************************************************************/
-	void UpdateMaintenanceMenu();
-
-	/****************************************************************
-	* @brief Start the mini game.
-	* 
-	* @param state - The state of the mini game.
-	* ****************************************************************/
-	void MiniGame_1(bool state);
 };
