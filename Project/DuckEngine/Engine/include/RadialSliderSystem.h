@@ -28,16 +28,12 @@ private:
 	float ConvertValueToAngle(float value, float minValue, float maxValue, float minAngle, float maxAngle) const;
 	float ClampValue(float value, float min, float max) const;
 
-	// Handle slider interaction logic
-	void HandleSliderInteraction(int entityId, RadialSliderComponent* slider, TransformComponent* transform);
-
 	// Rendering helpers
 	void DrawRadialSlider(const Vector2D& center,
 		float radius,
 		float thickness,
 		float startAngle,
 		float endAngle,
-		float currentAngle,
 		const Color& backgroundColor,
 		const Color& fillColor,
 		RadialSliderComponent* slider);

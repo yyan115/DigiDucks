@@ -7,32 +7,16 @@
 
 void RadialSliderSystem::Start()
 {
-	// Initialization if needed
+
 }
 
 void RadialSliderSystem::Update()
 {
-	// Process all RadialSliderComponents
-	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RadialSliderComponent>())
-	{
-		RadialSliderComponent* slider = static_cast<RadialSliderComponent*>(component.get());
-		if (!slider || !slider->isEnabled)
-			continue;
 
-		// Get the TransformComponent to know the position and scale
-		TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
-		if (!transform)
-			continue;
-
-		// Save old value to detect changes
-		float oldValue = slider->currentValue;
-
-		// Handle user interaction with this slider
-		//HandleSliderInteraction(entityId, slider, transform);
-	}
 }
 
-void RadialSliderSystem::Render() {
+void RadialSliderSystem::Render() 
+{
 	for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<RadialSliderComponent>()) {
 		RadialSliderComponent* slider = static_cast<RadialSliderComponent*>(component.get());
 
@@ -43,80 +27,14 @@ void RadialSliderSystem::Render() {
 		if (!transform)
 			continue;
 
-		// Use slider->radius instead of a fixed value
-		float currentAngle = ConvertValueToAngle(slider->currentValue,
-			slider->minValue,
-			slider->maxValue,
-			slider->minAngle,
-			slider->maxAngle);
-
 		DrawRadialSlider(transform->GetPosition(),
 			slider->radius,  // Use the component's radius
 			slider->thickness, // Use the component's thickness
 			slider->minAngle,
 			slider->maxAngle,
-			currentAngle,
 			slider->backgroundColor,  // Use component's background color
 			slider->fillColor,        // Use component's fill color
 			slider);
-	}
-}
-
-void RadialSliderSystem::HandleSliderInteraction(int entityId, RadialSliderComponent* slider, TransformComponent* transform)
-{
-	// Get center position and radius
-	Vector2D center = transform->GetPosition();
-	float radius = transform->scale.x * 0.5f; // Assuming scale.x is diameter
-
-	// Get mouse position
-	Vector2D mousePos;
-
-	if (DuckEngine::isEditor)
-	{
-		mousePos = DuckEngine::editorMouseWorldPos;
-	}
-	else
-	{
-		mousePos = Vector2D(
-			static_cast<float>(DuckEngine_Input::GetMouseX()),
-			static_cast<float>(DuckEngine_Input::GetMouseY())
-		);
-
-		// Convert screen position to world position
-		mousePos = GraphicsManager::ScreenToWorld(mousePos);
-	}
-
-	// Check if mouse is inside the radial slider area
-	if (IsPointInRadialSlider(mousePos, center, radius))
-	{
-		// Check for mouse click
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
-		{
-			// Calculate the angle from center to mouse position
-			float angle = CalculateAngleFromPoint(center, mousePos);
-
-			// Make sure the angle is within the slider's range
-			if (angle >= slider->minAngle && angle <= slider->maxAngle)
-			{
-				// Convert the angle to a value in the slider's range
-				float newValue = ConvertAngleToValue(
-					angle,
-					slider->minAngle,
-					slider->maxAngle,
-					slider->minValue,
-					slider->maxValue
-				);
-
-				// Apply step if needed
-				if (slider->step > 0.0f)
-				{
-					newValue = round(newValue / slider->step) * slider->step;
-				}
-
-				// Clamp the value to the valid range
-				slider->currentValue = ClampValue(newValue, slider->minValue, slider->maxValue);
-			}
-		}
 	}
 }
 
@@ -138,7 +56,7 @@ float RadialSliderSystem::CalculateAngleFromPoint(const Vector2D& center, const 
 	float angleRad = atan2(direction.y, direction.x);
 
 	// Convert to degrees and normalize
-	float angleDeg = angleRad * 180.0f / M_PI;
+	float angleDeg = static_cast<float>(angleRad * 180.0f / M_PI);
 
 	// Normalize to 0-360 range
 	return NormalizeAngle(angleDeg);
@@ -215,7 +133,6 @@ void RadialSliderSystem::DrawRadialSlider
 	float thickness,
 	float startAngle,
 	float endAngle,
-	float currentAngle,
 	const Color& backgroundColor,
 	const Color& fillColor,
 	RadialSliderComponent* slider

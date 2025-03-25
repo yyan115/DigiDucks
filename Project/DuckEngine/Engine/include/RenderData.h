@@ -180,10 +180,10 @@ struct ParticleRenderCommand {
 
 struct SliderRenderCommand
 {
-	Vector2D position;
-	float radius;
-	Color color;
-	bool relativeToCamera;
+    Vector2D position = { 0.0f, 0.0f };
+	float radius = 0.0f;
+    Color color = {0.0f, 0.0f, 0.0f, 0.0f};
+	bool relativeToCamera = false;
 };
 
 // Define the three types of commands.
