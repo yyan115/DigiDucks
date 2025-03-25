@@ -31,6 +31,7 @@ void PauseMenuLogic::Start()
 			{
 				gamePauseBgSpt->isVisible = false;
 			}
+			gamePauseBgSpt2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamePauseBg->childEntities[0]->entityID);
 		}
 
 		auto gameResumeBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Resume_Btn").get();
@@ -43,12 +44,12 @@ void PauseMenuLogic::Start()
 			gameResumeBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameResumeBtn->entityID);
 			if (gameResumeButton)
 			{
+				gameResumeBtnSpt->texture = gameResumeBtn_Normal;
 				gameResumeButton->onClick = [this]() { 
 					if (isPaused) { 
 						gameResumeBtnSound->Resume();
 						gameResumeBtnSound->Play();
-						PauseGame(false); 
-					
+						PauseGame(false);					
 					} };
 				gameResumeButton->onHover = [this]() {
 					gameResumeBtnSound->Resume();
@@ -63,12 +64,13 @@ void PauseMenuLogic::Start()
 		if (gameExitBtn)
 		{
 			gameExitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitBtn->entityID);
-			gameExitBtn_Normal = AssetManager::GetTextureByName("pause_quitgame");
-			gameExitBtn_Hover = AssetManager::GetTextureByName("pause_quitgame_hover");
+			gameExitBtn_Normal = AssetManager::GetTextureByName("pause_mainmenu");
+			gameExitBtn_Hover = AssetManager::GetTextureByName("pause_mainmenu_hover");
 			gameExitButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitBtn->entityID);
 			gameExitBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitBtn->entityID);
 			if (gameExitButton)
 			{
+				gameExitBtnSpt->texture = gameExitBtn_Normal;
 				gameExitButton->onClick = [this]() { 
 					gameExitBtnSound->Resume();
 					gameExitBtnSound->Play();
@@ -92,6 +94,7 @@ void PauseMenuLogic::Start()
 
 			if (gameHTPButton)
 			{
+				gameHTPBtnSpt->texture = gameHTPBtn_Normal;
 				gameHTPButton->onClick = [this]() { 
 					if (gameJournal) {
 						gameHTPBtnSound->Resume();
@@ -108,7 +111,6 @@ void PauseMenuLogic::Start()
 				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
-
 	}
 
 	// H.T.P Menu
@@ -172,7 +174,7 @@ void PauseMenuLogic::Start()
 				gameExitNoButton->onClick = [this]() { 
 					gameExitNoBtnSound->Resume();
 					gameExitNoBtnSound->Play();
-					ExitConfirm(false); };
+					PauseGame(true); };
 				gameExitNoButton->onHover = [this]() { 
 					gameExitNoBtnSound->Resume();
 					gameExitNoBtnSound->Play(1);
@@ -228,6 +230,7 @@ void PauseMenuLogic::PauseGame(bool state)
 		uiSprite->isVisible = !state;
 	}
 
+
 	// Show Pause Menu
 	if (gamePauseBgSpt)
 	{
@@ -252,6 +255,10 @@ void PauseMenuLogic::ExitConfirm(bool state)
 		gameExitCfmBgSpt->isVisible = state;
 	}
 
+	if (gamePauseBgSpt2)
+	{
+		gamePauseBgSpt2->isVisible = !state;
+	}
 	DisableButtons(state);
 
 }

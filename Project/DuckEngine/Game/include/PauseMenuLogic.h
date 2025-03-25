@@ -23,24 +23,35 @@ private:
 	//Pause Menu
 	Entity* gamePauseBg = nullptr;
 	SpriteRendererComponent* gamePauseBgSpt = nullptr;
+	SpriteRendererComponent* gamePauseBgSpt2 = nullptr;
 
+	// Resume Button
 	ButtonComponent* gameResumeButton = nullptr;
 	SpriteRendererComponent* gameResumeBtnSpt = nullptr;
 	Texture gameResumeBtn_Normal{};
 	Texture gameResumeBtn_Hover{};
 	SoundComponent* gameResumeBtnSound = nullptr;
 
+	// Exit Button
 	ButtonComponent* gameExitButton = nullptr;
 	SpriteRendererComponent* gameExitBtnSpt = nullptr;
 	Texture gameExitBtn_Normal{};
 	Texture gameExitBtn_Hover{};
 	SoundComponent* gameExitBtnSound = nullptr;
 
+	// How To Play Button
 	ButtonComponent* gameHTPButton = nullptr;
 	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
 	Texture gameHTPBtn_Normal{};
 	Texture gameHTPBtn_Hover{};
 	SoundComponent* gameHTPBtnSound = nullptr;
+
+	// Main Menu Button
+	ButtonComponent* gameMainMenuButton = nullptr;
+	SpriteRendererComponent* gameMainMenuBtnSpt = nullptr;
+	Texture gameMainMenuBtn_Normal{};
+	Texture gameMainMenuBtn_Hover{};
+	SoundComponent* gameMainMenuBtnSound = nullptr;
 
 	// HTP Menu
 	Entity* gameJournal = nullptr;

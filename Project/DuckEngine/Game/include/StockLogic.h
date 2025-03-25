@@ -29,11 +29,11 @@ private:
 	SpriteRendererComponent* spriteRenderer;
 	TextComponent* textComponent;
 	int stock;
-	const int MAX_STOCK = 5;
+	const int MAX_STOCK = 3;
 
 public:
 
-	StockLogic() : GameLogic(nullptr), entity(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(5) {}
+	StockLogic() : GameLogic(nullptr), entity(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(3) {}
 
 	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), entity(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_) {}
 
@@ -136,7 +136,7 @@ public:
 	/****************************************************************
 	* @brief Restock function for the StockLogic
 	* ***************************************************************/
-	virtual void restock() { stock = 5; }
+	virtual void restock() { stock = MAX_STOCK; }
 
 	/****************************************************************
 	* @brief Restock function for the StockLogic
