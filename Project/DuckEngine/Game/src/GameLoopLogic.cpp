@@ -411,7 +411,7 @@ void GameLoopLogic::Update()
 
 	
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		std::cout << "H is pressed!\n";
 		GameManager::SetActiveScene("EndScene");
@@ -420,13 +420,13 @@ void GameLoopLogic::Update()
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
 	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		submitLogic->increaseScore(10);
 	}
 	ScoreLogic::scoreValue = submitLogic->getScore();
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_O))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_O) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		timeLeft = 11.f;
 	}
