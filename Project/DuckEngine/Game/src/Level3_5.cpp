@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-\file       Level35.cpp
+\file       Level3_5.cpp
 \author     Ernest Ho, h.yonghengernest, 2301223
 \par        h.yonghengernestt@digipen.edu
 \date       March 13 2025
-\brief      Implementation of the Level35 class, which handles the game logic
+\brief      Implementation of the Level3_5 class, which handles the game logic
 			for the main game scene. This includes loading assets, initializing
 			game objects, updating game logic, and cleaning up resources.
 
@@ -14,7 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "Level35.h"
+#include "Level3_5.h"
 #include "Scene.h"
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
@@ -27,7 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
 * ****************************************************************/
-void Level35::Load()
+void Level3_5::Load()
 {
 	Scene::Load();
 
@@ -38,7 +38,7 @@ void Level35::Load()
 * setting up the initial state. This function is called when
 * the scene begins running.
 * ****************************************************************/
-void Level35::Start()
+void Level3_5::Start()
 {
 	Scene::Start();
 
@@ -87,7 +87,7 @@ void Level35::Start()
 * input and updating game objects. This function is called
 * every frame.
 * ****************************************************************/
-void Level35::Update()
+void Level3_5::Update()
 {
 
 
@@ -98,7 +98,7 @@ void Level35::Update()
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void Level35::PostUpdate()
+void Level3_5::PostUpdate()
 {
 
 }
@@ -107,7 +107,7 @@ void Level35::PostUpdate()
 * @brief Exit the scene, performing any cleanup necessary before
 * the scene is unloaded.
 * ****************************************************************/
-void Level35::Exit()
+void Level3_5::Exit()
 {
 
 }
@@ -116,7 +116,7 @@ void Level35::Exit()
 * @brief Unload the scene and free any resources that were loaded
 * during the Load() phase.
 * ****************************************************************/
-void Level35::Unload()
+void Level3_5::Unload()
 {
 	// base unload
 	Scene::Unload();

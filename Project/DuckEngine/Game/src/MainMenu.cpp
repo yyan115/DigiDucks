@@ -90,7 +90,7 @@ void MainMenu::Load()
 
 			if (LevelSelectScreenLogic::currentStage >= 5)
 			{
-				sceneToLoad = "Level35";
+				sceneToLoad = "Level3_5";
 				std::cout << "Starting Level 3.5" << std::endl;
 			}
 			else if (LevelSelectScreenLogic::currentStage == 4)
@@ -100,7 +100,7 @@ void MainMenu::Load()
 			}
 			else if (LevelSelectScreenLogic::currentStage == 3)
 			{
-				sceneToLoad = "Level25";
+				sceneToLoad = "Level2_5";
 				std::cout << "Starting Level 2.5" << std::endl;
 			}
 			else if (LevelSelectScreenLogic::currentStage == 2)
@@ -110,7 +110,7 @@ void MainMenu::Load()
 			}
 			else if (LevelSelectScreenLogic::currentStage == 1)
 			{
-				sceneToLoad = "Level15";
+				sceneToLoad = "Level1_5";
 				std::cout << "Starting Level 1.5" << std::endl;
 			}
 			else if (LevelSelectScreenLogic::currentStage == 0)

@@ -80,7 +80,7 @@ void LevelSelectScreenLogic::Start()
 				std::cout << "Level 1 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 1;
-				mainMenu->OnPlayButtonClicked("GameScene");
+				mainMenu->OnPlayButtonClicked("Level1");
 			}
 		};
 
@@ -91,7 +91,7 @@ void LevelSelectScreenLogic::Start()
 				std::cout << "Level 1.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 2;
-				mainMenu->OnPlayButtonClicked("Level15");
+				mainMenu->OnPlayButtonClicked("Level1_5");
 			}
 		};
 
@@ -113,7 +113,7 @@ void LevelSelectScreenLogic::Start()
 				std::cout << "Level 2.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 4;
-				mainMenu->OnPlayButtonClicked("Level25");
+				mainMenu->OnPlayButtonClicked("Level2_5");
 			}
 		};
 
@@ -135,7 +135,7 @@ void LevelSelectScreenLogic::Start()
 				std::cout << "Level 3.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 6;
-				mainMenu->OnPlayButtonClicked("Level35");
+				mainMenu->OnPlayButtonClicked("Level3_5");
 			}
 		};
 

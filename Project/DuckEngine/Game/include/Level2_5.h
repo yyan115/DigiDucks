@@ -19,7 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CutSceneLogic.h"
 
 
-class Level35 : public Scene
+class Level2_5 : public Scene
 {
 public:
     void Load() override;

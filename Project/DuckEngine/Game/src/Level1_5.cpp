@@ -14,7 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-#include "Level15.h"
+#include "Level1_5.h"
 #include "Scene.h"
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
@@ -27,7 +27,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 * @brief Load all necessary resources for the scene.
 * This function is called before the scene starts.
 * ****************************************************************/
-void Level15::Load()
+void Level1_5::Load()
 {
 	Scene::Load();
 
@@ -38,7 +38,7 @@ void Level15::Load()
 * setting up the initial state. This function is called when
 * the scene begins running.
 * ****************************************************************/
-void Level15::Start()
+void Level1_5::Start()
 {
 	Scene::Start();
 
@@ -76,7 +76,7 @@ void Level15::Start()
 * input and updating game objects. This function is called
 * every frame.
 * ****************************************************************/
-void Level15::Update()
+void Level1_5::Update()
 {
 
 
@@ -87,7 +87,7 @@ void Level15::Update()
 * main update logic, such as cleanup or post-processing. This
 * function is called every frame, after the Update() method.
 * ****************************************************************/
-void Level15::PostUpdate()
+void Level1_5::PostUpdate()
 {
 
 }
@@ -96,7 +96,7 @@ void Level15::PostUpdate()
 * @brief Exit the scene, performing any cleanup necessary before
 * the scene is unloaded.
 * ****************************************************************/
-void Level15::Exit()
+void Level1_5::Exit()
 {
 
 }
@@ -105,7 +105,7 @@ void Level15::Exit()
 * @brief Unload the scene and free any resources that were loaded
 * during the Load() phase.
 * ****************************************************************/
-void Level15::Unload()
+void Level1_5::Unload()
 {
 	// base unload
 	Scene::Unload();

@@ -57,11 +57,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HowToPlay.h"
 #include "Level0.h"
 #include "Level1.h"
-#include "Level15.h"
+#include "Level1_5.h"
 #include "Level2.h"
-#include "Level25.h"
+#include "Level2_5.h"
 #include "Level3.h"
-#include "Level35.h"
+#include "Level3_5.h"
 #include "EndGame.h"
 
 
@@ -84,11 +84,11 @@ void GameManager::InitScenes()
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level1", std::make_shared<Level1>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level15", std::make_shared<Level15>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level1_5", std::make_shared<Level1_5>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2", std::make_shared<Level2>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level25", std::make_shared<Level25>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2_5", std::make_shared<Level2_5>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3", std::make_shared<Level3>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level35", std::make_shared<Level35>());
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3_5", std::make_shared<Level3_5>());
 
 
 	// add game logic
