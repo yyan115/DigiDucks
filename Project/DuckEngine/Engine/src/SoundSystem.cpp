@@ -90,6 +90,7 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     }
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
+    sound->setMode(FMOD_2D);
 
     FMOD::Channel* channel = nullptr;
     AssetManager::GetFMODSystem()->playSound(sound, nullptr, false, &channel);
@@ -100,8 +101,6 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
 
         // Store sound volume
         soundVolumes[soundID] = volume;
-
-        sound->setMode(FMOD_2D);
 
         RemoveEffect(channel); // Remove any existing DSP effects
         ApplyEffect(channel, effects);

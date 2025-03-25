@@ -271,6 +271,11 @@ void PlayerLogic::InteractPressed()
 		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);		
 		if (stockLogic)
 		{
+			if (sound) {
+				sound->Stop();
+				sound->Play(-1);
+			}
+				
 			// If empty stock or Bin, do nothing
 			if (stockLogic->getType() == ItemType::BIN || stockLogic->getType() == ItemType::EMPTY) return;
 
@@ -280,7 +285,7 @@ void PlayerLogic::InteractPressed()
 
 			Entity* newObject = makeObject(stockLogic->getType());
 			holding->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
-			if (sound) sound->Play(-1);
+			
 			isHolding = true;
 			return;
 		}
@@ -291,6 +296,7 @@ void PlayerLogic::InteractPressed()
 			// If Table is occupied, take object from table
 			if (tableLogic->isOccupied)
 			{			
+				
 				holding->setObject(tableLogic->moveObject());
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
