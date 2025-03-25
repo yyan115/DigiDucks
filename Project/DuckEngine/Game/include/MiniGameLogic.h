@@ -21,14 +21,14 @@ enum SimonSays {
 class MiniGameLogic : public GameLogic
 {
 public:
-	void MiniGame_1(bool state);
-	void MiniGame_2(bool state);
-	void passwordInput(std::string num);
-	void enterPassword();
-	void deletePassword();
-	void ButtonLight(char light);
-	void ButtonOff(char light);
-	void buffertime();
+	//void MiniGame_1(bool state);
+	//void MiniGame_2(bool state);
+	//void passwordInput(std::string num);
+	//void enterPassword();
+	//void deletePassword();
+	//void ButtonLight(char light);
+	//void ButtonOff(char light);
+	//void buffertime();
 
 	MiniGameLogic() : GameLogic(nullptr) {}
 
@@ -186,7 +186,7 @@ private:
 	std::string result = "";
 	float buffer = 0 ;
 
-	std::string GenerateRandomNumericString(int minLength, int maxLength);
-	std::string SimonSaysColor();
+	//std::string GenerateRandomNumericString(int minLength, int maxLength);
+	//std::string SimonSaysColor();
 
 };
