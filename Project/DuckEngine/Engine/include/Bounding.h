@@ -173,26 +173,15 @@ public:
 	****************************************************************/
 	DUCKENGINE_API BoundingBox(float _x, float _y, float sizeX, float sizeY, float _rotation = 0.f);
 
-	// Copy Constructor
-	/****************************************************************
-	* @brief Copy constructor for BoundingBox
-	*
-	* Initializes a BoundingBox by copying the data from another bounding box.
-	*
-	* @param box The BoundingBox object to copy from
-	****************************************************************/
 	DUCKENGINE_API BoundingBox(BoundingBox& box) :
-		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
-	/****************************************************************
-	* @brief Copy constructor for BoundingBox (const version)
-	*
-	* Initializes a BoundingBox by copying the data from another constant bounding box.
-	*
-	* @param box The constant BoundingBox object to copy from
-	****************************************************************/
-	DUCKENGINE_API BoundingBox(const BoundingBox& box):
-		BoundingCollider(box.getCenter()), size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {}
+		BoundingCollider(box.getCenter(), box.getOffSet()),
+		size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {
+	}
 
+	DUCKENGINE_API BoundingBox(const BoundingBox& box) :
+		BoundingCollider(box.getCenter(), box.getOffSet()),
+		size(box.size), topR(box.topR), topL(box.topL), btmR(box.btmR), btmL(box.btmL), rotation(box.rotation) {
+	}
 	// Destructor
 	/****************************************************************
 	* @brief Destructor for BoundingBox
@@ -315,24 +304,15 @@ public:
 	****************************************************************/
 	DUCKENGINE_API BoundingCircle(float x, float y, float _radius) : BoundingCollider(x, y), radius(_radius) {}
 
-	// Copy Constructor
-	/****************************************************************
-	* @brief Copy constructor for BoundingCircle
-	*
-	* Initializes a BoundingCircle by copying the data from another BoundingCircle.
-	*
-	* @param circle The BoundingCircle object to copy from
-	****************************************************************/
-	DUCKENGINE_API BoundingCircle(BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
-	/****************************************************************
-	* @brief Const copy constructor for BoundingCircle
-	*
-	* Initializes a BoundingCircle by copying the data from another constant BoundingCircle.
-	*
-	* @param circle The constant BoundingCircle object to copy from
-	****************************************************************/
-	DUCKENGINE_API BoundingCircle(const BoundingCircle& circle) : BoundingCollider(circle.getCenterPos()), radius(circle.getRadius()) {}
+	DUCKENGINE_API BoundingCircle(BoundingCircle& circle) :
+		BoundingCollider(circle.getCenterPos(), circle.getOffSet()),
+		radius(circle.getRadius()) {
+	}
 
+	DUCKENGINE_API BoundingCircle(const BoundingCircle& circle) :
+		BoundingCollider(circle.getCenterPos(), circle.getOffSet()),
+		radius(circle.getRadius()) {
+	}
 	// Destructor
 	/****************************************************************
 	* @brief Destructor for BoundingCircle
