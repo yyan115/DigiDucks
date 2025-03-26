@@ -749,7 +749,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -1368,7 +1368,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -1570,7 +1570,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 0.800000011920929
                     },
@@ -2130,7 +2130,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/chop and cook/chopping.mp3"
+                            "Resources/Sounds/chop and cook/chopping.wav"
                         ],
                         "volume": 0.5
                     },
@@ -2202,8 +2202,8 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/drone/drone open 2.mp3",
-                            "Resources/Sounds/drone/drone close 1.mp3"
+                            "Resources/Sounds/drone/drone open 2.wav",
+                            "Resources/Sounds/drone/drone close 1.wav"
                         ],
                         "volume": 0.4000000059604645
                     },
@@ -2320,7 +2320,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 1.0
                     },
@@ -2384,7 +2384,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 1.0
                     },
@@ -3433,7 +3433,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 1.0
                     },
@@ -3639,7 +3639,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -3905,7 +3905,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -4947,7 +4947,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 1.0
                     },
@@ -5222,7 +5222,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/drone/drone close 1.mp3"
+                            "Resources/Sounds/drone/drone close 1.wav"
                         ],
                         "volume": 0.4000000059604645
                     },
@@ -5935,7 +5935,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 1.0
                     },
@@ -6028,7 +6028,8 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav"
+                            "Resources/Sounds/ingredients/ingredients 1.wav",
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.6000000238418579
                     },
@@ -6818,7 +6819,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/clicks/click 1.wav",
-                            "Resources/Sounds/clicks/hover 1.mp3"
+                            "Resources/Sounds/clicks/hover 1.wav"
                         ],
                         "volume": 0.800000011920929
                     },
@@ -6957,7 +6958,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -7133,7 +7134,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
@@ -7303,12 +7304,12 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/chop and cook/raw_patty_sizzle.mp3",
-                            "Resources/Sounds/chop and cook/cooked_patty_sizzle.mp3",
-                            "Resources/Sounds/chop and cook/sizzle.mp3",
-                            "Resources/Sounds/chop and cook/boiling.mp3",
-                            "Resources/Sounds/chop and cook/continue boiling.mp3",
-                            "Resources/Sounds/chop and cook/cooking_done.mp3"
+                            "Resources/Sounds/chop and cook/raw_patty_sizzle.wav",
+                            "Resources/Sounds/chop and cook/cooked_patty_sizzle.wav",
+                            "Resources/Sounds/chop and cook/sizzle.wav",
+                            "Resources/Sounds/chop and cook/boiling.wav",
+                            "Resources/Sounds/chop and cook/continue boiling.wav",
+                            "Resources/Sounds/chop and cook/cooking_done.wav"
                         ],
                         "volume": 0.3499999940395355
                     },
@@ -8788,7 +8789,7 @@
                         "playOnStart": false,
                         "soundID": [
                             "Resources/Sounds/ingredients/ingredients 1.wav",
-                            "Resources/Sounds/ingredients/ingredients 2.mp3"
+                            "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
                     },
