@@ -22,9 +22,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 class TomatoStockLogic : public StockLogic
 {
 public:
-    TomatoStockLogic() : StockLogic(ItemType::TOMATO, 3) {}
+    TomatoStockLogic() : StockLogic(ItemType::TOMATO) {}
 
-    TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::TOMATO, 3){}
+    TomatoStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::TOMATO){}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

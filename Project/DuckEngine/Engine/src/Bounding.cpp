@@ -63,7 +63,8 @@ void BoundingCollider::setCenterPos(float x, float y) {
 *
 * @param offSet_ - The OffSet of the collider
 * ***************************************************************/
-void BoundingCollider::setOffSet(const Vec2& offSet_) {
+void BoundingCollider::setOffSet(Vec2& offSet_) {
+	std::cout << "Set OffSet using Vec2" << std::endl;
 	offSet = offSet_;
 }
 
@@ -74,6 +75,7 @@ void BoundingCollider::setOffSet(const Vec2& offSet_) {
 * @param y - The y position of the OffSet
 * ***************************************************************/
 void BoundingCollider::setOffSet(float x, float y) {
+	std::cout << "Set OffSet using x, y" << std::endl;
 	offSet = Vec2(x, y);
 }
 
