@@ -16,7 +16,7 @@ public:
 		step(0.1f),
 		minAngle(0.0f),
 		maxAngle(360.0f),
-		radius(100.0f),
+		radius(1.0f),
 		thickness(1.0f),  // Default thickness for the slider
 		backgroundColor(100, 100, 100, 255),  // Default gray
 		fillColor(50, 150, 255, 255)  // Default blue
