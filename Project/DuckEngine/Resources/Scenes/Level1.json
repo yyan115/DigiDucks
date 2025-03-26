@@ -368,7 +368,11 @@
                     "properties": {
                         "center": {
                             "x": 10.000005722045898,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -438,7 +442,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/waste.png",
                         "useColor": true
@@ -449,7 +453,11 @@
                     "properties": {
                         "center": {
                             "x": 6.0,
-                            "y": -5.889617919921875
+                            "y": -5.789618015289307
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -603,7 +611,7 @@
         },
         "Bowl_Station": {
             "childNames": [
-                "GameObject_246",
+                "GameObject_233_copy_copy_copy",
                 "Bowl"
             ],
             "components": [
@@ -631,7 +639,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -643,6 +651,10 @@
                         "center": {
                             "x": 12.0,
                             "y": 0.6000000238418579
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.949999988079071,
@@ -725,7 +737,11 @@
                     "properties": {
                         "center": {
                             "x": -8.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -1202,7 +1218,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": false,
                         "texture": "Resources/Sprites/Stations/cashregistertable.png",
                         "useColor": false
@@ -1214,6 +1230,10 @@
                         "center": {
                             "x": -6.0,
                             "y": -7.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -1266,7 +1286,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1277,7 +1297,11 @@
                     "properties": {
                         "center": {
                             "x": -6.0,
-                            "y": -8.0
+                            "y": -7.900000095367432
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -1344,7 +1368,11 @@
                     "properties": {
                         "center": {
                             "x": 4.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -2109,6 +2137,10 @@
                             "x": -10.0,
                             "y": 0.6000000238418579
                         },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "size": {
                             "x": 0.949999988079071,
                             "y": 0.8999999761581421
@@ -2187,9 +2219,13 @@
                             "x": 12.0,
                             "y": 2.700000047683716
                         },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "size": {
-                            "x": 1.0,
-                            "y": 1.100000023841858
+                            "x": 0.949999988079071,
+                            "y": 0.8999999761581421
                         }
                     },
                     "type": "BoundingBox"
@@ -2733,8 +2769,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
+                            "x": 2.1500000953674316,
+                            "y": 2.6500000953674316
                         }
                     },
                     "type": "TransformComponent"
@@ -2769,44 +2805,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 10,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "GameObject_222_copy_copy": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -4.0,
-                            "y": -8.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
+                            "x": 2.1500000953674316,
+                            "y": 2.25
                         }
                     },
                     "type": "TransformComponent"
@@ -2830,6 +2830,42 @@
             ],
             "layer": "Gameplay"
         },
+        "GameObject_222_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -4.0,
+                            "y": -8.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.6500000953674316
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 8,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameObject_222_copy_copy_copy": {
             "components": [
                 {
@@ -2841,8 +2877,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
+                            "x": 2.1500000953674316,
+                            "y": 2.6500000953674316
                         }
                     },
                     "type": "TransformComponent"
@@ -2877,8 +2913,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
+                            "x": 2.1500000953674316,
+                            "y": 2.6500000953674316
                         }
                     },
                     "type": "TransformComponent"
@@ -2893,6 +2929,186 @@
                         },
                         "isVisible": false,
                         "sortingOrder": 7,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject_222_copy_copy_copy_1_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -3.5999999046325684
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject_222_copy_copy_copy_1_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": 2.700000047683716
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject_222_copy_copy_copy_1_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject_222_copy_copy_copy_1_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": -5.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 7,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "GameObject_222_copy_copy_copy_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -10.0,
+                            "y": -3.5999999046325684
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2945,8 +3161,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.200000047683716,
-                            "y": 2.700000047683716
+                            "x": 2.1500000953674316,
+                            "y": 2.6500000953674316
                         }
                     },
                     "type": "TransformComponent"
@@ -2960,7 +3176,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2981,8 +3197,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 2.0999999046325684,
-                            "y": 2.299999952316284
+                            "x": 2.1500000953674316,
+                            "y": 2.25
                         }
                     },
                     "type": "TransformComponent"
@@ -3006,37 +3222,77 @@
             ],
             "layer": "Gameplay"
         },
-        "GameObject_233_copy_2": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": -5.699999809265137
-            },
-            "prefab": "Highlight_Table"
+        "GameObject_233_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": -1.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
-        "GameObject_234": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": 2.700000047683716
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_234_copy": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": -1.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_234_copy_copy": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -3.5999999046325684
-            },
-            "prefab": "Highlight_Table"
+        "GameObject_233_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 12.0,
+                            "y": 0.6000000238418579
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.1500000953674316,
+                            "y": 2.25
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 4,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "GameObject_235": {
             "layer": "Gameplay",
@@ -3110,22 +3366,6 @@
             },
             "prefab": "Highlight_Table"
         },
-        "GameObject_244": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": -1.5
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_246": {
-            "layer": "Gameplay",
-            "position": {
-                "x": 12.0,
-                "y": 0.6000000238418579
-            },
-            "prefab": "Highlight_Table"
-        },
         "GameObject_247": {
             "layer": "Gameplay",
             "position": {
@@ -3155,14 +3395,6 @@
             "position": {
                 "x": 6.0,
                 "y": -5.889617919921875
-            },
-            "prefab": "Highlight_Table"
-        },
-        "GameObject_250": {
-            "layer": "Gameplay",
-            "position": {
-                "x": -10.0,
-                "y": -3.5999999046325684
             },
             "prefab": "Highlight_Table"
         },
@@ -3611,7 +3843,11 @@
                     "properties": {
                         "center": {
                             "x": -1.9999998807907104,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -3877,7 +4113,11 @@
                     "properties": {
                         "center": {
                             "x": -6.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -4471,6 +4711,10 @@
                             "x": 0.0,
                             "y": 0.0
                         },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "size": {
                             "x": 0.10000000149011612,
                             "y": 0.10000000149011612
@@ -4481,6 +4725,10 @@
                 {
                     "properties": {
                         "center": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "offset": {
                             "x": 0.0,
                             "y": 0.0
                         },
@@ -6928,7 +7176,11 @@
                     "properties": {
                         "center": {
                             "x": 2.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7104,7 +7356,11 @@
                     "properties": {
                         "center": {
                             "x": 6.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7236,7 +7492,7 @@
         },
         "Stove": {
             "childNames": [
-                "GameObject_250",
+                "GameObject_222_copy_copy_copy_2",
                 "Stove_Sliver_Bg"
             ],
             "components": [
@@ -7276,6 +7532,10 @@
                         "center": {
                             "x": -10.0,
                             "y": -3.5999999046325684
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.949999988079071,
@@ -7449,7 +7709,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -7460,7 +7720,11 @@
                     "properties": {
                         "center": {
                             "x": -8.0,
-                            "y": -8.0
+                            "y": -7.900000095367432
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7516,7 +7780,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -7527,7 +7791,11 @@
                     "properties": {
                         "center": {
                             "x": -4.0,
-                            "y": -8.0
+                            "y": -7.900000095367432
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7583,7 +7851,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -7637,7 +7905,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -7649,6 +7917,10 @@
                         "center": {
                             "x": -1.999999761581421,
                             "y": -5.699999809265137
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7715,7 +7987,11 @@
                     "properties": {
                         "center": {
                             "x": 0.0,
-                            "y": -5.900000095367432
+                            "y": -5.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7782,7 +8058,11 @@
                     "properties": {
                         "center": {
                             "x": 2.0,
-                            "y": -5.900000095367432
+                            "y": -5.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7849,7 +8129,11 @@
                     "properties": {
                         "center": {
                             "x": 4.0,
-                            "y": -5.900000095367432
+                            "y": -5.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7916,7 +8200,11 @@
                     "properties": {
                         "center": {
                             "x": 8.0,
-                            "y": -5.900000095367432
+                            "y": -5.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -7983,7 +8271,11 @@
                     "properties": {
                         "center": {
                             "x": 10.0,
-                            "y": -5.900000095367432
+                            "y": -5.800000190734863
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -8066,7 +8358,7 @@
         },
         "Table_11": {
             "childNames": [
-                "GameObject_234_copy_copy"
+                "GameObject_222_copy_copy_copy_1_copy"
             ],
             "components": [
                 {
@@ -8093,7 +8385,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -8105,6 +8397,10 @@
                         "center": {
                             "x": 12.0,
                             "y": -3.5999999046325684
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.949999988079071,
@@ -8219,7 +8515,11 @@
                     "properties": {
                         "center": {
                             "x": 8.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -8286,7 +8586,11 @@
                     "properties": {
                         "center": {
                             "x": 0.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -8383,7 +8687,7 @@
         },
         "Table_16": {
             "childNames": [
-                "GameObject_234"
+                "GameObject_222_copy_copy_copy_1_copy_copy"
             ],
             "components": [
                 {
@@ -8423,6 +8727,10 @@
                             "x": -10.0,
                             "y": 2.700000047683716
                         },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "size": {
                             "x": 0.949999988079071,
                             "y": 0.8999999761581421
@@ -8451,7 +8759,7 @@
         },
         "Table_17": {
             "childNames": [
-                "GameObject_234_copy"
+                "GameObject_222_copy_copy_copy_1_copy_copy_copy"
             ],
             "components": [
                 {
@@ -8491,6 +8799,10 @@
                             "x": -10.0,
                             "y": -1.5
                         },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
                         "size": {
                             "x": 0.949999988079071,
                             "y": 0.8999999761581421
@@ -8519,7 +8831,7 @@
         },
         "Table_18": {
             "childNames": [
-                "GameObject_233_copy_2"
+                "GameObject_222_copy_copy_copy_1_copy_copy_copy_copy"
             ],
             "components": [
                 {
@@ -8558,6 +8870,10 @@
                         "center": {
                             "x": -10.0,
                             "y": -5.699999809265137
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.949999988079071,
@@ -8943,7 +9259,11 @@
                     "properties": {
                         "center": {
                             "x": -4.0,
-                            "y": 4.5
+                            "y": 4.599999904632568
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.10000000149011612
                         },
                         "size": {
                             "x": 0.8999999761581421,
@@ -9247,7 +9567,7 @@
         },
         "White_Plate_Station": {
             "childNames": [
-                "GameObject_244",
+                "GameObject_233_copy_copy",
                 "White_Plate"
             ],
             "components": [
@@ -9275,7 +9595,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -9287,6 +9607,10 @@
                         "center": {
                             "x": 12.0,
                             "y": -1.5
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "size": {
                             "x": 0.949999988079071,

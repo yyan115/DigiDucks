@@ -3,14 +3,14 @@
         {
             "properties": {
                 "position": {
-                    "x": 9.988649368286133,
-                    "y": -7.775423526763916
+                    "x": 10.0,
+                    "y": -5.900000095367432
                 },
                 "relativeToCamera": true,
                 "rotation": 0.0,
                 "scale": {
-                    "x": 2.200000047683716,
-                    "y": 2.700000047683716
+                    "x": 2.1500000953674316,
+                    "y": 2.6500000953674316
                 }
             },
             "type": "TransformComponent"
@@ -23,7 +23,7 @@
                     "g": 255.0,
                     "r": 255.0
                 },
-                "isVisible": true,
+                "isVisible": false,
                 "sortingOrder": 7,
                 "sprite": true,
                 "texture": "",
