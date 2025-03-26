@@ -93,7 +93,7 @@ void HowToPlayLogic::Update()
     {
 		// Return to main menu
 		if (howToPlayScreenSpriteRenderer->isVisible) 
-{
+        {
 			howToPlayScreenSpriteRenderer->isVisible = false;
 			if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
 			if (pauseMenuLogic) pauseMenuLogic->DisableButtons(false);

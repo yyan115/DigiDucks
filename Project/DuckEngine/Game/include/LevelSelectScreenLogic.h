@@ -13,7 +13,6 @@ enum class LevelButtonSelection
 	LEVEL2_5 = 4,
 	LEVEL3 = 5,
 	LEVEL3_5 = 6,
-	X_BUTTON = 7,
 	COUNT
 };
 

@@ -64,7 +64,6 @@ void LevelSelectScreenLogic::Start()
 			mainMenuScreenSpriteRenderer->isVisible = true;
 		};
 
-	// Set up level button visibility based on current stage
 	// Level 0 (Tutorial) - Always available
 	level0Button->onClick = [this, SFX]()
 		{
@@ -72,6 +71,28 @@ void LevelSelectScreenLogic::Start()
 			SFX->Play();
 			stageLevel = 0;
 			mainMenu->OnPlayButtonClicked("Level0");
+		};
+	level0Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL0);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level0Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL0);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
+			}
 		};
 
 	// Level 1 - Available if currentStage >= 0
@@ -83,6 +104,28 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 1;
 				mainMenu->OnPlayButtonClicked("Level1");
+			}
+		};
+	level1Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL1);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level1Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL1);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
 			}
 		};
 
@@ -97,6 +140,28 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level1_5");
 			}
 		};
+	level1_5Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL1_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level1_5Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL1_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
+			}
+		};
 
 	// Level 2 - Available if currentStage >= 2
 	level2Button->onClick = [this, SFX]()
@@ -107,6 +172,28 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 3;
 				mainMenu->OnPlayButtonClicked("Level2");
+			}
+		};
+	level2Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL2);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level2Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL2);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
 			}
 		};
 
@@ -121,6 +208,28 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level2_5");
 			}
 		};
+	level2_5Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL2_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level2_5Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL2_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
+			}
+		};
 
 	// Level 3 - Available if currentStage >= 4
 	level3Button->onClick = [this, SFX]()
@@ -133,8 +242,30 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level3");
 			}
 		};
+	level3Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL3);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level3Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL3);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
+			}
+		};
 
-	// Level 3.5 - Available if currentStage >= 
+	// Level 3.5 - Available if currentStage >= 5
 	level3_5Button->onClick = [this, SFX]()
 		{
 			if (currentStage >= 5)
@@ -145,11 +276,32 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level3_5");
 			}
 		};
+	level3_5Button->onHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL3_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+				}
+			}
+		};
+	level3_5Button->onFinishHover = [this]()
+		{
+			if (!isUsingController)
+			{
+				int index = static_cast<int>(LevelButtonSelection::LEVEL3_5);
+				if (index < levelButtonTransforms.size())
+				{
+					levelButtonTransforms[index]->scale = originalScales[index];
+				}
+			}
+		};
 
 	UpdateLevelButtonVisuals(level0Sprite, level1Sprite, level1_5Sprite, level2Sprite,
 		level2_5Sprite, level3Sprite, level3_5Sprite);
 
-	// NEW CODE: Store button entities and get their transform components
 	levelButtonEntities.clear();
 	levelButtonTransforms.clear();
 	originalScales.clear();
@@ -259,7 +411,6 @@ void LevelSelectScreenLogic::LevelCompleted()
 
 }
 
-// NEW FUNCTION: Updates the level select menu navigation with controller
 void LevelSelectScreenLogic::UpdateLevelMenuSelection()
 {
 	// Check for gamepad connectivity
@@ -349,20 +500,11 @@ void LevelSelectScreenLogic::SelectLevelButton(LevelButtonSelection selection)
 	currentLevelSelection = selection;
 
 	// Apply hover effect (increase scale by 10%)
-	if (selection == LevelButtonSelection::X_BUTTON)
+
+	int index = static_cast<int>(selection);
+	if (index >= 0 && index < levelButtonTransforms.size())
 	{
-		if (xButtonTransform)
-		{
-			xButtonTransform->scale = xButtonOriginalScale * buttonScaleIncrease;
-		}
-	}
-	else
-	{
-		int index = static_cast<int>(selection);
-		if (index >= 0 && index < levelButtonTransforms.size())
-		{
-			levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
-		}
+		levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
 	}
 }
 
@@ -452,12 +594,6 @@ void LevelSelectScreenLogic::ActivateSelectedLevelButton()
 			stageLevel = 6;
 			mainMenu->OnPlayButtonClicked("Level3_5");
 		}
-		break;
-
-	case LevelButtonSelection::X_BUTTON:
-		if (SFX) SFX->Play();
-		levelSelectScreenSpriteRenderer->isVisible = false;
-		mainMenuScreenSpriteRenderer->isVisible = true;
 		break;
 
 	default:
