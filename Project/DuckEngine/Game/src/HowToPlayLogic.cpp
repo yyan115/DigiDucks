@@ -87,7 +87,19 @@ void HowToPlayLogic::UpdateJournalPage()
     }
 }
 
-void HowToPlayLogic::Update() {}
+void HowToPlayLogic::Update()
+{
+	if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B)) 
+    {
+		// Return to main menu
+		if (howToPlayScreenSpriteRenderer->isVisible) 
+{
+			howToPlayScreenSpriteRenderer->isVisible = false;
+			if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
+			if (pauseMenuLogic) pauseMenuLogic->DisableButtons(false);
+		}
+	}
+}
 
 void HowToPlayLogic::FixedUpdate() {}
 

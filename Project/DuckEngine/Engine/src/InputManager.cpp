@@ -54,15 +54,58 @@ bool InputManager::Initialize(GLFWwindow* window) {
     // Set up joystick/gamepad callback
     glfwSetJoystickCallback(joystickCB);
 
+    // Enhanced gamepad initialization
+    std::cout << "======== INITIALIZING GAMEPAD SUPPORT ========" << std::endl;
+    
+    // Load the default gamepad mappings
+    if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1)) {
+        std::cout << "Gamepad is already recognized with mapping" << std::endl;
+    } else {
+        std::cout << "Gamepad not recognized with standard mapping, attempting to use generic mapping" << std::endl;
+        // Try to use a generic mapping if available
+        const char* genericMapping = "03000000790000001100000010010000,Android Gamepad,a:b0,b:b1,x:b2,y:b3,back:b4,start:b6,leftstick:b8,rightstick:b9,leftshoulder:b10,rightshoulder:b11,dpup:h0.1,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:a4,righttrigger:a5,";
+        glfwUpdateGamepadMappings(genericMapping);
+    }
+
     // Check for already connected gamepads
     for (int jid = GLFW_JOYSTICK_1; jid <= GLFW_JOYSTICK_LAST; jid++) {
         if (glfwJoystickPresent(jid)) {
+            // Print detailed gamepad information
+            std::cout << "Gamepad " << jid << " connected: " << glfwGetJoystickName(jid) << std::endl;
+            
+            // Check if it's recognized as a gamepad with mapping
+            if (glfwJoystickIsGamepad(jid)) {
+                GLFWgamepadstate state;
+                if (glfwGetGamepadState(jid, &state)) {
+                    std::cout << "Gamepad has standard mapping" << std::endl;
+                    
+                    // Print initial axis values
+                    std::cout << "Initial axis values:" << std::endl;
+                    std::cout << "Left stick X: " << state.axes[GLFW_GAMEPAD_AXIS_LEFT_X] << std::endl;
+                    std::cout << "Left stick Y: " << state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y] << std::endl;
+                    std::cout << "Right stick X: " << state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X] << std::endl;
+                    std::cout << "Right stick Y: " << state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y] << std::endl;
+                    std::cout << "Left trigger: " << state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] << std::endl;
+                    std::cout << "Right trigger: " << state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] << std::endl;
+                }
+            } else {
+                std::cout << "Gamepad doesn't have standard mapping, using raw joystick input" << std::endl;
+                
+                // Print raw joystick information
+                int buttonCount, axisCount;
+                glfwGetJoystickButtons(jid, &buttonCount);
+                glfwGetJoystickAxes(jid, &axisCount);
+                std::cout << "Buttons: " << buttonCount << ", Axes: " << axisCount << std::endl;
+            }
+            
             // Initialize gamepad state maps for this joystick
             gamepadButtonStates[jid] = std::unordered_map<int, bool>();
             previousGamepadButtonStates[jid] = std::unordered_map<int, bool>();
             gamepadAxisStates[jid] = std::unordered_map<int, float>();
         }
     }
+    
+    std::cout << "======== GAMEPAD INITIALIZATION COMPLETE ========" << std::endl;
 
     return true;
 }
@@ -80,14 +123,30 @@ void InputManager::Update() {
     // Update gamepad states
     for (int jid = GLFW_JOYSTICK_1; jid <= GLFW_JOYSTICK_LAST; jid++) {
         if (glfwJoystickPresent(jid)) {
-            // Get gamepad button states
+            // Try to use gamepad API first (mapped controllers)
+            if (glfwJoystickIsGamepad(jid)) {
+                GLFWgamepadstate state;
+                if (glfwGetGamepadState(jid, &state)) {
+                    // Update button states from mapped gamepad
+                    for (int i = 0; i <= GLFW_GAMEPAD_BUTTON_LAST; i++) {
+                        gamepadButtonStates[jid][i] = (state.buttons[i] == GLFW_PRESS);
+                    }
+                    
+                    // Update axis states from mapped gamepad
+                    for (int i = 0; i <= GLFW_GAMEPAD_AXIS_LAST; i++) {
+                        gamepadAxisStates[jid][i] = state.axes[i];
+                    }
+                    continue; // Skip the raw joystick handling below
+                }
+            }
+            
+            // Fallback to raw joystick API
             int buttonCount;
             const unsigned char* buttons = glfwGetJoystickButtons(jid, &buttonCount);
             for (int i = 0; i < buttonCount; i++) {
                 gamepadButtonStates[jid][i] = (buttons[i] == GLFW_PRESS);
             }
 
-            // Get gamepad axis states
             int axisCount;
             const float* axes = glfwGetJoystickAxes(jid, &axisCount);
             for (int i = 0; i < axisCount; i++) {
@@ -300,6 +359,16 @@ bool InputManager::IsGamepadButtonReleased(int gamepadIndex, int button) {
 
 float InputManager::GetGamepadAxisValue(int gamepadIndex, int axis) {
     if (!IsGamepadConnected(gamepadIndex)) return 0.0f;
+    
+    // Try to use gamepad API first (mapped controllers)
+    if (glfwJoystickIsGamepad(gamepadIndex)) {
+        GLFWgamepadstate state;
+        if (glfwGetGamepadState(gamepadIndex, &state) && axis <= GLFW_GAMEPAD_AXIS_LAST) {
+            return state.axes[axis];
+        }
+    }
+    
+    // Fallback to our stored axis values
     auto& axisStates = gamepadAxisStates[gamepadIndex];
     return axisStates.find(axis) != axisStates.end() ? axisStates[axis] : 0.0f;
 }
@@ -318,4 +387,3 @@ void InputManager::joystickCB(int jid, int event) {
         gamepadAxisStates.erase(jid);
     }
 }
-

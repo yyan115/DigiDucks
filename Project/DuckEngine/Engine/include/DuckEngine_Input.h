@@ -110,7 +110,15 @@ public:
     /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
     /// <param name="button">The gamepad button to check.</param>
     /// <returns>Returns true if the button is held down.</returns>
-    static inline bool IsGamepadButtonDown(int gamepadIndex, int button) { return InputManager::IsGamepadButtonDown(gamepadIndex, button); }
+    static inline bool IsGamepadButtonDown(int gamepadIndex, int button) 
+    {
+        bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(gamepadIndex);
+        if (gamepadConnected)
+        {
+			return InputManager::IsGamepadButtonDown(gamepadIndex, button);
+        }
+        return false;
+    }
 
     /// <summary>
     /// Checks if the specified gamepad button was pressed during the current frame.

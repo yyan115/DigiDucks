@@ -444,7 +444,7 @@ void GameLoopLogic::Update()
 		DuckEngine::ToggleShowDebugColliders();
 	}
 
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
+	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 	{
 		std::cout << "Escape is pressed!\n";
 		TimeLeftSound->Play(2);

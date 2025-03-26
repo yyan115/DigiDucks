@@ -6,10 +6,11 @@
 int LevelSelectScreenLogic::currentStage = -1;
 int LevelSelectScreenLogic::stageLevel = 0;
 
+
 //LevelSelectScreen
 void LevelSelectScreenLogic::Start()
 {
-	if (currentStage < SaveLoadManager::currentLevel) 
+	if (currentStage < SaveLoadManager::currentLevel)
 	{
 		currentStage = SaveLoadManager::currentLevel;
 	}
@@ -21,7 +22,7 @@ void LevelSelectScreenLogic::Start()
 	ButtonComponent* XButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(XButtonEntity->entityID);
 	SoundComponent* SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(XButtonEntity->entityID);
 
-	// Get all level buttons
+	// Get all level button entities
 	Entity* level0ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level0Button").get();
 	ButtonComponent* level0Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level0ButtonEntity->entityID);
 	SpriteRendererComponent* level0Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level0ButtonEntity->entityID);
@@ -76,7 +77,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 1 - Available if currentStage >= 0
 	level1Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 0) {
+			if (currentStage >= 0)
+			{
 				std::cout << "Level 1 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 1;
@@ -87,7 +89,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 1.5 - Available if currentStage >= 1
 	level1_5Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 1) {
+			if (currentStage >= 1)
+			{
 				std::cout << "Level 1.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 2;
@@ -98,7 +101,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 2 - Available if currentStage >= 2
 	level2Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 2) {
+			if (currentStage >= 2)
+			{
 				std::cout << "Level 2 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 3;
@@ -109,7 +113,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 2.5 - Available if currentStage >= 3
 	level2_5Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 3) {
+			if (currentStage >= 3)
+			{
 				std::cout << "Level 2.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 4;
@@ -120,7 +125,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 3 - Available if currentStage >= 4
 	level3Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 4) {
+			if (currentStage >= 4)
+			{
 				std::cout << "Level 3 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 5;
@@ -131,7 +137,8 @@ void LevelSelectScreenLogic::Start()
 	// Level 3.5 - Available if currentStage >= 
 	level3_5Button->onClick = [this, SFX]()
 		{
-			if (currentStage >= 5) {
+			if (currentStage >= 5)
+			{
 				std::cout << "Level 3.5 button clicked!" << std::endl;
 				SFX->Play();
 				stageLevel = 6;
@@ -141,18 +148,70 @@ void LevelSelectScreenLogic::Start()
 
 	UpdateLevelButtonVisuals(level0Sprite, level1Sprite, level1_5Sprite, level2Sprite,
 		level2_5Sprite, level3Sprite, level3_5Sprite);
+
+	// NEW CODE: Store button entities and get their transform components
+	levelButtonEntities.clear();
+	levelButtonTransforms.clear();
+	originalScales.clear();
+
+	// Store buttons in the order we want to navigate
+	levelButtonEntities.push_back(level0ButtonEntity);
+	levelButtonEntities.push_back(level1ButtonEntity);
+	levelButtonEntities.push_back(level1_5ButtonEntity);
+	levelButtonEntities.push_back(level2ButtonEntity);
+	levelButtonEntities.push_back(level2_5ButtonEntity);
+	levelButtonEntities.push_back(level3ButtonEntity);
+	levelButtonEntities.push_back(level3_5ButtonEntity);
+
+	// Get transform components for each button and store original scales
+	for (auto entity : levelButtonEntities)
+	{
+		if (entity)
+		{
+			TransformComponent* transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entity->entityID);
+			if (transform)
+			{
+				levelButtonTransforms.push_back(transform);
+				originalScales.push_back(transform->scale);
+			}
+		}
+	}
+
+	// Store X button separately
+	xButtonEntity = XButtonEntity;
+	if (xButtonEntity)
+	{
+		xButtonTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(xButtonEntity->entityID);
+		if (xButtonTransform)
+		{
+			xButtonOriginalScale = xButtonTransform->scale;
+		}
+	}
 }
 
 void LevelSelectScreenLogic::Update()
 {
+	if (levelSelectScreenSpriteRenderer && levelSelectScreenSpriteRenderer->isVisible)
+	{
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+		{
+			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B))
+			{
+				DeselectAllLevelButtons();
+				levelSelectScreenSpriteRenderer->isVisible = false;
+				mainMenuScreenSpriteRenderer->isVisible = true;
+				isUsingController = false;
+			}
+		}
 
-	// unlock every level
+		UpdateLevelMenuSelection();
+	}
+
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_0) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		currentStage = 100;
 		Start();
 	}
-
 }
 
 void LevelSelectScreenLogic::FixedUpdate()
@@ -198,4 +257,210 @@ void LevelSelectScreenLogic::LevelCompleted()
 		std::cout << "Game progress saved: Level " << currentStage << std::endl;
 	}
 
+}
+
+// NEW FUNCTION: Updates the level select menu navigation with controller
+void LevelSelectScreenLogic::UpdateLevelMenuSelection()
+{
+	// Check for gamepad connectivity
+	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+	{
+		// Decrease cooldown timer for navigation
+		if (controllerNavigationCooldown > 0)
+		{
+			controllerNavigationCooldown -= DuckEngine::DeltaTime();
+		}
+
+		// Get joystick/dpad input for horizontal navigation
+		float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+		bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
+		bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+
+		// Check for any controller input
+		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+			DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
+
+		// If this is the first controller input, select the first level button
+		if (hasControllerInput && !isUsingController)
+		{
+			isUsingController = true;
+			SelectLevelButton(LevelButtonSelection::LEVEL0);
+			controllerNavigationCooldown = controllerNavigationDelay;
+		}
+
+		// Only process navigation if we're using controller
+		if (isUsingController)
+		{
+			// Navigate left
+			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft))
+			{
+				int newSelection = static_cast<int>(currentLevelSelection) - 1;
+				if (newSelection < 0)
+				{
+					newSelection = static_cast<int>(LevelButtonSelection::COUNT) - 1;
+				}
+
+				SelectLevelButton(static_cast<LevelButtonSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+			// Navigate right
+			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || dpadRight))
+			{
+				int newSelection = (static_cast<int>(currentLevelSelection) + 1) % static_cast<int>(LevelButtonSelection::COUNT);
+				SelectLevelButton(static_cast<LevelButtonSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+
+			// Activate selected button with X button (A on Xbox)
+			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+			{
+				ActivateSelectedLevelButton();
+			}
+		}
+	}
+	else
+	{
+		// Reset controller usage flag when no gamepad is connected
+		if (isUsingController)
+		{
+			DeselectAllLevelButtons();
+			isUsingController = false;
+		}
+	}
+
+	// Switch back to mouse mode if mouse movement is detected
+	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT))
+	{
+		if (isUsingController)
+		{
+			DeselectAllLevelButtons();
+			isUsingController = false;
+		}
+	}
+}
+
+void LevelSelectScreenLogic::SelectLevelButton(LevelButtonSelection selection)
+{
+	// Deselect all buttons first
+	DeselectAllLevelButtons();
+
+	// Update current selection
+	currentLevelSelection = selection;
+
+	// Apply hover effect (increase scale by 10%)
+	if (selection == LevelButtonSelection::X_BUTTON)
+	{
+		if (xButtonTransform)
+		{
+			xButtonTransform->scale = xButtonOriginalScale * buttonScaleIncrease;
+		}
+	}
+	else
+	{
+		int index = static_cast<int>(selection);
+		if (index >= 0 && index < levelButtonTransforms.size())
+		{
+			levelButtonTransforms[index]->scale = originalScales[index] * buttonScaleIncrease;
+		}
+	}
+}
+
+void LevelSelectScreenLogic::DeselectAllLevelButtons()
+{
+	// Reset all button scales
+	for (size_t i = 0; i < levelButtonTransforms.size(); i++)
+	{
+		if (i < originalScales.size() && levelButtonTransforms[i])
+		{
+			levelButtonTransforms[i]->scale = originalScales[i];
+		}
+	}
+
+	if (xButtonTransform)
+	{
+		xButtonTransform->scale = xButtonOriginalScale;
+	}
+}
+
+void LevelSelectScreenLogic::ActivateSelectedLevelButton()
+{
+	switch (currentLevelSelection)
+	{
+	case LevelButtonSelection::LEVEL0:
+		std::cout << "Level 0 button activated!" << std::endl;
+		if (SFX) SFX->Play();
+		stageLevel = 0;
+		mainMenu->OnPlayButtonClicked("Level0");
+		break;
+
+	case LevelButtonSelection::LEVEL1:
+		if (currentStage >= 0)
+		{
+			std::cout << "Level 1 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 1;
+			mainMenu->OnPlayButtonClicked("Level1");
+		}
+		break;
+
+	case LevelButtonSelection::LEVEL1_5:
+		if (currentStage >= 1)
+		{
+			std::cout << "Level 1.5 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 2;
+			mainMenu->OnPlayButtonClicked("Level1_5");
+		}
+		break;
+
+	case LevelButtonSelection::LEVEL2:
+		if (currentStage >= 2)
+		{
+			std::cout << "Level 2 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 3;
+			mainMenu->OnPlayButtonClicked("Level2");
+		}
+		break;
+
+	case LevelButtonSelection::LEVEL2_5:
+		if (currentStage >= 3)
+		{
+			std::cout << "Level 2.5 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 4;
+			mainMenu->OnPlayButtonClicked("Level2_5");
+		}
+		break;
+
+	case LevelButtonSelection::LEVEL3:
+		if (currentStage >= 4)
+		{
+			std::cout << "Level 3 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 5;
+			mainMenu->OnPlayButtonClicked("Level3");
+		}
+		break;
+
+	case LevelButtonSelection::LEVEL3_5:
+		if (currentStage >= 5)
+		{
+			std::cout << "Level 3.5 button activated!" << std::endl;
+			if (SFX) SFX->Play();
+			stageLevel = 6;
+			mainMenu->OnPlayButtonClicked("Level3_5");
+		}
+		break;
+
+	case LevelButtonSelection::X_BUTTON:
+		if (SFX) SFX->Play();
+		levelSelectScreenSpriteRenderer->isVisible = false;
+		mainMenuScreenSpriteRenderer->isVisible = true;
+		break;
+
+	default:
+		break;
+	}
 }

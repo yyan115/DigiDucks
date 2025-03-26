@@ -167,48 +167,71 @@ void MainMenu::Load()
 	htpNormalTexture = AssetManager::GetTextureByName("mainmenu_howtoplay");
 	htpHoverTexture = AssetManager::GetTextureByName("mainmenu_howtoplay_hover");
 
+	// Modify the button callback lambda functions in the Load() method
+	// Change each of the button hover callbacks as follows:
+
+	// For StartButton:
 	start->onHover = [this]()
 		{
-			StartSound->Play();
-			startButtonSpriteRenderer->texture = startHoverTexture;
+			if (!isUsingController) {  // Only perform hover action if not using controller
+				StartSound->Play();
+				startButtonSpriteRenderer->texture = startHoverTexture;
+			}
 		};
 
 	start->onFinishHover = [this]()
 		{
-			startButtonSpriteRenderer->texture = startNormalTexture;
+			if (!isUsingController) {  // Only perform finish hover if not using controller
+				startButtonSpriteRenderer->texture = startNormalTexture;
+			}
 		};
 
+	// For LevelSelectButton:
 	levelSelect->onHover = [this]()
 		{
-			StartSound->Play();
-			levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
-		};
-	
-	levelSelect->onFinishHover = [this]()
-		{
-			levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
+			if (!isUsingController) {
+				StartSound->Play();
+				levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
+			}
 		};
 
+	levelSelect->onFinishHover = [this]()
+		{
+			if (!isUsingController) {
+				levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
+			}
+		};
+
+	// For QuitButton:
 	exit->onHover = [this]()
 		{
-			QuitSound->Play();
-			quitButtonSpriteRenderer->texture = quitHoverTexture;
+			if (!isUsingController) {
+				QuitSound->Play();
+				quitButtonSpriteRenderer->texture = quitHoverTexture;
+			}
 		};
 
 	exit->onFinishHover = [this]()
 		{
-			quitButtonSpriteRenderer->texture = quitNormalTexture;
+			if (!isUsingController) {
+				quitButtonSpriteRenderer->texture = quitNormalTexture;
+			}
 		};
 
+	// For HtpButton:
 	htp->onHover = [this]()
 		{
-			HtpSound->Play();
-			htpButtonSpriteRenderer->texture = htpHoverTexture;
+			if (!isUsingController) {
+				HtpSound->Play();
+				htpButtonSpriteRenderer->texture = htpHoverTexture;
+			}
 		};
 
 	htp->onFinishHover = [this]()
 		{
-			htpButtonSpriteRenderer->texture = htpNormalTexture;
+			if (!isUsingController) {
+				htpButtonSpriteRenderer->texture = htpNormalTexture;
+			}
 		};
 
 	auto fpsTextEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPS_Text");
@@ -275,6 +298,8 @@ void MainMenu ::Update()
 		FadeOutSpriteRenderer->color.a = static_cast<unsigned char>(fadeProgress * 255);
 	}
 
+	UpdateMenuSelection();
+
 	if (FPSText != nullptr) {
 		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
 	}
@@ -337,5 +362,228 @@ void MainMenu::OnPlayButtonClicked(std::string sceneNaming)
 		nextScene = sceneNaming;
 		std::cout << "LOADING SCENE NAME: " << sceneNaming << std::endl;
 		GameManager::SetGlobalVariable("LastPlayedScene", nextScene);
+	}
+}
+
+void MainMenu::UpdateMenuSelection()
+{
+	// First, check if any submenus are open - don't allow main menu navigation if they are
+	bool submenusOpen = false;
+
+	if (levelSelectScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible) {
+		submenusOpen = true;
+	}
+
+	if (HTPScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible) {
+		submenusOpen = true;
+	}
+
+	// Check for the back button to return from submenus
+	if (submenusOpen && DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1)) {
+		if (DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B)) {
+			// Close level select if it's open
+			if (levelSelectScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible) {
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = false;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = true;
+			}
+
+			// Close how to play if it's open
+			if (HTPScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible) {
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = false;
+				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = true;
+			}
+		}
+
+		// Don't process main menu navigation when submenus are open
+		return;
+	}
+
+	// Check for gamepad connectivity
+	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+	{
+		// Decrease cooldown timer for navigation
+		if (controllerNavigationCooldown > 0)
+		{
+			controllerNavigationCooldown -= DuckEngine::DeltaTime();
+		}
+
+		// Get joystick/dpad input
+		float verticalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+		bool dpadUp = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP);
+		bool dpadDown = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN);
+
+		// Check for any controller input
+		bool hasControllerInput = std::abs(verticalInput) > 0.3f || dpadUp || dpadDown ||
+			DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
+
+		// If this is the first controller input, select the start button
+		if (hasControllerInput && !isUsingController)
+		{
+			isUsingController = true;
+			SelectButton(MenuSelection::START);
+			controllerNavigationCooldown = controllerNavigationDelay;
+		}
+
+		// Only process navigation if we're using controller
+		if (isUsingController)
+		{
+			// Navigate up
+			if (controllerNavigationCooldown <= 0 && (verticalInput < -0.3f || dpadUp))
+			{
+				int newSelection = static_cast<int>(currentSelection) - 1;
+				if (newSelection < 0)
+					newSelection = static_cast<int>(MenuSelection::COUNT) - 1;
+
+				SelectButton(static_cast<MenuSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+			// Navigate down
+			else if (controllerNavigationCooldown <= 0 && (verticalInput > 0.3f || dpadDown))
+			{
+				int newSelection = (static_cast<int>(currentSelection) + 1) % static_cast<int>(MenuSelection::COUNT);
+				SelectButton(static_cast<MenuSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+
+			// Activate selected button with X button (A on Xbox)
+			if (DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+			{
+				ActivateSelectedButton();
+			}
+		}
+	}
+	else
+	{
+		// Reset controller usage flag when no gamepad is connected
+		if (isUsingController)
+		{
+			DeselectAllButtons();
+			isUsingController = false;
+		}
+	}
+
+	// Switch back to mouse mode if mouse movement is detected
+	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT))
+	{
+		if (isUsingController)
+		{
+			DeselectAllButtons();
+			isUsingController = false;
+		}
+	}
+}
+
+/****************************************************************
+* @brief Selects a button in the menu for controller navigation
+* @param selection - The menu item to select
+* ****************************************************************/
+void MainMenu::SelectButton(MenuSelection selection)
+{
+	// Deselect all buttons first
+	DeselectAllButtons();
+
+	// Update current selection
+	currentSelection = selection;
+
+	// Apply hover effect to the selected button
+	switch (selection)
+	{
+	case MenuSelection::START:
+		startButtonSpriteRenderer->texture = startHoverTexture;
+		StartSound->Play();
+		break;
+
+	case MenuSelection::LEVEL_SELECT:
+		levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
+		StartSound->Play();
+		break;
+
+	case MenuSelection::HOW_TO_PLAY:
+		htpButtonSpriteRenderer->texture = htpHoverTexture;
+		HtpSound->Play();
+		break;
+
+	case MenuSelection::QUIT:
+		quitButtonSpriteRenderer->texture = quitHoverTexture;
+		QuitSound->Play();
+		break;
+
+	default:
+		break;
+	}
+}
+
+/****************************************************************
+* @brief Deselects all buttons in the menu
+* ****************************************************************/
+void MainMenu::DeselectAllButtons()
+{
+	startButtonSpriteRenderer->texture = startNormalTexture;
+	levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
+	htpButtonSpriteRenderer->texture = htpNormalTexture;
+	quitButtonSpriteRenderer->texture = quitNormalTexture;
+}
+
+/****************************************************************
+* @brief Activates the currently selected button
+* ****************************************************************/
+void MainMenu::ActivateSelectedButton()
+{
+	switch (currentSelection)
+	{
+	case MenuSelection::START:
+		// Call the OnPlayButtonClicked function with the appropriate scene name
+		if (!isFadingOut)
+		{
+			std::string sceneToLoad;
+
+			if (LevelSelectScreenLogic::currentStage >= 5)
+				sceneToLoad = "Level3_5";
+			else if (LevelSelectScreenLogic::currentStage == 4)
+				sceneToLoad = "Level3";
+			else if (LevelSelectScreenLogic::currentStage == 3)
+				sceneToLoad = "Level2_5";
+			else if (LevelSelectScreenLogic::currentStage == 2)
+				sceneToLoad = "Level2";
+			else if (LevelSelectScreenLogic::currentStage == 1)
+				sceneToLoad = "Level1_5";
+			else if (LevelSelectScreenLogic::currentStage == 0)
+				sceneToLoad = "Level1";
+			else
+				sceneToLoad = "Level0"; // Default to tutorial if no progress
+
+			OnPlayButtonClicked(sceneToLoad);
+		}
+		break;
+
+	case MenuSelection::LEVEL_SELECT:
+		if (!isFadingOut)
+		{
+			StartSound->Play(1);
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+		}
+		break;
+
+	case MenuSelection::HOW_TO_PLAY:
+		if (!isFadingOut)
+		{
+			HtpSound->Play(1);
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = true;
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+		}
+		break;
+
+	case MenuSelection::QUIT:
+		if (!isFadingOut)
+		{
+			QuitSound->Play(1);
+			GameManager::DuckEngine.CloseWindow();
+		}
+		break;
+
+	default:
+		break;
 	}
 }

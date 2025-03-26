@@ -100,6 +100,24 @@ private:
 	bool shouldClose = false;
 
 	std::string nextScene = "";
-	
+
 	TextComponent* FPSText = nullptr;
+
+	enum class MenuSelection {
+		START = 0,
+		LEVEL_SELECT = 1,
+		HOW_TO_PLAY = 2,
+		QUIT = 3,
+		COUNT
+	};
+
+	MenuSelection currentSelection = MenuSelection::START;
+	bool isUsingController = false;
+	float controllerNavigationCooldown = 0.0f;
+	const float controllerNavigationDelay = 0.2f;
+
+	void UpdateMenuSelection();
+	void SelectButton(MenuSelection selection);
+	void DeselectAllButtons();
+	void ActivateSelectedButton();
 };

@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
 
+
 /****************************************************************
 * @brief Start function for the Player Logic
 * ****************************************************************/
@@ -34,7 +35,7 @@ void PlayerLogic::Start()
 	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
 
 	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
-	if(orderTabEntity)
+	if (orderTabEntity)
 		orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
 
 	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
@@ -88,14 +89,22 @@ void PlayerLogic::Start()
 						highlightLogic->isHighlighted = true;
 					}
 				}
-				// Pickup Object
-				if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) && actionCounter <= 0)
+
+				// Check gamepad connection
+				const int gamepadIndex = DuckEngine_Input::GAMEPAD_1;
+				bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(gamepadIndex);
+
+				// Pickup Object (J key or left face button - Square on PlayStation, X on Xbox)
+				if ((DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) ||
+					(gamepadConnected && DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_X)))
+					&& actionCounter <= 0)
 				{
 					InteractPressed();
 					actionCounter = actionCooldown;
 				}
-				// Use Object
-				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_K))
+				// Use Object (K key or bottom face button - X on PlayStation, A on Xbox)
+				else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_K) ||
+					(gamepadConnected && DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_A)))
 				{
 					InteractHold();
 				}
@@ -125,17 +134,43 @@ void PlayerLogic::Update()
 	{
 		actionCounter -= DuckEngine::DeltaTime();
 	}
+
+	const int gamepadIndex = DuckEngine_Input::GAMEPAD_1;
+	bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(gamepadIndex);
+
+	// Track joystick movement for animation transitions
+	static bool wasMovingWithJoystick = false;
+	bool isMovingWithJoystick = false;
+
+	// Check if currently moving with joystick
+	if (gamepadConnected) {
+		float leftStickX = DuckEngine_Input::GetGamepadAxisValue(gamepadIndex, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+		float leftStickY = DuckEngine_Input::GetGamepadAxisValue(gamepadIndex, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+		bool dpadActive = DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP) ||
+			DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN) ||
+			DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT) ||
+			DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+
+		const float deadzone = 0.2f;
+		isMovingWithJoystick = (std::abs(leftStickX) > deadzone || std::abs(leftStickY) > deadzone || dpadActive);
+	}
+
 	if (animator)
 	{
 		if (movement->isMoving)
 		{
+			// Detect joystick returning to neutral position (stick released)
+			bool joystickReleased = wasMovingWithJoystick && !isMovingWithJoystick;
+
+			// Check both keyboard and gamepad inputs for animation updates
 			if (DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_D)
 				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_A)
 				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_S)
 				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_W)
-				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_K))
+				|| DuckEngine_Input::IsKeyReleased(DuckEngine_Input::KEY_K)
+				|| (gamepadConnected && DuckEngine_Input::IsGamepadButtonReleased(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_A))
+				|| joystickReleased)
 			{
-
 				if (dir == FRONT)
 					animator->PlayAnimation("FRONT_IDLE");
 				else if (dir == BACK)
@@ -148,7 +183,8 @@ void PlayerLogic::Update()
 		}
 	}
 
-
+	// Update previous joystick state for next frame
+	wasMovingWithJoystick = isMovingWithJoystick;
 
 	// Cheats
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_V))
@@ -186,7 +222,77 @@ void PlayerLogic::FixedUpdate()
 		return;
 	}
 
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W))
+	// Check for gamepad input
+	const int gamepadIndex = DuckEngine_Input::GAMEPAD_1;
+	bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(gamepadIndex);
+
+	bool movingUp = false;
+	bool movingDown = false;
+	bool movingLeft = false;
+	bool movingRight = false;
+
+	// Check keyboard input
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_W)) {
+		movingUp = true;
+	}
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S)) {
+		movingDown = true;
+	}
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A)) {
+		movingLeft = true;
+	}
+	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D)) {
+		movingRight = true;
+	}
+
+	// Check gamepad input if connected
+	if (gamepadConnected) {
+		// Analog stick input (prioritize this if it's being used)
+		float leftStickX = DuckEngine_Input::GetGamepadAxisValue(gamepadIndex, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+		float leftStickY = DuckEngine_Input::GetGamepadAxisValue(gamepadIndex, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+
+		const float deadzone = 0.2f;
+		if (std::abs(leftStickX) > deadzone || std::abs(leftStickY) > deadzone) {
+			// Reset keyboard-based directions as we'll use analog instead
+			movingUp = false;
+			movingDown = false;
+			movingLeft = false;
+			movingRight = false;
+
+			// Determine direction from analog stick
+			if (leftStickY < -deadzone) {
+				movingUp = true;
+			}
+			if (leftStickY > deadzone) {
+				movingDown = true;
+			}
+			if (leftStickX < -deadzone) {
+				movingLeft = true;
+			}
+			if (leftStickX > deadzone) {
+				movingRight = true;
+			}
+		}
+
+		// D-pad input (if analog stick isn't being used)
+		if (!(movingUp || movingDown || movingLeft || movingRight)) {
+			if (DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP)) {
+				movingUp = true;
+			}
+			if (DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN)) {
+				movingDown = true;
+			}
+			if (DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT)) {
+				movingLeft = true;
+			}
+			if (DuckEngine_Input::IsGamepadButtonDown(gamepadIndex, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT)) {
+				movingRight = true;
+			}
+		}
+	}
+
+	// Apply movement based on collected input
+	if (movingUp)
 	{
 		if (boxCollider)
 		{
@@ -199,7 +305,7 @@ void PlayerLogic::FixedUpdate()
 			dir = BACK;
 		}
 	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_S))
+	if (movingDown)
 	{
 		if (boxCollider)
 		{
@@ -212,7 +318,7 @@ void PlayerLogic::FixedUpdate()
 			dir = FRONT;
 		}
 	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_A))
+	if (movingLeft)
 	{
 		if (boxCollider)
 		{
@@ -225,7 +331,7 @@ void PlayerLogic::FixedUpdate()
 			dir = LEFT;
 		}
 	}
-	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_D))
+	if (movingRight)
 	{
 		if (boxCollider)
 		{
@@ -238,8 +344,6 @@ void PlayerLogic::FixedUpdate()
 			dir = RIGHT;
 		}
 	}
-
-
 }
 
 /****************************************************************
@@ -268,14 +372,14 @@ void PlayerLogic::InteractPressed()
 	if (!isHolding)
 	{
 		// Check if Stock Object
-		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);		
+		auto stockLogic = GameLogicManager::GetLogicForEntity<StockLogic>(interactObject->entityID);
 		if (stockLogic)
 		{
 			if (sound) {
 				sound->Stop();
 				sound->Play(-1);
 			}
-				
+
 			// If empty stock or Bin, do nothing
 			if (stockLogic->getType() == ItemType::BIN || stockLogic->getType() == ItemType::EMPTY) return;
 
@@ -285,7 +389,7 @@ void PlayerLogic::InteractPressed()
 
 			Entity* newObject = makeObject(stockLogic->getType());
 			holding->setObject(std::make_pair(newObject->entityID, stockLogic->getType()));
-			
+
 			isHolding = true;
 			return;
 		}
@@ -295,8 +399,8 @@ void PlayerLogic::InteractPressed()
 		{
 			// If Table is occupied, take object from table
 			if (tableLogic->isOccupied)
-			{			
-				
+			{
+
 				holding->setObject(tableLogic->moveObject());
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
@@ -387,7 +491,7 @@ void PlayerLogic::InteractPressed()
 		if (stockLogic)
 		{
 			// If Stock is Not BIN, do nothing
-			if(stockLogic->getType() != ItemType::BIN) return;
+			if (stockLogic->getType() != ItemType::BIN) return;
 
 			// If Holding is Filled Pot, Empty Pot
 			if (isTypePot(holding->getType()))
@@ -464,7 +568,7 @@ void PlayerLogic::InteractPressed()
 		auto chopBoardLogic = GameLogicManager::GetLogicForEntity<ChopBoardLogic>(interactObject->entityID);
 		if (chopBoardLogic)
 		{
-			if (!chopBoardLogic->isOccupied) 
+			if (!chopBoardLogic->isOccupied)
 			{
 				// If Object is Ingredient, put on board
 				if (chopBoardLogic->checkIngredient(holding->getType()))
@@ -497,7 +601,7 @@ void PlayerLogic::InteractPressed()
 				stoveLogic->setCookingType(holding->moveObject());
 				isHolding = false;
 			}
-			else if (stoveLogic->isPan) 
+			else if (stoveLogic->isPan)
 			{
 				if (!stoveLogic->isOccupied)
 				{
@@ -527,7 +631,7 @@ void PlayerLogic::InteractPressed()
 					stoveLogic->setObject(holding->moveObject());
 					isHolding = false;
 				}
-				else if(stoveLogic->isOccupied)
+				else if (stoveLogic->isOccupied)
 				{
 					if (holding->getType() == ItemType::BOWL)
 					{
@@ -588,7 +692,7 @@ void PlayerLogic::InteractPressed()
 		}
 
 	}
-	
+
 }
 
 /****************************************************************
@@ -616,39 +720,12 @@ void PlayerLogic::InteractHold()
 				if (animator)
 				{
 					if (sound) sound->Play();
-					animator->PlayAnimation("CHOP");					
+					animator->PlayAnimation("CHOP");
 				}
 			}
 
 			return;
 		}
-
-
-		// Patty Auto Cooks
-		//auto panLogic = GameLogicManager::GetLogicForEntity<PanLogic>(interactObject->entityID);
-		//if (panLogic)
-		//{
-		//	if (panLogic->isOccupied)
-		//	{
-		//		panLogic->cookObject();
-		//		if (animator)
-		//		{
-		//			if (sound) sound->Play();
-		//			//animator->PlayAnimation("Cook");
-
-		//			panLogic->EmitSparks();
-		//			//	// Then inside your stove/cooking system:
-		//			//if (foodIsCooking && someRandomChance())
-		//			//{
-		//			//	g_particleManager.Emit(ParticleType::CookingSparks, stovePos, { 0,0 });
-		//			//	DuckEngine::Emit("CookingSparks", , {0.2f, 0.2f});
-		//			//}
-		//		}
-		//	}
-
-		//	return;
-		//}
-
 	}
 }
 
@@ -659,7 +736,7 @@ void PlayerLogic::InteractHold()
 *
 * @return - Pointer to the object
 * ****************************************************************/
-Entity* PlayerLogic::makeObject(ItemType type) 
+Entity* PlayerLogic::makeObject(ItemType type)
 {
 	Entity* newObject = nullptr;
 	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
