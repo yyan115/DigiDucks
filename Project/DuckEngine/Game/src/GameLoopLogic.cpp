@@ -78,7 +78,9 @@ CustomerStateManager stateManager;
 void GameLoopLogic::Start()
 {
 	DuckEngine::EnableLogging(false);
-	DuckEngine::SetCameraHeight(25);
+	CameraManager::SetHeight(22);
+	CameraManager::SetPosition(-0.12f, -2.15f);
+
 
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
 	if (duck)
@@ -346,14 +348,14 @@ void GameLoopLogic::Update()
 	}
 
 
-	if (pauseMenuLogic)
-	{
-		if (!pauseMenuLogic->isPaused)
-		{
-			CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
-		}
+	//if (pauseMenuLogic)
+	//{
+	//	if (!pauseMenuLogic->isPaused)
+	//	{
+	//		CameraManager::LerpCameraTo(duckTrans->GetPosition().x, duckTrans->GetPosition().y);
+	//	}
 
-	}
+	//}
 
 	for (const auto& [entityId, sComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) 
 	{

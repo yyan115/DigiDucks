@@ -47,16 +47,24 @@ void CustomerWaitingOrderState::Enter()
 
 	orderComeSFX->Play(-1);
 
+	owner->WaitingSlider->isVisible = true;
+	owner->WaitingSlider->maxValue = owner->MaxCashierWaitingTime;
+	owner->WaitingSlider->currentValue = owner->WaitingSlider->maxValue;
 }
 
 
 void CustomerWaitingOrderState::Update()
 {
+	if (owner->CurrentWaitingTime <= owner->MaxCashierWaitingTime)
+	{
+		owner->CurrentWaitingTime += DuckEngine::DeltaTime();
+		owner->WaitingSlider->currentValue = owner->MaxCashierWaitingTime - owner->CurrentWaitingTime;
+	}
+
 	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
 
 	Entity* playerEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();
 	TransformComponent* playerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(playerEntity->entityID);
-
 
 	Vec2 customerPosition = customerTransform->GetPosition();
 	Vec2 playerPosition = playerTransform->GetPosition();
@@ -119,4 +127,6 @@ void CustomerWaitingOrderState::Exit()
 	{
 		gameLoop->isCustomerWaitingForOrder = false;
 	}
+
+	owner->WaitingSlider->isVisible = false;
 }

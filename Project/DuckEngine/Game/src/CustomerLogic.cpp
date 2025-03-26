@@ -42,13 +42,20 @@ void CustomerLogic::Start()
 	WaitingOrderState = std::make_shared<CustomerWaitingOrderState>(this);
 
 	Entity* currentEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
-	Entity* childEntity = currentEntity->childEntities[0].get();
+	Entity* customerOrderEntity = currentEntity->childEntities[0].get();
+	Entity* radialSliderEntity = currentEntity->childEntities[1].get();
 
-	if (childEntity)
+	if (customerOrderEntity)
 	{
-		customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(childEntity->entityID);
+		customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(customerOrderEntity->entityID);
 		customerOrderSpriteRenderer->isVisible = false;
 	}
+
+	if (radialSliderEntity)
+	{
+		WaitingSlider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RadialSliderComponent>(radialSliderEntity->entityID);
+	}
+
 
 	Entity* gameLogicManager = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLogicManager->entityID).get();

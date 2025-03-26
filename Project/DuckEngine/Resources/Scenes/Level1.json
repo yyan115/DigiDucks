@@ -1668,6 +1668,54 @@
             ],
             "layer": "Gameplay"
         },
+        "Customer1_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.0,
+                            "y": 12.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 0,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Customer2_Order": {
             "components": [
                 {
@@ -1700,6 +1748,54 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer2_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.0,
+                            "y": 15.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 0,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -1740,6 +1836,54 @@
             ],
             "layer": "Gameplay"
         },
+        "Customer3_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.0,
+                            "y": 18.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 0,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Customer4_Order": {
             "components": [
                 {
@@ -1772,6 +1916,54 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer4_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.0,
+                            "y": 21.0
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 0,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -1828,7 +2020,8 @@
         },
         "Customer_1": {
             "childNames": [
-                "Customer1_Order"
+                "Customer1_Order",
+                "Customer1_Slider"
             ],
             "layer": "Gameplay",
             "position": {
@@ -1839,7 +2032,8 @@
         },
         "Customer_2": {
             "childNames": [
-                "Customer2_Order"
+                "Customer2_Order",
+                "Customer2_Slider"
             ],
             "layer": "Gameplay",
             "position": {
@@ -1850,7 +2044,8 @@
         },
         "Customer_3": {
             "childNames": [
-                "Customer3_Order"
+                "Customer3_Order",
+                "Customer3_Slider"
             ],
             "layer": "Gameplay",
             "position": {
@@ -1861,7 +2056,8 @@
         },
         "Customer_4": {
             "childNames": [
-                "Customer4_Order"
+                "Customer4_Order",
+                "Customer4_Slider"
             ],
             "layer": "Gameplay",
             "position": {
@@ -4329,29 +4525,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -4366,11 +4539,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -4380,6 +4567,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {

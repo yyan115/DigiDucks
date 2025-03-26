@@ -29,8 +29,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "IngredientType.h"
 
-
-class Level1;
 class GameLoopLogic;
 class CustomerLogic : public GameLogic
 {
@@ -57,17 +55,27 @@ public:
 	}
 
 	GameLoopLogic* GetGameLoopLogic();
-	void SetOrder(ItemType order);
-	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
-	Level1* GetGameScene() { return gameScene; }
-	ItemType GetCustomerOrderType() { return customerOrderType; }
 	void OrderCompleted();
 	void StartWalking();
 
+
+	void SetOrder(ItemType order);
+	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
+	ItemType GetCustomerOrderType() { return customerOrderType; }
+
+
+	// patience stuff
+	RadialSliderComponent* WaitingSlider = nullptr;
+
+	// when waiting for order to be taken
+	float CurrentWaitingTime = 0;
+	float MaxCashierWaitingTime = 10;
+
+
 private:
-	Level1* gameScene = nullptr;
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;
 	ItemType customerOrderType = ItemType::EMPTY;
+
 
 };

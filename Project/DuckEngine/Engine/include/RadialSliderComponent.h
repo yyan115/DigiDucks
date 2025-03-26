@@ -30,9 +30,9 @@ public:
 		return std::make_shared<RadialSliderComponent>(*this);
 	}
 
-	bool  isEnabled;
-	bool  isVisible;
-	int   sortingOrder;
+	bool isEnabled;
+	bool isVisible;
+	int sortingOrder;
 
 	float minValue;
 	float maxValue;

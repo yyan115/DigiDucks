@@ -50,8 +50,9 @@ void Level1::Start()
 
 	// Level 1 Salad Only
 	// 2 Customers
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 4; i++)
 	{
+		gameLoopLogic->customers[0]->MaxCashierWaitingTime = 5;
 		int random = rand() % 4;
 		switch (random)
 		{
