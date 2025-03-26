@@ -77,7 +77,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/clicks/hover 1.mp3",
+                            "Resources/Sounds/clicks/hover 1.wav",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
                         "volume": 0.5
@@ -423,7 +423,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/clicks/hover 1.mp3",
+                            "Resources/Sounds/clicks/hover 1.wav",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
                         "volume": 0.5
@@ -1569,7 +1569,7 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
-                            "Resources/Sounds/bgm/start menu bgm.wav"
+                            "Resources/Sounds/bgm/start menu bgm.ogg"
                         ],
                         "volume": 0.10000000149011612
                     },
@@ -1619,7 +1619,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/clicks/hover 1.mp3",
+                            "Resources/Sounds/clicks/hover 1.wav",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
                         "volume": 0.5

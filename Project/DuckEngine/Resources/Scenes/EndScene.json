@@ -41,7 +41,7 @@
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [
-                            "Resources/Sounds/bgm/end of level bgm.mp3"
+                            "Resources/Sounds/bgm/end of level bgm.ogg"
                         ],
                         "volume": 0.10000000149011612
                     },
@@ -167,7 +167,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/clicks/hover 1.mp3",
+                            "Resources/Sounds/clicks/hover 1.wav",
                             "Resources/Sounds/clicks/click 2.wav"
                         ],
                         "volume": 1.0
@@ -231,7 +231,7 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/end level/Win Cheer.mp3",
+                            "Resources/Sounds/end level/Win Cheer.ogg",
                             "Resources/Sounds/end level/GameOver_Hit.wav"
                         ],
                         "volume": 0.5
