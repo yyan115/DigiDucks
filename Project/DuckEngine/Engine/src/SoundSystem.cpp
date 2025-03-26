@@ -90,7 +90,6 @@ FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, fl
     }
 
     sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
-    sound->setMode(FMOD_2D);
 
     FMOD::Channel* channel = nullptr;
     AssetManager::GetFMODSystem()->playSound(sound, nullptr, false, &channel);
