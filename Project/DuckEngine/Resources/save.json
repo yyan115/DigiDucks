@@ -1,8 +1,8 @@
 {
-    "currentLevel": -1,
+    "currentLevel": 5,
     "video": {
-        "targetFPS": 70,
-        "useVSync": false
+        "targetFPS": 60,
+        "useVSync": true
     },
     "volume": {
         "master": 1.0,
