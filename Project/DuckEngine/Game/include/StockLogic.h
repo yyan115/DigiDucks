@@ -24,20 +24,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 class StockLogic : public GameLogic
 {
 private:
-	Entity* entity;
-	ItemType type;
-	SpriteRendererComponent* spriteRenderer;
-	TextComponent* textComponent;
-	int stock;
-	const int MAX_STOCK = 3;
+	Entity* entity = nullptr;
+	ItemType type = ItemType::EMPTY;
+	SpriteRendererComponent* spriteRenderer = nullptr;
+	TextComponent* textComponent = nullptr;
+	int stock = 0;
+	int MAX_STOCK = 3;
 
 public:
 
-	StockLogic() : GameLogic(nullptr), entity(nullptr), type(ItemType::EMPTY), spriteRenderer(nullptr), textComponent(nullptr), stock(3) {}
+	StockLogic() : GameLogic(nullptr) {}
 
-	StockLogic(ItemType type, int stock_) : GameLogic(nullptr), entity(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_) {}
+	StockLogic(ItemType type, int stock_ = 3) : GameLogic(nullptr), type(type), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_) : GameLogic(nullptr), entity(nullptr), type(type), spriteRenderer(nullptr), textComponent(nullptr), stock(stock_)
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_ = 3) : GameLogic(nullptr), type(type), stock(stock_)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
@@ -93,8 +93,10 @@ public:
 	* ***************************************************************/
 	void FixedUpdate() override 
 	{
-		if (type == ItemType::BIN) return;
+	}
 
+	virtual void updateTexture()
+	{
 		if (stock <= 0)
 		{
 			if (type == ItemType::STEAK || type == ItemType::SHRIMP || type == ItemType::CHEESE)
@@ -136,17 +138,17 @@ public:
 	/****************************************************************
 	* @brief Restock function for the StockLogic
 	* ***************************************************************/
-	virtual void restock() { stock = MAX_STOCK; }
+	virtual void restock() { stock = MAX_STOCK; updateTexture(); }
 
 	/****************************************************************
 	* @brief Restock function for the StockLogic
 	* ***************************************************************/
-	virtual void addStock() { if (stock < MAX_STOCK) stock++; }
+	virtual void addStock() { if (stock < MAX_STOCK) stock++; updateTexture(); }
 
 	/****************************************************************
 	* @brief Use Stock function for the StockLogic
 	* ***************************************************************/
-	virtual void useStock() { if (stock > 0) { stock--; } }
+	virtual void useStock() { if (stock > 0) { stock--; }  updateTexture(); }
 
 	/****************************************************************
 	* @brief Get Stock function for the StockLogic
@@ -165,4 +167,6 @@ public:
 	* ***************************************************************/
 	void changeType(ItemType newType) { type = newType; }
 
+
+	virtual void changeMax(int new_Max_Stock) { MAX_STOCK = new_Max_Stock; }
 };

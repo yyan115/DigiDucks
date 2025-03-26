@@ -23,9 +23,9 @@ class ShrimpStockLogic : public StockLogic
 {
 public:
 
-	ShrimpStockLogic() : StockLogic(ItemType::SHRIMP, 3) {}
+	ShrimpStockLogic() : StockLogic(ItemType::SHRIMP) {}
 
-	ShrimpStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::SHRIMP, 3) {}
+	ShrimpStockLogic(GameLogicComponent* component) : StockLogic(component, ItemType::SHRIMP) {}
 
     std::shared_ptr<GameLogic> Clone() const override
     {

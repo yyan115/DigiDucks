@@ -108,7 +108,7 @@ public:
 	*	
 	* @param offSet_ - The offset of the collider
 	* ***************************************************************/
-	DUCKENGINE_API void setOffSet(const Vec2& offSet_);
+	DUCKENGINE_API void setOffSet(Vec2& offSet_);
 
 	/****************************************************************
 	* @brief Set the offset of the collider

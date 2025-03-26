@@ -420,13 +420,16 @@ void GameLoopLogic::Update()
 	}
 
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
-	auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
-
-	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
+	if(submit)
 	{
-		submitLogic->increaseScore(10);
+		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
+		{
+			submitLogic->increaseScore(10);
+		}
+		ScoreLogic::scoreValue = submitLogic->getScore();
 	}
-	ScoreLogic::scoreValue = submitLogic->getScore();
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_O) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
