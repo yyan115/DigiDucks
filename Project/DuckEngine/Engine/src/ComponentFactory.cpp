@@ -405,10 +405,6 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		if (componentJson["properties"].contains("offset"))
 		{
 			Vec2 offset = Serialization::GetVec2(componentJson["properties"], "offset", Vec2(0.0f, 0.0f));
-			if (offset.x > 0)
-			{
-				std::cout << "BOUNDING BOX OFFSET: " << offset.x << ", " << offset.y << std::endl;
-			}
 			boundingBox->setOffSet(offset);
 		}
 		return boundingBox;
