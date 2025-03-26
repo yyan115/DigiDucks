@@ -78,7 +78,7 @@ CustomerStateManager stateManager;
 void GameLoopLogic::Start()
 {
 	DuckEngine::EnableLogging(false);
-	CameraManager::SetHeight(22);
+	CameraManager::SetHeight(23);
 	CameraManager::SetPosition(-0.12f, -2.15f);
 
 

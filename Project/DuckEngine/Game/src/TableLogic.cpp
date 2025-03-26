@@ -55,10 +55,7 @@ void TableLogic::setObject(std::pair<int, ItemType> objData) {
     objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objData.first);
     if (objectTransform) 
     {
-		if (isEquipment(objData.second))
-            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
-        else
-			objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
+		objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
     }
 
     potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(objData.first);
@@ -113,7 +110,7 @@ void TableLogic::setPan()
         objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
         if (objectTransform)
         {
-            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
             objType = ItemType::PAN;
             isOccupied = true;
         }
@@ -135,7 +132,7 @@ void TableLogic::setPot()
         objectTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(objectOnTable->entityID);
         if (objectTransform)
         {
-            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.6f));
+            objectTransform->SetPosition(tableTransform->GetPosition() + Vec2(0.0f, 0.3f));
             objType = ItemType::POT;
             isOccupied = true;
         }
