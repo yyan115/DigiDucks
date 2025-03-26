@@ -37,6 +37,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 Entity* duck = nullptr;
 TransformComponent* duckTrans = nullptr;
 SoundComponent* TimeLeftSound = nullptr;
+SoundComponent* PauseMenuSound = nullptr;
 
 // Order Tab
 Entity* OrderTab = nullptr;
@@ -154,6 +155,11 @@ void GameLoopLogic::Start()
 	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutScene) CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
 	
+	auto PauseMenuSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PauseMenuSFXManager").get();
+	if (PauseMenuSFX)
+	{
+		PauseMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PauseMenuSFX->entityID);
+	}
 
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
@@ -450,10 +456,15 @@ void GameLoopLogic::Update()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 	{
 		std::cout << "Escape is pressed!\n";
-		TimeLeftSound->Play(2);
 		if (pauseMenuLogic)
 		{
 			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
+
+			if (PauseMenuSound)
+			{
+				if (pauseMenuLogic->isPaused) PauseMenuSound->Play();
+				else PauseMenuSound->Play(1);
+			}
 		}
 	}
 

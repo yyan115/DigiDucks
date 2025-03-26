@@ -4534,6 +4534,57 @@
             ],
             "layer": "Gameplay"
         },
+        "PauseMenuSFXManager": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/UI Menu/pause menu open sfx.wav",
+                            "Resources/Sounds/UI Menu/pause menu close sfx.wav"
+                        ],
+                        "volume": 0.20000000298023224
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Pause_Bg": {
             "components": [
                 {
@@ -6228,7 +6279,8 @@
                 "PotSFXManager",
                 "BowlSFXManager",
                 "PlateSFXManager",
-                "OrderComeSFX"
+                "OrderComeSFX",
+                "PauseMenuSFXManager"
             ],
             "components": [
                 {
