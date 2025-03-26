@@ -164,6 +164,13 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 			{"x", boundingBox->getSize().x},
 			{"y", boundingBox->getSize().y}
 		};
+
+		boundingBoxData["properties"]["offset"] =
+		{
+			{"x", boundingBox->getOffSet().x},
+			{"y", boundingBox->getOffSet().y}
+		};
+
 		componentsArray.push_back(boundingBoxData);
 	}
 
@@ -178,6 +185,13 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 			{"y", boundingCircle->getCenter().y}
 		};
 		boundingCircleData["properties"]["radius"] = boundingCircle->getRadius();
+
+		boundingCircleData["properties"]["offset"] =
+		{
+			{"x", boundingCircle->getOffSet().x},
+			{"y", boundingCircle->getOffSet().y}
+		};
+
 		componentsArray.push_back(boundingCircleData);
 	}
 
@@ -387,6 +401,16 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		Vec2 size = Serialization::GetVec2(componentJson["properties"], "size", Vec2(1.0f, 1.0f));
 
 		auto boundingBox = std::make_shared<BoundingBox>(center, size);
+
+		if (componentJson["properties"].contains("offset"))
+		{
+			Vec2 offset = Serialization::GetVec2(componentJson["properties"], "offset", Vec2(0.0f, 0.0f));
+			if (offset.x > 0)
+			{
+				std::cout << "BOUNDING BOX OFFSET: " << offset.x << ", " << offset.y << std::endl;
+			}
+			boundingBox->setOffSet(offset);
+		}
 		return boundingBox;
 	}
 	else if (type == "BoundingCircle")
@@ -395,6 +419,13 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		float radius = componentJson["properties"].value("radius", 1.0f);
 
 		auto boundingCircle = std::make_shared<BoundingCircle>(center, radius);
+
+		if (componentJson["properties"].contains("offset"))
+		{
+			Vec2 offset = Serialization::GetVec2(componentJson["properties"], "offset", Vec2(0.0f, 0.0f));
+			boundingCircle->setOffSet(offset);
+		}
+
 		return boundingCircle;
 	}
 	else if (type == "RigidbodyComponent")
