@@ -33,7 +33,7 @@ SpriteRendererComponent* backgroundSR;
 void EndScene::Load()
 {
 	DuckEngine::EnableLogging(false);
-	DuckEngine::SetCameraHeight(20);
+	CameraManager::SetHeight(20);
 
 	MainMenuButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit").get();
 	if (MainMenuButton != nullptr) {

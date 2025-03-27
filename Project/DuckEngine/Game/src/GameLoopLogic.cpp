@@ -78,8 +78,8 @@ CustomerStateManager stateManager;
 void GameLoopLogic::Start()
 {
 	DuckEngine::EnableLogging(false);
-	CameraManager::SetHeight(23);
-	CameraManager::SetPosition(-0.12f, -2.15f);
+	CameraManager::SetHeight(21);
+	CameraManager::SetPosition(-3.13f, -1.55f);
 
 
 	duck = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Player").get();

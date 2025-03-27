@@ -213,6 +213,9 @@ bool DuckEngine::IsPaused() {
 *************************************************************************/
 void DuckEngine::Update()
 {
+	//std::cout << "Height: " << CameraManager::GetHeight() << " Position x: " << CameraManager::GetPosition().x << ", y: " << CameraManager::GetPosition().y << std::endl;
+
+
 	static bool pausedOrMinimized = false;
 	if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
 	{

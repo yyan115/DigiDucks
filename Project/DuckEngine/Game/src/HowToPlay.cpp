@@ -42,7 +42,7 @@ SpriteRendererComponent* JournalSprite;
 void HowToPlay::Load()
 {
 	DuckEngine::EnableLogging(false);
-	DuckEngine::SetCameraHeight(20);
+	CameraManager::SetHeight(20);
 
 	ExitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	if(ExitButton)

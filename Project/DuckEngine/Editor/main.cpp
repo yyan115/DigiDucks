@@ -61,7 +61,6 @@ int WINAPI WinMain(
 
 	glfwMakeContextCurrent(window);
 
-	DuckEngine::SetCameraHeight(20);
 	GameManager::InitScenes();
 	GameManager::SetActiveScene(ProjectSettings::GetStartLevel());
 	uiManager.Initialize();

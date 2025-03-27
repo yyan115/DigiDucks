@@ -36,7 +36,7 @@ void MainMenu::Load()
 {
 	Scene::Load();
 	DuckEngine::EnableLogging(false);
-	DuckEngine::SetCameraHeight(20);
+	CameraManager::SetHeight(20);
 	SaveLoadManager::InitializeSaveFile();
 
 	// Apply the saved audio settings

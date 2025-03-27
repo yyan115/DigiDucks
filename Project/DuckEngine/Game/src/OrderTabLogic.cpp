@@ -56,11 +56,14 @@ void OrderTabLogic::Update()
 
 		float bounce = std::sin(t * 3.14159f) * tab.bounceFactor * (1.0f - t);
 
-		float interpolatedY = (1 - t) * 0.25f + t * tab.targetPosition.y + bounce;
-		tab.transform->SetPosition(Vec2(tab.startPosition.x, interpolatedY));
+		// Modified to interpolate x-coordinate instead of y-coordinate
+		float interpolatedX = (1 - t) * (-0.1f) + t * 0.1f + bounce;
+		tab.transform->SetPosition(Vec2(interpolatedX, tab.startPosition.y));
 
 		if (t >= 1.0f)
 		{
+			// Set final position to exactly 0.1 when animation is complete
+			tab.transform->SetPosition(Vec2(0.1f, tab.startPosition.y));
 			tab.isAnimating = false;
 			std::cout << "AddOrder animation completed for entity: "
 				<< tab.entity->name << std::endl;
@@ -93,15 +96,18 @@ void OrderTabLogic::AddOrder(ItemType order, CustomerLogic* customer)
 		return;
 	}
 
-	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(order));
+	// add back later
+	//freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(order));
 
 	freeTab->spriteRenderer->isVisible = true;
 	freeTab->tabOrder = order;
 	freeTab->tabCustomer = customer;
 
 	freeTab->startPosition = freeTab->transform->GetPosition();
-	freeTab->targetPosition = Vec2(freeTab->startPosition.x, -0.175f);
-	freeTab->transform->SetPosition(Vec2(freeTab->startPosition.x, 0.15f));
+	// Save the y-position but target x-position is 0.1
+	freeTab->targetPosition = Vec2(0.1f, freeTab->startPosition.y);
+	// Start from x-position -0.1
+	freeTab->transform->SetPosition(Vec2(-0.1f, freeTab->startPosition.y));
 
 	freeTab->animationTime = 1.0f;
 	freeTab->elapsedTime = 0.0f;
@@ -143,8 +149,6 @@ void OrderTabLogic::RemoveOrder(CustomerLogic* customer)
 		}
 	}
 }
-
-
 
 bool OrderTabLogic::HasFreeTab() const
 {
