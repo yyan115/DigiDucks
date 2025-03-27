@@ -37,7 +37,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 Entity* duck = nullptr;
 TransformComponent* duckTrans = nullptr;
 SoundComponent* TimeLeftSound = nullptr;
-SoundComponent* PauseMenuSound = nullptr;
 
 // Order Tab
 Entity* OrderTab = nullptr;
@@ -154,12 +153,6 @@ void GameLoopLogic::Start()
 
 	CutScene = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutScene) CutSceneManager = GameLogicManager::GetLogicForEntity<CutSceneLogic>(CutScene->entityID);
-	
-	auto PauseMenuSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PauseMenuSFXManager").get();
-	if (PauseMenuSFX)
-	{
-		PauseMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PauseMenuSFX->entityID);
-	}
 
 	hasStartedFade = false;
 	GamefadeElapsedTime = 0.0f;
@@ -457,14 +450,9 @@ void GameLoopLogic::Update()
 	{
 		std::cout << "Escape is pressed!\n";
 		if (pauseMenuLogic)
-		{
-			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
-
-			if (PauseMenuSound)
-			{
-				if (pauseMenuLogic->isPaused) PauseMenuSound->Play();
-				else PauseMenuSound->Play(1);
-			}
+		{		
+			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);	
+			pauseMenuLogic->playPauseSound();
 		}
 	}
 

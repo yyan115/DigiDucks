@@ -49,6 +49,7 @@ void PauseMenuLogic::Start()
 					if (isPaused) { 
 						gameResumeBtnSound->Resume();
 						gameResumeBtnSound->Play();
+						PauseMenuSound->Play(1);
 						PauseGame(false);					
 					} };
 				gameResumeButton->onHover = [this]() {
@@ -145,6 +146,12 @@ void PauseMenuLogic::Start()
 		uiSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ui->entityID);
 	}
 
+	auto PauseMenuSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PauseMenuSFXManager").get();
+	if (PauseMenuSFX)
+	{
+		PauseMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PauseMenuSFX->entityID);
+	}
+
 	isPaused = false;
 	pageNumb = 1;
 
@@ -160,6 +167,15 @@ void PauseMenuLogic::Update()
 	{
 		UpdateMenuSelection();
 	}
+
+	/*if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
+	{
+		if (PauseMenuSound)
+		{
+			if (isPaused) PauseMenuSound->Play();
+			else PauseMenuSound->Play(1);
+		}
+	}*/
 }
 
 void PauseMenuLogic::UpdateMenuSelection()
@@ -342,6 +358,8 @@ void PauseMenuLogic::FixedUpdate()
 void PauseMenuLogic::PauseGame(bool state)
 {
 	isPaused = state;
+	DuckEngine::PauseGame(state);
+	DuckEngine::isGamePaused = state;
 
 	std::cout << "PauseGame: " << isPaused << std::endl;
 
@@ -359,8 +377,6 @@ void PauseMenuLogic::PauseGame(bool state)
 	}
 
 	ExitConfirm(false);
-	DuckEngine::isGamePaused = state;
-	DuckEngine::PauseGame(state);
 }
 
 
@@ -404,6 +420,15 @@ void PauseMenuLogic::DisableButtons(bool state)
 	if (gameHTPButton)
 	{
 		gameHTPButton->isEnabled = !state;
+	}
+}
+
+void PauseMenuLogic::playPauseSound()
+{
+	if (PauseMenuSound)
+	{
+		if (isPaused) PauseMenuSound->Play();
+		else PauseMenuSound->Play(1);
 	}
 }
 
