@@ -45,6 +45,8 @@ void ButtonSystem::Update()
 void ButtonSystem::Render()
 {
     // static int frameCounter = 0;
+	if (DuckEngine::isEditor && !DuckEngine::IsPlaying())
+		return;
 
     std::vector<ButtonComponent> ClickedButtons;
 
