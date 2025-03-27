@@ -76,6 +76,26 @@ private:
 	Entity* ui = nullptr;
 	SpriteRendererComponent* uiSprite = nullptr;
 
+	// Gamepad navigation
+	enum class MenuSelection 
+	{
+		RESUME = 0,
+		HOW_TO_PLAY = 1,
+		MAIN_MENU = 2,
+		COUNT
+	};
+
+	MenuSelection currentSelection = MenuSelection::RESUME;
+	bool isUsingController = false;
+	float controllerNavigationCooldown = 0.0f;
+	const float controllerNavigationDelay = 0.2f;
+
+	void UpdateMenuSelection();
+	void SelectButton(MenuSelection selection);
+	void DeselectAllButtons();
+	void ActivateSelectedButton();
+
+
 public:
 	// HTP Page
 	int pageNumb = 1;

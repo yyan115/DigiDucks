@@ -77,6 +77,14 @@ void HowToPlayLogic::Start()
             }
             };
     }
+
+	if (pauseMenuLogic) 
+    {
+		pauseMenuLogic->DisableButtons(true);
+	}
+
+	pageNum = 1;
+	UpdateJournalPage();
 }
 
 void HowToPlayLogic::UpdateJournalPage()
@@ -89,14 +97,45 @@ void HowToPlayLogic::UpdateJournalPage()
 
 void HowToPlayLogic::Update()
 {
-	if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B)) 
+	// Reduce cooldown timer if it's active
+	if (controllerNavigationCooldown > 0.0f) 
     {
+		controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
+	}
+
+	if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B))
+	{
 		// Return to main menu
-		if (howToPlayScreenSpriteRenderer->isVisible) 
-        {
+		if (howToPlayScreenSpriteRenderer->isVisible)
+		{
 			howToPlayScreenSpriteRenderer->isVisible = false;
 			if (mainMenuScreenSpriteRenderer) mainMenuScreenSpriteRenderer->isVisible = true;
 			if (pauseMenuLogic) pauseMenuLogic->DisableButtons(false);
+		}
+	}
+
+	// Add joystick navigation for page turning with cooldown
+	if (howToPlayScreenSpriteRenderer->isVisible && controllerNavigationCooldown <= 0.0f)
+	{
+		// Right joystick or d-pad for next page
+		if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT) ||
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) > 0.5f)
+		{
+			if (pageNum < 4) {
+				pageNum++;
+				UpdateJournalPage();
+				controllerNavigationCooldown = controllerNavigationDelay; // Set cooldown after action
+			}
+		}
+		// Left joystick or d-pad for previous page
+		else if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT) ||
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) < -0.5f)
+		{
+			if (pageNum > 1) {
+				pageNum--;
+				UpdateJournalPage();
+				controllerNavigationCooldown = controllerNavigationDelay; // Set cooldown after action
+			}
 		}
 	}
 }

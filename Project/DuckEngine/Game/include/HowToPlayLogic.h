@@ -25,6 +25,7 @@ public:
     void Start() override;
     void Update() override;
     void FixedUpdate() override;
+    void Show();
 
     std::shared_ptr<GameLogic> Clone() const override
     {
@@ -51,6 +52,9 @@ private:
     SpriteRendererComponent* JournalSprite = nullptr;
 
 	std::shared_ptr<PauseMenuLogic> pauseMenuLogic = nullptr;
+
+	float controllerNavigationCooldown = 0.0f;
+	const float controllerNavigationDelay = 0.3f;
 
     int pageNum = 1;  // Tracks the current journal page
 };

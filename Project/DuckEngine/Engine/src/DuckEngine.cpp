@@ -626,3 +626,8 @@ void DuckEngine::DestroyEntity(int entityID)
 {
 	EntityDestroyer::MarkForDestruction(entityID);
 }
+
+float DuckEngine::PauseDeltaTime()
+{
+	return TimeManager::PauseDT();
+}

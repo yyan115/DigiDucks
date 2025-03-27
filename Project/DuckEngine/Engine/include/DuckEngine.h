@@ -131,6 +131,7 @@ public:
     @return The time in seconds between frames.
     *************************************************************************/
     static DUCKENGINE_API float DeltaTime();
+    static DUCKENGINE_API float PauseDeltaTime();
     static DUCKENGINE_API float FixedDeltaTime() { return static_cast<float>(FIXED_TIMESTEP); };
 
     /************************************************************************
@@ -251,4 +252,10 @@ public:
     static void DUCKENGINE_API Emit(const std::string& type, const Vector2D& pos, const Vector2D& baseVel = { 0,0 });
 
     static void DUCKENGINE_API RegisterEmitter(const std::string& ParticleType, Emitter& emitter);
+
+private:
+    static float deltaTime;
+    static float pauseDeltaTime;  // New member for tracking time even when paused
+    static float lastFrameTime;
+    static float lastPauseFrameTime;  // New member for tracking last frame time for pause delta
 };

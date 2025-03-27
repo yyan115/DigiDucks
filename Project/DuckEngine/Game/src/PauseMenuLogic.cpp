@@ -201,7 +201,173 @@ void PauseMenuLogic::Start()
 * ****************************************************************/
 void PauseMenuLogic::Update()
 {
+	if (isPaused)
+	{
+		UpdateMenuSelection();
+	}
+}
 
+void PauseMenuLogic::UpdateMenuSelection()
+{
+	// First, check if any submenus are open - don't allow pause menu navigation if they are
+	bool submenusOpen = false;
+
+	// Check if How To Play screen is open
+	if (gameJournal && gameJournalSpt && gameJournalSpt->isVisible) {
+		submenusOpen = true;
+	}
+
+	// Check if Quit confirmation screen is open
+	if (gameExitCfmBg && gameExitCfmBgSpt && gameExitCfmBgSpt->isVisible) {
+		submenusOpen = true;
+	}
+
+	if (submenusOpen && DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1)) 
+	{
+		if (DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B)) {
+			// Close Exit confirmation if it's open
+			if (gameExitCfmBg && gameExitCfmBgSpt && gameExitCfmBgSpt->isVisible) 
+			{
+				ExitConfirm(false); 
+			}
+		}
+
+		return;
+	}
+
+	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+	{
+		if (controllerNavigationCooldown > 0)
+		{
+			controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
+		}
+
+		float verticalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+		bool dpadUp = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP);
+		bool dpadDown = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN);
+
+		bool hasControllerInput = std::abs(verticalInput) > 0.3f || dpadUp || dpadDown ||
+			DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
+
+		if (hasControllerInput && !isUsingController)
+		{
+			isUsingController = true;
+			SelectButton(MenuSelection::RESUME);
+			controllerNavigationCooldown = controllerNavigationDelay;
+		}
+
+		if (isUsingController)
+		{
+			if (controllerNavigationCooldown <= 0 && (verticalInput < -0.3f || dpadUp))
+			{
+				int newSelection = static_cast<int>(currentSelection) - 1;
+				if (newSelection < 0)
+					newSelection = static_cast<int>(MenuSelection::COUNT) - 1;
+
+				SelectButton(static_cast<MenuSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+			else if (controllerNavigationCooldown <= 0 && (verticalInput > 0.3f || dpadDown))
+			{
+				int newSelection = (static_cast<int>(currentSelection) + 1) % static_cast<int>(MenuSelection::COUNT);
+				SelectButton(static_cast<MenuSelection>(newSelection));
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+
+			if (DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+			{
+				ActivateSelectedButton();
+			}
+		}
+	}
+	else
+	{
+		if (isUsingController)
+		{
+			DeselectAllButtons();
+			isUsingController = false;
+		}
+	}
+
+	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT))
+	{
+		if (isUsingController)
+		{
+			DeselectAllButtons();
+			isUsingController = false;
+		}
+	}
+}
+
+void PauseMenuLogic::SelectButton(MenuSelection selection)
+{
+	// Deselect all buttons first
+	DeselectAllButtons();
+
+	// Update current selection
+	currentSelection = selection;
+
+	// Apply hover effect to the selected button
+	switch (selection)
+	{
+	case MenuSelection::RESUME:
+		gameResumeBtnSpt->texture = gameResumeBtn_Hover;
+		gameResumeBtnSound->Play();
+		break;
+
+	case MenuSelection::HOW_TO_PLAY:
+		gameHTPBtnSpt->texture = gameHTPBtn_Hover;
+		gameHTPBtnSound->Play();
+		break;
+
+	case MenuSelection::MAIN_MENU:
+		gameExitBtnSpt->texture = gameExitBtn_Hover;
+		gameExitBtnSound->Play();
+		break;
+
+	default:
+		break;
+	}
+}
+
+void PauseMenuLogic::DeselectAllButtons()
+{
+	gameResumeBtnSpt->texture = gameResumeBtn_Normal;
+	gameHTPBtnSpt->texture = gameHTPBtn_Normal;
+	gameExitBtnSpt->texture = gameExitBtn_Normal;
+}
+
+void PauseMenuLogic::ActivateSelectedButton()
+{
+	switch (currentSelection)
+	{
+	case MenuSelection::RESUME:
+		if (isPaused) {
+			gameResumeBtnSound->Resume();
+			gameResumeBtnSound->Play();
+			PauseGame(false);
+		}
+		break;
+
+	case MenuSelection::HOW_TO_PLAY:
+		if (gameJournal) {
+			gameHTPBtnSound->Resume();
+			gameHTPBtnSound->Play();
+			gameJournalSpt->isVisible = true;
+			DisableButtons(true);
+		}
+		break;
+
+	case MenuSelection::MAIN_MENU:
+		gameExitBtnSound->Resume();
+		gameExitBtnSound->Play();
+		ExitConfirm(true);
+		break;
+
+	default:
+		break;
+	}
 }
 
 /****************************************************************
@@ -285,3 +451,4 @@ void PauseMenuLogic::DisableButtons(bool state)
 		gameHTPButton->isEnabled = !state;
 	}
 }
+

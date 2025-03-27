@@ -44,7 +44,7 @@ public:
     /// </summary>
     /// <returns>The delta time as a double.</returns>
     static DUCKENGINE_API double DT();
-
+    static DUCKENGINE_API double PauseDT();
     /// <summary>
     /// Updates the time manager's internal state, calculating FPS and delta time. This should be called every frame.
     /// </summary>
@@ -102,6 +102,7 @@ private:
     /// Stores the delta time, which is the time taken to complete the most recent game loop.
     /// </summary>
     static GLdouble delta_time;
+    static GLdouble raw_delta_time;
 
     /// <summary>
     /// Stores the start time for systems, used in StartSystemTimer and EndSystemTimer.

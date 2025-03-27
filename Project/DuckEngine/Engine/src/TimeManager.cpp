@@ -23,6 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 // Define static members
 GLdouble TimeManager::fps = 0.0;
 GLdouble TimeManager::delta_time = 0.0;
+GLdouble TimeManager::raw_delta_time = 0.0;
 double TimeManager::system_start_time = 0.0;
 double TimeManager::total_time_start = 0.0;
 double TimeManager::total_time = 0.0;
@@ -49,6 +50,11 @@ double TimeManager::DT() {
     return delta_time;
 };
 
+double TimeManager::PauseDT() 
+{
+	return raw_delta_time;
+}
+
 /// <summary>
 /// Updates the time manager's state by calculating the delta time (time between frames) 
 /// and the frames per second (FPS). This function must be called once per game loop.
@@ -60,15 +66,15 @@ void TimeManager::UpdateTime(double fps_calc_interval) {
     // get elapsed time (in seconds) between previous and current frames
     double curr_time = glfwGetTime();
     double raw_delta = curr_time - prev_time;
-    delta_time = raw_delta;
+	raw_delta_time = curr_time - prev_time;
 
-	if (timeFrozen) 
-    {
+	if (timeFrozen)
+	{
 		delta_time = 0.0;
 	}
-	else 
-    {
-		delta_time = raw_delta;
+	else
+	{
+		delta_time = raw_delta_time;
 	}
 
     prev_time = curr_time;
