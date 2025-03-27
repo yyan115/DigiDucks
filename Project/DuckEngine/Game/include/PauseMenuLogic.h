@@ -75,7 +75,7 @@ private:
 	// UI
 	Entity* ui = nullptr;
 	SpriteRendererComponent* uiSprite = nullptr;
-
+	SoundComponent* PauseMenuSound = nullptr;
 	// Gamepad navigation
 	enum class MenuSelection 
 	{
@@ -148,4 +148,6 @@ public:
 	* @param state - true to disable, false to enable
 	* ****************************************************************/
 	void DisableButtons(bool state);
+
+	void playPauseSound();
 };
