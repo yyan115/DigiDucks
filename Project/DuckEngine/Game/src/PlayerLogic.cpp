@@ -406,7 +406,8 @@ void PlayerLogic::InteractPressed()
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
 					soundToPlay->Stop();
-					soundToPlay->Play(-1);
+					if (static_cast<int>(type) <= 14) soundToPlay->Play(1);
+					else soundToPlay->Play(-1);
 				}
 				isHolding = true;
 			}
@@ -525,7 +526,8 @@ void PlayerLogic::InteractPressed()
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 				if (soundToPlay) {
 					soundToPlay->Stop();
-					soundToPlay->Play(-1);
+					if (static_cast<int>(type) <= 14) soundToPlay->Play();
+					else soundToPlay->Play(-1);	
 				}
 				isHolding = false;
 			}

@@ -167,15 +167,6 @@ void PauseMenuLogic::Update()
 	{
 		UpdateMenuSelection();
 	}
-
-	/*if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
-	{
-		if (PauseMenuSound)
-		{
-			if (isPaused) PauseMenuSound->Play();
-			else PauseMenuSound->Play(1);
-		}
-	}*/
 }
 
 void PauseMenuLogic::UpdateMenuSelection()

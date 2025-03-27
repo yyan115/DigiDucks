@@ -764,7 +764,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -1395,7 +1394,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -3878,7 +3876,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -4148,7 +4145,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -7263,7 +7259,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -7443,7 +7438,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
@@ -9346,7 +9340,6 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/ingredients/ingredients 1.wav",
                             "Resources/Sounds/ingredients/ingredients 2.wav"
                         ],
                         "volume": 0.5
