@@ -3742,7 +3742,7 @@
                     "properties": {
                         "position": {
                             "x": -15.0,
-                            "y": -5.0
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -3777,8 +3777,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -15.0,
-                            "y": -21.200000762939453
+                            "x": -15.800000190734863,
+                            "y": 13.899999618530273
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6928,12 +6928,12 @@
             ],
             "layer": "UI"
         },
-        "Seat_1": {
+        "SeatPoint1_1": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": -1.0,
+                            "x": 0.0,
                             "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
@@ -6964,7 +6964,7 @@
             ],
             "layer": "Gameplay"
         },
-        "Seat_2": {
+        "SeatPoint2_1": {
             "components": [
                 {
                     "properties": {
@@ -7000,13 +7000,157 @@
             ],
             "layer": "Gameplay"
         },
+        "SeatPoint3_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 4.0,
+                            "y": -10.600000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "SeatPoint4_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 6.0,
+                            "y": -10.600000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Seat_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": -8.399999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Seat_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.0,
+                            "y": -8.399999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 0.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 0.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Seat_3": {
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 5.0,
-                            "y": -10.600000381469727
+                            "x": 4.0,
+                            "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -7041,8 +7185,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": -10.600000381469727
+                            "x": 6.0,
+                            "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -9508,51 +9652,12 @@
             "layer": "UI"
         },
         "WaitPoint_1": {
-            "childNames": [
-                "WaitPoint_2"
-            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": -6.0,
-                            "y": -16.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 1.0,
-                            "y": 1.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 0.0,
-                            "b": 0.0,
-                            "g": 255.0,
-                            "r": 0.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Gameplay"
-        },
-        "WaitPoint_2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 1.5999999046325684,
-                            "y": -16.0
+                            "x": -4.900000095367432,
+                            "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,

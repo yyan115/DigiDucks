@@ -25,7 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "GameLoopLogic.h"
 
-Entity* customerSeatEntity = nullptr;
+//Entity* customerSeatEntity = nullptr;
 
 // Constructor
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
@@ -59,10 +59,10 @@ void CustomerWalkState::Enter()
 			leaveTargets.push_back(entity.get());
 			//std::cout << "Added leave target: " << entity->name << "\n";
 		}
-		else if (entity->name.find("Seat") != std::string::npos) {
-			seatingLocations.emplace_back(entity.get(), false);
-			//std::cout << "emplaced " << entity->name << "\n";
-		}
+		//else if (entity->name.find("Seat") != std::string::npos) {
+		//	seatingLocations.emplace_back(entity.get(), false);
+		//	//std::cout << "emplaced " << entity->name << "\n";
+		//}
 	}
 
 	// Sort them based on the suffix number (e.g., QueueUp_1, Wait_2, etc.)
@@ -72,38 +72,38 @@ void CustomerWalkState::Enter()
 		return numA < numB;
 		};
 
-	// Different sort as this uses a pair
-	auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
-		std::string nameA = a.first->name;
-		std::string nameB = b.first->name;
+	//// Different sort as this uses a pair
+	//auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
+	//	std::string nameA = a.first->name;
+	//	std::string nameB = b.first->name;
 
-		// Find the underscore position
-		size_t posA = nameA.find_last_of('_');
-		size_t posB = nameB.find_last_of('_');
+	//	// Find the underscore position
+	//	size_t posA = nameA.find_last_of('_');
+	//	size_t posB = nameB.find_last_of('_');
 
-		// Ensure that there is a number after the underscore
-		if (posA == std::string::npos || posB == std::string::npos) return false;
+	//	// Ensure that there is a number after the underscore
+	//	if (posA == std::string::npos || posB == std::string::npos) return false;
 
-		std::string numStrA = nameA.substr(posA + 1);
-		std::string numStrB = nameB.substr(posB + 1);
+	//	std::string numStrA = nameA.substr(posA + 1);
+	//	std::string numStrB = nameB.substr(posB + 1);
 
-		// Validate if the extracted part is actually a number
-		if (!std::all_of(numStrA.begin(), numStrA.end(), ::isdigit) ||
-			!std::all_of(numStrB.begin(), numStrB.end(), ::isdigit)) {
-			std::cerr << "Warning: Invalid entity name format -> " << nameA << " or " << nameB << "\n";
-			return false; // Keep original order if invalid
-		}
+	//	// Validate if the extracted part is actually a number
+	//	if (!std::all_of(numStrA.begin(), numStrA.end(), ::isdigit) ||
+	//		!std::all_of(numStrB.begin(), numStrB.end(), ::isdigit)) {
+	//		std::cerr << "Warning: Invalid entity name format -> " << nameA << " or " << nameB << "\n";
+	//		return false; // Keep original order if invalid
+	//	}
 
-		int numA = std::stoi(numStrA);
-		int numB = std::stoi(numStrB);
-		return numA < numB;
-		};
+	//	int numA = std::stoi(numStrA);
+	//	int numB = std::stoi(numStrB);
+	//	return numA < numB;
+	//	};
 
 
 	std::sort(queueTargets.begin(), queueTargets.end(), sortEntities);
 	std::sort(waitTargets.begin(), waitTargets.end(), sortEntities);
 	std::sort(leaveTargets.begin(), leaveTargets.end(), sortEntities);
-	std::sort(seatingLocations.begin(), seatingLocations.end(), sortEntitiesSeats);
+	//std::sort(seatingLocations.begin(), seatingLocations.end(), sortEntitiesSeats);
 
 	// Grab animator
 	customerAnimator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(owner->GetComponentID());
@@ -121,16 +121,38 @@ void CustomerWalkState::Enter()
 		std::cerr << "No valid queue targets found!" << std::endl;
 	}
 
-	if (isOrderTaken && orderCollected && !leaveTargets.empty()) {
+	if (customerAngryLeave && !leaveTargets.empty()) {
+		currentQueueTarget = leaveTargets[0];
+	}
+	else if (isOrderTaken && !orderCollected && isWalkingToSeat)
+	{
+		// walk to each seat point
+		if (currentTargetIndex < seatPoints.size() - 1) {
+			currentTargetIndex++;
+			currentQueueTarget = seatPoints[currentTargetIndex];
+			std::cout << "WALK TO SEAT POINT\n";
+		}
+		// arrived at actual seat
+		else if (currentQueueTarget == customerSeatEntity && customerAnimator)
+		{
+			// WAIT FOR ORDER IN SEAT
+			customerAnimator->PlayAnimation("BACK_IDLE");
+			isWaitingToCollectOrder = true;
+			std::cout << "WAITING\n";
+		}
+		// if arrive at end of seat point, walk to actual seat
+		else if (currentTargetIndex == seatPoints.size() - 1) {
+			currentQueueTarget = customerSeatEntity;
+			std::cout << "WALK TO AACTUAAL SEAT\n";
+		}
+	}
+	else if (isOrderTaken && orderCollected && !leaveTargets.empty()) {
 		currentQueueTarget = leaveTargets[0];
 	}
 	else if (isOrderTaken && !orderCollected && !waitTargets.empty()) {
 		currentQueueTarget = waitTargets[0];
+		std::cout << "GOING WAIT POINT OUT OF LOOP\n";
 	}
-
-	//std::cout << "Queue size = " << queueTargets.size()
-	//    << ", Wait size = " << waitTargets.size()
-	//    << ", Leave size = " << leaveTargets.size() << std::endl;
 
 	GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
 	if (gameLoop) 
@@ -243,14 +265,64 @@ void CustomerWalkState::FixedUpdate()
 	{
 		rigidbody->velocity = Vec2(0.0f, 0.0f);
 
-		if (!isOrderTaken && currentTargetIndex < queueTargets.size() - 1)
+		// if customer is angry
+		if (isWaitingToCollectOrder && !customerAngryLeave) {
+			if (owner->CurrentWaitingTime <= maxWaitingTime)
+			{
+				owner->CurrentWaitingTime += DuckEngine::DeltaTime();
+				owner->WaitingSlider->currentValue = maxWaitingTime - owner->CurrentWaitingTime;
+
+				// change to yellow if 1/3
+				if (owner->CurrentWaitingTime >= maxWaitingTime / 3 * 2) {
+					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
+				}
+				// change to red if 2/3
+				else if (owner->CurrentWaitingTime >= maxWaitingTime / 3) {
+					owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
+				}
+			}
+			// ran out of patience
+			else {
+				//owner->GetGameLoopLogic()->customerAngryLeave = true;
+				customerAngryLeave = true;
+				currentTargetIndex = 0;
+				currentQueueTarget = seatPoints[currentTargetIndex];
+				owner->WaitingSlider->isVisible = false;
+				//owner->GetGameLoopLogic()->customerCount--;
+				//owner->stateMachine.ChangeState(owner->WalkState);
+			}
+		}
+		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE AND GOTO SEAT POINT - SEAT POINT REACHED, GO LEAVEPOINT NEXT
+		else if (customerAngryLeave && currentTargetIndex == seatPoints.size() - 1 && std::find(seatPoints.begin(), seatPoints.end(), currentQueueTarget) != seatPoints.end()) {
+			currentTargetIndex = 0;
+			currentQueueTarget = leaveTargets[currentTargetIndex];
+			std::cout << "Customer is angrily leaving - going leave point.\n";
+		}
+		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE AND GOTO SEAT POINT
+		else if (customerAngryLeave && currentTargetIndex < seatPoints.size() - 1 && std::find(seatPoints.begin(), seatPoints.end(), currentQueueTarget) != seatPoints.end()) {
+			currentTargetIndex++;
+			currentQueueTarget = seatPoints[currentTargetIndex];
+			std::cout << "Customer is angrily leaving - going seat.\n";
+		}
+		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE
+		else if (customerAngryLeave && currentTargetIndex < leaveTargets.size() - 1 && std::find(leaveTargets.begin(), leaveTargets.end(), currentQueueTarget) != leaveTargets.end()) {
+			currentTargetIndex++;
+			currentQueueTarget = leaveTargets[currentTargetIndex];
+			std::cout << "Customer is angrily leaving.\n";
+		}
+		else if (customerAngryLeave && currentTargetIndex == leaveTargets.size() - 1 && std::find(leaveTargets.begin(), leaveTargets.end(), currentQueueTarget) != leaveTargets.end())
+		{
+			std::cout << "Customer has angrily left.\n";
+
+		}
+		else if (!isOrderTaken && currentTargetIndex < queueTargets.size() - 1 && std::find(queueTargets.begin(), queueTargets.end(), currentQueueTarget) != queueTargets.end())
 		{
 			std::cout << "Customer walking to queue.\n";
 
 			currentTargetIndex++;
 			currentQueueTarget = queueTargets[currentTargetIndex];
 		}
-		else if (!isOrderTaken && currentTargetIndex == queueTargets.size() - 1)
+		else if (!isOrderTaken && currentTargetIndex == queueTargets.size() - 1 && std::find(queueTargets.begin(), queueTargets.end(), currentQueueTarget) != queueTargets.end())
 		{
 			std::cout << "Customer waiting to order.\n";
 
@@ -262,21 +334,46 @@ void CustomerWalkState::FixedUpdate()
 			}
 			return;
 		}
+		else if (isOrderTaken && !orderCollected && isWalkingToSeat) 
+		{
+			if (currentQueueTarget == customerSeatEntity)
+			{
+				// We've reached the actual seat
+				customerAnimator->PlayAnimation("BACK_IDLE");
+				isWaitingToCollectOrder = true;
+				//std::cout << "REACHED ACTUAL SEAT - WAITING FOR ORDER\n";
+
+				owner->WaitingSlider->isVisible = true;
+
+				// made new float
+				//owner->WaitingSlider->maxValue = owner->MaxCashierWaitingTime;
+				owner->WaitingSlider->maxValue = maxWaitingTime;
+
+				owner->CurrentWaitingTime = 0.f;
+				//owner->WaitingSlider->currentValue = 0.f;
+				owner->WaitingSlider->fillColor = { 0, 255, 0, 255 };
+				//std::cout << "show slider\n";
+			}
+			else if (currentTargetIndex < seatPoints.size() - 1)
+			{
+				// Move to next seat point
+				currentTargetIndex++;
+				currentQueueTarget = seatPoints[currentTargetIndex];
+				std::cout << "Moving to next seat point: " << currentQueueTarget->name << "\n";
+			}
+			else
+			{
+				// We're at the last seat point, now move to actual seat
+				currentQueueTarget = customerSeatEntity;
+				std::cout << "At last seat point, moving to actual seat: " << customerSeatEntity->name << "\n";
+			}
+		}
 		else if (isOrderTaken && !orderCollected && currentTargetIndex < waitTargets.size() - 1)
 		{
-			std::cout << "Customer order taken. Moving in to dining area.";
+			std::cout << "Customer order taken. Moving in to dining area.\n";
 
 			currentTargetIndex++;
 			currentQueueTarget = waitTargets[currentTargetIndex];
-		}
-		else if (isOrderTaken && !orderCollected && isWalkingToSeat) 
-		{
-			if (customerAnimator)
-			{
-				// WAIT FOR ORDER IN SEAT
-				customerAnimator->PlayAnimation("BACK_IDLE");
-				isWaitingToCollectOrder = true;
-			}
 		}
 		else if (isOrderTaken && !orderCollected && currentTargetIndex == waitTargets.size() - 1)
 		{
@@ -287,16 +384,19 @@ void CustomerWalkState::FixedUpdate()
 			{
 				for (auto& pairSeat : gameLoop->seatingLocations)
 				{
-					if (!pairSeat.second)
+					if (!std::get<1>(pairSeat))
 					{
-						currentQueueTarget = pairSeat.first;
+						//currentQueueTarget = std::get<0>(pairSeat);
+						currentTargetIndex = 0;
 						isWalkingToSeat = true;
 
-						pairSeat.second = true;
-						customerSeatEntity = pairSeat.first;
+						std::get<1>(pairSeat) = true;
+						seatPoints = std::get<2>(pairSeat);
+						customerSeatEntity = std::get<0>(pairSeat);
+						currentQueueTarget = seatPoints[currentTargetIndex];
 
 						foundSeat = true;
-						std::cout << "Customer assigned to seat: " << pairSeat.first->name << "\n";
+						std::cout << "Customer assigned to seat: " << std::get<0>(pairSeat)->name << "\n";
 						break;
 					}
 				}

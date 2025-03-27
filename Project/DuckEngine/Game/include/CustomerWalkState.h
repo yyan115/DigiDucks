@@ -21,6 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <iostream>
 #include "State.h"
+#include <tuple>
 
 class CustomerLogic;
 
@@ -43,6 +44,13 @@ public:
 	size_t currentTargetIndex = 0;
 	std::pair<Entity*, bool>* customerSeat{};
 
+	bool customerAngryLeave = false;
+
+	std::vector<Entity*> seatPoints{};
+	Entity* customerSeatEntity = nullptr;
+
+	float maxWaitingTime = 60.f;
+
 private:
 	Entity* currentQueueTarget = nullptr;
 	Entity* finalPath = nullptr;
@@ -57,7 +65,7 @@ private:
 	// points for customer to move to to the queue area to wait for his order
 	std::vector<Entity*> queueTargets{};
 
-	std::vector<std::pair<Entity*, bool>> seatingLocations{};
+	std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 
 
 

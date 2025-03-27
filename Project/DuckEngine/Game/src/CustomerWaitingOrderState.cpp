@@ -59,6 +59,22 @@ void CustomerWaitingOrderState::Update()
 	{
 		owner->CurrentWaitingTime += DuckEngine::DeltaTime();
 		owner->WaitingSlider->currentValue = owner->MaxCashierWaitingTime - owner->CurrentWaitingTime;
+
+		// change to yellow if 1/3
+		if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3 * 2) {
+			owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
+		}
+		// change to red if 2/3
+		else if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3) {
+			owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
+		}
+	}
+	// ran out of patience
+	else {
+		//owner->GetGameLoopLogic()->customerAngryLeave = true;
+		owner->WalkState.get()->customerAngryLeave = true;
+		//owner->GetGameLoopLogic()->customerCount--;
+		owner->stateMachine.ChangeState(owner->WalkState);
 	}
 
 	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());

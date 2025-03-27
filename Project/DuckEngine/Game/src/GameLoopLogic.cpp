@@ -78,7 +78,7 @@ CustomerStateManager stateManager;
 void GameLoopLogic::Start()
 {
 	DuckEngine::EnableLogging(false);
-	CameraManager::SetHeight(21);
+	CameraManager::SetHeight(255);
 	CameraManager::SetPosition(-3.13f, -1.55f);
 
 
@@ -194,15 +194,35 @@ void GameLoopLogic::Start()
 	{
 		if (entity->name.find("Seat_") != std::string::npos)
 		{
-			seatingLocations.emplace_back(entity.get(), false);
+			seatingLocations.emplace_back(entity.get(), false, std::vector<Entity*>{});
+
+			// Find the position of the underscore
+			size_t pos = entity->name.find_last_of('_');
+			std::string numStr;
+			if (pos != std::string::npos && pos < entity->name.length() - 1)
+			{
+				// Extract the substring after the underscore
+				numStr = entity->name.substr(pos + 1);
+			}
+
+			// SECOND LOOP TO FIND ALL POINTS FOR MOVING TOWARDS THIS SEAT
+			for (auto& entity2 : entities)
+			{
+				if (entity2->name.find("SeatPoint" + numStr + "_") != std::string::npos)
+				{
+					std::get<2>(seatingLocations.back()).emplace_back(entity2.get());
+					std::cout << "Added seat point: " << entity2->name << "\n";
+				}
+			}
+
 			std::cout << "Added seat: " << entity->name << "\n";
 		}
 	}
 
 	// Sort seats by number
-	auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
-		std::string nameA = a.first->name;
-		std::string nameB = b.first->name;
+	auto sortEntitiesSeats = [](const std::tuple<Entity*, bool, std::vector<Entity*>>& a, const std::tuple<Entity*, bool, std::vector<Entity*>>& b) {
+		std::string nameA = std::get<0>(a)->name;
+		std::string nameB = std::get<0>(b)->name;
 
 		size_t posA = nameA.find_last_of('_');
 		size_t posB = nameB.find_last_of('_');
@@ -223,6 +243,36 @@ void GameLoopLogic::Start()
 		};
 
 	std::sort(seatingLocations.begin(), seatingLocations.end(), sortEntitiesSeats);
+
+	// Now sort each inner vector of Entity pointers
+	auto sortSeatPoints = [](Entity* a, Entity* b) {
+		std::string nameA = a->name;
+		std::string nameB = b->name;
+
+		// Extract numbers from the names
+		size_t posA = nameA.find_last_of('_');
+		size_t posB = nameB.find_last_of('_');
+
+		if (posA == std::string::npos || posB == std::string::npos) return false;
+
+		std::string numStrA = nameA.substr(posA + 1);
+		std::string numStrB = nameB.substr(posB + 1);
+
+		if (!std::all_of(numStrA.begin(), numStrA.end(), ::isdigit) ||
+			!std::all_of(numStrB.begin(), numStrB.end(), ::isdigit)) {
+			return false;
+		}
+
+		int numA = std::stoi(numStrA);
+		int numB = std::stoi(numStrB);
+		return numA < numB;
+		};
+
+	// Apply the sort to each inner vector
+	for (auto& seatTuple : seatingLocations) {
+		std::vector<Entity*>& seatPoints = std::get<2>(seatTuple);
+		std::sort(seatPoints.begin(), seatPoints.end(), sortSeatPoints);
+	}
 
 
 	for (int i = 1; ; ++i)
@@ -472,9 +522,9 @@ bool GameLoopLogic::IsSeatOccupied(Entity* seat)
 {
 	for (auto& pairSeat : seatingLocations)
 	{
-		if (pairSeat.first == seat)
+		if (std::get<0>(pairSeat) == seat)
 		{
-			return pairSeat.second;
+			return std::get<1>(pairSeat);
 		}
 	}
 	return false;
@@ -484,9 +534,9 @@ bool GameLoopLogic::OccupySeat(Entity* seat)
 {
 	for (auto& pairSeat : seatingLocations)
 	{
-		if (pairSeat.first == seat && !pairSeat.second)
+		if (std::get<0>(pairSeat) == seat && !std::get<1>(pairSeat))
 		{
-			pairSeat.second = true;
+			std::get<1>(pairSeat) = true;
 			return true;
 		}
 	}
@@ -497,9 +547,9 @@ void GameLoopLogic::FreeSeat(Entity* seat)
 {
 	for (auto& pairSeat : seatingLocations)
 	{
-		if (pairSeat.first == seat)
+		if (std::get<0>(pairSeat) == seat)
 		{
-			pairSeat.second = false;
+			std::get<1>(pairSeat) = false;
 			return;
 		}
 	}

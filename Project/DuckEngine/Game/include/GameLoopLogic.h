@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PauseMenuLogic.h"
 #include "GamesettingsLogic.h"
 #include "CutSceneLogic.h"
+#include <tuple>
 
 class GameLoopLogic : public GameLogic
 {
@@ -52,8 +53,7 @@ public:
 	int currentActiveOrders = 0;
 	int customersFinished = 0;
 
-
-	std::vector<std::pair<Entity*, bool>> seatingLocations{};
+	std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 	bool IsSeatOccupied(Entity* seat);
 	bool OccupySeat(Entity* seat);
 	void FreeSeat(Entity* seat);
