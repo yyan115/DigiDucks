@@ -530,6 +530,11 @@ void MainMenu::DeselectAllButtons()
 * ****************************************************************/
 void MainMenu::ActivateSelectedButton()
 {
+	if (GameManager::GamepadDown)
+	{
+		GameManager::GamepadDown = false;
+		return;
+	}
 	switch (currentSelection)
 	{
 	case MenuSelection::START:

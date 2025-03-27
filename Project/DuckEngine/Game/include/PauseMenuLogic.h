@@ -89,6 +89,7 @@ public:
 	// HTP Page
 	int pageNumb = 1;
 	bool isPaused = false;
+	bool gamepadDown = false;
 
 	PauseMenuLogic() : GameLogic(nullptr) {}
 

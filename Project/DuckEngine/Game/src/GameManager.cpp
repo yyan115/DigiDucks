@@ -72,6 +72,8 @@ std::string GameManager::ActiveSceneName = "SpriteMovementScene";
 bool GameManager::ShouldChangeScene = false;
 std::unordered_map<std::string, std::string> GameManager::GlobalVariables;
 
+bool GameManager::GamepadDown = false;
+
 
  /****************************************************************
  * @brief Initializes all the scenes and gameplay logic for the game and is responsible for setting up all the scenes and game logic components that

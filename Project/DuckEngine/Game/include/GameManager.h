@@ -22,6 +22,7 @@ public:
 	static bool ShouldChangeScene;
 	static DuckEngine DuckEngine;
 	static std::unordered_map<std::string, std::string> GlobalVariables;
+	static bool GamepadDown;
 
 	static void InitScenes();
 /****************************************************************

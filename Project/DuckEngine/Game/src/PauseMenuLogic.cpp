@@ -311,6 +311,11 @@ void PauseMenuLogic::DeselectAllButtons()
 
 void PauseMenuLogic::ActivateSelectedButton()
 {
+	if (gamepadDown)
+	{
+		gamepadDown = false;
+		return;
+	}
 	switch (currentSelection)
 	{
 	case MenuSelection::RESUME:
