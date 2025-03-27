@@ -60,17 +60,6 @@ private:
 	// Exit Confirm
 	Entity* gameExitCfmBg = nullptr;
 	SpriteRendererComponent* gameExitCfmBgSpt = nullptr;
-	ButtonComponent* gameExitYesButton = nullptr;
-	SpriteRendererComponent* gameExitYesBtnSpt = nullptr;
-	Texture gameExitYesBtn_Normal{};
-	Texture gameExitYesBtn_Hover{};
-	SoundComponent* gameExitYesBtnSound = nullptr;
-
-	ButtonComponent* gameExitNoButton = nullptr;
-	SpriteRendererComponent* gameExitNoBtnSpt = nullptr;
-	Texture gameExitNoBtn_Normal{};
-	Texture gameExitNoBtn_Hover{};
-	SoundComponent* gameExitNoBtnSound = nullptr;
 
 	// UI
 	Entity* ui = nullptr;

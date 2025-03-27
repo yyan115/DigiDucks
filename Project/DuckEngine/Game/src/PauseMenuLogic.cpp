@@ -137,51 +137,6 @@ void PauseMenuLogic::Start()
 				gameExitCfmBgSpt->isVisible = false;
 			}
 		}
-
-		auto gameExitYesBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_Yes_Btn").get();
-		if (gameExitYesBtn)
-		{
-			gameExitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitYesBtn->entityID);
-			gameExitYesBtn_Normal = AssetManager::GetTextureByName("exit_yes");
-			gameExitYesBtn_Hover = AssetManager::GetTextureByName("exit_yes_hover");
-			gameExitYesButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitYesBtn->entityID);
-			gameExitYesBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitYesBtn->entityID);
-			if (gameExitYesButton)
-			{
-				gameExitYesButton->onClick = [this]() {
-					gameExitYesBtnSound->Resume();
-					gameExitYesBtnSound->Play();
-					// need to transition
-					GameManager::SetActiveScene("MainMenu"); };
-				gameExitYesButton->onHover = [this]() { 
-					gameExitYesBtnSound->Resume();
-					gameExitYesBtnSound->Play(1);
-					gameExitYesBtnSpt->texture = gameExitYesBtn_Hover; };
-				gameExitYesButton->onFinishHover = [this]() { gameExitYesBtnSpt->texture = gameExitYesBtn_Normal; };
-			}
-		}
-
-		auto gameExitNoBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit_No_Btn").get();
-		if (gameExitNoBtn)
-		{
-			gameExitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameExitNoBtn->entityID);
-			gameExitNoBtn_Normal = AssetManager::GetTextureByName("exit_no");
-			gameExitNoBtn_Hover = AssetManager::GetTextureByName("exit_no_hover");
-			gameExitNoButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameExitNoBtn->entityID);
-			gameExitNoBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameExitNoBtn->entityID);
-			if (gameExitNoButton)
-			{
-				gameExitNoButton->onClick = [this]() { 
-					gameExitNoBtnSound->Resume();
-					gameExitNoBtnSound->Play();
-					PauseGame(true); };
-				gameExitNoButton->onHover = [this]() { 
-					gameExitNoBtnSound->Resume();
-					gameExitNoBtnSound->Play(1);
-					gameExitNoBtnSpt->texture = gameExitNoBtn_Hover; };
-				gameExitNoButton->onFinishHover = [this]() { gameExitNoBtnSpt->texture = gameExitNoBtn_Normal; };
-			}
-		}
 	}
 
 	ui = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("UI").get();

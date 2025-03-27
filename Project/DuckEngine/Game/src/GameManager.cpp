@@ -51,6 +51,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "MiniGameLogic.h"
 #include "PotLogic.h"
 #include "HighlightLogic.h"
+#include "ExitConfirmLogic.h"
 
 // scenes
 #include "MainMenu.h"
@@ -122,6 +123,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("PotLogic", std::make_shared<PotLogic>());
 	GameLogicManager::AddLogic("UISliderLogic", std::make_shared<UISliderLogic>());
 	GameLogicManager::AddLogic("HighlightLogic", std::make_shared<HighlightLogic>());
+	GameLogicManager::AddLogic("ExitConfirmLogic", std::make_shared<ExitConfirmLogic>());
 	// Main Menu Logic
 	GameLogicManager::AddLogic("HowToPlayLogic", std::make_shared<HowToPlayLogic>());
 	GameLogicManager::AddLogic("GameSettingsLogic", std::make_shared<GameSettingsLogic>());
