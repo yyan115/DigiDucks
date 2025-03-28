@@ -16,7 +16,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-
 #include "CustomerWaitingOrderState.h"
 #include "CustomerLogic.h"
 #include "OrderTabLogic.h"
@@ -59,16 +58,18 @@ void CustomerWaitingOrderState::Update()
 	// used to set order sprite to false at the end, because i dont want to refactor code and accidentally introduce more bugs
 	bool angryLeft = false;
 
-	if (owner->CurrentWaitingTime <= owner->MaxCashierWaitingTime)
+	if (owner->CurrentWaitingTime <= owner->MaxCashierWaitingTime + 30 * DuckEngine::DeltaTime())
 	{
 		owner->CurrentWaitingTime += DuckEngine::DeltaTime();
-		owner->WaitingSlider->currentValue = owner->MaxCashierWaitingTime - owner->CurrentWaitingTime;
 
-		// change to yellow if 1/3
+		float sliderValue = owner->MaxCashierWaitingTime - owner->CurrentWaitingTime;
+		owner->WaitingSlider->currentValue = (sliderValue < 0.0f) ? 0.0f : sliderValue;
+
+		// change to red if 2/3
 		if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3 * 2) {
 			owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 		}
-		// change to red if 2/3
+		// change to yellow if 1/3
 		else if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3) {
 			owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
 		}
