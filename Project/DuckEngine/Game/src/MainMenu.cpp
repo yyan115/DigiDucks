@@ -86,6 +86,15 @@ void MainMenu::Load()
 		{
 			StartSound->Play(1);
 
+			// Disable all buttons when start button is clicked
+			for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+			{
+				ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+				if (!button) continue;
+
+				button->isEnabled = false;
+			}
+
 			std::string sceneToLoad;
 
 			if (LevelSelectScreenLogic::currentStage >= 5)
