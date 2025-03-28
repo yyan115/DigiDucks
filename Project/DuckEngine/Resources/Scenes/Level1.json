@@ -1684,7 +1684,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
@@ -1768,7 +1768,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
@@ -1852,7 +1852,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
@@ -1936,7 +1936,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
