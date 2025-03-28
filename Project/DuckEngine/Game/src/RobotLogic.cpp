@@ -48,14 +48,17 @@ void RobotLogic::Update()
 
 void RobotLogic::FixedUpdate()
 {
-	if (restockLogic->isDelay)
+	if (restockLogic && sliderLogic)
 	{
-		if (sliderLogic)
-			sliderLogic->EnableSlider(true);
-	}
-	else
-	{
-		if (sliderLogic)
-			sliderLogic->ResetSlider();
+		if (restockLogic->isDelay)
+		{
+			if (sliderLogic)
+				sliderLogic->EnableSlider(true);
+		}
+		else
+		{
+			if (sliderLogic)
+				sliderLogic->ResetSlider();
+		}
 	}
 }
