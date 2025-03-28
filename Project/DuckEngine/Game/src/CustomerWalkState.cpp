@@ -25,6 +25,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameManager.h"
 #include "GameLoopLogic.h"
 #include "OrderTabLogic.h"
+#include "SubmitLogic.h"
 
 //Entity* customerSeatEntity = nullptr;
 
@@ -145,7 +146,7 @@ void CustomerWalkState::Enter()
 		// if arrive at end of seat point, walk to actual seat
 		else if (currentTargetIndex == seatPoints.size() - 1) {
 			currentQueueTarget = customerSeatEntity;
-			std::cout << "WALK TO AACTUAAL SEAT\n";
+			std::cout << "WALK TO ACTUAL SEAT\n";
 		}
 	}
 	else if (isOrderTaken && orderCollected && !leaveTargets.empty()) {
@@ -267,7 +268,7 @@ void CustomerWalkState::FixedUpdate()
 	{
 		rigidbody->velocity = Vec2(0.0f, 0.0f);
 
-		// if customer is angry
+		// if customer is angry AND waiting to collect order (at table)
 		if (isWaitingToCollectOrder && !customerAngryLeave) {
 			if (owner->CurrentWaitingTime <= maxWaitingTime)
 			{
@@ -303,6 +304,17 @@ void CustomerWalkState::FixedUpdate()
 
 				//owner->GetGameLoopLogic()->customerCount--;
 				//owner->stateMachine.ChangeState(owner->WalkState);
+
+				owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+
+				// LOGIC TO DECREASE SCORE BY 10
+				Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
+				if (submit)
+				{
+					auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+
+					submitLogic->decreaseScore(10);
+				}
 			}
 		}
 		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE AND GOTO SEAT POINT - SEAT POINT REACHED, GO LEAVEPOINT NEXT
@@ -310,12 +322,16 @@ void CustomerWalkState::FixedUpdate()
 			currentTargetIndex = 0;
 			currentQueueTarget = leaveTargets[currentTargetIndex];
 			std::cout << "Customer is angrily leaving - going leave point.\n";
+
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
 		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE AND GOTO SEAT POINT
 		else if (customerAngryLeave && currentTargetIndex < seatPoints.size() - 1 && std::find(seatPoints.begin(), seatPoints.end(), currentQueueTarget) != seatPoints.end()) {
 			currentTargetIndex++;
 			currentQueueTarget = seatPoints[currentTargetIndex];
 			std::cout << "Customer is angrily leaving - going seat.\n";
+
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
 		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE
 		else if (customerAngryLeave && currentTargetIndex < leaveTargets.size() - 1 && std::find(leaveTargets.begin(), leaveTargets.end(), currentQueueTarget) != leaveTargets.end()) {
@@ -366,6 +382,8 @@ void CustomerWalkState::FixedUpdate()
 				//owner->WaitingSlider->currentValue = 0.f;
 				owner->WaitingSlider->fillColor = { 0, 255, 0, 255 };
 				//std::cout << "show slider\n";
+
+				owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
 			}
 			else if (currentTargetIndex < seatPoints.size() - 1)
 			{

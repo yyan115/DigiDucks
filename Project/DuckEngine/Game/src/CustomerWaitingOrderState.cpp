@@ -22,6 +22,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "OrderTabLogic.h"
 #include "DuckEngine_Input.h"
 #include "GameLoopLogic.h"
+#include "SubmitLogic.h"
 
 SoundComponent* orderComeSFX = nullptr;
 
@@ -55,6 +56,9 @@ void CustomerWaitingOrderState::Enter()
 
 void CustomerWaitingOrderState::Update()
 {
+	// used to set order sprite to false at the end, because i dont want to refactor code and accidentally introduce more bugs
+	bool angryLeft = false;
+
 	if (owner->CurrentWaitingTime <= owner->MaxCashierWaitingTime)
 	{
 		owner->CurrentWaitingTime += DuckEngine::DeltaTime();
@@ -75,6 +79,17 @@ void CustomerWaitingOrderState::Update()
 		owner->WalkState.get()->customerAngryLeave = true;
 		//owner->GetGameLoopLogic()->customerCount--;
 		owner->stateMachine.ChangeState(owner->WalkState);
+
+		// LOGIC TO DECREASE SCORE BY 10
+		Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
+		if (submit)
+		{
+			auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
+
+			submitLogic->decreaseScore(10);
+		}
+
+		angryLeft = true;
 	}
 
 	TransformComponent* customerTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(owner->GetComponentID());
@@ -127,6 +142,10 @@ void CustomerWaitingOrderState::Update()
 	}
 	else
 	{
+		owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+	}
+
+	if (angryLeft) {
 		owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 	}
 }
