@@ -515,6 +515,43 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
+		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
+		if (submitLogic)
+		{
+			ItemType heldType = holding->getType();
+
+			auto& allOrderTabs = orderTabLogic->GetOrderTabs();
+			bool orderSubmitted = false;
+
+			for (auto& tab : allOrderTabs)
+			{
+				if (tab.tabCustomer && !orderSubmitted)
+				{
+					ItemType requestedItem = tab.tabOrder;
+					bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
+
+					if (heldType == requestedItem && isReadyToCollect)
+					{
+						tab.tabCustomer->OrderCompleted();
+
+						submitLogic->removeObject(holding->moveObject());
+
+						orderTabLogic->RemoveOrder(tab.tabCustomer);
+
+						if (sound)
+						{
+							sound->Play();
+						}
+
+						isHolding = false;
+						orderSubmitted = true;
+						return;
+					}
+				}
+			}
+			return;
+		}
+
 		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(interactObject->entityID);
 		if (tableLogic)
 		{
@@ -656,43 +693,7 @@ void PlayerLogic::InteractPressed()
 			return;
 		}
 
-		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
-		if (submitLogic)
-		{
-			ItemType heldType = holding->getType();
-
-			auto& allOrderTabs = orderTabLogic->GetOrderTabs();
-			bool orderSubmitted = false;
-
-			for (auto& tab : allOrderTabs)
-			{
-				if (tab.tabCustomer && !orderSubmitted)
-				{
-					ItemType requestedItem = tab.tabOrder;
-					bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
-
-					if (heldType == requestedItem && isReadyToCollect)
-					{
-						tab.tabCustomer->OrderCompleted();
-
-						submitLogic->removeObject(holding->moveObject());
-
-						orderTabLogic->RemoveOrder(tab.tabCustomer);
-
-						if (sound)
-						{
-							sound->Play();
-						}
-
-						isHolding = false;
-						orderSubmitted = true;
-						return;
-					}
-				}
-			}
-			return;
-		}
-
+		
 	}
 
 }
