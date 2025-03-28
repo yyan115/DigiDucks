@@ -666,7 +666,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.900000095367432,
+                            "x": -4.360000133514404,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -694,7 +694,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "1.5"
+                        "text": "2"
                     },
                     "type": "TextComponent"
                 }
@@ -850,7 +850,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 3.0,
+                            "x": 3.6399998664855957,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -878,7 +878,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "2.5"
+                        "text": "4"
                     },
                     "type": "TextComponent"
                 }
@@ -942,7 +942,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.30000001192092896,
+                            "x": -0.36000001430511475,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -970,7 +970,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "2"
+                        "text": "3"
                     },
                     "type": "TextComponent"
                 }
@@ -1034,7 +1034,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 11.0,
+                            "x": 11.640000343322754,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1062,7 +1062,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "3.5"
+                        "text": "6"
                     },
                     "type": "TextComponent"
                 }
@@ -1126,7 +1126,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 7.699999809265137,
+                            "x": 7.639999866485596,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1154,7 +1154,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "3"
+                        "text": "5"
                     },
                     "type": "TextComponent"
                 }
