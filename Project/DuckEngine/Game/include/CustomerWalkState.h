@@ -49,7 +49,7 @@ public:
 	std::vector<Entity*> seatPoints{};
 	Entity* customerSeatEntity = nullptr;
 
-	float maxWaitingTime = 60.f;
+	float maxWaitingTime = 20.f;
 
 private:
 	Entity* currentQueueTarget = nullptr;

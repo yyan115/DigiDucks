@@ -8,7 +8,7 @@
 			gameplay loop, including initialization, updates, and fixed
 			updates. It handles UI elements, timers, scoring, customer
 			logic, and player interactions. This system interacts with
-			DuckEngine’s entity and component managers, as well as various
+			DuckEngineï¿½s entity and component managers, as well as various
 			logic systems such as PauseMenuLogic, GameSettingsLogic, and
 			CutSceneLogic.
 
@@ -384,15 +384,18 @@ void GameLoopLogic::Update()
 				}
 			}
 
-			if (!anyCustomerWaiting) 
-			{
-				timeSinceLastCustomer = 0.0f;
-				isSpawningCustomer = true;
-
-				currentCustomerIndex++;
-				std::cout << "Spawning next customer due to time interval" << std::endl;
-				customers[currentCustomerIndex]->StartWalking();
-			}
+		if (!anyCustomerWaiting) 
+		{
+			timeSinceLastCustomer = 0.0f;
+			isSpawningCustomer = true;
+			
+			currentCustomerIndex++;
+			std::cout << "Spawning next customer due to time interval" << std::endl;
+			customers[currentCustomerIndex]->StartWalking();
+			
+			// Reset cooldown timer to prevent immediate spawning of next customer
+			customerSpawnCooldown = 3.0f;
+		}
 		}
 	}
 

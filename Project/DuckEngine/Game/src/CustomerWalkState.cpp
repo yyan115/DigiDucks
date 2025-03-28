@@ -1,4 +1,4 @@
-﻿/******************************************************************************/
+/******************************************************************************/
 /*!
 \file       CustomerWalkState.cpp
 \author     Lucas Yee JunJie, l.yee, 2301212 (50%)
@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CustomerLogic.h"
 #include "GameManager.h"
 #include "GameLoopLogic.h"
+#include "OrderTabLogic.h"
 
 //Entity* customerSeatEntity = nullptr;
 
@@ -70,7 +71,8 @@ void CustomerWalkState::Enter()
 		int numA = std::stoi(a->name.substr(a->name.find_last_of('_') + 1));
 		int numB = std::stoi(b->name.substr(b->name.find_last_of('_') + 1));
 		return numA < numB;
-		};
+
+	};
 
 	//// Different sort as this uses a pair
 	//auto sortEntitiesSeats = [](const std::pair<Entity*, bool>& a, const std::pair<Entity*, bool>& b) {
@@ -288,6 +290,17 @@ void CustomerWalkState::FixedUpdate()
 				currentTargetIndex = 0;
 				currentQueueTarget = seatPoints[currentTargetIndex];
 				owner->WaitingSlider->isVisible = false;
+
+				// Remove the order tab for this angry customer
+				Entity* orderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
+				if (orderTab) {
+					OrderTabLogic* orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTab->entityID).get();
+					if (orderTabLogic) {
+						orderTabLogic->RemoveOrder(owner);
+						std::cout << "Removed order tab for angry customer" << std::endl;
+					}
+				}
+
 				//owner->GetGameLoopLogic()->customerCount--;
 				//owner->stateMachine.ChangeState(owner->WalkState);
 			}
