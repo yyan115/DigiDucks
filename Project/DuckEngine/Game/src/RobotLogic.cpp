@@ -17,6 +17,25 @@ void RobotLogic::Start()
 {
 	robot = DuckEngine::DUCKENGINE_EntityManager.GetEntity(component->GetEntityID()).get();
 	robotAni = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
+
+	if (robot)
+	{
+		if (robot->childEntities.size() > 0)
+		{
+			for (int i = 0; i < robot->childEntities.size(); i++)
+			{
+				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(robot->childEntities[i]->entityID);
+				if (sliderLogic)
+					break;
+			}
+		}
+
+		auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
+		if (restockMenu)
+		{
+			restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID);
+		}
+	}
 }
 
 void RobotLogic::Update()
@@ -29,5 +48,14 @@ void RobotLogic::Update()
 
 void RobotLogic::FixedUpdate()
 {
-
+	if (restockLogic->isDelay)
+	{
+		if (sliderLogic)
+			sliderLogic->EnableSlider(true);
+	}
+	else
+	{
+		if (sliderLogic)
+			sliderLogic->ResetSlider();
+	}
 }

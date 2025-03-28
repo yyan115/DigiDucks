@@ -17,7 +17,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "StockLogic.h"
-#include "SliderLogic.h"
 
 const int MAX_CART_STOCK = 5;
 
@@ -66,11 +65,12 @@ private:
 	std::vector<ItemType> cartStock;
 	bool changeCartStock = false;
 
-	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
-
+	float delay = 3.5f;
+	float delayCounter = 0.f;
 
 public:
 	bool isRestock = false;
+	bool isDelay = false;
 
 	RestockLogic() : GameLogic(nullptr) {}
 

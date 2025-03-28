@@ -80,9 +80,10 @@ ItemType PotLogic::TakeSoup()
 		isPotFilled = false;
 	}
 
+	std::string potName = currPortion > 0 ? std::to_string(currPortion) : "";
 	if (potSprite)
 	{
-		potSprite->texture = AssetManager::GetTextureByName(whatType(type));
+		potSprite->texture = AssetManager::GetTextureByName(whatType(type) + potName);
 	}
 
 	return temp;

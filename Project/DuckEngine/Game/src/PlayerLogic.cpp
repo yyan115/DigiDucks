@@ -478,6 +478,9 @@ void PlayerLogic::InteractPressed()
 		auto robotLogic = GameLogicManager::GetLogicForEntity<RobotLogic>(interactObject->entityID);
 		if (robotLogic)
 		{
+			// If Robot restock station is restocking, return
+			if (restockLogic->isDelay) return;
+
 			if (sound) sound->Play(0);
 			setRestockMenu(true);
 			return;
@@ -692,7 +695,6 @@ void PlayerLogic::InteractPressed()
 
 			return;
 		}
-
 		
 	}
 

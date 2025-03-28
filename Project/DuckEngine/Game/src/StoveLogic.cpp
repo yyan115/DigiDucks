@@ -347,7 +347,7 @@ bool StoveLogic::setObjectSprite(ItemType objType)
 			case ItemType::POT_SUS:
 				if(potLogic)
 					potLogic->SetSoup(objType);
-				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType));
+				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType)+"3");
 				break;
 			default:
 				objectSprite->texture = AssetManager::GetTextureByName("pot");

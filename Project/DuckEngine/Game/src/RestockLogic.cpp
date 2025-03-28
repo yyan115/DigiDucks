@@ -27,16 +27,6 @@ void RestockLogic::Start()
 		{
 			restockMenuSpt->isVisible = false;
 		}
-
-		if (restockMenu->childEntities.size() > 0)
-		{
-			for (int i = 0; i < restockMenu->childEntities.size(); i++)
-			{
-				sliderLogic = GameLogicManager::GetLogicForEntity<SliderLogic>(restockMenu->childEntities[i]->entityID);
-				if (sliderLogic)
-					break;
-			}
-		}
 	}
 
 	auto restockIngredientMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Ingredient_Menu").get();
@@ -167,11 +157,14 @@ void RestockLogic::Start()
 			restockConfirmButton->onClick = [this, restockConfirmBtn]()
 				{
 					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(restockConfirmBtn->entityID)->Play();
+					isDelay = true;
+					std::cout << "isDelay = true" << std::endl;
 					for (ItemType type : cartStock)
 					{
 						Restock(type);
 					}
 					RefreshCart();
+					RestockMenu(false);
 				};
 			restockConfirmButton->isEnabled = false;
 		}
@@ -219,6 +212,16 @@ void RestockLogic::Update()
 
 void RestockLogic::FixedUpdate()
 {
+	if (isDelay)
+	{
+		std::cout << delayCounter << std::endl;
+		delayCounter += DuckEngine::FixedDeltaTime();
+		if (delayCounter >= delay)
+		{
+			isDelay = false;
+			delayCounter = 0.f;
+		}
+	}
 }
 
 void RestockLogic::RestockMenu(bool state)

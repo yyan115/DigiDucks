@@ -16,20 +16,22 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "RestockLogic.h"
+#include "SliderLogic.h"
 
 class RobotLogic : public GameLogic
 {
 private:
-	Entity* robot;
-	AnimatorComponent* robotAni;
+	Entity* robot = nullptr;
+	AnimatorComponent* robotAni = nullptr;
+
+	std::shared_ptr<SliderLogic> sliderLogic = nullptr;
+	std::shared_ptr<RestockLogic> restockLogic = nullptr;
 
 public:
 
-	RobotLogic() :
-		GameLogic(nullptr), robot(nullptr), robotAni(nullptr) {}
+	RobotLogic() : GameLogic(nullptr) {}
 
-	RobotLogic(GameLogicComponent* component) :
-		GameLogic(nullptr), robot(nullptr), robotAni(nullptr)
+	RobotLogic(GameLogicComponent* component) : GameLogic(nullptr)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}
