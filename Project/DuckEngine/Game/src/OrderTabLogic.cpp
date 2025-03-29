@@ -97,7 +97,7 @@ void OrderTabLogic::AddOrder(ItemType order, CustomerLogic* customer)
 	}
 
 	// add back later
-	//freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(order));
+	freeTab->spriteRenderer->texture = DuckEngine::DUCKENGINE_AssetManager.GetTextureByName("order_" + whatType(order));
 
 	freeTab->spriteRenderer->isVisible = true;
 	freeTab->tabOrder = order;
