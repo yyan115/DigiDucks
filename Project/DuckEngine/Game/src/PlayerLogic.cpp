@@ -18,6 +18,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 #include "CustomerLogic.h"
 #include "HighlightLogic.h"
+#include "CustomerTableLogic.h"
+#include "GameLoopLogic.h"
 
 float actionCooldown = 0.5f;
 float actionCounter = 0.5f;
@@ -530,6 +532,118 @@ void PlayerLogic::InteractPressed()
 		}
 
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(interactObject->entityID);
+
+		auto customerTable = GameLogicManager::GetLogicForEntity<CustomerTableLogic>(interactObject->entityID);
+
+		if (customerTable) {
+			std::cout << "CUSTOMERR TABLE DETEECED\n";
+
+			Entity* gameLogicManager = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
+			GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLogicManager->entityID).get();
+
+			CustomerLogic* correctCustomer = nullptr;
+			std::pair<Entity*, CustomerLogic*> pairCustomer;
+
+			// very convoluted way to check and submit order.
+			// table in scene contains CustomerTableLogic - this holds the seat entity ID and gets seat when seatingLocations get init
+			// 1. First check for the correct seat in seatingLocations - match current customer table's seat ID with seatingLocations's seat ID
+			// 2. Now use customersAtSeats to get access to customerLogic, by matching the seat IDs from both seatingLocations and customersAtSeats
+			// Now you are 100% sure you got access to customer that is currently waiting.
+			for (auto& pairSeat : gameLoopLogic->seatingLocations)
+			{
+				// match seat and table
+				if (std::get<0>(pairSeat) == customerTable.get()->seatEntity && std::get<0>(pairSeat) != nullptr) {
+					//
+
+					std::cout << "1 - FOUND tuple seat and customer table seat\n";
+
+					for (auto& pair : gameLoopLogic->customersAtSeats)
+					{
+						if (pair.first == std::get<0>(pairSeat) && pair.first != nullptr) {
+							//
+							correctCustomer = pair.second;
+							pairCustomer = pair;
+
+							std::cout << "Found correct customer\n";
+						}
+					}
+				}
+			}
+
+			ItemType heldType = holding->getType();
+
+			auto& allOrderTabs = orderTabLogic->GetOrderTabs();
+			bool orderSubmitted = false;
+
+			std::cout << "Looping through tabs now.\n";
+
+			for (auto& tab : allOrderTabs)
+			{
+				// find customer in tab
+				if (tab.tabCustomer == correctCustomer && correctCustomer != nullptr) {
+
+					std::cout << "Correct customer matched with tab.\n";
+
+					if (tab.tabCustomer == nullptr) { std::cout << "tab is nullptr???\n"; }
+					if (orderSubmitted) { std::cout << "order is true???\n"; }
+
+					// copy pasted from ernest code
+					if (tab.tabCustomer && !orderSubmitted)
+					{
+						ItemType requestedItem = tab.tabOrder;
+						bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
+
+						std::cout << "Checking if can submit\n";
+
+						if (heldType == requestedItem && isReadyToCollect)
+						{
+							tab.tabCustomer->OrderCompleted();
+
+							submitLogic->removeObject(holding->moveObject());
+
+							orderTabLogic->RemoveOrder(tab.tabCustomer);
+
+							if (sound)
+							{
+								sound->Play();
+							}
+
+							isHolding = false;
+							orderSubmitted = true;
+
+							gameLoopLogic->RemoveCustomer(pairCustomer.first, pairCustomer.second);
+
+							std::cout << "Order submitted.\n";
+							return;
+						}
+					}
+				}
+			}
+
+			//if (correctCustomer) {
+			//	// If player is holding what customer wants
+			//	if (correctCustomer->customerOrderType == heldType) {
+			//		tab.tabCustomer->OrderCompleted();
+
+			//		submitLogic->removeObject(holding->moveObject());
+
+			//		orderTabLogic->RemoveOrder(tab.tabCustomer);
+
+			//		if (sound)
+			//		{
+			//			sound->Play();
+			//		}
+
+			//		isHolding = false;
+			//		orderSubmitted = true;
+			//		return;
+			//	}
+			//}
+			//else {
+			//	std::cout << "Error: Something went wrong trying to find customer from table/seat logic.\n";
+			//}
+		}
+		
 		if (submitLogic)
 		{
 			ItemType heldType = holding->getType();

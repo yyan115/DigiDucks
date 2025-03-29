@@ -40,7 +40,7 @@ void SubmitLogic::Start()
 void SubmitLogic::removeObject(std::pair<int, ItemType> objData)
 {
 	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objData.first);
-	increaseScore();
+	//increaseScore();
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	if (gameLoopEntity) 

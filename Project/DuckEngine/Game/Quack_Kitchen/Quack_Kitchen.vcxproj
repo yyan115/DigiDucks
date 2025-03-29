@@ -196,6 +196,7 @@
     <ClCompile Include="..\src\CustomerIdleState.cpp" />
     <ClCompile Include="..\src\CustomerLogic.cpp" />
     <ClCompile Include="..\src\CustomerStateManager.cpp" />
+    <ClCompile Include="..\src\CustomerTableLogic.cpp" />
     <ClCompile Include="..\src\CustomerWaitingOrderState.cpp" />
     <ClCompile Include="..\src\CustomerWalkState.cpp" />
     <ClCompile Include="..\src\CutSceneLogic.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="..\include\CustomerIdleState.h" />
     <ClInclude Include="..\include\CustomerLogic.h" />
     <ClInclude Include="..\include\CustomerStateManager.h" />
+    <ClInclude Include="..\include\CustomerTableLogic.h" />
     <ClInclude Include="..\include\CustomerWaitingOrderState.h" />
     <ClInclude Include="..\include\CustomerWalkState.h" />
     <ClInclude Include="..\include\CutSceneLogic.h" />

@@ -49,7 +49,7 @@ public:
 	std::vector<Entity*> seatPoints{};
 	Entity* customerSeatEntity = nullptr;
 
-	float maxWaitingTime = 20.f;
+	float maxWaitingTime = 60.f;
 
 private:
 	Entity* currentQueueTarget = nullptr;
@@ -65,7 +65,7 @@ private:
 	// points for customer to move to to the queue area to wait for his order
 	std::vector<Entity*> queueTargets{};
 
-	std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
+	//std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 
 
 

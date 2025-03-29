@@ -421,8 +421,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.0,
-                            "y": -5.889617919921875
+                            "x": 22.33575439453125,
+                            "y": -5.772596836090088
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -452,8 +452,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 6.0,
-                            "y": -5.789618015289307
+                            "x": 22.33575439453125,
+                            "y": -5.6725969314575195
                         },
                         "offset": {
                             "x": 0.0,
@@ -2044,6 +2044,279 @@
             ],
             "layer": "UI"
         },
+        "CustomerTable_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 2.299999952316284,
+                            "y": -5.939361572265625
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 125.0,
+                            "g": 125.0,
+                            "r": 125.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 7,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 2.299999952316284,
+                            "y": -5.939361572265625
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.100000023841858,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CustomerTableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "CustomerTable_2": {
+            "childNames": [
+                "CustomerTable_1",
+                "CustomerTable_3",
+                "CustomerTable_4"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 4.800000190734863,
+                            "y": -5.939361572265625
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 125.0,
+                            "g": 125.0,
+                            "r": 125.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 4.800000190734863,
+                            "y": -5.939361572265625
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.100000023841858,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CustomerTableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "CustomerTable_3": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 7.199999809265137,
+                            "y": -5.939361572265625
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 125.0,
+                            "g": 125.0,
+                            "r": 125.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 6,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 7.199999809265137,
+                            "y": -5.939361572265625
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.100000023841858,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CustomerTableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "CustomerTable_4": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 9.600000381469727,
+                            "y": -5.939361572265625
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.200000047683716,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 125.0,
+                            "g": 125.0,
+                            "r": 125.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 7,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "center": {
+                            "x": 9.600000381469727,
+                            "y": -5.939361572265625
+                        },
+                        "offset": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "size": {
+                            "x": 1.100000023841858,
+                            "y": 1.25
+                        }
+                    },
+                    "type": "BoundingBox"
+                },
+                {
+                    "properties": {
+                        "isStatic": true
+                    },
+                    "type": "RigidbodyComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CustomerTableLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Customer_1": {
             "childNames": [
                 "Customer1_Order",
@@ -3015,8 +3288,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0,
-                            "y": -5.900000095367432
+                            "x": 17.14554786682129,
+                            "y": -5.636702537536621
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -3051,7 +3324,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.0,
+                            "x": 19.86440658569336,
                             "y": -5.900000095367432
                         },
                         "relativeToCamera": true,
@@ -3345,16 +3618,16 @@
         "GameObject_231": {
             "layer": "Gameplay",
             "position": {
-                "x": 8.0,
-                "y": -5.900000095367432
+                "x": 25.37745475769043,
+                "y": -5.841490268707275
             },
             "prefab": "Highlight_Table"
         },
         "GameObject_231_copy": {
             "layer": "Gameplay",
             "position": {
-                "x": 10.0,
-                "y": -5.900000095367432
+                "x": 27.803607940673828,
+                "y": -5.607447147369385
             },
             "prefab": "Highlight_Table"
         },
@@ -3609,8 +3882,8 @@
         "GameObject_249": {
             "layer": "Gameplay",
             "position": {
-                "x": 6.0,
-                "y": -5.889617919921875
+                "x": 22.33575439453125,
+                "y": -5.772596836090088
             },
             "prefab": "Highlight_Table"
         },
@@ -7143,7 +7416,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": 2.299999952316284,
                             "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
@@ -7179,7 +7452,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0,
+                            "x": 4.800000190734863,
                             "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
@@ -7215,7 +7488,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.0,
+                            "x": 7.199999809265137,
                             "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
@@ -7251,7 +7524,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.0,
+                            "x": 9.600000381469727,
                             "y": -10.600000381469727
                         },
                         "relativeToCamera": true,
@@ -7287,7 +7560,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": 2.299999952316284,
                             "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
@@ -7323,7 +7596,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0,
+                            "x": 4.800000190734863,
                             "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
@@ -7359,7 +7632,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.0,
+                            "x": 7.199999809265137,
                             "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
@@ -7395,7 +7668,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.0,
+                            "x": 9.600000381469727,
                             "y": -8.399999618530273
                         },
                         "relativeToCamera": true,
@@ -8093,14 +8366,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.0,
-                            "y": -5.900000095367432
+                            "x": 25.200000762939453,
+                            "y": -10.699999809265137
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.0,
-                            "y": 0.0
+                            "x": 6.300000190734863,
+                            "y": 2.700000047683716
                         }
                     },
                     "type": "TransformComponent"
@@ -8124,8 +8397,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 6.0,
-                            "y": -5.800000190734863
+                            "x": 25.200000762939453,
+                            "y": -10.59999942779541
                         },
                         "offset": {
                             "x": 0.0,
@@ -8434,9 +8707,6 @@
             "layer": "Gameplay"
         },
         "Table_05": {
-            "childNames": [
-                "GameObject_222"
-            ],
             "components": [
                 {
                     "properties": {
@@ -8512,8 +8782,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.0,
-                            "y": -5.900000095367432
+                            "x": 17.14554786682129,
+                            "y": -5.636702537536621
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -8543,8 +8813,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 2.0,
-                            "y": -5.800000190734863
+                            "x": 17.14554786682129,
+                            "y": -5.536702632904053
                         },
                         "offset": {
                             "x": 0.0,
@@ -8583,7 +8853,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.0,
+                            "x": 19.86440658569336,
                             "y": -5.900000095367432
                         },
                         "relativeToCamera": true,
@@ -8614,7 +8884,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 4.0,
+                            "x": 19.86440658569336,
                             "y": -5.800000190734863
                         },
                         "offset": {
@@ -8654,8 +8924,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": -5.900000095367432
+                            "x": 25.37745475769043,
+                            "y": -5.841490268707275
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -8685,8 +8955,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 8.0,
-                            "y": -5.800000190734863
+                            "x": 25.37745475769043,
+                            "y": -5.741490364074707
                         },
                         "offset": {
                             "x": 0.0,
@@ -8725,8 +8995,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0,
-                            "y": -5.900000095367432
+                            "x": 27.803607940673828,
+                            "y": -5.607447147369385
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -8756,8 +9026,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 10.0,
-                            "y": -5.800000190734863
+                            "x": 27.803607940673828,
+                            "y": -5.507447242736816
                         },
                         "offset": {
                             "x": 0.0,

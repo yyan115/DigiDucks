@@ -71,11 +71,11 @@ public:
 	float CurrentWaitingTime = 0;
 	float MaxCashierWaitingTime = 10;
 
+	ItemType customerOrderType = ItemType::EMPTY;
 
 private:
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;
-	ItemType customerOrderType = ItemType::EMPTY;
 
 
 };

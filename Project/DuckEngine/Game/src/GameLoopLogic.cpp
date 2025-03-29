@@ -33,6 +33,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Emitter.h"
 #include "CustomerStateManager.h"
 
+#include "CustomerTableLogic.h"
+
 Entity* duck = nullptr;
 TransformComponent* duckTrans = nullptr;
 SoundComponent* TimeLeftSound = nullptr;
@@ -213,6 +215,21 @@ void GameLoopLogic::Start()
 					std::cout << "Added seat point: " << entity2->name << "\n";
 				}
 			}
+
+			//Entity* customerTable = nullptr;
+
+			// SET THE TABLE LOGIC'S SEAT ENTITY ID TO THIS SEAT
+			for (auto& entity2 : entities)
+			{
+				if (entity2->name.find("CustomerTable_" + numStr) != std::string::npos)
+				{
+					auto customerTable = GameLogicManager::GetLogicForEntity<CustomerTableLogic>(entity2.get()->entityID);
+					customerTable.get()->seatEntity = entity.get();
+					std::cout << "CUSTOMERTABLELOGIC INITED\n";
+				}
+			}
+
+			customersAtSeats.emplace_back(entity.get(), nullptr);
 
 			std::cout << "Added seat: " << entity->name << "\n";
 		}

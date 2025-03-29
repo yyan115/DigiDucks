@@ -53,6 +53,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HighlightLogic.h"
 #include "ExitConfirmLogic.h"
 
+#include "CustomerTableLogic.h"
+
 // scenes
 #include "MainMenu.h"
 #include "HowToPlay.h"
@@ -136,6 +138,8 @@ void GameManager::InitScenes()
 
 	GameLogicManager::AddLogic("GameLoopLogic", std::make_shared<GameLoopLogic>());
 	GameLogicManager::AddLogic("MiniGameLogic", std::make_shared<MiniGameLogic>());
+
+	GameLogicManager::AddLogic("CustomerTableLogic", std::make_shared<CustomerTableLogic>());
 }
 
  /****************************************************************

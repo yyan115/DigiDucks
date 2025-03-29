@@ -54,9 +54,29 @@ public:
 	int customersFinished = 0;
 
 	std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
+
+	// entity is seat entity, customer is customer logic
+	std::vector<std::pair<Entity*, CustomerLogic*>> customersAtSeats{};
+
 	bool IsSeatOccupied(Entity* seat);
 	bool OccupySeat(Entity* seat);
 	void FreeSeat(Entity* seat);
+
+	void SetCustomer(Entity* seat, CustomerLogic* customer) {
+		for (auto &pair : customersAtSeats) {
+			if (pair.first == seat) {
+				pair.second = customer;
+			}
+		}
+	}
+
+	void RemoveCustomer(Entity* seat, CustomerLogic* customer) {
+		for (auto &pair : customersAtSeats) {
+			if (pair.first == seat) {
+				pair.second = nullptr;
+			}
+		}
+	}
 
 private:
 	Entity* CutScene = nullptr;
