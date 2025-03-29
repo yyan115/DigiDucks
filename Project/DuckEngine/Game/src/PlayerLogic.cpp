@@ -716,7 +716,7 @@ void PlayerLogic::InteractHold()
 		if (chopBoardLogic)
 		{
 			// Something on the board
-			if (chopBoardLogic->isOccupied)
+			if (chopBoardLogic->isOccupied && dir == FRONT)
 			{
 				// If object is already chopped, do nothing
 				if (chopBoardLogic->isChopped) return;

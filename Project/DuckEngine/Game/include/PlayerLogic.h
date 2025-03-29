@@ -29,7 +29,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 #include "OrderTabLogic.h"
 
-enum FacingDirection
+enum FacingDirection : int
 {
     FRONT,
     BACK,
