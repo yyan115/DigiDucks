@@ -28,11 +28,13 @@ float actionCounter = 0.5f;
 * ****************************************************************/
 void PlayerLogic::Start()
 {
+	transform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(component->GetEntityID());
+	spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(component->GetEntityID());
 	circleCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingCircle>(component->GetEntityID());
 	boxCollider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<BoundingBox>(component->GetEntityID());
 	animator = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<AnimatorComponent>(component->GetEntityID());
-	holding = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID());
-	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID());
+	holding = GameLogicManager::GetLogicForEntity<HoldingLogic>(component->GetEntityID()).get();
+	movement = GameLogicManager::GetLogicForEntity<MovementLogic>(component->GetEntityID()).get();
 
 	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 	if (orderTabEntity)
@@ -41,7 +43,7 @@ void PlayerLogic::Start()
 	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
 	if (restockMenu)
 	{
-		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID);
+		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID).get();
 	}
 
 	// SFX Managers
@@ -118,6 +120,15 @@ void PlayerLogic::Start()
 * ****************************************************************/
 void PlayerLogic::Update()
 {
+	if (transform->GetPosition().y <= -2.0f)
+	{
+		spriteRenderer->sortingOrder = 7;
+	}
+	else
+	{
+		spriteRenderer->sortingOrder = 2;
+	}
+
 	if (restockLogic)
 	{
 		if (restockLogic->isRestock)

@@ -45,6 +45,8 @@ private:
     OrderTabLogic* orderTabLogic = nullptr;
     BoundingCircle* circleCollider = nullptr;
     BoundingBox* boxCollider = nullptr;
+	TransformComponent* transform = nullptr;
+	SpriteRendererComponent* spriteRenderer = nullptr;
     AnimatorComponent* animator = nullptr;
     FacingDirection dir = FRONT;
     Entity* interactObject = nullptr;
@@ -54,9 +56,9 @@ private:
 	SoundComponent* BowlSFXsound = nullptr;
 	SoundComponent* PanSFXsound = nullptr;
 	SoundComponent* PotSFXsound = nullptr;
-	std::shared_ptr<HoldingLogic> holding = nullptr;
-	std::shared_ptr<MovementLogic> movement = nullptr;
-	std::shared_ptr<RestockLogic> restockLogic = nullptr;
+	HoldingLogic* holding = nullptr;
+	MovementLogic* movement = nullptr;
+	RestockLogic* restockLogic = nullptr;
 
 
 public:
