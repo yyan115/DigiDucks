@@ -18,7 +18,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 
-
 #include "GameLoopLogic.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
@@ -289,7 +288,8 @@ void GameLoopLogic::Start()
 		}
 	}
 
-	customers[0]->StartWalking();
+	// Don't start the customer walking here, let the countdown logic handle it
+	// customers[0]->StartWalking();
 	customerCount = static_cast<int>(customers.size());
 	timeSinceLastCustomer = 0.0f;
 
@@ -333,7 +333,13 @@ void GameLoopLogic::Update()
 					TimeLeftSound->Play(4);
 					CountdownText->text = "Go!";
 					currentCustomerIndex = 0;
-
+					
+					// Start only the first customer when game begins
+					if (!customers.empty() && !isSpawningCustomer) {
+						customers[0]->StartWalking();
+						isSpawningCustomer = true;
+						customerSpawnCooldown = 3.0f;
+					}
 				}
 			}
 
@@ -373,18 +379,37 @@ void GameLoopLogic::Update()
 		{
 
 			bool anyCustomerWaiting = false;
-			// Check if any customer is waiting to place an order
+			bool anyCustomerWalking = false;
+			
+			// Check if any customer is waiting to place an order or is walking to the counter
 			for (auto* customer : customers) 
 			{
+				// Check if any customer is in waiting state
 				if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
 					customer->stateMachine.currentState == customer->WaitingOrderState) 
 				{
 					anyCustomerWaiting = true;
 					break;
 				}
+				
+				// Check if the most recently spawned customer is still walking to the counter
+				// This prevents spawning the next customer while current one is still approaching
+				if (customer->stateMachine.currentState == customer->WalkState &&
+				    currentCustomerIndex > 0 && // Only for customers after the first one
+				    customers[currentCustomerIndex] == customer) // Only check most recent customer
+				{
+					// Check if customer is walking to take the order (not leaving/going to seat)
+					if (!customer->WalkState.get()->isOrderTaken && 
+					    !customer->WalkState.get()->customerAngryLeave)
+					{
+						anyCustomerWalking = true;
+						break;
+					}
+				}
 			}
-
-		if (!anyCustomerWaiting) 
+		
+		// Only spawn a new customer if no customer is waiting or walking to counter
+		if (!anyCustomerWaiting && !anyCustomerWalking) 
 		{
 			timeSinceLastCustomer = 0.0f;
 			isSpawningCustomer = true;
@@ -392,7 +417,6 @@ void GameLoopLogic::Update()
 			currentCustomerIndex++;
 			std::cout << "Spawning next customer due to time interval" << std::endl;
 			customers[currentCustomerIndex]->StartWalking();
-			
 			// Reset cooldown timer to prevent immediate spawning of next customer
 			customerSpawnCooldown = 3.0f;
 		}

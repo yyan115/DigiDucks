@@ -79,6 +79,19 @@ void CustomerWaitingOrderState::Update()
 		//owner->GetGameLoopLogic()->customerAngryLeave = true;
 		owner->WalkState.get()->customerAngryLeave = true;
 		//owner->GetGameLoopLogic()->customerCount--;
+		
+		// Make sure the game loop knows there's no customer waiting for order anymore
+		GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+		if (gameLoop) 
+		{
+			gameLoop->isCustomerWaitingForOrder = false;
+			
+			// Set the spawn cooldown to prevent immediate spawning
+			gameLoop->isSpawningCustomer = true;
+			gameLoop->customerSpawnCooldown = 5.0f;  
+			gameLoop->timeSinceLastCustomer = 0.0f;  
+		}
+		
 		owner->stateMachine.ChangeState(owner->WalkState);
 
 		// LOGIC TO DECREASE SCORE BY 10
