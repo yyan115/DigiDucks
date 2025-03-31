@@ -601,6 +601,10 @@ void PlayerLogic::InteractPressed()
 
 							submitLogic->removeObject(holding->moveObject());
 
+							//tab.tabCustomer->WalkState.get()->currentTargetIndex = 0;
+							//tab.tabCustomer->WalkState.get()->currentQueueTarget = tab.tabCustomer->WalkState.get()->seatPoints[tab.tabCustomer->WalkState.get()->currentTargetIndex];
+							tab.tabCustomer->WalkState.get()->orderCollectedNowLeave = true;
+
 							orderTabLogic->RemoveOrder(tab.tabCustomer);
 
 							if (sound)

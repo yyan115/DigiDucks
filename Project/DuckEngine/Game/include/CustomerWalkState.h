@@ -51,8 +51,11 @@ public:
 
 	float maxWaitingTime = 60.f;
 
-private:
 	Entity* currentQueueTarget = nullptr;
+
+	bool orderCollectedNowLeave = false;
+
+private:
 	Entity* finalPath = nullptr;
 	AnimatorComponent* customerAnimator = nullptr;
 

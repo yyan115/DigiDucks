@@ -126,6 +126,8 @@ void CustomerWalkState::Enter()
 
 	if (customerAngryLeave && !leaveTargets.empty()) {
 		currentQueueTarget = leaveTargets[0];
+
+		//std::cout << "customer angrily leave in enter\n";
 	}
 	else if (isOrderTaken && !orderCollected && isWalkingToSeat)
 	{
@@ -133,7 +135,7 @@ void CustomerWalkState::Enter()
 		if (currentTargetIndex < seatPoints.size() - 1) {
 			currentTargetIndex++;
 			currentQueueTarget = seatPoints[currentTargetIndex];
-			std::cout << "WALK TO SEAT POINT\n";
+			//std::cout << "WALK TO SEAT POINT\n";
 		}
 		// arrived at actual seat
 		else if (currentQueueTarget == customerSeatEntity && customerAnimator)
@@ -141,27 +143,26 @@ void CustomerWalkState::Enter()
 			// WAIT FOR ORDER IN SEAT
 			customerAnimator->PlayAnimation("BACK_IDLE");
 			isWaitingToCollectOrder = true;
-			std::cout << "WAITING\n";
+			//std::cout << "WAITING\n";
 		}
 		// if arrive at end of seat point, walk to actual seat
 		else if (currentTargetIndex == seatPoints.size() - 1) {
 			currentQueueTarget = customerSeatEntity;
-			std::cout << "WALK TO ACTUAL SEAT\n";
+			//std::cout << "WALK TO ACTUAL SEAT\n";
 		}
 	}
 	else if (isOrderTaken && orderCollected && !leaveTargets.empty()) {
-		currentQueueTarget = leaveTargets[0];
+		currentQueueTarget = seatPoints[0];
+
+		owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+		owner->WaitingSlider->isVisible = false;
+
+		//std::cout << "GOING LEAVE POINT OUT OF LOOP\n";
 	}
 	else if (isOrderTaken && !orderCollected && !waitTargets.empty()) {
 		currentQueueTarget = waitTargets[0];
-		std::cout << "GOING WAIT POINT OUT OF LOOP\n";
+		//std::cout << "GOING WAIT POINT OUT OF LOOP\n";
 	}
-
-	//GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
-	//if (gameLoop) 
-	//{
-	//	seatingLocations = gameLoop->seatingLocations;
-	//}
 }
 
 // Update (not used, but kept for completeness)
@@ -274,8 +275,41 @@ void CustomerWalkState::FixedUpdate()
 			return std::find(vector.begin(), vector.end(), queueTarget) != vector.end() ? true : false;
 		};
 
+		if (orderCollectedNowLeave && currentTargetIndex < leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets)) {
+			currentTargetIndex++;
+			currentQueueTarget = leaveTargets[currentTargetIndex];
+			//std::cout << "Customer is happy leaving - at leave .\n";
+
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+		}
+		else if (orderCollectedNowLeave && currentTargetIndex == seatPoints.size() - 1 && currentlyInThisVector(seatPoints))
+		{
+			currentTargetIndex = 0;
+			currentQueueTarget = leaveTargets[currentTargetIndex];
+			//std::cout << "Customer is happy leaving.\n";
+
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+		}
+		// 3) If the order is collected, move through leaveTargets
+		else if (orderCollectedNowLeave)//isOrderTaken && orderCollected) //&& currentTargetIndex < leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets))
+		{
+			// not sure if needed, not removing cause dont want to find out
+			if (isWaitingToCollectOrder)
+			{
+				currentTargetIndex = 0;
+				isWaitingToCollectOrder = false;
+			}
+
+			//std::cout << "Customer is now leaving - to seat.\n";
+
+			currentTargetIndex = 0;
+			currentQueueTarget = seatPoints[currentTargetIndex];
+
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
+			owner->WaitingSlider->isVisible = false;
+		}
 		// if customer is angry AND waiting to collect order (at table)
-		if (isWaitingToCollectOrder && !customerAngryLeave) {
+		else if (isWaitingToCollectOrder && !customerAngryLeave) {
 			if (owner->CurrentWaitingTime <= maxWaitingTime)
 			{
 				owner->CurrentWaitingTime += DuckEngine::DeltaTime();
@@ -344,7 +378,7 @@ void CustomerWalkState::FixedUpdate()
 		else if (customerAngryLeave && currentTargetIndex == seatPoints.size() - 1 && currentlyInThisVector(seatPoints)) {
 			currentTargetIndex = 0;
 			currentQueueTarget = leaveTargets[currentTargetIndex];
-			std::cout << "Customer is angrily leaving - going leave point.\n";
+			//std::cout << "Customer is angrily leaving - going leave point.\n";
 
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
@@ -352,7 +386,7 @@ void CustomerWalkState::FixedUpdate()
 		else if (customerAngryLeave && currentTargetIndex < seatPoints.size() - 1 && currentlyInThisVector(seatPoints)) {
 			currentTargetIndex++;
 			currentQueueTarget = seatPoints[currentTargetIndex];
-			std::cout << "Customer is angrily leaving - going seat.\n";
+			//std::cout << "Customer is angrily leaving - going seat.\n";
 
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
@@ -360,23 +394,23 @@ void CustomerWalkState::FixedUpdate()
 		else if (customerAngryLeave && currentTargetIndex < leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets)) {
 			currentTargetIndex++;
 			currentQueueTarget = leaveTargets[currentTargetIndex];
-			std::cout << "Customer is angrily leaving.\n";
+			//std::cout << "Customer is angrily leaving.\n";
 		}
 		else if (customerAngryLeave && currentTargetIndex == leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets))
 		{
-			std::cout << "Customer has angrily left.\n";
+			//std::cout << "Customer has angrily left.\n";
 
 		}
 		else if (!isOrderTaken && currentTargetIndex < queueTargets.size() - 1 && currentlyInThisVector(queueTargets))
 		{
-			std::cout << "Customer walking to queue.\n";
+			//std::cout << "Customer walking to queue.\n";
 
 			currentTargetIndex++;
 			currentQueueTarget = queueTargets[currentTargetIndex];
 		}
 		else if (!isOrderTaken && currentTargetIndex == queueTargets.size() - 1 && currentlyInThisVector(queueTargets))
 		{
-			std::cout << "Customer waiting to order.\n";
+			//std::cout << "Customer waiting to order.\n";
 
 			owner->stateMachine.ChangeState(owner->WaitingOrderState);
 
@@ -407,24 +441,26 @@ void CustomerWalkState::FixedUpdate()
 				//std::cout << "show slider\n";
 
 				owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
+
+				//std::cout << "waiting at seat\n";
 			}
 			else if (currentTargetIndex < seatPoints.size() - 1)
 			{
 				// Move to next seat point
 				currentTargetIndex++;
 				currentQueueTarget = seatPoints[currentTargetIndex];
-				std::cout << "Moving to next seat point: " << currentQueueTarget->name << "\n";
+				//std::cout << "Moving to next seat point: " << currentQueueTarget->name << "\n";
 			}
 			else
 			{
 				// We're at the last seat point, now move to actual seat
 				currentQueueTarget = customerSeatEntity;
-				std::cout << "At last seat point, moving to actual seat: " << customerSeatEntity->name << "\n";
+				//std::cout << "At last seat point, moving to actual seat: " << customerSeatEntity->name << "\n";
 			}
 		}
 		else if (isOrderTaken && !orderCollected && currentTargetIndex < waitTargets.size() - 1)
 		{
-			std::cout << "Customer order taken. Moving in to dining area.\n";
+			//std::cout << "Customer order taken. Moving in to dining area.\n";
 
 			currentTargetIndex++;
 			currentQueueTarget = waitTargets[currentTargetIndex];
@@ -452,7 +488,7 @@ void CustomerWalkState::FixedUpdate()
 						gameLoop->SetCustomer(std::get<0>(pairSeat), owner);
 
 						foundSeat = true;
-						std::cout << "Customer assigned to seat: " << std::get<0>(pairSeat)->name << "\n";
+						//std::cout << "Customer assigned to seat: " << std::get<0>(pairSeat)->name << "\n";
 						break;
 					}
 				}
@@ -460,48 +496,14 @@ void CustomerWalkState::FixedUpdate()
 
 			if (foundSeat)
 			{
-				std::cout << "Customer found a seat. Moving now.\n";
+				//std::cout << "Customer found a seat. Moving now.\n";
 			}
 			else
 			{
+				customerAnimator->PlayAnimation("RIGHT_IDLE");
+
 				std::cout << "No available seats found!\n";
 			}
-		}
-
-		else if (isOrderTaken && orderCollected < leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets)) {
-			currentTargetIndex++;
-			currentQueueTarget = leaveTargets[currentTargetIndex];
-			std::cout << "Customer is leaving.\n";
-
-			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
-		}
-		else if (isOrderTaken && orderCollected && currentTargetIndex == seatPoints.size() - 1)
-		{
-			currentTargetIndex = 0;
-			currentQueueTarget = leaveTargets[currentTargetIndex];
-			std::cout << "Customer is happy leaving.\n";
-
-			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
-		}
-		// 3) If the order is collected, move through leaveTargets
-		else if (isOrderTaken && orderCollected) //&& currentTargetIndex < leaveTargets.size() - 1 && currentlyInThisVector(leaveTargets))
-		{
-			// not sure if needed, not removing cause dont want to find out
-			if (isWaitingToCollectOrder) 
-			{
-				currentTargetIndex = 0;
-				isWaitingToCollectOrder = false;
-			}
-
-			std::cout << "Customer is now leaving - to seat.\n";
-
-			//currentTargetIndex++;
-			//currentQueueTarget = leaveTargets[currentTargetIndex];
-
-			currentTargetIndex = 0;
-			currentQueueTarget = seatPoints[currentTargetIndex];
-
-			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
 
 		else
@@ -511,12 +513,12 @@ void CustomerWalkState::FixedUpdate()
 			//{
 			//	customerAnimator->PlayAnimation("BACK_IDLE");
 			//}
+
+			std::cout << "ERROR, should never be here\n";
 		}
 	}
 	else
 	{
-		//std::cout << "walking...\n";
-
 		// We're still walking
 		rigidbody->velocity = direction * moveSpeed;
 
