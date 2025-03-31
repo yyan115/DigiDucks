@@ -321,6 +321,23 @@ void CustomerWalkState::FixedUpdate()
 
 					submitLogic->decreaseScore(10);
 				}
+
+
+				// make seat available again
+				GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+
+				if (gameLoop)
+				{
+					for (auto& pairSeat : gameLoop->seatingLocations)
+					{
+						if (std::get<0>(pairSeat) && std::get<0>(pairSeat) == customerSeatEntity)
+						{
+							std::get<1>(pairSeat) = false;
+
+							break;
+						}
+					}
+				}
 			}
 		}
 		// WAITING FOR ORDER BUT TIMER RAN OUT - LEAVE AND GOTO SEAT POINT - SEAT POINT REACHED, GO LEAVEPOINT NEXT
