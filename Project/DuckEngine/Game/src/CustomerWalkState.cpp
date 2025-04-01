@@ -157,6 +157,24 @@ void CustomerWalkState::Enter()
 		owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		owner->WaitingSlider->isVisible = false;
 
+		// make seat available again
+		GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
+
+		if (gameLoop)
+		{
+			for (auto& pairSeat : gameLoop->seatingLocations)
+			{
+				if (std::get<0>(pairSeat) && std::get<0>(pairSeat) == customerSeatEntity && customerSeatEntity != nullptr)
+				{
+					std::get<1>(pairSeat) = false;
+
+					customerSeatEntity = nullptr;
+
+					break;
+				}
+			}
+		}
+
 		//std::cout << "GOING LEAVE POINT OUT OF LOOP\n";
 	}
 	else if (isOrderTaken && !orderCollected && !waitTargets.empty()) {
@@ -364,9 +382,11 @@ void CustomerWalkState::FixedUpdate()
 				{
 					for (auto& pairSeat : gameLoop->seatingLocations)
 					{
-						if (std::get<0>(pairSeat) && std::get<0>(pairSeat) == customerSeatEntity)
+						if (std::get<0>(pairSeat) && std::get<0>(pairSeat) == customerSeatEntity && customerSeatEntity != nullptr)
 						{
 							std::get<1>(pairSeat) = false;
+
+							customerSeatEntity = nullptr;
 
 							break;
 						}
