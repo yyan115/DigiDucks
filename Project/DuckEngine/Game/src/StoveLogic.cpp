@@ -342,15 +342,19 @@ bool StoveLogic::setObjectSprite(ItemType objType)
 			// Any Other Ingredient becomes SUS
 			switch (objType)
 			{
+			case ItemType::POT:
 			case ItemType::POT_MUSHROOM:
 			case ItemType::POT_TOMATO:
 			case ItemType::POT_SUS:
 				if(potLogic)
-					potLogic->SetSoup(objType);
-				objectSprite->texture = AssetManager::GetTextureByName(whatType(objType)+"3");
+				{
+					std::string potName = potLogic->getCurrPortion() > 0 ? std::to_string(potLogic->getCurrPortion()) : "";
+					objectSprite->texture = AssetManager::GetTextureByName(whatType(objType)+ potName);
+				}
 				break;
 			default:
 				objectSprite->texture = AssetManager::GetTextureByName("pot");
+				return false;
 			}
 		}
 	}
@@ -384,12 +388,17 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 		isPot = false;
 		sliderLogic->SetSliderStep(0.008f);
 	}
-	else if (objData.second == ItemType::POT)
+	else if (isTypePot(objData.second))
 	{
 		isPan = false;
 		isPot = true;
 		sliderLogic->SetSliderStep(0.004f);
 		potLogic = GameLogicManager::GetLogicForEntity<PotLogic>(objData.first);
+		if (potLogic->isPotFilled)
+		{
+			isOccupied = true;
+			isCooked = true;
+		}
 	}
 	else
 	{
@@ -398,8 +407,7 @@ void StoveLogic::setCookingType(std::pair<int, ItemType> objData)
 	}
 	// Set slider color to Green
 	sliderLogic->SetSliderColor({ 0.f,255.f,0.f,255.f });
-
-	objectSprite->texture = AssetManager::GetTextureByName(whatType(objData.second));
+	setObjectSprite(objData.second);
 	type = objData.second;
 }
 

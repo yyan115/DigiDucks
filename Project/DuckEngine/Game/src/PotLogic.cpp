@@ -73,7 +73,6 @@ ItemType PotLogic::TakeSoup()
 	std::cout << whatType(temp) << std::endl;
 
 	currPortion--;
-	std::cout << "Portion: " << currPortion << std::endl;
 	if (currPortion <= 0)
 	{
 		type = ItemType::POT;

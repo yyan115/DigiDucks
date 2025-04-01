@@ -68,6 +68,7 @@ public:
 	ItemType TakeSoup();
 
 	ItemType getType() const { return type; }
+	int getCurrPortion() const { return currPortion; }
 
 	/****************************************************************
 	* @brief Set the soup in the pot
