@@ -2049,7 +2049,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 2.299999952316284,
+                            "x": 2.390000104904175,
                             "y": -5.939361572265625
                         },
                         "relativeToCamera": true,
@@ -2072,7 +2072,7 @@
                         "isVisible": true,
                         "sortingOrder": 24,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2080,7 +2080,7 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 2.299999952316284,
+                            "x": 2.390000104904175,
                             "y": -5.939361572265625
                         },
                         "offset": {
@@ -2144,7 +2144,7 @@
                         "isVisible": true,
                         "sortingOrder": 24,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2211,7 +2211,7 @@
                         "isVisible": true,
                         "sortingOrder": 24,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2278,7 +2278,7 @@
                         "isVisible": true,
                         "sortingOrder": 7,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
