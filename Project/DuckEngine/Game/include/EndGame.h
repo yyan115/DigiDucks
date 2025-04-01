@@ -77,6 +77,14 @@ private:
     Entity* FadeInScreen = nullptr;
     SpriteRendererComponent* FadeInSpriteRenderer = nullptr;
 
+    Entity* RestartButton = nullptr;
+    ButtonComponent* Restart = nullptr;
+    SpriteRendererComponent* Restart_Spt = nullptr;
+
+    Entity* NextButton = nullptr;
+    ButtonComponent* Next = nullptr;
+    SpriteRendererComponent* Next_Spt = nullptr;
+
     float fadeInDuration = 3.0f;  // Duration for fade-in effect
     float fadeInElapsedTime = 0.0f;
     bool isFadingIn = false;

@@ -40,7 +40,7 @@ void EndScene::Load()
 		MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
 		MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
 	}
-	
+
 	// Find fade-in screen entity
 	FadeInScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeInMenu").get();
 	if (FadeInScreen)
@@ -56,8 +56,8 @@ void EndScene::Load()
 	}
 
 	MainMenu->onClick = [this]()
-		{ 
-			std::cout << "Button clicked QUIT!!!!!!\n"; 
+		{
+			std::cout << "Button clicked QUIT!!!!!!\n";
 			MainMenuSound->Play(1);
 			isQuitButtonClicked = true;
 			isFadingIn = true; // Start fade-in
@@ -72,7 +72,7 @@ void EndScene::Load()
 
 	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score").get();
 	ScoreText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(Score->entityID);
-	
+
 	if (ScoreText) {
 		ScoreText->text = "Score: " + std::to_string(ScoreLogic::scoreValue);
 		ScoreText->isEnabled = true;
@@ -100,6 +100,15 @@ void EndScene::Load()
 		else if (GameManager::GetGlobalVariable("ShowFPS") == "true") { FPSText->isEnabled = true; }
 		else { FPSText->isEnabled = false; }
 	}
+
+	RestartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restart").get();
+	Restart = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(RestartButton->entityID);
+	Restart_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(RestartButton->entityID);
+
+	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next").get();
+	Next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
+	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+
 }
 
 void EndScene::Start()
@@ -166,6 +175,15 @@ void EndScene::Update()
 		Star1->texture = AssetManager::GetTextureByName("star");
 		Star2->texture = AssetManager::GetTextureByName("star");
 		Star3->texture = AssetManager::GetTextureByName("star");
+	}
+
+	if (ScoreLogic::scoreValue <= 0)
+	{
+		Restart_Spt->isVisible = true;
+	}
+	else
+	{
+		Next_Spt->isVisible = true;
 	}
 
 	if (ScoreLogic::scoreValue >= 10) {
