@@ -599,7 +599,7 @@ void PlayerLogic::InteractPressed()
 						{
 							tab.tabCustomer->OrderCompleted();
 
-							submitLogic->removeObject(holding->moveObject());
+							submitLogic->removeObject(holding->moveObject(), tab.tabCustomer->GetCustomerMultiplier());
 
 							//tab.tabCustomer->WalkState.get()->currentTargetIndex = 0;
 							//tab.tabCustomer->WalkState.get()->currentQueueTarget = tab.tabCustomer->WalkState.get()->seatPoints[tab.tabCustomer->WalkState.get()->currentTargetIndex];
@@ -648,41 +648,41 @@ void PlayerLogic::InteractPressed()
 			//}
 		}
 		
-		if (submitLogic)
-		{
-			ItemType heldType = holding->getType();
+		//if (submitLogic)
+		//{
+		//	ItemType heldType = holding->getType();
 
-			auto& allOrderTabs = orderTabLogic->GetOrderTabs();
-			bool orderSubmitted = false;
+		//	auto& allOrderTabs = orderTabLogic->GetOrderTabs();
+		//	bool orderSubmitted = false;
 
-			for (auto& tab : allOrderTabs)
-			{
-				if (tab.tabCustomer && !orderSubmitted)
-				{
-					ItemType requestedItem = tab.tabOrder;
-					bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
+		//	for (auto& tab : allOrderTabs)
+		//	{
+		//		if (tab.tabCustomer && !orderSubmitted)
+		//		{
+		//			ItemType requestedItem = tab.tabOrder;
+		//			bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
 
-					if (heldType == requestedItem && isReadyToCollect)
-					{
-						tab.tabCustomer->OrderCompleted();
+		//			if (heldType == requestedItem && isReadyToCollect)
+		//			{
+		//				tab.tabCustomer->OrderCompleted();
 
-						submitLogic->removeObject(holding->moveObject());
+		//				submitLogic->removeObject(holding->moveObject());
 
-						orderTabLogic->RemoveOrder(tab.tabCustomer);
+		//				orderTabLogic->RemoveOrder(tab.tabCustomer);
 
-						if (sound)
-						{
-							sound->Play();
-						}
+		//				if (sound)
+		//				{
+		//					sound->Play();
+		//				}
 
-						isHolding = false;
-						orderSubmitted = true;
-						return;
-					}
-				}
-			}
-			return;
-		}
+		//				isHolding = false;
+		//				orderSubmitted = true;
+		//				return;
+		//			}
+		//		}
+		//	}
+		//	return;
+		//}
 
 		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(interactObject->entityID);
 		if (tableLogic)

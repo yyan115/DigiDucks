@@ -315,12 +315,12 @@ void CustomerWalkState::FixedUpdate()
 				owner->CurrentWaitingTime += DuckEngine::DeltaTime();
 				owner->WaitingSlider->currentValue = owner->MaxTableWaitingTime - owner->CurrentWaitingTime;
 
-				// change to yellow if 1/3
-				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 3 * 2) {
+				// change to red if 1/3
+				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 5 * 4) {
 					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 				}
-				// change to red if 2/3
-				else if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 3) {
+				// change to yellow if 2/3
+				else if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 5 * 2) {
 					owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
 				}
 			}

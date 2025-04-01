@@ -86,3 +86,20 @@ GameLoopLogic* CustomerLogic::GetGameLoopLogic()
 {
 	return gameLoopLogic;
 }
+
+float CustomerLogic::GetCustomerMultiplier()
+{
+	if (CurrentWaitingTime >= MaxTableWaitingTime / 5 * 4)
+	{
+		return 0.3f; // Angry customer, low reward
+	}
+	else if (CurrentWaitingTime >= MaxTableWaitingTime / 5 * 2)
+	{
+		return 0.6f; // Waiting but still okay
+	}
+	else
+	{
+		return 1.f; // Fast service, big reward
+	}
+
+}

@@ -36,8 +36,9 @@ void SubmitLogic::Start()
 * @brief Shutdown function for the Submit Station Logic.
 *
 * @param objData - The object data to remove.
+* @param remainTime - The remaining wait time of teh customer.
 * ****************************************************************/
-void SubmitLogic::removeObject(std::pair<int, ItemType> objData)
+void SubmitLogic::removeObject(std::pair<int, ItemType> objData, float Multiplier)
 {
 	DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(objData.first);
 	//increaseScore();
@@ -48,7 +49,7 @@ void SubmitLogic::removeObject(std::pair<int, ItemType> objData)
 	{
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
-		submitLogic->increaseScore(10);
+		submitLogic->increaseScore(static_cast<int>(Multiplier * getPoints(objData.second)));
 	}
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();

@@ -72,6 +72,9 @@ public:
 
 	ItemType customerOrderType = ItemType::EMPTY;
 
+	// multiplier from customer patience
+	float GetCustomerMultiplier();
+
 private:
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;

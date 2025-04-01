@@ -65,8 +65,9 @@ public:
 	* @brief Shutdown function for the Submit Station Logic.
 	* 
 	* @param objData - The object data to remove.
+	* @param remainTime - The remaining wait time of teh customer.
 	* ****************************************************************/
-	void removeObject(std::pair<int, ItemType> objData);
+	void removeObject(std::pair<int, ItemType> objData, float Multiplier);
 
 	/****************************************************************
 	* @brief Increase the score of the player.
