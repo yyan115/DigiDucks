@@ -58,18 +58,17 @@ public:
 	void OrderCompleted();
 	void StartWalking();
 
-
 	void SetOrder(ItemType order);
 	SpriteRendererComponent* GetCustomerOrderSpriteRenderer() { return customerOrderSpriteRenderer; }
 	ItemType GetCustomerOrderType() { return customerOrderType; }
-
 
 	// patience stuff
 	RadialSliderComponent* WaitingSlider = nullptr;
 
 	// when waiting for order to be taken
 	float CurrentWaitingTime = 0;
-	float MaxCashierWaitingTime = 10;
+	float MaxCashierWaitingTime = 10.0f;
+	float MaxTableWaitingTime = 60.0f;
 
 	ItemType customerOrderType = ItemType::EMPTY;
 

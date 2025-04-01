@@ -49,8 +49,6 @@ public:
 	std::vector<Entity*> seatPoints{};
 	Entity* customerSeatEntity = nullptr;
 
-	float maxWaitingTime = 60.f;
-
 	Entity* currentQueueTarget = nullptr;
 
 	bool orderCollectedNowLeave = false;
