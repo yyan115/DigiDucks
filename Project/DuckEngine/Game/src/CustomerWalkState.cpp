@@ -542,7 +542,7 @@ void CustomerWalkState::FixedUpdate()
 		// We're still walking
 		rigidbody->velocity = direction * moveSpeed;
 
-		SoundComponent* Footstep = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CustomerFootstepSFX").get()->entityID);
+		//SoundComponent* Footstep = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CustomerFootstepSFX").get()->entityID);
 
 		// Play walk animations
 		if (customerAnimator)
@@ -571,7 +571,7 @@ void CustomerWalkState::FixedUpdate()
 				}
 			}
 
-			Footstep->Play();
+			//Footstep->Play();
 		}
 	}
 }
