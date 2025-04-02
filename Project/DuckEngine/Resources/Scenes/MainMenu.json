@@ -535,6 +535,20 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "color": {
                             "a": 255.0,
                             "b": 255.0,
@@ -574,7 +588,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -12.450000762939453,
+                            "x": -12.399999618530273,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -644,6 +658,20 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -739,6 +767,20 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -758,7 +800,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.30000114440918,
+                            "x": -8.359999656677246,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -828,6 +870,20 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {
@@ -923,6 +979,20 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -1015,6 +1085,20 @@
                 },
                 {
                     "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
                         "maxPos": {
                             "x": 0.0,
                             "y": 0.0
@@ -1104,6 +1188,20 @@
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
                 },
                 {
                     "properties": {

@@ -36,8 +36,8 @@
                 {
                     "properties": {
                         "category": "BGM",
-                        "effectValue": 100.0,
-                        "effects": "Reverb",
+                        "effectValue": 0.0,
+                        "effects": "Default",
                         "loop": true,
                         "playOnStart": true,
                         "soundID": [

@@ -26,30 +26,37 @@ void LevelSelectScreenLogic::Start()
 	Entity* level0ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level0Button").get();
 	ButtonComponent* level0Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level0ButtonEntity->entityID);
 	SpriteRendererComponent* level0Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level0ButtonEntity->entityID);
+	SoundComponent* level0SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level0ButtonEntity->entityID);
 
 	Entity* level1ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level1Button").get();
 	ButtonComponent* level1Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level1ButtonEntity->entityID);
 	SpriteRendererComponent* level1Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level1ButtonEntity->entityID);
+	SoundComponent* level1SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level1ButtonEntity->entityID);
 
 	Entity* level1_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level1.5Button").get();
 	ButtonComponent* level1_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level1_5ButtonEntity->entityID);
 	SpriteRendererComponent* level1_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level1_5ButtonEntity->entityID);
+	SoundComponent* level1_5SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level1_5ButtonEntity->entityID);
 
 	Entity* level2ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level2Button").get();
 	ButtonComponent* level2Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level2ButtonEntity->entityID);
 	SpriteRendererComponent* level2Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level2ButtonEntity->entityID);
+	SoundComponent* level2SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level2ButtonEntity->entityID);
 
 	Entity* level2_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level2.5Button").get();
 	ButtonComponent* level2_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level2_5ButtonEntity->entityID);
 	SpriteRendererComponent* level2_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level2_5ButtonEntity->entityID);
+	SoundComponent* level2_5SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level2_5ButtonEntity->entityID);
 
 	Entity* level3ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level3Button").get();
 	ButtonComponent* level3Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level3ButtonEntity->entityID);
 	SpriteRendererComponent* level3Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level3ButtonEntity->entityID);
+	SoundComponent* level3SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level3ButtonEntity->entityID);
 
 	Entity* level3_5ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level3.5Button").get();
 	ButtonComponent* level3_5Button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(level3_5ButtonEntity->entityID);
 	SpriteRendererComponent* level3_5Sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(level3_5ButtonEntity->entityID);
+	SoundComponent* level3_5SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(level3_5ButtonEntity->entityID);
 
 	levelSelectScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID);
 	mainMenuScreenSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID);
@@ -72,10 +79,11 @@ void LevelSelectScreenLogic::Start()
 			stageLevel = 0;
 			mainMenu->OnPlayButtonClicked("Level0");
 		};
-	level0Button->onHover = [this]()
+	level0Button->onHover = [this, level0SFX]()
 		{
 			if (!isUsingController)
 			{
+				level0SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL0);
 				if (index < levelButtonTransforms.size())
 				{
@@ -106,10 +114,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level1");
 			}
 		};
-	level1Button->onHover = [this]()
+	level1Button->onHover = [this, level1SFX]()
 		{
 			if (!isUsingController)
 			{
+				level1SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL1);
 				if (index < levelButtonTransforms.size())
 				{
@@ -140,10 +149,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level1_5");
 			}
 		};
-	level1_5Button->onHover = [this]()
+	level1_5Button->onHover = [this, level1_5SFX]()
 		{
 			if (!isUsingController)
 			{
+				level1_5SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL1_5);
 				if (index < levelButtonTransforms.size())
 				{
@@ -174,10 +184,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level2");
 			}
 		};
-	level2Button->onHover = [this]()
+	level2Button->onHover = [this, level2SFX]()
 		{
 			if (!isUsingController)
 			{
+				level2SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL2);
 				if (index < levelButtonTransforms.size())
 				{
@@ -208,10 +219,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level2_5");
 			}
 		};
-	level2_5Button->onHover = [this]()
+	level2_5Button->onHover = [this, level2_5SFX]()
 		{
 			if (!isUsingController)
 			{
+				level2_5SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL2_5);
 				if (index < levelButtonTransforms.size())
 				{
@@ -242,10 +254,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level3");
 			}
 		};
-	level3Button->onHover = [this]()
+	level3Button->onHover = [this, level3SFX]()
 		{
 			if (!isUsingController)
 			{
+				level3SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL3);
 				if (index < levelButtonTransforms.size())
 				{
@@ -276,10 +289,11 @@ void LevelSelectScreenLogic::Start()
 				mainMenu->OnPlayButtonClicked("Level3_5");
 			}
 		};
-	level3_5Button->onHover = [this]()
+	level3_5Button->onHover = [this, level3_5SFX]()
 		{
 			if (!isUsingController)
 			{
+				level3_5SFX->Play();
 				int index = static_cast<int>(LevelButtonSelection::LEVEL3_5);
 				if (index < levelButtonTransforms.size())
 				{
