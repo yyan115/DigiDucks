@@ -334,11 +334,11 @@ void CustomerWalkState::FixedUpdate()
 				owner->WaitingSlider->currentValue = owner->MaxTableWaitingTime - owner->CurrentWaitingTime;
 
 				// change to red if 1/3
-				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime/ 10 * 7) {
+				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime/ 10 * 8) {
 					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 				}
 				// change to yellow if 2/3
-				else if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 10 * 4) {
+				else if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 10 * 5) {
 					owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
 				}
 			}
