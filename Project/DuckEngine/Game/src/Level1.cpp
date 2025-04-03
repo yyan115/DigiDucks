@@ -51,8 +51,8 @@ void Level1::Start()
 	// 2 Customers
 	for (int i = 0; i < 4; i++)
 	{
-		gameLoopLogic->customers[0]->MaxCashierWaitingTime = 20.0f;
-		gameLoopLogic->customers[0]->MaxTableWaitingTime = 30.0f;
+		/*gameLoopLogic->customers[0]->MaxCashierWaitingTime = 20.0f;
+		gameLoopLogic->customers[0]->MaxTableWaitingTime = 30.0f;*/
 		int random = rand() % 4;
 		switch (random)
 		{

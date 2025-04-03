@@ -28,7 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 
 //Entity* customerSeatEntity = nullptr;
-
+SoundComponent* customerSounds = nullptr;
 // Constructor
 CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner)
@@ -180,6 +180,11 @@ void CustomerWalkState::Enter()
 	else if (isOrderTaken && !orderCollected && !waitTargets.empty()) {
 		currentQueueTarget = waitTargets[0];
 		//std::cout << "GOING WAIT POINT OUT OF LOOP\n";
+	}
+
+	if (owner->GetCurrentCustomerEntity())
+	{
+		customerSounds = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(owner->GetCurrentCustomerEntity()->entityID);
 	}
 }
 
@@ -335,6 +340,7 @@ void CustomerWalkState::FixedUpdate()
 
 				// change to red if 1/3
 				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime/ 10 * 8) {
+					customerSounds->Play(1);
 					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 				}
 				// change to yellow if 2/3
@@ -355,6 +361,8 @@ void CustomerWalkState::FixedUpdate()
 				if (orderTab) {
 					OrderTabLogic* orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTab->entityID).get();
 					if (orderTabLogic) {
+						customerSounds->Stop();
+						customerSounds->Play(2);
 						orderTabLogic->RemoveOrder(owner);
 						std::cout << "Removed order tab for angry customer" << std::endl;
 					}

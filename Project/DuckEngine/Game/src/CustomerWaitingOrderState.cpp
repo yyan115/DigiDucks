@@ -24,6 +24,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SubmitLogic.h"
 
 SoundComponent* orderComeSFX = nullptr;
+SoundComponent* customerSound = nullptr;
 
 CustomerWaitingOrderState::CustomerWaitingOrderState(CustomerLogic* customerLogicOwner)
 	: State<CustomerLogic>(customerLogicOwner) {}
@@ -32,7 +33,7 @@ void CustomerWaitingOrderState::Enter()
 {
 	std::cout << "Customer enters Waiting Order State" << std::endl;
 	owner->isWaitingToGiveOrder = true;
-
+	
 	GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
 	if (gameLoop) 
 	{
@@ -44,9 +45,12 @@ void CustomerWaitingOrderState::Enter()
 	{
 		orderComeSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(SFX->entityID);
 	}
-
 	orderComeSFX->Play(-1);
 
+	if (owner->GetCurrentCustomerEntity())
+	{
+		customerSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(owner->GetCurrentCustomerEntity()->entityID);
+	}
 	owner->WaitingSlider->isVisible = true;
 	owner->WaitingSlider->maxValue = owner->MaxCashierWaitingTime;
 	owner->WaitingSlider->currentValue = owner->WaitingSlider->maxValue;
@@ -67,6 +71,7 @@ void CustomerWaitingOrderState::Update()
 
 		// change to red if 2/3
 		if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3 * 2) {
+			customerSound->Play(0);
 			owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 		}
 		// change to yellow if 1/3

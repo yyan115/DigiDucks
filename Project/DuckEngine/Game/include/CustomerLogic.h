@@ -75,6 +75,8 @@ public:
 	// multiplier from customer patience
 	float GetCustomerMultiplier();
 
+	Entity* GetCurrentCustomerEntity();
+
 private:
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;

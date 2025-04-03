@@ -103,3 +103,8 @@ float CustomerLogic::GetCustomerMultiplier()
 	}
 
 }
+
+Entity* CustomerLogic::GetCurrentCustomerEntity()
+{
+	return DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
+}

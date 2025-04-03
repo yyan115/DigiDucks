@@ -19,6 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "GameSettingsLogic.h"
 #include "SoundSystem.h"
+#include "SaveLoadManager.h"
 #include <iostream>
 
 /****************************************************************
@@ -114,6 +115,7 @@ void GameSettingsLogic::Start() {
 				vsyncBtnSound->Play();
                 bool vsync = !ProjectSettings::GetUseVSync();
                 ProjectSettings::SetUseVSync(vsync);
+				SaveLoadManager::useVSync = vsync;
                 vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
                 };
         }
@@ -177,21 +179,25 @@ void GameSettingsLogic::ShowSettings(bool state) {
 void GameSettingsLogic::UpdateSliders() {
     if (masterVolumeSliderComp) {
         SoundSystem::SetMasterVolume(masterVolumeSliderComp->currentValue);
+		SaveLoadManager::masterVolume = masterVolumeSliderComp->currentValue;
         masterVolumeText->text = std::to_string(static_cast<int>(masterVolumeSliderComp->currentValue * 100));
     }
 
     if (bgmVolumeSliderComp) {
 		SoundSystem::SetCategoryVolume("BGM", bgmVolumeSliderComp->currentValue);
+		SaveLoadManager::musicVolume = bgmVolumeSliderComp->currentValue;
         bgmVolumeText->text = std::to_string(static_cast<int>(bgmVolumeSliderComp->currentValue * 100));
     }
 
     if (sfxVolumeSliderComp) {
 		SoundSystem::SetCategoryVolume("SFX", sfxVolumeSliderComp->currentValue);
+		SaveLoadManager::sfxVolume = sfxVolumeSliderComp->currentValue;
         sfxVolumeText->text = std::to_string(static_cast<int>(sfxVolumeSliderComp->currentValue * 100));
     }
 
     if (fpsSliderComp) {
         ProjectSettings::SetTargetFPS(static_cast<int>(fpsSliderComp->currentValue));
+		SaveLoadManager::targetFPS = static_cast<int>(fpsSliderComp->currentValue);
         fpsText->text = std::to_string(static_cast<int>(fpsSliderComp->currentValue));
     }
 }
