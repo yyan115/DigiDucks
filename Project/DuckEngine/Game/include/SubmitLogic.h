@@ -67,7 +67,7 @@ public:
 	* @param objData - The object data to remove.
 	* @param remainTime - The remaining wait time of teh customer.
 	* ****************************************************************/
-	void removeObject(std::pair<int, ItemType> objData, float Multiplier);
+	void removeObject(std::pair<int, ItemType> objData);
 
 	/****************************************************************
 	* @brief Increase the score of the player.

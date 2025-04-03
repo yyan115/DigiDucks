@@ -598,7 +598,7 @@ void PlayerLogic::InteractPressed()
 						{
 							tab.tabCustomer->OrderCompleted();
 
-							submitLogic->removeObject(holding->moveObject(), tab.tabCustomer->GetCustomerMultiplier());
+							submitLogic->removeObject(holding->moveObject());
 
 							//tab.tabCustomer->WalkState.get()->currentTargetIndex = 0;
 							//tab.tabCustomer->WalkState.get()->currentQueueTarget = tab.tabCustomer->WalkState.get()->seatPoints[tab.tabCustomer->WalkState.get()->currentTargetIndex];
