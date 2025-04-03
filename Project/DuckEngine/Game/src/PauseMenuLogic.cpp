@@ -371,7 +371,7 @@ void PauseMenuLogic::PauseGame(bool state)
 	{
 		gamePauseBgSpt->isVisible = state;
 	}
-
+	gameJournalSpt->isVisible = false;
 	ExitConfirm(false);
 }
 
@@ -383,7 +383,6 @@ void PauseMenuLogic::PauseGame(bool state)
 * ****************************************************************/
 void PauseMenuLogic::ExitConfirm(bool state)
 {
-
 	if (gameExitCfmBg)
 	{
 		gameExitCfmBgSpt->isVisible = state;
@@ -394,7 +393,6 @@ void PauseMenuLogic::ExitConfirm(bool state)
 		gamePauseBgSpt2->isVisible = !state;
 	}
 	DisableButtons(state);
-
 }
 
 
@@ -412,6 +410,7 @@ void PauseMenuLogic::DisableButtons(bool state)
 	if (gameExitButton)
 	{
 		gameExitButton->isEnabled = !state;
+		gameExitBtnSpt->isVisible = !state;
 	}
 	if (gameHTPButton)
 	{

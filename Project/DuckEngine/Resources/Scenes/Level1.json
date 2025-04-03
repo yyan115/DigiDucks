@@ -2638,7 +2638,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 1.0,
-                            "y": 1.100000023841858
+                            "y": 1.0
                         }
                     },
                     "type": "TransformComponent"
@@ -2675,7 +2675,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.550000011920929,
                             "y": -0.6000000238418579
                         },
                         "relativeToCamera": false,
@@ -2739,8 +2739,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.30000001192092896,
-                            "y": -0.6000000238418579
+                            "x": 0.3199999928474426,
+                            "y": -0.5999999642372131
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3884,7 +3884,7 @@
                     "properties": {
                         "position": {
                             "x": 0.11000001430511475,
-                            "y": -0.7900000214576721
+                            "y": -0.815000057220459
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3932,8 +3932,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.06000000238418579,
-                            "y": -0.13999998569488525
+                            "x": 0.08000001311302185,
+                            "y": -0.11500003933906555
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4001,7 +4001,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5,
-                            "y": -0.5
+                            "y": -0.5250000357627869
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4037,7 +4037,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8899999856948853,
-                            "y": -0.7900000214576721
+                            "y": -0.815000057220459
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4088,8 +4088,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.5699999928474426
+                            "x": 0.5,
+                            "y": -0.675000011920929
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4156,7 +4156,7 @@
                     "properties": {
                         "position": {
                             "x": 0.0,
-                            "y": 0.0
+                            "y": -0.025000035762786865
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5075,7 +5075,7 @@
                         "isVisible": true,
                         "sortingOrder": 100,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Pause/PAUSEMENU.png",
+                        "texture": "Resources/Sprites/Pause/GAME_PAUSE_UPDATE.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -5088,7 +5088,8 @@
                 "Pause_Bg",
                 "Quit_Btn",
                 "HTP_Btn",
-                "Resume_Btn"
+                "Resume_Btn",
+                "Exit_Cfm_Bg"
             ],
             "components": [
                 {
@@ -5658,15 +5659,12 @@
             "layer": "Gameplay"
         },
         "Quit_Btn": {
-            "childNames": [
-                "Exit_Cfm_Bg"
-            ],
             "components": [
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.7400000095367432
+                            "x": 0.5,
+                            "y": -0.8500000238418579
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -6653,8 +6651,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.4000000059604645,
-                            "y": -0.4000000059604645
+                            "x": 0.5,
+                            "y": -0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
