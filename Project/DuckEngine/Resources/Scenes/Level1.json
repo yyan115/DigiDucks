@@ -1562,7 +1562,7 @@
                             "Resources/Sounds/clicks/click 2.wav",
                             "Resources/Sounds/clicks/hover 1.wav"
                         ],
-                        "volume": 0.800000011920929
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
@@ -4764,7 +4764,7 @@
                             "Resources/Sounds/orders/order come 1.wav",
                             "Resources/Sounds/orders/order come 2.wav"
                         ],
-                        "volume": 0.20000000298023224
+                        "volume": 0.15000000596046448
                     },
                     "type": "SoundComponent"
                 }
@@ -10116,7 +10116,7 @@
                             "Resources/Sounds/timer/countdown.wav",
                             "Resources/Sounds/duck sounds/AnimalDuckCart 3.wav"
                         ],
-                        "volume": 0.5
+                        "volume": 0.4000000059604645
                     },
                     "type": "SoundComponent"
                 }
@@ -10450,7 +10450,7 @@
                             "Resources/Sounds/clicks/click 2.wav",
                             "Resources/Sounds/clicks/click 1.wav"
                         ],
-                        "volume": 0.699999988079071
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },

@@ -219,7 +219,7 @@
                             "Resources/Sounds/clicks/hover 1.wav",
                             "Resources/Sounds/clicks/click 2.wav"
                         ],
-                        "volume": 1.0
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
