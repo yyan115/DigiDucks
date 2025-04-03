@@ -372,21 +372,21 @@ inline int getPoints(ItemType type)
 	switch (type)
 	{
 	case ItemType::BURGER_PLATE:
-		return 50;
+		return 30;
 	case ItemType::CHEESE_BURGER_PLATE:
-		return 100;
+		return 35;
 	case ItemType::LETTUCE_PLATE:
-		return 50;
+		return 25;
 	case ItemType::LETTUCE_SHRIMP_PLATE:
-		return 70;
+		return 30;
 	case ItemType::LETTUCE_TOMATO_PLATE:
-		return 70;
+		return 30;
 	case ItemType::SALAD_PLATE:
-		return 100;
+		return 35;
 	case ItemType::BOWL_MUSHROOM:
-		return 60;
+		return 30;
 	case ItemType::BOWL_TOMATO:
-		return 60;
+		return 30;
 	default:
 		return 0;
 		break;
