@@ -19,14 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 void CircleColliderSystem::Start()
 {
-	float cellSize = 50.0f;
-	// Add circle colliders to the grid
-	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>()) {
-		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
-		if (!entityTrans) continue;
 
-		SpatialGrid::AddToCell(entityId, entityTrans->GetPosition(), cellSize);
-	}
 }
 
 /****************************************************************
@@ -47,6 +40,14 @@ void CircleColliderSystem::FixedUpdate()
 	float deltaTime = DuckEngine::FixedDeltaTime();
 	float cellSize = 50.0f;
 
+	// Add circle colliders to the grid
+	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>()) {
+		TransformComponent* entityTrans = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(entityId);
+		if (!entityTrans) continue;
+
+		SpatialGrid::AddToCell(entityId, entityTrans->GetPosition(), cellSize);
+	}
+
 	// Find player's circle collider
 	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())
 	{
@@ -57,7 +58,8 @@ void CircleColliderSystem::FixedUpdate()
 		{
 			continue;
 		}
-		if (!entityRb || entityRb->isStatic) {
+		else if (!entityRb || entityRb->isStatic) 
+		{
 			entityCircle->setCenter(entityTrans->GetPosition() + entityCircle->getOffSet());
 			continue;	// No rb = not moving
 		}
