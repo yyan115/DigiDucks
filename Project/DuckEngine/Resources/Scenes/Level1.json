@@ -1249,7 +1249,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1484,7 +1484,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2037,7 +2037,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -2108,7 +2108,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -2179,7 +2179,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -2250,7 +2250,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3176,7 +3176,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3248,7 +3248,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 11,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3284,7 +3284,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3320,7 +3320,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3500,7 +3500,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3640,7 +3640,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 11,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5280,29 +5280,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -5317,11 +5294,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -5331,6 +5322,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -8303,7 +8303,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -8416,7 +8416,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -8487,7 +8487,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -8558,7 +8558,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -8629,7 +8629,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -8697,7 +8697,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -8768,7 +8768,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -8839,7 +8839,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9508,7 +9508,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 6,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9562,7 +9562,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 5,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true

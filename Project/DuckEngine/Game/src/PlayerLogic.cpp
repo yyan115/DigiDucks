@@ -124,7 +124,7 @@ void PlayerLogic::Update()
 {
 	if (transform->GetPosition().y <= -2.0f)
 	{
-		spriteRenderer->sortingOrder = 7;
+		spriteRenderer->sortingOrder = 8;
 	}
 	else
 	{
@@ -413,7 +413,6 @@ void PlayerLogic::InteractPressed()
 			// If Table is occupied, take object from table
 			if (tableLogic->isOccupied)
 			{
-
 				holding->setObject(tableLogic->moveObject());
 				type = holding->getType();
 				SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
@@ -624,65 +623,8 @@ void PlayerLogic::InteractPressed()
 				}
 			}
 
-			//if (correctCustomer) {
-			//	// If player is holding what customer wants
-			//	if (correctCustomer->customerOrderType == heldType) {
-			//		tab.tabCustomer->OrderCompleted();
-
-			//		submitLogic->removeObject(holding->moveObject());
-
-			//		orderTabLogic->RemoveOrder(tab.tabCustomer);
-
-			//		if (sound)
-			//		{
-			//			sound->Play();
-			//		}
-
-			//		isHolding = false;
-			//		orderSubmitted = true;
-			//		return;
-			//	}
-			//}
-			//else {
-			//	std::cout << "Error: Something went wrong trying to find customer from table/seat logic.\n";
-			//}
 		}
 		
-		//if (submitLogic)
-		//{
-		//	ItemType heldType = holding->getType();
-
-		//	auto& allOrderTabs = orderTabLogic->GetOrderTabs();
-		//	bool orderSubmitted = false;
-
-		//	for (auto& tab : allOrderTabs)
-		//	{
-		//		if (tab.tabCustomer && !orderSubmitted)
-		//		{
-		//			ItemType requestedItem = tab.tabOrder;
-		//			bool isReadyToCollect = tab.tabCustomer->WalkState->GetIsWaitingToCollectOrder();
-
-		//			if (heldType == requestedItem && isReadyToCollect)
-		//			{
-		//				tab.tabCustomer->OrderCompleted();
-
-		//				submitLogic->removeObject(holding->moveObject());
-
-		//				orderTabLogic->RemoveOrder(tab.tabCustomer);
-
-		//				if (sound)
-		//				{
-		//					sound->Play();
-		//				}
-
-		//				isHolding = false;
-		//				orderSubmitted = true;
-		//				return;
-		//			}
-		//		}
-		//	}
-		//	return;
-		//}
 
 		auto tableLogic = GameLogicManager::GetLogicForEntity<TableLogic>(interactObject->entityID);
 		if (tableLogic)
@@ -718,19 +660,20 @@ void PlayerLogic::InteractPressed()
 						}
 						isHolding = true;
 					}
+					return;
 				}
 
-				if (canCombine(holding->getType(), tableLogic->getType()))
+				else if (canCombine(holding->getType(), tableLogic->getType()))
 				{
 					std::pair<int, ItemType> combined = combineObjects(holding->moveObject(), tableLogic->moveObject());
-					holding->setObject(combined);
-					type = holding->getType();
+					tableLogic->setObject(combined);
+					type = tableLogic->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
 						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
-					isHolding = true;
+					isHolding = false;
 				}
 			}
 			return;
