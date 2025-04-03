@@ -88,4 +88,6 @@ private:
     float fadeInDuration = 3.0f;  // Duration for fade-in effect
     float fadeInElapsedTime = 0.0f;
     bool isFadingIn = false;
+
+	int iStar_1, iStar_2, iStar_3;
 };

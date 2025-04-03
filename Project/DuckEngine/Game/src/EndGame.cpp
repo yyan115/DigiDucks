@@ -186,21 +186,45 @@ void EndScene::Update()
 		Next_Spt->isVisible = true;
 	}
 
-	if (ScoreLogic::scoreValue >= 10) {
+	// Set Star Values
+	{
+		// Tutorial Level
+		if (lastPlayedSceneName == "Level0") 
+		{ 
+			iStar_1 = iStar_2 = iStar_3 = 10; 
+		}
+		else if (lastPlayedSceneName == "Level1" || lastPlayedSceneName == "Level1_5")
+		{
+			iStar_1 = 150;
+			iStar_2 = 250;
+			iStar_3 = 350;
+		}
+		else if (lastPlayedSceneName == "Level2" || lastPlayedSceneName == "Level2_5")
+		{
+			iStar_1 = 200;
+			iStar_2 = 300;
+			iStar_3 = 400;
+		}	
+		else if (lastPlayedSceneName == "Level3" || lastPlayedSceneName == "Level3_5")
+		{
+			iStar_1 = 300;
+			iStar_2 = 400;
+			iStar_3 = 500;
+		}
+	}
 
+	if (ScoreLogic::scoreValue >= iStar_1)
+	{
 		Star1->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (ScoreLogic::scoreValue >= 30) {
-
-		//Star1->texture = AssetManager::GetTextureByName("star");
+	if (ScoreLogic::scoreValue >= iStar_2)
+	{
 		Star2->texture = AssetManager::GetTextureByName("star");
-
 	}
 	
-	if (ScoreLogic::scoreValue >= 40) {
-		//Star1->texture = AssetManager::GetTextureByName("star");
-		//Star2->texture = AssetManager::GetTextureByName("star");
+	if (ScoreLogic::scoreValue >= iStar_3)
+	{
 		Star3->texture = AssetManager::GetTextureByName("star");
 	}
 	
