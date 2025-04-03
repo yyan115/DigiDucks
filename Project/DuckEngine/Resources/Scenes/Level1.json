@@ -2652,7 +2652,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 102,
+                        "sortingOrder": 101,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/confirmquit.png",
                         "useColor": true
@@ -5048,6 +5048,11 @@
             "layer": "UI"
         },
         "Pause_Bg": {
+            "childNames": [
+                "Star_1",
+                "Star_2",
+                "Star_3"
+            ],
             "components": [
                 {
                     "properties": {
@@ -7970,6 +7975,243 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "Star_1": {
+            "childNames": [
+                "Star_1_Txt"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3499999940395355,
+                            "y": -0.18000000715255737
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.02500000037252903,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_1_Txt": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3799999952316284,
+                            "y": 0.8050000071525574
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 0.8999999761581421,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "Score > 150"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_2": {
+            "childNames": [
+                "Star_2_Txt"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3499999940395355,
+                            "y": -0.25999999046325684
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.02500000037252903,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_2_Txt": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3799999952316284,
+                            "y": 0.7250000834465027
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 0.8999999761581421,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "Score > 250"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_3": {
+            "childNames": [
+                "Star_3_Txt"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3499999940395355,
+                            "y": -0.3400000035762787
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.02500000037252903,
+                            "y": 0.05000000074505806
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/EndScene/emptystar.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Star_3_Txt": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.3799999952316284,
+                            "y": 0.6450000405311584
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.10000000149011612,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 0.0,
+                            "r": 0.0
+                        },
+                        "enabled": true,
+                        "fontName": "HVD Fonts  MikadoBold",
+                        "fontSize": 0.8999999761581421,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 102,
+                        "text": "Score > 250"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Steak_Fridge": {
             "childNames": [
