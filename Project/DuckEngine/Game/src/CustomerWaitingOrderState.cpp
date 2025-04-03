@@ -83,6 +83,8 @@ void CustomerWaitingOrderState::Update()
 	else {
 		//owner->GetGameLoopLogic()->customerAngryLeave = true;
 		owner->WalkState.get()->customerAngryLeave = true;
+		customerSound->Stop();	
+		customerSound->Play(1);
 		//owner->GetGameLoopLogic()->customerCount--;
 		
 		// Make sure the game loop knows there's no customer waiting for order anymore
@@ -134,7 +136,7 @@ void CustomerWaitingOrderState::Update()
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) || DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
 		{
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
-
+			customerSound->Stop();
 			if (!orderTabLogic->HasFreeTab())
 			{
 				std::cout << "No free Order Tabs! Max order limit reached.\n";

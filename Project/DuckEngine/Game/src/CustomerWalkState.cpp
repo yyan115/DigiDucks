@@ -340,7 +340,7 @@ void CustomerWalkState::FixedUpdate()
 
 				// change to red if 1/3
 				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime/ 10 * 8) {
-					customerSounds->Play(1);
+					customerSounds->Play(0);
 					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 				}
 				// change to yellow if 2/3
@@ -355,14 +355,15 @@ void CustomerWalkState::FixedUpdate()
 				currentTargetIndex = 0;
 				currentQueueTarget = seatPoints[currentTargetIndex];
 				owner->WaitingSlider->isVisible = false;
+				customerSounds->Stop();
+				customerSounds->Play(2);
 
 				// Remove the order tab for this angry customer
 				Entity* orderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 				if (orderTab) {
 					OrderTabLogic* orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTab->entityID).get();
 					if (orderTabLogic) {
-						customerSounds->Stop();
-						customerSounds->Play(2);
+						
 						orderTabLogic->RemoveOrder(owner);
 						std::cout << "Removed order tab for angry customer" << std::endl;
 					}

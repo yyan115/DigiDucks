@@ -155,16 +155,16 @@
         {
             "properties": {
                 "category": "SFX",
-                "effectValue": 15.0,
-                "effects": "Flange",
+                "effectValue": 0.0,
+                "effects": "Default",
                 "loop": false,
                 "playOnStart": false,
                 "soundID": [
+                    "Resources/Sounds/timer/baking clock sound.wav",
                     "Resources/Sounds/duck sounds/angryduck.wav",
-                    "Resources/Sounds/duck sounds/angryduck2.wav",
-                    "Resources/Sounds/duck sounds/AnimalDuckCart 15.wav"
+                    "Resources/Sounds/duck sounds/angryduck2.wav"
                 ],
-                "volume": 0.20000000298023224
+                "volume": 0.25
             },
             "type": "SoundComponent"
         }

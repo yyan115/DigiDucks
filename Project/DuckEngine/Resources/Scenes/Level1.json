@@ -25,7 +25,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "",
@@ -5320,7 +5320,7 @@
                 {
                     "properties": {
                         "category": "SFX",
-                        "effectValue": 100.0,
+                        "effectValue": 50.0,
                         "effects": "Flange",
                         "loop": false,
                         "playOnStart": false,
@@ -5333,36 +5333,13 @@
                             "Resources/Sounds/player sfx/footstep6.wav",
                             "Resources/Sounds/player sfx/footstep7.wav"
                         ],
-                        "volume": 0.5
+                        "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"
                 },
                 {
                     "properties": {
                         "animations": [
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
                             {
                                 "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
@@ -5379,11 +5356,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -5393,6 +5384,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -5594,13 +5594,13 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 10.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 8.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 4.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 5.wav",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 6.wav"
+                            "Resources/Sounds/duck sounds/normalduck1.wav",
+                            "Resources/Sounds/duck sounds/normalduck2.wav",
+                            "Resources/Sounds/duck sounds/normalduck3.wav",
+                            "Resources/Sounds/duck sounds/normalduck4.wav",
+                            "Resources/Sounds/duck sounds/normalduck5.wav"
                         ],
-                        "volume": 0.10000000149011612
+                        "volume": 0.20000000298023224
                     },
                     "type": "SoundComponent"
                 }
@@ -7781,7 +7781,7 @@
                             "Resources/Sounds/clicks/click 1.wav",
                             "Resources/Sounds/clicks/hover 1.wav"
                         ],
-                        "volume": 0.800000011920929
+                        "volume": 0.5
                     },
                     "type": "SoundComponent"
                 },
