@@ -8042,13 +8042,13 @@
                         },
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.8999999761581421,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score > 150"
+                        "text": "Score more than 150"
                     },
                     "type": "TextComponent"
                 }
@@ -8121,13 +8121,13 @@
                         },
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.8999999761581421,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score > 250"
+                        "text": "Score more than 250"
                     },
                     "type": "TextComponent"
                 }
@@ -8200,13 +8200,13 @@
                         },
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
-                        "fontSize": 0.8999999761581421,
+                        "fontSize": 0.699999988079071,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score > 250"
+                        "text": "Score more than 350"
                     },
                     "type": "TextComponent"
                 }
