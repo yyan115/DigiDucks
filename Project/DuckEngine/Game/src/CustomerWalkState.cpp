@@ -360,10 +360,22 @@ void CustomerWalkState::FixedUpdate()
 				if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime/ 10 * 8) {
 					customerSounds->Play(0);
 					owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
+
+					//customerAnimator->PlayAnimation("ANGRY");
 				}
 				// change to yellow if 2/3
 				else if (owner->CurrentWaitingTime >= owner->MaxTableWaitingTime / 10 * 5) {
 					owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
+
+					//customerAnimator->ChangeAnimationSpeed("WAVE", 0.1f);
+					//customerAnimator->PlayAnimation("WAVE");
+				}
+				// default fill green
+				else {
+					owner->WaitingSlider->fillColor = { 107.f, 255.f, 0, 255.f };
+
+					//customerAnimator->ChangeAnimationSpeed("WAVE", 0.05f);
+					//customerAnimator->PlayAnimation("WAVE");
 				}
 			}
 			// ran out of patience

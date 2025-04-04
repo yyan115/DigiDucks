@@ -92,6 +92,14 @@ public:
         }
     }
 
+    DUCKENGINE_API void ChangeAnimationSpeed(std::string animationName, float speed = 0.1f)
+    {
+        if (animations.find(animationName) != animations.end())
+        {
+            animations[animationName].frameDuration = speed;
+        }
+    }
+
     DUCKENGINE_API void Pause() 
     {
         isPaused = true;
