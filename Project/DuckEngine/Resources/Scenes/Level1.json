@@ -190,175 +190,7 @@
             ],
             "layer": "UI"
         },
-        "BG_1": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -17.299999237060547,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 35.0,
-                            "y": 25.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/background.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Background"
-        },
-        "BG_2": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 15.5,
-                            "y": 0.0
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 35.0,
-                            "y": 25.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/background.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Background"
-        },
-        "BG_3": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": -17.299999237060547,
-                            "y": -23.299999237060547
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 35.0,
-                            "y": 25.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/background.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Background"
-        },
-        "BG_4": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 15.52400016784668,
-                            "y": -23.299999237060547
-                        },
-                        "relativeToCamera": true,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 35.0,
-                            "y": 25.0
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 255.0,
-                            "r": 255.0
-                        },
-                        "isVisible": true,
-                        "sortingOrder": 0,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/HowToPlay/background.png",
-                        "useColor": false
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "Background"
-        },
-        "BG_5": {
-            "layer": "Background",
-            "position": {
-                "x": -17.299999237060547,
-                "y": 23.0
-            },
-            "prefab": "Background_Prefab"
-        },
-        "BG_6": {
-            "layer": "Background",
-            "position": {
-                "x": 15.5,
-                "y": 23.0
-            },
-            "prefab": "Background_Prefab"
-        },
-        "Background_Master": {
-            "childNames": [
-                "BG_4",
-                "BG_3",
-                "BG_2",
-                "BG_1",
-                "BG_6",
-                "BG_5"
-            ],
+        "Background": {
             "components": [
                 {
                     "properties": {
@@ -369,11 +201,27 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.0,
-                            "y": 5.0
+                            "x": 60.0,
+                            "y": 35.0
                         }
                     },
                     "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 255.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/HowToPlay/background.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Background"
@@ -4026,8 +3874,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 19.231639862060547,
-                            "y": 3.4659576416015625
+                            "x": 12.0,
+                            "y": 3.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -4057,8 +3905,8 @@
                 {
                     "properties": {
                         "center": {
-                            "x": 19.231639862060547,
-                            "y": 3.4659576416015625
+                            "x": 12.0,
+                            "y": 3.0
                         },
                         "offset": {
                             "x": 0.0,
@@ -4120,8 +3968,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 18.34164047241211,
-                            "y": 2.165957450866699
+                            "x": 11.110000610351563,
+                            "y": 1.6999998092651367
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -4159,8 +4007,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 19.231639862060547,
-                            "y": 2.165957450866699
+                            "x": 12.0,
+                            "y": 1.6999998092651367
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6841,7 +6689,7 @@
                         },
                         "offset": {
                             "x": 0.0,
-                            "y": -0.20000000298023224
+                            "y": -0.15000000596046448
                         },
                         "radius": 0.699999988079071
                     },

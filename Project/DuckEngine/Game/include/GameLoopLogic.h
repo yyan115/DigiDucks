@@ -78,6 +78,11 @@ public:
 		}
 	}
 
+	// Timer
+	Entity* timer = nullptr;
+	TextComponent* timerText = nullptr;
+	float timeLeft = 0.f;
+
 private:
 	Entity* CutScene = nullptr;
 	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;

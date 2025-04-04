@@ -48,10 +48,6 @@ TextComponent* FPSText = nullptr;
 Entity* ui = nullptr;
 SpriteRendererComponent* uiSprite = nullptr;
 
-// Timer
-Entity* timer = nullptr;
-TextComponent* timerText = nullptr;
-float timeLeft = 0.f;
 
 // Score
 Entity* score = nullptr;
@@ -102,7 +98,8 @@ void GameLoopLogic::Start()
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "5:00";
+			timerText->text = "00:00";
+			// Placeholder Time:
 			timeLeft = 300.f;
 		}
 	}
