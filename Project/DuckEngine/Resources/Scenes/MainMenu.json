@@ -505,14 +505,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -12.0,
-                            "y": -1.5
+                            "x": -11.399999618530273,
+                            "y": -2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 4.099999904632568,
+                            "y": 4.0
                         }
                     },
                     "type": "TransformComponent"
@@ -558,6 +558,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -588,7 +589,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -12.399999618530273,
+                            "x": -12.400003433227539,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -611,6 +612,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -631,14 +633,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.0,
-                            "y": -1.5
+                            "x": -3.5,
+                            "y": -2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 4.099999904632568,
+                            "y": 4.0
                         }
                     },
                     "type": "TransformComponent"
@@ -694,7 +696,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.360000133514404,
+                            "x": -4.400000095367432,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -717,6 +719,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -823,6 +826,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -843,14 +847,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.0,
-                            "y": -1.5
+                            "x": 4.5,
+                            "y": -2.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 3.0,
-                            "y": 3.0
+                            "x": 4.099999904632568,
+                            "y": 4.0
                         }
                     },
                     "type": "TransformComponent"
@@ -906,7 +910,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 3.6399998664855957,
+                            "x": 3.5,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -929,6 +933,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1035,6 +1040,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1141,6 +1147,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1247,6 +1254,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1296,6 +1304,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1352,6 +1361,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1521,6 +1531,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0

@@ -396,12 +396,22 @@ void LevelSelectScreenLogic::UpdateLevelButtonVisuals(
 	std::string lockedTexture = "lvlselectbutton_locked";
 	std::string unlockedTexture = "lvlselectbutton";
 
-	level0Sprite->texture = AssetManager::GetTextureByName(unlockedTexture);
+	std::string level0LockedTexture = "lvlselectbutton_locked_knife";
+	std::string level0UnlockedTexture = "lvlselectbutton_knife";
+
+	std::string level2LockedTexture = "lvlselectbutton_locked_pan";
+	std::string level2UnlockedTexture = "lvlselectbutton_pan";
+
+	std::string level4LockedTexture = "lvlselectbutton_locked_soup";
+	std::string level4UnlockedTexture = "lvlselectbutton_soup";
+
+
+	level0Sprite->texture = AssetManager::GetTextureByName(level0UnlockedTexture);
 
 	level1Sprite->texture = AssetManager::GetTextureByName((currentStage >= 0) ? unlockedTexture : lockedTexture);
-	level1_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 1) ? unlockedTexture : lockedTexture);
+	level1_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 1) ? level2UnlockedTexture : level2LockedTexture);
 	level2Sprite->texture = AssetManager::GetTextureByName((currentStage >= 2) ? unlockedTexture : lockedTexture);
-	level2_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 3) ? unlockedTexture : lockedTexture);
+	level2_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 3) ? level4UnlockedTexture : level4LockedTexture);
 	level3Sprite->texture = AssetManager::GetTextureByName((currentStage >= 4) ? unlockedTexture : lockedTexture);
 	level3_5Sprite->texture = AssetManager::GetTextureByName((currentStage >= 5) ? unlockedTexture : lockedTexture);
 }
