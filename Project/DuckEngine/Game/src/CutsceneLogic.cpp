@@ -146,7 +146,7 @@ void CutSceneLogic::Update()
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 		DialoguefadeProgress += DuckEngine::DeltaTime();
 
-		if (DialoguefadeProgress >= 6.0f)
+		if (DialoguefadeProgress >= 4.0f)
 		{
 			FadeOutSprite->color.a = 255;
 			FadeOutSprite->isVisible = false;
@@ -159,7 +159,7 @@ void CutSceneLogic::Update()
 			level0Scene->FinishedTutorial();
 
 		}
-		else if (DialoguefadeProgress >= 2.0f)
+		else if (DialoguefadeProgress >= 1.0f)
 		{
 			FadeOutSprite->isVisible = true;
 
@@ -175,11 +175,11 @@ void CutSceneLogic::Update()
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
 		// Check for user input to progress dialogue
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 31)
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14)
 		{
 			currentDialogueIndex++;
 			
-			if (currentDialogueIndex == 31)
+			if (currentDialogueIndex == 14)
 			{
 				// End cutscene entirely and start game
 				Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();

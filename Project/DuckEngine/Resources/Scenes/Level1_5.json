@@ -4502,7 +4502,7 @@
                             "r": 0.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 50,
+                        "sortingOrder": 110,
                         "sprite": true,
                         "texture": "",
                         "useColor": true

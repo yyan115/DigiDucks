@@ -43,7 +43,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/end of level bgm.ogg"
                         ],
-                        "volume": 0.10000000149011612
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }
@@ -372,7 +372,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 50"
+                        "text": "Score: 0"
                     },
                     "type": "TextComponent"
                 },
