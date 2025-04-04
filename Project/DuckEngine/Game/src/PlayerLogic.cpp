@@ -15,7 +15,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PlayerLogic.h"
 #include "CombineLogic.h"
 #include "SubmitLogic.h"
-#include "RestockLogic.h"
 #include "CustomerLogic.h"
 #include "HighlightLogic.h"
 #include "CustomerTableLogic.h"
@@ -41,12 +40,6 @@ void PlayerLogic::Start()
 	Entity* orderTabEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 	if (orderTabEntity)
 		orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTabEntity->entityID).get();
-
-	auto restockMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restock_Menu").get();
-	if (restockMenu)
-	{
-		restockLogic = GameLogicManager::GetLogicForEntity<RestockLogic>(restockMenu->entityID).get();
-	}
 
 	// SFX Managers
 	Entity* SFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXManager").get();
@@ -129,18 +122,6 @@ void PlayerLogic::Update()
 	else
 	{
 		spriteRenderer->sortingOrder = 2;
-	}
-
-	if (restockLogic)
-	{
-		if (restockLogic->isRestock)
-		{
-			movement->isMoving = false;
-		}
-		else
-		{
-			movement->isMoving = true;
-		}
 	}
 
 	if (actionCounter >= 0)
@@ -486,18 +467,6 @@ void PlayerLogic::InteractPressed()
 			}
 			return;
 		}
-
-		auto robotLogic = GameLogicManager::GetLogicForEntity<RobotLogic>(interactObject->entityID);
-		if (robotLogic)
-		{
-			// If Robot restock station is restocking, return
-			if (restockLogic->isDelay) return;
-
-			if (sound) sound->Play(0);
-			setRestockMenu(true);
-			return;
-		}
-
 	}
 
 	// If player is already holding something
@@ -666,8 +635,8 @@ void PlayerLogic::InteractPressed()
 				else if (canCombine(holding->getType(), tableLogic->getType()))
 				{
 					std::pair<int, ItemType> combined = combineObjects(holding->moveObject(), tableLogic->moveObject());
-					tableLogic->setObject(combined);
-					type = tableLogic->getType();
+					holding->setObject(combined);
+					type = holding->getType();
 					SoundComponent* soundToPlay = GetSFXForType(static_cast<int>(type));
 					if (soundToPlay) {
 						soundToPlay->Stop();
@@ -823,13 +792,4 @@ Entity* PlayerLogic::makeObject(ItemType type)
 	spriteRenderer->texture = AssetManager::GetTextureByName(whatType(type));
 
 	return newObject;
-}
-
-
-/****************************************************************
-* @brief Function to set the restock menu
-* ****************************************************************/
-void PlayerLogic::setRestockMenu(bool state)
-{
-	restockLogic->RestockMenu(state);
 }

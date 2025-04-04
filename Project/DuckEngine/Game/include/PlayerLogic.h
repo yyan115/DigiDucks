@@ -25,8 +25,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "HoldingLogic.h"
 #include "StoveLogic.h"
 #include "ChopBoardLogic.h"
-#include "RobotLogic.h"
-#include "RestockLogic.h"
 #include "OrderTabLogic.h"
 
 enum FacingDirection : int
@@ -58,7 +56,6 @@ private:
 	SoundComponent* PotSFXsound = nullptr;
 	HoldingLogic* holding = nullptr;
 	MovementLogic* movement = nullptr;
-	RestockLogic* restockLogic = nullptr;
 
 
 public:
@@ -113,12 +110,6 @@ public:
 	* @return - Pointer to the object
 	* ****************************************************************/
     Entity* makeObject(ItemType type);
-
-    
-	/****************************************************************
-	* @brief Function that handles the state of the restock menu
-	* ****************************************************************/
-    void setRestockMenu(bool state);
 
     SoundComponent* GetSFXForType(int type);
 };

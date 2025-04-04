@@ -40,7 +40,6 @@ void Level1::Load()
 void Level1::Start() 
 {
 	Scene::Start();
-	CameraManager::SetHeight(24);
 	ScoreLogic::dayNumber = 1;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
