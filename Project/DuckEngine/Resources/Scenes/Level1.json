@@ -178,6 +178,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1484,6 +1485,7 @@
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.5,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -4254,6 +4256,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -4294,6 +4297,7 @@
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -6008,6 +6012,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -6633,7 +6638,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
@@ -7254,6 +7259,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7338,6 +7344,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7554,6 +7561,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7707,6 +7715,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8460,7 +8469,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8491,7 +8500,7 @@
                     "properties": {
                         "position": {
                             "x": 0.3799999952316284,
-                            "y": 0.8050000071525574
+                            "y": 0.800000011920929
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8513,6 +8522,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8539,7 +8549,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8592,6 +8602,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8618,7 +8629,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8671,6 +8682,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -10652,6 +10664,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0

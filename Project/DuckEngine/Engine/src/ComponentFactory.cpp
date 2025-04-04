@@ -497,6 +497,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 
 		auto textComponent = std::make_shared<TextComponent>(fontName, text, position, static_cast<float>(fontSize), color, enabled, layer);
 		textComponent->isEnabled = enabled;
+		textComponent.get()->fontSizeY = fontSizeY;
 		return textComponent;
 	}
 	else if (type == "ButtonComponent")
