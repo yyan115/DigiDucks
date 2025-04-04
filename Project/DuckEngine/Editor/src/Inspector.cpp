@@ -631,6 +631,13 @@ void InspectorRenderer::RenderComponents(int entityID)
 				HandlePropertyChange(hasChanged);
 			}
 
+			// Font size
+			ImGui::Text("Font Size Y");
+			ImGui::SameLine(100);
+			if (ImGui::DragFloat("##FontSize Y", &text->fontSizeY, 0.001f, 0.01f, 1000.f)) {
+				HandlePropertyChange(hasChanged);
+			}
+
 			// Color input
 			ImGui::Text("Color");
 			ImGui::SameLine(100);

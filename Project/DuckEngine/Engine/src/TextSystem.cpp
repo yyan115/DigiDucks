@@ -142,6 +142,7 @@ void TextSystem::Render()
         //    continue;
 
         float scale;
+        float scaleY;
         Vector2D renderPosition;
 
         if (!transform->relativeToCamera) {
@@ -150,6 +151,13 @@ void TextSystem::Render()
             scale = text->fontSize / referenceHeight;
             renderPosition = transform->GetPosition();
             //DuckEngine::RenderText(text->fontName, text->text, transform->GetPosition(), normalizedScale, text->color, transform->relativeToCamera);
+
+            if (text->fontSizeY != -1.f){
+                scaleY = text->fontSizeY / referenceHeight;
+            }
+            else {
+                scaleY = scale;
+            }
         }
         else {
             Vector2D position = transform->GetPosition();
@@ -168,14 +176,14 @@ void TextSystem::Render()
             //DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color, transform->relativeToCamera);
         }
 
-        float yScale = -1.f;
+        //float yScale = -1.f;
 
-        if (text->text.find("Score more") != std::string::npos) {
-            yScale = scale * 1.5f;
+        //if (text->text.find("Score more") != std::string::npos) {
+        //    yScale = scale * 1.5f;
 
-        }
+        //}
 
-        TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera, yScale);
+        TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera, scaleY);
 
         GraphicsManager::AddToDrawQueue({ orderInt, text->sortingOrder, RenderCommandType::Text, TextDrawCommand });
     }

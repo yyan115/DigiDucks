@@ -45,6 +45,8 @@ public:
 
     int sortingOrder;
 
+    float fontSizeY = -1.f;
+
     /// <summary>
     /// Constructs a TextComponent with specified font name, text content, position, 
     /// font size, color, and enabled state.
@@ -65,7 +67,7 @@ public:
         bool enabled = true,
         int sortingOrder = 0
     )
-        : fontName(fontName), text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled), sortingOrder(sortingOrder) {}
+        : fontName(fontName), text(text), position(position), fontSize(fontSize), color(color), isEnabled(enabled), sortingOrder(sortingOrder) { }
 
     /// <summary>
     /// Creates and returns a clone of the TextComponent.

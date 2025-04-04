@@ -263,6 +263,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 			{"y", textComponent->position.y}
 		};
 		textData["properties"]["fontSize"] = textComponent->fontSize;
+		textData["properties"]["fontSizeY"] = textComponent->fontSizeY;
 		textData["properties"]["color"] =
 		{
 			{"r", textComponent->color.r},
@@ -481,6 +482,8 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		float fontSize = componentJson["properties"].value("fontSize", 12.0f);
 		int layer = componentJson["properties"].value("sortingOrder", 0);
 		bool enabled = componentJson["properties"].value("enabled", true);
+
+		float fontSizeY = componentJson["properties"].value("fontSizeY", -1.f);
 
 		Color color{ 255, 255, 255, 255 };
 		if (componentJson["properties"].contains("color"))
