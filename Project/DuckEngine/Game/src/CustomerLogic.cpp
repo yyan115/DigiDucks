@@ -42,18 +42,21 @@ void CustomerLogic::Start()
 	WaitingOrderState = std::make_shared<CustomerWaitingOrderState>(this);
 
 	Entity* currentEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
-	Entity* customerOrderEntity = currentEntity->childEntities[0].get();
-	Entity* radialSliderEntity = currentEntity->childEntities[1].get();
-
-	if (customerOrderEntity)
+	if (currentEntity->childEntities.size() > 0)
 	{
-		customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(customerOrderEntity->entityID);
-		customerOrderSpriteRenderer->isVisible = false;
-	}
+		Entity* customerOrderEntity = currentEntity->childEntities[0].get();
+		Entity* radialSliderEntity = currentEntity->childEntities[1].get();
 
-	if (radialSliderEntity)
-	{
-		WaitingSlider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RadialSliderComponent>(radialSliderEntity->entityID);
+		if (customerOrderEntity)
+		{
+			customerOrderSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(customerOrderEntity->entityID);
+			customerOrderSpriteRenderer->isVisible = false;
+		}
+
+		if (radialSliderEntity)
+		{
+			WaitingSlider = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<RadialSliderComponent>(radialSliderEntity->entityID);
+		}
 	}
 
 

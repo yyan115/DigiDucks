@@ -3,7 +3,7 @@
         {
             "properties": {
                 "position": {
-                    "x": -16.800010681152344,
+                    "x": -16.801000595092773,
                     "y": 21.000003814697266
                 },
                 "relativeToCamera": true,
@@ -58,16 +58,14 @@
                 "animations": [
                     {
                         "frameDuration": 0.10000000149011612,
-                        "name": "LEFT_WALK",
+                        "name": "FRONT_WALK",
                         "textures": [
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left3.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left2.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left1.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left2.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left3.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left5.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left4.png",
-                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left5.png"
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk2.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk3.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk4.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk5.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk6.png"
                         ]
                     },
                     {
@@ -82,24 +80,16 @@
                     },
                     {
                         "frameDuration": 0.10000000149011612,
-                        "name": "FRONT_WALK",
+                        "name": "LEFT_WALK",
                         "textures": [
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk2.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk3.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk4.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk5.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk6.png"
-                        ]
-                    },
-                    {
-                        "frameDuration": 0.10000000149011612,
-                        "name": "FRONT_IDLE",
-                        "textures": [
-                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_1.png",
-                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_2.png",
-                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_3.png",
-                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_4.png"
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left3.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left2.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left1.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left2.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left3.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left5.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left4.png",
+                            "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left5.png"
                         ]
                     },
                     {
@@ -110,6 +100,16 @@
                             "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle2.png",
                             "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle3.png",
                             "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle4.png"
+                        ]
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "FRONT_IDLE",
+                        "textures": [
+                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_1.png",
+                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_2.png",
+                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_3.png",
+                            "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_4.png"
                         ]
                     },
                     {
@@ -154,6 +154,27 @@
                             "Resources/Sprites/Duck/cut/cut1.png",
                             "Resources/Sprites/Duck/cut/cut2.png",
                             "Resources/Sprites/Duck/cut/cut3.png"
+                        ]
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "WAVE",
+                        "textures": [
+                            "Resources/Sprites/Customer/Penguin/Wave/penguin_waving_1.png",
+                            "Resources/Sprites/Customer/Penguin/Wave/penguin_waving_2.png",
+                            "Resources/Sprites/Customer/Penguin/Wave/penguin_waving_3.png",
+                            "Resources/Sprites/Customer/Penguin/Wave/penguin_waving_4.png",
+                            "Resources/Sprites/Customer/Penguin/Wave/penguin_waving_1.png"
+                        ]
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "ANGRY",
+                        "textures": [
+                            "Resources/Sprites/Customer/Penguin/Angry/penguin_angry_waiting1.png",
+                            "Resources/Sprites/Customer/Penguin/Angry/penguin_angry_waiting2.png",
+                            "Resources/Sprites/Customer/Penguin/Angry/penguin_angry_waiting3.png",
+                            "Resources/Sprites/Customer/Penguin/Angry/penguin_angry_waiting1.png"
                         ]
                     }
                 ]
