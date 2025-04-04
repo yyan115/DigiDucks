@@ -148,17 +148,22 @@ void CustomerWaitingOrderState::Update()
 			orderTabLogic->AddOrder(owner->GetCustomerOrderType(), owner);
 			orderTaken = true;
 			owner->isWaitingToGiveOrder = false;
-			owner->stateMachine.ChangeState(owner->WalkState);
-			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 
 			GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
 			if (gameLoop)
 			{
 				gameLoop->isCustomerWaitingForOrder = false;
 				gameLoop->currentActiveOrders++;
+
+				gameLoop->isSpawningCustomer = true;
+				gameLoop->customerSpawnCooldown = 6.0f;  // Longer cooldown
+				gameLoop->timeSinceLastCustomer = 0.0f;
+
+				gameLoop->ResetCustomerQueue();
 			}
 
-
+			owner->stateMachine.ChangeState(owner->WalkState);
+			owner->GetCustomerOrderSpriteRenderer()->isVisible = false;
 		}
 	}
 	else

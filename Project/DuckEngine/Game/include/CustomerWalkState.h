@@ -52,6 +52,8 @@ public:
 	Entity* currentQueueTarget = nullptr;
 
 	bool orderCollectedNowLeave = false;
+	std::vector<Entity*> waitTargets{};
+	std::vector<Entity*> queueTargets{};
 
 private:
 	Entity* finalPath = nullptr;
@@ -61,10 +63,8 @@ private:
 	std::vector<Entity*> leaveTargets{};
 
 	// points for customer to move to after taking order
-	std::vector<Entity*> waitTargets{};
 
 	// points for customer to move to to the queue area to wait for his order
-	std::vector<Entity*> queueTargets{};
 
 	//std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 

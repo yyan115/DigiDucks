@@ -375,16 +375,46 @@ void GameLoopLogic::Update()
 	{
 		if (!isSpawningCustomer) 
 		{
-			timeSinceLastCustomer += DuckEngine::DeltaTime();
+			if (!customerQueuePaused) 
+			{
+				timeSinceLastCustomer += DuckEngine::DeltaTime();
+			}
 		}
-		else 
+		else
 		{
 			customerSpawnCooldown -= DuckEngine::DeltaTime();
-			if (customerSpawnCooldown <= 0.0f) 
+			if (customerSpawnCooldown <= 0.0f)
 			{
 				isSpawningCustomer = false;
 				customerSpawnCooldown = 3.0f;
+				customerQueuePaused = false;
 			}
+		}
+
+		bool anyCustomerAtCounter = false;
+		for (auto* customer : customers) 
+		{
+			if (customer->stateMachine.currentState == customer->WaitingOrderState) 
+			{
+				anyCustomerAtCounter = true;
+				break;
+			}
+
+			// Also check for customers walking to counter
+			if (customer->stateMachine.currentState == customer->WalkState) {
+				CustomerWalkState* walkState = customer->WalkState.get();
+				if (!walkState->isOrderTaken &&
+					!walkState->customerAngryLeave &&
+					walkState->currentTargetIndex < walkState->queueTargets.size()) {
+					anyCustomerAtCounter = true;
+					break;
+				}
+			}
+		}
+
+		if (anyCustomerAtCounter) 
+		{
+			customerQueuePaused = true;
 		}
 
 		if (timeSinceLastCustomer >= customerSpawnInterval &&
@@ -594,4 +624,15 @@ void GameLoopLogic::FreeSeat(Entity* seat)
 			return;
 		}
 	}
+}
+
+void GameLoopLogic::ResetCustomerQueue()
+{
+	customerQueuePaused = true;
+
+	timeSinceLastCustomer = 0.0f;
+	isSpawningCustomer = true;
+	customerSpawnCooldown = 6.0f;
+
+	std::cout << "Customer queue reset - pausing new spawns temporarily" << std::endl;
 }

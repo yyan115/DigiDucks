@@ -245,44 +245,54 @@ void CustomerWalkState::FixedUpdate()
 			std::cout << "Customer finished: " << gameLoop->customersFinished
 				<< " out of " << gameLoop->customerCount << std::endl;
 
-			// Check if all customers have been served and have left
 			if (gameLoop->customersFinished >= gameLoop->customerCount)
 			{
 				std::cout << "All customers have completed their journey. Transitioning to EndScene." << std::endl;
 				GameManager::SetActiveScene("EndScene");
-				return; // Add a return here to ensure we exit the function
+				return; 
 			}
 		}
 
 		if (owner->GetGameLoopLogic()->currentCustomerIndex < owner->GetGameLoopLogic()->customerCount - 1)
 		{
-			std::cout << "NEXT CUSTOMER" << std::endl;
+			std::cout << "Checking if next customer can spawn after leave" << std::endl;
 
-			if (gameLoop && !gameLoop->isSpawningCustomer)
+			if (gameLoop && !gameLoop->isSpawningCustomer && !gameLoop->customerQueuePaused)
 			{
-				// Check if any customer is currently waiting to place an order
-				bool anyCustomerWaiting = false;
+				bool anyCustomerAtCounter = false;
 				for (auto* customer : gameLoop->customers)
 				{
 					if (customer->stateMachine.currentState == customer->WaitingOrderState)
 					{
-						anyCustomerWaiting = true;
+						anyCustomerAtCounter = true;
 						break;
+					}
+
+					if (customer->stateMachine.currentState == customer->WalkState)
+					{
+						CustomerWalkState* walkState = customer->WalkState.get();
+						if (!walkState->isOrderTaken &&
+							!walkState->customerAngryLeave &&
+							walkState->currentTargetIndex < walkState->queueTargets.size())
+						{
+							anyCustomerAtCounter = true;
+							break;
+						}
 					}
 				}
 
-				// Only spawn next customer if no one is waiting at the counter
-				if (!anyCustomerWaiting)
+				if (!anyCustomerAtCounter && !gameLoop->customerQueuePaused)
 				{
 					gameLoop->isSpawningCustomer = true;
 					gameLoop->timeSinceLastCustomer = 0.0f;
 					gameLoop->currentCustomerIndex++;
 					CustomerLogic* nextCustomer = gameLoop->customers[gameLoop->currentCustomerIndex];
 					nextCustomer->StartWalking();
+					std::cout << "Spawning next customer after leave - counter is clear" << std::endl;
 				}
 				else
 				{
-					std::cout << "Not spawning next customer - someone is already at the counter!" << std::endl;
+					std::cout << "Not spawning customer after leave - counter is busy or queue paused" << std::endl;
 				}
 			}
 		}

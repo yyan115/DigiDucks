@@ -234,6 +234,7 @@
     <ClCompile Include="..\src\SliderLogic.cpp" />
     <ClCompile Include="..\src\SubmitLogic.cpp" />
     <ClCompile Include="..\src\TableLogic.cpp" />
+    <ClCompile Include="..\src\TutorialLogic.cpp" />
     <ClCompile Include="..\src\UISliderLogic.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -295,6 +296,7 @@
     <ClInclude Include="..\include\SubmitLogic.h" />
     <ClInclude Include="..\include\TableLogic.h" />
     <ClInclude Include="..\include\TomatoStockLogic.h" />
+    <ClInclude Include="..\include\TutorialLogic.h" />
     <ClInclude Include="..\include\UISliderLogic.h" />
     <ClInclude Include="..\include\WhitePlateStockLogic.h" />
   </ItemGroup>

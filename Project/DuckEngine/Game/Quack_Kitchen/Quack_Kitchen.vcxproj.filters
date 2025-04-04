@@ -134,6 +134,9 @@
     <ClCompile Include="..\src\CustomerTableLogic.cpp">
       <Filter>src\Logic\Game\Customer</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TutorialLogic.cpp">
+      <Filter>src\Logic\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -401,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="..\include\CustomerTableLogic.h">
       <Filter>include\Logic\Game\Customer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\TutorialLogic.h">
+      <Filter>include\Logic\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

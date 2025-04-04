@@ -52,6 +52,7 @@ public:
 	int maxActiveOrders = 3;
 	int currentActiveOrders = 0;
 	int customersFinished = 0;
+	bool customerQueuePaused = false;
 
 	std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 
@@ -77,7 +78,7 @@ public:
 			}
 		}
 	}
-
+	void ResetCustomerQueue();
 	// Timer
 	Entity* timer = nullptr;
 	TextComponent* timerText = nullptr;
