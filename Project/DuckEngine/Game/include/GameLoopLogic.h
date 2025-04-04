@@ -73,7 +73,7 @@ public:
 		}
 	}
 
-	void RemoveCustomer(Entity* seat, CustomerLogic* customer) {
+	void RemoveCustomer(Entity* seat) {
 		for (auto &pair : customersAtSeats) {
 			if (pair.first == seat) {
 				pair.second = nullptr;
@@ -85,7 +85,7 @@ public:
 	Entity* timer = nullptr;
 	TextComponent* timerText = nullptr;
 	float timeLeft = 0.f;
-	void GameLoopLogic::SetSequenceMode(bool enabled);
+	void SetSequenceMode(bool enabled);
 private:
 	Entity* CutScene = nullptr;
 	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;

@@ -614,7 +614,7 @@ void PlayerLogic::InteractPressed()
 							isHolding = false;
 							orderSubmitted = true;
 
-							gameLoopLogic->RemoveCustomer(pairCustomer.first, pairCustomer.second);
+							gameLoopLogic->RemoveCustomer(pairCustomer.first);
 
 							std::cout << "Order submitted.\n";
 							return;
