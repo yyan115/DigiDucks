@@ -71,6 +71,7 @@ const int DuckEngine_Input::KEY_DEL = GLFW_KEY_DELETE;
 const int DuckEngine_Input::KEY_CTRL = GLFW_KEY_LEFT_CONTROL;
 const int DuckEngine_Input::KEY_LEFT_ALT = GLFW_KEY_LEFT_ALT;   // Left Alt key
 const int DuckEngine_Input::KEY_RIGHT_ALT = GLFW_KEY_RIGHT_ALT; // Right Alt key
+const int DuckEngine_Input::KEY_TAB = GLFW_KEY_TAB;
 
 // Define constants for mouse buttons
 const int DuckEngine_Input::MOUSE_BUTTON_LEFT = GLFW_MOUSE_BUTTON_LEFT;

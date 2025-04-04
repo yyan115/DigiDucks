@@ -221,6 +221,7 @@ public:
     static void DUCKENGINE_API CloseWindow();
 
     static void DUCKENGINE_API ToggleFullScreen();
+    static void DUCKENGINE_API MinimizeWindow();
     
     static DUCKENGINE_API void ToggleShowDebugColliders();
 

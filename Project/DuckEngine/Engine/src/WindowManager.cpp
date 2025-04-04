@@ -111,7 +111,9 @@ void WindowManager::ToggleFullscreen() {
     isFullscreen = !isFullscreen; // Toggle fullscreen state
 }
 
-
+void WindowManager::MinimizeWindow() {
+    glfwIconifyWindow(ptrWindow);  // Minimizes the window
+}
 
 void WindowManager::UpdateViewportDimensions() {
     if (DuckEngine::isEditor) {

@@ -129,6 +129,8 @@ public:
     /// </summary>
     static void ToggleFullscreen();
 
+    static void MinimizeWindow();
+
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
     static bool IsWindowFocused() { return isFocused; } 
     static void window_focus_callback(GLFWwindow* window, int focused);

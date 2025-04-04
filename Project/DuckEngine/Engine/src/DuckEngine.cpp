@@ -564,6 +564,10 @@ void DuckEngine::ToggleFullScreen() {
 	WindowManager::ToggleFullscreen();
 }
 
+void DuckEngine::MinimizeWindow() {
+	WindowManager::MinimizeWindow();
+}
+
 void DuckEngine::ToggleShowDebugColliders() {
 
 	for (const auto& [entityId, circleCollider] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<BoundingCircle>())

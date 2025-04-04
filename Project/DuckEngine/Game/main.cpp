@@ -55,6 +55,9 @@ int WINAPI WinMain(
 			) {
 			DuckEngine::ToggleFullScreen();
 		}
+		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT)) {
+
+		}
 
 		gManager.Update();
 		gManager.DuckEngine.Update();

@@ -162,6 +162,7 @@ void TextSystem::Render()
         else {
             Vector2D position = transform->GetPosition();
             scale = static_cast<float>(text->fontSize) * 0.03f;
+            scaleY = scale;
 
             // Calculate text size
             Vector2D textSize = GetTextSize(text->fontName, text->text, scale);
