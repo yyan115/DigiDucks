@@ -505,7 +505,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -11.399999618530273,
+                            "x": -9.999994277954102,
                             "y": -2.0
                         },
                         "relativeToCamera": true,
@@ -589,7 +589,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -12.400003433227539,
+                            "x": -10.999998092651367,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -633,7 +633,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -3.5,
+                            "x": -2.100001335144043,
                             "y": -2.0
                         },
                         "relativeToCamera": true,
@@ -696,7 +696,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.400000095367432,
+                            "x": -3.0000014305114746,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -740,7 +740,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.0,
+                            "x": -6.600001335144043,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -803,7 +803,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -8.359999656677246,
+                            "x": -6.9599995613098145,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -847,7 +847,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 4.5,
+                            "x": 5.899998664855957,
                             "y": -2.0
                         },
                         "relativeToCamera": true,
@@ -910,7 +910,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 3.5,
+                            "x": 4.899998664855957,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -954,7 +954,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": 1.399999976158142,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -1017,7 +1017,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.36000001430511475,
+                            "x": 1.0399999618530273,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1061,7 +1061,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 12.0,
+                            "x": 13.400005340576172,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -1081,7 +1081,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/MainMenu/lvlselectbutton.png",
@@ -1124,7 +1124,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 11.640000343322754,
+                            "x": 13.04000473022461,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1168,7 +1168,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
+                            "x": 9.400005340576172,
                             "y": -1.5
                         },
                         "relativeToCamera": true,
@@ -1231,7 +1231,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 7.639999866485596,
+                            "x": 9.040002822875977,
                             "y": -1.9700000286102295
                         },
                         "relativeToCamera": true,
@@ -1281,7 +1281,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
+                            "x": 1.399999976158142,
                             "y": 0.0
                         },
                         "relativeToCamera": true,
