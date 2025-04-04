@@ -115,6 +115,13 @@ void WindowManager::MinimizeWindow() {
     glfwIconifyWindow(ptrWindow);  // Minimizes the window
 }
 
+//void WindowManager::WindowFocusCallback(GLFWwindow* window, int focused) {
+//    if (!focused) {
+//        DuckEngine::MinimizeWindow(); // Or pause, mute audio, etc.
+//        std::cout << "Window lost focus - minimized.\n";
+//    }
+//}
+
 void WindowManager::UpdateViewportDimensions() {
     if (DuckEngine::isEditor) {
         Vec2 newViewportSize = DuckEngine::editorContentRegion;
@@ -254,6 +261,9 @@ void WindowManager::SetWindowTitle(const char* _title) {
 }
 
 void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
+
+    if (!focused && !isFullscreen)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
+
     UNREFERENCED_PARAMETER(window);
     isFocused = focused != 0;
 }

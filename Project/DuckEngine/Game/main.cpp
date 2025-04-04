@@ -50,13 +50,11 @@ int WINAPI WinMain(
 	{
 		double frameStartTime = DuckEngine::GetGLFWTime();
 
+		// if alt + enter is pressed, toggle full screen
 		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
 			|| DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
 			) {
 			DuckEngine::ToggleFullScreen();
-		}
-		else if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT)) {
-
 		}
 
 		gManager.Update();
