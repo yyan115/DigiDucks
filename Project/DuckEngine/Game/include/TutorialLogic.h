@@ -27,5 +27,6 @@ public:
 		return clone;
 	}
 
+	void ShowNextTexture();
 
 };

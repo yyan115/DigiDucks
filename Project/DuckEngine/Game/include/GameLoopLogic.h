@@ -45,6 +45,7 @@ public:
 	std::vector<CustomerLogic*> customers{};
 	int currentCustomerIndex = 0;
 	int customerCount = 0;
+	int ordersTaken = 0;
 	bool isCustomerWaitingForOrder = false;
 	float timeSinceLastCustomer = 0.0f;
 	float customerSpawnInterval = 10.0f;

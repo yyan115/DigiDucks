@@ -148,6 +148,7 @@ void CustomerWaitingOrderState::Update()
 			orderTabLogic->AddOrder(owner->GetCustomerOrderType(), owner);
 			orderTaken = true;
 			owner->isWaitingToGiveOrder = false;
+			owner->GetGameLoopLogic()->ordersTaken++;
 
 			GameLoopLogic* gameLoop = owner->GetGameLoopLogic();
 			if (gameLoop)
