@@ -131,8 +131,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
-                            "y": -0.7749999761581421
+                            "x": 0.4000000059604645,
+                            "y": -0.8999999761581421
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -180,7 +180,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.6000000238418579,
                             "y": -0.8999999761581421
                         },
                         "relativeToCamera": false,
@@ -244,8 +244,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
-                            "y": -0.7749999761581421
+                            "x": 0.4000000059604645,
+                            "y": -0.8999999761581421
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -372,7 +372,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 0"
+                        "text": "Score: 260"
                     },
                     "type": "TextComponent"
                 },

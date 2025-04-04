@@ -103,11 +103,12 @@ void EndScene::Load()
 
 	RestartButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Restart").get();
 	Restart = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(RestartButton->entityID);
+	
 	Restart_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(RestartButton->entityID);
 
 	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next").get();
 	Next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
-	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+	
 
 }
 
@@ -130,6 +131,29 @@ void EndScene::Start()
 	LevelSelectScreenLogic::LevelCompleted();
 
 	LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
+
+
+	Restart->onClick = [this, lastPlayedSceneName]() {
+		std::cout << "Restart button clicked!" << std::endl;
+		GameManager::SetActiveScene(lastPlayedSceneName);
+	};
+
+
+	
+
+	/*Next->onClick = [this, lastPlayedSceneName]() {
+		std::cout << "Next button clicked!" << std::endl;
+		std::string nextstage = lastPlayedSceneName;
+		nextstage.resize(5);
+		int level = std::stoi(lastPlayedSceneName.substr(5, 1)) + 1;
+		nextstage += std::to_string(level);
+		std::cout << "next stage: "<< nextstage << std::endl;
+		GameManager::SetActiveScene(nextstage);	
+	};*/
+	
+	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+
+
 }
 
 void EndScene::Update()
@@ -177,14 +201,7 @@ void EndScene::Update()
 		Star3->texture = AssetManager::GetTextureByName("star");
 	}
 
-	if (ScoreLogic::scoreValue <= 0)
-	{
-		Restart_Spt->isVisible = true;
-	}
-	else
-	{
-		Next_Spt->isVisible = true;
-	}
+	
 
 	// Set Star Values
 	{
@@ -211,6 +228,17 @@ void EndScene::Update()
 			iStar_2 = 400;
 			iStar_3 = 500;
 		}
+
+		
+	}
+
+	if (ScoreLogic::scoreValue < iStar_1)
+	{
+		Restart_Spt->isVisible = true;
+	}
+	else
+	{
+		Next_Spt->isVisible = true;
 	}
 
 	if (ScoreLogic::scoreValue >= iStar_1)
