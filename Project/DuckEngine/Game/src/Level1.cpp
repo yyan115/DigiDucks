@@ -46,7 +46,6 @@ void Level1::Start()
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
-
 	// Level 1 Salad Only
 	// 2 Customers
 	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
