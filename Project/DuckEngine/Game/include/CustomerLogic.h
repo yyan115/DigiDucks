@@ -67,8 +67,8 @@ public:
 
 	// when waiting for order to be taken
 	float CurrentWaitingTime = 0;
-	float MaxCashierWaitingTime = 10.0f;
-	float MaxTableWaitingTime = 60.0f;
+	float MaxCashierWaitingTime = 20.0f;
+	float MaxTableWaitingTime = 50.0f;
 
 	ItemType customerOrderType = ItemType::EMPTY;
 

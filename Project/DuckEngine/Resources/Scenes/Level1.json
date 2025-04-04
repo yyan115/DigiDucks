@@ -6717,7 +6717,7 @@
                             "Resources/Sounds/player sfx/footstep6.wav",
                             "Resources/Sounds/player sfx/footstep7.wav"
                         ],
-                        "volume": 0.30000001192092896
+                        "volume": 0.10000000149011612
                     },
                     "type": "SoundComponent"
                 },
@@ -9409,7 +9409,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/gameplay bgm.ogg"
                         ],
-                        "volume": 0.10000000149011612
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }

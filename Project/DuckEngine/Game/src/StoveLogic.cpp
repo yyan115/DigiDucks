@@ -221,9 +221,9 @@ void StoveLogic::cookObject()
 		sliderLogic->EnableSlider(true);
 
 	currCookTime -= DuckEngine::FixedDeltaTime();
-	EmitSparks();
-	
 
+	//EmitSparks();
+	
 	if (currCookTime <= 0.f && !isCooked)
 	{
 		
