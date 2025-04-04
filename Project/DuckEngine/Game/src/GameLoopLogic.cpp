@@ -98,7 +98,7 @@ void GameLoopLogic::Start()
 	{
 		timerText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(timer->entityID);
 		if (timerText) {
-			timerText->text = "00:00";
+			timerText->text = "0:00";
 			// Placeholder Time:
 			timeLeft = 300.f;
 		}

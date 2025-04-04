@@ -74,7 +74,7 @@ void Level1::Start()
 	}
 
 	// Set Timer
-	gameLoopLogic->timeLeft = 120.0f;
+	gameLoopLogic->timeLeft = 180.0f;
 }
 
 /****************************************************************
