@@ -59,7 +59,7 @@ void GameSettingsLogic::Start() {
     if (masterVolumeSlider) {
         masterVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(masterVolumeSlider->entityID);
         if (masterVolumeSliderComp) {
-            masterVolumeSliderComp->currentValue = ProjectSettings::GetMasterVolume();
+            masterVolumeSliderComp->currentValue = SaveLoadManager::masterVolume;
             masterVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
                 DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MasterVolume_Value").get()->entityID);
             masterVolumeSliderComp->isEnable = false;
@@ -70,7 +70,7 @@ void GameSettingsLogic::Start() {
     if (bgmVolumeSlider) {
         bgmVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(bgmVolumeSlider->entityID);
         if (bgmVolumeSliderComp) {
-            bgmVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("BGM");
+            bgmVolumeSliderComp->currentValue = SaveLoadManager::musicVolume;
             bgmVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
                 DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("BGMVolume_Value").get()->entityID);
 			bgmVolumeSliderComp->isEnable = false;
@@ -81,7 +81,7 @@ void GameSettingsLogic::Start() {
     if (sfxVolumeSlider) {
         sfxVolumeSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(sfxVolumeSlider->entityID);
         if (sfxVolumeSliderComp) {
-            sfxVolumeSliderComp->currentValue = ProjectSettings::GetVolumeCategory("SFX");
+            sfxVolumeSliderComp->currentValue = SaveLoadManager::sfxVolume;
             sfxVolumeText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
                 DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXVolume_Value").get()->entityID);
 			sfxVolumeSliderComp->isEnable = false;
@@ -93,7 +93,7 @@ void GameSettingsLogic::Start() {
     if (fpsSlider) {
         fpsSliderComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SliderComponent>(fpsSlider->entityID);
         if (fpsSliderComp) {
-            fpsSliderComp->currentValue = static_cast<float>(ProjectSettings::GetTargetFPS());
+            fpsSliderComp->currentValue = static_cast<float>(SaveLoadManager::targetFPS);
             fpsText = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TextComponent>(
                 DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FPSTarget_Value").get()->entityID);
 			fpsSliderComp->isEnable = false;
@@ -109,14 +109,12 @@ void GameSettingsLogic::Start() {
 			vsyncToggle_Enabled = AssetManager::GetTextureByName("vsyncbox_tick");
 			vsyncToggle_Disabled = AssetManager::GetTextureByName("vsyncbox");
 			vsyncBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(vsyncToggle->entityID);
-			vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
+			vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
 			vsyncButtonComp->isEnabled = false;
             vsyncButtonComp->onClick = [this]() {
 				vsyncBtnSound->Play();
-                bool vsync = !ProjectSettings::GetUseVSync();
-                ProjectSettings::SetUseVSync(vsync);
-				SaveLoadManager::useVSync = vsync;
-                vsyncToggleSpt->texture = ProjectSettings::GetUseVSync() ? vsyncToggle_Enabled : vsyncToggle_Disabled;
+				SaveLoadManager::useVSync = !SaveLoadManager::useVSync;
+                vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
                 };
         }
     }
@@ -196,7 +194,6 @@ void GameSettingsLogic::UpdateSliders() {
     }
 
     if (fpsSliderComp) {
-        ProjectSettings::SetTargetFPS(static_cast<int>(fpsSliderComp->currentValue));
 		SaveLoadManager::targetFPS = static_cast<int>(fpsSliderComp->currentValue);
         fpsText->text = std::to_string(static_cast<int>(fpsSliderComp->currentValue));
     }
