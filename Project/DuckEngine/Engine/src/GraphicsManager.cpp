@@ -330,6 +330,16 @@ void GraphicsManager::RenderTextObject(const TextRenderCommand& cmd) {
     {
         // For UI text, use an orthographic projection that maps [0,1] to the screen
         projection = glm::ortho(0.0f, 1.0f, 0.0f, 1.0f, -1.0f, 1.0f);
+
+        //float windowWidth = WindowManager::GetWindowWidth();
+        //float windowHeight = WindowManager::GetWindowHeight();
+        //projection = glm::ortho(0.0f, windowWidth, 0.0f, windowHeight, -1.0f, 1.0f);
+
+        //float pixelScale = cmd.scale * WindowManager::GetWindowHeight();
+
+        //float aspect = (float)WindowManager::GetWindowWidth() / (float)WindowManager::GetWindowHeight();
+        //projection = glm::ortho(0.0f, aspect, 0.0f, 1.0f, -1.0f, 1.0f);
+
     }
     else
     {
@@ -377,9 +387,9 @@ void GraphicsManager::RenderTextObject(const TextRenderCommand& cmd) {
             const FontManager::Character& ch = fontMap.at(c);
             // No division by winW/winH needed because we expect text.scale to be relative already.
             float xpos = x + (ch.Bearing.x * cmd.scale);
-            float ypos = y - ((ch.Size.y - ch.Bearing.y) * cmd.scale);
+            float ypos = y - ((ch.Size.y - ch.Bearing.y) * cmd.scaleY);
             float w = ch.Size.x * cmd.scale;
-            float h = ch.Size.y * cmd.scale;
+            float h = ch.Size.y * cmd.scaleY;
 
             GLfloat vertices[6][4] = {
                 { xpos,     ypos + h,  0.0f, 0.0f },

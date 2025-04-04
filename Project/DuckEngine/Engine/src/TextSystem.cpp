@@ -146,7 +146,7 @@ void TextSystem::Render()
 
         if (!transform->relativeToCamera) {
             // Use a constant reference height (e.g., 1080) to compute normalized scale.
-            float referenceHeight = 1080.0f;
+            float referenceHeight = 1080.f;
             scale = text->fontSize / referenceHeight;
             renderPosition = transform->GetPosition();
             //DuckEngine::RenderText(text->fontName, text->text, transform->GetPosition(), normalizedScale, text->color, transform->relativeToCamera);
@@ -168,7 +168,14 @@ void TextSystem::Render()
             //DuckEngine::RenderText(text->fontName, text->text, centeredPosition, scale, text->color, transform->relativeToCamera);
         }
 
-        TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera);
+        float yScale = -1.f;
+
+        if (text->text.find("Score more") != std::string::npos) {
+            yScale = scale * 1.5f;
+
+        }
+
+        TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera, yScale);
 
         GraphicsManager::AddToDrawQueue({ orderInt, text->sortingOrder, RenderCommandType::Text, TextDrawCommand });
     }
