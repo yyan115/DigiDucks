@@ -49,7 +49,7 @@ void Level1::Start()
 
 	// Level 1 Salad Only
 	// 2 Customers
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
 		/*gameLoopLogic->customers[0]->MaxCashierWaitingTime = 20.0f;
 		gameLoopLogic->customers[0]->MaxTableWaitingTime = 30.0f;*/
