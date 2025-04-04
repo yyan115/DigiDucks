@@ -634,7 +634,7 @@ void InspectorRenderer::RenderComponents(int entityID)
 			// Font size
 			ImGui::Text("Font Size Y");
 			ImGui::SameLine(100);
-			if (ImGui::DragFloat("##FontSize Y", &text->fontSizeY, 0.001f, 0.01f, 1000.f)) {
+			if (ImGui::DragFloat("##FontSize Y", &text->fontSizeY, 0.01f, 0.01f, 1000.f)) {
 				HandlePropertyChange(hasChanged);
 			}
 
