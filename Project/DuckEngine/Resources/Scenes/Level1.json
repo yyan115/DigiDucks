@@ -1029,7 +1029,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 13,
+                        "sortingOrder": 14,
                         "sprite": false,
                         "texture": "Resources/Sprites/Stations/cashregistertable.png",
                         "useColor": false
@@ -11612,7 +11612,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 9,
-                        "text": "5:00"
+                        "text": "00:00"
                     },
                     "type": "TextComponent"
                 }
