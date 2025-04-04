@@ -218,44 +218,33 @@ void EndScene::Update()
 			soundComponent->Play();
 		}
 	}
+
 	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
-	if (lastPlayedSceneName == "Level0" && ScoreLogic::scoreValue == 10)
+
+	// Tutorial Level
+	if (lastPlayedSceneName == "Level0") 
+	{ 
+		iStar_1 = iStar_2 = iStar_3 = 10; 
+	}
+	else if (lastPlayedSceneName == "Level1" || lastPlayedSceneName == "Level1_5")
 	{
-		Star1->texture = AssetManager::GetTextureByName("star");
-		Star2->texture = AssetManager::GetTextureByName("star");
-		Star3->texture = AssetManager::GetTextureByName("star");
+		iStar_1 = 50;
+		iStar_2 = 100;
+		iStar_3 = 150;
+	}
+	else if (lastPlayedSceneName == "Level2" || lastPlayedSceneName == "Level2_5")
+	{
+		iStar_1 = 100;
+		iStar_2 = 150;
+		iStar_3 = 200;
+	}	
+	else if (lastPlayedSceneName == "Level3" || lastPlayedSceneName == "Level3_5")
+	{
+		iStar_1 = 150;
+		iStar_2 = 200;
+		iStar_3 = 250;
 	}
 
-	
-
-	// Set Star Values
-	{
-		// Tutorial Level
-		if (lastPlayedSceneName == "Level0") 
-		{ 
-			iStar_1 = iStar_2 = iStar_3 = 10; 
-		}
-		else if (lastPlayedSceneName == "Level1" || lastPlayedSceneName == "Level1_5")
-		{
-			iStar_1 = 150;
-			iStar_2 = 250;
-			iStar_3 = 350;
-		}
-		else if (lastPlayedSceneName == "Level2" || lastPlayedSceneName == "Level2_5")
-		{
-			iStar_1 = 200;
-			iStar_2 = 300;
-			iStar_3 = 400;
-		}	
-		else if (lastPlayedSceneName == "Level3" || lastPlayedSceneName == "Level3_5")
-		{
-			iStar_1 = 300;
-			iStar_2 = 400;
-			iStar_3 = 500;
-		}
-
-		
-	}
 
 	if (ScoreLogic::scoreValue < iStar_1)
 	{

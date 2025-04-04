@@ -4092,7 +4092,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 101,
+                        "sortingOrder": 103,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/confirmquit.png",
                         "useColor": true
@@ -4136,7 +4136,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 103,
+                        "sortingOrder": 104,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/exit_no.png",
                         "useColor": true
@@ -4200,7 +4200,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 103,
+                        "sortingOrder": 104,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/exit_yes.png",
                         "useColor": true
