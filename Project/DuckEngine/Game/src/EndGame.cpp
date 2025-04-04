@@ -136,20 +136,45 @@ void EndScene::Start()
 	Restart->onClick = [this, lastPlayedSceneName]() {
 		std::cout << "Restart button clicked!" << std::endl;
 		GameManager::SetActiveScene(lastPlayedSceneName);
+		std::cout << "current scene:" << lastPlayedSceneName << std::endl;
 	};
 
 
 	
 
-	/*Next->onClick = [this, lastPlayedSceneName]() {
-		std::cout << "Next button clicked!" << std::endl;
-		std::string nextstage = lastPlayedSceneName;
-		nextstage.resize(5);
-		int level = std::stoi(lastPlayedSceneName.substr(5, 1)) + 1;
-		nextstage += std::to_string(level);
-		std::cout << "next stage: "<< nextstage << std::endl;
-		GameManager::SetActiveScene(nextstage);	
-	};*/
+	Next->onClick = [this, lastPlayedSceneName]() {
+		
+		if (lastPlayedSceneName == "Level0")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level1");
+			GameManager::SetActiveScene("Level1");
+		}
+		else if (lastPlayedSceneName == "Level1")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level1_5");
+			GameManager::SetActiveScene("Level1_5");
+		}
+		else if (lastPlayedSceneName == "Level1_5")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level2");
+			GameManager::SetActiveScene("Level2");
+		}
+		else if (lastPlayedSceneName == "Level2")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level2_5");
+			GameManager::SetActiveScene("Level2_5");
+		}
+		else if (lastPlayedSceneName == "Level2_5")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level3");
+			GameManager::SetActiveScene("Level3");
+		}
+		else if (lastPlayedSceneName == "Level3")
+		{
+			GameManager::SetGlobalVariable("LastPlayedScene", "Level3_5");
+			GameManager::SetActiveScene("Level3_5");
+		}
+	};
 	
 	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
 
@@ -235,6 +260,11 @@ void EndScene::Update()
 	if (ScoreLogic::scoreValue < iStar_1)
 	{
 		Restart_Spt->isVisible = true;
+		backgroundSR->texture = AssetManager::GetTextureByName("DAYLOSE");
+		ScoreText->isEnabled = false;
+		Star1->isVisible = false;
+		Star2->isVisible = false;
+		Star3->isVisible = false;
 	}
 	else
 	{
