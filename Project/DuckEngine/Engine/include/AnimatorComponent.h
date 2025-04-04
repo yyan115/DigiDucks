@@ -62,6 +62,10 @@ public:
     std::unordered_map<std::string, Animation> animations;
     std::unordered_map<std::string, std::tuple<std::string, int, int>> spriteSheetMetadata;
 
+    bool playAnimationOnce = false;
+    std::string returnIdleState{};
+    int amountOfLoopsLeft{};
+
     DUCKENGINE_API AnimatorComponent() : currentAnimation(nullptr), isPaused(true) {}
 
     DUCKENGINE_API std::shared_ptr<Component> Clone() const override
@@ -89,6 +93,30 @@ public:
         if (animations.find(animationName) != animations.end())
         {
             currentAnimation = &animations[animationName];
+            amountOfLoopsLeft = -1;
+            playAnimationOnce = false;
+        }
+    }
+
+    DUCKENGINE_API void PlayAnimationOnce(std::string animationName, std::string idleName)
+    {
+        isPaused = false;
+        if (animations.find(animationName) != animations.end())
+        {
+            currentAnimation = &animations[animationName];
+            playAnimationOnce = true;
+            returnIdleState = idleName;
+        }
+    }
+
+    DUCKENGINE_API void PlayAnimationXTimes(std::string animationName, std::string idleName, int amountOfLoops)
+    {
+        isPaused = false;
+        if (animations.find(animationName) != animations.end())
+        {
+            currentAnimation = &animations[animationName];
+            returnIdleState = idleName;
+            amountOfLoopsLeft = amountOfLoops;
         }
     }
 

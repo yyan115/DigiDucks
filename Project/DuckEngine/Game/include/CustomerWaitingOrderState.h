@@ -40,4 +40,7 @@ private:
 	bool orderTaken = false;
 	bool orderCollected = false;
 
+	bool playGreenAnimation = false;
+	bool playYellowAnimation = false;
+	bool playRedAnimation = false;
 };

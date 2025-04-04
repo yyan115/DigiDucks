@@ -74,21 +74,27 @@ void CustomerWaitingOrderState::Update()
 			customerSound->Play(0);
 			owner->WaitingSlider->fillColor = { 255.f, 0.f, 0, 255.f };
 
-			//customerAnimator->PlayAnimation("ANGRY");
+			owner->WalkState->customerAnimator->PlayAnimation("ANGRY");
 		}
 		// change to yellow if 1/3
 		else if (owner->CurrentWaitingTime >= owner->MaxCashierWaitingTime / 3) {
 			owner->WaitingSlider->fillColor = { 255.f, 183.f, 0, 255.f };
 
-			//customerAnimator->ChangeAnimationSpeed("WAVE", 0.1f);
-			//customerAnimator->PlayAnimation("WAVE");
+			if (!playYellowAnimation) {
+				owner->WalkState->customerAnimator->ChangeAnimationSpeed("WAVE", 0.05f);
+				owner->WalkState->customerAnimator->PlayAnimationXTimes("WAVE", "BACK_IDLE", 3);
+				playYellowAnimation = true;
+			}
 		}
 		// default fill green
 		else {
 			owner->WaitingSlider->fillColor = { 107.f, 255.f, 0, 255.f };
 
-			//customerAnimator->ChangeAnimationSpeed("WAVE", 0.05f);
-			//customerAnimator->PlayAnimation("WAVE");
+			if (!playGreenAnimation) {
+				owner->WalkState->customerAnimator->ChangeAnimationSpeed("WAVE", 0.1f);
+				owner->WalkState->customerAnimator->PlayAnimationOnce("WAVE", "BACK_IDLE");
+				playGreenAnimation = true;
+			}
 		}
 	}
 	// ran out of patience

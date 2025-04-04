@@ -46,12 +46,33 @@ void AnimatorSystem::FixedUpdate()
 
 		if (!animator->currentAnimation || animator->isPaused) continue;
 
-		animator->currentAnimation->frameTimer += DuckEngine::FixedDeltaTime();
-
-		if (animator->currentAnimation->frameTimer >= animator->currentAnimation->frameDuration)
-		{
+		if (animator->playAnimationOnce && animator->currentAnimation->currentFrame == animator->currentAnimation->Frames.size() - 1
+			|| animator->amountOfLoopsLeft == 0 && animator->currentAnimation->currentFrame == animator->currentAnimation->Frames.size() - 1) {
 			animator->currentAnimation->frameTimer = 0.0f;
-			animator->currentAnimation->currentFrame = (animator->currentAnimation->currentFrame + 1) % animator->currentAnimation->Frames.size();
+			animator->currentAnimation->currentFrame = 0;
+
+			if (animator->animations.find(animator->returnIdleState) != animator->animations.end())
+			{
+				animator->currentAnimation = &animator->animations[animator->returnIdleState];
+				animator->currentAnimation->frameTimer = 0.0f;
+				animator->currentAnimation->currentFrame = 0;
+				animator->playAnimationOnce = false;
+				animator->amountOfLoopsLeft = 0;
+				animator->returnIdleState = "BACK_IDLE";
+			}
+		}
+		else {
+			animator->currentAnimation->frameTimer += DuckEngine::FixedDeltaTime();
+
+			if (animator->currentAnimation->frameTimer >= animator->currentAnimation->frameDuration)
+			{
+				animator->currentAnimation->frameTimer = 0.0f;
+
+				if (animator->currentAnimation->currentFrame == animator->currentAnimation->Frames.size() - 1 && animator->amountOfLoopsLeft > 0)
+					animator->amountOfLoopsLeft--;
+
+				animator->currentAnimation->currentFrame = (animator->currentAnimation->currentFrame + 1) % animator->currentAnimation->Frames.size();
+			}
 		}
 
 		spriteRenderer->texture = *(animator->currentAnimation->Frames[animator->currentAnimation->currentFrame]);

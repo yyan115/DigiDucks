@@ -55,9 +55,9 @@ public:
 	std::vector<Entity*> waitTargets{};
 	std::vector<Entity*> queueTargets{};
 
+	AnimatorComponent* customerAnimator = nullptr;
 private:
 	Entity* finalPath = nullptr;
-	AnimatorComponent* customerAnimator = nullptr;
 
 	// points for customer to move to when leaving
 	std::vector<Entity*> leaveTargets{};
@@ -69,7 +69,8 @@ private:
 	//std::vector<std::tuple<Entity*, bool, std::vector<Entity*>>> seatingLocations{};
 
 
-
+	bool playYellowAnimation = false;
+	bool playGreenAnimation = false;
 
 
 
