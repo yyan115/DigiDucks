@@ -146,6 +146,37 @@ void PauseMenuLogic::Start()
 		uiSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(ui->entityID);
 	}
 
+	// Stars
+	{
+		star1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
+		if (star1)
+		{
+			star1Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(star1->entityID);
+			if (star1Spt)
+			{
+				star1Spt->isVisible = false;
+			}
+		}
+		star2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_2").get();
+		if (star2)
+		{
+			star2Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(star2->entityID);
+			if (star2Spt)
+			{
+				star2Spt->isVisible = false;
+			}
+		}
+		star3 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_3").get();
+		if (star3)
+		{
+			star3Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(star3->entityID);
+			if (star3Spt)
+			{
+				star3Spt->isVisible = false;
+			}
+		}
+	}
+
 	auto PauseMenuSFX = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PauseMenuSFXManager").get();
 	if (PauseMenuSFX)
 	{
@@ -415,6 +446,19 @@ void PauseMenuLogic::DisableButtons(bool state)
 	if (gameHTPButton)
 	{
 		gameHTPButton->isEnabled = !state;
+	}
+
+	if (star1Spt)
+	{
+		star1Spt->isVisible = !state;
+	}
+	if (star2Spt)
+	{
+		star2Spt->isVisible = !state;
+	}
+	if (star3Spt)
+	{
+		star3Spt->isVisible = !state;
 	}
 }
 

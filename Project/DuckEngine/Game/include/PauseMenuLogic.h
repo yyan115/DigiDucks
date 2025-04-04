@@ -65,6 +65,15 @@ private:
 	Entity* ui = nullptr;
 	SpriteRendererComponent* uiSprite = nullptr;
 	SoundComponent* PauseMenuSound = nullptr;
+
+	// Stars
+	Entity* star1 = nullptr;
+	SpriteRendererComponent* star1Spt = nullptr;
+	Entity* star2 = nullptr;
+	SpriteRendererComponent* star2Spt = nullptr;
+	Entity* star3 = nullptr;
+	SpriteRendererComponent* star3Spt = nullptr;
+
 	// Gamepad navigation
 	enum class MenuSelection 
 	{
