@@ -218,7 +218,7 @@
                         "isVisible": true,
                         "sortingOrder": 16,
                         "sprite": true,
-                        "texture": "Resources/Sprites/New Background/wall (5).png",
+                        "texture": "Resources/Sprites/New Background/wall.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -232,7 +232,14 @@
                 "Kitchen_Floor",
                 "Back_Wall",
                 "Side_Wall",
-                "Carpet"
+                "Carpet",
+                "Carpet_copy",
+                "Carpet_copy_copy",
+                "Bush",
+                "MenuDisplay",
+                "Small_Bush",
+                "Cactus",
+                "Flower"
             ],
             "components": [
                 {
@@ -620,6 +627,302 @@
             ],
             "layer": "Gameplay"
         },
+        "Bush": {
+            "childNames": [
+                "Bush_copy",
+                "Bush_copy_1",
+                "Bush_copy_copy",
+                "Bush_copy_copy_copy",
+                "Bush_copy_1_copy",
+                "Bush_copy_1_copy_copy"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": 7.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 17,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge3.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": 4.300000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge2.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": 1.3000001907348633
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 19,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy_1_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": -7.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 22,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge2.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy_1_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": -10.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 23,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": -1.6999998092651367
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 20,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge3.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Bush_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -25.100000381469727,
+                            "y": -4.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 21,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Cactus": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -11.899999618530273,
+                            "y": 7.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 4.0,
+                            "y": 4.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/cactus.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Carpet": {
             "components": [
                 {
@@ -649,6 +952,78 @@
                         "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/carpet.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Background"
+        },
+        "Carpet_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -3.5299999713897705,
+                            "y": -10.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 28.200000762939453,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 2,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/carpet2.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Background"
+        },
+        "Carpet_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 5.550000190734863,
+                            "y": -8.100000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 9.899999618530273,
+                            "y": 3.0999999046325684
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 3,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/carpet3 (2).png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -4291,6 +4666,118 @@
             ],
             "layer": "Background"
         },
+        "Flower": {
+            "childNames": [
+                "Flower_copy",
+                "Flower_copy_copy"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -1.9000000953674316,
+                            "y": 7.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 6.099999904632568,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/longhedge.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Flower_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 7.0,
+                            "y": 7.800000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.5,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/sunflower.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Flower_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 13.399999618530273,
+                            "y": 7.800000190734863
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.5,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/sunflower.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameFadeScreen": {
             "components": [
                 {
@@ -5819,6 +6306,42 @@
                 }
             ],
             "layer": "UI"
+        },
+        "MenuDisplay": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -20.899999618530273,
+                            "y": 7.599999904632568
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 4.0,
+                            "y": 4.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 17,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/signboard.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
         },
         "Mushroom_Box": {
             "childNames": [
@@ -9148,7 +9671,7 @@
                     "properties": {
                         "position": {
                             "x": -5.0,
-                            "y": 0.10000002384185791
+                            "y": 0.06414377689361572
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -9171,6 +9694,155 @@
                         "sortingOrder": 17,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/wallcorners.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Small_Bush": {
+            "childNames": [
+                "Small_Bush_copy",
+                "Small_Bush_copy_copy",
+                "Small_Bush_copy_copy_copy"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -13.899999618530273,
+                            "y": 7.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/shrub1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Small_Bush_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 11.0,
+                            "y": 7.5
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/shrub1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Small_Bush_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 11.799999237060547,
+                            "y": -8.199999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/shrub1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Small_Bush_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 11.799999237060547,
+                            "y": -10.399999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 18,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/shrub1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
