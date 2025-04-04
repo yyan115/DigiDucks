@@ -76,9 +76,24 @@ void CustomerLogic::FixedUpdate()
 	stateMachine.currentState->FixedUpdate();
 }
 
-void CustomerLogic::OrderCompleted() 
+void CustomerLogic::OrderCompleted()
 {
 	WalkState->CustomerOrderCollected();
+
+	GameLoopLogic* gameLoop = GetGameLoopLogic();
+
+	if (inSequence) 
+	{
+		std::cout << "Sequence mode: Customer order completed, will spawn next after leaving" << std::endl;
+	}
+
+	if (gameLoop) 
+	{
+		gameLoop->isSpawningCustomer = true;
+		gameLoop->customerSpawnCooldown = 3.0f;
+	}
+
+	// Transition to walk state to leave
 	stateMachine.ChangeState(WalkState);
 }
 
@@ -107,4 +122,26 @@ float CustomerLogic::GetCustomerMultiplier()
 Entity* CustomerLogic::GetCurrentCustomerEntity()
 {
 	return DuckEngine::DUCKENGINE_EntityManager.GetEntity(GetComponentID()).get();
+}
+
+bool CustomerLogic::IsAnyCustomerInSequence(GameLoopLogic* gameLoop)
+{
+	if (!gameLoop) return false;
+
+	for (auto* customer : gameLoop->customers)
+	{
+		// Skip customers that haven't been spawned yet or have completed their journey
+		if (customer->stateMachine.currentState == customer->IdleState &&
+			customer->hasCompletedJourney) {
+			continue;
+		}
+
+		// If any customer is in sequence mode and active, return true
+		if (customer->inSequence &&
+			customer->stateMachine.currentState != customer->IdleState) {
+			return true;
+		}
+	}
+
+	return false;
 }

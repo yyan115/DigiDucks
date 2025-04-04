@@ -39,6 +39,9 @@ public:
 	std::shared_ptr<CustomerWaitingOrderState> WaitingOrderState;
 	bool isWaitingToGiveOrder = false;
 
+	bool inSequence = false;
+	bool hasCompletedJourney = false;
+
 	CustomerLogic()
 		: IdleState(nullptr), WalkState(nullptr) {
 	}
@@ -76,7 +79,7 @@ public:
 	float GetCustomerMultiplier();
 
 	Entity* GetCurrentCustomerEntity();
-
+	static bool IsAnyCustomerInSequence(GameLoopLogic* gameLoop);
 private:
 	Entity* customerOrder = nullptr;
 	SpriteRendererComponent* customerOrderSpriteRenderer = nullptr;

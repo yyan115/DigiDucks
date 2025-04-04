@@ -35,6 +35,7 @@ void ExitConfirmLogic::Start()
 			gameExitYesButton->onClick = [this]() {
 				gameExitYesBtnSound->Resume();
 				gameExitYesBtnSound->Play();
+				DuckEngine::PauseGame(false);
 				// need to transition
 				GameManager::SetActiveScene("MainMenu"); };
 			gameExitYesButton->onHover = [this]() {

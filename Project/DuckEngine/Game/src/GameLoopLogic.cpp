@@ -347,7 +347,7 @@ void GameLoopLogic::Update()
 					TimeLeftSound->Play(4);
 					CountdownText->text = "Go!";
 					currentCustomerIndex = 0;
-					
+
 					// Start only the first customer when game begins
 					if (!customers.empty() && !isSpawningCustomer) {
 						customers[0]->StartWalking();
@@ -371,14 +371,20 @@ void GameLoopLogic::Update()
 
 		return;
 	}
-	else 
+	else
 	{
-		if (!isSpawningCustomer) 
-		{
-			if (!customerQueuePaused) 
-			{
-				timeSinceLastCustomer += DuckEngine::DeltaTime();
+		// Check if sequence mode is enabled for any customer
+		bool sequenceModeEnabled = false;
+		for (auto* customer : customers) {
+			if (customer->inSequence) {
+				sequenceModeEnabled = true;
+				break;
 			}
+		}
+
+		if (!isSpawningCustomer)
+		{
+			timeSinceLastCustomer += DuckEngine::DeltaTime();
 		}
 		else
 		{
@@ -387,83 +393,88 @@ void GameLoopLogic::Update()
 			{
 				isSpawningCustomer = false;
 				customerSpawnCooldown = 3.0f;
-				customerQueuePaused = false;
 			}
-		}
-
-		bool anyCustomerAtCounter = false;
-		for (auto* customer : customers) 
-		{
-			if (customer->stateMachine.currentState == customer->WaitingOrderState) 
-			{
-				anyCustomerAtCounter = true;
-				break;
-			}
-
-			// Also check for customers walking to counter
-			if (customer->stateMachine.currentState == customer->WalkState) {
-				CustomerWalkState* walkState = customer->WalkState.get();
-				if (!walkState->isOrderTaken &&
-					!walkState->customerAngryLeave &&
-					walkState->currentTargetIndex < walkState->queueTargets.size()) {
-					anyCustomerAtCounter = true;
-					break;
-				}
-			}
-		}
-
-		if (anyCustomerAtCounter) 
-		{
-			customerQueuePaused = true;
 		}
 
 		if (timeSinceLastCustomer >= customerSpawnInterval &&
 			currentCustomerIndex < customerCount - 1 &&
-			!isSpawningCustomer) 
+			!isSpawningCustomer)
 		{
-
-			bool anyCustomerWaiting = false;
-			bool anyCustomerWalking = false;
-			
-			// Check if any customer is waiting to place an order or is walking to the counter
-			for (auto* customer : customers) 
+			// Handle sequence mode differently
+			if (sequenceModeEnabled)
 			{
-				// Check if any customer is in waiting state
-				if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
-					customer->stateMachine.currentState == customer->WaitingOrderState) 
-				{
-					anyCustomerWaiting = true;
-					break;
-				}
-				
-				// Check if the most recently spawned customer is still walking to the counter
-				// This prevents spawning the next customer while current one is still approaching
-				if (customer->stateMachine.currentState == customer->WalkState &&
-				    currentCustomerIndex > 0 && // Only for customers after the first one
-				    customers[currentCustomerIndex] == customer) // Only check most recent customer
-				{
-					// Check if customer is walking to take the order (not leaving/going to seat)
-					if (!customer->WalkState.get()->isOrderTaken && 
-					    !customer->WalkState.get()->customerAngryLeave)
-					{
-						anyCustomerWalking = true;
+				// In sequence mode, only spawn if no customer is currently active in sequence
+				bool anyActiveCustomer = false;
+				for (auto* customer : customers) {
+					// Skip customers that haven't been spawned yet or have completed their journey
+					if (customer->stateMachine.currentState == customer->IdleState &&
+						customer->hasCompletedJourney) {
+						continue;
+					}
+
+					// If any customer is in sequence mode and active, don't spawn
+					if (customer->inSequence &&
+						customer->stateMachine.currentState != customer->IdleState) {
+						anyActiveCustomer = true;
 						break;
 					}
 				}
+
+				if (!anyActiveCustomer)
+				{
+					timeSinceLastCustomer = 0.0f;
+					isSpawningCustomer = true;
+
+					currentCustomerIndex++;
+					customers[currentCustomerIndex]->StartWalking();
+					customerSpawnCooldown = 3.0f;
+				}
 			}
-		
-		// Only spawn a new customer if no customer is waiting or walking to counter
-		if (!anyCustomerWaiting && !anyCustomerWalking) 
-		{
-			timeSinceLastCustomer = 0.0f;
-			isSpawningCustomer = true;
-			
-			currentCustomerIndex++;
-			std::cout << "Spawning next customer due to time interval" << std::endl;
-			customers[currentCustomerIndex]->StartWalking();
-			// Reset cooldown timer to prevent immediate spawning of next customer
-			customerSpawnCooldown = 3.0f;
-		}
+			else
+			{
+				bool anyCustomerWaiting = false;
+				bool anyCustomerWalking = false;
+
+				// Check if any customer is waiting to place an order or is walking to the counter
+				for (auto* customer : customers)
+				{
+					// Check if any customer is in waiting state
+					if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
+						customer->stateMachine.currentState == customer->WaitingOrderState)
+					{
+						anyCustomerWaiting = true;
+						break;
+					}
+
+					// Check if the most recently spawned customer is still walking to the counter
+					// This prevents spawning the next customer while current one is still approaching
+					if (customer->stateMachine.currentState == customer->WalkState &&
+						currentCustomerIndex > 0 && // Only for customers after the first one
+						customers[currentCustomerIndex] == customer) // Only check most recent customer
+					{
+						// Check if customer is walking to take the order (not leaving/going to seat)
+						if (!customer->WalkState.get()->isOrderTaken &&
+							!customer->WalkState.get()->customerAngryLeave)
+						{
+							anyCustomerWalking = true;
+							break;
+						}
+					}
+				}
+
+				// Only spawn a new customer if no customer is waiting or walking to counter
+				if (!anyCustomerWaiting && !anyCustomerWalking)
+				{
+					timeSinceLastCustomer = 0.0f;
+					isSpawningCustomer = true;
+
+					currentCustomerIndex++;
+					std::cout << "Spawning next customer due to time interval" << std::endl;
+					customers[currentCustomerIndex]->StartWalking();
+					// Reset cooldown timer to prevent immediate spawning of next customer
+					customerSpawnCooldown = 3.0f;
+				}
+			}
 		}
 	}
 
@@ -477,7 +488,7 @@ void GameLoopLogic::Update()
 
 	//}
 
-	for (const auto& [entityId, sComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>()) 
+	for (const auto& [entityId, sComponent] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<SoundComponent>())
 	{
 		SoundComponent* soundComponent = static_cast<SoundComponent*>(sComponent.get());
 		if (soundComponent->playOnStart && !soundComponent->IsSoundPlaying()) {
@@ -531,7 +542,7 @@ void GameLoopLogic::Update()
 		}
 	}
 
-	
+
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
@@ -540,7 +551,7 @@ void GameLoopLogic::Update()
 	}
 
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
-	if(submit)
+	if (submit)
 	{
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
@@ -571,15 +582,12 @@ void GameLoopLogic::Update()
 	{
 		std::cout << "Escape is pressed!\n";
 		if (pauseMenuLogic)
-		{		
-			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);	
+		{
+			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
 			pauseMenuLogic->playPauseSound();
 		}
 	}
-
-	
 }
-
 void GameLoopLogic::FixedUpdate()
 {
 }
@@ -635,4 +643,20 @@ void GameLoopLogic::ResetCustomerQueue()
 	customerSpawnCooldown = 6.0f;
 
 	std::cout << "Customer queue reset - pausing new spawns temporarily" << std::endl;
+}
+
+void GameLoopLogic::SetSequenceMode(bool enabled)
+{
+	for (auto* customer : customers)
+	{
+		customer->inSequence = enabled;
+
+		if (!enabled) 
+		{
+			// Reset completion tracking when disabling sequence mode
+			customer->hasCompletedJourney = false;
+		}
+	}
+
+	std::cout << "Sequence mode " << (enabled ? "enabled" : "disabled") << std::endl;
 }

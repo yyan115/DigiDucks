@@ -41,6 +41,7 @@ public:
 		clone->component = nullptr;
 		return clone;
 	}
+
 	std::vector<CustomerLogic*> customers{};
 	int currentCustomerIndex = 0;
 	int customerCount = 0;
@@ -83,7 +84,7 @@ public:
 	Entity* timer = nullptr;
 	TextComponent* timerText = nullptr;
 	float timeLeft = 0.f;
-
+	void GameLoopLogic::SetSequenceMode(bool enabled);
 private:
 	Entity* CutScene = nullptr;
 	std::shared_ptr<CutSceneLogic> CutSceneManager = nullptr;
