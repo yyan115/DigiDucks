@@ -49,7 +49,7 @@ void Level2_5::Start()
 
 	// Level 2.5 Burger and Salad
 	// 4 Customers
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
 		int random = rand() % 8;
 		switch (random)

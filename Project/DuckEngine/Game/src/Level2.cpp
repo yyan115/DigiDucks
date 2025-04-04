@@ -49,7 +49,7 @@ void Level2::Start()
 
 	// Level 2 Burger and Cheese Burger
 	// 2 Customers
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
 		int random = rand() % 2;
 		switch (random)

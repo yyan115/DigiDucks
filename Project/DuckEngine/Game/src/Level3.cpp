@@ -49,7 +49,7 @@ void Level3::Start()
 
 	// Level 3 Mushroom and Tomato Soup
 	// 2 Customers
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
 		int random = rand() % 2;
 		switch (random)
