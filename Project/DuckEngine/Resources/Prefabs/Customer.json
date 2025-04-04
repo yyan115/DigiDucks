@@ -3,8 +3,8 @@
         {
             "properties": {
                 "position": {
-                    "x": -6.0,
-                    "y": -15.0
+                    "x": -16.800010681152344,
+                    "y": 21.000003814697266
                 },
                 "relativeToCamera": true,
                 "rotation": 0.0,
@@ -24,7 +24,7 @@
                     "r": 255.0
                 },
                 "isVisible": true,
-                "sortingOrder": 4,
+                "sortingOrder": 15,
                 "sprite": true,
                 "texture": "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
                 "useColor": false
@@ -36,6 +36,22 @@
                 "isStatic": false
             },
             "type": "RigidbodyComponent"
+        },
+        {
+            "properties": {
+                "category": "SFX",
+                "effectValue": 0.0,
+                "effects": "Default",
+                "loop": false,
+                "playOnStart": false,
+                "soundID": [
+                    "Resources/Sounds/timer/baking clock sound.wav",
+                    "Resources/Sounds/duck sounds/angryduck.wav",
+                    "Resources/Sounds/duck sounds/angryduck2.wav"
+                ],
+                "volume": 0.25
+            },
+            "type": "SoundComponent"
         },
         {
             "properties": {
@@ -151,22 +167,6 @@
                 ]
             },
             "type": "GameLogicComponent"
-        },
-        {
-            "properties": {
-                "category": "SFX",
-                "effectValue": 0.0,
-                "effects": "Default",
-                "loop": false,
-                "playOnStart": false,
-                "soundID": [
-                    "Resources/Sounds/timer/baking clock sound.wav",
-                    "Resources/Sounds/duck sounds/angryduck.wav",
-                    "Resources/Sounds/duck sounds/angryduck2.wav"
-                ],
-                "volume": 0.25
-            },
-            "type": "SoundComponent"
         }
     ]
 }

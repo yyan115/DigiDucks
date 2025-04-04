@@ -1,5 +1,5 @@
 {
-    "currentLevel": 4,
+    "currentLevel": 0,
     "video": {
         "targetFPS": 60,
         "useVSync": true

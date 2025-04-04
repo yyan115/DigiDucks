@@ -29,15 +29,15 @@ private:
 	SpriteRendererComponent* spriteRenderer = nullptr;
 	TextComponent* textComponent = nullptr;
 	int stock = 0;
-	int MAX_STOCK = 5;
+	int MAX_STOCK = 100000;
 
 public:
 
 	StockLogic() : GameLogic(nullptr) {}
 
-	StockLogic(ItemType type, int stock_ = 5) : GameLogic(nullptr), type(type), stock(stock_) {}
+	StockLogic(ItemType type, int stock_ = 100000) : GameLogic(nullptr), type(type), stock(stock_) {}
 
-	StockLogic(GameLogicComponent* component, ItemType type, int stock_ = 3) : GameLogic(nullptr), type(type), stock(stock_)
+	StockLogic(GameLogicComponent* component, ItemType type, int stock_ = 100000) : GameLogic(nullptr), type(type), stock(stock_)
 	{
 		UNREFERENCED_PARAMETER(component);
 	}

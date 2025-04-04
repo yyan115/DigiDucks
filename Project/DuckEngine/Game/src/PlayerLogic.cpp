@@ -642,7 +642,7 @@ void PlayerLogic::InteractPressed()
 						soundToPlay->Stop();
 						soundToPlay->Play(-1);
 					}
-					isHolding = false;
+					isHolding = true;
 				}
 			}
 			return;
