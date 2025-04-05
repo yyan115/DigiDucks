@@ -222,6 +222,7 @@ void DuckEngine::Update()
 		if (!pausedOrMinimized)
 		{
 			std::cout << "Paused" << std::endl;
+			DuckEngine::PauseGame(true);
 			SoundSystem::PauseAllSounds();
 			pausedOrMinimized = true;
 		}
@@ -231,6 +232,7 @@ void DuckEngine::Update()
 	{
 		SoundSystem::ResumeAllSounds();
 		pausedOrMinimized = false;
+		DuckEngine::PauseGame(false);
 	}
 
 	static float timer = 0;
@@ -617,6 +619,7 @@ double DuckEngine::GetGLFWTime()
 
 void DuckEngine::PauseGame(bool pause) 
 {
+	std::cout << "PAUSE CALLED\n";
 
 	TimeManager::FreezeTime(pause);
 
