@@ -6432,8 +6432,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.0,
-                            "y": 4.800000190734863
+                            "x": -10.0,
+                            "y": 3.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -6638,7 +6638,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
@@ -6944,8 +6944,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 8.0,
-                            "y": 4.800000190734863
+                            "x": -10.0,
+                            "y": 0.9000000357627869
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
@@ -9798,8 +9798,7 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "HighlightLogic",
-                            "GetPotLogic"
+                            "HighlightLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -9884,8 +9883,7 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "HighlightLogic",
-                            "GetPanLogic"
+                            "HighlightLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10010,7 +10008,8 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "HighlightLogic"
+                            "HighlightLogic",
+                            "GetPanLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -10081,7 +10080,8 @@
                     "properties": {
                         "logicNames": [
                             "TableLogic",
-                            "HighlightLogic"
+                            "HighlightLogic",
+                            "GetPotLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
