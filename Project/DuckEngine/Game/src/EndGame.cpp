@@ -232,6 +232,7 @@ void EndScene::Start()
 	if (ScoreLogic::scoreValue < iStar_1)
 	{
 		Restart_Spt->isVisible = true;
+		Next_Spt->isVisible = false;
 		backgroundSR->texture = AssetManager::GetTextureByName("DAYLOSE");
 		ScoreText->isEnabled = false;
 		Star1->isVisible = false;
