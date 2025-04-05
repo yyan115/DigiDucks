@@ -309,7 +309,7 @@ void EndScene::Update()
 				GameManager::SetActiveScene(lastPlayedSceneName);
 				std::cout << "current scene:" << lastPlayedSceneName << std::endl;
 			}
-			if (isnextButtonClicked)
+			else if (isnextButtonClicked)
 			{
 				if (lastPlayedSceneName == "Level0") GameManager::SetActiveScene("Level1");
 				else if (lastPlayedSceneName == "Level1") GameManager::SetActiveScene("Level1_5");
