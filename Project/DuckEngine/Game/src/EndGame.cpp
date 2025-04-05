@@ -308,7 +308,6 @@ void EndScene::Start()
 			Next_Spt->isVisible = false;
 			MainMenu_Spt->isVisible = false;
 			LastMainMenu_Spt->isVisible = true;
-			Restart_Spt->isVisible = false;
 
 			currentState = EndSceneState::COMPLETE;
 			currentButtonSelection = EndButtonSelection::LASTMENU;
@@ -325,6 +324,7 @@ void EndScene::Start()
 		Star1->isVisible = true;
 		Star2->isVisible = true;
 		Star3->isVisible = true;
+		Restart_Spt->isVisible = false;
 	}
 
 
