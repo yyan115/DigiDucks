@@ -301,6 +301,10 @@
     <ClInclude Include="..\include\TutorialLogic.h" />
     <ClInclude Include="..\include\UISliderLogic.h" />
     <ClInclude Include="..\include\WhitePlateStockLogic.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Quack_Kitchen.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Resources\GameIcon.ico" />
