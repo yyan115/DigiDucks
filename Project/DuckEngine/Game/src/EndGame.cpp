@@ -392,11 +392,32 @@ void EndScene::Update()
 			}
 			else if (isnextButtonClicked)
 			{
-				if (lastPlayedSceneName == "Level0") GameManager::SetActiveScene("Level1");
-				else if (lastPlayedSceneName == "Level1") GameManager::SetActiveScene("Level1_5");
-				else if (lastPlayedSceneName == "Level1_5") GameManager::SetActiveScene("Level2");
-				else if (lastPlayedSceneName == "Level2") GameManager::SetActiveScene("Level2_5");
-				else if (lastPlayedSceneName == "Level2_5") GameManager::SetActiveScene("Level3");
+				if (lastPlayedSceneName == "Level0")
+				{
+					GameManager::SetGlobalVariable("LastPlayedScene", "Level1");
+					GameManager::SetActiveScene("Level1");
+				}
+				else if (lastPlayedSceneName == "Level1")
+				{
+					GameManager::SetGlobalVariable("LastPlayedScene", "Level1_5");
+					GameManager::SetActiveScene("Level1_5");
+				}
+
+				else if (lastPlayedSceneName == "Level1_5")
+				{
+					GameManager::SetGlobalVariable("LastPlayedScene", "Level2");
+					GameManager::SetActiveScene("Level2");
+				}
+				else if (lastPlayedSceneName == "Level2")
+				{
+					GameManager::SetGlobalVariable("LastPlayedScene", "Level2_5");
+					GameManager::SetActiveScene("Level2_5");
+				}
+				else if (lastPlayedSceneName == "Level2_5")
+				{
+					GameManager::SetGlobalVariable("LastPlayedScene", "Level3");
+					GameManager::SetActiveScene("Level3");
+				}
 			}
 			else GameManager::SetActiveScene("MainMenu");
 
