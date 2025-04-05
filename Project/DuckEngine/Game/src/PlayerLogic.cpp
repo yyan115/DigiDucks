@@ -786,10 +786,10 @@ Entity* PlayerLogic::makeObject(ItemType type)
 {
 	Entity* newObject = nullptr;
 	newObject = DuckEngine::DUCKENGINE_EntityFactory.CreateEntity(circleCollider->getCenter() + offSet, Vec2{ 1.5f, 1.5f });
-	SpriteRendererComponent* spriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
-	spriteRenderer->sortingOrder = 19;
+	SpriteRendererComponent* spriteRenderer_ = DuckEngine::DUCKENGINE_ComponentManager.AddComponent<SpriteRendererComponent>(newObject->entityID, true);
+	spriteRenderer_->sortingOrder = 19;
 
-	spriteRenderer->texture = AssetManager::GetTextureByName(whatType(type));
+	spriteRenderer_->texture = AssetManager::GetTextureByName(whatType(type));
 
 	return newObject;
 }
