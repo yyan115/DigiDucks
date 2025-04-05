@@ -219,27 +219,27 @@ void EndScene::Update()
 	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
 
 	// Tutorial Level
-	if (lastPlayedSceneName == "Level0") 
+	if (lastPlayedSceneName == "Level0" || lastPlayedSceneName == "Level1_5" || lastPlayedSceneName == "Level2_5")
 	{ 
 		iStar_1 = iStar_2 = iStar_3 = 10; 
 	}
-	else if (lastPlayedSceneName == "Level1" || lastPlayedSceneName == "Level1_5")
-	{
-		iStar_1 = 50;
-		iStar_2 = 100;
-		iStar_3 = 150;
-	}
-	else if (lastPlayedSceneName == "Level2" || lastPlayedSceneName == "Level2_5")
+	else if (lastPlayedSceneName == "Level1" )
 	{
 		iStar_1 = 100;
 		iStar_2 = 150;
 		iStar_3 = 200;
-	}	
-	else if (lastPlayedSceneName == "Level3" || lastPlayedSceneName == "Level3_5")
+	}
+	else if (lastPlayedSceneName == "Level2")
 	{
 		iStar_1 = 150;
 		iStar_2 = 200;
 		iStar_3 = 250;
+	}	
+	else if (lastPlayedSceneName == "Level3")
+	{
+		iStar_1 = 200;
+		iStar_2 = 250;
+		iStar_3 = 300;
 	}
 
 
