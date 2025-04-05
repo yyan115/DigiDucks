@@ -60,7 +60,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.3610000014305115
+                            "y": -0.3410000205039978
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -120,7 +120,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.3610000014305115
+                            "y": -0.3410000205039978
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -156,7 +156,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.6230000257492065
+                            "y": 0.6430000066757202
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -1399,7 +1399,7 @@
                     "properties": {
                         "position": {
                             "x": 0.4999999403953552,
-                            "y": -0.8399999737739563
+                            "y": -0.8199999332427979
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4138,7 +4138,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.5699999928474426
+                            "y": -0.5499999523162842
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4175,7 +4175,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 60.0,
+                        "currentValue": 43.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -4198,7 +4198,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.5699999928474426
+                            "y": -0.5499999523162842
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -4234,7 +4234,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.4140000343322754
+                            "y": 0.43400001525878906
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5894,7 +5894,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.2929999828338623
+                            "y": -0.27300000190734863
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5954,7 +5954,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.2929999828338623
+                            "y": -0.27300000190734863
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5990,7 +5990,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.6910000443458557
+                            "y": 0.7110000848770142
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -6804,29 +6804,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -6841,11 +6818,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -6855,6 +6846,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {
@@ -7443,7 +7443,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.429999977350235
+                            "y": -0.4099999964237213
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7503,7 +7503,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.429999977350235
+                            "y": -0.4099999964237213
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7539,7 +7539,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.5540000200271606
+                            "y": 0.5740000009536743
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7662,7 +7662,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.14000000059604645,
+                            "x": 0.12999999523162842,
                             "y": 0.07500000298023224
                         }
                     },
@@ -8105,13 +8105,13 @@
                     "properties": {
                         "position": {
                             "x": 0.4999999403953552,
-                            "y": -0.5199999809265137
+                            "y": -0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.6000000238418579,
-                            "y": 0.8999999761581421
+                            "y": 0.949999988079071
                         }
                     },
                     "type": "TransformComponent"
@@ -10570,7 +10570,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8600000143051147,
-                            "y": -0.8500000238418579
+                            "y": -0.8450000286102295
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -10611,7 +10611,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.14000000059604645,
+                            "x": 0.12999999523162842,
                             "y": 0.07500000298023224
                         }
                     },
@@ -10810,7 +10810,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6999999284744263,
-                            "y": -0.699999988079071
+                            "y": -0.6799999475479126
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,

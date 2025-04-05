@@ -2624,7 +2624,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 60.0,
+                        "currentValue": 43.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -5253,29 +5253,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -5290,11 +5267,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -5304,6 +5295,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
@@ -6111,7 +6111,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.14000000059604645,
+                            "x": 0.12999999523162842,
                             "y": 0.07500000298023224
                         }
                     },
@@ -6554,13 +6554,13 @@
                     "properties": {
                         "position": {
                             "x": 0.4999999403953552,
-                            "y": -0.5199999809265137
+                            "y": -0.5
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.6000000238418579,
-                            "y": 0.8999999761581421
+                            "y": 0.949999988079071
                         }
                     },
                     "type": "TransformComponent"
@@ -9019,7 +9019,7 @@
                     "properties": {
                         "position": {
                             "x": 0.8600000143051147,
-                            "y": -0.8500000238418579
+                            "y": -0.8450000286102295
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -9055,12 +9055,12 @@
                     "properties": {
                         "position": {
                             "x": 0.9300000071525574,
-                            "y": -0.8499999642372131
+                            "y": -0.8500000238418579
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.14000000059604645,
+                            "x": 0.12999999523162842,
                             "y": 0.07500000298023224
                         }
                     },
