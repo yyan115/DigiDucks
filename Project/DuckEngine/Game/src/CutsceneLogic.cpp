@@ -20,6 +20,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level0.h"
 #include "GameManager.h"
 
+bool clearCutScene = false;
+
 void CutSceneLogic::Start()
 {
 	lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
@@ -214,11 +216,14 @@ void CutSceneLogic::Update()
 			}
 		}
 	}
+
 	else if (isPlaying && lastPlayedSceneName == "Level3" && currentCutsceneIndex < 8 && GameManager::GameCleared) // Tutorial 2.5
 	{
 		//DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
 		CutSceneSprite->isVisible = true;
+		clearCutScene = true;
+		
 		//std::cout << "custscene timer: " << cutsceneTimer << std::endl;
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)

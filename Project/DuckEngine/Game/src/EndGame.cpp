@@ -208,6 +208,11 @@ void EndScene::Start()
 		Star1->isVisible = false;
 		Star2->isVisible = false;
 		Star3->isVisible = false;
+
+		if (lastPlayedSceneName == "Level3")
+		{
+			GameManager::GameCleared = false;
+		}
 	}
 	else
 	{
