@@ -39,6 +39,28 @@ void EndScene::Load()
 	if (MainMenuButton != nullptr) {
 		MainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(MainMenuButton->entityID);
 		MainMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(MainMenuButton->entityID);
+		MainMenu_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(MainMenuButton->entityID);
+	}
+
+	auto LastMainMenuBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenu").get();
+	if (LastMainMenuBtn) {
+		LastMainMenu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(LastMainMenuBtn->entityID);
+		if (LastMainMenu) 
+		{
+			LastMainMenu->onClick = [this]()
+				{
+					MainMenuSound->Play(1);
+					isQuitButtonClicked = true;
+					isFadingIn = true; // Start fade-in
+					fadeInElapsedTime = 0.0f;
+				};
+			LastMainMenu->onHover = []()
+				{
+					MainMenuSound->Play();
+				};
+		}
+		LastMainMenu_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LastMainMenuBtn->entityID);
+		if (LastMainMenu_Spt) LastMainMenu_Spt->isVisible = false;
 	}
 
 	// Find fade-in screen entity
@@ -164,15 +186,10 @@ void EndScene::Start()
 			GameManager::SetGlobalVariable("LastPlayedScene", "Level3");
 			GameManager::SetActiveScene("Level3");
 		}
-		else if (lastPlayedSceneName == "Level3")
-		{
-			//GameManager::SetGlobalVariable("LastPlayedScene", "Level3_5");
-			GameManager::SetActiveScene("MainMenu");
-			
-		}
 	};
 	
 	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+
 
 
 	// Tutorial Level
@@ -216,13 +233,23 @@ void EndScene::Start()
 	}
 	else
 	{
-		Next_Spt->isVisible = true;
 		LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
 		if (lastPlayedSceneName == "Level3")
 		{
 			GameManager::GameCleared = true;
+
+			Next_Spt->isVisible = false;			
+			MainMenu_Spt->isVisible = false;
+			LastMainMenu_Spt->isVisible = true;
+		}
+		else
+		{
+			Next_Spt->isVisible = true;
+			MainMenu_Spt->isVisible = true;
+			LastMainMenu_Spt->isVisible = false;
 		}
 	}
+
 
 	if (ScoreLogic::scoreValue >= iStar_1)
 	{

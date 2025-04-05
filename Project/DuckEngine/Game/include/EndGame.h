@@ -55,6 +55,10 @@ public:
 private:
     Entity* MainMenuButton = nullptr;
     ButtonComponent* MainMenu = nullptr;
+	SpriteRendererComponent* MainMenu_Spt = nullptr;
+
+	ButtonComponent* LastMainMenu = nullptr;
+	SpriteRendererComponent* LastMainMenu_Spt = nullptr;
 
     Entity* Star_1 = nullptr;
     SpriteRendererComponent* Star1 = nullptr;

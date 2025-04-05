@@ -75,15 +75,16 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "enabled": false,
+                        "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
                         },
                         "sortingOrder": 110,
-                        "text": "test"
+                        "text": "FPS: 64"
                     },
                     "type": "TextComponent"
                 }
@@ -126,6 +127,70 @@
             ],
             "layer": "UI"
         },
+        "MainMenu": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.8999999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/pause_mainmenu.png",
+                        "useColor": false
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav",
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 0.5
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 6.0,
+                            "y": 3.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Next": {
             "components": [
                 {
@@ -151,7 +216,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/nextbutton.png",
@@ -203,7 +268,7 @@
                         "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "Resources/Sprites/EndScene/quit.png",
+                        "texture": "Resources/Sprites/Pause/pause_mainmenu.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -367,6 +432,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
