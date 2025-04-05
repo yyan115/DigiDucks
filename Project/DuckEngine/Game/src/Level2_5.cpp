@@ -71,6 +71,7 @@ void Level2_5::Update()
 	{
 		tutorialTexture->isVisible = true;
 	}
+	gameLoopLogic->timeLeft = 180.0f;
 }
 
 /****************************************************************
