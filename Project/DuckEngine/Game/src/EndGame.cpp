@@ -181,7 +181,6 @@ void EndScene::Start()
 	std::string dayTextureName = "DAY" + std::to_string(ScoreLogic::dayNumber);
 	backgroundSR->texture = AssetManager::GetTextureByName(dayTextureName);
 
-	LevelSelectScreenLogic::LevelCompleted();
 
 	// Setup controller-related variables
 	isUsingController = false;
@@ -309,6 +308,8 @@ void EndScene::Start()
 	}
 	else
 	{
+		LevelSelectScreenLogic::LevelCompleted();
+
 		LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
 		if (lastPlayedSceneName == "Level3")
 		{
@@ -402,6 +403,14 @@ void EndScene::Update()
 
 	if (isFadingIn && FadeInSpriteRenderer && BGMSound)
 	{
+		for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+		{
+			ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+			if (!button) continue;
+
+			button->isEnabled = false;
+		}
+
 		if ((fadeInElapsedTime += DuckEngine::DeltaTime()) >= fadeInDuration)
 		{
 			// Ensure full fade-in effect
