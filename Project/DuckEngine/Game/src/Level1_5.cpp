@@ -19,6 +19,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
 #include "LevelSelectScreenLogic.h"
+#include "GameManager.h"
+
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -41,34 +43,21 @@ void Level1_5::Load()
 void Level1_5::Start()
 {
 	Scene::Start();
+	GameManager::SetGlobalVariable("LastPlayedScene", "Level1_5");
 
 	ScoreLogic::dayNumber = 1;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
-	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
 
-	// Level 1.5 Salad with more Customers
-	// 4 Customers
-	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
-	{
-		int random = rand() % 4;
-		switch (random)
-		{
-		case 0:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
-			break;
-		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
-			break;
-		case 2:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
-			break;
-		case 3:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
-			break;
-		};
-	}
+	Entity* tutorialEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite").get();
+	tutorialTexture = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(tutorialEntity->entityID);
+
+	gameLoopLogic->customers[0]->SetOrder(ItemType::BURGER_PLATE);
+	gameLoopLogic->customers[0]->MaxCashierWaitingTime = 300;
+	gameLoopLogic->customers[0]->MaxTableWaitingTime = 300;
+
 }
 
 /****************************************************************
@@ -78,8 +67,10 @@ void Level1_5::Start()
 * ****************************************************************/
 void Level1_5::Update()
 {
-
-
+	if (gameLoopLogic->ordersTaken > 0)
+	{
+		tutorialTexture->isVisible = true;
+	}
 }
 
 /****************************************************************

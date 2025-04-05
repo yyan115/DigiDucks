@@ -19,6 +19,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
 #include "LevelSelectScreenLogic.h"
+#include "GameManager.h"
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -43,43 +44,20 @@ void Level2_5::Start()
 	Scene::Start();
 
 	ScoreLogic::dayNumber = 2;
+	GameManager::SetGlobalVariable("LastPlayedScene", "Level2_5");
+
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
-	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
 
-	// Level 2.5 Burger and Salad
-	// 4 Customers
-	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
-	{
-		int random = rand() % 8;
-		switch (random)
-		{
-		case 0:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
-			break;
-		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
-			break;
-		case 2:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-			break;
-		case 3:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
-			break;
-		case 4:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
-			break;
-		case 5:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
-			break;
-		case 6:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-			break;
-		case 7:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
-			break;
-		};
-	}
+	Entity* tutorialEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite").get();
+	tutorialTexture = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(tutorialEntity->entityID);
+
+
+	gameLoopLogic->customers[0]->SetOrder(ItemType::BOWL_MUSHROOM);
+	gameLoopLogic->customers[0]->MaxCashierWaitingTime = 300;
+	gameLoopLogic->customers[0]->MaxTableWaitingTime = 300;
+	
 }
 
 /****************************************************************
@@ -89,8 +67,10 @@ void Level2_5::Start()
 * ****************************************************************/
 void Level2_5::Update()
 {
-
-
+	if (gameLoopLogic->ordersTaken > 0)
+	{
+		tutorialTexture->isVisible = true;
+	}
 }
 
 /****************************************************************
