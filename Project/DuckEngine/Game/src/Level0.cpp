@@ -60,6 +60,7 @@ void Level0::Start()
 	gameLoopLogic->customers[0]->MaxCashierWaitingTime = 300;
 	gameLoopLogic->customers[0]->MaxTableWaitingTime = 300;
 
+
 }
 
 /****************************************************************
@@ -79,6 +80,8 @@ void Level0::Update()
 		tutorialTexture->isVisible = false;
 		tutorialTexture2->isVisible = true;
 	}
+
+	gameLoopLogic->timeLeft = 180.0f;
 }
 
 /****************************************************************
