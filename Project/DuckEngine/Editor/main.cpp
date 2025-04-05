@@ -1,4 +1,18 @@
-﻿#include <thread>
+﻿/******************************************************************************/
+/*!
+\file       main.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 5 2024
+\brief      entry point of the program
+
+Copyright (C) 2024 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+#include <thread>
 #include <chrono>
 
 #include "WindowManager.h"
