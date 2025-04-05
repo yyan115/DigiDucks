@@ -102,6 +102,7 @@ void CutSceneLogic::Start()
 void CutSceneLogic::Update()
 {
 	if (!isPlaying && !isShowingDialogue) return;
+
 	// Handle fade-in effect at the start
 	if (isFading && FadeOutSprite)
 	{
@@ -121,11 +122,21 @@ void CutSceneLogic::Update()
 			return;
 		}
 	}
-	
+
 	// If playing cutscene ( MUST SELECT LEVEL FROM LEVEL SELECT SCREEN FIRST )
 	if (isPlaying && lastPlayedSceneName == "Level0" && currentCutsceneIndex < 13) // Tutorial 0
 	{
-		
+		// Check for gamepad Start or A button to skip cutscene
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			(DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A)))
+		{
+			auto sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
+			if (sound) sound->Play();
+			currentCutsceneIndex = 12;
+			std::cout << "Cutscene skipped with gamepad! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
+		}
+
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
 		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
@@ -156,6 +167,16 @@ void CutSceneLogic::Update()
 	}
 	else if (isPlaying && lastPlayedSceneName == "Level1_5" && currentCutsceneIndex < 3) // Tutorial 1.5
 	{
+		// Check for gamepad Start or A button to skip cutscene
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			(DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A)))
+		{
+			auto sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
+			if (sound) sound->Play();
+			currentCutsceneIndex = 2;
+			std::cout << "Cutscene skipped with gamepad! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
+		}
 
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
@@ -187,6 +208,16 @@ void CutSceneLogic::Update()
 	}
 	else if (isPlaying && lastPlayedSceneName == "Level2_5" && currentCutsceneIndex < 4) // Tutorial 2.5
 	{
+		// Check for gamepad Start or A button to skip cutscene
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			(DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A)))
+		{
+			auto sound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
+			if (sound) sound->Play();
+			currentCutsceneIndex = 3;
+			std::cout << "Cutscene skipped with gamepad! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
+		}
 
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
@@ -223,7 +254,7 @@ void CutSceneLogic::Update()
 		cutsceneTimer += DuckEngine::DeltaTime();
 		CutSceneSprite->isVisible = true;
 		clearCutScene = true;
-		
+
 		//std::cout << "custscene timer: " << cutsceneTimer << std::endl;
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
@@ -294,11 +325,22 @@ void CutSceneLogic::Update()
 	if (isShowingDialogue && lastPlayedSceneName == "Level0")
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
+
+		// Check for gamepad Start button to skip all dialogue
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			(DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START)))
+		{
+			currentDialogueIndex = 12;
+			std::cout << "Dialogue skipped with gamepad Start button!" << std::endl;
+		}
+
 		// Check for user input to progress dialogue
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14)
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+			(DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A)))
 		{
 			currentDialogueIndex++;
-			
+
 			if (currentDialogueIndex == 14)
 			{
 				FadeOutSprite->isVisible = false;
@@ -322,11 +364,10 @@ void CutSceneLogic::Update()
 				CutSceneSFX->Play(14 + (std::rand() % 2));
 			}
 
-			
+
 		}
 	}
 }
-
 bool CutSceneLogic::CutscenePlay()
 {
 	return isPlaying;
