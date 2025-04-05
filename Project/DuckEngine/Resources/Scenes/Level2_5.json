@@ -178,6 +178,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -239,7 +240,9 @@
                 "MenuDisplay",
                 "Small_Bush",
                 "Cactus",
-                "Flower"
+                "Flower",
+                "Outside_Floor",
+                "Welcome_Mat"
             ],
             "components": [
                 {
@@ -634,7 +637,8 @@
                 "Bush_copy_copy",
                 "Bush_copy_copy_copy",
                 "Bush_copy_1_copy",
-                "Bush_copy_1_copy_copy"
+                "Bush_copy_1_copy_copy",
+                "Bush_copy_copy_1"
             ],
             "components": [
                 {
@@ -851,6 +855,42 @@
             ],
             "layer": "Gameplay"
         },
+        "Bush_copy_copy_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -19.200000762939453,
+                            "y": 9.899999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 3.0,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 15,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/hedge1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Bush_copy_copy_copy": {
             "components": [
                 {
@@ -1023,7 +1063,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/New Background/carpet3 (2).png",
+                        "texture": "Resources/Sprites/New Background/carpet3.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1445,6 +1485,7 @@
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.5,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -1462,7 +1503,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -15.199636459350586,
+                            "x": -15.200626373291016,
                             "y": 22.241004943847656
                         },
                         "relativeToCamera": true,
@@ -1498,7 +1539,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -16.800010681152344,
+                            "x": -16.801000595092773,
                             "y": 19.00000762939453
                         },
                         "relativeToCamera": true,
@@ -3534,7 +3575,7 @@
             ],
             "layer": "Gameplay",
             "position": {
-                "x": -16.800010681152344,
+                "x": -16.801000595092773,
                 "y": 21.000003814697266
             },
             "prefab": "Customer"
@@ -3825,6 +3866,196 @@
             ],
             "layer": "Gameplay"
         },
+        "CutSceneBGM": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "BGM",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": true,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/bgm/cutscene_bgm.ogg"
+                        ],
+                        "volume": 0.10000000894069672
+                    },
+                    "type": "SoundComponent"
+                }
+            ],
+            "layer": "Background"
+        },
+        "CutSceneManager": {
+            "childNames": [
+                "CutSceneBGM",
+                "CutSceneSkip"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/cutscene/Level3/1.jpg",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "SFX",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "",
+                            "Resources/Sounds/cutscene/Snoring.ogg",
+                            "Resources/Sounds/cutscene/door knocking.ogg",
+                            "Resources/Sounds/cutscene/door open.ogg",
+                            "",
+                            "",
+                            "",
+                            "Resources/Sounds/cutscene/affirmative sfx.ogg",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "Resources/Sounds/cutscene/door knocking.ogg",
+                            "Resources/Sounds/duck sounds/AnimalDuckCart 9.wav",
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/click 1.wav"
+                        ],
+                        "volume": 0.5
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "CutSceneLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "CutSceneSkip": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.8999999761581421,
+                            "y": -0.8999999761581421
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 250.0,
+                            "g": 229.0,
+                            "r": 250.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/UI/SKIP_cutscene.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
         "Cutting_Station": {
             "childNames": [
                 "GameObject_233_copy_1",
@@ -3910,6 +4141,108 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "DialogueManager": {
+            "childNames": [
+                "DialogueSkip"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.699999988079071,
+                            "y": 0.8999999761581421
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 5,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Dialogues/intro/1.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "DialogueSkip": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.7799999713897705,
+                            "y": -0.9199999570846558
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.15000000596046448,
+                            "y": 0.10000000149011612
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 227.0,
+                            "r": 254.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 102,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/UI/SKIP.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
         },
         "Exit_Cfm_Bg": {
             "childNames": [
@@ -4215,6 +4548,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -4255,6 +4589,7 @@
                         "enabled": false,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -4293,7 +4628,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 0,
+                        "sortingOrder": -10,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/floor.png",
                         "useColor": true
@@ -4306,7 +4641,8 @@
         "Flower": {
             "childNames": [
                 "Flower_copy",
-                "Flower_copy_copy"
+                "Flower_copy_copy",
+                "Flower_copy_copy_1"
             ],
             "components": [
                 {
@@ -4415,6 +4751,42 @@
             ],
             "layer": "Gameplay"
         },
+        "Flower_copy_copy_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -14.899999618530273,
+                            "y": 9.399999618530273
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.5,
+                            "y": 3.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 10,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/sunflower.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "GameFadeScreen": {
             "components": [
                 {
@@ -4435,7 +4807,7 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 0.0,
+                            "a": 255.0,
                             "b": 0.0,
                             "g": 0.0,
                             "r": 0.0
@@ -5637,7 +6009,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": -9,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/brownrectangle.png",
                         "useColor": true
@@ -5932,6 +6304,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -6306,6 +6679,42 @@
                         ]
                     },
                     "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Outside_Floor": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.700000762939453,
+                            "y": 10.699999809265137
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 160.0,
+                            "g": 160.0,
+                            "r": 160.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": -1,
+                        "sprite": true,
+                        "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
                 }
             ],
             "layer": "Gameplay"
@@ -7142,6 +7551,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7226,6 +7636,7 @@
                         "enabled": true,
                         "fontName": "Kenney High Square",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7442,6 +7853,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -7595,6 +8007,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8348,7 +8761,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8379,7 +8792,7 @@
                     "properties": {
                         "position": {
                             "x": 0.3799999952316284,
-                            "y": 0.8050000071525574
+                            "y": 0.800000011920929
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -8401,6 +8814,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8427,7 +8841,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8480,6 +8894,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -8506,7 +8921,7 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.02500000037252903,
+                            "x": 0.027000000700354576,
                             "y": 0.05000000074505806
                         }
                     },
@@ -8559,6 +8974,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
+                        "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -10540,6 +10956,7 @@
                         "enabled": true,
                         "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
+                        "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
                             "y": 0.0
@@ -10772,6 +11189,42 @@
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Welcome_Mat": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.75,
+                            "y": 9.100000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.700000047683716,
+                            "y": 1.600000023841858
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/welcome.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
