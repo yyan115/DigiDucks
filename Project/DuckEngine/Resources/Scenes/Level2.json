@@ -217,7 +217,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 16,
+                        "sortingOrder": 19,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/wall.png",
                         "useColor": true
@@ -488,7 +488,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -665,7 +665,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 17,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge3.png",
                         "useColor": true
@@ -701,7 +701,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 21,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge2.png",
                         "useColor": true
@@ -737,7 +737,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 19,
+                        "sortingOrder": 22,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge1.png",
                         "useColor": true
@@ -773,7 +773,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 22,
+                        "sortingOrder": 25,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge2.png",
                         "useColor": true
@@ -809,7 +809,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 23,
+                        "sortingOrder": 26,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge1.png",
                         "useColor": true
@@ -845,7 +845,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 20,
+                        "sortingOrder": 23,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge3.png",
                         "useColor": true
@@ -917,7 +917,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 21,
+                        "sortingOrder": 24,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/hedge1.png",
                         "useColor": true
@@ -953,7 +953,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/cactus.png",
                         "useColor": true
@@ -1100,7 +1100,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 14,
+                        "sortingOrder": 16,
                         "sprite": false,
                         "texture": "Resources/Sprites/Stations/cashregistertable.png",
                         "useColor": false
@@ -1168,7 +1168,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -1320,7 +1320,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -1359,7 +1359,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 7,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3257,7 +3257,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3342,7 +3342,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3427,7 +3427,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3512,7 +3512,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3896,7 +3896,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/cutting_station01.png",
                         "useColor": true
@@ -4377,7 +4377,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/longhedge.png",
                         "useColor": true
@@ -4413,7 +4413,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/sunflower.png",
                         "useColor": true
@@ -4449,7 +4449,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/sunflower.png",
                         "useColor": true
@@ -4601,7 +4601,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 12,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4637,7 +4637,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 11,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4673,7 +4673,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4709,7 +4709,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 12,
+                        "sortingOrder": 14,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4745,7 +4745,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 11,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4781,7 +4781,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 11,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4817,7 +4817,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 6,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4853,7 +4853,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 3,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4889,7 +4889,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 3,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4925,7 +4925,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 4,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4961,7 +4961,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4997,7 +4997,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 10,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5033,7 +5033,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 6,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5069,7 +5069,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5137,7 +5137,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 12,
+                        "sortingOrder": 14,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5173,7 +5173,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 7,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5209,7 +5209,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5245,7 +5245,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 4,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6051,7 +6051,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 17,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/signboard.png",
                         "useColor": true
@@ -6453,7 +6453,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 14,
+                        "sortingOrder": 17,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/pan.png",
                         "useColor": true
@@ -6965,7 +6965,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 14,
+                        "sortingOrder": 17,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
                         "useColor": true
@@ -8225,7 +8225,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -5.0,
+                            "x": -5.020190238952637,
                             "y": 0.06414377689361572
                         },
                         "relativeToCamera": true,
@@ -8246,7 +8246,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 17,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/wallcorners.png",
                         "useColor": true
@@ -8287,7 +8287,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/shrub1.png",
                         "useColor": true
@@ -8323,7 +8323,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 18,
+                        "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/shrub1.png",
                         "useColor": true
@@ -8855,7 +8855,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/stove.png",
                         "useColor": true
@@ -8942,7 +8942,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -8981,7 +8981,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 7,
+                        "sortingOrder": 9,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -9094,7 +9094,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9165,7 +9165,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9236,7 +9236,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9307,7 +9307,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -9378,7 +9378,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9449,7 +9449,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 12,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9520,7 +9520,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -9574,7 +9574,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -9645,7 +9645,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -9974,7 +9974,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 1,
+                        "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10046,7 +10046,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 2,
+                        "sortingOrder": 1,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10118,7 +10118,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10189,7 +10189,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10260,7 +10260,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -10314,7 +10314,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 8,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -10385,7 +10385,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
@@ -11006,7 +11006,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true

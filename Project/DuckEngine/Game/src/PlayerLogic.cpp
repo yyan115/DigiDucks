@@ -121,7 +121,7 @@ void PlayerLogic::Update()
 	}
 	else
 	{
-		spriteRenderer->sortingOrder = 2;
+		spriteRenderer->sortingOrder = 3;
 	}
 
 	if (actionCounter >= 0)

@@ -33,7 +33,7 @@ private:
 	TransformComponent* highlightTransform = nullptr;
 	int ogHighlightSortingOrder = 0;
 
-	const int additionalSortingOrder = 3;
+	const int additionalSortingOrder = 2;
 	
 public:
 	bool isHighlighted = false;
