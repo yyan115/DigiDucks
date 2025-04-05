@@ -24,7 +24,7 @@
                     "r": 255.0
                 },
                 "isVisible": true,
-                "sortingOrder": 15,
+                "sortingOrder": 17,
                 "sprite": true,
                 "texture": "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
                 "useColor": false
@@ -58,28 +58,6 @@
                 "animations": [
                     {
                         "frameDuration": 0.10000000149011612,
-                        "name": "FRONT_WALK",
-                        "textures": [
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk2.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk3.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk4.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk5.png",
-                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk6.png"
-                        ]
-                    },
-                    {
-                        "frameDuration": 0.10000000149011612,
-                        "name": "RIGHT_IDLE",
-                        "textures": [
-                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle1.png",
-                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle2.png",
-                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle3.png",
-                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle4.png"
-                        ]
-                    },
-                    {
-                        "frameDuration": 0.10000000149011612,
                         "name": "LEFT_WALK",
                         "textures": [
                             "Resources/Sprites/Customer/Penguin/Left/WALK_LEFT/penguin_left3.png",
@@ -94,12 +72,24 @@
                     },
                     {
                         "frameDuration": 0.10000000149011612,
-                        "name": "LEFT_IDLE",
+                        "name": "RIGHT_IDLE",
                         "textures": [
-                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle1.png",
-                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle2.png",
-                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle3.png",
-                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle4.png"
+                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle1.png",
+                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle2.png",
+                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle3.png",
+                            "Resources/Sprites/Customer/Penguin/Right/IDLE_RIGHT/penguin_r_idle4.png"
+                        ]
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "FRONT_WALK",
+                        "textures": [
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk1.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk2.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk3.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk4.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk5.png",
+                            "Resources/Sprites/Customer/Penguin/Front/WALK_FRONT/penguin_walk6.png"
                         ]
                     },
                     {
@@ -110,6 +100,16 @@
                             "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_2.png",
                             "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_3.png",
                             "Resources/Sprites/Customer/Penguin/Front/IDLE_FRONT/penguin_idle_4.png"
+                        ]
+                    },
+                    {
+                        "frameDuration": 0.10000000149011612,
+                        "name": "LEFT_IDLE",
+                        "textures": [
+                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle1.png",
+                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle2.png",
+                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle3.png",
+                            "Resources/Sprites/Customer/Penguin/Left/IDLE_LEFT/penguin_l_idle4.png"
                         ]
                     },
                     {
