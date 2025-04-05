@@ -130,7 +130,6 @@ void EndScene::Load()
 
 	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next").get();
 	Next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
-	
 
 }
 
@@ -275,6 +274,8 @@ void EndScene::Start()
 
 void EndScene::Update()
 {
+	if (GameManager::GameCleared) return;
+
 	if (isFadingIn && FadeInSpriteRenderer && BGMSound)
 	{
 		if ((fadeInElapsedTime += DuckEngine::DeltaTime()) >= fadeInDuration)
@@ -329,6 +330,7 @@ void EndScene::Exit()
 	ScoreText->isEnabled = false;
 	fadeInElapsedTime = 0.0f;
 	isFadingIn = false;
+	GameManager::GameCleared = false;
 }
 
 void EndScene::Unload()

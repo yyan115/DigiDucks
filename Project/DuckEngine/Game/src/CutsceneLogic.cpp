@@ -20,8 +20,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level0.h"
 #include "GameManager.h"
 
-bool clearCutScene = false;
-
 void CutSceneLogic::Start()
 {
 	lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
@@ -40,7 +38,7 @@ void CutSceneLogic::Start()
 	auto FadeEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameFadeScreen");
 	if (FadeEntity) {
 		FadeOutSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeEntity->entityID);
-		FadeOutSprite->isVisible = true;
+		FadeOutSprite->isVisible = false;
 		FadeOutSprite->color.a = 255; // Start fully visible
 	}
 
@@ -81,7 +79,7 @@ void CutSceneLogic::Start()
 			}
 			else if (lastPlayedSceneName == "Level1_5") currentCutsceneIndex = 2;
 			else if (lastPlayedSceneName == "Level2_5") currentCutsceneIndex = 3;
-			
+			else if (lastPlayedSceneName == "Level3") currentCutsceneIndex = 7;
 		};
 	}
 
@@ -103,8 +101,9 @@ void CutSceneLogic::Update()
 {
 	if (!isPlaying && !isShowingDialogue) return;
 	// Handle fade-in effect at the start
-	if (isFading && FadeOutSprite)
+	if (isFading && FadeOutSprite && !GameManager::GameCleared)
 	{
+		FadeOutSprite->isVisible = true;
 		CutSceneBGM->Play(); // Play the cutscene BGM
 		fadeProgress += DuckEngine::DeltaTime() / 0.5f; // 0.5s fade duration
 
@@ -117,6 +116,7 @@ void CutSceneLogic::Update()
 		}
 		else
 		{
+			
 			FadeOutSprite->color.a = 255.0f * (1.0f - fadeProgress);
 			return;
 		}
@@ -125,10 +125,10 @@ void CutSceneLogic::Update()
 	// If playing cutscene ( MUST SELECT LEVEL FROM LEVEL SELECT SCREEN FIRST )
 	if (isPlaying && lastPlayedSceneName == "Level0" && currentCutsceneIndex < 13) // Tutorial 0
 	{
-		
+		CutSceneSprite->isVisible = true;
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
-		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -159,7 +159,7 @@ void CutSceneLogic::Update()
 
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
-		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -190,7 +190,7 @@ void CutSceneLogic::Update()
 
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
-		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -217,14 +217,19 @@ void CutSceneLogic::Update()
 		}
 	}
 
-	else if (isPlaying && lastPlayedSceneName == "Level3" && currentCutsceneIndex < 8 && GameManager::GameCleared) // Tutorial 2.5
+	else if (isPlaying && lastPlayedSceneName == "Level3" && currentCutsceneIndex < 8) // Tutorial 2.5
 	{
-		//DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
+		if (!GameManager::GameCleared)
+		{
+			CutSceneSprite->isVisible = false;
+			return;
+		}
+
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
 		CutSceneSprite->isVisible = true;
-		clearCutScene = true;
+		CutSceneBGM->Play();
 		
-		//std::cout << "custscene timer: " << cutsceneTimer << std::endl;
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -243,7 +248,7 @@ void CutSceneLogic::Update()
 				//CutSceneSFX->Play(currentCutsceneIndex);
 			}
 
-			if (currentCutsceneIndex == 4) {
+			if (currentCutsceneIndex == 8) {
 				isCutSceneFading = true;
 
 				cutsceneTimer = 0.0f;
@@ -275,6 +280,7 @@ void CutSceneLogic::Update()
 			{
 				CutSceneBGM->Stop();
 				isPlaying = false; // End cutscene
+				GameManager::GameCleared = false;
 			}
 		}
 		else if (DialoguefadeProgress >= 1.0f)
