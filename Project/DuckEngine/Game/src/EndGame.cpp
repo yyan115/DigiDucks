@@ -56,9 +56,18 @@ void EndScene::Load()
 					isFadingIn = true; // Start fade-in
 					fadeInElapsedTime = 0.0f;
 				};
-			LastMainMenu->onHover = []()
+			LastMainMenu->onHover = [this]()
 				{
-					MainMenuSound->Play();
+					if (!isUsingController && lastMenuTransform) {
+						MainMenuSound->Play();
+						lastMenuTransform->scale = lastMenuOriginalScale * buttonScaleIncrease;
+					}
+				};
+			LastMainMenu->onFinishHover = [this]()
+				{
+					if (!isUsingController && lastMenuTransform) {
+						lastMenuTransform->scale = lastMenuOriginalScale;
+					}
 				};
 		}
 		LastMainMenu_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LastMainMenuBtn->entityID);
@@ -88,9 +97,18 @@ void EndScene::Load()
 			fadeInElapsedTime = 0.0f;
 		};
 
-	MainMenu->onHover = []()
+	MainMenu->onHover = [this]()
 		{
-			MainMenuSound->Play();
+			if (!isUsingController && menuTransform) {
+				MainMenuSound->Play();
+				menuTransform->scale = menuOriginalScale * buttonScaleIncrease;
+			}
+		};
+
+	MainMenu->onFinishHover = [this]() {
+		if (!isUsingController && menuTransform) {
+			menuTransform->scale = menuOriginalScale;
+		}
 		};
 
 	Score = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Score").get();
@@ -176,16 +194,40 @@ void EndScene::Start()
 		}
 	}
 
+	if (NextButton) {
+		nextTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(NextButton->entityID);
+		if (nextTransform) {
+			nextOriginalScale = nextTransform->scale;
+		}
+	}
+
+	auto LastMainMenuBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenu").get();
+	if (LastMainMenuBtn) {
+		lastMenuTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(LastMainMenuBtn->entityID);
+		if (lastMenuTransform) {
+			lastMenuOriginalScale = lastMenuTransform->scale;
+		}
+	}
+
 	Restart->onClick = [this, lastPlayedSceneName]() {
 		MainMenuSound->Play(1);
 		isrestartButtonClicked = true;
 		isFadingIn = true; // Start fade-in
 		fadeInElapsedTime = 0.0f;
-	};
+		};
 
-	Restart->onHover = []()
+	Restart->onHover = [this]()
 		{
-			MainMenuSound->Play();
+			if (!isUsingController && restartTransform) {
+				MainMenuSound->Play();
+				restartTransform->scale = restartOriginalScale * buttonScaleIncrease;
+			}
+		};
+
+	Restart->onFinishHover = [this]() {
+		if (!isUsingController && restartTransform) {
+			restartTransform->scale = restartOriginalScale;
+		}
 		};
 
 	Next->onClick = [this, lastPlayedSceneName]() {
@@ -193,13 +235,22 @@ void EndScene::Start()
 		isnextButtonClicked = true;
 		isFadingIn = true; // Start fade-in
 		fadeInElapsedTime = 0.0f;
-	};
-
-	Next->onHover = []()
-		{
-			MainMenuSound->Play();
 		};
-	
+
+	Next->onHover = [this]()
+		{
+			if (!isUsingController && nextTransform) {
+				MainMenuSound->Play();
+				nextTransform->scale = nextOriginalScale * buttonScaleIncrease;
+			}
+		};
+
+	Next->onFinishHover = [this]() {
+		if (!isUsingController && nextTransform) {
+			nextTransform->scale = nextOriginalScale;
+		}
+		};
+
 	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
 
 
@@ -243,6 +294,9 @@ void EndScene::Start()
 		{
 			GameManager::GameCleared = false;
 		}
+
+		currentState = EndSceneState::LOSE;
+		currentButtonSelection = EndButtonSelection::RESTART;
 	}
 	else
 	{
@@ -255,12 +309,18 @@ void EndScene::Start()
 			MainMenu_Spt->isVisible = false;
 			LastMainMenu_Spt->isVisible = true;
 			Restart_Spt->isVisible = false;
+
+			currentState = EndSceneState::COMPLETE;
+			currentButtonSelection = EndButtonSelection::LASTMENU;
 		}
 		else
 		{
 			Next_Spt->isVisible = true;
 			MainMenu_Spt->isVisible = true;
 			LastMainMenu_Spt->isVisible = false;
+
+			currentState = EndSceneState::WIN;
+			currentButtonSelection = EndButtonSelection::NEXT;
 		}
 		Star1->isVisible = true;
 		Star2->isVisible = true;
@@ -290,9 +350,26 @@ void EndScene::Start()
 
 }
 
+void EndScene::DetermineCurrentState()
+{
+	// Determine the current state based on which buttons are visible
+	if (GameManager::GameCleared) {
+		currentState = EndSceneState::COMPLETE;
+	}
+	else if (Restart_Spt && Restart_Spt->isVisible) {
+		currentState = EndSceneState::LOSE;
+	}
+	else if (Next_Spt && Next_Spt->isVisible) {
+		currentState = EndSceneState::WIN;
+	}
+}
+
 void EndScene::Update()
 {
-	if (GameManager::GameCleared) return;
+	if (GameManager::GameCleared && currentState != EndSceneState::COMPLETE) {
+		currentState = EndSceneState::COMPLETE;
+		currentButtonSelection = EndButtonSelection::LASTMENU;
+	}
 
 	if (isFadingIn && FadeInSpriteRenderer && BGMSound)
 	{
@@ -322,7 +399,7 @@ void EndScene::Update()
 				else if (lastPlayedSceneName == "Level2_5") GameManager::SetActiveScene("Level3");
 			}
 			else GameManager::SetActiveScene("MainMenu");
-			
+
 			return;
 		}
 
@@ -350,78 +427,165 @@ void EndScene::Update()
 
 void EndScene::UpdateEndMenuSelection()
 {
-	// Skip if we only have one button visible (game cleared)
-	if (GameManager::GameCleared) return;
+	// Handle different states separately based on which buttons are visible
 
-	// Skip if restart button is not visible
-	if (!Restart_Spt || !Restart_Spt->isVisible) return;
+	// Handle game cleared state (Only LastMenu button)
+	if (currentState == EndSceneState::COMPLETE) {
+		// Only one button (LastMenu), so simplified controls
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1)) {
+			if (!isUsingController) {
+				isUsingController = true;
+				if (lastMenuTransform) {
+					lastMenuTransform->scale = lastMenuOriginalScale * buttonScaleIncrease;
+					if (MainMenuSound) MainMenuSound->Play();
+				}
+			}
 
-	// Check for gamepad connectivity
-	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
-	{
-		// Decrease cooldown timer for navigation
-		if (controllerNavigationCooldown > 0)
-		{
-			controllerNavigationCooldown -= DuckEngine::DeltaTime();
+			// Activate with A or Start button
+			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START)) {
+				if (MainMenuSound) MainMenuSound->Play(1);
+				isQuitButtonClicked = true;
+				isFadingIn = true;
+				fadeInElapsedTime = 0.0f;
+			}
+		}
+		else if (isUsingController) {
+			isUsingController = false;
+			if (lastMenuTransform) {
+				lastMenuTransform->scale = lastMenuOriginalScale;
+			}
 		}
 
-		// Get joystick/dpad input for horizontal navigation
-		float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
-		bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
-		bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+		// Exit early since we don't need the rest of the navigation code
+		return;
+	}
 
-		// Check for any controller input
-		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
-			DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
-			DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START);
-
-		// If this is the first controller input, select the restart button
-		if (hasControllerInput && !isUsingController)
+	// Handle normal win state (Next and Menu buttons)
+	else if (currentState == EndSceneState::WIN && Next_Spt && Next_Spt->isVisible) {
+		// Check for gamepad connectivity
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
 		{
-			isUsingController = true;
-			SelectButton(EndButtonSelection::RESTART);
-			controllerNavigationCooldown = controllerNavigationDelay;
-		}
-
-		// Only process navigation if we're using controller
-		if (isUsingController)
-		{
-			// Navigate left
-			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft))
+			// Decrease cooldown timer for navigation
+			if (controllerNavigationCooldown > 0)
 			{
-				int newSelection = static_cast<int>(currentButtonSelection) - 1;
-				if (newSelection < 0)
+				controllerNavigationCooldown -= DuckEngine::DeltaTime();
+			}
+
+			// Get joystick/dpad input for horizontal navigation
+			float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+			bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
+			bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+
+			// Check for any controller input
+			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START);
+
+			// If this is the first controller input, select the next button
+			if (hasControllerInput && !isUsingController)
+			{
+				isUsingController = true;
+				currentButtonSelection = EndButtonSelection::NEXT;
+				SelectButton(currentButtonSelection);
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+
+			// Only process navigation if we're using controller
+			if (isUsingController)
+			{
+				// Navigate left/right to toggle between Next and Menu
+				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || dpadRight))
 				{
-					newSelection = static_cast<int>(EndButtonSelection::COUNT) - 1;
+					// Toggle between NEXT and MENU
+					EndButtonSelection newSelection = (currentButtonSelection == EndButtonSelection::NEXT) ?
+						EndButtonSelection::MENU : EndButtonSelection::NEXT;
+
+					SelectButton(newSelection);
+					controllerNavigationCooldown = controllerNavigationDelay;
 				}
 
-				SelectButton(static_cast<EndButtonSelection>(newSelection));
-				controllerNavigationCooldown = controllerNavigationDelay;
+				// Activate selected button with A button or Start button
+				std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+				if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
+					DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
+				{
+					ActivateSelectedButton(lastPlayedSceneName);
+				}
 			}
-			// Navigate right
-			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || dpadRight))
+		}
+		else
+		{
+			// Reset controller usage flag when no gamepad is connected
+			if (isUsingController)
 			{
-				int newSelection = (static_cast<int>(currentButtonSelection) + 1) % static_cast<int>(EndButtonSelection::COUNT);
-				SelectButton(static_cast<EndButtonSelection>(newSelection));
-				controllerNavigationCooldown = controllerNavigationDelay;
-			}
-
-			// Activate selected button with A button or Start button
-			std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
-			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
-				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
-			{
-				ActivateSelectedButton(lastPlayedSceneName);
+				DeselectAllButtons();
+				isUsingController = false;
 			}
 		}
 	}
-	else
-	{
-		// Reset controller usage flag when no gamepad is connected
-		if (isUsingController)
+
+	// Handle lose state (Restart and Menu buttons)
+	else if (currentState == EndSceneState::LOSE && Restart_Spt && Restart_Spt->isVisible) {
+		// Check for gamepad connectivity
+		if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
 		{
-			DeselectAllButtons();
-			isUsingController = false;
+			// Decrease cooldown timer for navigation
+			if (controllerNavigationCooldown > 0)
+			{
+				controllerNavigationCooldown -= DuckEngine::DeltaTime();
+			}
+
+			// Get joystick/dpad input for horizontal navigation
+			float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+			bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
+			bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+
+			// Check for any controller input
+			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START);
+
+			// If this is the first controller input, select the restart button
+			if (hasControllerInput && !isUsingController)
+			{
+				isUsingController = true;
+				currentButtonSelection = EndButtonSelection::RESTART;
+				SelectButton(currentButtonSelection);
+				controllerNavigationCooldown = controllerNavigationDelay;
+			}
+
+			// Only process navigation if we're using controller
+			if (isUsingController)
+			{
+				// Navigate left/right to toggle between Restart and Menu
+				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || dpadRight))
+				{
+					// Toggle between RESTART and MENU
+					EndButtonSelection newSelection = (currentButtonSelection == EndButtonSelection::RESTART) ?
+						EndButtonSelection::MENU : EndButtonSelection::RESTART;
+
+					SelectButton(newSelection);
+					controllerNavigationCooldown = controllerNavigationDelay;
+				}
+
+				// Activate selected button with A button or Start button
+				std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+				if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
+					DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
+				{
+					ActivateSelectedButton(lastPlayedSceneName);
+				}
+			}
+		}
+		else
+		{
+			// Reset controller usage flag when no gamepad is connected
+			if (isUsingController)
+			{
+				DeselectAllButtons();
+				isUsingController = false;
+			}
 		}
 	}
 
@@ -445,34 +609,58 @@ void EndScene::SelectButton(EndButtonSelection selection)
 	// Update current selection
 	currentButtonSelection = selection;
 
-	// Apply hover effect (increase scale)
-	if (selection == EndButtonSelection::RESTART && restartTransform)
-	{
-		// Scale up the restart button
-		restartTransform->scale = restartOriginalScale * buttonScaleIncrease;
-		// Play sound if available
-		if (MainMenuSound) MainMenuSound->Play();
-	}
-	else if (selection == EndButtonSelection::MENU && menuTransform)
-	{
-		// Scale up the menu button
-		menuTransform->scale = menuOriginalScale * buttonScaleIncrease;
-		// Play sound if available
-		if (MainMenuSound) MainMenuSound->Play();
+	// Apply hover effect (increase scale) based on current selection
+	switch (selection) {
+	case EndButtonSelection::RESTART:
+		if (restartTransform) {
+			restartTransform->scale = restartOriginalScale * buttonScaleIncrease;
+			if (MainMenuSound) MainMenuSound->Play();
+		}
+		break;
+
+	case EndButtonSelection::MENU:
+		if (menuTransform) {
+			menuTransform->scale = menuOriginalScale * buttonScaleIncrease;
+			if (MainMenuSound) MainMenuSound->Play();
+		}
+		break;
+
+	case EndButtonSelection::NEXT:
+		if (nextTransform) {
+			nextTransform->scale = nextOriginalScale * buttonScaleIncrease;
+			if (MainMenuSound) MainMenuSound->Play();
+		}
+		break;
+
+	case EndButtonSelection::LASTMENU:
+		if (lastMenuTransform) {
+			lastMenuTransform->scale = lastMenuOriginalScale * buttonScaleIncrease;
+			if (MainMenuSound) MainMenuSound->Play();
+		}
+		break;
+
+	default:
+		break;
 	}
 }
 
 void EndScene::DeselectAllButtons()
 {
 	// Reset all button scales to original
-	if (restartTransform)
-	{
+	if (restartTransform) {
 		restartTransform->scale = restartOriginalScale;
 	}
 
-	if (menuTransform)
-	{
+	if (menuTransform) {
 		menuTransform->scale = menuOriginalScale;
+	}
+
+	if (nextTransform) {
+		nextTransform->scale = nextOriginalScale;
+	}
+
+	if (lastMenuTransform) {
+		lastMenuTransform->scale = lastMenuOriginalScale;
 	}
 }
 
@@ -483,11 +671,29 @@ void EndScene::ActivateSelectedButton(const std::string& lastPlayedSceneName)
 	case EndButtonSelection::RESTART:
 		std::cout << "Restart button activated with gamepad!" << std::endl;
 		if (MainMenuSound) MainMenuSound->Play(1);
-		GameManager::SetActiveScene(lastPlayedSceneName);
+		isrestartButtonClicked = true;
+		isFadingIn = true;
+		fadeInElapsedTime = 0.0f;
 		break;
 
 	case EndButtonSelection::MENU:
 		std::cout << "Menu button activated with gamepad!" << std::endl;
+		if (MainMenuSound) MainMenuSound->Play(1);
+		isQuitButtonClicked = true;
+		isFadingIn = true;
+		fadeInElapsedTime = 0.0f;
+		break;
+
+	case EndButtonSelection::NEXT:
+		std::cout << "Next button activated with gamepad!" << std::endl;
+		if (MainMenuSound) MainMenuSound->Play(1);
+		isnextButtonClicked = true;
+		isFadingIn = true;
+		fadeInElapsedTime = 0.0f;
+		break;
+
+	case EndButtonSelection::LASTMENU:
+		std::cout << "Final Menu button activated with gamepad!" << std::endl;
 		if (MainMenuSound) MainMenuSound->Play(1);
 		isQuitButtonClicked = true;
 		isFadingIn = true;

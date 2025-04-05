@@ -103,18 +103,32 @@ private:
     enum class EndButtonSelection {
         RESTART = 0,
         MENU = 1,
+        NEXT = 2,
+        LASTMENU = 3,
         COUNT
     };
 
+    enum class EndSceneState {
+        WIN,         // Normal win - Next and Menu buttons
+        LOSE,        // Loss - Restart and Menu buttons
+        COMPLETE     // Final level completion - Only LastMenu button
+    };
+
+    EndSceneState currentState = EndSceneState::LOSE;
     EndButtonSelection currentButtonSelection = EndButtonSelection::RESTART;
 
     TransformComponent* restartTransform = nullptr;
     TransformComponent* menuTransform = nullptr;
+    TransformComponent* nextTransform = nullptr;
+    TransformComponent* lastMenuTransform = nullptr;
     Vec2 restartOriginalScale;
     Vec2 menuOriginalScale;
+    Vec2 nextOriginalScale;
+    Vec2 lastMenuOriginalScale;
 
     void UpdateEndMenuSelection();
     void SelectButton(EndButtonSelection selection);
     void DeselectAllButtons();
     void ActivateSelectedButton(const std::string& lastPlayedSceneName);
+    void DetermineCurrentState();
 };

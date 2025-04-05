@@ -1,5 +1,19 @@
-#include "TransformComponent.h"
-#include "DuckEngine.h"
+/******************************************************************************/
+/*!
+\file       TransformComponent.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       October 3 2024
+\brief      Defines the TransformComponent class, which represents the
+            position, rotation, and scale of an entity in the game engine.
+            This component also includes the option to set the transform
+            relative to the camera.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
 
 #include "TransformComponent.h"
 #include "DuckEngine.h"
