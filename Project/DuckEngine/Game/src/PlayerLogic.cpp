@@ -485,6 +485,7 @@ void PlayerLogic::InteractPressed()
 				if (potLogic)
 				{
 					holding->setType(potLogic->EmptyPot());
+					if (sound) sound->Play(-1);
 					return;
 				}
 			}
