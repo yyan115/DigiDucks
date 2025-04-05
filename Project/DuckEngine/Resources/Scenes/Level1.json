@@ -242,7 +242,8 @@
                 "Cactus",
                 "Flower",
                 "Outside_Floor",
-                "Welcome_Mat"
+                "Welcome_Mat",
+                "Calendar"
             ],
             "components": [
                 {
@@ -956,6 +957,42 @@
                         "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/cactus.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Calendar": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -19.299999237060547,
+                            "y": 10.100000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.2000000476837158,
+                            "y": 1.75
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 22,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/CALENDAR_1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -4175,7 +4212,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 43.0,
+                        "currentValue": 60.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,

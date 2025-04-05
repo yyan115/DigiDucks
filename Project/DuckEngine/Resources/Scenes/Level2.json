@@ -242,7 +242,8 @@
                 "Cactus",
                 "Flower",
                 "Outside_Floor",
-                "Welcome_Mat"
+                "Welcome_Mat",
+                "Calendar"
             ],
             "components": [
                 {
@@ -546,9 +547,6 @@
             "layer": "Gameplay"
         },
         "Bun_Box": {
-            "childNames": [
-                "GameObject_241"
-            ],
             "components": [
                 {
                     "properties": {
@@ -956,6 +954,42 @@
                         "sortingOrder": 20,
                         "sprite": true,
                         "texture": "Resources/Sprites/New Background/cactus.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Calendar": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -19.299999237060547,
+                            "y": 10.100000381469727
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.2000000476837158,
+                            "y": 1.75
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 21,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/New Background/CALENDAR_3.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1534,7 +1568,1183 @@
             ],
             "layer": "Gameplay"
         },
+        "Customer1_Order_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
+        "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -15.200626373291016,
+                            "y": 22.241004943847656
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 2.0,
+                            "y": 2.5
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 25,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                }
+            ],
+            "layer": "Gameplay"
+        },
         "Customer1_Slider": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_1": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": -16.801000595092773,
+                            "y": 19.00000762939453
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "backgroundColor": {
+                            "a": 255.0,
+                            "b": 100.0,
+                            "g": 100.0,
+                            "r": 100.0
+                        },
+                        "currentValue": 0.0,
+                        "fillColor": {
+                            "a": 255.0,
+                            "b": 0.0,
+                            "g": 255.0,
+                            "r": 106.74417877197266
+                        },
+                        "isEnabled": true,
+                        "isVisible": false,
+                        "maxAngle": 360.0,
+                        "maxValue": 100.0,
+                        "minAngle": 0.0,
+                        "minValue": 0.0,
+                        "radius": 0.30000001192092896,
+                        "sortingOrder": 1,
+                        "step": 0.10000000149011612,
+                        "thickness": 0.09999992698431015
+                    },
+                    "type": "RadialSliderComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy": {
             "components": [
                 {
                     "properties": {
@@ -1984,9 +3194,191 @@
             },
             "prefab": "Customer"
         },
+        "Customer_10": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_11": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_12": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_13": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_14": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_15": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy_copy_copy_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_2": {
+            "childNames": [
+                "Customer1_Order_copy",
+                "Customer1_Slider_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_3": {
+            "childNames": [
+                "Customer1_Order_copy_copy",
+                "Customer1_Slider_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_4": {
+            "childNames": [
+                "Customer1_Order_copy_copy_1",
+                "Customer1_Slider_copy_copy_1"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_5": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2",
+                "Customer1_Slider_copy_copy_2"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_6": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy",
+                "Customer1_Slider_copy_copy_2_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_7": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_8": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
+        "Customer_9": {
+            "childNames": [
+                "Customer1_Order_copy_copy_2_copy_copy_copy_copy",
+                "Customer1_Slider_copy_copy_2_copy_copy_copy_copy"
+            ],
+            "layer": "Gameplay",
+            "position": {
+                "x": -16.801000595092773,
+                "y": 21.000003814697266
+            },
+            "prefab": "Customer"
+        },
         "Customer_Master": {
             "childNames": [
-                "Customer_1"
+                "Customer_1",
+                "Customer_2",
+                "Customer_3",
+                "Customer_4",
+                "Customer_5",
+                "Customer_6",
+                "Customer_7",
+                "Customer_8",
+                "Customer_9",
+                "Customer_10",
+                "Customer_11",
+                "Customer_12",
+                "Customer_13",
+                "Customer_14",
+                "Customer_15"
             ],
             "components": [
                 {
@@ -2332,7 +3724,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 43.0,
+                        "currentValue": 60.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -4961,29 +6353,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_walk1.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk2.png",
-                                    "Resources/Sprites/Duck/duck_walk3.png",
-                                    "Resources/Sprites/Duck/duck_walk4.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png",
-                                    "Resources/Sprites/Duck/duck_walk5.png",
-                                    "Resources/Sprites/Duck/duck_walk6.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "LEFT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_left3.png",
@@ -4998,11 +6367,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_walk1.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk2.png",
+                                    "Resources/Sprites/Duck/duck_walk3.png",
+                                    "Resources/Sprites/Duck/duck_walk4.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png",
+                                    "Resources/Sprites/Duck/duck_walk5.png",
+                                    "Resources/Sprites/Duck/duck_walk6.png"
                                 ]
                             },
                             {
@@ -5012,6 +6395,15 @@
                                     "Resources/Sprites/Duck/idle/idle1.png",
                                     "Resources/Sprites/Duck/idle/idle2.png",
                                     "Resources/Sprites/Duck/idle/idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/duck_l_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_l_idle3.png"
                                 ]
                             },
                             {
