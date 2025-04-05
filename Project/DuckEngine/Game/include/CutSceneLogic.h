@@ -37,6 +37,7 @@ private:
 	bool isFading = true;
 	bool isCutSceneFading = false;
 	bool isShowingDialogue = false;
+	std::string lastPlayedSceneName = "";
 public:
 
 	CutSceneLogic() :

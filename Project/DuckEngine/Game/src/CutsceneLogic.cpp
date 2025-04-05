@@ -18,9 +18,11 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine_Input.h"
 #include "AssetManager.h"
 #include "Level0.h"
+#include "GameManager.h"
 
 void CutSceneLogic::Start()
 {
+	lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
 	CutSceneEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneManager").get();
 	if (CutSceneEntity)
 	{
@@ -69,7 +71,15 @@ void CutSceneLogic::Start()
 		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
 		{
 			CutSceneSkipSound->Play();
-			currentCutsceneIndex = 12;
+			
+			if (lastPlayedSceneName == "Level0")
+			{
+				currentCutsceneIndex = 12;
+				std::cout << "Cutscene skipped! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
+			}
+			else if (lastPlayedSceneName == "Level1_5") currentCutsceneIndex = 2;
+			else if (lastPlayedSceneName == "Level2_5") currentCutsceneIndex = 3;
+			
 		};
 	}
 
@@ -82,7 +92,7 @@ void CutSceneLogic::Start()
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
 		DialogueSkip->onClick = [this]()
 		{
-			currentDialogueIndex = 29;
+			currentDialogueIndex = 12;
 		};
 	}
 }
@@ -90,7 +100,6 @@ void CutSceneLogic::Start()
 void CutSceneLogic::Update()
 {
 	if (!isPlaying && !isShowingDialogue) return;
-
 	// Handle fade-in effect at the start
 	if (isFading)
 	{
@@ -111,12 +120,13 @@ void CutSceneLogic::Update()
 		}
 	}
 	
-	// If playing cutscene
-	if (isPlaying && currentCutsceneIndex < 13)
+	// If playing cutscene ( MUST SELECT LEVEL FROM LEVEL SELECT SCREEN FIRST )
+	if (isPlaying && lastPlayedSceneName == "Level0" && currentCutsceneIndex < 13) // Tutorial 0
 	{
+		
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
 		cutsceneTimer += DuckEngine::DeltaTime();
-		
+		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -134,30 +144,97 @@ void CutSceneLogic::Update()
 			{
 				CutSceneSFX->Play(currentCutsceneIndex);
 			}
-			
+
 			if (currentCutsceneIndex == 13) {
 				isCutSceneFading = true;
 				FadeOutSprite->color.a = 0; // Start fade
+				cutsceneTimer = 0.0f;
 			}
 		}
-	}	
+	}
+	else if (isPlaying && lastPlayedSceneName == "Level1_5" && currentCutsceneIndex < 3) // Tutorial 1.5
+	{
+
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
+		cutsceneTimer += DuckEngine::DeltaTime();
+		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		// Change scene every 1.5 seconds
+		if (cutsceneTimer >= 1.5f)
+		{
+			currentCutsceneIndex++;
+			cutsceneTimer = 0.0f; // Reset timer
+			// Update cutscene sprite
+			if (CutSceneSprite)
+			{
+				std::string cutscenePath = "Resources/Sprites/cutscene/Level2/" + std::to_string(currentCutsceneIndex) + ".jpg";
+				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
+			}
+
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+
+			if (currentCutsceneIndex == 3) {
+				isCutSceneFading = true;
+				FadeOutSprite->color.a = 0; // Start fade
+				cutsceneTimer = 0.0f;
+			}
+		}
+	}
+	else if (isPlaying && lastPlayedSceneName == "Level2_5" && currentCutsceneIndex < 4) // Tutorial 2.5
+	{
+
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
+		cutsceneTimer += DuckEngine::DeltaTime();
+		std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		// Change scene every 1.5 seconds
+		if (cutsceneTimer >= 1.5f)
+		{
+			currentCutsceneIndex++;
+			cutsceneTimer = 0.0f; // Reset timer
+			// Update cutscene sprite
+			if (CutSceneSprite)
+			{
+				std::string cutscenePath = "Resources/Sprites/cutscene/Level3/" + std::to_string(currentCutsceneIndex) + ".jpg";
+				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
+			}
+
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+
+			if (currentCutsceneIndex == 4) {
+				isCutSceneFading = true;
+				FadeOutSprite->color.a = 0; // Start fade
+				cutsceneTimer = 0.0f;
+			}
+		}
+	}
 	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 		DialoguefadeProgress += DuckEngine::DeltaTime();
 
-		if (DialoguefadeProgress >= 4.0f)
+		if (DialoguefadeProgress >= 6.0f)
 		{
 			FadeOutSprite->color.a = 255;
 			FadeOutSprite->isVisible = false;
 			isCutSceneFading = false;
-			isShowingDialogue = true;
 			CutSceneSprite->isVisible = false; // Hide cutscene sprite
-			DialogueSprite->isVisible = true; // Show dialogue box
-
-			Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
-			level0Scene->FinishedTutorial();
-
+			if (lastPlayedSceneName == "Level0")
+			{
+				isShowingDialogue = true;
+				DialogueSprite->isVisible = true; // Show dialogue box
+			}
+			else
+			{
+				CutSceneBGM->Stop();
+				isPlaying = false; // End cutscene
+			}
 		}
 		else if (DialoguefadeProgress >= 1.0f)
 		{
@@ -171,7 +248,7 @@ void CutSceneLogic::Update()
 
 
 	// Handle dialogues
-	if (isShowingDialogue)
+	if (isShowingDialogue && lastPlayedSceneName == "Level0")
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
 		// Check for user input to progress dialogue
@@ -181,9 +258,6 @@ void CutSceneLogic::Update()
 			
 			if (currentDialogueIndex == 14)
 			{
-				// End cutscene entirely and start game
-				Level0* level0Scene = DuckEngine::DUCKENGINE_SceneManager.GetScene<Level0>("Level0").get();
-				level0Scene->FinishedTutorial();
 				FadeOutSprite->isVisible = false;
 				DialogueSprite->isVisible = false;
 				isShowingDialogue = false;
