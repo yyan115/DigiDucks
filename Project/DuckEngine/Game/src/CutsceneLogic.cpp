@@ -175,7 +175,7 @@ void CutSceneLogic::Update()
 			// Play sound effect for the scene
 			if (CutSceneSFX)
 			{
-				CutSceneSFX->Play(currentCutsceneIndex);
+				//CutSceneSFX->Play(currentCutsceneIndex);
 			}
 
 			if (currentCutsceneIndex == 3) {
@@ -206,7 +206,7 @@ void CutSceneLogic::Update()
 			// Play sound effect for the scene
 			if (CutSceneSFX)
 			{
-				CutSceneSFX->Play(currentCutsceneIndex);
+				//CutSceneSFX->Play(currentCutsceneIndex);
 			}
 
 			if (currentCutsceneIndex == 4) {
@@ -240,7 +240,7 @@ void CutSceneLogic::Update()
 			// Play sound effect for the scene
 			if (CutSceneSFX)
 			{
-				CutSceneSFX->Play(currentCutsceneIndex);
+				//CutSceneSFX->Play(currentCutsceneIndex);
 			}
 
 			if (currentCutsceneIndex == 4) {
