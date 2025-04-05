@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-\file     CutSceneLogic.h
+\file     EndCutSceneLogic.h
 \author   Muhammad Zikry Bin Zakaria , muhammadzikry.b, 2201751 (100%)
 \par      muhammadzikry.b@digipen.edu
-\brief    This file contains the declaration of the CutSceneLogic class
-		  which is responsible for handling the cutscene logic in the game.
+\brief    This file contains the declaration of the EndCutSceneLogic class
+		  which is responsible for handling the Endcutscene logic in the game.
 
 Copyright (C) 2025 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
