@@ -130,6 +130,6 @@ private:
     void UpdateEndMenuSelection();
     void SelectButton(EndButtonSelection selection);
     void DeselectAllButtons();
-    void ActivateSelectedButton(const std::string& lastPlayedSceneName);
+    void ActivateSelectedButton();
     void DetermineCurrentState();
 };
