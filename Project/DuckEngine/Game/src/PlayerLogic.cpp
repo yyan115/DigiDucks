@@ -115,7 +115,7 @@ void PlayerLogic::Start()
 * ****************************************************************/
 void PlayerLogic::Update()
 {
-	if (transform->GetPosition().y <= -2.0f)
+	if (transform->GetPosition().y <= 0.0f)
 	{
 		spriteRenderer->sortingOrder = 12;
 	}
