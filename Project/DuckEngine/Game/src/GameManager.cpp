@@ -67,6 +67,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level3.h"
 #include "Level3_5.h"
 #include "EndGame.h"
+#include "Intro.h"
 
 
 DuckEngine GameManager::DuckEngine;
@@ -96,7 +97,7 @@ void GameManager::InitScenes()
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2_5", std::make_shared<Level2_5>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3", std::make_shared<Level3>());
 	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3_5", std::make_shared<Level3_5>());
-
+	DuckEngine.DUCKENGINE_SceneManager.AddScene("Intro", std::make_shared<Intro>());
 
 	// add game logic
 	GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());

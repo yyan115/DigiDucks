@@ -140,6 +140,9 @@
     <ClCompile Include="..\src\EndCutSceneLogic.cpp">
       <Filter>src\Logic\Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Intro.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -415,6 +418,9 @@
       <Filter>include\Logic\Game</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\include\Intro.h">
+      <Filter>include\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Quack_Kitchen.rc" />

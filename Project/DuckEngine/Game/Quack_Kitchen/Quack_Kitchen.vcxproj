@@ -205,6 +205,7 @@
     <ClCompile Include="..\src\ExitConfirmLogic.cpp" />
     <ClCompile Include="..\src\GameLoopLogic.cpp" />
     <ClCompile Include="..\src\GameManager.cpp" />
+    <ClCompile Include="..\src\Intro.cpp" />
     <ClCompile Include="..\src\Level1.cpp" />
     <ClCompile Include="..\src\GameSettingsLogic.cpp" />
     <ClCompile Include="..\src\HighlightLogic.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="..\include\ExitConfirmLogic.h" />
     <ClInclude Include="..\include\GameLoopLogic.h" />
     <ClInclude Include="..\include\GameManager.h" />
+    <ClInclude Include="..\include\Intro.h" />
     <ClInclude Include="..\include\Level1.h" />
     <ClInclude Include="..\include\GameSettingsLogic.h" />
     <ClInclude Include="..\include\GetPanLogic.h" />
