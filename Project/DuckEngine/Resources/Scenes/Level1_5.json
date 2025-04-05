@@ -2624,7 +2624,7 @@
                 },
                 {
                     "properties": {
-                        "currentValue": 43.0,
+                        "currentValue": 60.0,
                         "isDragging": false,
                         "isEnable": false,
                         "isHorizontal": false,
@@ -8948,7 +8948,7 @@
                             "g": 255.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": false,
                         "texture": "",
