@@ -2105,7 +2105,7 @@
                         "isVisible": true,
                         "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/cutscene/1.png",
+                        "texture": "Resources/Sprites/cutscene/Level3/1.jpg",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
