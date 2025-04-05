@@ -619,8 +619,6 @@ double DuckEngine::GetGLFWTime()
 
 void DuckEngine::PauseGame(bool pause) 
 {
-	std::cout << "PAUSE CALLED\n";
-
 	TimeManager::FreezeTime(pause);
 
 	if (pause) 
