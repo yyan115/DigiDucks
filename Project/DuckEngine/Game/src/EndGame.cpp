@@ -27,6 +27,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "SoundSystem.h"
 SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
+bool isrestartButtonClicked = false;
+bool isnextButtonClicked = false;
 
 SpriteRendererComponent* backgroundSR;
 
@@ -88,7 +90,6 @@ void EndScene::Load()
 
 	MainMenu->onHover = []()
 		{
-			std::cout << "hover" << std::endl;
 			MainMenuSound->Play();
 		};
 
@@ -131,6 +132,10 @@ void EndScene::Load()
 	NextButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Next").get();
 	Next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
 
+	isQuitButtonClicked = false;
+	isrestartButtonClicked = false;
+	isnextButtonClicked = false;
+
 }
 
 void EndScene::Start()
@@ -172,69 +177,29 @@ void EndScene::Start()
 	}
 
 	Restart->onClick = [this, lastPlayedSceneName]() {
-		std::cout << "Restart button clicked!" << std::endl;
-		GameManager::SetActiveScene(lastPlayedSceneName);
-		std::cout << "current scene:" << lastPlayedSceneName << std::endl;
-		};
+		MainMenuSound->Play(1);
+		isrestartButtonClicked = true;
+		isFadingIn = true; // Start fade-in
+		fadeInElapsedTime = 0.0f;
+	};
 
-	// Add mouse hover effect for Restart button
-	Restart->onHover = [this]() {
-		if (!isUsingController && restartTransform) {
+	Restart->onHover = []()
+		{
 			MainMenuSound->Play();
-			restartTransform->scale = restartOriginalScale * buttonScaleIncrease;
-		}
-		};
-
-	Restart->onFinishHover = [this]() {
-		if (!isUsingController && restartTransform) {
-			restartTransform->scale = restartOriginalScale;
-		}
-		};
-
-	// Update MainMenu button hover to include scaling
-	MainMenu->onHover = [this]() {
-		if (!isUsingController && menuTransform) {
-			std::cout << "hover" << std::endl;
-			MainMenuSound->Play();
-			menuTransform->scale = menuOriginalScale * buttonScaleIncrease;
-		}
-		};
-
-	MainMenu->onFinishHover = [this]() {
-		if (!isUsingController && menuTransform) {
-			menuTransform->scale = menuOriginalScale;
-		}
 		};
 
 	Next->onClick = [this, lastPlayedSceneName]() {
+		MainMenuSound->Play(1);
+		isnextButtonClicked = true;
+		isFadingIn = true; // Start fade-in
+		fadeInElapsedTime = 0.0f;
+	};
 
-		if (lastPlayedSceneName == "Level0")
+	Next->onHover = []()
 		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level1");
-			GameManager::SetActiveScene("Level1");
-		}
-		else if (lastPlayedSceneName == "Level1")
-		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level1_5");
-			GameManager::SetActiveScene("Level1_5");
-		}
-		else if (lastPlayedSceneName == "Level1_5")
-		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level2");
-			GameManager::SetActiveScene("Level2");
-		}
-		else if (lastPlayedSceneName == "Level2")
-		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level2_5");
-			GameManager::SetActiveScene("Level2_5");
-		}
-		else if (lastPlayedSceneName == "Level2_5")
-		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level3");
-			GameManager::SetActiveScene("Level3");
-		}
+			MainMenuSound->Play();
 		};
-
+	
 	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
 
 
@@ -337,8 +302,22 @@ void EndScene::Update()
 			SoundSystem::SetSoundVolume(BGMSound->soundID[0], 0.0f);
 			SoundSystem::StopSounds(BGMSound->soundID[0]);
 
-			// Switch to MainMenu scene after fade-in
-			GameManager::SetActiveScene("MainMenu");
+			std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
+			if (isrestartButtonClicked)
+			{
+				GameManager::SetActiveScene(lastPlayedSceneName);
+				std::cout << "current scene:" << lastPlayedSceneName << std::endl;
+			}
+			if (isnextButtonClicked)
+			{
+				if (lastPlayedSceneName == "Level0") GameManager::SetActiveScene("Level1");
+				else if (lastPlayedSceneName == "Level1") GameManager::SetActiveScene("Level1_5");
+				else if (lastPlayedSceneName == "Level1_5") GameManager::SetActiveScene("Level2");
+				else if (lastPlayedSceneName == "Level2") GameManager::SetActiveScene("Level2_5");
+				else if (lastPlayedSceneName == "Level2_5") GameManager::SetActiveScene("Level3");
+			}
+			else GameManager::SetActiveScene("MainMenu");
+			
 			return;
 		}
 

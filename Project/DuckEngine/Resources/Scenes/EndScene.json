@@ -119,7 +119,7 @@
                 {
                     "properties": {
                         "logicNames": [
-                            "CutSceneLogic"
+                            "EndCutSceneLogic"
                         ]
                     },
                     "type": "GameLogicComponent"
@@ -376,7 +376,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 110,
-                        "text": "FPS: 62"
+                        "text": "FPS: 57"
                     },
                     "type": "TextComponent"
                 }
@@ -766,7 +766,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 30"
+                        "text": "Score: 0"
                     },
                     "type": "TextComponent"
                 },

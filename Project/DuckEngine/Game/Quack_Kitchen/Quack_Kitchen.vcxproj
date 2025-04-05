@@ -200,6 +200,7 @@
     <ClCompile Include="..\src\CustomerWaitingOrderState.cpp" />
     <ClCompile Include="..\src\CustomerWalkState.cpp" />
     <ClCompile Include="..\src\CutSceneLogic.cpp" />
+    <ClCompile Include="..\src\EndCutSceneLogic.cpp" />
     <ClCompile Include="..\src\EndGame.cpp" />
     <ClCompile Include="..\src\ExitConfirmLogic.cpp" />
     <ClCompile Include="..\src\GameLoopLogic.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="..\include\CustomerWaitingOrderState.h" />
     <ClInclude Include="..\include\CustomerWalkState.h" />
     <ClInclude Include="..\include\CutSceneLogic.h" />
+    <ClInclude Include="..\include\EndCutSceneLogic.h" />
     <ClInclude Include="..\include\EndGame.h" />
     <ClInclude Include="..\include\ExitConfirmLogic.h" />
     <ClInclude Include="..\include\GameLoopLogic.h" />
