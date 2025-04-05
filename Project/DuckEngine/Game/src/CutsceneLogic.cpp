@@ -196,6 +196,7 @@ void CutSceneLogic::Update()
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
+			
 			currentCutsceneIndex++;
 			cutsceneTimer = 0.0f; // Reset timer
 			// Update cutscene sprite
@@ -208,6 +209,7 @@ void CutSceneLogic::Update()
 			// Play sound effect for the scene
 			if (CutSceneSFX)
 			{
+				CutSceneSFX->Stop();
 				CutSceneSFX->Play(currentCutsceneIndex);
 			}
 

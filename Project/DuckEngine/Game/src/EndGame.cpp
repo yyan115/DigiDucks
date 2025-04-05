@@ -376,9 +376,9 @@ void EndScene::DetermineCurrentState()
 
 void EndScene::Update()
 {
-	if (GameManager::GameCleared && currentState != EndSceneState::COMPLETE) {
-		currentState = EndSceneState::COMPLETE;
+	if (GameManager::GameCleared) {
 		currentButtonSelection = EndButtonSelection::LASTMENU;
+		return;
 	}
 
 	if (ScoreLogic::scoreValue < iStar_1 && !isBGMSoundFadingIn)
