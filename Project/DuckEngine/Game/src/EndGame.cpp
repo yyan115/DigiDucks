@@ -259,9 +259,10 @@ void EndScene::Start()
 		}
 		};
 
-	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
-
-
+	if (NextButton)
+	{
+		Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+	}
 
 	// Tutorial Level
 	if (lastPlayedSceneName == "Level0" || lastPlayedSceneName == "Level1_5" || lastPlayedSceneName == "Level2_5")

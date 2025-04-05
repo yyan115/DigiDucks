@@ -338,7 +338,10 @@ void CutSceneLogic::Update()
 
 			if (currentDialogueIndex == 14)
 			{
-				FadeOutSprite->isVisible = false;
+				if (FadeOutSprite)
+				{
+					FadeOutSprite->isVisible = false;
+				}
 				DialogueSprite->isVisible = false;
 				isShowingDialogue = false;
 				isPlaying = false;
