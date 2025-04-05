@@ -1100,7 +1100,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 16,
+                        "sortingOrder": 17,
                         "sprite": false,
                         "texture": "Resources/Sprites/Stations/cashregistertable.png",
                         "useColor": false
@@ -1320,7 +1320,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -1359,7 +1359,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -3257,7 +3257,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3342,7 +3342,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3427,7 +3427,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -3512,7 +3512,7 @@
                             "r": 125.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/diningtable.png",
                         "useColor": true
@@ -4601,7 +4601,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4637,7 +4637,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 13,
+                        "sortingOrder": 15,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4673,7 +4673,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4709,7 +4709,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 14,
+                        "sortingOrder": 15,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4745,7 +4745,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 13,
+                        "sortingOrder": 15,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4781,7 +4781,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 13,
+                        "sortingOrder": 15,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4817,7 +4817,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 4,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4853,7 +4853,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4889,7 +4889,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 1,
+                        "sortingOrder": 2,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4925,7 +4925,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 2,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4961,7 +4961,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 3,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4997,7 +4997,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 5,
+                        "sortingOrder": 6,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5033,7 +5033,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 4,
+                        "sortingOrder": 5,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5069,7 +5069,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5137,7 +5137,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 14,
+                        "sortingOrder": 15,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5173,7 +5173,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 7,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5209,7 +5209,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 3,
+                        "sortingOrder": 4,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -5245,7 +5245,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 2,
+                        "sortingOrder": 3,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6638,7 +6638,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
@@ -8942,7 +8942,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 11,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -8981,7 +8981,7 @@
                             "r": 89.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 9,
+                        "sortingOrder": 10,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -9307,7 +9307,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_back.png",
                         "useColor": true
@@ -9449,7 +9449,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 12,
+                        "sortingOrder": 13,
                         "sprite": true,
                         "texture": "Resources/Sprites/Stations/table01_front.png",
                         "useColor": true
