@@ -43,7 +43,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/cutscene_bgm.ogg"
                         ],
-                        "volume": 0.10000000894069672
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }
@@ -82,7 +82,7 @@
                         "isVisible": false,
                         "sortingOrder": 101,
                         "sprite": true,
-                        "texture": "Resources/Sprites/cutscene/1.png",
+                        "texture": "Resources/Sprites/cutscene/Clear/1.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -96,21 +96,14 @@
                         "playOnStart": false,
                         "soundID": [
                             "",
-                            "Resources/Sounds/cutscene/Snoring.ogg",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/cutscene/door open.ogg",
+                            "Resources/Sounds/cutscene/Level3/paper slide.ogg",
+                            "Resources/Sounds/cutscene/End/paper tear.ogg",
                             "",
                             "",
-                            "",
-                            "Resources/Sounds/cutscene/affirmative sfx.ogg",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 9.wav",
-                            "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/click 1.wav"
+                            "Resources/Sounds/cutscene/End/car pull in from left.ogg",
+                            "Resources/Sounds/cutscene/End/run.ogg",
+                            "Resources/Sounds/end level/Win Cheer.ogg",
+                            ""
                         ],
                         "volume": 0.5
                     },
@@ -156,108 +149,6 @@
                         "sortingOrder": 102,
                         "sprite": true,
                         "texture": "Resources/Sprites/UI/SKIP_cutscene.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                },
-                {
-                    "properties": {
-                        "category": "UI",
-                        "effectValue": 0.0,
-                        "effects": "Default",
-                        "loop": false,
-                        "playOnStart": false,
-                        "soundID": [
-                            "Resources/Sounds/clicks/click 2.wav"
-                        ],
-                        "volume": 1.0
-                    },
-                    "type": "SoundComponent"
-                },
-                {
-                    "properties": {
-                        "maxPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        },
-                        "minPos": {
-                            "x": 0.0,
-                            "y": 0.0
-                        }
-                    },
-                    "type": "ButtonComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "DialogueManager": {
-            "childNames": [
-                "DialogueSkip"
-            ],
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.5,
-                            "y": -0.5
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.699999988079071,
-                            "y": 0.8999999761581421
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 0.0,
-                            "r": 255.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 5,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/Dialogues/intro/1.png",
-                        "useColor": true
-                    },
-                    "type": "SpriteRendererComponent"
-                }
-            ],
-            "layer": "UI"
-        },
-        "DialogueSkip": {
-            "components": [
-                {
-                    "properties": {
-                        "position": {
-                            "x": 0.7799999713897705,
-                            "y": -0.9199999570846558
-                        },
-                        "relativeToCamera": false,
-                        "rotation": 0.0,
-                        "scale": {
-                            "x": 0.15000000596046448,
-                            "y": 0.10000000149011612
-                        }
-                    },
-                    "type": "TransformComponent"
-                },
-                {
-                    "properties": {
-                        "color": {
-                            "a": 255.0,
-                            "b": 255.0,
-                            "g": 227.0,
-                            "r": 254.0
-                        },
-                        "isVisible": false,
-                        "sortingOrder": 102,
-                        "sprite": true,
-                        "texture": "Resources/Sprites/UI/SKIP.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -376,7 +267,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 110,
-                        "text": "FPS: 57"
+                        "text": "FPS: 63"
                     },
                     "type": "TextComponent"
                 }
@@ -657,7 +548,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/restart.png",
@@ -811,7 +702,7 @@
                             "g": 0.0,
                             "r": 254.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -847,7 +738,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -883,7 +774,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",

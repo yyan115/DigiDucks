@@ -2066,7 +2066,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/cutscene_bgm.ogg"
                         ],
-                        "volume": 0.10000000894069672
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }
@@ -2118,22 +2118,10 @@
                         "loop": false,
                         "playOnStart": false,
                         "soundID": [
-                            "",
-                            "Resources/Sounds/cutscene/Snoring.ogg",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/cutscene/door open.ogg",
-                            "",
-                            "",
-                            "",
-                            "Resources/Sounds/cutscene/affirmative sfx.ogg",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 9.wav",
-                            "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/click 1.wav"
+                            "Resources/Sounds/cutscene/Level2/sweeping.ogg",
+                            "Resources/Sounds/cutscene/Level2/doorbell.ogg",
+                            "Resources/Sounds/duck sounds/normalduck2.wav",
+                            ""
                         ],
                         "volume": 0.5
                     },
@@ -5253,29 +5241,6 @@
                         "animations": [
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "LEFT_WALK",
-                                "textures": [
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left1.png",
-                                    "Resources/Sprites/Duck/duck_left2.png",
-                                    "Resources/Sprites/Duck/duck_left3.png",
-                                    "Resources/Sprites/Duck/duck_left5.png",
-                                    "Resources/Sprites/Duck/duck_left4.png",
-                                    "Resources/Sprites/Duck/duck_left5.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
-                                "name": "RIGHT_IDLE",
-                                "textures": [
-                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
-                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
-                                ]
-                            },
-                            {
-                                "frameDuration": 0.10000000149011612,
                                 "name": "FRONT_WALK",
                                 "textures": [
                                     "Resources/Sprites/Duck/duck_walk1.png",
@@ -5290,11 +5255,25 @@
                             },
                             {
                                 "frameDuration": 0.10000000149011612,
-                                "name": "FRONT_IDLE",
+                                "name": "RIGHT_IDLE",
                                 "textures": [
-                                    "Resources/Sprites/Duck/idle/idle1.png",
-                                    "Resources/Sprites/Duck/idle/idle2.png",
-                                    "Resources/Sprites/Duck/idle/idle3.png"
+                                    "Resources/Sprites/Duck/idle/duck_r_idle1.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle2.png",
+                                    "Resources/Sprites/Duck/idle/duck_r_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "LEFT_WALK",
+                                "textures": [
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left1.png",
+                                    "Resources/Sprites/Duck/duck_left2.png",
+                                    "Resources/Sprites/Duck/duck_left3.png",
+                                    "Resources/Sprites/Duck/duck_left5.png",
+                                    "Resources/Sprites/Duck/duck_left4.png",
+                                    "Resources/Sprites/Duck/duck_left5.png"
                                 ]
                             },
                             {
@@ -5304,6 +5283,15 @@
                                     "Resources/Sprites/Duck/idle/duck_l_idle1.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle2.png",
                                     "Resources/Sprites/Duck/idle/duck_l_idle3.png"
+                                ]
+                            },
+                            {
+                                "frameDuration": 0.10000000149011612,
+                                "name": "FRONT_IDLE",
+                                "textures": [
+                                    "Resources/Sprites/Duck/idle/idle1.png",
+                                    "Resources/Sprites/Duck/idle/idle2.png",
+                                    "Resources/Sprites/Duck/idle/idle3.png"
                                 ]
                             },
                             {

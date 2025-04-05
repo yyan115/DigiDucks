@@ -75,6 +75,7 @@ void EndCutSceneLogic::Update()
 	{
 		if (!GameManager::GameCleared)
 		{
+			CutSceneBGM->Stop();
 			CutSceneSprite->isVisible = false;
 			return;
 		}
@@ -87,6 +88,13 @@ void EndCutSceneLogic::Update()
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Stop();
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+
 			currentCutsceneIndex++;
 			cutsceneTimer = 0.0f; // Reset timer
 			// Update cutscene sprite
@@ -96,12 +104,7 @@ void EndCutSceneLogic::Update()
 				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
 			}
 
-			// Play sound effect for the scene
-			if (CutSceneSFX)
-			{
-				//CutSceneSFX->Play(currentCutsceneIndex);
-			}
-
+			
 			if (currentCutsceneIndex == 8) {
 				isCutSceneFading = true;
 

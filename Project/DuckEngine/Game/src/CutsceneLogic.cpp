@@ -160,6 +160,13 @@ void CutSceneLogic::Update()
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Stop();
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+
 			currentCutsceneIndex++;
 			cutsceneTimer = 0.0f; // Reset timer
 			// Update cutscene sprite
@@ -169,11 +176,7 @@ void CutSceneLogic::Update()
 				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
 			}
 
-			// Play sound effect for the scene
-			if (CutSceneSFX)
-			{
-				//CutSceneSFX->Play(currentCutsceneIndex);
-			}
+			
 
 			if (currentCutsceneIndex == 3) {
 				isCutSceneFading = true;
@@ -191,6 +194,12 @@ void CutSceneLogic::Update()
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Stop();
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
 			currentCutsceneIndex++;
 			cutsceneTimer = 0.0f; // Reset timer
 			// Update cutscene sprite
@@ -200,11 +209,7 @@ void CutSceneLogic::Update()
 				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
 			}
 
-			// Play sound effect for the scene
-			if (CutSceneSFX)
-			{
-				//CutSceneSFX->Play(currentCutsceneIndex);
-			}
+			
 
 			if (currentCutsceneIndex == 4) {
 				isCutSceneFading = true;
