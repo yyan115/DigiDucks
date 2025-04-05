@@ -637,5 +637,5 @@ void DuckEngine::DestroyEntity(int entityID)
 
 float DuckEngine::PauseDeltaTime()
 {
-	return TimeManager::PauseDT();
+	return static_cast<float>(TimeManager::PauseDT());
 }

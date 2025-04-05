@@ -560,7 +560,7 @@ void EndScene::UpdateEndMenuSelection()
 				if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
 					DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 				{
-					ActivateSelectedButton(lastPlayedSceneName);
+					ActivateSelectedButton();
 				}
 			}
 		}
@@ -624,7 +624,7 @@ void EndScene::UpdateEndMenuSelection()
 				if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
 					DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 				{
-					ActivateSelectedButton(lastPlayedSceneName);
+					ActivateSelectedButton();
 				}
 			}
 		}
@@ -714,7 +714,7 @@ void EndScene::DeselectAllButtons()
 	}
 }
 
-void EndScene::ActivateSelectedButton(const std::string& lastPlayedSceneName)
+void EndScene::ActivateSelectedButton()
 {
 	switch (currentButtonSelection)
 	{
