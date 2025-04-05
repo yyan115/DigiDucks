@@ -14,7 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "StoveLogic.h"
 
-
+float stoveSoundTimer = 0.0f;
 /****************************************************************
 * @brief Start function for the Stove Logic
 * ****************************************************************/
@@ -45,6 +45,7 @@ void StoveLogic::Start()
 	isPan = false;
 	isPot = false;
 	isOccupied = false;
+	stoveSoundTimer = 0.0f;
 }
 
 /****************************************************************
@@ -68,6 +69,13 @@ void StoveLogic::FixedUpdate()
 	{
 		if (isPan) if (stoveSFX) stoveSFX->Play(2);
 		if (isPot) if (stoveSFX) stoveSFX->Play(4);
+
+		stoveSoundTimer += DuckEngine::FixedDeltaTime();
+		if (stoveSoundTimer >= 7.0f)
+		{
+			if (stoveSFX) stoveSFX->Stop();
+			
+		}
 	}
 	else stoveSFX->Stop();
 }
@@ -155,7 +163,7 @@ std::pair<int, ItemType> StoveLogic::moveObject()
 	if(sliderLogic)
 		sliderLogic->ResetSlider();
 
-
+	stoveSoundTimer = 0.0f;
 	return std::make_pair(objectID, temp);
 }
 
