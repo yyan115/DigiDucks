@@ -6638,7 +6638,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
