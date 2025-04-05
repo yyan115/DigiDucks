@@ -20,7 +20,7 @@ void LevelSelectScreenLogic::Start()
 
 	Entity* XButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectXButton").get();
 	ButtonComponent* XButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(XButtonEntity->entityID);
-	SoundComponent* SFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(XButtonEntity->entityID);
+	SoundComponent* XButtonSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(XButtonEntity->entityID);
 
 	// Get all level button entities
 	Entity* level0ButtonEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Level0Button").get();
@@ -64,18 +64,18 @@ void LevelSelectScreenLogic::Start()
 	mainMenu = DuckEngine::DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu").get();
 
 	// X Button to return to main menu
-	XButton->onClick = [this, SFX]()
+	XButton->onClick = [this, XButtonSFX]()
 		{
-			SFX->Play();
+			XButtonSFX->Play();
 			levelSelectScreenSpriteRenderer->isVisible = false;
 			mainMenuScreenSpriteRenderer->isVisible = true;
 		};
 
 	// Level 0 (Tutorial) - Always available
-	level0Button->onClick = [this, SFX]()
+	level0Button->onClick = [this, XButtonSFX]()
 		{
 			std::cout << "Level 0 button clicked!" << std::endl;
-			SFX->Play();
+			XButtonSFX->Play();
 			stageLevel = 0;
 			mainMenu->OnPlayButtonClicked("Level0");
 
@@ -113,12 +113,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 1 - Available if currentStage >= 0
-	level1Button->onClick = [this, SFX]()
+	level1Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 0)
 			{
 				std::cout << "Level 1 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 1;
 				mainMenu->OnPlayButtonClicked("Level1");
 
@@ -157,12 +157,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 1.5 - Available if currentStage >= 1
-	level1_5Button->onClick = [this, SFX]()
+	level1_5Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 1)
 			{
 				std::cout << "Level 1.5 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 2;
 				mainMenu->OnPlayButtonClicked("Level1_5");
 
@@ -201,12 +201,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 2 - Available if currentStage >= 2
-	level2Button->onClick = [this, SFX]()
+	level2Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 2)
 			{
 				std::cout << "Level 2 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 3;
 				mainMenu->OnPlayButtonClicked("Level2");
 
@@ -245,12 +245,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 2.5 - Available if currentStage >= 3
-	level2_5Button->onClick = [this, SFX]()
+	level2_5Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 3)
 			{
 				std::cout << "Level 2.5 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 4;
 				mainMenu->OnPlayButtonClicked("Level2_5");
 
@@ -289,12 +289,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 3 - Available if currentStage >= 4
-	level3Button->onClick = [this, SFX]()
+	level3Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 4)
 			{
 				std::cout << "Level 3 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 5;
 				mainMenu->OnPlayButtonClicked("Level3");
 
@@ -333,12 +333,12 @@ void LevelSelectScreenLogic::Start()
 		};
 
 	// Level 3.5 - Available if currentStage >= 5
-	level3_5Button->onClick = [this, SFX]()
+	level3_5Button->onClick = [this, XButtonSFX]()
 		{
 			if (currentStage >= 5)
 			{
 				std::cout << "Level 3.5 button clicked!" << std::endl;
-				SFX->Play();
+				XButtonSFX->Play();
 				stageLevel = 6;
 				mainMenu->OnPlayButtonClicked("Level3_5");
 
