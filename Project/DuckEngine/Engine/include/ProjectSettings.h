@@ -62,7 +62,7 @@ public:
 
 private:
 	// Default fallback values
-	static constexpr const char* DEFAULT_START_LEVEL = "GameScene";
+	static constexpr const char* DEFAULT_START_LEVEL = "MainMenu";
 	static constexpr int         DEFAULT_WINDOW_WIDTH = 1280;
 	static constexpr int         DEFAULT_WINDOW_HEIGHT = 720;
 	static constexpr int         DEFAULT_TARGET_FPS = 60;

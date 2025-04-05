@@ -53,17 +53,6 @@ void Level2::Start()
 	// 2 Customers
 	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
-		//int random = rand() % 2;
-		//switch (random)
-		//{
-		//case 0:
-		//	gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
-		//	break;
-		//case 1:
-		//	gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
-		//	break;
-		//};
-
 		int random = rand() % 8;
 		switch (random)
 		{

@@ -55,17 +55,6 @@ void Level3::Start()
 	// 2 Customers
 	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
-		//int random = rand() % 2;
-		//switch (random)
-		//{
-		//case 0:
-		//	gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_MUSHROOM);
-		//	break;
-		//case 1:
-		//	gameLoopLogic->customers[i]->SetOrder(ItemType::BOWL_TOMATO);
-		//	break;
-		//};
-
 		int random = rand() % 8;
 		switch (random)
 		{
