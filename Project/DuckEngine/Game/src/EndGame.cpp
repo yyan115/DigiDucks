@@ -182,21 +182,21 @@ void EndScene::Start()
 	}
 	else if (lastPlayedSceneName == "Level1")
 	{
-		iStar_1 = 100;
-		iStar_2 = 150;
-		iStar_3 = 200;
+		iStar_1 = 50;
+		iStar_2 = 100;
+		iStar_3 = 150;
 	}
 	else if (lastPlayedSceneName == "Level2")
 	{
-		iStar_1 = 150;
-		iStar_2 = 200;
-		iStar_3 = 250;
+		iStar_1 = 75;
+		iStar_2 = 125;
+		iStar_3 = 175;
 	}
 	else if (lastPlayedSceneName == "Level3")
 	{
-		iStar_1 = 200;
-		iStar_2 = 250;
-		iStar_3 = 300;
+		iStar_1 = 100;
+		iStar_2 = 150;
+		iStar_3 = 200;
 	}
 
 

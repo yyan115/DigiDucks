@@ -48,8 +48,8 @@ public:
 	int ordersTaken = 0;
 	bool isCustomerWaitingForOrder = false;
 	float timeSinceLastCustomer = 0.0f;
-	float customerSpawnInterval = 7.0f;
-	float customerSpawnCooldown = 3.0f;
+	float customerSpawnInterval = 10.0f;
+	float customerSpawnCooldown = 2.0f;
 	bool isSpawningCustomer = false; 
 	int maxActiveOrders = 3;
 	int currentActiveOrders = 0;

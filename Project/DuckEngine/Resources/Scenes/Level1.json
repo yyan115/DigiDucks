@@ -6638,7 +6638,7 @@
                             "g": 0.0,
                             "r": 0.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 90,
                         "sprite": true,
                         "texture": "",
@@ -8528,7 +8528,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 100"
+                        "text": "Score more than 50"
                     },
                     "type": "TextComponent"
                 }
@@ -8608,7 +8608,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 150"
+                        "text": "Score more than 100"
                     },
                     "type": "TextComponent"
                 }
@@ -8688,7 +8688,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 200"
+                        "text": "Score more than 150"
                     },
                     "type": "TextComponent"
                 }
