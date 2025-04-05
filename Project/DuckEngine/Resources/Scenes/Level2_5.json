@@ -3909,7 +3909,7 @@
                         "soundID": [
                             "Resources/Sounds/bgm/cutscene_bgm.ogg"
                         ],
-                        "volume": 0.10000000894069672
+                        "volume": 0.05000000074505806
                     },
                     "type": "SoundComponent"
                 }
@@ -3962,21 +3962,10 @@
                         "playOnStart": false,
                         "soundID": [
                             "",
-                            "Resources/Sounds/cutscene/Snoring.ogg",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/cutscene/door open.ogg",
+                            "Resources/Sounds/cutscene/Level3/paper slide.ogg",
+                            "Resources/Sounds/cutscene/Level3/pick up recipe paper.ogg",
                             "",
-                            "",
-                            "",
-                            "Resources/Sounds/cutscene/affirmative sfx.ogg",
-                            "",
-                            "",
-                            "",
-                            "",
-                            "Resources/Sounds/cutscene/door knocking.ogg",
-                            "Resources/Sounds/duck sounds/AnimalDuckCart 9.wav",
-                            "Resources/Sounds/clicks/click 2.wav",
-                            "Resources/Sounds/clicks/click 1.wav"
+                            ""
                         ],
                         "volume": 0.5
                     },
