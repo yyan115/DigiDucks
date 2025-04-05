@@ -8528,7 +8528,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 100"
+                        "text": "Score more than 150"
                     },
                     "type": "TextComponent"
                 }
@@ -8608,7 +8608,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 150"
+                        "text": "Score more than 200"
                     },
                     "type": "TextComponent"
                 }
@@ -8688,7 +8688,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 102,
-                        "text": "Score more than 200"
+                        "text": "Score more than 250"
                     },
                     "type": "TextComponent"
                 }
