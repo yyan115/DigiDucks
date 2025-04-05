@@ -267,7 +267,7 @@
                             "y": 0.0
                         },
                         "sortingOrder": 110,
-                        "text": "FPS: 63"
+                        "text": "FPS: 57"
                     },
                     "type": "TextComponent"
                 }
@@ -548,7 +548,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": true,
+                        "isVisible": false,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/restart.png",
@@ -616,7 +616,7 @@
                             "Resources/Sounds/end level/Win Cheer.ogg",
                             "Resources/Sounds/end level/GameOver_Hit.wav"
                         ],
-                        "volume": 0.5
+                        "volume": 0.07999999821186066
                     },
                     "type": "SoundComponent"
                 }
@@ -702,7 +702,7 @@
                             "g": 0.0,
                             "r": 254.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -738,7 +738,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",
@@ -774,7 +774,7 @@
                             "g": 0.0,
                             "r": 255.0
                         },
-                        "isVisible": false,
+                        "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
                         "texture": "Resources/Sprites/EndScene/emptystar.png",

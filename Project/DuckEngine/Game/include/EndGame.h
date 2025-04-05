@@ -74,6 +74,7 @@ private:
 
     Entity* Background = nullptr;
     SoundComponent* BGMSound = nullptr;
+	SoundComponent* endSFX = nullptr;
     bool isHover = false;
 
     TextComponent* FPSText = nullptr;

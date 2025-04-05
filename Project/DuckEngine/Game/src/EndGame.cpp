@@ -29,6 +29,8 @@ SoundComponent* MainMenuSound = nullptr;
 bool isQuitButtonClicked = false;
 bool isrestartButtonClicked = false;
 bool isnextButtonClicked = false;
+bool isBGMSoundFadingIn = false;
+float bgmFadeInTimer = 0.0f;
 
 SpriteRendererComponent* backgroundSR;
 
@@ -154,6 +156,13 @@ void EndScene::Load()
 	isrestartButtonClicked = false;
 	isnextButtonClicked = false;
 
+	auto endsound = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("SFXEndScreen").get();
+	if (endsound) {
+		endSFX = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(endsound->entityID);
+	}
+
+	isBGMSoundFadingIn = false;
+	bgmFadeInTimer = 0.0f;
 }
 
 void EndScene::Start()
@@ -370,6 +379,26 @@ void EndScene::Update()
 		currentState = EndSceneState::COMPLETE;
 		currentButtonSelection = EndButtonSelection::LASTMENU;
 	}
+
+	if (ScoreLogic::scoreValue < iStar_1 && !isBGMSoundFadingIn)
+	{
+		std::cout << "Game Over" << std::endl;
+		endSFX->Play(1); // Plays the lose SFX
+		SoundSystem::SetSoundVolume(BGMSound->soundID[0], 0.0f);
+		isBGMSoundFadingIn = true;
+		bgmFadeInTimer = 0.0f;
+	}
+	else if (isBGMSoundFadingIn && BGMSound && currentState == EndSceneState::LOSE) {
+		std::cout << "test " << bgmFadeInTimer << std::endl;
+		bgmFadeInTimer += DuckEngine::DeltaTime();
+		float t = bgmFadeInTimer / 5.f;
+		if (t > 1.0f) t = 1.0f;
+
+		float currentVolume = BGMSound->volume * t;
+		SoundSystem::SetSoundVolume(BGMSound->soundID[0], currentVolume);
+	}
+
+
 
 	if (isFadingIn && FadeInSpriteRenderer && BGMSound)
 	{
