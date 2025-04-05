@@ -131,8 +131,6 @@ void EndScene::Start()
 	LevelSelectScreenLogic::LevelCompleted();
 
 
-
-
 	Restart->onClick = [this, lastPlayedSceneName]() {
 		std::cout << "Restart button clicked!" << std::endl;
 		GameManager::SetActiveScene(lastPlayedSceneName);
@@ -168,12 +166,77 @@ void EndScene::Start()
 		}
 		else if (lastPlayedSceneName == "Level3")
 		{
-			GameManager::SetGlobalVariable("LastPlayedScene", "Level3_5");
-			GameManager::SetActiveScene("Level3_5");
+			//GameManager::SetGlobalVariable("LastPlayedScene", "Level3_5");
+			GameManager::SetActiveScene("MainMenu");
+			
 		}
 	};
 	
 	Next_Spt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID);
+
+
+	// Tutorial Level
+	if (lastPlayedSceneName == "Level0" || lastPlayedSceneName == "Level1_5" || lastPlayedSceneName == "Level2_5")
+	{
+		iStar_1 = iStar_2 = iStar_3 = 10;
+	}
+	else if (lastPlayedSceneName == "Level1")
+	{
+		iStar_1 = 100;
+		iStar_2 = 150;
+		iStar_3 = 200;
+	}
+	else if (lastPlayedSceneName == "Level2")
+	{
+		iStar_1 = 150;
+		iStar_2 = 200;
+		iStar_3 = 250;
+	}
+	else if (lastPlayedSceneName == "Level3")
+	{
+		iStar_1 = 200;
+		iStar_2 = 250;
+		iStar_3 = 300;
+	}
+
+
+	if (ScoreLogic::scoreValue < iStar_1)
+	{
+		Restart_Spt->isVisible = true;
+		backgroundSR->texture = AssetManager::GetTextureByName("DAYLOSE");
+		ScoreText->isEnabled = false;
+		Star1->isVisible = false;
+		Star2->isVisible = false;
+		Star3->isVisible = false;
+	}
+	else
+	{
+		Next_Spt->isVisible = true;
+		LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
+		if (lastPlayedSceneName == "Level3")
+		{
+			GameManager::GameCleared = true;
+		}
+	}
+
+	if (ScoreLogic::scoreValue >= iStar_1)
+	{
+		Star1->texture = AssetManager::GetTextureByName("star");
+	}
+
+	if (ScoreLogic::scoreValue >= iStar_2)
+	{
+		Star2->texture = AssetManager::GetTextureByName("star");
+	}
+
+	if (ScoreLogic::scoreValue >= iStar_3)
+	{
+		Star3->texture = AssetManager::GetTextureByName("star");
+	}
+
+	if (FPSText != nullptr) {
+		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
+	}
 
 
 }
@@ -216,66 +279,7 @@ void EndScene::Update()
 		}
 	}
 
-	std::string lastPlayedSceneName = GameManager::GetGlobalVariable("LastPlayedScene");
-
-	// Tutorial Level
-	if (lastPlayedSceneName == "Level0" || lastPlayedSceneName == "Level1_5" || lastPlayedSceneName == "Level2_5")
-	{ 
-		iStar_1 = iStar_2 = iStar_3 = 10; 
-	}
-	else if (lastPlayedSceneName == "Level1" )
-	{
-		iStar_1 = 100;
-		iStar_2 = 150;
-		iStar_3 = 200;
-	}
-	else if (lastPlayedSceneName == "Level2")
-	{
-		iStar_1 = 150;
-		iStar_2 = 200;
-		iStar_3 = 250;
-	}	
-	else if (lastPlayedSceneName == "Level3")
-	{
-		iStar_1 = 200;
-		iStar_2 = 250;
-		iStar_3 = 300;
-	}
-
-
-	if (ScoreLogic::scoreValue < iStar_1)
-	{
-		Restart_Spt->isVisible = true;
-		backgroundSR->texture = AssetManager::GetTextureByName("DAYLOSE");
-		ScoreText->isEnabled = false;
-		Star1->isVisible = false;
-		Star2->isVisible = false;
-		Star3->isVisible = false;
-	}
-	else
-	{
-		Next_Spt->isVisible = true;
-		LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
-	}
-
-	if (ScoreLogic::scoreValue >= iStar_1)
-	{
-		Star1->texture = AssetManager::GetTextureByName("star");
-	}
-
-	if (ScoreLogic::scoreValue >= iStar_2)
-	{
-		Star2->texture = AssetManager::GetTextureByName("star");
-	}
 	
-	if (ScoreLogic::scoreValue >= iStar_3)
-	{
-		Star3->texture = AssetManager::GetTextureByName("star");
-	}
-	
-	if (FPSText != nullptr) {
-		FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
-	}
 }
 
 void EndScene::PostUpdate()

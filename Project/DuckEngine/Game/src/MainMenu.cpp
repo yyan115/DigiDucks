@@ -99,8 +99,8 @@ void MainMenu::Load()
 
 			if (LevelSelectScreenLogic::currentStage >= 5)
 			{
-				sceneToLoad = "Level3_5";
-				std::cout << "Starting Level 3.5" << std::endl;
+				sceneToLoad = "Level3";
+				std::cout << "Starting Level 3" << std::endl;
 			}
 			else if (LevelSelectScreenLogic::currentStage == 4)
 			{

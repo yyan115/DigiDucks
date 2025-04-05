@@ -101,7 +101,7 @@ void CutSceneLogic::Update()
 {
 	if (!isPlaying && !isShowingDialogue) return;
 	// Handle fade-in effect at the start
-	if (isFading)
+	if (isFading && FadeOutSprite)
 	{
 		CutSceneBGM->Play(); // Play the cutscene BGM
 		fadeProgress += DuckEngine::DeltaTime() / 0.5f; // 0.5s fade duration
@@ -214,6 +214,38 @@ void CutSceneLogic::Update()
 			}
 		}
 	}
+	else if (isPlaying && lastPlayedSceneName == "Level3" && currentCutsceneIndex < 8 && GameManager::GameCleared) // Tutorial 2.5
+	{
+		//DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = true;
+		cutsceneTimer += DuckEngine::DeltaTime();
+		CutSceneSprite->isVisible = true;
+		//std::cout << "custscene timer: " << cutsceneTimer << std::endl;
+		// Change scene every 1.5 seconds
+		if (cutsceneTimer >= 1.5f)
+		{
+			currentCutsceneIndex++;
+			cutsceneTimer = 0.0f; // Reset timer
+			// Update cutscene sprite
+			if (CutSceneSprite)
+			{
+				std::string cutscenePath = "Resources/Sprites/cutscene/Clear/" + std::to_string(currentCutsceneIndex) + ".png";
+				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
+			}
+
+			// Play sound effect for the scene
+			if (CutSceneSFX)
+			{
+				CutSceneSFX->Play(currentCutsceneIndex);
+			}
+
+			if (currentCutsceneIndex == 4) {
+				isCutSceneFading = true;
+
+				cutsceneTimer = 0.0f;
+			}
+		}
+	}
+
 	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
@@ -221,8 +253,12 @@ void CutSceneLogic::Update()
 
 		if (DialoguefadeProgress >= 6.0f)
 		{
-			FadeOutSprite->color.a = 255;
-			FadeOutSprite->isVisible = false;
+			if (FadeOutSprite)
+			{
+				FadeOutSprite->color.a = 255;
+				FadeOutSprite->isVisible = false;
+
+			}
 			isCutSceneFading = false;
 			CutSceneSprite->isVisible = false; // Hide cutscene sprite
 			if (lastPlayedSceneName == "Level0")
@@ -238,10 +274,12 @@ void CutSceneLogic::Update()
 		}
 		else if (DialoguefadeProgress >= 1.0f)
 		{
-			FadeOutSprite->isVisible = true;
-
-			float fadeRatio = (DialoguefadeProgress - 2.0f) / (6.0f - 2.0f);
-			FadeOutSprite->color.a = fadeRatio * 255.0f;
+			if (FadeOutSprite)
+			{
+				FadeOutSprite->isVisible = true;
+				float fadeRatio = (DialoguefadeProgress - 2.0f) / (6.0f - 2.0f);
+				FadeOutSprite->color.a = fadeRatio * 255.0f;
+			}
 		}
 
 	}

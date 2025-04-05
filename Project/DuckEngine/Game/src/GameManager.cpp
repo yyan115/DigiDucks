@@ -75,6 +75,7 @@ bool GameManager::ShouldChangeScene = false;
 std::unordered_map<std::string, std::string> GameManager::GlobalVariables;
 
 bool GameManager::GamepadDown = false;
+bool GameManager::GameCleared = false;
 
 
  /****************************************************************
