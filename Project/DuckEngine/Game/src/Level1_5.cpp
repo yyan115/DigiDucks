@@ -45,7 +45,7 @@ void Level1_5::Start()
 	Scene::Start();
 	GameManager::SetGlobalVariable("LastPlayedScene", "Level1_5");
 
-	ScoreLogic::dayNumber = 1;
+	ScoreLogic::dayNumber = 2;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();

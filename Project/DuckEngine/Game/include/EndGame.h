@@ -55,10 +55,10 @@ public:
 private:
     Entity* MainMenuButton = nullptr;
     ButtonComponent* MainMenu = nullptr;
-	SpriteRendererComponent* MainMenu_Spt = nullptr;
+    SpriteRendererComponent* MainMenu_Spt = nullptr;
 
-	ButtonComponent* LastMainMenu = nullptr;
-	SpriteRendererComponent* LastMainMenu_Spt = nullptr;
+    ButtonComponent* LastMainMenu = nullptr;
+    SpriteRendererComponent* LastMainMenu_Spt = nullptr;
 
     Entity* Star_1 = nullptr;
     SpriteRendererComponent* Star1 = nullptr;
@@ -76,7 +76,7 @@ private:
     SoundComponent* BGMSound = nullptr;
     bool isHover = false;
 
-	TextComponent* FPSText = nullptr;
+    TextComponent* FPSText = nullptr;
 
     Entity* FadeInScreen = nullptr;
     SpriteRendererComponent* FadeInSpriteRenderer = nullptr;
@@ -93,5 +93,28 @@ private:
     float fadeInElapsedTime = 0.0f;
     bool isFadingIn = false;
 
-	int iStar_1, iStar_2, iStar_3;
+    int iStar_1, iStar_2, iStar_3;
+
+    bool isUsingController = false;
+    float controllerNavigationCooldown = 0.0f;
+    const float controllerNavigationDelay = 0.2f;
+    const float buttonScaleIncrease = 1.1f;
+
+    enum class EndButtonSelection {
+        RESTART = 0,
+        MENU = 1,
+        COUNT
+    };
+
+    EndButtonSelection currentButtonSelection = EndButtonSelection::RESTART;
+
+    TransformComponent* restartTransform = nullptr;
+    TransformComponent* menuTransform = nullptr;
+    Vec2 restartOriginalScale;
+    Vec2 menuOriginalScale;
+
+    void UpdateEndMenuSelection();
+    void SelectButton(EndButtonSelection selection);
+    void DeselectAllButtons();
+    void ActivateSelectedButton(const std::string& lastPlayedSceneName);
 };

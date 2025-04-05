@@ -43,7 +43,7 @@ void Level2_5::Start()
 {
 	Scene::Start();
 
-	ScoreLogic::dayNumber = 2;
+	ScoreLogic::dayNumber = 4;
 	GameManager::SetGlobalVariable("LastPlayedScene", "Level2_5");
 
 
