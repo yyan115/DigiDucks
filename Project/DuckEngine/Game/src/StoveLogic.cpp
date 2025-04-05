@@ -170,8 +170,14 @@ ItemType StoveLogic::moveSoup()
 	ItemType temp = potLogic->TakeSoup();
 	if (!potLogic->isPotFilled)
 	{
+		// Pot is empty
 		type = potLogic->getType();
 		setObjectSprite(type);
+		isCooked = false;
+		isOccupied = false;
+
+		if (sliderLogic)
+			sliderLogic->ResetSlider();
 	}
 	return temp;
 }

@@ -51,17 +51,49 @@ void Level2::Start()
 	// 2 Customers
 	for (int i = 0; i < gameLoopLogic->customers.size(); i++)
 	{
-		int random = rand() % 2;
+		//int random = rand() % 2;
+		//switch (random)
+		//{
+		//case 0:
+		//	gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
+		//	break;
+		//case 1:
+		//	gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+		//	break;
+		//};
+
+		int random = rand() % 8;
 		switch (random)
 		{
 		case 0:
 			gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
 			break;
 		case 1:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
+			break;
+		case 2:
 			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			break;
+		case 3:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
+			break;
+		case 4:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::BURGER_PLATE);
+			break;
+		case 5:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
+			break;
+		case 6:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::CHEESE_BURGER_PLATE);
+			break;
+		case 7:
+			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
 			break;
 		};
 	}
+
+	// Set Timer
+	gameLoopLogic->timeLeft = 180.0f;
 }
 
 /****************************************************************

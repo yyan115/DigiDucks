@@ -54,19 +54,15 @@ void Level1::Start()
 		{
 		case 0:
 			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_PLATE);
-			std::cout << whatType(ItemType::LETTUCE_PLATE) << std::endl;
 			break;
 		case 1:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
-			std::cout << whatType(ItemType::LETTUCE_SHRIMP_PLATE) << std::endl;
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
 			break;
 		case 2:
-			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
-			std::cout << whatType(ItemType::LETTUCE_TOMATO_PLATE) << std::endl;
+			gameLoopLogic->customers[i]->SetOrder(ItemType::LETTUCE_SHRIMP_PLATE);
 			break;
 		case 3:
 			gameLoopLogic->customers[i]->SetOrder(ItemType::SALAD_PLATE);
-			std::cout << whatType(ItemType::SALAD_PLATE) << std::endl;
 			break;
 		};
 	}

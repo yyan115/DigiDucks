@@ -130,7 +130,7 @@ void EndScene::Start()
 
 	LevelSelectScreenLogic::LevelCompleted();
 
-	LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
+
 
 
 	Restart->onClick = [this, lastPlayedSceneName]() {
@@ -138,9 +138,6 @@ void EndScene::Start()
 		GameManager::SetActiveScene(lastPlayedSceneName);
 		std::cout << "current scene:" << lastPlayedSceneName << std::endl;
 	};
-
-
-	
 
 	Next->onClick = [this, lastPlayedSceneName]() {
 		
@@ -258,6 +255,7 @@ void EndScene::Update()
 	else
 	{
 		Next_Spt->isVisible = true;
+		LevelSelectScreenLogic::stageLevel = LevelSelectScreenLogic::currentStage;
 	}
 
 	if (ScoreLogic::scoreValue >= iStar_1)

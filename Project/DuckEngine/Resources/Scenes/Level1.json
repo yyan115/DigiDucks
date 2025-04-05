@@ -1320,7 +1320,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6453,7 +6453,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 11,
+                        "sortingOrder": 14,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Hamburger/pan.png",
                         "useColor": true
@@ -6965,7 +6965,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 11,
+                        "sortingOrder": 14,
                         "sprite": true,
                         "texture": "Resources/Sprites/Ingredients/Soup/pot.png",
                         "useColor": true
@@ -8921,7 +8921,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -4.949999809265137,
+                            "x": -4.849999904632568,
                             "y": -3.049999952316284
                         },
                         "relativeToCamera": true,
@@ -8942,7 +8942,7 @@
                             "r": 0.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 10,
+                        "sortingOrder": 8,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
