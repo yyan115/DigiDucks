@@ -17,6 +17,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include "Scene.h"
 #include "CutSceneLogic.h"
+#include "GameLoopLogic.h"
 
 
 class Level1_5 : public Scene
@@ -28,4 +29,8 @@ public:
     void PostUpdate() override;
     void Exit() override;
     void Unload() override;
+
+private:
+	SpriteRendererComponent* tutorialTexture = nullptr;
+	GameLoopLogic* gameLoopLogic = nullptr;
 };

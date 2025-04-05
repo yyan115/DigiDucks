@@ -19,13 +19,10 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CutSceneLogic.h"
 #include "ScoreLogic.h"
 #include "GameLogicManager.h"
-#include "GameLoopLogic.h"
 #include "LevelSelectScreenLogic.h"
+#include "GameManager.h"
 
-/****************************************************************
-* @brief Load all necessary resources for the scene.
-* This function is called before the scene starts.
-* ****************************************************************/
+
 
 /****************************************************************
 * @brief Load all necessary resources for the scene.
@@ -45,12 +42,23 @@ void Level0::Load()
 void Level0::Start()
 {
 	Scene::Start();
+	GameManager::SetGlobalVariable("LastPlayedScene", "Level0");
 	ScoreLogic::dayNumber = 0;
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
-	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+	gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
+
+	Entity* tutorialEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite").get();
+	tutorialTexture = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(tutorialEntity->entityID);
+	tutorialTexture->isVisible = false;
+
+	Entity* tutorialEntity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite2").get();
+	tutorialTexture2 = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(tutorialEntity2->entityID);
+	tutorialTexture2->isVisible = false;
 	
 	gameLoopLogic->customers[0]->SetOrder(ItemType::LETTUCE_TOMATO_PLATE);
+	gameLoopLogic->customers[0]->MaxCashierWaitingTime = 300;
+	gameLoopLogic->customers[0]->MaxTableWaitingTime = 300;
 
 }
 
@@ -61,7 +69,16 @@ void Level0::Start()
 * ****************************************************************/
 void Level0::Update()
 {
+	if (gameLoopLogic->IsGameStarted() && gameLoopLogic->ordersTaken < 1)
+	{
+		tutorialTexture->isVisible = true;
+	}
 
+	if (gameLoopLogic->ordersTaken > 0)
+	{
+		tutorialTexture->isVisible = false;
+		tutorialTexture2->isVisible = true;
+	}
 }
 
 /****************************************************************

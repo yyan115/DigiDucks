@@ -17,6 +17,9 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include "Scene.h"
 #include "CutSceneLogic.h"
+#include "DuckEngine.h"
+#include "GameLoopLogic.h"
+
 
 
 class Level0 : public Scene
@@ -32,4 +35,7 @@ public:
     void FinishedTutorial() { finishedTutorial = true; }
 private:
     bool finishedTutorial = false;
+	SpriteRendererComponent* tutorialTexture = nullptr;
+	SpriteRendererComponent* tutorialTexture2 = nullptr;
+	GameLoopLogic* gameLoopLogic = nullptr;
 };

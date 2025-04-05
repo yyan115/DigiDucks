@@ -19,6 +19,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "ScoreLogic.h"
 #include "GameLoopLogic.h"
 #include "LevelSelectScreenLogic.h"
+#include "GameManager.h"
+
 
 // state manger for this level
 //CustomerStateManager stateManager;
@@ -43,6 +45,8 @@ void Level3::Start()
 	Scene::Start();
 
 	ScoreLogic::dayNumber = 3;
+	GameManager::SetGlobalVariable("LastPlayedScene", "Level3");
+
 
 	Entity* gameLoopEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager").get();
 	GameLoopLogic* gameLoopLogic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(gameLoopEntity->entityID).get();
