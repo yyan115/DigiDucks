@@ -78,6 +78,15 @@ void LevelSelectScreenLogic::Start()
 			SFX->Play();
 			stageLevel = 0;
 			mainMenu->OnPlayButtonClicked("Level0");
+
+			// Disable all buttons when start button is clicked
+			for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+			{
+				ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+				if (!button) continue;
+
+				button->isEnabled = false;
+			}
 		};
 	level0Button->onHover = [this, level0SFX]()
 		{
@@ -112,6 +121,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 1;
 				mainMenu->OnPlayButtonClicked("Level1");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level1Button->onHover = [this, level1SFX]()
@@ -147,6 +165,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 2;
 				mainMenu->OnPlayButtonClicked("Level1_5");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level1_5Button->onHover = [this, level1_5SFX]()
@@ -182,6 +209,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 3;
 				mainMenu->OnPlayButtonClicked("Level2");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level2Button->onHover = [this, level2SFX]()
@@ -217,6 +253,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 4;
 				mainMenu->OnPlayButtonClicked("Level2_5");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level2_5Button->onHover = [this, level2_5SFX]()
@@ -252,6 +297,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 5;
 				mainMenu->OnPlayButtonClicked("Level3");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level3Button->onHover = [this, level3SFX]()
@@ -287,6 +341,15 @@ void LevelSelectScreenLogic::Start()
 				SFX->Play();
 				stageLevel = 6;
 				mainMenu->OnPlayButtonClicked("Level3_5");
+
+				// Disable all buttons when start button is clicked
+				for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+				{
+					ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
+					if (!button) continue;
+
+					button->isEnabled = false;
+				}
 			}
 		};
 	level3_5Button->onHover = [this, level3_5SFX]()
