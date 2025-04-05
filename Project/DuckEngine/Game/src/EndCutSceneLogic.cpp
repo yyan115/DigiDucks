@@ -40,7 +40,7 @@ void EndCutSceneLogic::Start()
 		FadeOutSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(FadeEntity->entityID);
 		FadeOutSprite->isVisible = false;
 		FadeOutSprite->color.a = 255; // Start fully visible
-	}	
+	}
 
 	currentCutsceneIndex = 0;
 	cutsceneTimer = 0.0f;
@@ -58,18 +58,39 @@ void EndCutSceneLogic::Start()
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 		auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
 		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
-		{
-			CutSceneSkipSound->Play();
-			
-			if (lastPlayedSceneName == "Level3") currentCutsceneIndex = 7;
-		};
+			{
+				CutSceneSkipSound->Play();
+
+				if (lastPlayedSceneName == "Level3") currentCutsceneIndex = 7;
+			};
 	}
 }
 
 void EndCutSceneLogic::Update()
 {
 	if (!isPlaying) return;
-	
+
+	// Check for gamepad input to skip end cutscene
+	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+	{
+		// Skip cutscene with Start or A button when the skip button is visible
+		if (isPlaying && lastPlayedSceneName == "Level3" &&
+			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible)
+		{
+			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START) ||
+				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+			{
+				// Get the sound component for skip sound
+				auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
+				if (CutSceneSkipSound) CutSceneSkipSound->Play();
+
+				// Skip to end of cutscene
+				currentCutsceneIndex = 7;
+				std::cout << "End cutscene skipped with gamepad!" << std::endl;
+			}
+		}
+	}
+
 	// If playing cutscene ( MUST SELECT LEVEL FROM LEVEL SELECT SCREEN FIRST )
 	if (isPlaying && lastPlayedSceneName == "Level3" && currentCutsceneIndex < 8) // ENDSCENE
 	{
@@ -84,7 +105,7 @@ void EndCutSceneLogic::Update()
 		cutsceneTimer += DuckEngine::DeltaTime();
 		CutSceneSprite->isVisible = true;
 		CutSceneBGM->Play();
-		
+
 		// Change scene every 1.5 seconds
 		if (cutsceneTimer >= 1.5f)
 		{
@@ -104,7 +125,7 @@ void EndCutSceneLogic::Update()
 				CutSceneSprite->texture = *AssetManager::GetTexture(cutscenePath).get();
 			}
 
-			
+
 			if (currentCutsceneIndex == 8) {
 				isCutSceneFading = true;
 
