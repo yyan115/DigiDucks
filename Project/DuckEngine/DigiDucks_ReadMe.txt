@@ -32,8 +32,7 @@ How To Play:
 1. Controls:
 * Movement: WASD
 * Pick up/ put down objects: J key
-* Cut/ Fry ingredients: Hold K
-* Interact with drone: J key
+* Cut ingredients: Hold K
 * Menu buttons: Mouse Click
 * Settings: Mouse Click
 * Pause/ Unpause: Esc Key
@@ -42,12 +41,10 @@ How To Play:
 2. Debug functions:
 
 
-* Toggle fullscreen: Alt+Enter
-* Add points: N key
-* End the level: M key
-* Make shrimp salad: V key
-* Make burger: B key
-* View collider outline: P key
+* Unlock all levels: Left shift + 0
+* Instant finish level: Left shift + M
+* Increase score by 10: Left shift + N
+* Set time left to 11 seconds: Left shift + 0
 
 
 3. Gameplay:
@@ -75,7 +72,7 @@ Features:
 
 * Put cut meat on frying pan that is on a stove
 * Frying is completed once the ingredient undergoes a visible change in appearance/ progress bar is full/ SFX is played
-* How to use: Put pan on stove then meat on pan
+* How to use: Put pan on stove then chopped meat on pan
 
 
 4. Overcooked Meat
@@ -90,58 +87,24 @@ Features:
 
 * Put cut ingredient in pot that is on a stove
 * Boiling is complete once the pot undergoes a visible change in appearance/ progress bar is full/ SFX is played
-* How to use: Put pot on stove then ingredient in stove
+* How to use: Put pot on stove then chopped ingredient in stove
 
 
-6. Limited ingredients stock
-
-
-* Ingredients stock is limited and can run out
-
-
-7. Trash
+6. Trash
 
 
 * Able to trash holdable objects
+* Empties pot if soup is inside
 * How to use: Go to trash bin and press J while holding an object to trash it
 
 
-8. Restocking
-
-
-* Able to replenish ingredients stock
-* Interact with drone to choose ingredients to restock (a maximum of 4 at any given time)
-
-
-9. Ingredients assembly
+7. Ingredients assembly
 
 
 * Able to assemble ingredients on plate
 
 
-10. Maintenance Minigame
-
-
-* Reduces overload bar upon completion
-* Available minigames:
-   * Password Minigame:
-      * How to play: Enter the correct password
-
-
-11. Overload Bar
-
-
-* Overload bar is filled upon restock
-
-
-12. Routine Maintenance
-
-
-* Player has to complete a minigame (random) for maintenance to be considered complete
-* Minigames are able to reduce overload bar value
-
-
-13. NPC customers
+8. NPC customers
 
 
 * Orders are now delivered in the form of customers
@@ -149,15 +112,34 @@ Features:
 * How to use: Press J when there is a customer standing in front of the cashier to take order
 
 
-14. Order submission
+9. Cashier
+
+
+* Customers walk into the store and stops at the cashier
+* Upon reaching the cashier, the customer’s patience meter will start depleting, and the player will have to attend to them before the meter fully depletes, or else the customer will walk away, and the order will be considered failed
+* The customer will give the player their order upon interaction at the cashier, and will walk towards the seating area
+* How to use: Press J when there is a customer standing in front of the cashier to take order
+
+
+10. Seating area
+
+
+* Customers will wait at the seating area for their food after the player successfully takes their order at the counter
+* Upon reaching the seating area, their patience meter will start to deplete, and once depleted, their order will be considered failed, and the customer will walk away
+* Player has to serve the customer the correct food as indicated by speech bubbles to successfully complete the order
+* How to use: Press J while holding the correct completed food dish to serve the food to the customer
+
+
+11. Order submission
 
 
 * Able to submit completed orders:
-   * Salad (V to generate)
    * Lettuce Salad
+   * Tomato Salad
    * Shrimp Salad 
+   * Full salad
    * Tomato soup
    * Mushroom soup
    * Burger
-   * Cheese Burger (press B to generate)
+   * Cheese Burger
 * How to use: Take a completed dish and press J to serve at the serving counter
