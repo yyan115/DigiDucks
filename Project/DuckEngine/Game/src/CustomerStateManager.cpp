@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\file       CustomerStateManager.cpp
+\author     Yan Yu, y.yan, 2301213
+\par        y.yan@digipen.edu
+\date       April 6 2025
+\brief      Implements the CustomerStateManager class. This system scans the
+			entity manager for predefined seat entities (e.g., those named
+			"Seat_1", "Seat_2", etc.) and registers their references into a
+			location list. Each entry tracks whether the seat is currently
+			occupied.
+
+			The commented-out code shows an optional sorting mechanism
+			for seat positions based on the numeric suffix in their names.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "CustomerStateManager.h"
 
 // stores all the chair locations for each level. for now, just store a bunch of places for customer to stand to wait

@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\file       RadialSliderComponent.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Declares the RadialSliderComponent class, a UI component that
+			represents a circular slider with adjustable angles, radius,
+			thickness, and value range. This component supports custom fill
+			and background colors, and integrates with the DuckEngine
+			component system.
+
+			The radial slider is configurable in appearance and behavior,
+			making it suitable for gameplay elements like volume knobs,
+			timers, or health rings.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #pragma once
 
 #include "Component.h"

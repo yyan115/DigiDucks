@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\file       OrderTabLogic.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Declares the OrderTabLogic class and OrderTabData struct, which
+			manage the logic and animation for customer order tabs in the game.
+
+			Each order tab represents a customer’s order visually, including
+			animation states, linked components (transform/sprite), and the
+			corresponding customer. This logic is responsible for adding,
+			removing, and updating order tabs dynamically as the game progresses.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 
 #include "DuckEngine.h"

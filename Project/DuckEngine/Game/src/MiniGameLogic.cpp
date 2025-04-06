@@ -1,3 +1,26 @@
+/******************************************************************************/
+/*
+\file       MiniGameLogic.cpp
+\author     Tan Yan Kai, yankai.tan, 2301312 (100%)
+\par        yankai.tan@digipen.edu
+\date       April 6 2025
+
+\brief      Implements the MiniGameLogic class for handling all minigame-related
+            logic such as keypad password entry and the Simon Says color
+            sequence challenge.
+
+            This logic enables toggling visibility, validating input, updating
+            UI text, and interacting with button and sound components for each
+            minigame phase. Also manages game states and feedback upon success
+            or failure.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 //#include "GameLogic.h"
 //#include "RestockLogic.h"
 //#include "MiniGameLogic.h"

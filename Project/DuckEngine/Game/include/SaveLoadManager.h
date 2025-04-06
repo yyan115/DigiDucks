@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\file       SaveLoadManager.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Declares the SaveLoadManager class, a static utility that manages
+			game save data including volume settings, video settings, and
+			player progress.
+
+			This manager handles reading and writing JSON-based save files,
+			creating default saves using ProjectSettings, and exposing runtime
+			variables globally for easy access and persistence.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include "Serialization.h"
 #include <string>

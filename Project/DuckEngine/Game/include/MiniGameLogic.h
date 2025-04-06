@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*
+\file       MiniGameLogic.h
+\author     Tan Yan Kai, yankai.tan, 2301312 (100%)
+\par        yankai.tan@digipen.edu
+\date       April 6 2025
+
+\brief      Declares the MiniGameLogic class, which controls the mini-games
+			featured in the main gameplay, including logic for keypad input
+			password checks and a color sequence memory game (Simon Says).
+
+			The class manages all UI elements, sound triggers, button
+			interactions, and animation states necessary for the minigames,
+			and integrates with the RestockLogic system for progression flow.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include "Scene.h"
 #include "DuckEngine.h"

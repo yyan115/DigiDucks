@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\file       LevelSelectScreenLogic.h
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Declares the LevelSelectScreenLogic class, which handles the logic
+			for the level selection UI in the main menu. This includes support
+			for controller and mouse input, dynamic button highlighting and
+			locking based on progress, and integration with the MainMenu system.
+
+			The class also manages level unlock states through `currentStage`
+			and `stageLevel`, and allows level transitions after clicking or
+			selecting buttons via gamepad.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #pragma once
 #include "DuckEngine.h"
 #include "GameLogicComponent.h"

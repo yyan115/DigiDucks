@@ -1,3 +1,26 @@
+/******************************************************************************/
+/*!
+\file       LevelSelectScreenLogic.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Implements the LevelSelectScreenLogic class. Handles dynamic level
+			button behavior in the level selection screen, including input
+			handling, level lock/unlock visuals, and transition logic.
+
+			Features include:
+			- Controller navigation with joystick/D-pad
+			- Button scaling animation on hover
+			- Progress-based unlocks using SaveLoadManager
+			- Support for both mouse and gamepad users
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "LevelSelectScreenLogic.h"
 #include "MainMenu.h"
 #include "DuckEngine_Input.h"

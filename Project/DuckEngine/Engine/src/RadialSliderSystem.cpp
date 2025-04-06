@@ -1,3 +1,28 @@
+/******************************************************************************/
+/*!
+\file       RadialSliderSystem.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Implements the RadialSliderSystem class, which manages the
+			behavior, interaction, and rendering of radial slider UI
+			components. This system supports dynamic visuals based on
+			angle and value mapping, and integrates with the DuckEngine's
+			rendering pipeline.
+
+			Key functionalities include:
+			- Converting between angles and values
+			- Clamping and normalizing input
+			- Rendering the arc-based background and fill of sliders
+			- Handling slider visibility and sorting logic
+			- Supporting dynamic updates via the DuckEngine component system
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
 #include "RadialSliderSystem.h"
 #include "GraphicsManager.h"
 #include "DuckEngine_Input.h"

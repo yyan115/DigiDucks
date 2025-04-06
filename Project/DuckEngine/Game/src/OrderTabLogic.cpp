@@ -1,3 +1,25 @@
+/******************************************************************************/
+/*!
+\file       OrderTabLogic.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Implements the OrderTabLogic class, which handles dynamic order tab
+			management for customer UI elements. This includes assigning orders
+			to tabs, playing bounce animations, and clearing or restoring orders
+			when customers leave.
+
+			Tabs are animated from left to right across the screen, and orders
+			are visually linked to their customers through textures and logic
+			references.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "OrderTabLogic.h"
 #include "DuckEngine.h"
 #include "SpriteRendererComponent.h"

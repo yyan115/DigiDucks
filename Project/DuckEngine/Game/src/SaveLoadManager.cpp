@@ -1,3 +1,24 @@
+/******************************************************************************/
+/*!
+\file       SaveLoadManager.cpp
+\author     Lucas Yee JunJie, l.yee, 2301212
+\par        l.yee@digipen.edu
+\date       April 6 2025
+\brief      Implements the SaveLoadManager class. This class provides static
+			methods to manage save data such as volume levels, VSync setting,
+			current level progress, and target FPS.
+
+			Save data is stored as a JSON file on disk, and loaded or
+			initialized during game startup. If a save file does not exist, a
+			new one is created based on default ProjectSettings values.
+
+Copyright (C) 2025 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+*/
+/******************************************************************************/
+
+
 #include "SaveLoadManager.h"
 #include "ProjectSettings.h"
 #include <iostream>
