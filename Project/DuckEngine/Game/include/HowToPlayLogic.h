@@ -25,7 +25,6 @@ public:
     void Start() override;
     void Update() override;
     void FixedUpdate() override;
-    void Show();
 
     std::shared_ptr<GameLogic> Clone() const override
     {
