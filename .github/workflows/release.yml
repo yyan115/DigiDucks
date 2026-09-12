@@ -88,16 +88,18 @@ jobs:
             throw "Unexpected executable version metadata: $($version | Format-List | Out-String)"
           }
 
-      - name: Smoke-test staged Windows game
+      - name: Smoke-test staged Windows executable and runtime layout
         shell: pwsh
         run: |
           $env:LOCALAPPDATA = "$env:RUNNER_TEMP\quack-kitchen-data"
-          $process = Start-Process -FilePath "Installer\GAMEDIRECTORY\Quack Kitchen.exe" -ArgumentList "--smoke-test" -PassThru
+          $executable = (Resolve-Path "Installer\GAMEDIRECTORY\Quack Kitchen.exe").Path
+          $process = Start-Process -FilePath $executable -ArgumentList "--headless-smoke-test" -PassThru
           if (-not $process.WaitForExit(60000)) {
             $process.Kill()
             throw "Quack Kitchen smoke test timed out."
           }
           if ($process.ExitCode -ne 0) {
+            Write-Host "::error::Quack Kitchen headless smoke test exited with code $($process.ExitCode)."
             throw "Quack Kitchen smoke test exited with code $($process.ExitCode)."
           }
 

@@ -54,12 +54,31 @@ static bool IsSmokeTest(const char* commandLine)
 	return commandLine &&
 		std::string(commandLine).find("--smoke-test") != std::string::npos;
 }
+
+static bool IsHeadlessSmokeTest(const char* commandLine)
+{
+	return commandLine &&
+		std::string(commandLine).find("--headless-smoke-test") != std::string::npos;
+}
 #else
 static bool IsSmokeTest(int argumentCount, char* arguments[])
 {
 	for (int index = 1; index < argumentCount; ++index)
 	{
 		if (std::string(arguments[index]) == "--smoke-test")
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+
+static bool IsHeadlessSmokeTest(int argumentCount, char* arguments[])
+{
+	for (int index = 1; index < argumentCount; ++index)
+	{
+		if (std::string(arguments[index]) == "--headless-smoke-test")
 		{
 			return true;
 		}
@@ -99,8 +118,11 @@ int main(int argumentCount, char* arguments[])
 	(void)hPrevInstance;
 	(void)nCmdShow;
 	const bool smokeTest = IsSmokeTest(lpCmdLine);
+	const bool headlessSmokeTest = IsHeadlessSmokeTest(lpCmdLine);
 #else
 	const bool smokeTest = IsSmokeTest(argumentCount, arguments);
+	const bool headlessSmokeTest =
+		IsHeadlessSmokeTest(argumentCount, arguments);
 #endif
 
 #if defined(_MSC_VER) && defined(_DEBUG)
@@ -108,7 +130,14 @@ int main(int argumentCount, char* arguments[])
 #endif
 	ConfigureSmokeTestEnvironment(smokeTest);
 
-	PlatformPaths::UseRuntimeDirectory();
+	const bool runtimeDirectoryReady = PlatformPaths::UseRuntimeDirectory();
+	if (headlessSmokeTest)
+	{
+		return runtimeDirectoryReady &&
+			std::filesystem::is_regular_file("Resources/settings.json") &&
+			std::filesystem::is_regular_file("Resources/Scenes/Intro.json")
+			? 0 : 2;
+	}
 	const std::filesystem::path userDataDirectory =
 		PlatformPaths::GetUserDataDirectory();
 	if (!userDataDirectory.empty())

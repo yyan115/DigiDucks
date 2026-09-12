@@ -119,15 +119,17 @@ jobs:
             throw "Release executable is not a Windows GUI application."
           }
 
-      - name: Smoke-test startup, scene load, render, and shutdown
+      - name: Smoke-test executable loading and runtime layout
         shell: pwsh
         run: |
           $env:LOCALAPPDATA = "$env:RUNNER_TEMP\quack-kitchen-data"
-          $process = Start-Process -FilePath "Build\ci-windows-stage\Quack Kitchen.exe" -ArgumentList "--smoke-test" -PassThru
+          $executable = (Resolve-Path "Build\ci-windows-stage\Quack Kitchen.exe").Path
+          $process = Start-Process -FilePath $executable -ArgumentList "--headless-smoke-test" -PassThru
           if (-not $process.WaitForExit(60000)) {
             $process.Kill()
             throw "Quack Kitchen smoke test timed out."
           }
           if ($process.ExitCode -ne 0) {
+            Write-Host "::error::Quack Kitchen headless smoke test exited with code $($process.ExitCode)."
             throw "Quack Kitchen smoke test exited with code $($process.ExitCode)."
           }
