@@ -315,14 +315,7 @@ void DuckEngine::StartDraw(GLint width, GLint height)
 	   debug elements, and the UI if the editor mode is enabled.
 *************************************************************************/
 void DuckEngine::Draw() 
-{
-	if (WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
-	{
-		InputManager::Update();
-		glfwWaitEventsTimeout(0.1);
-		return;
-	}
-
+{ 
 	CameraManager::Update();
 	TimeManager::StartManagerTimer("Graphics System");
 	ParticleManager::Render();
@@ -345,11 +338,9 @@ void DuckEngine::Draw()
 	   display the rendered frame.
 *************************************************************************/
 void DuckEngine::EndDraw()
-{
-	if (!WindowManager::IsWindowMinimized() && WindowManager::IsWindowFocused())
-	{
-		glfwSwapBuffers(WindowManager::getWindow());
-	}
+{  
+	// Swap buffers (assuming glfwSwapBuffers is handled elsewhere)
+	glfwSwapBuffers(WindowManager::getWindow());
 }
 
 /************************************************************************
