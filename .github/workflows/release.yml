@@ -174,7 +174,6 @@ jobs:
         env:
           APPIMAGE_EXTRACT_AND_RUN: '1'
           LIBGL_ALWAYS_SOFTWARE: '1'
-          QUACK_KITCHEN_SKIP_STARTUP_BUDGET: '1'
           XDG_DATA_HOME: ${{ runner.temp }}/quack-kitchen-appimage-data
         run: |
           python3 tools/verify_release.py Build/linux-package/AppDir/usr/bin --platform linux
@@ -206,7 +205,6 @@ jobs:
           flatpak install --user --noninteractive \
             Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak
           timeout 60s xvfb-run -a flatpak run \
-            --env=QUACK_KITCHEN_SKIP_STARTUP_BUDGET=1 \
             edu.digipen.quackkitchen --smoke-test
 
       - name: Upload Linux packages
