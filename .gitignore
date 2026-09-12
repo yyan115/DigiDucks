@@ -33,5 +33,6 @@ Project/DuckEngine/Game/Quack_Kitchen/Resources
 /Installer/GAMEDIRECTORY/
 /Installer/REDIST/
 /Installer/INSTALLER/
+/Installer/Version.iss
 __pycache__/
 *.py[cod]

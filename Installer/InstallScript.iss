@@ -1,7 +1,12 @@
-; Quack Kitchen 1.0.0 installer, based on the DigiPen TCR sample used by GAM300.
+; Quack Kitchen installer, based on the DigiPen TCR sample used by GAM300.
+; Version.iss is generated from the version declared in
+; Project/DuckEngine/CMakeLists.txt, so the installer cannot disagree with the
+; game. Create it before compiling this script:
+;   python tools/project_version.py --installer-define > Installer/Version.iss
+
+#include "Version.iss"
 
 #define GameName "Quack Kitchen"
-#define GameVersion "1.0.0"
 #define GameExecutable "Quack Kitchen.exe"
 
 [Setup]
@@ -21,7 +26,7 @@ DefaultDirName={autopf}\DigiPen\{#GameName}
 DefaultGroupName=DigiPen\{#GameName}
 UninstallDisplayIcon={app}\{#GameExecutable}
 OutputDir=INSTALLER
-OutputBaseFilename=Quack_Kitchen_1.0.0_Setup
+OutputBaseFilename=Quack_Kitchen_{#GameVersion}_Setup
 LicenseFile=INSTALLERFILES\DigiPen_EULA.txt
 SetupIconFile=..\Project\DuckEngine\Resources\GameIcon.ico
 Compression=lzma2/ultra64

@@ -137,6 +137,8 @@ jobs:
         shell: pwsh
         run: |
           choco install innosetup -y --no-progress
+          python tools/project_version.py --installer-define |
+            Set-Content Installer\Version.iss -Encoding ASCII
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" Installer\InstallScript.iss
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $installer = Get-Item "Installer\INSTALLER\Quack_Kitchen_$($env:GAME_VERSION)_Setup.exe"
