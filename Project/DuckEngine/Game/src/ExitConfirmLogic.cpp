@@ -109,8 +109,8 @@ void ExitConfirmLogic::Start()
 		}
 	}
 
-	// Set default selection for gamepad (YES as default)
-	currentSelection = MenuSelection::YES;
+	// Default to the non-destructive option.
+	currentSelection = MenuSelection::NO;
 	isUsingController = false;
 }
 
@@ -143,7 +143,7 @@ void ExitConfirmLogic::UpdateMenuSelection()
 		if (hasControllerInput && !isUsingController)
 		{
 			isUsingController = true;
-			SelectButton(MenuSelection::YES); // Default to YES
+			SelectButton(MenuSelection::NO);
 			controllerNavigationCooldown = controllerNavigationDelay;
 		}
 
@@ -332,13 +332,13 @@ void ExitConfirmLogic::ShowExitConfirm(bool state)
 	{
 		gameExitCfmBgSpt->isVisible = state;
 
-		// Reset selection to YES when showing the exit confirmation
+		// Reset selection to the non-destructive option when showing.
 		if (state)
 		{
 			if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
 			{
 				isUsingController = true;
-				SelectButton(MenuSelection::YES);
+				SelectButton(MenuSelection::NO);
 			}
 		}
 	}

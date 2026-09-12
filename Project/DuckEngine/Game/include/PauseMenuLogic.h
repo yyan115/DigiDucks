@@ -39,6 +39,25 @@ private:
 	Texture gameExitBtn_Hover{};
 	SoundComponent* gameExitBtnSound = nullptr;
 
+	// Quit Game Button
+	ButtonComponent* gameQuitButton = nullptr;
+	SpriteRendererComponent* gameQuitBtnSpt = nullptr;
+	Texture gameQuitBtn_Normal{};
+	Texture gameQuitBtn_Hover{};
+
+	// Quit Game Confirmation
+	Entity* gameQuitCfmBg = nullptr;
+	SpriteRendererComponent* gameQuitCfmBgSpt = nullptr;
+	ButtonComponent* gameQuitYesButton = nullptr;
+	ButtonComponent* gameQuitNoButton = nullptr;
+	SpriteRendererComponent* gameQuitYesBtnSpt = nullptr;
+	SpriteRendererComponent* gameQuitNoBtnSpt = nullptr;
+	Texture gameQuitYesBtn_Normal{};
+	Texture gameQuitYesBtn_Hover{};
+	Texture gameQuitNoBtn_Normal{};
+	Texture gameQuitNoBtn_Hover{};
+	bool quitGameConfirmationSelectsYes = false;
+
 	// How To Play Button
 	ButtonComponent* gameHTPButton = nullptr;
 	SpriteRendererComponent* gameHTPBtnSpt = nullptr;
@@ -80,6 +99,7 @@ private:
 		RESUME = 0,
 		HOW_TO_PLAY = 1,
 		MAIN_MENU = 2,
+		QUIT_GAME = 3,
 		COUNT
 	};
 
@@ -92,6 +112,10 @@ private:
 	void SelectButton(MenuSelection selection);
 	void DeselectAllButtons();
 	void ActivateSelectedButton();
+	void CreateQuitGameControls();
+	void ShowQuitGameConfirmation(bool state);
+	void SelectQuitGameConfirmation(bool selectYes);
+	void UpdateQuitGameConfirmationInput();
 
 
 public:
