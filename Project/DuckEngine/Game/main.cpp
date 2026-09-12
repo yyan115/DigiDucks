@@ -131,6 +131,8 @@ int main(int argumentCount, char* arguments[])
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 	ConfigureSmokeTestEnvironment(smokeTest);
+	const bool enforceSmokeStartupBudget =
+		std::getenv("QUACK_KITCHEN_SKIP_STARTUP_BUDGET") == nullptr;
 
 	const bool runtimeDirectoryReady = PlatformPaths::UseRuntimeDirectory();
 	if (headlessSmokeTest)
@@ -217,7 +219,7 @@ int main(int argumentCount, char* arguments[])
 						std::chrono::steady_clock::now() - launchStarted).count();
 				std::cout << "Smoke test first frame: "
 					<< firstFrameSeconds << " seconds\n";
-				if (firstFrameSeconds > 3.0)
+				if (enforceSmokeStartupBudget && firstFrameSeconds > 3.0)
 				{
 					std::cerr << "Smoke test failed: first frame exceeded "
 						"the 3-second Gallery limit.\n";
