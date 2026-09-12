@@ -156,6 +156,7 @@ install(TARGETS DuckEngine QuackKitchen
 install(DIRECTORY Resources DESTINATION .
     PATTERN "EditorIcons" EXCLUDE
     PATTERN "save.json" EXCLUDE)
+install(DIRECTORY "${CMAKE_SOURCE_DIR}/Licenses" DESTINATION .)
 
 if(WIN32)
     install(FILES

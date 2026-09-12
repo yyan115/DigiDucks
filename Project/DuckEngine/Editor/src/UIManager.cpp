@@ -78,7 +78,7 @@ void UIManager::Initialize()
 
 	// font
 	io.Fonts->Clear();
-	io.Fonts->AddFontFromFileTTF("Resources/Inter.ttf", 18.0f);
+	io.Fonts->AddFontFromFileTTF("Resources/Fonts/Inter.ttf", 18.0f);
 	ImGui_ImplOpenGL3_CreateFontsTexture(); // Rebuild font atlas
 
 	//Load all editor icons

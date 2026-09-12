@@ -61,6 +61,28 @@ def main() -> int:
         if not (staged_resources / relative).exists():
             errors.append(f"missing packaged resource: Resources/{relative}")
 
+    if not (stage / "Licenses").is_dir():
+        errors.append("missing packaged license directory: Licenses")
+
+    required_licenses = (
+        "ASSET_PROVENANCE.md",
+        "Dear-ImGui.txt",
+        "FMOD.txt",
+        "Fonts.txt",
+        "FreeType-FTL.txt",
+        "FreeType.txt",
+        "GLEW.txt",
+        "GLFW.txt",
+        "GLM.txt",
+        "Nlohmann-JSON.txt",
+        "README.md",
+        "Sound-Ideas.txt",
+        "stb_image.txt",
+    )
+    for name in required_licenses:
+        if not (stage / "Licenses" / name).is_file():
+            errors.append(f"missing required license file: Licenses/{name}")
+
     if (staged_resources / "save.json").exists():
         errors.append("Resources/save.json is writable user data and must not be packaged")
     if (staged_resources / "EditorIcons").exists():

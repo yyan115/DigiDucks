@@ -1,0 +1,24 @@
+FMOD Engine 2.03.09
+Copyright Firelight Technologies Pty Ltd. All rights reserved.
+
+Quack Kitchen redistributes only the FMOD Engine runtime library required by
+the game. Use and redistribution are governed by the current FMOD End User
+Licence Agreement:
+
+https://www.fmod.com/legal
+
+FMOD's licensing page states that the Engine may be integrated and
+redistributed in an educational student software application, subject to its
+terms and required attribution. The SDK headers, examples, authoring tools,
+and example media are not installed with Quack Kitchen.
+
+Required in-game attribution:
+
+Made using FMOD Studio by Firelight Technologies Pty Ltd.
+
+Official attribution requirements and logo resources:
+
+https://www.fmod.com/attribution
+
+Terms last checked: 2026-09-12.
+
