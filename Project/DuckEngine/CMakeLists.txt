@@ -43,7 +43,7 @@ if(WIN32)
         IMPORTED_LOCATION_MINSIZEREL "${QUACK_KITCHEN_FMOD_ROOT}/lib/x64/fmod.dll")
 elseif(UNIX AND NOT APPLE)
     set_target_properties(QuackKitchenFMOD PROPERTIES
-        IMPORTED_LOCATION "${QUACK_KITCHEN_FMOD_ROOT}/lib/x64/libfmod.so.14.9"
+        IMPORTED_LOCATION "${QUACK_KITCHEN_FMOD_ROOT}/lib/x64/libfmod.so.14"
         IMPORTED_SONAME "libfmod.so.14")
 else()
     message(FATAL_ERROR "Quack Kitchen currently supports Windows and Linux")
