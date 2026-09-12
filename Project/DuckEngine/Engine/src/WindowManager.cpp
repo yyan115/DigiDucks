@@ -268,6 +268,13 @@ void WindowManager::SetWindowTitle(const char* _title) {
 }
 
 void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
+	if (!DuckEngine::isEditor)
+	{
+		glfwSetInputMode(
+			window,
+			GLFW_CURSOR,
+			focused ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_NORMAL);
+	}
 
     if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
 

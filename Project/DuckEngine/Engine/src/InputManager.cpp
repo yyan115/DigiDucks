@@ -44,7 +44,7 @@ double InputManager::lastMouseY = 0.0;
 /// <param name="window">The GLFW window to associate with the input manager.</param>
 /// <returns>Returns true if initialization was successful.</returns>
 bool InputManager::Initialize(GLFWwindow* window) {
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
 
     glfwSetKeyCallback(window, InputManager::keyCB);
     glfwSetMouseButtonCallback(window, InputManager::mouseButtonCB);
