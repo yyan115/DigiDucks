@@ -368,7 +368,7 @@ def validate_licenses_and_ci() -> None:
             "Windows installer",
             "Linux AppImage and Flatpak",
             "installer.Length -ge 500MB",
-            "if: github.event_name == 'workflow_dispatch'",
+            "if: github.ref_type == 'tag'",
         ),
         "automatic package validation and gated release publication",
     )
