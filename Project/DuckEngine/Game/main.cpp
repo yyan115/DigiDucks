@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <chrono>
 #include <cstdlib>
 #include <filesystem>
+#include <iostream>
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
@@ -109,6 +110,7 @@ int WINAPI WinMain(
 int main(int argumentCount, char* arguments[])
 #endif
 {
+	const auto launchStarted = std::chrono::steady_clock::now();
 #if defined(_WIN32) && defined(_DEBUG)
 	EnableConsole();
 #endif
@@ -173,6 +175,8 @@ int main(int argumentCount, char* arguments[])
 	gManager.Engine.SetupSystems();
 
 	int smokeTestFrames = 0;
+	int smokeTestMainMenuFrames = 0;
+	int smokeTestExitCode = 0;
 	while (gManager.Engine.Running())
 	{
 		if (WindowManager::ConsumeCloseRequest())
@@ -203,9 +207,41 @@ int main(int argumentCount, char* arguments[])
 
 		gManager.Engine.EndDraw();
 
-		if (smokeTest && ++smokeTestFrames >= 30)
+		if (smokeTest)
 		{
-			gManager.Engine.CloseWindow();
+			++smokeTestFrames;
+			if (smokeTestFrames == 1)
+			{
+				const double firstFrameSeconds =
+					std::chrono::duration<double>(
+						std::chrono::steady_clock::now() - launchStarted).count();
+				std::cout << "Smoke test first frame: "
+					<< firstFrameSeconds << " seconds\n";
+				if (firstFrameSeconds > 3.0)
+				{
+					std::cerr << "Smoke test failed: first frame exceeded "
+						"the 3-second Gallery limit.\n";
+					smokeTestExitCode = 3;
+					gManager.Engine.CloseWindow();
+				}
+			}
+
+			if (gManager.Engine.DUCKENGINE_SceneManager.GetActiveSceneName() ==
+				"MainMenu")
+			{
+				++smokeTestMainMenuFrames;
+				if (smokeTestMainMenuFrames >= 30)
+				{
+					std::cout << "Smoke test reached and rendered MainMenu.\n";
+					gManager.Engine.CloseWindow();
+				}
+			}
+			else if (smokeTestFrames >= 2100)
+			{
+				std::cerr << "Smoke test failed: Intro did not reach MainMenu.\n";
+				smokeTestExitCode = 4;
+				gManager.Engine.CloseWindow();
+			}
 		}
 
 
@@ -254,5 +290,5 @@ int main(int argumentCount, char* arguments[])
 
 	gManager.Engine.Exit();
 
-	return 0;
+	return smokeTestExitCode;
 }
