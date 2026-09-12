@@ -25,6 +25,19 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define UNREFERENCED_PARAMETER(P) (void)(P)
 #endif
 
+namespace
+{
+int VisibleCursorMode()
+{
+#if defined(GLFW_CURSOR_CAPTURED)
+    return GLFW_CURSOR_CAPTURED;
+#else
+    // InputManager clamps visible cursor positions for GLFW before 3.4.
+    return GLFW_CURSOR_NORMAL;
+#endif
+}
+}
+
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 GLint WindowManager::width;
 GLint WindowManager::height;
@@ -143,7 +156,7 @@ void WindowManager::SetCursorVisible(bool visible) {
         glfwSetInputMode(
             ptrWindow,
             GLFW_CURSOR,
-            visible ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_DISABLED);
+            visible ? VisibleCursorMode() : GLFW_CURSOR_DISABLED);
     }
 }
 
@@ -311,7 +324,7 @@ void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
 			window,
 			GLFW_CURSOR,
 			focused
-				? (isCursorVisible ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_DISABLED)
+				? (isCursorVisible ? VisibleCursorMode() : GLFW_CURSOR_DISABLED)
 				: GLFW_CURSOR_NORMAL);
 	}
 
