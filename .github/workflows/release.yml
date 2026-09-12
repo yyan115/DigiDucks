@@ -23,9 +23,28 @@ env:
   LINUXDEPLOY_SHA256: c20cd71e3a4e3b80c3483cef793cda3f4e990aca14014d23c544ca3ce1270b4d
 
 jobs:
+  version:
+    name: Resolve version
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.resolve.outputs.version }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Read the declared version
+        id: resolve
+        run: |
+          version=$(python3 tools/project_version.py)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Declared version: $version"
+
   windows-installer:
     name: Windows installer
     runs-on: windows-2022
+    needs: version
+    env:
+      GAME_VERSION: ${{ needs.version.outputs.version }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -86,7 +105,7 @@ jobs:
             throw "Release executable is not a Windows GUI application."
           }
           $version = (Get-Item $exe).VersionInfo
-          if ($version.ProductName -ne "Quack Kitchen" -or $version.ProductVersion -ne "1.0.0") {
+          if ($version.ProductName -ne "Quack Kitchen" -or $version.ProductVersion -ne $env:GAME_VERSION) {
             throw "Unexpected executable version metadata: $($version | Format-List | Out-String)"
           }
 
@@ -120,7 +139,7 @@ jobs:
           choco install innosetup -y --no-progress
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" Installer\InstallScript.iss
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $installer = Get-Item Installer\INSTALLER\Quack_Kitchen_1.0.0_Setup.exe
+          $installer = Get-Item "Installer\INSTALLER\Quack_Kitchen_$($env:GAME_VERSION)_Setup.exe"
           if ($installer.Length -ge 500MB) {
             throw "Installer exceeds the 500 MB DigiPen limit."
           }
@@ -129,12 +148,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: quack-kitchen-windows
-          path: Installer/INSTALLER/Quack_Kitchen_1.0.0_Setup.exe
+          path: Installer/INSTALLER/Quack_Kitchen_${{ needs.version.outputs.version }}_Setup.exe
           if-no-files-found: error
 
   linux-packages:
     name: Linux AppImage and Flatpak
     runs-on: ubuntu-24.04
+    needs: version
+    env:
+      GAME_VERSION: ${{ needs.version.outputs.version }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -177,7 +199,8 @@ jobs:
           XDG_DATA_HOME: ${{ runner.temp }}/quack-kitchen-appimage-data
         run: |
           python3 tools/verify_release.py Build/linux-package/AppDir/usr/bin --platform linux
-          timeout 60s xvfb-run -a Build/linux-package/Quack_Kitchen-1.0.0-x86_64.AppImage --smoke-test
+          timeout 60s xvfb-run -a \
+            "Build/linux-package/Quack_Kitchen-${GAME_VERSION}-x86_64.AppImage" --smoke-test
 
       - name: Install Flatpak runtime
         run: |
@@ -194,7 +217,7 @@ jobs:
           flatpak build-bundle \
             --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
             Build/flatpak-repository \
-            Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak \
+            "Build/linux-package/Quack_Kitchen-${GAME_VERSION}-x86_64.flatpak" \
             edu.digipen.quackkitchen stable
 
       - name: Smoke-test Flatpak bundle
@@ -203,7 +226,7 @@ jobs:
           XDG_DATA_HOME: ${{ runner.temp }}/quack-kitchen-flatpak-data
         run: |
           flatpak install --user --noninteractive \
-            Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak
+            "Build/linux-package/Quack_Kitchen-${GAME_VERSION}-x86_64.flatpak"
           timeout 60s xvfb-run -a flatpak run \
             edu.digipen.quackkitchen --smoke-test
 
@@ -212,14 +235,14 @@ jobs:
         with:
           name: quack-kitchen-linux
           path: |
-            Build/linux-package/Quack_Kitchen-1.0.0-x86_64.AppImage
-            Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak
+            Build/linux-package/Quack_Kitchen-${{ needs.version.outputs.version }}-x86_64.AppImage
+            Build/linux-package/Quack_Kitchen-${{ needs.version.outputs.version }}-x86_64.flatpak
           if-no-files-found: error
 
   publish:
     name: Publish GitHub release
     if: github.event_name == 'workflow_dispatch'
-    needs: [windows-installer, linux-packages]
+    needs: [version, windows-installer, linux-packages]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
