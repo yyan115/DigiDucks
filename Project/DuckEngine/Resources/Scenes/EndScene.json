@@ -259,7 +259,7 @@
                             "r": 0.0
                         },
                         "enabled": false,
-                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontName": "Inter",
                         "fontSize": 0.5,
                         "fontSizeY": -1.0,
                         "position": {
@@ -649,7 +649,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "HVD Fonts  MikadoBlack",
+                        "fontName": "Inter",
                         "fontSize": 1.0,
                         "fontSizeY": -1.0,
                         "position": {

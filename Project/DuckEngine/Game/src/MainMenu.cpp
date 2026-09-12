@@ -576,7 +576,7 @@ void MainMenu::CreateComplianceMenus()
 		{ "CreditsTools4", "stb_image, Dear ImGui, nlohmann/json", Vec2(1.0f, 0.6f), 0.31f, brown },
 		{ "CreditsTools5", "Kenney fonts (CC0); Inter font (OFL 1.1)", Vec2(1.0f, -0.4f), 0.30f, brown },
 		{ "CreditsTools6", "Sound Ideas General HD SFX Collection", Vec2(1.0f, -1.4f), 0.31f, brown },
-		{ "CreditsTools7", "Cartoon Express SFX Library; HVD Fonts - Mikado", Vec2(1.0f, -2.4f), 0.28f, brown },
+		{ "CreditsTools7", "Cartoon Express SFX Library", Vec2(1.0f, -2.4f), 0.28f, brown },
 		{ "CreditsSchool", "Created at DigiPen Institute of Technology Singapore", Vec2(-10.2f, -5.4f), 0.40f, brown },
 		{ "CreditsCopyright1", "All content Copyright 2026 DigiPen Institute of Technology Singapore.", Vec2(-12.8f, -6.6f), 0.34f, brown },
 		{ "CreditsCopyright2", "All Rights Reserved.", Vec2(-3.9f, -7.6f), 0.34f, brown },
