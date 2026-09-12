@@ -10,16 +10,32 @@ from pathlib import Path
 
 MAX_INSTALL_SIZE = 500 * 1024 * 1024
 FORBIDDEN_SUFFIXES = {
+    ".ai",
+    ".ase",
+    ".aseprite",
+    ".blend",
+    ".blend1",
     ".cpp",
     ".exp",
     ".h",
     ".hpp",
     ".ilk",
+    ".kra",
     ".lib",
     ".obj",
     ".pdb",
+    ".psd",
     ".sln",
     ".vcxproj",
+    ".xcf",
+}
+FORBIDDEN_DIRECTORY_NAMES = {
+    ".git",
+    ".github",
+    ".vs",
+    ".vscode",
+    "cmakefiles",
+    "editoricons",
 }
 
 
@@ -47,6 +63,12 @@ def main() -> int:
     for name in expected_top_level:
         if not (stage / name).is_file():
             errors.append(f"missing runtime file: {name}")
+
+    allowed_top_level = set(expected_top_level) | {"Licenses", "Resources"}
+    if stage.is_dir():
+        for path in stage.iterdir():
+            if path.name not in allowed_top_level:
+                errors.append(f"unexpected top-level release entry: {path.name}")
 
     for relative in (
         "Fonts",
@@ -114,6 +136,11 @@ def main() -> int:
     for path in files:
         if path.suffix.lower() in FORBIDDEN_SUFFIXES:
             errors.append(f"development file in release: {path.relative_to(stage)}")
+        if any(
+            part.lower() in FORBIDDEN_DIRECTORY_NAMES
+            for part in path.relative_to(stage).parts[:-1]
+        ):
+            errors.append(f"development directory in release: {path.relative_to(stage)}")
 
     if errors:
         print("Release verification failed:", file=sys.stderr)

@@ -11,7 +11,7 @@ output_file="$package_directory/Quack_Kitchen-1.0.0-x86_64.AppImage"
 
 cmake -E remove_directory "$app_directory"
 cmake -E make_directory "$app_directory/usr/bin"
-cmake --install "$build_directory" --prefix "$app_directory/usr/bin"
+cmake --install "$build_directory" --prefix "$app_directory/usr/bin" --strip
 
 install -Dm755 "$repository_directory/packaging/linux/AppRun" "$app_directory/AppRun"
 install -Dm755 "$repository_directory/packaging/linux/quack-kitchen" "$app_directory/usr/bin/quack-kitchen"

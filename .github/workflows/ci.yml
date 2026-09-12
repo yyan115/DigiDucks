@@ -41,7 +41,7 @@ jobs:
 
       - name: Stage and verify release files
         run: |
-          cmake --install Build/linux-release --prefix Build/ci-linux-stage
+          cmake --install Build/linux-release --prefix Build/ci-linux-stage --strip
           python3 tools/verify_release.py Build/ci-linux-stage --platform linux
 
       - name: Smoke-test startup, scene load, render, and shutdown

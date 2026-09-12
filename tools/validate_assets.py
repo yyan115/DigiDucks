@@ -92,6 +92,8 @@ def main() -> int:
             )
 
     lookup_pattern = re.compile(r'GetTextureByName\(\s*"([^"]+)"\s*\)')
+    resource_literal_pattern = re.compile(r'"(Resources[/\\][^"\r\n]+)"')
+    source_reference_count = 0
     for source_root in SOURCE_ROOTS:
         for source_file in sorted(source_root.rglob("*")):
             if source_file.suffix.lower() not in {".cpp", ".h", ".hpp"}:
@@ -115,6 +117,23 @@ def main() -> int:
                         f"{texture_name} -> {', '.join(sorted(matches))}"
                     )
 
+            for resource_path in resource_literal_pattern.findall(source):
+                # Directory names and path prefixes are completed dynamically.
+                # A suffix means the source contains a complete, checkable file path.
+                if not Path(resource_path).suffix:
+                    continue
+                source_reference_count += 1
+                if "\\" in resource_path:
+                    errors.append(
+                        f"non-portable source asset path in "
+                        f"{repository_relative(source_file)}: {resource_path}"
+                    )
+                elif resource_path not in resource_entries:
+                    errors.append(
+                        f"missing or wrong-case source asset in "
+                        f"{repository_relative(source_file)}: {resource_path}"
+                    )
+
     if errors:
         print("Asset validation failed:", file=sys.stderr)
         for error in sorted(set(errors)):
@@ -123,7 +142,8 @@ def main() -> int:
 
     print(
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
-        f"asset references, and named texture lookups."
+        f"asset references, {source_reference_count} source asset references, "
+        f"and named texture lookups."
     )
     return 0
 
