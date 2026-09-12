@@ -47,6 +47,10 @@ jobs:
       - name: Smoke-test startup, scene load, render, and shutdown
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
+          # llvmpipe startup time is runner-dependent and is not representative
+          # of the Gallery's hardware-accelerated Windows target. The smoke test
+          # still renders the complete intro and verifies MainMenu is reached.
+          QUACK_KITCHEN_SKIP_STARTUP_BUDGET: '1'
           XDG_DATA_HOME: ${{ runner.temp }}/quack-kitchen-data
         run: timeout 60s xvfb-run -a "Build/ci-linux-stage/Quack Kitchen" --smoke-test
 
