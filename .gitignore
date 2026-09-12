@@ -25,3 +25,13 @@ Project/DuckEngine/Game/lib/EditorDebug/Quack_Kitchen.lib.recipe
 Project/DuckEngine/Scripting/ScriptingAPI/obj
 Project/DuckEngine/Game/lib/EditorRelease/Quack_Kitchen.lib.recipe
 Project/DuckEngine/Game/Quack_Kitchen/Resources
+
+# Ignore agents info stuff
+/.agents/
+
+# Generated release staging and installer output
+/Installer/GAMEDIRECTORY/
+/Installer/REDIST/
+/Installer/INSTALLER/
+__pycache__/
+*.py[cod]
