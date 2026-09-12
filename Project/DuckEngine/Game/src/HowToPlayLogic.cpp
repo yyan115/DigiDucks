@@ -43,6 +43,7 @@ void HowToPlayLogic::Start()
 
     // Set initial page
     pageNum = 1;
+	lastGamepadConnected = DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1);
     UpdateJournalPage();
 
     // Button interactions
@@ -90,13 +91,24 @@ void HowToPlayLogic::Start()
 void HowToPlayLogic::UpdateJournalPage()
 {
     if (JournalSprite) {
-        std::string textureName = "Resources/Sprites/HowToPlay/journal_" + std::to_string(pageNum) + ".png";
+		const bool showControllerInstructions = pageNum == 1 &&
+			DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1);
+		std::string textureName = showControllerInstructions
+			? "Resources/Sprites/HowToPlay/journal_1_controller.png"
+			: "Resources/Sprites/HowToPlay/journal_" + std::to_string(pageNum) + ".png";
         JournalSprite->texture = *AssetManager::GetTexture(textureName).get();
     }
 }
 
 void HowToPlayLogic::Update()
 {
+	const bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1);
+	if (pageNum == 1 && gamepadConnected != lastGamepadConnected)
+	{
+		lastGamepadConnected = gamepadConnected;
+		UpdateJournalPage();
+	}
+
 	// Reduce cooldown timer if it's active
 	if (controllerNavigationCooldown > 0.0f) 
     {

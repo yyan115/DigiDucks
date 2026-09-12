@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1266" height="781" viewBox="0 0 1266 781">
+  <rect width="1266" height="781" fill="#2f190f"/>
+  <path d="M24 34 Q24 18 42 18 H606 Q633 18 633 44 V742 Q610 715 570 715 H42 Q24 715 24 697 Z"
+        fill="#f3e4bc" stroke="#6a3d21" stroke-width="12"/>
+  <path d="M1242 34 Q1242 18 1224 18 H660 Q633 18 633 44 V742 Q656 715 696 715 H1224 Q1242 715 1242 697 Z"
+        fill="#f3e4bc" stroke="#6a3d21" stroke-width="12"/>
+  <path d="M633 44 V742" fill="none" stroke="#b99565" stroke-width="5"/>
+
+  <g fill="#40210f" font-family="Noto Sans, sans-serif" font-weight="700">
+    <text x="72" y="104" font-size="58">CONTROLLER</text>
+    <text x="690" y="104" font-size="46">MENUS</text>
+
+    <text x="78" y="190" font-size="30">MOVE</text>
+    <text x="78" y="231" font-size="24" font-weight="500">LEFT STICK OR D-PAD</text>
+
+    <text x="78" y="330" font-size="30">PICK UP / INTERACT</text>
+    <circle cx="535" cy="315" r="42" fill="#5e8bd1" stroke="#ffffff" stroke-width="7"/>
+    <text x="521" y="332" font-size="42" fill="#ffffff">X</text>
+
+    <text x="78" y="450" font-size="30">USE / CHOP / CONFIRM</text>
+    <circle cx="535" cy="435" r="42" fill="#5ca75c" stroke="#ffffff" stroke-width="7"/>
+    <text x="520" y="452" font-size="42" fill="#ffffff">A</text>
+
+    <text x="78" y="570" font-size="30">PAUSE</text>
+    <rect x="415" y="527" width="165" height="58" rx="29" fill="#594b42" stroke="#ffffff" stroke-width="6"/>
+    <text x="444" y="566" font-size="27" fill="#ffffff">START</text>
+
+    <text x="690" y="190" font-size="30">NAVIGATE</text>
+    <text x="690" y="231" font-size="24" font-weight="500">D-PAD OR EITHER STICK</text>
+
+    <text x="690" y="330" font-size="30">SELECT</text>
+    <circle cx="1105" cy="315" r="42" fill="#5ca75c" stroke="#ffffff" stroke-width="7"/>
+    <text x="1090" y="332" font-size="42" fill="#ffffff">A</text>
+
+    <text x="690" y="450" font-size="30">BACK</text>
+    <circle cx="1105" cy="435" r="42" fill="#c75a55" stroke="#ffffff" stroke-width="7"/>
+    <text x="1091" y="452" font-size="42" fill="#ffffff">B</text>
+
+    <text x="690" y="570" font-size="30">SETTINGS</text>
+    <circle cx="1105" cy="555" r="42" fill="#d6b447" stroke="#ffffff" stroke-width="7"/>
+    <text x="1091" y="572" font-size="42" fill="#ffffff">Y</text>
+
+    <text x="633" y="675" text-anchor="middle" font-size="22" font-weight="500">Xbox-style button labels</text>
+  </g>
+</svg>

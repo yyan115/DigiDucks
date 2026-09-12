@@ -52,7 +52,18 @@ public:
 	void Unload() override;
 
 private:
-	enum class IntroPhase { FADE_IN_LOGO, SHOW_LOGO, FADE_OUT_LOGO, FADE_IN_LOGO2, SHOW_LOGO2, FADE_OUT_LOGO2, COMPLETE };
+	enum class IntroPhase {
+		FADE_IN_LOGO,
+		SHOW_LOGO,
+		FADE_OUT_LOGO,
+		FADE_IN_LOGO2,
+		SHOW_LOGO2,
+		FADE_OUT_LOGO2,
+		FADE_IN_GAMEPAD,
+		SHOW_GAMEPAD,
+		FADE_OUT_GAMEPAD,
+		COMPLETE
+	};
 	IntroPhase currentPhase = IntroPhase::FADE_IN_LOGO;
 	float phaseTimer = 0.0f;
 	float fadeDuration = 2.0f;
@@ -61,9 +72,11 @@ private:
 	Entity* logo = nullptr;
 	Entity* logo2 = nullptr;
 	Entity* fmodLogo = nullptr;
+	Entity* gamepadNotice = nullptr;
 	SpriteRendererComponent* fadeRenderer = nullptr;
 	SpriteRendererComponent* logoRenderer = nullptr;
 	SpriteRendererComponent* logo2Renderer = nullptr;
 	SpriteRendererComponent* fmodLogoRenderer = nullptr;
+	SpriteRendererComponent* gamepadNoticeRenderer = nullptr;
 
 };
