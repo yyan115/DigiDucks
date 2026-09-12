@@ -66,6 +66,25 @@ void Intro::Start()
 * ****************************************************************/
 void Intro::Update()
 {
+	const bool skipRequested =
+		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT) ||
+		DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER) ||
+		DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_SPACE) ||
+		DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) ||
+		(DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			(DuckEngine_Input::IsGamepadButtonPressed(
+				DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START) ||
+			 DuckEngine_Input::IsGamepadButtonPressed(
+				 DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A)));
+
+	if (skipRequested)
+	{
+		currentPhase = IntroPhase::COMPLETE;
+		GameManager::SetActiveScene("MainMenu");
+		return;
+	}
+
 	float dt = DuckEngine::DeltaTime();
 	phaseTimer += dt;
 

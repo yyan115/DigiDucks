@@ -56,7 +56,7 @@ private:
 	IntroPhase currentPhase = IntroPhase::FADE_IN_LOGO;
 	float phaseTimer = 0.0f;
 	float fadeDuration = 2.0f;
-	float displayDuration = 1.0f;
+	float displayDuration = 2.0f;
 	Entity* fadeScreen = nullptr;
 	Entity* logo = nullptr;
 	Entity* logo2 = nullptr;
