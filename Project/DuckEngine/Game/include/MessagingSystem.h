@@ -169,11 +169,13 @@ public:
             // playerSound->Stop();
         }
 
+#ifdef QUACK_KITCHEN_ENABLE_DEVELOPER_SHORTCUTS
         if (key == 'K') {
             std::cout << "K is pressed!\n";
             // Assume showDebugColliders is a static member to toggle debug display
             DuckEngine::ToggleShowDebugColliders();
         }
+#endif
     }
 
     /****************************************************************
