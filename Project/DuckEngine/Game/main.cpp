@@ -147,11 +147,6 @@ int main(int argumentCount, char* arguments[])
 	// load all assets before game loop starts
 	AssetManager::LoadAll();
 
-	if (!smokeTest)
-	{
-		DuckEngine::ToggleFullScreen();
-	}
-
 	int smokeTestFrames = 0;
 	while (gManager.Engine.Running())
 	{
