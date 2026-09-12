@@ -31,7 +31,7 @@ std::map<std::string, std::map<GLchar, FontManager::Character>> FontManager::Fon
 std::vector<TextRenderCommand> FontManager::drawQueue;
 
 // FreeType library
-FT_Library FontManager::ft;
+FT_Library FontManager::ft = nullptr;
 
 // OpenGL handles
 unsigned int FontManager::VAO;
@@ -39,9 +39,12 @@ unsigned int FontManager::VBO;
 
 void FontManager::LoadFont(const std::string& fontName, const std::string& fontPath, int fontSize) 
 {
-    if (FT_Init_FreeType(&ft)) {
-        std::cerr << "ERROR::FREETYPE: Could not init FreeType Library\n";
-        return;
+    if (ft == nullptr) {
+        if (FT_Init_FreeType(&ft)) {
+            std::cerr << "ERROR::FREETYPE: Could not init FreeType Library\n";
+            ft = nullptr;
+            return;
+        }
     }
 
     FT_Face face;
@@ -134,6 +137,11 @@ void FontManager::Exit()
 
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    VAO = 0;
+    VBO = 0;
 
-    FT_Done_FreeType(ft);
+    if (ft != nullptr) {
+        FT_Done_FreeType(ft);
+        ft = nullptr;
+    }
 }
