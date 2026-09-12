@@ -85,6 +85,7 @@ private:
 
     bool isSettingsOpen = false;
     bool settingsVisible = false;
+    bool settingsDirty = false;
 
     void UpdateControllerInput();
     void SelectSetting(SettingSelection selection);

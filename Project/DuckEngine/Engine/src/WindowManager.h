@@ -127,6 +127,11 @@ public:
     /// </summary>
     static void ToggleFullscreen();
 
+    /// <summary>
+    /// Enables or disables vertical synchronization for the active context.
+    /// </summary>
+    static void SetVSync(bool enabled);
+
     static void MinimizeWindow();
 
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }

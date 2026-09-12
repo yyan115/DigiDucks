@@ -98,10 +98,7 @@ void DuckEngine::Initialize(bool _isEditor)
 
 	DuckEngine::DUCKENGINE_AssetManager.LoadAll();
 
-	if (ProjectSettings::GetUseVSync())
-		glfwSwapInterval(1);
-	else
-		glfwSwapInterval(0);
+	WindowManager::SetVSync(ProjectSettings::GetUseVSync());
 
 	GraphicsManager::Start();
 	ParticleManager::Start(2000);

@@ -45,6 +45,7 @@ static void ConfigureSmokeTestEnvironment(bool smokeTest)
 #include "ProjectSettings.h"
 #include "PlatformPaths.h"
 #include "SaveLoadManager.h"
+#include "WindowManager.h"
 
 static GameManager gManager;
 
@@ -127,6 +128,17 @@ int main(int argumentCount, char* arguments[])
 		SaveLoadManager::SetSavePath(userSave.string());
 	}
 	gManager.Engine.Initialize();
+
+	// ProjectSettings supplies release defaults while SaveLoadManager stores the
+	// player's choices. Apply the saved values before systems and the intro start
+	// so audio and frame pacing are correct from the first rendered frame.
+	SaveLoadManager::InitializeSaveFile();
+	ProjectSettings::SetMasterVolume(SaveLoadManager::masterVolume);
+	ProjectSettings::SetVolumeCategory("BGM", SaveLoadManager::musicVolume);
+	ProjectSettings::SetVolumeCategory("SFX", SaveLoadManager::sfxVolume);
+	ProjectSettings::SetTargetFPS(SaveLoadManager::targetFPS);
+	ProjectSettings::SetUseVSync(SaveLoadManager::useVSync);
+	WindowManager::SetVSync(SaveLoadManager::useVSync);
 
 	gManager.InitScenes();
 	gManager.SetActiveScene(ProjectSettings::GetStartLevel());

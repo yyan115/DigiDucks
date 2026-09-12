@@ -118,6 +118,12 @@ void WindowManager::ToggleFullscreen() {
     isFullscreen = !isFullscreen; // Toggle fullscreen state
 }
 
+void WindowManager::SetVSync(bool enabled) {
+    if (ptrWindow) {
+        glfwSwapInterval(enabled ? 1 : 0);
+    }
+}
+
 void WindowManager::MinimizeWindow() {
     glfwIconifyWindow(ptrWindow);  // Minimizes the window
 }
