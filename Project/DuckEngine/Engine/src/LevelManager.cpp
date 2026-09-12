@@ -216,10 +216,11 @@ void LevelManager::LoadLevel(const std::string& levelName)
 std::string LevelManager::OpenFileDialog(const std::string& fileType) {
 #ifdef _WIN32
 	wchar_t fileName[260] = L"";
-	wchar_t defExt[10];
+	wchar_t defExt[10] = L"";
 
-	// Set up the OPENFILENAME structure
-	OPENFILENAME ofn;
+	// Use the wide-character API explicitly so this is independent of whether
+	// the build system defines UNICODE.
+	OPENFILENAMEW ofn;
 	ZeroMemory(&ofn, sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
@@ -245,7 +246,7 @@ std::string LevelManager::OpenFileDialog(const std::string& fileType) {
 	ofn.Flags = OFN_FILEMUSTEXIST | OFN_HIDEREADONLY | OFN_NOCHANGEDIR;
 	ofn.lpstrDefExt = defExt;                  // Use the passed-in default extension
 
-	if (GetOpenFileName(&ofn)) {
+	if (GetOpenFileNameW(&ofn)) {
 		// Convert wide char to narrow char string
 		char narrowFileName[260];
 		size_t convertedChars = 0;
