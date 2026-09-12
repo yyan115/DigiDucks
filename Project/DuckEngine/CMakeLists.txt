@@ -74,20 +74,21 @@ target_include_directories(DuckEngine
     PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/Engine/include"
         "${QUACK_KITCHEN_FMOD_ROOT}/inc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Engine/lib/glm"
     PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/Engine/src"
         "${CMAKE_CURRENT_SOURCE_DIR}/Engine/include/imgui"
-        "${CMAKE_CURRENT_SOURCE_DIR}/Engine/lib/glm"
         "${CMAKE_CURRENT_SOURCE_DIR}/Engine/lib/stb-image"
         "${CMAKE_CURRENT_SOURCE_DIR}/Engine/lib/nlohmannjson")
 
 target_link_libraries(DuckEngine
-    PUBLIC QuackKitchen::FMOD
-    PRIVATE
-        OpenGL::GL
+    PUBLIC
+        QuackKitchen::FMOD
         Freetype::Freetype
         GLEW::GLEW
-        ${QUACK_KITCHEN_GLFW_TARGET})
+        ${QUACK_KITCHEN_GLFW_TARGET}
+    PRIVATE
+        OpenGL::GL)
 
 if(MSVC)
     target_compile_options(DuckEngine PRIVATE /W4 /permissive-)

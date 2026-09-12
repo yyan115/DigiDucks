@@ -16,6 +16,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #pragma once
+#include "PlatformCompatibility.h"
+
 #define WIN32_LEAN_AND_MEAN
 #include <random>
 #include <iostream>
