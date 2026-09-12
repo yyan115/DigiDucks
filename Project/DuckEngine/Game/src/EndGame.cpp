@@ -123,7 +123,8 @@ void EndScene::Load()
 
 	Entity* background = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("EndBGM").get();
 	backgroundSR = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(background->entityID);
-	backgroundSR->texture = AssetManager::GetTextureByName("DAY" + ScoreLogic::dayNumber);
+	backgroundSR->texture = AssetManager::GetTextureByName(
+		"DAY" + std::to_string(ScoreLogic::dayNumber));
 
 	Star_1 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_1").get();
 	Star_2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Star_2").get();
@@ -379,7 +380,6 @@ void EndScene::Update()
 {
 	if (GameManager::GameCleared) {
 		currentButtonSelection = EndButtonSelection::LASTMENU;
-		return;
 	}
 
 	if (ScoreLogic::scoreValue < iStar_1 && !isBGMSoundFadingIn)
