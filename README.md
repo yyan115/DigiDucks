@@ -94,8 +94,9 @@ supported path for reproducible release builds.
 - `packaging/linux/` contains the AppImage launch files and Flatpak manifest.
 - `.github/workflows/ci.yml` builds, tests, stages, verifies, and smoke-tests
   both supported operating systems.
-- `.github/workflows/release.yml` builds all three release packages and can
-  publish them under a requested version tag.
+- `.github/workflows/release.yml` builds all three release packages on every
+  `main` push. A manual run can also publish them under a requested version
+  tag after the package jobs pass.
 
 ## Repository layout
 

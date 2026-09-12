@@ -1,6 +1,8 @@
 name: Build Release Packages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       tag:
@@ -215,6 +217,7 @@ jobs:
 
   publish:
     name: Publish GitHub release
+    if: github.event_name == 'workflow_dispatch'
     needs: [windows-installer, linux-packages]
     runs-on: ubuntu-24.04
     permissions:
