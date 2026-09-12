@@ -139,7 +139,8 @@ def validate_installer_and_packages() -> None:
         "Installer/InstallScript.iss",
         (
             '#define GameName "Quack Kitchen"',
-            '#define GameVersion "1.0.0"',
+            "AppVersion={#GameVersion}",
+            "OutputBaseFilename=Quack_Kitchen_{#GameVersion}_Setup",
             "AppPublisher=DigiPen Institute of Technology",
             r"DefaultDirName={autopf}\DigiPen\{#GameName}",
             r"DefaultGroupName=DigiPen\{#GameName}",
@@ -168,7 +169,7 @@ def validate_installer_and_packages() -> None:
     require_text(
         "Project/DuckEngine/CMakeLists.txt",
         (
-            "project(QuackKitchen VERSION 1.0.0",
+            "project(QuackKitchen VERSION ",
             "add_executable(QuackKitchen WIN32",
             "PATTERN \"EditorIcons\" EXCLUDE",
             "PATTERN \"save.json\" EXCLUDE",
@@ -191,11 +192,11 @@ def validate_installer_and_packages() -> None:
         "Linux desktop metadata",
     )
     require_text(
-        "packaging/linux/edu.digipen.quackkitchen.metainfo.xml",
+        "packaging/linux/edu.digipen.quackkitchen.metainfo.xml.in",
         (
             "<id>edu.digipen.quackkitchen</id>",
             "<content_rating type=\"oars-1.1\" />",
-            '<release version="1.0.0"',
+            '<release version="@PROJECT_VERSION@"',
         ),
         "Linux package identity and rating metadata",
     )
