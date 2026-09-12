@@ -173,4 +173,5 @@ public:
 	void DisableButtons(bool state);
 
 	void playPauseSound();
+	void RequestQuitConfirmation();
 };

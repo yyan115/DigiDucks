@@ -60,6 +60,12 @@ public:
     static void SetWindowShouldClose();
 
     /// <summary>
+    /// Returns and clears a pending close request from the operating system.
+    /// Programmatic shutdown requests are not intercepted.
+    /// </summary>
+    static bool ConsumeCloseRequest();
+
+    /// <summary>
     /// Checks if the window should close, typically when the user closes the window or presses a close button.
     /// </summary>
     /// <returns>Returns true if the window should close, false otherwise.</returns>
@@ -145,10 +151,12 @@ public:
     static void window_focus_callback(GLFWwindow* window, int focused);
 
 private:
+	static void window_close_callback(GLFWwindow* window);
 
     static bool isFocused;
     static bool isFullscreen;      // Tracks whether the window is fullscreen
     static bool isCursorVisible;   // Desired cursor mode while focused
+	static bool closeRequested;
     static GLint windowedWidth;    // Saved width for windowed mode
     static GLint windowedHeight;   // Saved height for windowed mode
     static GLint windowedPosX;     // Saved X position for windowed mode

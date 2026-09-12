@@ -35,6 +35,7 @@ const char* WindowManager::title;
 bool WindowManager::isFocused = true;
 bool WindowManager::isFullscreen = false;
 bool WindowManager::isCursorVisible = true;
+bool WindowManager::closeRequested = false;
 GLint WindowManager::windowedWidth = 1600;   // Default windowed size
 GLint WindowManager::windowedHeight = 900;  // Default windowed size
 GLint WindowManager::windowedPosX = 0;      // Default window position
@@ -49,6 +50,7 @@ GLint WindowManager::windowedPosY = 0;      // Default window position
 /// <param name="_title">The title of the window.</param>
 /// <returns>Returns true if the window is successfully created, false otherwise.</returns>
 bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) {
+    closeRequested = false;
     WindowManager::width = _width;
     WindowManager::height = _height;
     WindowManager::viewportWidth = _width;
@@ -95,6 +97,7 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     // Set callback for FB size change
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
     glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
+    glfwSetWindowCloseCallback(ptrWindow, window_close_callback);
 
     return true;
 }
@@ -171,7 +174,15 @@ GLFWwindow* WindowManager::getWindow() {
 
 void WindowManager::SetWindowShouldClose()
 {
+    closeRequested = false;
     glfwSetWindowShouldClose(ptrWindow, 1);
+}
+
+bool WindowManager::ConsumeCloseRequest()
+{
+    const bool requested = closeRequested;
+    closeRequested = false;
+    return requested;
 }
 
 /// <summary>
@@ -299,4 +310,12 @@ void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
 
     UNREFERENCED_PARAMETER(window);
     isFocused = focused != 0;
+}
+
+void WindowManager::window_close_callback(GLFWwindow* window)
+{
+    // GLFW sets this flag before invoking the callback. Clear it until the
+    // player confirms through the game UI.
+    glfwSetWindowShouldClose(window, GLFW_FALSE);
+    closeRequested = true;
 }

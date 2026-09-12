@@ -31,6 +31,7 @@ public:
 * will be used throughout the game.
 * ****************************************************************/
 	static void SetActiveScene(std::string sceneName, bool transition = true);
+	static void RequestQuitConfirmation();
 /****************************************************************
 * @brief Sets the active scene for the game, optionally triggering a scene transition.
 * ****************************************************************/

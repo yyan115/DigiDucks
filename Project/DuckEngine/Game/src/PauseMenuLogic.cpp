@@ -782,6 +782,24 @@ void PauseMenuLogic::PauseGame(bool state)
 	ShowQuitGameConfirmation(false);
 }
 
+void PauseMenuLogic::RequestQuitConfirmation()
+{
+	if (!isPaused)
+	{
+		PauseGame(true);
+		playPauseSound();
+	}
+	else
+	{
+		if (gameJournalSpt)
+		{
+			gameJournalSpt->isVisible = false;
+		}
+		ExitConfirm(false);
+	}
+	ShowQuitGameConfirmation(true);
+}
+
 
 
 
