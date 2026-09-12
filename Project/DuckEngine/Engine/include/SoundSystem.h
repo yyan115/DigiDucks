@@ -39,6 +39,11 @@ public:
     void Update() override;
 
     /****************************************************************
+    * @brief Stops playback and releases cached FMOD effects.
+    ***************************************************************/
+    static DUCKENGINE_API void Exit();
+
+    /****************************************************************
 	* @brief Stops all sounds in the scene
     *
     * @return void
@@ -150,4 +155,3 @@ private:
 	static DUCKENGINE_API std::unordered_map<std::string, FMOD::DSP*> dspCache;
 	static DUCKENGINE_API std::unordered_map<std::string, float> soundVolumes;
 };
-

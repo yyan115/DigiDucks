@@ -348,16 +348,32 @@ nlohmann::json AssetManager::GetLevelData(const std::string& levelName)
 
 void AssetManager::UnloadAll()
 {
+	for (auto& [path, textures] : textureMap) {
+		(void)path;
+		for (auto& texture : textures) {
+			if (texture && *texture != 0) {
+				glDeleteTextures(1, texture.get());
+				*texture = 0;
+			}
+		}
+	}
 	textureMap.clear();
 	nameToFilePath.clear();
+	fontNames.clear();
+	levelDataMap.clear();
 
 	// sound
 	for (auto& [id, sound] : soundMap) {
-		sound->release();
+		(void)id;
+		if (sound) {
+			sound->release();
+		}
 	}
 	soundMap.clear();
 	if (fmodSystem) {
 		fmodSystem->close();
+		fmodSystem->release();
+		fmodSystem = nullptr;
 	}
 }
 

@@ -79,6 +79,28 @@ void SoundSystem::Update() {
     //for (const auto& [category, volume] : categoryVolumes) SetCategoryVolume(category, volume);
 }
 
+void SoundSystem::Exit() {
+    for (auto& [soundID, channel] : activeChannels) {
+        (void)soundID;
+        if (channel) {
+            RemoveEffect(channel);
+            channel->stop();
+        }
+    }
+    activeChannels.clear();
+
+    for (auto& [effectName, effect] : dspCache) {
+        (void)effectName;
+        if (effect) {
+            effect->release();
+        }
+    }
+    dspCache.clear();
+    soundCategories.clear();
+    soundVolumes.clear();
+    categoryVolumes.clear();
+}
+
 FMOD::Channel* SoundSystem::PlaySounds(const std::string& soundID, bool loop, float volume, const std::string& category, const std::pair<std::string, float>& effects) {
     if (!AssetManager::GetFMODSystem()) return nullptr;
 

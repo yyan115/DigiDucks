@@ -358,15 +358,14 @@ void DuckEngine::EndDraw()
 *************************************************************************/
 void DuckEngine::Exit() 
 { 
-	WindowManager::Exit();
-	GraphicsManager::Exit();
-	//PrefabManager::Exit();
-	InputManager::Exit();
-	ShaderManager::Exit();
-	
-
 	DUCKENGINE_SceneManager.Shutdown();
-	
+	SoundSystem::Exit();
+	DUCKENGINE_AssetManager.UnloadAll();
+	FontManager::Exit();
+	ShaderManager::Exit();
+	GraphicsManager::Exit();
+	InputManager::Exit();
+	WindowManager::Exit();
 }
 
 /************************************************************************
