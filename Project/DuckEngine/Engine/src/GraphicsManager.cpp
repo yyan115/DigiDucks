@@ -31,8 +31,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "DuckEngine.h"
 #include "ShaderManager.h"
-#include "GizmoManager.h"
-
 #include "FontManager.h"
 #include "RenderData.h"
 

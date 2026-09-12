@@ -20,7 +20,7 @@ class GameManager
 public:
 	static std::string ActiveSceneName;
 	static bool ShouldChangeScene;
-	static DuckEngine DuckEngine;
+	static DuckEngine Engine;
 	static std::unordered_map<std::string, std::string> GlobalVariables;
 	static bool GamepadDown;
 	static bool GameCleared;
@@ -42,4 +42,3 @@ public:
 	static void SetGlobalVariable(const std::string& key, const std::string& value);
 	static std::string GetGlobalVariable(const std::string& key);
 };
-

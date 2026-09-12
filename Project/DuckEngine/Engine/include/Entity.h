@@ -19,6 +19,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #pragma once
 #include <bitset>
 #include <iostream>
+#include <memory>
+#include <vector>
 
 // Export/Import macro
 #ifdef DUCKENGINE_EXPORTS

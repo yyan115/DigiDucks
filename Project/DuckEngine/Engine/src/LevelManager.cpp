@@ -21,8 +21,11 @@
 #include "Prefab.h"
 #include "PrefabManager.h"
 #include "ComponentFactory.h"
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <commdlg.h>
+#endif
 #include <string>
 #include <filesystem>
 
@@ -211,6 +214,7 @@ void LevelManager::LoadLevel(const std::string& levelName)
 *
 ***************************************************************/
 std::string LevelManager::OpenFileDialog(const std::string& fileType) {
+#ifdef _WIN32
 	wchar_t fileName[260] = L"";
 	wchar_t defExt[10];
 
@@ -249,6 +253,10 @@ std::string LevelManager::OpenFileDialog(const std::string& fileType) {
 		return std::string(narrowFileName);
 	}
 	return "";
+#else
+	(void)fileType;
+	return "";
+#endif
 }
 
 /****************************************************************
@@ -451,4 +459,3 @@ void LevelManager::DeserializeScene(const std::string& sceneName, const nlohmann
 
 	LoadLevelEditor(scenePath);
 }
-

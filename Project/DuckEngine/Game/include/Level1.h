@@ -28,7 +28,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "RestockLogic.h"
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
-#include "GamesettingsLogic.h"
+#include "GameSettingsLogic.h"
 #include "MiniGameLogic.h"
 
 class Level1 : public Scene

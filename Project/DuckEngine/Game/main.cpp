@@ -14,15 +14,61 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include <thread>
 #include <chrono>
+#include <cstdlib>
+#include <filesystem>
+
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#ifdef _MSC_VER
+#include <crtdbg.h>
+#endif
+#endif
+
+static void ConfigureSmokeTestEnvironment(bool smokeTest)
+{
+	if (!smokeTest)
+	{
+		return;
+	}
+#ifdef _WIN32
+	_putenv_s("QUACK_KITCHEN_SMOKE_TEST", "1");
+#else
+	setenv("QUACK_KITCHEN_SMOKE_TEST", "1", 1);
+#endif
+}
 
 #include "GameManager.h"
 #include "AssetManager.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ProjectSettings.h"
+#include "PlatformPaths.h"
+#include "SaveLoadManager.h"
 
 static GameManager gManager;
 
+#ifdef _WIN32
+static bool IsSmokeTest(const char* commandLine)
+{
+	return commandLine &&
+		std::string(commandLine).find("--smoke-test") != std::string::npos;
+}
+#else
+static bool IsSmokeTest(int argumentCount, char* arguments[])
+{
+	for (int index = 1; index < argumentCount; ++index)
+	{
+		if (std::string(arguments[index]) == "--smoke-test")
+		{
+			return true;
+		}
+	}
+	return false;
+}
+#endif
+
+#ifdef _WIN32
 void EnableConsole()
 {
 	AllocConsole();
@@ -32,35 +78,70 @@ void EnableConsole()
 	freopen_s(&fp, "CONIN$", "r", stdin);
 
 }
+#endif
 
+#ifdef _WIN32
 int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow)
+#else
+int main(int argumentCount, char* arguments[])
+#endif
 {
-#ifdef _DEBUG
+#if defined(_WIN32) && defined(_DEBUG)
 	EnableConsole();
 #endif
 
+#ifdef _WIN32
 	(void)hInstance;
 	(void)hPrevInstance;
-	(void)lpCmdLine;
 	(void)nCmdShow;
+	const bool smokeTest = IsSmokeTest(lpCmdLine);
+#else
+	const bool smokeTest = IsSmokeTest(argumentCount, arguments);
+#endif
 
+#if defined(_MSC_VER) && defined(_DEBUG)
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	gManager.DuckEngine.Initialize();
+#endif
+	ConfigureSmokeTestEnvironment(smokeTest);
+
+	PlatformPaths::UseRuntimeDirectory();
+	const std::filesystem::path userDataDirectory =
+		PlatformPaths::GetUserDataDirectory();
+	if (!userDataDirectory.empty())
+	{
+		const std::filesystem::path userSave = userDataDirectory / "save.json";
+		const std::filesystem::path legacySave = "Resources/save.json";
+		std::error_code migrationError;
+		if (!std::filesystem::exists(userSave) &&
+			std::filesystem::exists(legacySave))
+		{
+			std::filesystem::copy_file(
+				legacySave, userSave,
+				std::filesystem::copy_options::skip_existing,
+				migrationError);
+		}
+		SaveLoadManager::SetSavePath(userSave.string());
+	}
+	gManager.Engine.Initialize();
 
 	gManager.InitScenes();
 	gManager.SetActiveScene(ProjectSettings::GetStartLevel());
-	gManager.DuckEngine.SetupSystems();
+	gManager.Engine.SetupSystems();
 
 	// load all assets before game loop starts
 	AssetManager::LoadAll();
 
-	DuckEngine::ToggleFullScreen();
+	if (!smokeTest)
+	{
+		DuckEngine::ToggleFullScreen();
+	}
 
-	while (gManager.DuckEngine.Running())
+	int smokeTestFrames = 0;
+	while (gManager.Engine.Running())
 	{
 		double frameStartTime = DuckEngine::GetGLFWTime();
 
@@ -72,18 +153,23 @@ int WINAPI WinMain(
 		}
 
 		gManager.Update();
-		gManager.DuckEngine.Update();
+		gManager.Engine.Update();
 #ifdef _DEBUG
 		DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 #else
 		DuckEngine::SetWindowTitle("Quack Kitchen");
 #endif
 		
-		gManager.DuckEngine.StartDraw();
+		gManager.Engine.StartDraw();
 
-		gManager.DuckEngine.Draw();
+		gManager.Engine.Draw();
 
-		gManager.DuckEngine.EndDraw();
+		gManager.Engine.EndDraw();
+
+		if (smokeTest && ++smokeTestFrames >= 30)
+		{
+			gManager.Engine.CloseWindow();
+		}
 
 
 		static double accumulatedError = 0.0;
@@ -129,7 +215,7 @@ int WINAPI WinMain(
 		//THROW_EXCEPTION("Test Error");
 	}
 
-	gManager.DuckEngine.Exit();
+	gManager.Engine.Exit();
 
 	return 0;
 }

@@ -21,7 +21,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <windows.h>
 #include "Vector2.h"
 
 typedef int GLint;

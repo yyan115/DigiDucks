@@ -23,7 +23,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CustomerLogic.h"
 #include "CustomerLogic.h"
 #include "PauseMenuLogic.h"
-#include "GamesettingsLogic.h"
+#include "GameSettingsLogic.h"
 #include "CutSceneLogic.h"
 #include <tuple>
 

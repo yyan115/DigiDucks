@@ -70,7 +70,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Intro.h"
 
 
-DuckEngine GameManager::DuckEngine;
+DuckEngine GameManager::Engine;
 
 std::string GameManager::ActiveSceneName = "SpriteMovementScene";
 bool GameManager::ShouldChangeScene = false;
@@ -86,18 +86,18 @@ bool GameManager::GameCleared = false;
  * ****************************************************************/
 void GameManager::InitScenes()
 {
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("HowToPlay", std::make_shared<HowToPlay>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<Level1>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level1", std::make_shared<Level1>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level1_5", std::make_shared<Level1_5>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2", std::make_shared<Level2>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level2_5", std::make_shared<Level2_5>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3", std::make_shared<Level3>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Level3_5", std::make_shared<Level3_5>());
-	DuckEngine.DUCKENGINE_SceneManager.AddScene("Intro", std::make_shared<Intro>());
+	Engine.DUCKENGINE_SceneManager.AddScene("MainMenu", std::make_shared<MainMenu>());
+	Engine.DUCKENGINE_SceneManager.AddScene("HowToPlay", std::make_shared<HowToPlay>());
+	Engine.DUCKENGINE_SceneManager.AddScene("GameScene", std::make_shared<Level1>());
+	Engine.DUCKENGINE_SceneManager.AddScene("EndScene", std::make_shared<EndScene>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level0", std::make_shared<Level0>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level1", std::make_shared<Level1>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level1_5", std::make_shared<Level1_5>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level2", std::make_shared<Level2>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level2_5", std::make_shared<Level2_5>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level3", std::make_shared<Level3>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Level3_5", std::make_shared<Level3_5>());
+	Engine.DUCKENGINE_SceneManager.AddScene("Intro", std::make_shared<Intro>());
 
 	// add game logic
 	GameLogicManager::AddLogic("MovementLogic", std::make_shared<MovementLogic>());
@@ -152,7 +152,7 @@ void GameManager::Update()
 {
 	if (ShouldChangeScene)
 	{
-		DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
 		ShouldChangeScene = false;
 	}
 }
@@ -170,7 +170,7 @@ void GameManager::SetActiveScene(std::string sceneName, bool transition)
 	}
 	else
 	{
-		DuckEngine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
 	}
 }
 

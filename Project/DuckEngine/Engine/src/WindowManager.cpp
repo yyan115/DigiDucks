@@ -15,12 +15,15 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include <iostream>
+#include <cstdlib>
 
 #include "GraphicsManager.h"
 #include "WindowManager.h"
 #include "DuckEngine.h"
 
-#define UNREFERENCED_PARAMETER(P) (P)
+#ifndef UNREFERENCED_PARAMETER
+#define UNREFERENCED_PARAMETER(P) (void)(P)
+#endif
 
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 GLint WindowManager::width;
@@ -73,6 +76,10 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
     glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
+
+    if (std::getenv("QUACK_KITCHEN_SMOKE_TEST")) {
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    }
 
     // Create window and check if success
     ptrWindow = glfwCreateWindow(width, height, title, NULL, NULL);

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "quack-kitchen",
+  "version-semver": "1.0.0",
+  "builtin-baseline": "2d6a6cf3ac9a7cc93942c3d289a2f9c661a6f4a7",
+  "dependencies": [
+    "freetype",
+    "glew",
+    "glfw3"
+  ]
+}

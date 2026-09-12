@@ -15,8 +15,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "AssetManager.h"
 #include "SoundSystem.h"
 #include "SoundComponent.h"
-#include "SceneWindow.h"
 #include "ProjectSettings.h"
+#include <cstdlib>
 #include <iostream>
 #include <thread>
 
@@ -33,6 +33,10 @@ void SoundSystem::Start() {
         if (result != FMOD_OK) {
             std::cerr << "FMOD system creation failed with error code: " << result << std::endl;
             return;
+        }
+
+        if (std::getenv("QUACK_KITCHEN_SMOKE_TEST")) {
+            AssetManager::GetFMODSystem()->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
         }
 
         result = AssetManager::GetFMODSystem()->init(512, FMOD_INIT_NORMAL, 0);  // Initialize FMOD

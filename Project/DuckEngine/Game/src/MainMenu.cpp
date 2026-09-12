@@ -142,7 +142,7 @@ void MainMenu::Load()
 		{ 
 			if (!isFadingOut)
 			{
-				QuitSound->Play(1); GameManager::DuckEngine.CloseWindow();
+				QuitSound->Play(1); GameManager::Engine.CloseWindow();
 			}
 		};
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay").get();
@@ -593,7 +593,7 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			QuitSound->Play(1);
-			GameManager::DuckEngine.CloseWindow();
+			GameManager::Engine.CloseWindow();
 		}
 		break;
 
