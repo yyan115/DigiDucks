@@ -46,23 +46,35 @@ def main() -> int:
     arguments = parser.parse_args()
 
     stage = arguments.stage.resolve()
+    appdir = (
+        arguments.platform == "linux"
+        and stage.name == "bin"
+        and stage.parent.name == "usr"
+        and (stage.parent.parent / "AppRun").is_file()
+    )
+    release_root = stage.parent.parent if appdir else stage
+    library_root = stage.parent / "lib" if appdir else stage
     repository = Path(__file__).resolve().parents[1]
     source_resources = repository / "Project" / "DuckEngine" / "Resources"
     staged_resources = stage / "Resources"
     errors: list[str] = []
 
     expected_top_level = ["Quack Kitchen.exe", "DuckEngine.dll", "fmod.dll"]
+    expected_libraries: tuple[str, ...] = ()
     if arguments.platform == "linux":
-        expected_top_level = [
-            "Quack Kitchen",
-            "libDuckEngine.so",
-            "libfmod.so.14",
-            "libfmod.so.14.9",
-        ]
+        expected_top_level = ["Quack Kitchen"]
+        expected_libraries = ("libDuckEngine.so", "libfmod.so.14")
+        if not appdir:
+            expected_top_level.extend(expected_libraries)
 
     for name in expected_top_level:
         if not (stage / name).is_file():
             errors.append(f"missing runtime file: {name}")
+
+    if appdir:
+        for name in expected_libraries:
+            if not (library_root / name).is_file():
+                errors.append(f"missing runtime library: {name}")
 
     allowed_top_level = set(expected_top_level) | {"Licenses", "Resources"}
     if arguments.platform == "linux":
@@ -131,7 +143,7 @@ def main() -> int:
     for unexpected in sorted(actual_resources - expected_resources):
         errors.append(f"unexpected packaged resource: Resources/{unexpected}")
 
-    files = [path for path in stage.rglob("*") if path.is_file()]
+    files = [path for path in release_root.rglob("*") if path.is_file()]
     install_size = sum(path.stat().st_size for path in files)
     if install_size >= MAX_INSTALL_SIZE:
         errors.append(
@@ -139,12 +151,16 @@ def main() -> int:
         )
     for path in files:
         if path.suffix.lower() in FORBIDDEN_SUFFIXES:
-            errors.append(f"development file in release: {path.relative_to(stage)}")
+            errors.append(
+                f"development file in release: {path.relative_to(release_root)}"
+            )
         if any(
             part.lower() in FORBIDDEN_DIRECTORY_NAMES
-            for part in path.relative_to(stage).parts[:-1]
+            for part in path.relative_to(release_root).parts[:-1]
         ):
-            errors.append(f"development directory in release: {path.relative_to(stage)}")
+            errors.append(
+                f"development directory in release: {path.relative_to(release_root)}"
+            )
 
     if errors:
         print("Release verification failed:", file=sys.stderr)

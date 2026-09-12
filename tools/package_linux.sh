@@ -12,6 +12,13 @@ output_file="$package_directory/Quack_Kitchen-1.0.0-x86_64.AppImage"
 cmake -E remove_directory "$app_directory"
 cmake -E make_directory "$app_directory/usr/bin"
 cmake --install "$build_directory" --prefix "$app_directory/usr/bin" --strip
+cmake -E make_directory "$app_directory/usr/lib"
+cmake -E rename \
+  "$app_directory/usr/bin/libDuckEngine.so" \
+  "$app_directory/usr/lib/libDuckEngine.so"
+cmake -E rename \
+  "$app_directory/usr/bin/libfmod.so.14" \
+  "$app_directory/usr/lib/libfmod.so.14"
 
 install -Dm755 "$repository_directory/packaging/linux/AppRun" "$app_directory/AppRun"
 install -Dm755 "$repository_directory/packaging/linux/quack-kitchen" "$app_directory/usr/bin/quack-kitchen"
@@ -25,6 +32,7 @@ convert "$repository_directory/Project/DuckEngine/Resources/GameIcon.ico[8]" \
 # The game is stripped by cmake --install above. linuxdeploy's bundled strip
 # is too old for SHT_RELR sections used by current distributions, while the
 # system libraries it copies are already stripped by their distributors.
+LD_LIBRARY_PATH="$app_directory/usr/lib" \
 NO_STRIP=1 LDAI_OUTPUT="$output_file" "$linuxdeploy_command" \
   --appdir "$app_directory" \
   --desktop-file "$app_directory/edu.digipen.quackkitchen.desktop" \

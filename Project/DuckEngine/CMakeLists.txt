@@ -178,6 +178,5 @@ if(WIN32)
 elseif(UNIX AND NOT APPLE)
     install(FILES
         "${QUACK_KITCHEN_FMOD_ROOT}/lib/x64/libfmod.so.14"
-        "${QUACK_KITCHEN_FMOD_ROOT}/lib/x64/libfmod.so.14.9"
         DESTINATION .)
 endif()
