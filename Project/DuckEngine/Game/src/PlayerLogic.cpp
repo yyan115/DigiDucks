@@ -78,7 +78,10 @@ void PlayerLogic::Start()
 		boxCollider->SetCollisionCallback([this](int otherEntityID)
 			{
 				interactObject = DuckEngine::DUCKENGINE_EntityManager.GetEntity(otherEntityID).get();
-				if (interactObject)
+				if (!interactObject)
+				{
+					return;
+				}
 				{
 					auto highlightLogic = GameLogicManager::GetLogicForEntity<HighlightLogic>(interactObject->entityID);
 					if (highlightLogic)

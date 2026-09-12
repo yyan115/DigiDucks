@@ -663,10 +663,21 @@ void MainMenu::CreateComplianceMenus()
 
 void MainMenu::ShowCredits(bool show)
 {
-	DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(creditsScreen->entityID)->isVisible = show;
-	DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = !show;
+	if (!creditsScreen || !mainMenuScreen)
+	{
+		return;
+	}
+
+	if (auto* creditsRenderer = DuckEngine::DUCKENGINE_ComponentManager
+		.GetComponent<SpriteRendererComponent>(creditsScreen->entityID))
+	{
+		creditsRenderer->isVisible = show;
+	}
+	if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+		.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+	{
+		menuRenderer->isVisible = !show;
+	}
 
 	if (!show && isUsingController)
 	{
@@ -676,10 +687,21 @@ void MainMenu::ShowCredits(bool show)
 
 void MainMenu::ShowQuitConfirmation(bool show)
 {
-	DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(quitConfirmScreen->entityID)->isVisible = show;
-	DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = !show;
+	if (!quitConfirmScreen || !mainMenuScreen)
+	{
+		return;
+	}
+
+	if (auto* confirmationRenderer = DuckEngine::DUCKENGINE_ComponentManager
+		.GetComponent<SpriteRendererComponent>(quitConfirmScreen->entityID))
+	{
+		confirmationRenderer->isVisible = show;
+	}
+	if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+		.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+	{
+		menuRenderer->isVisible = !show;
+	}
 
 	quitConfirmationSelectsYes = false;
 	quitConfirmYesRenderer->texture = quitConfirmYesTexture;
@@ -1019,8 +1041,19 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			StartSound->Play(1);
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			if (levelSelectScreen && mainMenuScreen)
+			{
+				if (auto* levelRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID))
+				{
+					levelRenderer->isVisible = true;
+				}
+				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+				{
+					menuRenderer->isVisible = false;
+				}
+			}
 		}
 		break;
 
@@ -1028,8 +1061,19 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			HtpSound->Play(1);
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = true;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			if (HTPScreen && mainMenuScreen)
+			{
+				if (auto* howToPlayRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(HTPScreen->entityID))
+				{
+					howToPlayRenderer->isVisible = true;
+				}
+				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+				{
+					menuRenderer->isVisible = false;
+				}
+			}
 		}
 		break;
 
