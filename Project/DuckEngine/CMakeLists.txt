@@ -133,6 +133,13 @@ target_compile_definitions(QuackKitchen PRIVATE
     QUACK_KITCHEN_VERSION="${PROJECT_VERSION}")
 
 if(BUILD_TESTING)
+	add_executable(QuackKitchenCustomerQueueTests
+		Game/tests/CustomerQueuePolicyTests.cpp)
+	target_include_directories(QuackKitchenCustomerQueueTests PRIVATE
+		"${CMAKE_CURRENT_SOURCE_DIR}/Game/include")
+	add_test(NAME QuackKitchen.CustomerQueuePolicy
+		COMMAND QuackKitchenCustomerQueueTests)
+
     add_executable(QuackKitchenSaveTests
         Game/tests/SaveLoadManagerTests.cpp
         Game/src/SaveLoadManager.cpp)

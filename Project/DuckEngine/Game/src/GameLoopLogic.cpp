@@ -32,8 +32,32 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "CustomerLogic.h"
 #include "Emitter.h"
 #include "CustomerStateManager.h"
+#include "CustomerQueuePolicy.h"
 
 #include "CustomerTableLogic.h"
+
+namespace
+{
+	bool IsCounterPathOccupied(const std::vector<CustomerLogic*>& customers)
+	{
+		std::vector<CustomerQueuePolicy::Status> statuses;
+		statuses.reserve(customers.size());
+		for (const CustomerLogic* customer : customers)
+		{
+			const CustomerWalkState* walkState = customer->WalkState.get();
+			statuses.push_back({
+				customer->stateMachine.currentState == customer->WaitingOrderState &&
+					!customer->WaitingOrderState->GetIsOrderTaken(),
+				customer->stateMachine.currentState == customer->WalkState,
+				walkState->isOrderTaken,
+				walkState->customerAngryLeave,
+				walkState->currentTargetIndex,
+				walkState->queueTargets.size()
+			});
+		}
+		return CustomerQueuePolicy::IsCounterPathOccupied(statuses);
+	}
+}
 
 Entity* duck = nullptr;
 TransformComponent* duckTrans = nullptr;
@@ -432,32 +456,8 @@ void GameLoopLogic::Update()
 			}
 			else
 			{
-				bool counterPathOccupied = false;
-
 				// Do not start another customer until the path to the counter is clear.
-				for (auto* customer : customers)
-				{
-					if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
-						customer->stateMachine.currentState == customer->WaitingOrderState)
-					{
-						counterPathOccupied = true;
-						break;
-					}
-
-					if (customer->stateMachine.currentState == customer->WalkState)
-					{
-						CustomerWalkState* walkState = customer->WalkState.get();
-						if (!walkState->isOrderTaken &&
-							!walkState->customerAngryLeave &&
-							walkState->currentTargetIndex < walkState->queueTargets.size())
-						{
-							counterPathOccupied = true;
-							break;
-						}
-					}
-				}
-
-				if (!counterPathOccupied)
+				if (!IsCounterPathOccupied(customers))
 				{
 					timeSinceLastCustomer = 0.0f;
 					isSpawningCustomer = true;

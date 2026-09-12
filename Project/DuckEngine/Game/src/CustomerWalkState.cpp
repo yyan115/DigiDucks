@@ -26,6 +26,30 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLoopLogic.h"
 #include "OrderTabLogic.h"
 #include "SubmitLogic.h"
+#include "CustomerQueuePolicy.h"
+
+namespace
+{
+	bool IsCounterPathOccupied(const std::vector<CustomerLogic*>& customers)
+	{
+		std::vector<CustomerQueuePolicy::Status> statuses;
+		statuses.reserve(customers.size());
+		for (const CustomerLogic* customer : customers)
+		{
+			const CustomerWalkState* walkState = customer->WalkState.get();
+			statuses.push_back({
+				customer->stateMachine.currentState == customer->WaitingOrderState &&
+					!customer->WaitingOrderState->GetIsOrderTaken(),
+				customer->stateMachine.currentState == customer->WalkState,
+				walkState->isOrderTaken,
+				walkState->customerAngryLeave,
+				walkState->currentTargetIndex,
+				walkState->queueTargets.size()
+			});
+		}
+		return CustomerQueuePolicy::IsCounterPathOccupied(statuses);
+	}
+}
 
 //Entity* customerSeatEntity = nullptr;
 SoundComponent* customerSounds = nullptr;
@@ -40,6 +64,9 @@ CustomerWalkState::CustomerWalkState(CustomerLogic* customerLogicOwner)
 void CustomerWalkState::Enter()
 {
 	std::cout << "Customer enters Walk State" << std::endl;
+	queueTargets.clear();
+	waitTargets.clear();
+	leaveTargets.clear();
 
 	// Get all entities
 	auto& entities = DuckEngine::DUCKENGINE_EntityManager.GetEntities();
@@ -277,29 +304,7 @@ void CustomerWalkState::FixedUpdate()
 			{
 				if (gameLoop && !gameLoop->isSpawningCustomer)
 				{
-					bool counterPathOccupied = false;
-					for (auto* customer : gameLoop->customers)
-					{
-						if (customer->stateMachine.currentState == customer->WaitingOrderState)
-						{
-							counterPathOccupied = true;
-							break;
-						}
-
-						if (customer->stateMachine.currentState == customer->WalkState)
-						{
-							CustomerWalkState* walkState = customer->WalkState.get();
-							if (!walkState->isOrderTaken &&
-								!walkState->customerAngryLeave &&
-								walkState->currentTargetIndex < walkState->queueTargets.size())
-							{
-								counterPathOccupied = true;
-								break;
-							}
-						}
-					}
-
-					if (!counterPathOccupied)
+					if (!IsCounterPathOccupied(gameLoop->customers))
 					{
 						gameLoop->isSpawningCustomer = true;
 						gameLoop->timeSinceLastCustomer = 0.0f;
