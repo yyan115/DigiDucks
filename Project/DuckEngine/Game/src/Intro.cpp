@@ -30,19 +30,23 @@ void Intro::Load()
 	fadeScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FadeScreen").get();
 	logo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo").get();
 	logo2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo2").get();
+	fmodLogo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FMODLogo").get();
 
 	fadeRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fadeScreen->entityID);
 	logoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo->entityID);
 	logo2Renderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo2->entityID);
+	fmodLogoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fmodLogo->entityID);
 
 	fadeRenderer->color.a = 255;
 	fadeRenderer->isVisible = true;
 
 	logoRenderer->isVisible = true;
 	logo2Renderer->isVisible = false;
+	fmodLogoRenderer->isVisible = false;
 
 	logoRenderer->color.a = 0;
 	logo2Renderer->color.a = 0;
+	fmodLogoRenderer->color.a = 0;
 
 	phaseTimer = 0.0f;
 	currentPhase = IntroPhase::FADE_IN_LOGO;
@@ -80,8 +84,24 @@ void Intro::Update()
 
 	if (skipRequested)
 	{
-		currentPhase = IntroPhase::COMPLETE;
-		GameManager::SetActiveScene("MainMenu");
+		if (currentPhase == IntroPhase::FADE_IN_LOGO ||
+			currentPhase == IntroPhase::SHOW_LOGO ||
+			currentPhase == IntroPhase::FADE_OUT_LOGO)
+		{
+			logoRenderer->isVisible = false;
+			logo2Renderer->isVisible = true;
+			fmodLogoRenderer->isVisible = true;
+			logo2Renderer->color.a = 255;
+			fmodLogoRenderer->color.a = 255;
+			fadeRenderer->color.a = 0;
+			phaseTimer = 0.0f;
+			currentPhase = IntroPhase::SHOW_LOGO2;
+		}
+		else
+		{
+			currentPhase = IntroPhase::COMPLETE;
+			GameManager::SetActiveScene("MainMenu");
+		}
 		return;
 	}
 
@@ -112,15 +132,18 @@ void Intro::Update()
 		if (phaseTimer >= fadeDuration) {
 			logoRenderer->isVisible = false;
 			logo2Renderer->isVisible = true;
+			fmodLogoRenderer->isVisible = true;
 			phaseTimer = 0.0f;
 			currentPhase = IntroPhase::FADE_IN_LOGO2;
 			logo2Renderer->color.a = 0;
+			fmodLogoRenderer->color.a = 0;
 		}
 		break;
 
 	case IntroPhase::FADE_IN_LOGO2:
 		fadeRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
 		logo2Renderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
+		fmodLogoRenderer->color.a = logo2Renderer->color.a;
 		if (phaseTimer >= fadeDuration) {
 			phaseTimer = 0.0f;
 			currentPhase = IntroPhase::SHOW_LOGO2;
@@ -138,6 +161,7 @@ void Intro::Update()
 	case IntroPhase::FADE_OUT_LOGO2:
 		fadeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
 		logo2Renderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
+		fmodLogoRenderer->color.a = logo2Renderer->color.a;
 		if (phaseTimer >= fadeDuration) {
 			currentPhase = IntroPhase::COMPLETE;
 			GameManager::SetActiveScene("MainMenu");

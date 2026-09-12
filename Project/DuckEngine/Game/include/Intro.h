@@ -60,8 +60,10 @@ private:
 	Entity* fadeScreen = nullptr;
 	Entity* logo = nullptr;
 	Entity* logo2 = nullptr;
+	Entity* fmodLogo = nullptr;
 	SpriteRendererComponent* fadeRenderer = nullptr;
 	SpriteRendererComponent* logoRenderer = nullptr;
 	SpriteRendererComponent* logo2Renderer = nullptr;
+	SpriteRendererComponent* fmodLogoRenderer = nullptr;
 
 };
