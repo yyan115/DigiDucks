@@ -132,6 +132,16 @@ target_link_libraries(QuackKitchen PRIVATE DuckEngine)
 target_compile_definitions(QuackKitchen PRIVATE
     QUACK_KITCHEN_VERSION="${PROJECT_VERSION}")
 
+if(BUILD_TESTING)
+    add_executable(QuackKitchenSaveTests
+        Game/tests/SaveLoadManagerTests.cpp
+        Game/src/SaveLoadManager.cpp)
+    target_include_directories(QuackKitchenSaveTests PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/Game/include")
+    target_link_libraries(QuackKitchenSaveTests PRIVATE DuckEngine)
+    add_test(NAME QuackKitchen.SaveRecovery COMMAND QuackKitchenSaveTests)
+endif()
+
 if(MSVC)
     target_compile_options(QuackKitchen PRIVATE /W4 /permissive-)
 else()

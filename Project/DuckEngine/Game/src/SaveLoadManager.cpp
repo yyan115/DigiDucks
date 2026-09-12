@@ -21,7 +21,118 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "SaveLoadManager.h"
 #include "ProjectSettings.h"
+#include <algorithm>
+#include <cmath>
 #include <iostream>
+#include <stdexcept>
+
+namespace
+{
+	constexpr int MinimumSavedLevel = -1;
+	constexpr int MaximumSavedLevel = 5;
+	constexpr int MinimumTargetFPS = 0;
+	constexpr int MaximumTargetFPS = 240;
+
+	const nlohmann::json* FindObject(
+		const nlohmann::json& parent, const char* key, bool& repaired)
+	{
+		const auto value = parent.find(key);
+		if (value == parent.end() || !value->is_object())
+		{
+			repaired = true;
+			return nullptr;
+		}
+		return &*value;
+	}
+
+	float ReadVolume(
+		const nlohmann::json* object, const char* key, float fallback,
+		bool& repaired)
+	{
+		if (!object)
+		{
+			return fallback;
+		}
+
+		const auto value = object->find(key);
+		if (value == object->end() || !value->is_number())
+		{
+			repaired = true;
+			return fallback;
+		}
+
+		try
+		{
+			const double loadedValue = value->get<double>();
+			if (!std::isfinite(loadedValue))
+			{
+				repaired = true;
+				return fallback;
+			}
+
+			const float clampedValue = static_cast<float>(
+				std::clamp(loadedValue, 0.0, 1.0));
+			repaired |= loadedValue != clampedValue;
+			return clampedValue;
+		}
+		catch (const std::exception&)
+		{
+			repaired = true;
+			return fallback;
+		}
+	}
+
+	int ReadInteger(
+		const nlohmann::json* object, const char* key, int fallback,
+		int minimum, int maximum, bool& repaired)
+	{
+		if (!object)
+		{
+			return fallback;
+		}
+
+		const auto value = object->find(key);
+		if (value == object->end() ||
+			(!value->is_number_integer() && !value->is_number_unsigned()))
+		{
+			repaired = true;
+			return fallback;
+		}
+
+		try
+		{
+			const long long loadedValue = value->get<long long>();
+			const long long clampedValue = std::clamp(
+				loadedValue, static_cast<long long>(minimum),
+				static_cast<long long>(maximum));
+			repaired |= loadedValue != clampedValue;
+			return static_cast<int>(clampedValue);
+		}
+		catch (const std::exception&)
+		{
+			repaired = true;
+			return fallback;
+		}
+	}
+
+	bool ReadBoolean(
+		const nlohmann::json* object, const char* key, bool fallback,
+		bool& repaired)
+	{
+		if (!object)
+		{
+			return fallback;
+		}
+
+		const auto value = object->find(key);
+		if (value == object->end() || !value->is_boolean())
+		{
+			repaired = true;
+			return fallback;
+		}
+		return value->get<bool>();
+	}
+}
 
 // Initialize static members
 std::string SaveLoadManager::savePath = "Resources/save.json";
@@ -87,32 +198,56 @@ bool SaveLoadManager::LoadGame()
 		return true;
 	}
 
-	nlohmann::json saveData = Serialization::LoadJsonFile(savePath);
-
-	// Load volume settings into static variables
-	masterVolume = saveData["volume"]["master"];
-	musicVolume = saveData["volume"]["music"];
-	sfxVolume = saveData["volume"]["sfx"];
-
-	// Load current level into static variable
-	currentLevel = saveData["currentLevel"];
-
-	// Load video settings
-	if (saveData.contains("video")) {
-		if (saveData["video"].contains("targetFPS")) {
-			targetFPS = saveData["video"]["targetFPS"];
+	try
+	{
+		const nlohmann::json saveData = Serialization::LoadJsonFile(savePath);
+		if (!saveData.is_object())
+		{
+			throw std::runtime_error("save root must be a JSON object");
 		}
-		if (saveData["video"].contains("useVSync")) {
-			useVSync = saveData["video"]["useVSync"];
-		}
-	}
-	else {
-		// If video settings don't exist in save file, use ProjectSettings
-		targetFPS = ProjectSettings::GetTargetFPS();
-		useVSync = ProjectSettings::GetUseVSync();
-	}
 
-	return true;
+		bool repaired = false;
+		const nlohmann::json* volume = FindObject(saveData, "volume", repaired);
+		const nlohmann::json* video = FindObject(saveData, "video", repaired);
+
+		// Read into locals so one bad field cannot leave half-applied settings.
+		const float loadedMasterVolume = ReadVolume(
+			volume, "master", ProjectSettings::GetMasterVolume(), repaired);
+		const float loadedMusicVolume = ReadVolume(
+			volume, "music", ProjectSettings::GetVolumeCategory("BGM"), repaired);
+		const float loadedSfxVolume = ReadVolume(
+			volume, "sfx", ProjectSettings::GetVolumeCategory("SFX"), repaired);
+		const int loadedCurrentLevel = ReadInteger(
+			&saveData, "currentLevel", MinimumSavedLevel,
+			MinimumSavedLevel, MaximumSavedLevel, repaired);
+		const int loadedTargetFPS = ReadInteger(
+			video, "targetFPS", ProjectSettings::GetTargetFPS(),
+			MinimumTargetFPS, MaximumTargetFPS, repaired);
+		const bool loadedUseVSync = ReadBoolean(
+			video, "useVSync", ProjectSettings::GetUseVSync(), repaired);
+
+		masterVolume = loadedMasterVolume;
+		musicVolume = loadedMusicVolume;
+		sfxVolume = loadedSfxVolume;
+		currentLevel = loadedCurrentLevel;
+		targetFPS = loadedTargetFPS;
+		useVSync = loadedUseVSync;
+
+		if (repaired)
+		{
+			std::cerr << "Save data was incomplete or invalid; repaired "
+				"values will be written to: " << savePath << std::endl;
+			SaveGame();
+		}
+		return true;
+	}
+	catch (const std::exception& e)
+	{
+		std::cerr << "Could not load save data from " << savePath << ": "
+			<< e.what() << ". Restoring defaults." << std::endl;
+		CreateNewSaveFile();
+		return false;
+	}
 }
 
 void SaveLoadManager::CreateNewSaveFile()
