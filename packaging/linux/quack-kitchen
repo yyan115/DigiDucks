@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+EXECUTABLE_DIRECTORY=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec "$EXECUTABLE_DIRECTORY/Quack Kitchen" "$@"
