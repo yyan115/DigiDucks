@@ -87,9 +87,9 @@ supported path for reproducible release builds.
 
 - `tools/validate_assets.py` checks serialized and source-code asset paths,
   including case-sensitive Linux paths.
-- `tools/validate_gallery.py` protects the automatable DigiPen Game Gallery
-  requirements and links them to the detailed
-  [readiness matrix](docs/GAME_GALLERY_READINESS.md).
+- DigiPen Game Gallery work is deliberately deferred until after the
+  resume/Linux/release foundation is accepted; it is not currently enforced
+  by CI.
 - `tools/verify_release.py` checks staged Windows/Linux runtime contents,
   licensing files, development-file exclusions, and the 500 MiB installed-size
   limit.
