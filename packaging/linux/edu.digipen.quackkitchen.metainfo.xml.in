@@ -24,6 +24,6 @@
   <url type="bugtracker">https://github.com/yyan115/DigiDucks/issues</url>
   <url type="vcs-browser">https://github.com/yyan115/DigiDucks</url>
   <releases>
-    <release version="1.0.0" date="2026-09-12" />
+    <release version="@PROJECT_VERSION@" date="@QUACK_KITCHEN_RELEASE_DATE@" />
   </releases>
 </component>

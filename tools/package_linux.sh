@@ -5,9 +5,18 @@ repository_directory=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 build_directory=${1:-"$repository_directory/Build/linux-release"}
 package_directory=${2:-"$repository_directory/Build/linux-package"}
 linuxdeploy_command=${LINUXDEPLOY:-linuxdeploy}
+game_version=$(python3 "$repository_directory/tools/project_version.py")
 
 app_directory="$package_directory/AppDir"
-output_file="$package_directory/Quack_Kitchen-1.0.0-x86_64.AppImage"
+output_file="$package_directory/Quack_Kitchen-${game_version}-x86_64.AppImage"
+
+# CMake fills the version and release date into the AppStream metadata, so the
+# packaged copy comes from the build tree rather than the source template.
+metainfo_file="$build_directory/Project/DuckEngine/edu.digipen.quackkitchen.metainfo.xml"
+if [[ ! -f "$metainfo_file" ]]; then
+  echo "Configure the project before packaging: $metainfo_file is missing" >&2
+  exit 1
+fi
 
 cmake -E remove_directory "$app_directory"
 cmake -E make_directory "$app_directory/usr/bin"
@@ -24,7 +33,7 @@ install -Dm755 "$repository_directory/packaging/linux/AppRun" "$app_directory/Ap
 install -Dm755 "$repository_directory/packaging/linux/quack-kitchen" "$app_directory/usr/bin/quack-kitchen"
 install -Dm644 "$repository_directory/packaging/linux/edu.digipen.quackkitchen.desktop" \
   "$app_directory/edu.digipen.quackkitchen.desktop"
-install -Dm644 "$repository_directory/packaging/linux/edu.digipen.quackkitchen.metainfo.xml" \
+install -Dm644 "$metainfo_file" \
   "$app_directory/usr/share/metainfo/edu.digipen.quackkitchen.appdata.xml"
 convert "$repository_directory/Project/DuckEngine/Resources/GameIcon.ico[8]" \
   "$app_directory/edu.digipen.quackkitchen.png"

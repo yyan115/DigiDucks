@@ -150,9 +150,9 @@ jobs:
       - name: Validate and build
         run: |
           python3 tools/validate_assets.py
-          appstreamcli validate --pedantic --no-net \
-            packaging/linux/edu.digipen.quackkitchen.metainfo.xml
           cmake --preset linux-release
+          appstreamcli validate --pedantic --no-net \
+            Build/linux-release/Project/DuckEngine/edu.digipen.quackkitchen.metainfo.xml
           cmake --build --preset linux-release --parallel
           ctest --test-dir Build/linux-release --output-on-failure
 

@@ -120,6 +120,14 @@ else()
     add_executable(QuackKitchen Game/main.cpp ${QUACK_KITCHEN_GAME_SOURCES})
 endif()
 
+if(UNIX AND NOT APPLE)
+    string(TIMESTAMP QUACK_KITCHEN_RELEASE_DATE "%Y-%m-%d" UTC)
+    configure_file(
+        "${CMAKE_SOURCE_DIR}/packaging/linux/edu.digipen.quackkitchen.metainfo.xml.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/edu.digipen.quackkitchen.metainfo.xml"
+        @ONLY)
+endif()
+
 set_target_properties(QuackKitchen PROPERTIES
     OUTPUT_NAME "Quack Kitchen"
     BUILD_RPATH "$ORIGIN"
