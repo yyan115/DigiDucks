@@ -68,7 +68,27 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level3_5.h"
 #include "EndGame.h"
 #include "Intro.h"
+#include "WindowManager.h"
 
+namespace
+{
+	bool IsGameplayScene(const std::string& sceneName)
+	{
+		return sceneName == "GameScene" ||
+			sceneName == "Level0" ||
+			sceneName == "Level1" ||
+			sceneName == "Level1_5" ||
+			sceneName == "Level2" ||
+			sceneName == "Level2_5" ||
+			sceneName == "Level3" ||
+			sceneName == "Level3_5";
+	}
+
+	void ApplyCursorModeForScene(const std::string& sceneName)
+	{
+		WindowManager::SetCursorVisible(!IsGameplayScene(sceneName));
+	}
+}
 
 DuckEngine GameManager::Engine;
 
@@ -153,6 +173,8 @@ void GameManager::Update()
 	if (ShouldChangeScene)
 	{
 		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+		ApplyCursorModeForScene(
+			Engine.DUCKENGINE_SceneManager.GetActiveSceneName());
 		ShouldChangeScene = false;
 	}
 }
@@ -171,6 +193,8 @@ void GameManager::SetActiveScene(std::string sceneName, bool transition)
 	else
 	{
 		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
+		ApplyCursorModeForScene(
+			Engine.DUCKENGINE_SceneManager.GetActiveSceneName());
 	}
 }
 

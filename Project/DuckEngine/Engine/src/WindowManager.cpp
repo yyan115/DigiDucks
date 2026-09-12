@@ -34,6 +34,7 @@ const char* WindowManager::title;
 
 bool WindowManager::isFocused = true;
 bool WindowManager::isFullscreen = false;
+bool WindowManager::isCursorVisible = true;
 GLint WindowManager::windowedWidth = 1600;   // Default windowed size
 GLint WindowManager::windowedHeight = 900;  // Default windowed size
 GLint WindowManager::windowedPosX = 0;      // Default window position
@@ -121,6 +122,16 @@ void WindowManager::ToggleFullscreen() {
 void WindowManager::SetVSync(bool enabled) {
     if (ptrWindow) {
         glfwSwapInterval(enabled ? 1 : 0);
+    }
+}
+
+void WindowManager::SetCursorVisible(bool visible) {
+    isCursorVisible = visible;
+    if (ptrWindow && isFocused && !DuckEngine::isEditor) {
+        glfwSetInputMode(
+            ptrWindow,
+            GLFW_CURSOR,
+            visible ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_DISABLED);
     }
 }
 
@@ -279,7 +290,9 @@ void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
 		glfwSetInputMode(
 			window,
 			GLFW_CURSOR,
-			focused ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_NORMAL);
+			focused
+				? (isCursorVisible ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_DISABLED)
+				: GLFW_CURSOR_NORMAL);
 	}
 
     if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window

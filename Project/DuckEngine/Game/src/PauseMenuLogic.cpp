@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PauseMenuLogic.h"
 #include "GameManager.h"
 #include "ProjectSettings.h"
+#include "WindowManager.h"
 
 namespace
 {
@@ -757,6 +758,7 @@ void PauseMenuLogic::PauseGame(bool state)
 	isPaused = state;
 	DuckEngine::PauseGame(state);
 	DuckEngine::isGamePaused = state;
+	WindowManager::SetCursorVisible(state);
 
 	std::cout << "PauseGame: " << isPaused << std::endl;
 

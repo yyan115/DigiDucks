@@ -132,6 +132,12 @@ public:
     /// </summary>
     static void SetVSync(bool enabled);
 
+    /// <summary>
+    /// Shows a confined cursor for UI or hides and locks it for gameplay.
+    /// The chosen mode is restored when the window regains focus.
+    /// </summary>
+    static void SetCursorVisible(bool visible);
+
     static void MinimizeWindow();
 
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
@@ -142,6 +148,7 @@ private:
 
     static bool isFocused;
     static bool isFullscreen;      // Tracks whether the window is fullscreen
+    static bool isCursorVisible;   // Desired cursor mode while focused
     static GLint windowedWidth;    // Saved width for windowed mode
     static GLint windowedHeight;   // Saved height for windowed mode
     static GLint windowedPosX;     // Saved X position for windowed mode
