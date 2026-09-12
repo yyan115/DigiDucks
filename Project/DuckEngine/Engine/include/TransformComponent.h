@@ -41,8 +41,10 @@ class DUCKENGINE_API TransformComponent : public Component
 		   and scale of an entity in the game engine. It also includes a flag
 		   to indicate whether the transform is relative to the camera.
 	*************************************************************************/
-	TransformComponent() : scale(1.0f, 1.0f), angle(0.0f), worldPosition(0.0f, 0.0f), relativeToCamera(true),
-		previousPosition(worldPosition), localPosition(worldPosition) {}
+	TransformComponent()
+		: angle(0.0f), scale(1.0f, 1.0f), relativeToCamera(true),
+		previousPosition(0.0f, 0.0f), localPosition(0.0f, 0.0f),
+		worldPosition(0.0f, 0.0f) {}
 	
 	/************************************************************************
 	@brief Constructor for TransformComponent with specified position and scale.
@@ -50,8 +52,9 @@ class DUCKENGINE_API TransformComponent : public Component
 	@param scaleVec2 The initial scale of the entity.
 	*************************************************************************/
 	TransformComponent(Vec2 pos, Vec2 scaleVec2)
-		: scale(scaleVec2.x, scaleVec2.y), angle(0), worldPosition(pos.x, pos.y), relativeToCamera(true),
-		previousPosition(worldPosition), localPosition(worldPosition) {
+		: angle(0.0f), scale(scaleVec2.x, scaleVec2.y), relativeToCamera(true),
+		previousPosition(pos.x, pos.y), localPosition(pos.x, pos.y),
+		worldPosition(pos.x, pos.y) {
 	};
 	
 	/************************************************************************
@@ -63,7 +66,10 @@ class DUCKENGINE_API TransformComponent : public Component
 	@param posX The x-coordinate of the entity's position.
 	@param posY The y-coordinate of the entity's position.
 	*************************************************************************/
-	TransformComponent(float scaleX, float scaleY, float angle, float posX, float posY) : scale(scaleX, scaleY), angle(angle), worldPosition(posX, posY), relativeToCamera(true), previousPosition(worldPosition) {};
+	TransformComponent(float scaleX, float scaleY, float angle, float posX, float posY)
+		: angle(angle), scale(scaleX, scaleY), relativeToCamera(true),
+		previousPosition(posX, posY), localPosition(posX, posY),
+		worldPosition(posX, posY) {};
 	
 	/************************************************************************
 	@brief Constructor for TransformComponent with references to position,
@@ -72,7 +78,9 @@ class DUCKENGINE_API TransformComponent : public Component
 	@param angle The rotation angle of the entity.
 	@param position Reference to the position vector of the entity.
 	*************************************************************************/
-	TransformComponent(Vec2& scale, float angle, Vec2& position) : scale(scale), angle(angle), worldPosition(position), relativeToCamera(true), previousPosition(position) {};
+	TransformComponent(Vec2& scale, float angle, Vec2& position)
+		: angle(angle), scale(scale), relativeToCamera(true),
+		previousPosition(position), localPosition(position), worldPosition(position) {};
 	
 	/************************************************************************
 	@brief Constructor for TransformComponent with rvalue references to
@@ -81,7 +89,9 @@ class DUCKENGINE_API TransformComponent : public Component
 	@param angle The rotation angle of the entity.
 	@param position Rvalue reference to the position vector of the entity.
 	*************************************************************************/
-	TransformComponent(Vec2&& scale, float angle, Vec2&& position) : scale(scale), angle(angle), worldPosition(position), relativeToCamera(true), previousPosition(position) {};
+	TransformComponent(Vec2&& scale, float angle, Vec2&& position)
+		: angle(angle), scale(scale), relativeToCamera(true),
+		previousPosition(position), localPosition(position), worldPosition(position) {};
 	
 	/************************************************************************
 	@brief Clones the current TransformComponent instance. This method is
