@@ -432,38 +432,32 @@ void GameLoopLogic::Update()
 			}
 			else
 			{
-				bool anyCustomerWaiting = false;
-				bool anyCustomerWalking = false;
+				bool counterPathOccupied = false;
 
-				// Check if any customer is waiting to place an order or is walking to the counter
+				// Do not start another customer until the path to the counter is clear.
 				for (auto* customer : customers)
 				{
-					// Check if any customer is in waiting state
 					if (customer->WaitingOrderState->GetIsOrderTaken() == false &&
 						customer->stateMachine.currentState == customer->WaitingOrderState)
 					{
-						anyCustomerWaiting = true;
+						counterPathOccupied = true;
 						break;
 					}
 
-					// Check if the most recently spawned customer is still walking to the counter
-					// This prevents spawning the next customer while current one is still approaching
-					if (customer->stateMachine.currentState == customer->WalkState &&
-						currentCustomerIndex > 0 && // Only for customers after the first one
-						customers[currentCustomerIndex] == customer) // Only check most recent customer
+					if (customer->stateMachine.currentState == customer->WalkState)
 					{
-						// Check if customer is walking to take the order (not leaving/going to seat)
-						if (!customer->WalkState.get()->isOrderTaken &&
-							!customer->WalkState.get()->customerAngryLeave)
+						CustomerWalkState* walkState = customer->WalkState.get();
+						if (!walkState->isOrderTaken &&
+							!walkState->customerAngryLeave &&
+							walkState->currentTargetIndex < walkState->queueTargets.size())
 						{
-							anyCustomerWalking = true;
+							counterPathOccupied = true;
 							break;
 						}
 					}
 				}
 
-				// Only spawn a new customer if no customer is waiting or walking to counter
-				if (!anyCustomerWaiting && !anyCustomerWalking)
+				if (!counterPathOccupied)
 				{
 					timeSinceLastCustomer = 0.0f;
 					isSpawningCustomer = true;

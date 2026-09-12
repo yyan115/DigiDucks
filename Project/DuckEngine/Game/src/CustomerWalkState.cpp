@@ -277,19 +277,29 @@ void CustomerWalkState::FixedUpdate()
 			{
 				if (gameLoop && !gameLoop->isSpawningCustomer)
 				{
-					// Check if any customer is currently waiting to place an order
-					bool anyCustomerWaiting = false;
+					bool counterPathOccupied = false;
 					for (auto* customer : gameLoop->customers)
 					{
 						if (customer->stateMachine.currentState == customer->WaitingOrderState)
 						{
-							anyCustomerWaiting = true;
+							counterPathOccupied = true;
 							break;
+						}
+
+						if (customer->stateMachine.currentState == customer->WalkState)
+						{
+							CustomerWalkState* walkState = customer->WalkState.get();
+							if (!walkState->isOrderTaken &&
+								!walkState->customerAngryLeave &&
+								walkState->currentTargetIndex < walkState->queueTargets.size())
+							{
+								counterPathOccupied = true;
+								break;
+							}
 						}
 					}
 
-					// Only spawn next customer if no one is waiting at the counter
-					if (!anyCustomerWaiting)
+					if (!counterPathOccupied)
 					{
 						gameLoop->isSpawningCustomer = true;
 						gameLoop->timeSinceLastCustomer = 0.0f;
@@ -299,7 +309,7 @@ void CustomerWalkState::FixedUpdate()
 					}
 					else
 					{
-						std::cout << "Not spawning next customer - someone is already at the counter!" << std::endl;
+						std::cout << "Not spawning next customer - the counter path is occupied!" << std::endl;
 					}
 				}
 			}
