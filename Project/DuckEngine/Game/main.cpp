@@ -39,7 +39,6 @@ static void ConfigureSmokeTestEnvironment(bool smokeTest)
 }
 
 #include "GameManager.h"
-#include "AssetManager.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ProjectSettings.h"
@@ -143,9 +142,6 @@ int main(int argumentCount, char* arguments[])
 	gManager.InitScenes();
 	gManager.SetActiveScene(ProjectSettings::GetStartLevel());
 	gManager.Engine.SetupSystems();
-
-	// load all assets before game loop starts
-	AssetManager::LoadAll();
 
 	int smokeTestFrames = 0;
 	while (gManager.Engine.Running())
