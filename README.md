@@ -7,7 +7,7 @@ at DigiPen Institute of Technology Singapore. Take orders, prepare each dish,
 and keep a growing line of customers happy before the day ends.
 
 The game and its custom C++ engine use OpenGL, GLFW, GLEW, FreeType, and FMOD.
-The current release target is **1.0.0** for Windows and Linux.
+Windows and Linux are the supported platforms.
 
 ## Play
 
@@ -22,11 +22,12 @@ keyboard and gamepad instructions when a controller is connected.
 
 ## Download
 
-The release workflow produces three installable packages:
+The release workflow produces three installable packages, each named after the
+release version:
 
-- `Quack_Kitchen_1.0.0_Setup.exe` — Windows 10/11 installer.
-- `Quack_Kitchen-1.0.0-x86_64.AppImage` — portable Linux application.
-- `Quack_Kitchen-1.0.0-x86_64.flatpak` — Linux Flatpak bundle.
+- `Quack_Kitchen_<version>_Setup.exe` — Windows 10/11 installer.
+- `Quack_Kitchen-<version>-x86_64.AppImage` — portable Linux application.
+- `Quack_Kitchen-<version>-x86_64.flatpak` — Linux Flatpak bundle.
 
 Published builds will be available from the repository's GitHub Releases page.
 
@@ -117,6 +118,24 @@ supported path for reproducible release builds.
   `main` push. A manual run can also publish them under a requested version
   tag after the package jobs pass.
 
+## Versioning and releases
+
+The release version is declared in exactly one place, the `project` command in
+`Project/DuckEngine/CMakeLists.txt`. The Windows executable resource, the Inno
+Setup installer, the AppImage filename, and the AppStream metadata are all
+generated from it, so no second copy can drift out of date.
+`tools/project_version.py` prints the declared version for scripts that need it.
+
+To cut a release:
+
+1. Change the version in `Project/DuckEngine/CMakeLists.txt` and commit it.
+2. Tag the commit as `v<version>` and push the tag.
+
+Pushing the tag runs the release workflow, which refuses to continue if the tag
+and the declared version disagree, then builds, verifies, and publishes all
+three packages. Pushes to `main` build and verify the same packages without
+publishing them.
+
 ## Repository layout
 
 ```text
@@ -130,8 +149,8 @@ tools/            Asset, release, and packaging checks
 Licenses/         Third-party notices and shipped-asset provenance
 ```
 
-The editor is intentionally outside the 1.0.0 release scope and is retained as
-a possible future project.
+The editor is intentionally outside the current release scope and is retained
+as a possible future project.
 
 ## Licenses and attribution
 

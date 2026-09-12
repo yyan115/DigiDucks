@@ -2,7 +2,7 @@
 
 This directory is installed beside the game executable and records the licenses
 and provenance for software, fonts, and externally sourced assets shipped with
-Quack Kitchen 1.0.0.
+Quack Kitchen.
 
 ## Software
 
