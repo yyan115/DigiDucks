@@ -216,11 +216,12 @@ std::vector<GLuint> ImageLoader::LoadSpriteSheet(const std::string& filePath,
 
 float ImageLoader::GetTextureWidth(const std::string& filePath)
 {
-    int width, height, nrChannels;
+    int width = 0;
+    int height = 0;
+    int nrChannels = 0;
 
-    stbi_info(filePath.c_str(), &width, &height, &nrChannels);
-
-    if (width == 0 || height == 0)
+    if (!stbi_info(filePath.c_str(), &width, &height, &nrChannels) ||
+        width <= 0 || height <= 0)
     {
         std::cerr << "Failed to get texture dimensions: " << filePath << std::endl;
         return 1.0f;
@@ -231,11 +232,12 @@ float ImageLoader::GetTextureWidth(const std::string& filePath)
 
 float ImageLoader::GetTextureHeight(const std::string& filePath)
 {
-    int width, height, nrChannels;
+    int width = 0;
+    int height = 0;
+    int nrChannels = 0;
 
-    stbi_info(filePath.c_str(), &width, &height, &nrChannels);
-
-    if (width == 0 || height == 0)
+    if (!stbi_info(filePath.c_str(), &width, &height, &nrChannels) ||
+        width <= 0 || height <= 0)
     {
         std::cerr << "Failed to get texture dimensions: " << filePath << std::endl;
         return 1.0f;
