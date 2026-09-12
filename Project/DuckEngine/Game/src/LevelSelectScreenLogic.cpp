@@ -534,11 +534,12 @@ void LevelSelectScreenLogic::UpdateLevelMenuSelection()
 
 		// Get joystick/dpad input for horizontal navigation
 		float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+		float rightHorizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
 		bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
 		bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
 
 		// Check for any controller input
-		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || std::abs(rightHorizontalInput) > 0.3f || dpadLeft || dpadRight ||
 			DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
 
 		// If this is the first controller input, select the first level button
@@ -553,7 +554,7 @@ void LevelSelectScreenLogic::UpdateLevelMenuSelection()
 		if (isUsingController)
 		{
 			// Navigate left
-			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft))
+			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || rightHorizontalInput < -0.3f || dpadLeft))
 			{
 				int newSelection = static_cast<int>(currentLevelSelection) - 1;
 				if (newSelection < 0)
@@ -565,7 +566,7 @@ void LevelSelectScreenLogic::UpdateLevelMenuSelection()
 				controllerNavigationCooldown = controllerNavigationDelay;
 			}
 			// Navigate right
-			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || dpadRight))
+			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || rightHorizontalInput > 0.3f || dpadRight))
 			{
 				int newSelection = (static_cast<int>(currentLevelSelection) + 1) % static_cast<int>(LevelButtonSelection::COUNT);
 				SelectLevelButton(static_cast<LevelButtonSelection>(newSelection));

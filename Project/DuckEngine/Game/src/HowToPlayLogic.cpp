@@ -119,7 +119,8 @@ void HowToPlayLogic::Update()
 	{
 		// Right joystick or d-pad for next page
 		if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT) ||
-			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) > 0.5f)
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) > 0.5f ||
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X) > 0.5f)
 		{
 			if (pageNum < 4) {
 				pageNum++;
@@ -129,7 +130,8 @@ void HowToPlayLogic::Update()
 		}
 		// Left joystick or d-pad for previous page
 		else if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT) ||
-			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) < -0.5f)
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X) < -0.5f ||
+			DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X) < -0.5f)
 		{
 			if (pageNum > 1) {
 				pageNum--;
@@ -141,4 +143,3 @@ void HowToPlayLogic::Update()
 }
 
 void HowToPlayLogic::FixedUpdate() {}
-

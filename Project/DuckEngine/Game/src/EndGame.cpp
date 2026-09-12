@@ -534,11 +534,12 @@ void EndScene::UpdateEndMenuSelection()
 
 			// Get joystick/dpad input for horizontal navigation
 			float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+			float rightHorizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
 			bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
 			bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
 
 			// Check for any controller input
-			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || std::abs(rightHorizontalInput) > 0.3f || dpadLeft || dpadRight ||
 				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
 				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START);
 
@@ -555,7 +556,7 @@ void EndScene::UpdateEndMenuSelection()
 			if (isUsingController)
 			{
 				// Navigate left/right to toggle between Next and Menu
-				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || dpadRight))
+				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || rightHorizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || rightHorizontalInput > 0.3f || dpadRight))
 				{
 					// Toggle between NEXT and MENU
 					EndButtonSelection newSelection = (currentButtonSelection == EndButtonSelection::NEXT) ?
@@ -598,11 +599,12 @@ void EndScene::UpdateEndMenuSelection()
 
 			// Get joystick/dpad input for horizontal navigation
 			float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+			float rightHorizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
 			bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
 			bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
 
 			// Check for any controller input
-			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
+			bool hasControllerInput = std::abs(horizontalInput) > 0.3f || std::abs(rightHorizontalInput) > 0.3f || dpadLeft || dpadRight ||
 				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) ||
 				DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START);
 
@@ -619,7 +621,7 @@ void EndScene::UpdateEndMenuSelection()
 			if (isUsingController)
 			{
 				// Navigate left/right to toggle between Restart and Menu
-				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || dpadRight))
+				if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || rightHorizontalInput < -0.3f || dpadLeft || horizontalInput > 0.3f || rightHorizontalInput > 0.3f || dpadRight))
 				{
 					// Toggle between RESTART and MENU
 					EndButtonSelection newSelection = (currentButtonSelection == EndButtonSelection::RESTART) ?
