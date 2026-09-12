@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Check a staged Quack Kitchen release before packaging it."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+
+MAX_INSTALL_SIZE = 500 * 1024 * 1024
+FORBIDDEN_SUFFIXES = {
+    ".cpp",
+    ".exp",
+    ".h",
+    ".hpp",
+    ".ilk",
+    ".lib",
+    ".obj",
+    ".pdb",
+    ".sln",
+    ".vcxproj",
+}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("stage", type=Path)
+    parser.add_argument("--platform", choices=("linux", "windows"), required=True)
+    arguments = parser.parse_args()
+
+    stage = arguments.stage.resolve()
+    repository = Path(__file__).resolve().parents[1]
+    source_resources = repository / "Project" / "DuckEngine" / "Resources"
+    staged_resources = stage / "Resources"
+    errors: list[str] = []
+
+    expected_top_level = ["Quack Kitchen.exe", "DuckEngine.dll", "fmod.dll"]
+    if arguments.platform == "linux":
+        expected_top_level = [
+            "Quack Kitchen",
+            "libDuckEngine.so",
+            "libfmod.so.14",
+            "libfmod.so.14.9",
+        ]
+
+    for name in expected_top_level:
+        if not (stage / name).is_file():
+            errors.append(f"missing runtime file: {name}")
+
+    for relative in (
+        "Fonts",
+        "Prefabs",
+        "Scenes",
+        "Shaders",
+        "Sounds",
+        "Sprites",
+        "License.txt",
+        "settings.json",
+    ):
+        if not (staged_resources / relative).exists():
+            errors.append(f"missing packaged resource: Resources/{relative}")
+
+    if (staged_resources / "save.json").exists():
+        errors.append("Resources/save.json is writable user data and must not be packaged")
+    if (staged_resources / "EditorIcons").exists():
+        errors.append("editor-only Resources/EditorIcons must not be packaged")
+
+    expected_resources = {
+        path.relative_to(source_resources).as_posix()
+        for path in source_resources.rglob("*")
+        if path.is_file()
+        and path.name != "save.json"
+        and "EditorIcons" not in path.relative_to(source_resources).parts
+    }
+    actual_resources = {
+        path.relative_to(staged_resources).as_posix()
+        for path in staged_resources.rglob("*")
+        if path.is_file()
+    }
+    for missing in sorted(expected_resources - actual_resources):
+        errors.append(f"resource omitted from package: Resources/{missing}")
+    for unexpected in sorted(actual_resources - expected_resources):
+        errors.append(f"unexpected packaged resource: Resources/{unexpected}")
+
+    files = [path for path in stage.rglob("*") if path.is_file()]
+    install_size = sum(path.stat().st_size for path in files)
+    if install_size >= MAX_INSTALL_SIZE:
+        errors.append(
+            f"installed size is {install_size / 1024 / 1024:.1f} MiB; limit is 500 MiB"
+        )
+    for path in files:
+        if path.suffix.lower() in FORBIDDEN_SUFFIXES:
+            errors.append(f"development file in release: {path.relative_to(stage)}")
+
+    if errors:
+        print("Release verification failed:", file=sys.stderr)
+        for error in errors:
+            print(f"  - {error}", file=sys.stderr)
+        return 1
+
+    print(
+        f"Verified {arguments.platform} release: {len(files)} files, "
+        f"{install_size / 1024 / 1024:.1f} MiB installed."
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
