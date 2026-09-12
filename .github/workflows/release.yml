@@ -52,7 +52,20 @@ jobs:
         run: |
           python tools/validate_assets.py
           cmake --preset windows-release
-          cmake --build --preset windows-release --parallel
+          $buildOutput = @(& cmake --build --preset windows-release --parallel 2>&1)
+          $buildExitCode = $LASTEXITCODE
+          $buildOutput | ForEach-Object { Write-Host "$_" }
+          if ($buildExitCode -ne 0) {
+            $errorLines = @($buildOutput | Select-String -Pattern '(^|: )(fatal error|error (C|LNK|MSB)[0-9]+)')
+            if ($errorLines.Count -eq 0) {
+              $errorLines = @($buildOutput | Select-Object -Last 20)
+            }
+            $errorLines | Select-Object -Last 20 | ForEach-Object {
+              $message = "$_".Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+              Write-Host "::error::$message"
+            }
+            exit $buildExitCode
+          }
           ctest --test-dir Build/windows-release --output-on-failure
 
       - name: Stage game files
@@ -172,7 +185,8 @@ jobs:
         run: |
           flatpak-builder --user --force-clean Build/flatpak-build \
             packaging/linux/edu.digipen.quackkitchen.yml
-          flatpak build-export Build/flatpak-repository Build/flatpak-build
+          flatpak build-export --disable-sandbox \
+            Build/flatpak-repository Build/flatpak-build
           flatpak build-bundle \
             --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
             Build/flatpak-repository \

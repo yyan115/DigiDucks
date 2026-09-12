@@ -83,7 +83,22 @@ jobs:
         run: cmake --preset windows-release
 
       - name: Build
-        run: cmake --build --preset windows-release --parallel
+        shell: pwsh
+        run: |
+          $buildOutput = @(& cmake --build --preset windows-release --parallel 2>&1)
+          $buildExitCode = $LASTEXITCODE
+          $buildOutput | ForEach-Object { Write-Host "$_" }
+          if ($buildExitCode -ne 0) {
+            $errorLines = @($buildOutput | Select-String -Pattern '(^|: )(fatal error|error (C|LNK|MSB)[0-9]+)')
+            if ($errorLines.Count -eq 0) {
+              $errorLines = @($buildOutput | Select-Object -Last 20)
+            }
+            $errorLines | Select-Object -Last 20 | ForEach-Object {
+              $message = "$_".Replace('%', '%25').Replace("`r", '%0D').Replace("`n", '%0A')
+              Write-Host "::error::$message"
+            }
+            exit $buildExitCode
+          }
 
       - name: Run non-interactive tests
         run: ctest --test-dir Build/windows-release --output-on-failure
