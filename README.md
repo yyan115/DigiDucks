@@ -1,31 +1,121 @@
-# Repo of team DigiDucks.
+# Quack Kitchen
 
-## Folder structure
+![Quack Kitchen](Project/DuckEngine/Resources/Sprites/MainMenu/LOGO_1.png)
+
+Quack Kitchen is a single-player 2D cooking game built by the DigiDucks team
+at DigiPen Institute of Technology Singapore. Take orders, prepare each dish,
+and keep a growing line of customers happy before the day ends.
+
+The game and its custom C++ engine use OpenGL, GLFW, GLEW, FreeType, and FMOD.
+The current release target is **1.0.0** for Windows and Linux.
+
+## Play
+
+- Move with `WASD`, the left analog stick, or the directional pad.
+- Pick up or place an item with `J` / gamepad `X`.
+- Use a station with `K` / gamepad `A`.
+- Pause with `Esc` / gamepad `Start`.
+- Toggle fullscreen with `Alt+Enter`.
+
+The in-game How to Play pages and tutorial automatically switch between
+keyboard and gamepad instructions when a controller is connected.
+
+## Download
+
+The release workflow produces three installable packages:
+
+- `Quack_Kitchen_1.0.0_Setup.exe` — Windows 10/11 installer.
+- `Quack_Kitchen-1.0.0-x86_64.AppImage` — portable Linux application.
+- `Quack_Kitchen-1.0.0-x86_64.flatpak` — Linux Flatpak bundle.
+
+Published builds will be available from the repository's GitHub Releases page.
+
+## Build from source
+
+Clone the repository normally. CMake 3.21 or newer and a C++17 compiler are
+required.
+
+### Linux
+
+On Ubuntu, install the native build dependencies:
+
+```sh
+sudo apt-get install cmake g++ libfreetype-dev libglew-dev libglfw3-dev ninja-build
 ```
-Project/                # ROOT folder containing all project-related files
-├── DuckEngine/             # Main engine project folder
-│   ├── Build/                # Build directory for compiled files (Debug/Release executables)
-│   ├── Engine/               # Core engine source code
-│       ├── src/                # Engine source files (.cpp)
-│       ├── include/            # Engine header files (.h/.hpp)
-│       ├── lib/                # External libraries required by the engine
-│   └── Game/                 # Game-specific code and assets
-│       ├── src/                # Game source files (.cpp)
-│       ├── include/            # Game header files (.h/.hpp)
-│       ├── assets/             # Game assets (images, sounds, etc.)
-└── README.md
+
+Then configure, build, and test the Release preset:
+
+```sh
+cmake --preset linux-release
+cmake --build --preset linux-release --parallel
+ctest --test-dir Build/linux-release --output-on-failure
 ```
 
-## Build Instructions
+Run the staged build directly:
 
-Engine gets compiled into a DLL file that the Game files will use. You do not need to rebuild the engine unless changes to engine were made.
+```sh
+"Build/linux-release/Project/DuckEngine/Quack Kitchen"
+```
 
-Set Game as startup project and press build or run in Visual Studio. (Otherwise you will get error when first running)
+To create an AppImage, install ImageMagick and provide a `linuxdeploy`
+executable:
 
-If you want to use Engine features, simply add #include "DuckEngine.h" to your game scripts.
+```sh
+LINUXDEPLOY=/path/to/linuxdeploy-x86_64.AppImage tools/package_linux.sh
+```
 
-Engine documentation is WIP. Feel free to ask if there are any enquiries.
+### Windows
 
-Please communciate if you want to work on something, especially on the engine!!
+Install Visual Studio 2022 with the Desktop development with C++ workload,
+CMake, Ninja, and vcpkg. Bootstrap vcpkg and expose its directory as
+`VCPKG_ROOT`, then run these commands from a Developer PowerShell:
 
-Milestone/Tasks tracker (Notion) - https://www.notion.so/182bafe0170a4d2286f25a523a90060a?v=daba320aa9fd43a6ab404f660f09695e&pvs=4
+```powershell
+cmake --preset windows-release
+cmake --build --preset windows-release --parallel
+ctest --test-dir Build/windows-release --output-on-failure
+```
+
+The executable is generated at
+`Build\windows-release\Project\DuckEngine\Quack Kitchen.exe`.
+
+The original Visual Studio solution remains at
+`Project/DuckEngine/DuckEngine.sln` for legacy development. CMake is the
+supported path for reproducible release builds.
+
+## Packaging and verification
+
+- `tools/validate_assets.py` checks serialized and source-code asset paths,
+  including case-sensitive Linux paths.
+- `tools/verify_release.py` checks staged Windows/Linux runtime contents,
+  licensing files, development-file exclusions, and the 500 MiB installed-size
+  limit.
+- `Installer/InstallScript.iss` defines the DigiPen-style Inno Setup package.
+- `packaging/linux/` contains the AppImage launch files and Flatpak manifest.
+- `.github/workflows/ci.yml` builds, tests, stages, verifies, and smoke-tests
+  both supported operating systems.
+- `.github/workflows/release.yml` builds all three release packages and can
+  publish them under a requested version tag.
+
+## Repository layout
+
+```text
+Project/DuckEngine/
+├── Engine/       Custom engine source and bundled SDK files
+├── Game/         Quack Kitchen gameplay source
+└── Resources/    Runtime scenes, sprites, audio, fonts, and shaders
+Installer/        Windows installer definition
+packaging/        Linux and Windows packaging metadata
+tools/            Asset, release, and packaging checks
+Licenses/         Third-party notices and shipped-asset provenance
+```
+
+The editor is intentionally outside the 1.0.0 release scope and is retained as
+a possible future project.
+
+## Licenses and attribution
+
+Quack Kitchen is a DigiPen student project. Third-party software, font, and
+asset notices are documented in [`Licenses/`](Licenses/README.md), with the
+runtime media audit in
+[`Licenses/ASSET_PROVENANCE.md`](Licenses/ASSET_PROVENANCE.md).
