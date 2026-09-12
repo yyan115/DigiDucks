@@ -190,7 +190,7 @@ jobs:
           flatpak-builder --user --force-clean Build/flatpak-build \
             packaging/linux/edu.digipen.quackkitchen.yml
           flatpak build-export --disable-sandbox \
-            Build/flatpak-repository Build/flatpak-build
+            Build/flatpak-repository Build/flatpak-build stable
           flatpak build-bundle \
             --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
             Build/flatpak-repository \
