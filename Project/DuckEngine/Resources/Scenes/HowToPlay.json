@@ -77,7 +77,7 @@
                         "isVisible": true,
                         "sortingOrder": 0,
                         "sprite": true,
-                        "texture": "",
+                        "texture": "Resources/Sprites/HowToPlay/background.png",
                         "useColor": false
                     },
                     "type": "SpriteRendererComponent"
@@ -87,7 +87,7 @@
                         "category": "BGM",
                         "loop": false,
                         "playOnStart": true,
-                        "soundID": "Resources/Sounds/bgm/gameplay bgm.ogg",
+                        "soundID": "Resources/Sounds/gameplay bgm - unmastered.mp3",
                         "volume": 0.30000001192092896
                     },
                     "type": "SoundComponent"

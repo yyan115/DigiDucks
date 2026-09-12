@@ -1563,7 +1563,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1647,7 +1647,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1731,7 +1731,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1815,7 +1815,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1851,7 +1851,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1887,7 +1887,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1923,7 +1923,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1959,7 +1959,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -1995,7 +1995,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2031,7 +2031,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2067,7 +2067,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2103,7 +2103,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2139,7 +2139,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2175,7 +2175,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2211,7 +2211,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2247,7 +2247,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2283,7 +2283,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2319,7 +2319,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2355,7 +2355,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -2391,7 +2391,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -10869,7 +10869,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Settings menu/vsyncbox.png",
+                        "texture": "Resources/Sprites/Settings menu/box.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

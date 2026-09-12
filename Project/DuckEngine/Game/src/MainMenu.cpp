@@ -170,8 +170,7 @@ void MainMenu::Load()
 	levelSelectNormalTexture = AssetManager::GetTextureByName("levelselect");
 	levelSelectHoverTexture = AssetManager::GetTextureByName("levelselect_hover");
 
-	quitNormalTexture = *AssetManager::GetTexture(
-		"Resources/Sprites/MainMenu/quit.png");
+	quitNormalTexture = AssetManager::GetTextureByName("quit");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
 
 	htpNormalTexture = AssetManager::GetTextureByName("mainmenu_howtoplay");
@@ -576,8 +575,19 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			StartSound->Play(1);
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			if (levelSelectScreen && mainMenuScreen)
+			{
+				if (auto* levelRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID))
+				{
+					levelRenderer->isVisible = true;
+				}
+				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+				{
+					menuRenderer->isVisible = false;
+				}
+			}
 		}
 		break;
 
@@ -585,8 +595,19 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			HtpSound->Play(1);
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = true;
-			DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+			if (HTPScreen && mainMenuScreen)
+			{
+				if (auto* howToPlayRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(HTPScreen->entityID))
+				{
+					howToPlayRenderer->isVisible = true;
+				}
+				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
+					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+				{
+					menuRenderer->isVisible = false;
+				}
+			}
 		}
 		break;
 
