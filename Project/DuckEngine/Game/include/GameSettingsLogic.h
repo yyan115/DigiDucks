@@ -69,6 +69,7 @@ private:
 
     bool isSettingsOpen = false;
     bool settingsVisible = false;
+    bool settingsDirty = false;
 public:
     GameSettingsLogic() : GameLogic(nullptr) {}
 

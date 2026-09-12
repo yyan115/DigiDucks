@@ -20,6 +20,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameSettingsLogic.h"
 #include "SoundSystem.h"
 #include "SaveLoadManager.h"
+#include "WindowManager.h"
 #include <iostream>
 
 /****************************************************************
@@ -114,7 +115,12 @@ void GameSettingsLogic::Start() {
             vsyncButtonComp->onClick = [this]() {
 				vsyncBtnSound->Play();
 				SaveLoadManager::useVSync = !SaveLoadManager::useVSync;
-                vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
+                ProjectSettings::SetUseVSync(SaveLoadManager::useVSync);
+                WindowManager::SetVSync(SaveLoadManager::useVSync);
+                settingsDirty = true;
+                if (vsyncToggleSpt) {
+                    vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
+                }
                 };
         }
     }
@@ -159,15 +165,22 @@ void GameSettingsLogic::Update() {
 * @brief Show or hide the settings menu.
 ****************************************************************/
 void GameSettingsLogic::ShowSettings(bool state) {
+    const bool wasOpen = isSettingsOpen;
     isSettingsOpen = state;
+    settingsVisible = state;
     if (settingsMenuSpt) { 
         settingsMenuSpt->isVisible = state; 
-        masterVolumeSliderComp->isEnable = state;
-		bgmVolumeSliderComp->isEnable = state;
-		sfxVolumeSliderComp->isEnable = state;
-		fpsSliderComp->isEnable = state;
-		vsyncButtonComp->isEnabled = state;
-        closeSettingsButton->isEnabled = state;
+        if (masterVolumeSliderComp) masterVolumeSliderComp->isEnable = state;
+		if (bgmVolumeSliderComp) bgmVolumeSliderComp->isEnable = state;
+		if (sfxVolumeSliderComp) sfxVolumeSliderComp->isEnable = state;
+		if (fpsSliderComp) fpsSliderComp->isEnable = state;
+		if (vsyncButtonComp) vsyncButtonComp->isEnabled = state;
+        if (closeSettingsButton) closeSettingsButton->isEnabled = state;
+    }
+
+    if (!state && wasOpen && settingsDirty) {
+        SaveLoadManager::SaveGame();
+        settingsDirty = false;
     }
 }
 
@@ -176,25 +189,45 @@ void GameSettingsLogic::ShowSettings(bool state) {
 ****************************************************************/
 void GameSettingsLogic::UpdateSliders() {
     if (masterVolumeSliderComp) {
-        SoundSystem::SetMasterVolume(masterVolumeSliderComp->currentValue);
-		SaveLoadManager::masterVolume = masterVolumeSliderComp->currentValue;
-        masterVolumeText->text = std::to_string(static_cast<int>(masterVolumeSliderComp->currentValue * 100));
+        const float value = masterVolumeSliderComp->currentValue;
+        if (SaveLoadManager::masterVolume != value) {
+            SoundSystem::SetMasterVolume(value);
+			SaveLoadManager::masterVolume = value;
+            ProjectSettings::SetMasterVolume(value);
+            settingsDirty = true;
+        }
+        if (masterVolumeText) masterVolumeText->text = std::to_string(static_cast<int>(value * 100));
     }
 
     if (bgmVolumeSliderComp) {
-		SoundSystem::SetCategoryVolume("BGM", bgmVolumeSliderComp->currentValue);
-		SaveLoadManager::musicVolume = bgmVolumeSliderComp->currentValue;
-        bgmVolumeText->text = std::to_string(static_cast<int>(bgmVolumeSliderComp->currentValue * 100));
+		const float value = bgmVolumeSliderComp->currentValue;
+        if (SaveLoadManager::musicVolume != value) {
+			SoundSystem::SetCategoryVolume("BGM", value);
+			SaveLoadManager::musicVolume = value;
+            ProjectSettings::SetVolumeCategory("BGM", value);
+            settingsDirty = true;
+        }
+        if (bgmVolumeText) bgmVolumeText->text = std::to_string(static_cast<int>(value * 100));
     }
 
     if (sfxVolumeSliderComp) {
-		SoundSystem::SetCategoryVolume("SFX", sfxVolumeSliderComp->currentValue);
-		SaveLoadManager::sfxVolume = sfxVolumeSliderComp->currentValue;
-        sfxVolumeText->text = std::to_string(static_cast<int>(sfxVolumeSliderComp->currentValue * 100));
+		const float value = sfxVolumeSliderComp->currentValue;
+        if (SaveLoadManager::sfxVolume != value) {
+			SoundSystem::SetCategoryVolume("SFX", value);
+			SaveLoadManager::sfxVolume = value;
+            ProjectSettings::SetVolumeCategory("SFX", value);
+            settingsDirty = true;
+        }
+        if (sfxVolumeText) sfxVolumeText->text = std::to_string(static_cast<int>(value * 100));
     }
 
     if (fpsSliderComp) {
-		SaveLoadManager::targetFPS = static_cast<int>(fpsSliderComp->currentValue);
-        fpsText->text = std::to_string(static_cast<int>(fpsSliderComp->currentValue));
+		const int value = static_cast<int>(fpsSliderComp->currentValue);
+        if (SaveLoadManager::targetFPS != value) {
+			SaveLoadManager::targetFPS = value;
+            ProjectSettings::SetTargetFPS(value);
+            settingsDirty = true;
+        }
+        if (fpsText) fpsText->text = std::to_string(value);
     }
 }
