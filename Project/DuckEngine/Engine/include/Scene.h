@@ -63,7 +63,7 @@ public:
 	DUCKENGINE_API virtual ~Scene() = default;
 
 	/**************************************************************************
-	@brief Adds a layer to the scene if it doesn’t already exist.
+	@brief Adds a layer to the scene if it doesn't already exist.
 	@param name The name of the layer to add.
 	@param layer The Layer object to add to the scene.
 	**************************************************************************/
@@ -94,10 +94,10 @@ public:
 	@param layerName The name of the layer to add the entity to.
 	@param entity Pointer to the entity to add.
 	**************************************************************************/
-	void AddEntityToLayer(const std::string& layerName, Entity* entity);
-	void RemoveEntityFromLayer(const std::string& layerName, int entityID);
+	DUCKENGINE_API void AddEntityToLayer(const std::string& layerName, Entity* entity);
+	DUCKENGINE_API void RemoveEntityFromLayer(const std::string& layerName, int entityID);
 
-	int GetOrderFromEntityID(int entityID) const;
+	DUCKENGINE_API int GetOrderFromEntityID(int entityID) const;
 
 	std::string sceneName;
 private:
