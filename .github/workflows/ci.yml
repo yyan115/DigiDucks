@@ -1,0 +1,118 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  VCPKG_COMMIT: 2d6a6cf3ac9a7cc93942c3d289a2f9c661a6f4a7
+
+jobs:
+  linux:
+    name: Linux build and smoke test
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install build and test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cmake g++ libfreetype-dev libglew-dev libglfw3-dev \
+            libgl1-mesa-dri ninja-build python3 xvfb
+
+      - name: Validate serialized assets
+        run: python3 tools/validate_assets.py
+
+      - name: Configure
+        run: cmake --preset linux-release
+
+      - name: Build
+        run: cmake --build --preset linux-release --parallel
+
+      - name: Run non-interactive tests
+        run: ctest --test-dir Build/linux-release --output-on-failure
+
+      - name: Stage and verify release files
+        run: |
+          cmake --install Build/linux-release --prefix Build/ci-linux-stage
+          python3 tools/verify_release.py Build/ci-linux-stage --platform linux
+
+      - name: Smoke-test startup, scene load, render, and shutdown
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          XDG_DATA_HOME: ${{ runner.temp }}/quack-kitchen-data
+        run: timeout 60s xvfb-run -a "Build/ci-linux-stage/Quack Kitchen" --smoke-test
+
+  windows:
+    name: Windows build and smoke test
+    runs-on: windows-2022
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Cache vcpkg packages
+        uses: actions/cache@v4
+        with:
+          path: Build/windows-release/vcpkg_installed
+          key: windows-vcpkg-${{ env.VCPKG_COMMIT }}-${{ hashFiles('vcpkg.json') }}
+
+      - name: Bootstrap pinned vcpkg
+        shell: pwsh
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git vcpkg
+          git -C vcpkg checkout $env:VCPKG_COMMIT
+          & .\vcpkg\bootstrap-vcpkg.bat -disableMetrics
+          "VCPKG_ROOT=$((Resolve-Path .\vcpkg).Path)" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Validate serialized assets
+        run: python tools/validate_assets.py
+
+      - name: Configure
+        run: cmake --preset windows-release
+
+      - name: Build
+        run: cmake --build --preset windows-release --parallel
+
+      - name: Run non-interactive tests
+        run: ctest --test-dir Build/windows-release --output-on-failure
+
+      - name: Stage and verify release files
+        shell: pwsh
+        run: |
+          cmake --install Build/windows-release --prefix Build/ci-windows-stage
+          python tools/verify_release.py Build/ci-windows-stage --platform windows
+
+      - name: Verify GUI subsystem
+        shell: pwsh
+        run: |
+          $headers = & dumpbin /headers "Build\ci-windows-stage\Quack Kitchen.exe"
+          $subsystem = $headers | Select-String -Pattern 'subsystem \(Windows' | Select-Object -First 1
+          Write-Host "PE subsystem: $subsystem"
+          if ($subsystem -notmatch 'Windows GUI') {
+            throw "Release executable is not a Windows GUI application."
+          }
+
+      - name: Smoke-test startup, scene load, render, and shutdown
+        shell: pwsh
+        run: |
+          $env:LOCALAPPDATA = "$env:RUNNER_TEMP\quack-kitchen-data"
+          $process = Start-Process -FilePath "Build\ci-windows-stage\Quack Kitchen.exe" -ArgumentList "--smoke-test" -PassThru
+          if (-not $process.WaitForExit(60000)) {
+            $process.Kill()
+            throw "Quack Kitchen smoke test timed out."
+          }
+          if ($process.ExitCode -ne 0) {
+            throw "Quack Kitchen smoke test exited with code $($process.ExitCode)."
+          }
