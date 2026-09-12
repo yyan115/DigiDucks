@@ -236,11 +236,10 @@ void PauseMenuLogic::UpdateMenuSelection()
 		}
 
 		float verticalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
-		float rightVerticalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_Y);
 		bool dpadUp = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP);
 		bool dpadDown = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN);
 
-		bool hasControllerInput = std::abs(verticalInput) > 0.3f || std::abs(rightVerticalInput) > 0.3f || dpadUp || dpadDown ||
+		bool hasControllerInput = std::abs(verticalInput) > 0.3f || dpadUp || dpadDown ||
 			DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
 
 		if (hasControllerInput && !isUsingController)
@@ -252,7 +251,7 @@ void PauseMenuLogic::UpdateMenuSelection()
 
 		if (isUsingController)
 		{
-			if (controllerNavigationCooldown <= 0 && (verticalInput < -0.3f || rightVerticalInput < -0.3f || dpadUp))
+			if (controllerNavigationCooldown <= 0 && (verticalInput < -0.3f || dpadUp))
 			{
 				int newSelection = static_cast<int>(currentSelection) - 1;
 				if (newSelection < 0)
@@ -261,7 +260,7 @@ void PauseMenuLogic::UpdateMenuSelection()
 				SelectButton(static_cast<MenuSelection>(newSelection));
 				controllerNavigationCooldown = controllerNavigationDelay;
 			}
-			else if (controllerNavigationCooldown <= 0 && (verticalInput > 0.3f || rightVerticalInput > 0.3f || dpadDown))
+			else if (controllerNavigationCooldown <= 0 && (verticalInput > 0.3f || dpadDown))
 			{
 				int newSelection = (static_cast<int>(currentSelection) + 1) % static_cast<int>(MenuSelection::COUNT);
 				SelectButton(static_cast<MenuSelection>(newSelection));
@@ -471,3 +470,4 @@ void PauseMenuLogic::playPauseSound()
 		else PauseMenuSound->Play(1);
 	}
 }
+

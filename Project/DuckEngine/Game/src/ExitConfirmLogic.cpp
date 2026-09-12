@@ -133,11 +133,10 @@ void ExitConfirmLogic::UpdateMenuSelection()
 		}
 
 		float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
-		float rightHorizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
 		bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
 		bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
 
-		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || std::abs(rightHorizontalInput) > 0.3f || dpadLeft || dpadRight ||
+		bool hasControllerInput = std::abs(horizontalInput) > 0.3f || dpadLeft || dpadRight ||
 			DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
 
 		if (hasControllerInput && !isUsingController)
@@ -149,12 +148,12 @@ void ExitConfirmLogic::UpdateMenuSelection()
 
 		if (isUsingController)
 		{
-			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || rightHorizontalInput < -0.3f || dpadLeft))
+			if (controllerNavigationCooldown <= 0 && (horizontalInput < -0.3f || dpadLeft))
 			{
 				SelectButton(MenuSelection::YES);
 				controllerNavigationCooldown = controllerNavigationDelay;
 			}
-			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || rightHorizontalInput > 0.3f || dpadRight))
+			else if (controllerNavigationCooldown <= 0 && (horizontalInput > 0.3f || dpadRight))
 			{
 				SelectButton(MenuSelection::NO);
 				controllerNavigationCooldown = controllerNavigationDelay;
