@@ -25,7 +25,7 @@
                 },
                 "isVisible": true,
                 "sortingOrder": 0,
-                "texture": "Resources/Sprites/HowToPlay/background.png",
+                "texture": "",
                 "useColor": false
             },
             "type": "SpriteRendererComponent"

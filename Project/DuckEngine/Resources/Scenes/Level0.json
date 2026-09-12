@@ -1563,7 +1563,7 @@
                         "isVisible": false,
                         "sortingOrder": 25,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
+                        "texture": "Resources/Sprites/Customer/Speech/speech_cheese_burger_plate.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"
@@ -9390,7 +9390,7 @@
                         "isVisible": true,
                         "sortingOrder": 3,
                         "sprite": true,
-                        "texture": "Resources/Sprites/Settings menu/box.png",
+                        "texture": "Resources/Sprites/Settings menu/vsyncbox.png",
                         "useColor": true
                     },
                     "type": "SpriteRendererComponent"

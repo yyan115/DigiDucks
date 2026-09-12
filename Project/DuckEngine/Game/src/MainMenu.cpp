@@ -170,7 +170,8 @@ void MainMenu::Load()
 	levelSelectNormalTexture = AssetManager::GetTextureByName("levelselect");
 	levelSelectHoverTexture = AssetManager::GetTextureByName("levelselect_hover");
 
-	quitNormalTexture = AssetManager::GetTextureByName("quit");
+	quitNormalTexture = *AssetManager::GetTexture(
+		"Resources/Sprites/MainMenu/quit.png");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
 
 	htpNormalTexture = AssetManager::GetTextureByName("mainmenu_howtoplay");

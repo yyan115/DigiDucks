@@ -144,7 +144,7 @@
                         "frameDuration": 0.10000000149011612,
                         "name": "BACK_IDLE",
                         "textures": [
-                            "Resources/Sprites/Customer/Penguin/Back/penguin_back_walk_1.png"
+                            "Resources/Sprites/Customer/Penguin/Back/Penguin_back_walk_1.png"
                         ]
                     },
                     {
