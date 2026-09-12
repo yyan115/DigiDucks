@@ -65,7 +65,9 @@ add_library(DuckEngine SHARED
     ${QUACK_KITCHEN_IMGUI_SOURCES})
 
 target_compile_definitions(DuckEngine
-    PRIVATE DUCKENGINE_EXPORTS
+    PRIVATE
+        DUCKENGINE_EXPORTS
+        $<$<PLATFORM_ID:Windows>:BUILD_DLL>
     PUBLIC $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:QUACK_KITCHEN_NON_MSVC>)
 
 target_include_directories(DuckEngine
