@@ -60,12 +60,15 @@ private:
 	Entity* levelSelectScreen = nullptr;
 	Entity* mainMenuScreen = nullptr;
 	Entity* HTPScreen = nullptr;
+	Entity* creditsScreen = nullptr;
+	Entity* quitConfirmScreen = nullptr;
 
 	Entity* StartButton = nullptr;
 	Entity* QuitButton = nullptr;
 	Entity* HtpButton = nullptr;
 	Entity* LevelSelectButton = nullptr;
 	Entity* FadeOutScreen = nullptr;
+	Entity* CreditsButton = nullptr;
 
 
 	SpriteRendererComponent* startButtonSpriteRenderer = nullptr;
@@ -73,6 +76,14 @@ private:
 	SpriteRendererComponent* quitButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* htpButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* FadeOutSpriteRenderer = nullptr;
+	SpriteRendererComponent* creditsButtonRenderer = nullptr;
+	SpriteRendererComponent* quitConfirmYesRenderer = nullptr;
+	SpriteRendererComponent* quitConfirmNoRenderer = nullptr;
+	TextComponent* creditsButtonText = nullptr;
+	ButtonComponent* creditsButton = nullptr;
+	ButtonComponent* creditsCloseButton = nullptr;
+	ButtonComponent* quitConfirmYesButton = nullptr;
+	ButtonComponent* quitConfirmNoButton = nullptr;
 
 	Texture startNormalTexture = 0;
 	Texture startHoverTexture = 0;
@@ -85,6 +96,10 @@ private:
 
 	Texture htpNormalTexture = 0;
 	Texture htpHoverTexture = 0;
+	Texture quitConfirmYesTexture = 0;
+	Texture quitConfirmYesHoverTexture = 0;
+	Texture quitConfirmNoTexture = 0;
+	Texture quitConfirmNoHoverTexture = 0;
 
 	SoundComponent* StartSound = nullptr;
 	SoundComponent* QuitSound = nullptr;
@@ -107,7 +122,8 @@ private:
 		START = 0,
 		LEVEL_SELECT = 1,
 		HOW_TO_PLAY = 2,
-		QUIT = 3,
+		CREDITS = 3,
+		QUIT = 4,
 		COUNT
 	};
 
@@ -120,4 +136,10 @@ private:
 	void SelectButton(MenuSelection selection);
 	void DeselectAllButtons();
 	void ActivateSelectedButton();
+	void CreateComplianceMenus();
+	void ShowCredits(bool show);
+	void ShowQuitConfirmation(bool show);
+	void SelectQuitConfirmation(bool selectYes);
+	void UpdateQuitConfirmationInput();
+	bool quitConfirmationSelectsYes = false;
 };
