@@ -13,4 +13,9 @@ if(BUILD_TESTING)
         COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tools/validate_assets.py")
     set_tests_properties(QuackKitchen.AssetValidation PROPERTIES
         WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
+    add_test(
+        NAME QuackKitchen.GalleryCompliance
+        COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tools/validate_gallery.py")
+    set_tests_properties(QuackKitchen.GalleryCompliance PROPERTIES
+        WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
 endif()
