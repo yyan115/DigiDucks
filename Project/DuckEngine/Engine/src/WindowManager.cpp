@@ -64,13 +64,14 @@ GLint WindowManager::windowedPosY = 0;      // Default window position
 /// <returns>Returns true if the window is successfully created, false otherwise.</returns>
 bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) {
     closeRequested = false;
-    isFullscreen = false;
+    WindowManager::width = _width;
+    WindowManager::height = _height;
+    WindowManager::viewportWidth = _width;
+    WindowManager::viewportHeight = _height;
     title = _title; 
 
     windowedWidth = _width;
     windowedHeight = _height;
-    windowedPosX = 0;
-    windowedPosY = 0;
 
 #if defined(__linux__) && \
     (GLFW_VERSION_MAJOR > 3 || \
@@ -101,41 +102,12 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
     glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
 
-    const bool smokeTest = std::getenv("QUACK_KITCHEN_SMOKE_TEST") != nullptr;
-    if (smokeTest) {
+    if (std::getenv("QUACK_KITCHEN_SMOKE_TEST")) {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     }
 
-    GLint initialWidth = _width;
-    GLint initialHeight = _height;
-    GLFWmonitor* initialMonitor = nullptr;
-    if (!DuckEngine::isEditor && !smokeTest) {
-        GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
-        const GLFWvidmode* mode =
-            primaryMonitor ? glfwGetVideoMode(primaryMonitor) : nullptr;
-        if (mode) {
-            initialMonitor = primaryMonitor;
-            initialWidth = mode->width;
-            initialHeight = mode->height;
-            windowedPosX = mode->width > _width
-                ? (mode->width - _width) / 2
-                : 0;
-            windowedPosY = mode->height > _height
-                ? (mode->height - _height) / 2
-                : 0;
-            isFullscreen = true;
-            glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-        }
-    }
-
-    WindowManager::width = initialWidth;
-    WindowManager::height = initialHeight;
-    WindowManager::viewportWidth = initialWidth;
-    WindowManager::viewportHeight = initialHeight;
-
     // Create window and check if success
-    ptrWindow = glfwCreateWindow(
-        initialWidth, initialHeight, title, initialMonitor, nullptr);
+    ptrWindow = glfwCreateWindow(width, height, title, NULL, NULL);
     if (!ptrWindow) {
         std::cerr << "GLFW unable to create OpenGL context - abort program\n";
         glfwTerminate();
@@ -153,10 +125,6 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
 }
 
 void WindowManager::ToggleFullscreen() {
-    if (!ptrWindow) {
-        return;
-    }
-
     if (isFullscreen) {
         // Restore to windowed mode
         glfwSetWindowMonitor(ptrWindow, nullptr, windowedPosX, windowedPosY, windowedWidth, windowedHeight, 0);
@@ -168,11 +136,7 @@ void WindowManager::ToggleFullscreen() {
 
         // Get the primary monitor and its video mode
         GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
-        const GLFWvidmode* mode =
-            primaryMonitor ? glfwGetVideoMode(primaryMonitor) : nullptr;
-        if (!mode) {
-            return;
-        }
+        const GLFWvidmode* mode = glfwGetVideoMode(primaryMonitor);
 
         // Switch to fullscreen
         glfwSetWindowMonitor(ptrWindow, primaryMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);

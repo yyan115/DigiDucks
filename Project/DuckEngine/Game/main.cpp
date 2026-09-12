@@ -176,6 +176,10 @@ int main(int argumentCount, char* arguments[])
 	gManager.SetActiveScene(ProjectSettings::GetStartLevel());
 	gManager.Engine.SetupSystems();
 
+	if (!smokeTest)
+	{
+		DuckEngine::ToggleFullScreen();
+	}
 	int smokeTestFrames = 0;
 	int smokeTestMainMenuFrames = 0;
 	int smokeTestExitCode = 0;

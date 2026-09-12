@@ -133,8 +133,7 @@ target_include_directories(QuackKitchen PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Game/include")
 target_link_libraries(QuackKitchen PRIVATE DuckEngine)
 target_compile_definitions(QuackKitchen PRIVATE
-    QUACK_KITCHEN_VERSION="${PROJECT_VERSION}"
-    $<$<CONFIG:Debug>:QUACK_KITCHEN_ENABLE_DEVELOPER_SHORTCUTS>)
+    QUACK_KITCHEN_VERSION="${PROJECT_VERSION}")
 
 if(BUILD_TESTING)
 	add_executable(QuackKitchenCustomerQueueTests

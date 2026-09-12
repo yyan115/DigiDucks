@@ -459,13 +459,11 @@ void LevelSelectScreenLogic::Update()
 		UpdateLevelMenuSelection();
 	}
 
-#ifdef QUACK_KITCHEN_ENABLE_DEVELOPER_SHORTCUTS
 	if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_0) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		currentStage = 100;
 		Start();
 	}
-#endif
 }
 
 void LevelSelectScreenLogic::FixedUpdate()
