@@ -238,7 +238,8 @@ int main(int argumentCount, char* arguments[])
 					gManager.Engine.CloseWindow();
 				}
 			}
-			else if (smokeTestFrames >= 2100)
+			else if (std::chrono::duration<double>(
+				std::chrono::steady_clock::now() - launchStarted).count() >= 45.0)
 			{
 				std::cerr << "Smoke test failed: Intro did not reach MainMenu.\n";
 				smokeTestExitCode = 4;
