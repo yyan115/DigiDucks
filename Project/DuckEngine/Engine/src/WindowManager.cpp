@@ -60,6 +60,15 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     windowedWidth = _width;
     windowedHeight = _height;
 
+#if defined(__linux__) && \
+    (GLFW_VERSION_MAJOR > 3 || \
+     (GLFW_VERSION_MAJOR == 3 && GLFW_VERSION_MINOR >= 4))
+    // GLEW initializes desktop OpenGL through GLX. Newer GLFW versions can
+    // otherwise select Wayland at runtime, which creates an EGL context that
+    // GLEW cannot initialize correctly.
+    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
+#endif
+
     // Check if glfw init success
     if (!glfwInit()) {
         std::cout << "GLFW init has failed - abort program!!!" << std::endl;
