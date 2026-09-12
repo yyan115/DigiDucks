@@ -57,6 +57,22 @@ Run the staged build directly:
 "Build/linux-release/Project/DuckEngine/Quack Kitchen"
 ```
 
+#### Fedora KDE and VS Code
+
+Install the native build and debugging dependencies:
+
+```sh
+sudo dnf install cmake ninja-build gcc-c++ gdb freetype-devel glew-devel glfw-devel libglvnd-devel
+```
+
+Open the repository root in VS Code and install the recommended Microsoft
+**CMake Tools** and **C/C++** extensions. Press `F5` to configure, build, and
+debug the game, or press `Ctrl+F5` to run it without stopping in the debugger.
+The default `Ctrl+Shift+B` build task uses the same `linux-debug` CMake preset.
+
+The VS Code setup is only an interface over the Linux CMake build. It does not
+modify or replace the existing Visual Studio solution or project files.
+
 To create an AppImage, install ImageMagick and provide a `linuxdeploy`
 executable:
 
