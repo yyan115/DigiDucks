@@ -65,6 +65,10 @@ def main() -> int:
             errors.append(f"missing runtime file: {name}")
 
     allowed_top_level = set(expected_top_level) | {"Licenses", "Resources"}
+    if arguments.platform == "linux":
+        # AppImages add this small launcher beside the game so desktop files
+        # never need to quote the executable's space-containing filename.
+        allowed_top_level.add("quack-kitchen")
     if stage.is_dir():
         for path in stage.iterdir():
             if path.name not in allowed_top_level:

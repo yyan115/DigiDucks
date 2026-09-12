@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>edu.digipen.quackkitchen</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LicenseRef-proprietary</project_license>
+  <name>Quack Kitchen</name>
+  <summary>Cook dishes and keep a growing line of customers happy</summary>
+  <developer id="edu.digipen.digiducks">
+    <name>DigiDucks</name>
+  </developer>
+  <description>
+    <p>
+      Quack Kitchen is a single-player 2D cooking game. Take orders, prepare
+      each dish at the correct kitchen stations, and serve customers before
+      their patience runs out.
+    </p>
+  </description>
+  <launchable type="desktop-id">edu.digipen.quackkitchen.desktop</launchable>
+  <categories>
+    <category>Game</category>
+  </categories>
+  <content_rating type="oars-1.1" />
+  <url type="homepage">https://github.com/yyan115/DigiDucks</url>
+  <url type="bugtracker">https://github.com/yyan115/DigiDucks/issues</url>
+  <url type="vcs-browser">https://github.com/yyan115/DigiDucks</url>
+  <releases>
+    <release version="1.0.0" date="2026-09-12" />
+  </releases>
+</component>

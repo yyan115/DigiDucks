@@ -15,15 +15,20 @@ cmake --install "$build_directory" --prefix "$app_directory/usr/bin" --strip
 
 install -Dm755 "$repository_directory/packaging/linux/AppRun" "$app_directory/AppRun"
 install -Dm755 "$repository_directory/packaging/linux/quack-kitchen" "$app_directory/usr/bin/quack-kitchen"
-install -Dm644 "$repository_directory/packaging/linux/edu.digipen.QuackKitchen.desktop" \
-  "$app_directory/edu.digipen.QuackKitchen.desktop"
+install -Dm644 "$repository_directory/packaging/linux/edu.digipen.quackkitchen.desktop" \
+  "$app_directory/edu.digipen.quackkitchen.desktop"
+install -Dm644 "$repository_directory/packaging/linux/edu.digipen.quackkitchen.metainfo.xml" \
+  "$app_directory/usr/share/metainfo/edu.digipen.quackkitchen.appdata.xml"
 convert "$repository_directory/Project/DuckEngine/Resources/GameIcon.ico[8]" \
-  "$app_directory/edu.digipen.QuackKitchen.png"
+  "$app_directory/edu.digipen.quackkitchen.png"
 
-OUTPUT="$output_file" "$linuxdeploy_command" \
+# The game is stripped by cmake --install above. linuxdeploy's bundled strip
+# is too old for SHT_RELR sections used by current distributions, while the
+# system libraries it copies are already stripped by their distributors.
+NO_STRIP=1 LDAI_OUTPUT="$output_file" "$linuxdeploy_command" \
   --appdir "$app_directory" \
-  --desktop-file "$app_directory/edu.digipen.QuackKitchen.desktop" \
-  --icon-file "$app_directory/edu.digipen.QuackKitchen.png" \
+  --desktop-file "$app_directory/edu.digipen.quackkitchen.desktop" \
+  --icon-file "$app_directory/edu.digipen.quackkitchen.png" \
   --executable "$app_directory/usr/bin/Quack Kitchen" \
   --output appimage
 

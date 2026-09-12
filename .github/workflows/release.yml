@@ -17,6 +17,8 @@ permissions:
 
 env:
   VCPKG_COMMIT: 2d6a6cf3ac9a7cc93942c3d289a2f9c661a6f4a7
+  LINUXDEPLOY_VERSION: 1-alpha-20251107-1
+  LINUXDEPLOY_SHA256: c20cd71e3a4e3b80c3483cef793cda3f4e990aca14014d23c544ca3ce1270b4d
 
 jobs:
   windows-installer:
@@ -124,13 +126,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            cmake curl flatpak flatpak-builder g++ imagemagick \
+            cmake curl file flatpak flatpak-builder g++ imagemagick \
             libfreetype-dev libglew-dev libglfw3-dev libgl1-mesa-dri \
-            ninja-build python3 xvfb
+            ninja-build python3 xauth xvfb
 
       - name: Validate and build
         run: |
           python3 tools/validate_assets.py
+          appstreamcli validate --pedantic --no-net \
+            packaging/linux/edu.digipen.quackkitchen.metainfo.xml
           cmake --preset linux-release
           cmake --build --preset linux-release --parallel
           ctest --test-dir Build/linux-release --output-on-failure
@@ -138,8 +142,9 @@ jobs:
       - name: Download linuxdeploy
         run: |
           curl --fail --location --retry 3 \
-            https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage \
+            "https://github.com/linuxdeploy/linuxdeploy/releases/download/${LINUXDEPLOY_VERSION}/linuxdeploy-x86_64.AppImage" \
             --output Build/linuxdeploy-x86_64.AppImage
+          echo "${LINUXDEPLOY_SHA256}  Build/linuxdeploy-x86_64.AppImage" | sha256sum --check --strict
           chmod +x Build/linuxdeploy-x86_64.AppImage
 
       - name: Build AppImage
@@ -166,11 +171,13 @@ jobs:
       - name: Build and bundle Flatpak
         run: |
           flatpak-builder --user --force-clean Build/flatpak-build \
-            packaging/linux/edu.digipen.QuackKitchen.yml
+            packaging/linux/edu.digipen.quackkitchen.yml
           flatpak build-export Build/flatpak-repository Build/flatpak-build
-          flatpak build-bundle Build/flatpak-repository \
+          flatpak build-bundle \
+            --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
+            Build/flatpak-repository \
             Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak \
-            edu.digipen.QuackKitchen stable
+            edu.digipen.quackkitchen stable
 
       - name: Smoke-test Flatpak bundle
         env:
@@ -179,7 +186,7 @@ jobs:
         run: |
           flatpak install --user --noninteractive \
             Build/linux-package/Quack_Kitchen-1.0.0-x86_64.flatpak
-          timeout 60s xvfb-run -a flatpak run edu.digipen.QuackKitchen --smoke-test
+          timeout 60s xvfb-run -a flatpak run edu.digipen.quackkitchen --smoke-test
 
       - name: Upload Linux packages
         uses: actions/upload-artifact@v4
