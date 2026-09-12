@@ -20,6 +20,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameSettingsLogic.h"
 #include "SoundSystem.h"
 #include "SaveLoadManager.h"
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 
 /****************************************************************
@@ -36,9 +38,8 @@ void GameSettingsLogic::Start() {
 		gameSettingsBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameSettingsBtn->entityID);
         if (gameSettingsButton) {
             gameSettingsButton->onClick = [this]() {
-                settingsVisible = !settingsVisible;
 				gameSettingsBtnSound->Play();
-                ShowSettings(settingsVisible);
+				ShowSettings(!isSettingsOpen);
                 };
             gameSettingsButton->onHover = [this]() { 
                 gameSettingsBtnSpt->texture = gameSettingsBtn_Hover;
@@ -103,6 +104,10 @@ void GameSettingsLogic::Start() {
     // VSync Toggle
     vsyncToggle = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("VSync_Toggle").get();
     if (vsyncToggle) {
+        vsyncToggleTransform = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(vsyncToggle->entityID);
+        if (vsyncToggleTransform) {
+            vsyncToggleNormalScale = vsyncToggleTransform->scale;
+        }
         vsyncButtonComp = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(vsyncToggle->entityID);
         if (vsyncButtonComp) {
             vsyncToggleSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(vsyncToggle->entityID);
@@ -112,9 +117,7 @@ void GameSettingsLogic::Start() {
 			vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
 			vsyncButtonComp->isEnabled = false;
             vsyncButtonComp->onClick = [this]() {
-				vsyncBtnSound->Play();
-				SaveLoadManager::useVSync = !SaveLoadManager::useVSync;
-                vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
+				ToggleVSync();
                 };
         }
     }
@@ -133,9 +136,8 @@ void GameSettingsLogic::Start() {
             closeSettingsButton->isEnabled = false;
 
             closeSettingsButton->onClick = [this]() {
-                settingsVisible = !settingsVisible;
                 closeSettingsBtnSound->Play();
-                ShowSettings(settingsVisible);
+                ShowSettings(false);
                 };
             closeSettingsButton->onHover = [this]() {
                 closeSettingsBtnSpt->texture = closeSettingsBtn_Hover;
@@ -150,6 +152,27 @@ void GameSettingsLogic::Start() {
 * @brief Update function for the Game Settings Logic
 ****************************************************************/
 void GameSettingsLogic::Update() {
+    if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
+        DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT)) {
+        if (isUsingController) {
+            DeselectSettings();
+            isUsingController = false;
+        }
+    }
+
+    if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1)) {
+        if (!isSettingsOpen && DuckEngine_Input::IsGamepadButtonPressed(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_Y)) {
+            ShowSettings(true);
+            isUsingController = true;
+            SelectSetting(SettingSelection::MASTER_VOLUME);
+            controllerNavigationCooldown = controllerNavigationDelay;
+        }
+        else if (isSettingsOpen) {
+            UpdateControllerInput();
+        }
+    }
+
     if (isSettingsOpen) {
         UpdateSliders();
     }
@@ -160,14 +183,170 @@ void GameSettingsLogic::Update() {
 ****************************************************************/
 void GameSettingsLogic::ShowSettings(bool state) {
     isSettingsOpen = state;
+    settingsVisible = state;
     if (settingsMenuSpt) { 
         settingsMenuSpt->isVisible = state; 
-        masterVolumeSliderComp->isEnable = state;
-		bgmVolumeSliderComp->isEnable = state;
-		sfxVolumeSliderComp->isEnable = state;
-		fpsSliderComp->isEnable = state;
-		vsyncButtonComp->isEnabled = state;
-        closeSettingsButton->isEnabled = state;
+		if (masterVolumeSliderComp) masterVolumeSliderComp->isEnable = state;
+		if (bgmVolumeSliderComp) bgmVolumeSliderComp->isEnable = state;
+		if (sfxVolumeSliderComp) sfxVolumeSliderComp->isEnable = state;
+		if (fpsSliderComp) fpsSliderComp->isEnable = state;
+		if (vsyncButtonComp) vsyncButtonComp->isEnabled = state;
+        if (closeSettingsButton) closeSettingsButton->isEnabled = state;
+    }
+
+    if (!state) {
+        DeselectSettings();
+        isUsingController = false;
+    }
+}
+
+void GameSettingsLogic::UpdateControllerInput() {
+    if (DuckEngine_Input::IsGamepadButtonPressed(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B) ||
+        DuckEngine_Input::IsGamepadButtonPressed(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_Y)) {
+        if (closeSettingsBtnSound) closeSettingsBtnSound->Play();
+        ShowSettings(false);
+        return;
+    }
+
+    if (controllerNavigationCooldown > 0.0f) {
+        controllerNavigationCooldown -= DuckEngine::DeltaTime();
+    }
+
+    const float leftHorizontal = DuckEngine_Input::GetGamepadAxisValue(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+    const float rightHorizontal = DuckEngine_Input::GetGamepadAxisValue(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
+    const float leftVertical = DuckEngine_Input::GetGamepadAxisValue(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+    const float rightVertical = DuckEngine_Input::GetGamepadAxisValue(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_Y);
+
+    const bool navigateUp = leftVertical < -0.3f || rightVertical < -0.3f ||
+        DuckEngine_Input::IsGamepadButtonDown(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP);
+    const bool navigateDown = leftVertical > 0.3f || rightVertical > 0.3f ||
+        DuckEngine_Input::IsGamepadButtonDown(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN);
+    const bool navigateLeft = leftHorizontal < -0.3f || rightHorizontal < -0.3f ||
+        DuckEngine_Input::IsGamepadButtonDown(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
+    const bool navigateRight = leftHorizontal > 0.3f || rightHorizontal > 0.3f ||
+        DuckEngine_Input::IsGamepadButtonDown(
+            DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
+    const bool activate = DuckEngine_Input::IsGamepadButtonPressed(
+        DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
+
+    if (!isUsingController && (navigateUp || navigateDown || navigateLeft || navigateRight || activate)) {
+        isUsingController = true;
+        SelectSetting(SettingSelection::MASTER_VOLUME);
+        controllerNavigationCooldown = controllerNavigationDelay;
+        return;
+    }
+
+    if (!isUsingController) return;
+
+    if (controllerNavigationCooldown <= 0.0f && navigateUp) {
+        int next = static_cast<int>(currentSelection) - 1;
+        if (next < 0) next = static_cast<int>(SettingSelection::COUNT) - 1;
+        SelectSetting(static_cast<SettingSelection>(next));
+        controllerNavigationCooldown = controllerNavigationDelay;
+    }
+    else if (controllerNavigationCooldown <= 0.0f && navigateDown) {
+        const int next = (static_cast<int>(currentSelection) + 1) %
+            static_cast<int>(SettingSelection::COUNT);
+        SelectSetting(static_cast<SettingSelection>(next));
+        controllerNavigationCooldown = controllerNavigationDelay;
+    }
+    else if (controllerNavigationCooldown <= 0.0f && (navigateLeft || navigateRight)) {
+        AdjustSelectedSlider(navigateRight ? 1.0f : -1.0f);
+        controllerNavigationCooldown = controllerNavigationDelay;
+    }
+
+    if (activate) {
+        if (currentSelection == SettingSelection::VSYNC) {
+            ToggleVSync();
+        }
+        else if (currentSelection == SettingSelection::CLOSE) {
+            if (closeSettingsBtnSound) closeSettingsBtnSound->Play();
+            ShowSettings(false);
+        }
+    }
+}
+
+void GameSettingsLogic::SelectSetting(SettingSelection selection) {
+    DeselectSettings();
+    currentSelection = selection;
+
+    const Color selectedColor(218.0f, 121.0f, 52.0f, 255.0f);
+    switch (selection) {
+    case SettingSelection::MASTER_VOLUME:
+        if (masterVolumeText) masterVolumeText->color = selectedColor;
+        break;
+    case SettingSelection::BGM_VOLUME:
+        if (bgmVolumeText) bgmVolumeText->color = selectedColor;
+        break;
+    case SettingSelection::SFX_VOLUME:
+        if (sfxVolumeText) sfxVolumeText->color = selectedColor;
+        break;
+    case SettingSelection::FPS_TARGET:
+        if (fpsText) fpsText->color = selectedColor;
+        break;
+    case SettingSelection::VSYNC:
+        if (vsyncToggleTransform) vsyncToggleTransform->scale = vsyncToggleNormalScale * 1.25f;
+        break;
+    case SettingSelection::CLOSE:
+        if (closeSettingsBtnSpt) closeSettingsBtnSpt->texture = closeSettingsBtn_Hover;
+        break;
+    default:
+        break;
+    }
+
+    if (gameSettingsBtnSound) gameSettingsBtnSound->Play(1);
+}
+
+void GameSettingsLogic::DeselectSettings() {
+    const Color normalColor(10.0f, 10.0f, 10.0f, 255.0f);
+    if (masterVolumeText) masterVolumeText->color = normalColor;
+    if (bgmVolumeText) bgmVolumeText->color = normalColor;
+    if (sfxVolumeText) sfxVolumeText->color = normalColor;
+    if (fpsText) fpsText->color = normalColor;
+    if (vsyncToggleTransform) vsyncToggleTransform->scale = vsyncToggleNormalScale;
+    if (closeSettingsBtnSpt) closeSettingsBtnSpt->texture = closeSettingsBtn_Normal;
+}
+
+void GameSettingsLogic::AdjustSelectedSlider(float direction) {
+    SliderComponent* slider = nullptr;
+    switch (currentSelection) {
+    case SettingSelection::MASTER_VOLUME:
+        slider = masterVolumeSliderComp;
+        break;
+    case SettingSelection::BGM_VOLUME:
+        slider = bgmVolumeSliderComp;
+        break;
+    case SettingSelection::SFX_VOLUME:
+        slider = sfxVolumeSliderComp;
+        break;
+    case SettingSelection::FPS_TARGET:
+        slider = fpsSliderComp;
+        break;
+    default:
+        return;
+    }
+
+    if (!slider) return;
+    slider->currentValue = std::clamp(
+        slider->currentValue + direction * slider->step,
+        slider->minValue,
+        slider->maxValue);
+}
+
+void GameSettingsLogic::ToggleVSync() {
+    if (vsyncBtnSound) vsyncBtnSound->Play();
+    SaveLoadManager::useVSync = !SaveLoadManager::useVSync;
+    if (vsyncToggleSpt) {
+        vsyncToggleSpt->texture = SaveLoadManager::useVSync ? vsyncToggle_Enabled : vsyncToggle_Disabled;
     }
 }
 

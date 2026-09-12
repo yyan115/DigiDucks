@@ -59,16 +59,38 @@ private:
     TextComponent* fpsText = nullptr;
 
     Entity* vsyncToggle = nullptr;
+    TransformComponent* vsyncToggleTransform = nullptr;
     SpriteRendererComponent* vsyncToggleSpt = nullptr;
     Texture vsyncToggle_Enabled{};
     Texture vsyncToggle_Disabled{};
     ButtonComponent* vsyncButtonComp = nullptr;
-	SoundComponent* vsyncBtnSound = nullptr;
+    SoundComponent* vsyncBtnSound = nullptr;
+    Vec2 vsyncToggleNormalScale{};
 
-    
+    enum class SettingSelection
+    {
+        MASTER_VOLUME = 0,
+        BGM_VOLUME,
+        SFX_VOLUME,
+        FPS_TARGET,
+        VSYNC,
+        CLOSE,
+        COUNT
+    };
+
+    SettingSelection currentSelection = SettingSelection::MASTER_VOLUME;
+    bool isUsingController = false;
+    float controllerNavigationCooldown = 0.0f;
+    const float controllerNavigationDelay = 0.2f;
 
     bool isSettingsOpen = false;
     bool settingsVisible = false;
+
+    void UpdateControllerInput();
+    void SelectSetting(SettingSelection selection);
+    void DeselectSettings();
+    void AdjustSelectedSlider(float direction);
+    void ToggleVSync();
 public:
     GameSettingsLogic() : GameLogic(nullptr) {}
 
