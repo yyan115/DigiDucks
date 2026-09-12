@@ -90,7 +90,7 @@ void DuckEngine::Initialize(bool _isEditor)
 	ProjectSettings::Load("Resources/settings.json");
 
 	WindowInit window = Serialization::GetWindowInit();
-	WindowManager::Initialize(ProjectSettings::GetWindowWidth(), ProjectSettings::GetWindowHeight(), "Quack Kitchen");
+	WindowManager::Initialize(ProjectSettings::GetWindowWidth(), ProjectSettings::GetWindowHeight(), "DigiDucks");
 	GraphicsManager::Initialize();
 	InputManager::Initialize(WindowManager::getWindow());
 	CameraManager::Initialize(0.f, 0.f, 10);

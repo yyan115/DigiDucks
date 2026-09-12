@@ -68,27 +68,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Level3_5.h"
 #include "EndGame.h"
 #include "Intro.h"
-#include "WindowManager.h"
 
-namespace
-{
-	bool IsGameplayScene(const std::string& sceneName)
-	{
-		return sceneName == "GameScene" ||
-			sceneName == "Level0" ||
-			sceneName == "Level1" ||
-			sceneName == "Level1_5" ||
-			sceneName == "Level2" ||
-			sceneName == "Level2_5" ||
-			sceneName == "Level3" ||
-			sceneName == "Level3_5";
-	}
-
-	void ApplyCursorModeForScene(const std::string& sceneName)
-	{
-		WindowManager::SetCursorVisible(!IsGameplayScene(sceneName));
-	}
-}
 
 DuckEngine GameManager::Engine;
 
@@ -173,8 +153,6 @@ void GameManager::Update()
 	if (ShouldChangeScene)
 	{
 		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
-		ApplyCursorModeForScene(
-			Engine.DUCKENGINE_SceneManager.GetActiveSceneName());
 		ShouldChangeScene = false;
 	}
 }
@@ -193,47 +171,6 @@ void GameManager::SetActiveScene(std::string sceneName, bool transition)
 	else
 	{
 		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
-		ApplyCursorModeForScene(
-			Engine.DUCKENGINE_SceneManager.GetActiveSceneName());
-	}
-}
-
-void GameManager::RequestQuitConfirmation()
-{
-	const std::string activeScene =
-		Engine.DUCKENGINE_SceneManager.GetActiveSceneName();
-	if (activeScene == "MainMenu")
-	{
-		if (auto mainMenu =
-			Engine.DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu"))
-		{
-			mainMenu->RequestQuitConfirmation();
-			return;
-		}
-	}
-
-	if (IsGameplayScene(activeScene))
-	{
-		auto pauseMenuEntity =
-			Engine.DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu");
-		if (pauseMenuEntity)
-		{
-			if (auto pauseMenu = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(
-				pauseMenuEntity->entityID))
-			{
-				pauseMenu->RequestQuitConfirmation();
-				return;
-			}
-		}
-	}
-
-	// Intro, standalone help, and results screens have no persistent unsaved
-	// state. Move to the main menu so they still use the same confirmed exit.
-	SetActiveScene("MainMenu", false);
-	if (auto mainMenu =
-		Engine.DUCKENGINE_SceneManager.GetScene<MainMenu>("MainMenu"))
-	{
-		mainMenu->RequestQuitConfirmation();
 	}
 }
 

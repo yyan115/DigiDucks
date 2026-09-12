@@ -25,19 +25,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define UNREFERENCED_PARAMETER(P) (void)(P)
 #endif
 
-namespace
-{
-int VisibleCursorMode()
-{
-#if defined(GLFW_CURSOR_CAPTURED)
-    return GLFW_CURSOR_CAPTURED;
-#else
-    // InputManager clamps visible cursor positions for GLFW before 3.4.
-    return GLFW_CURSOR_NORMAL;
-#endif
-}
-}
-
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 GLint WindowManager::width;
 GLint WindowManager::height;
@@ -47,8 +34,6 @@ const char* WindowManager::title;
 
 bool WindowManager::isFocused = true;
 bool WindowManager::isFullscreen = false;
-bool WindowManager::isCursorVisible = true;
-bool WindowManager::closeRequested = false;
 GLint WindowManager::windowedWidth = 1600;   // Default windowed size
 GLint WindowManager::windowedHeight = 900;  // Default windowed size
 GLint WindowManager::windowedPosX = 0;      // Default window position
@@ -63,7 +48,6 @@ GLint WindowManager::windowedPosY = 0;      // Default window position
 /// <param name="_title">The title of the window.</param>
 /// <returns>Returns true if the window is successfully created, false otherwise.</returns>
 bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) {
-    closeRequested = false;
     WindowManager::width = _width;
     WindowManager::height = _height;
     WindowManager::viewportWidth = _width;
@@ -119,7 +103,6 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     // Set callback for FB size change
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
     glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
-    glfwSetWindowCloseCallback(ptrWindow, window_close_callback);
 
     return true;
 }
@@ -147,16 +130,6 @@ void WindowManager::ToggleFullscreen() {
 void WindowManager::SetVSync(bool enabled) {
     if (ptrWindow) {
         glfwSwapInterval(enabled ? 1 : 0);
-    }
-}
-
-void WindowManager::SetCursorVisible(bool visible) {
-    isCursorVisible = visible;
-    if (ptrWindow && isFocused && !DuckEngine::isEditor) {
-        glfwSetInputMode(
-            ptrWindow,
-            GLFW_CURSOR,
-            visible ? VisibleCursorMode() : GLFW_CURSOR_DISABLED);
     }
 }
 
@@ -196,15 +169,7 @@ GLFWwindow* WindowManager::getWindow() {
 
 void WindowManager::SetWindowShouldClose()
 {
-    closeRequested = false;
     glfwSetWindowShouldClose(ptrWindow, 1);
-}
-
-bool WindowManager::ConsumeCloseRequest()
-{
-    const bool requested = closeRequested;
-    closeRequested = false;
-    return requested;
 }
 
 /// <summary>
@@ -318,26 +283,9 @@ void WindowManager::SetWindowTitle(const char* _title) {
 }
 
 void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
-	if (!DuckEngine::isEditor)
-	{
-		glfwSetInputMode(
-			window,
-			GLFW_CURSOR,
-			focused
-				? (isCursorVisible ? VisibleCursorMode() : GLFW_CURSOR_DISABLED)
-				: GLFW_CURSOR_NORMAL);
-	}
 
     if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
 
     UNREFERENCED_PARAMETER(window);
     isFocused = focused != 0;
-}
-
-void WindowManager::window_close_callback(GLFWwindow* window)
-{
-    // GLFW sets this flag before invoking the callback. Clear it until the
-    // player confirms through the game UI.
-    glfwSetWindowShouldClose(window, GLFW_FALSE);
-    closeRequested = true;
 }

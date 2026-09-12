@@ -54,7 +54,6 @@ private:
 
 	float controllerNavigationCooldown = 0.0f;
 	const float controllerNavigationDelay = 0.3f;
-	bool lastGamepadConnected = false;
 
     int pageNum = 1;  // Tracks the current journal page
 };

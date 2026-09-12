@@ -34,10 +34,7 @@ public:
     bool GetIsFinishedTutorial() { return finishedTutorial; }
     void FinishedTutorial() { finishedTutorial = true; }
 private:
-    void UpdateTutorialControls(bool gamepadConnected);
-
     bool finishedTutorial = false;
-	bool tutorialUsesGamepad = false;
 	SpriteRendererComponent* tutorialTexture = nullptr;
 	SpriteRendererComponent* tutorialTexture2 = nullptr;
 	GameLoopLogic* gameLoopLogic = nullptr;

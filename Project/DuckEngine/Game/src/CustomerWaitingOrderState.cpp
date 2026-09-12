@@ -151,7 +151,7 @@ void CustomerWaitingOrderState::Update()
 		Entity* orderTab = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Order_Tabs").get();
 		OrderTabLogic* orderTabLogic = GameLogicManager::GetLogicForEntity<OrderTabLogic>(orderTab->entityID).get();
 
-		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) || DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_X))
+		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_J) || DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
 		{
 			owner->GetCustomerOrderSpriteRenderer()->isVisible = true;
 			customerSound->Stop();

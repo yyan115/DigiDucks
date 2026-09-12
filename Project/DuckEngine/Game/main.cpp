@@ -185,11 +185,6 @@ int main(int argumentCount, char* arguments[])
 	int smokeTestExitCode = 0;
 	while (gManager.Engine.Running())
 	{
-		if (WindowManager::ConsumeCloseRequest())
-		{
-			GameManager::RequestQuitConfirmation();
-		}
-
 		double frameStartTime = DuckEngine::GetGLFWTime();
 
 		// if alt + enter is pressed, toggle full screen

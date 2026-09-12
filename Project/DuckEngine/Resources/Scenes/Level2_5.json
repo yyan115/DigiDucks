@@ -176,7 +176,7 @@
                             "r": 10.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
                         "fontSizeY": -1.0,
                         "position": {
@@ -1520,7 +1520,7 @@
                             "r": 255.0
                         },
                         "enabled": false,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.5,
                         "fontSizeY": -1.0,
                         "position": {
@@ -2729,7 +2729,7 @@
                             "r": 10.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
                         "fontSizeY": -1.0,
                         "position": {
@@ -2770,7 +2770,7 @@
                             "r": 0.0
                         },
                         "enabled": false,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 0.5,
                         "fontSizeY": -1.0,
                         "position": {
@@ -4485,7 +4485,7 @@
                             "r": 10.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
                         "fontSizeY": -1.0,
                         "position": {
@@ -6034,7 +6034,7 @@
                             "r": 10.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBlack",
                         "fontSize": 1.0,
                         "fontSizeY": -1.0,
                         "position": {
@@ -6188,7 +6188,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
                         "fontSizeY": -1.0,
                         "position": {
@@ -6995,7 +6995,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
                         "fontSizeY": 1.0,
                         "position": {
@@ -7075,7 +7075,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
                         "fontSizeY": 1.0,
                         "position": {
@@ -7155,7 +7155,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.699999988079071,
                         "fontSizeY": 1.0,
                         "position": {
@@ -9137,7 +9137,7 @@
                             "r": 0.0
                         },
                         "enabled": true,
-                        "fontName": "Inter",
+                        "fontName": "HVD Fonts  MikadoBold",
                         "fontSize": 0.8999999761581421,
                         "fontSizeY": -1.0,
                         "position": {

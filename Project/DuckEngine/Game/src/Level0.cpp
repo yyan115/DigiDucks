@@ -50,8 +50,6 @@ void Level0::Start()
 
 	Entity* tutorialEntity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite").get();
 	tutorialTexture = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(tutorialEntity->entityID);
-	tutorialUsesGamepad = DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1);
-	UpdateTutorialControls(tutorialUsesGamepad);
 	tutorialTexture->isVisible = false;
 
 	Entity* tutorialEntity2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("TutorialSprite2").get();
@@ -72,13 +70,6 @@ void Level0::Start()
 * ****************************************************************/
 void Level0::Update()
 {
-	const bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1);
-	if (gamepadConnected != tutorialUsesGamepad)
-	{
-		tutorialUsesGamepad = gamepadConnected;
-		UpdateTutorialControls(gamepadConnected);
-	}
-
 	if (gameLoopLogic->IsGameStarted() && gameLoopLogic->ordersTaken < 1)
 	{
 		tutorialTexture->isVisible = true;
@@ -91,23 +82,6 @@ void Level0::Update()
 	}
 
 	gameLoopLogic->timeLeft = 180.0f;
-}
-
-void Level0::UpdateTutorialControls(bool gamepadConnected)
-{
-	if (!tutorialTexture)
-	{
-		return;
-	}
-
-	const std::string texturePath = gamepadConnected
-		? "Resources/Sprites/Tutorial/controls_controller.png"
-		: "Resources/Sprites/Tutorial/controls.png";
-	if (auto texture = AssetManager::GetTexture(texturePath))
-	{
-		tutorialTexture->texture = *texture;
-		tutorialTexture->texturePath = texturePath;
-	}
 }
 
 /****************************************************************

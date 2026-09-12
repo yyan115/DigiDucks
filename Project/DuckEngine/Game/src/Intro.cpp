@@ -31,13 +31,11 @@ void Intro::Load()
 	logo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo").get();
 	logo2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo2").get();
 	fmodLogo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FMODLogo").get();
-	gamepadNotice = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("GamepadNotice").get();
 
 	fadeRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fadeScreen->entityID);
 	logoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo->entityID);
 	logo2Renderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo2->entityID);
 	fmodLogoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fmodLogo->entityID);
-	gamepadNoticeRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gamepadNotice->entityID);
 
 	fadeRenderer->color.a = 255;
 	fadeRenderer->isVisible = true;
@@ -45,12 +43,10 @@ void Intro::Load()
 	logoRenderer->isVisible = true;
 	logo2Renderer->isVisible = false;
 	fmodLogoRenderer->isVisible = false;
-	gamepadNoticeRenderer->isVisible = false;
 
 	logoRenderer->color.a = 0;
 	logo2Renderer->color.a = 0;
 	fmodLogoRenderer->color.a = 0;
-	gamepadNoticeRenderer->color.a = 0;
 
 	phaseTimer = 0.0f;
 	currentPhase = IntroPhase::FADE_IN_LOGO;
@@ -100,18 +96,6 @@ void Intro::Update()
 			fadeRenderer->color.a = 0;
 			phaseTimer = 0.0f;
 			currentPhase = IntroPhase::SHOW_LOGO2;
-		}
-		else if (currentPhase == IntroPhase::FADE_IN_LOGO2 ||
-			currentPhase == IntroPhase::SHOW_LOGO2 ||
-			currentPhase == IntroPhase::FADE_OUT_LOGO2)
-		{
-			logo2Renderer->isVisible = false;
-			fmodLogoRenderer->isVisible = false;
-			gamepadNoticeRenderer->isVisible = true;
-			gamepadNoticeRenderer->color.a = 255;
-			fadeRenderer->color.a = 0;
-			phaseTimer = 0.0f;
-			currentPhase = IntroPhase::SHOW_GAMEPAD;
 		}
 		else
 		{
@@ -178,37 +162,6 @@ void Intro::Update()
 		fadeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
 		logo2Renderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
 		fmodLogoRenderer->color.a = logo2Renderer->color.a;
-		if (phaseTimer >= fadeDuration) {
-			logo2Renderer->isVisible = false;
-			fmodLogoRenderer->isVisible = false;
-			gamepadNoticeRenderer->isVisible = true;
-			gamepadNoticeRenderer->color.a = 0;
-			phaseTimer = 0.0f;
-			currentPhase = IntroPhase::FADE_IN_GAMEPAD;
-		}
-		break;
-
-	case IntroPhase::FADE_IN_GAMEPAD:
-		fadeRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
-		gamepadNoticeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
-		if (phaseTimer >= fadeDuration) {
-			phaseTimer = 0.0f;
-			currentPhase = IntroPhase::SHOW_GAMEPAD;
-			fadeRenderer->color.a = 0;
-			gamepadNoticeRenderer->color.a = 255;
-		}
-		break;
-
-	case IntroPhase::SHOW_GAMEPAD:
-		if (phaseTimer >= displayDuration) {
-			phaseTimer = 0.0f;
-			currentPhase = IntroPhase::FADE_OUT_GAMEPAD;
-		}
-		break;
-
-	case IntroPhase::FADE_OUT_GAMEPAD:
-		fadeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
-		gamepadNoticeRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
 		if (phaseTimer >= fadeDuration) {
 			currentPhase = IntroPhase::COMPLETE;
 			GameManager::SetActiveScene("MainMenu");

@@ -53,7 +53,6 @@ public:
 	void Unload() override;
 
 	void OnPlayButtonClicked(std::string sceneName);
-	void RequestQuitConfirmation();
 
 private:
 	SoundComponent* menusound = nullptr;

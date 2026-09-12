@@ -15,57 +15,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PauseMenuLogic.h"
 #include "GameManager.h"
 #include "ProjectSettings.h"
-#include "WindowManager.h"
-
-namespace
-{
-	std::shared_ptr<Entity> CreatePauseUIEntity(
-		const std::string& name,
-		const Vec2& position,
-		const Vec2& scale,
-		const std::string& texturePath,
-		int sortingOrder,
-		bool visible = true)
-	{
-		auto entity = DuckEngine::DUCKENGINE_EntityManager.CreateEntity();
-		entity->name = name;
-		entity->layerName = "UI";
-
-		auto* transform = DuckEngine::DUCKENGINE_ComponentManager
-			.AddComponent<TransformComponent>(entity->entityID);
-		transform->angle = 0.0f;
-		transform->scale = scale;
-		transform->relativeToCamera = false;
-		transform->SetPosition(position);
-
-		auto* renderer = DuckEngine::DUCKENGINE_ComponentManager
-			.AddComponent<SpriteRendererComponent>(
-				entity->entityID, true, sortingOrder, false, Color(), visible);
-		if (auto texture = AssetManager::GetTexture(texturePath))
-		{
-			renderer->texture = *texture;
-			renderer->texturePath = texturePath;
-		}
-
-		if (auto* scene = DuckEngine::DUCKENGINE_SceneManager.GetActiveScene())
-		{
-			scene->AddEntityToLayer("UI", entity.get());
-		}
-		return entity;
-	}
-
-	void AttachPauseChild(
-		const std::shared_ptr<Entity>& parent,
-		const std::shared_ptr<Entity>& child)
-	{
-		if (!parent || !child)
-		{
-			return;
-		}
-		parent->childEntities.push_back(child);
-		parent->childNames.push_back(child->name);
-	}
-}
 
 /****************************************************************
 * @brief Start function for the Pause Menu Logic
@@ -234,171 +183,10 @@ void PauseMenuLogic::Start()
 		PauseMenuSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(PauseMenuSFX->entityID);
 	}
 
-	CreateQuitGameControls();
-
 	isPaused = false;
 	pageNumb = 1;
 
 	PauseGame(false);
-}
-
-void PauseMenuLogic::CreateQuitGameControls()
-{
-	// Make room for a fourth option without changing the serialized scenes.
-	const struct ButtonPosition
-	{
-		SpriteRendererComponent* renderer;
-		const char* entityName;
-		float y;
-	} positions[] = {
-		{ gameResumeBtnSpt, "Resume_Btn", -0.40f },
-		{ gameHTPBtnSpt, "HTP_Btn", -0.56f },
-		{ gameExitBtnSpt, "Quit_Btn", -0.72f },
-	};
-	for (const auto& position : positions)
-	{
-		if (!position.renderer)
-		{
-			continue;
-		}
-		auto entity = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName(position.entityName);
-		if (entity)
-		{
-			if (auto* transform = DuckEngine::DUCKENGINE_ComponentManager
-				.GetComponent<TransformComponent>(entity->entityID))
-			{
-				transform->SetPosition(Vec2(0.5f, position.y));
-			}
-		}
-	}
-
-	auto pauseRoot = gamePauseBg
-		? DuckEngine::DUCKENGINE_EntityManager.GetEntity(gamePauseBg->entityID)
-		: nullptr;
-	if (!pauseRoot)
-	{
-		return;
-	}
-
-	const std::string quitTexturePath =
-		"Resources/Sprites/Pause/pause_quitgame.png";
-	const std::string quitHoverTexturePath =
-		"Resources/Sprites/Pause/pause_quitgame_hover.png";
-	gameQuitBtn_Normal = *AssetManager::GetTexture(quitTexturePath);
-	gameQuitBtn_Hover = *AssetManager::GetTexture(quitHoverTexturePath);
-	auto quitEntity = CreatePauseUIEntity(
-		"Pause_Quit_Game_Btn", Vec2(0.5f, -0.88f),
-		Vec2(0.18f, 0.13f), quitTexturePath, 101);
-	gameQuitBtnSpt = DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(quitEntity->entityID);
-	gameQuitButton = DuckEngine::DUCKENGINE_ComponentManager
-		.AddComponent<ButtonComponent>(quitEntity->entityID);
-	AttachPauseChild(pauseRoot, quitEntity);
-
-	gameQuitButton->onClick = [this]()
-	{
-		if (!isPaused)
-		{
-			return;
-		}
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Resume();
-			gameExitBtnSound->Play();
-		}
-		ShowQuitGameConfirmation(true);
-	};
-	gameQuitButton->onHover = [this]()
-	{
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Resume();
-			gameExitBtnSound->Play(1);
-		}
-		gameQuitBtnSpt->texture = gameQuitBtn_Hover;
-	};
-	gameQuitButton->onFinishHover = [this]()
-	{
-		gameQuitBtnSpt->texture = gameQuitBtn_Normal;
-	};
-
-	const std::string confirmationTexturePath =
-		"Resources/Sprites/Pause/Confirm Exit/confirm_exit_game.png";
-	auto confirmationRoot = CreatePauseUIEntity(
-		"Quit_Game_Cfm_Bg", Vec2(0.5f, -0.5f), Vec2(1.0f, 1.0f),
-		confirmationTexturePath, 105, false);
-	gameQuitCfmBg = confirmationRoot.get();
-	gameQuitCfmBgSpt = DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(confirmationRoot->entityID);
-	AttachPauseChild(pauseRoot, confirmationRoot);
-
-	const std::string yesTexturePath =
-		"Resources/Sprites/Pause/Confirm Exit/exit_yes.png";
-	const std::string yesHoverTexturePath =
-		"Resources/Sprites/Pause/Confirm Exit/exit_yes_hover.png";
-	const std::string noTexturePath =
-		"Resources/Sprites/Pause/Confirm Exit/exit_no.png";
-	const std::string noHoverTexturePath =
-		"Resources/Sprites/Pause/Confirm Exit/exit_no_hover.png";
-	gameQuitYesBtn_Normal = *AssetManager::GetTexture(yesTexturePath);
-	gameQuitYesBtn_Hover = *AssetManager::GetTexture(yesHoverTexturePath);
-	gameQuitNoBtn_Normal = *AssetManager::GetTexture(noTexturePath);
-	gameQuitNoBtn_Hover = *AssetManager::GetTexture(noHoverTexturePath);
-
-	auto yesEntity = CreatePauseUIEntity(
-		"Quit_Game_Yes_Btn", Vec2(0.40f, -0.68f),
-		Vec2(0.15f, 0.10f), yesTexturePath, 106);
-	gameQuitYesBtnSpt = DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(yesEntity->entityID);
-	gameQuitYesButton = DuckEngine::DUCKENGINE_ComponentManager
-		.AddComponent<ButtonComponent>(yesEntity->entityID);
-	AttachPauseChild(confirmationRoot, yesEntity);
-
-	auto noEntity = CreatePauseUIEntity(
-		"Quit_Game_No_Btn", Vec2(0.60f, -0.68f),
-		Vec2(0.15f, 0.10f), noTexturePath, 106);
-	gameQuitNoBtnSpt = DuckEngine::DUCKENGINE_ComponentManager
-		.GetComponent<SpriteRendererComponent>(noEntity->entityID);
-	gameQuitNoButton = DuckEngine::DUCKENGINE_ComponentManager
-		.AddComponent<ButtonComponent>(noEntity->entityID);
-	AttachPauseChild(confirmationRoot, noEntity);
-
-	gameQuitYesButton->onClick = [this]()
-	{
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Resume();
-			gameExitBtnSound->Play();
-		}
-		GameManager::Engine.CloseWindow();
-	};
-	gameQuitNoButton->onClick = [this]()
-	{
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Resume();
-			gameExitBtnSound->Play();
-		}
-		ShowQuitGameConfirmation(false);
-	};
-	gameQuitYesButton->onHover = [this]()
-	{
-		quitGameConfirmationSelectsYes = true;
-		gameQuitYesBtnSpt->texture = gameQuitYesBtn_Hover;
-	};
-	gameQuitYesButton->onFinishHover = [this]()
-	{
-		gameQuitYesBtnSpt->texture = gameQuitYesBtn_Normal;
-	};
-	gameQuitNoButton->onHover = [this]()
-	{
-		quitGameConfirmationSelectsYes = false;
-		gameQuitNoBtnSpt->texture = gameQuitNoBtn_Hover;
-	};
-	gameQuitNoButton->onFinishHover = [this]()
-	{
-		gameQuitNoBtnSpt->texture = gameQuitNoBtn_Normal;
-	};
 }
 
 /****************************************************************
@@ -414,12 +202,6 @@ void PauseMenuLogic::Update()
 
 void PauseMenuLogic::UpdateMenuSelection()
 {
-	if (gameQuitCfmBgSpt && gameQuitCfmBgSpt->isVisible)
-	{
-		UpdateQuitGameConfirmationInput();
-		return;
-	}
-
 	// First, check if any submenus are open - don't allow pause menu navigation if they are
 	bool submenusOpen = false;
 
@@ -538,14 +320,6 @@ void PauseMenuLogic::SelectButton(MenuSelection selection)
 		gameExitBtnSound->Play();
 		break;
 
-	case MenuSelection::QUIT_GAME:
-		gameQuitBtnSpt->texture = gameQuitBtn_Hover;
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Play();
-		}
-		break;
-
 	default:
 		break;
 	}
@@ -556,10 +330,6 @@ void PauseMenuLogic::DeselectAllButtons()
 	gameResumeBtnSpt->texture = gameResumeBtn_Normal;
 	gameHTPBtnSpt->texture = gameHTPBtn_Normal;
 	gameExitBtnSpt->texture = gameExitBtn_Normal;
-	if (gameQuitBtnSpt)
-	{
-		gameQuitBtnSpt->texture = gameQuitBtn_Normal;
-	}
 }
 
 void PauseMenuLogic::ActivateSelectedButton()
@@ -594,148 +364,8 @@ void PauseMenuLogic::ActivateSelectedButton()
 		ExitConfirm(true);
 		break;
 
-	case MenuSelection::QUIT_GAME:
-		if (gameExitBtnSound)
-		{
-			gameExitBtnSound->Resume();
-			gameExitBtnSound->Play();
-		}
-		ShowQuitGameConfirmation(true);
-		break;
-
 	default:
 		break;
-	}
-}
-
-void PauseMenuLogic::ShowQuitGameConfirmation(bool state)
-{
-	if (!gameQuitCfmBgSpt)
-	{
-		return;
-	}
-
-	gameQuitCfmBgSpt->isVisible = state;
-	if (gamePauseBgSpt2)
-	{
-		gamePauseBgSpt2->isVisible = !state;
-	}
-	DisableButtons(state);
-
-	quitGameConfirmationSelectsYes = false;
-	if (gameQuitYesBtnSpt)
-	{
-		gameQuitYesBtnSpt->texture = gameQuitYesBtn_Normal;
-	}
-	if (gameQuitNoBtnSpt)
-	{
-		gameQuitNoBtnSpt->texture = state && isUsingController
-			? gameQuitNoBtn_Hover
-			: gameQuitNoBtn_Normal;
-	}
-
-	if (!state && isPaused && isUsingController)
-	{
-		DeselectAllButtons();
-		currentSelection = MenuSelection::QUIT_GAME;
-		if (gameQuitBtnSpt)
-		{
-			gameQuitBtnSpt->texture = gameQuitBtn_Hover;
-		}
-	}
-}
-
-void PauseMenuLogic::SelectQuitGameConfirmation(bool selectYes)
-{
-	quitGameConfirmationSelectsYes = selectYes;
-	gameQuitYesBtnSpt->texture = selectYes
-		? gameQuitYesBtn_Hover
-		: gameQuitYesBtn_Normal;
-	gameQuitNoBtnSpt->texture = selectYes
-		? gameQuitNoBtn_Normal
-		: gameQuitNoBtn_Hover;
-
-	if (gameExitBtnSound)
-	{
-		gameExitBtnSound->Resume();
-		gameExitBtnSound->Play(1);
-	}
-}
-
-void PauseMenuLogic::UpdateQuitGameConfirmationInput()
-{
-	if (DuckEngine_Input::IsGamepadButtonPressed(
-			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B))
-	{
-		ShowQuitGameConfirmation(false);
-		return;
-	}
-
-	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) ||
-		DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_RIGHT))
-	{
-		if (isUsingController)
-		{
-			isUsingController = false;
-			gameQuitYesBtnSpt->texture = gameQuitYesBtn_Normal;
-			gameQuitNoBtnSpt->texture = gameQuitNoBtn_Normal;
-		}
-	}
-
-	if (!DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
-	{
-		return;
-	}
-
-	if (controllerNavigationCooldown > 0.0f)
-	{
-		controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
-	}
-
-	const float leftInput = DuckEngine_Input::GetGamepadAxisValue(
-		DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
-	const float rightInput = DuckEngine_Input::GetGamepadAxisValue(
-		DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_RIGHT_X);
-	const bool navigateLeft = leftInput < -0.3f || rightInput < -0.3f ||
-		DuckEngine_Input::IsGamepadButtonDown(
-			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
-	const bool navigateRight = leftInput > 0.3f || rightInput > 0.3f ||
-		DuckEngine_Input::IsGamepadButtonDown(
-			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
-	const bool activate = DuckEngine_Input::IsGamepadButtonReleased(
-		DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
-
-	if ((navigateLeft || navigateRight || activate) && !isUsingController)
-	{
-		isUsingController = true;
-		SelectQuitGameConfirmation(false);
-		controllerNavigationCooldown = controllerNavigationDelay;
-	}
-
-	if (controllerNavigationCooldown <= 0.0f)
-	{
-		if (navigateLeft)
-		{
-			SelectQuitGameConfirmation(true);
-			controllerNavigationCooldown = controllerNavigationDelay;
-		}
-		else if (navigateRight)
-		{
-			SelectQuitGameConfirmation(false);
-			controllerNavigationCooldown = controllerNavigationDelay;
-		}
-	}
-
-	if (activate)
-	{
-		if (quitGameConfirmationSelectsYes)
-		{
-			GameManager::Engine.CloseWindow();
-		}
-		else
-		{
-			ShowQuitGameConfirmation(false);
-		}
 	}
 }
 
@@ -758,7 +388,6 @@ void PauseMenuLogic::PauseGame(bool state)
 	isPaused = state;
 	DuckEngine::PauseGame(state);
 	DuckEngine::isGamePaused = state;
-	WindowManager::SetCursorVisible(state);
 
 	std::cout << "PauseGame: " << isPaused << std::endl;
 
@@ -774,30 +403,8 @@ void PauseMenuLogic::PauseGame(bool state)
 	{
 		gamePauseBgSpt->isVisible = state;
 	}
-	if (gameJournalSpt)
-	{
-		gameJournalSpt->isVisible = false;
-	}
+	gameJournalSpt->isVisible = false;
 	ExitConfirm(false);
-	ShowQuitGameConfirmation(false);
-}
-
-void PauseMenuLogic::RequestQuitConfirmation()
-{
-	if (!isPaused)
-	{
-		PauseGame(true);
-		playPauseSound();
-	}
-	else
-	{
-		if (gameJournalSpt)
-		{
-			gameJournalSpt->isVisible = false;
-		}
-		ExitConfirm(false);
-	}
-	ShowQuitGameConfirmation(true);
 }
 
 
@@ -840,10 +447,6 @@ void PauseMenuLogic::DisableButtons(bool state)
 	if (gameHTPButton)
 	{
 		gameHTPButton->isEnabled = !state;
-	}
-	if (gameQuitButton)
-	{
-		gameQuitButton->isEnabled = !state;
 	}
 
 	if (star1Spt)
