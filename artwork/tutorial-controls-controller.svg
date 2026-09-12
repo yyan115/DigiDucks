@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1551" viewBox="0 0 1000 1551">
+  <defs>
+    <style>
+      .outline { stroke: #fff; stroke-width: 8; stroke-linejoin: round; }
+      .brown { fill: #5c351f; }
+      .button-text { fill: #fff; font: 700 56px Inter, sans-serif; text-anchor: middle; dominant-baseline: central; }
+    </style>
+  </defs>
+
+  <!-- Move: left stick and D-pad. -->
+  <g transform="translate(390 315)">
+    <circle cx="55" cy="55" r="50" class="brown outline"/>
+    <circle cx="55" cy="55" r="22" fill="#dbe8ef" stroke="#fff" stroke-width="6"/>
+    <path d="M55 16v17M55 77v17M16 55h17M77 55h17" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(500 320)">
+    <path d="M34 0h42v34h34v42H76v34H34V76H0V34h34z" class="brown outline"/>
+  </g>
+
+  <!-- Xbox-style face-button labels, matching the in-game mapping. -->
+  <g transform="translate(488 582)">
+    <circle r="48" fill="#58a95c" class="outline"/>
+    <text class="button-text" y="2">A</text>
+  </g>
+  <g transform="translate(488 792)">
+    <circle r="48" fill="#5a88d4" class="outline"/>
+    <text class="button-text" y="2">X</text>
+  </g>
+  <g transform="translate(488 992)">
+    <circle r="48" fill="#5a88d4" class="outline"/>
+    <text class="button-text" y="2">X</text>
+  </g>
+  <g transform="translate(488 1232)">
+    <circle r="48" fill="#5a88d4" class="outline"/>
+    <text class="button-text" y="2">X</text>
+  </g>
+</svg>
