@@ -26,7 +26,7 @@ all three distributable formats.
 
 | Requirement | Implementation and evidence |
 |---|---|
-| Title and first screen | Release title is `Quack Kitchen`; the first scene is the standalone DigiPen logo. The Linux cold-container smoke reaches its first rendered frame in under three seconds, and CI enforces the limit. |
+| Title and first screen | Release title is `Quack Kitchen`; the first scene is the standalone DigiPen logo. A clean Ubuntu 24.04 Release container reached its first rendered frame in 2.49 seconds. The shipping smoke-test mode enforces the three-second limit; CI's software-rendered Xvfb runs verify the same complete render path without using runner-dependent llvmpipe time as hardware performance evidence. |
 | Logo duration and bypass | DigiPen has an isolated two-second hold. Left/right click, Enter, Space, Escape, Start, and A advance intro screens while preserving the controller notice. |
 | Responsiveness and focus loss | GLFW messages continue to be processed. Losing focus/minimizing freezes time, pauses audio, releases the cursor, suppresses rendering, and waits at 10 Hz. |
 | Performance | Release defaults to a 70 FPS target. Representative Windows gameplay remains a final acceptance measurement. |
