@@ -152,6 +152,8 @@ else()
 endif()
 
 add_custom_command(TARGET QuackKitchen POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E remove_directory
+            "$<TARGET_FILE_DIR:QuackKitchen>/Resources"
     COMMAND "${CMAKE_COMMAND}" -E copy_directory
             "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
             "$<TARGET_FILE_DIR:QuackKitchen>/Resources"
