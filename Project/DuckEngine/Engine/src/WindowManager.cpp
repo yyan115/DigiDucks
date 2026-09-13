@@ -25,6 +25,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 #define UNREFERENCED_PARAMETER(P) (void)(P)
 #endif
 
+namespace
+{
+	// Visible but confined to the window. GLFW gained this mode in 3.4; on
+	// older versions InputManager::mousePosCB clamps the position instead.
+	int ConfinedCursorMode()
+	{
+#if defined(GLFW_CURSOR_CAPTURED)
+		return GLFW_CURSOR_CAPTURED;
+#else
+		return GLFW_CURSOR_NORMAL;
+#endif
+	}
+}
+
 GLFWwindow* WindowManager::ptrWindow = nullptr;
 GLint WindowManager::width;
 GLint WindowManager::height;
@@ -283,6 +297,17 @@ void WindowManager::SetWindowTitle(const char* _title) {
 }
 
 void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
+
+	// Confine the pointer while the game has focus, release it when it does
+	// not, so alt-tabbing away hands the cursor back to the desktop. The
+	// editor is left alone, it needs a free cursor across its panels.
+	if (!DuckEngine::isEditor)
+	{
+		glfwSetInputMode(
+			window,
+			GLFW_CURSOR,
+			focused ? ConfinedCursorMode() : GLFW_CURSOR_NORMAL);
+	}
 
     if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
 
