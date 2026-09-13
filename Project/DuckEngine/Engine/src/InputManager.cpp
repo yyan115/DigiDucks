@@ -47,17 +47,6 @@ double InputManager::lastMouseY = 0.0;
 /// <param name="window">The GLFW window to associate with the input manager.</param>
 /// <returns>Returns true if initialization was successful.</returns>
 bool InputManager::Initialize(GLFWwindow* window) {
-#if defined(GLFW_CURSOR_CAPTURED)
-    // Visible, but confined to the window, so the pointer cannot wander onto a
-    // second monitor while the game has focus.
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_CAPTURED);
-#else
-    // GLFW before 3.4 has no confined-but-visible mode. mousePosCB clamps the
-    // position instead, which gives the same result without the raw motion of
-    // GLFW_CURSOR_DISABLED.
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-#endif
-
     glfwSetKeyCallback(window, InputManager::keyCB);
     glfwSetMouseButtonCallback(window, InputManager::mouseButtonCB);
     glfwSetCursorPosCallback(window, InputManager::mousePosCB);
@@ -318,29 +307,7 @@ void InputManager::mouseScrollCB(GLFWwindow* pwin, double xoffset, double yoffse
 /// <param name="xpos">The new x-coordinate of the mouse.</param>
 /// <param name="ypos">The new y-coordinate of the mouse.</param>
 void InputManager::mousePosCB(GLFWwindow* pwin, double xpos, double ypos) {
-#if !defined(GLFW_CURSOR_CAPTURED)
-    // Confinement fallback for GLFW before 3.4: clamp the reported position
-    // back inside the window and put the pointer there.
-    if (pwin && glfwGetWindowAttrib(pwin, GLFW_FOCUSED) == GLFW_TRUE &&
-        glfwGetInputMode(pwin, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
-        int windowWidth = 0;
-        int windowHeight = 0;
-        glfwGetWindowSize(pwin, &windowWidth, &windowHeight);
-        if (windowWidth > 0 && windowHeight > 0) {
-            const double confinedX =
-                std::clamp(xpos, 0.0, static_cast<double>(windowWidth - 1));
-            const double confinedY =
-                std::clamp(ypos, 0.0, static_cast<double>(windowHeight - 1));
-            if (confinedX != xpos || confinedY != ypos) {
-                xpos = confinedX;
-                ypos = confinedY;
-                glfwSetCursorPos(pwin, xpos, ypos);
-            }
-        }
-    }
-#else
     UNREFERENCED_PARAMETER(pwin);
-#endif
 
     lastMouseX = mouseX;
     lastMouseY = mouseY;

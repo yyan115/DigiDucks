@@ -127,6 +127,14 @@ public:
     /// </summary>
     static void ToggleFullscreen();
 
+    /*!
+    \brief  Re-asks for the confined cursor for a few frames after the window
+            is created or moved between fullscreen and windowed. Call once per
+            frame; it does nothing once the request has been repeated enough
+            times.
+    */
+    static void MaintainCursorConfinement();
+
     /// <summary>
     /// Enables or disables vertical synchronization for the active context.
     /// </summary>

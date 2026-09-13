@@ -27,15 +27,26 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 namespace
 {
-	// Visible but confined to the window. GLFW gained this mode in 3.4; on
-	// older versions InputManager::mousePosCB clamps the position instead.
+	// Visible but confined to the window. GLFW gained this mode in 3.4, which
+	// is why the build asks for at least that version.
 	int ConfinedCursorMode()
 	{
-#if defined(GLFW_CURSOR_CAPTURED)
 		return GLFW_CURSOR_CAPTURED;
-#else
-		return GLFW_CURSOR_NORMAL;
-#endif
+	}
+
+	// GLFW confines the cursor by grabbing the pointer, and the X server
+	// refuses a grab on a window that is not on screen yet. Creating the
+	// window and moving it between fullscreen and windowed both leave it that
+	// way for a short while, and neither GLFW nor the server says when it is
+	// over, so one request made at the wrong moment is simply lost and the
+	// game runs with a free cursor. Asking again on each of the next few
+	// frames costs nothing and removes the race.
+	int cursorConfinementRequests = 0;
+	const int kCursorConfinementRetries = 15;
+
+	void RequestCursorConfinement()
+	{
+		cursorConfinementRequests = kCursorConfinementRetries;
 	}
 }
 
@@ -118,6 +129,8 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
     glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
 
+    RequestCursorConfinement();
+
     return true;
 }
 
@@ -139,6 +152,10 @@ void WindowManager::ToggleFullscreen() {
         glfwSetWindowMonitor(ptrWindow, primaryMonitor, 0, 0, mode->width, mode->height, mode->refreshRate);
     }
     isFullscreen = !isFullscreen; // Toggle fullscreen state
+
+    // Moving the window between a monitor and the desktop drops the pointer
+    // grab that confines the cursor, so ask for it again.
+    RequestCursorConfinement();
 }
 
 void WindowManager::SetVSync(bool enabled) {
@@ -292,6 +309,25 @@ GLint WindowManager::GetEntireWindowHeight() {
 /// Sets the title of the window to the specified string.
 /// </summary>
 /// <param name="_title">The new title of the window.</param>
+void WindowManager::MaintainCursorConfinement() {
+    if (cursorConfinementRequests <= 0 || !ptrWindow || DuckEngine::isEditor) {
+        return;
+    }
+    --cursorConfinementRequests;
+
+    // Only while the game has focus. Asking for a confined cursor on a window
+    // the player has alt-tabbed away from would take the pointer back off them.
+    if (glfwGetWindowAttrib(ptrWindow, GLFW_FOCUSED) != GLFW_TRUE) {
+        return;
+    }
+
+    // GLFW returns early when the mode it is given is the mode it already
+    // holds, and after a lost grab the mode it holds is already the confined
+    // one. Passing through GLFW_CURSOR_NORMAL makes the request take effect.
+    glfwSetInputMode(ptrWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(ptrWindow, GLFW_CURSOR, ConfinedCursorMode());
+}
+
 void WindowManager::SetWindowTitle(const char* _title) {
     glfwSetWindowTitle(ptrWindow, _title);
 }

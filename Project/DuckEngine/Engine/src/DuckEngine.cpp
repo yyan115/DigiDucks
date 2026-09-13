@@ -324,6 +324,7 @@ void DuckEngine::Draw()
 	TimeManager::EndManagerTimer("Graphics System");
 
 	InputManager::Update();
+	WindowManager::MaintainCursorConfinement();
 	DuckEngine::DUCKENGINE_SystemManager.RenderAll();
 	DuckEngine::DUCKENGINE_SceneManager.Render();
 	
