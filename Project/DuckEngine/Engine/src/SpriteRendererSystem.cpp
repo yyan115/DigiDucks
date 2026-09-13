@@ -209,7 +209,7 @@ void SpriteRendererSystem::Render()
 		if (data.spriteRenderer->texture)
 		{
 			drawOptions.useTexture = true;
-			drawOptions.texture = &data.spriteRenderer->texture;
+			drawOptions.texture = data.spriteRenderer->texture;
 		}
 		else if (data.spriteRenderer->useColor)
 		{

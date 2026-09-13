@@ -267,7 +267,7 @@ void GraphicsManager::RenderGameObject(const GameRenderCommand& cmd) {
         if (!cmd.texture) return;
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, *cmd.texture);
+        glBindTexture(GL_TEXTURE_2D, cmd.texture);
 
         // Set the texture uniform
         GLint uTex2dLocation = glGetUniformLocation(ShaderManager::GetShader("DefaultShader")->GetProgram(), "uTex2d");

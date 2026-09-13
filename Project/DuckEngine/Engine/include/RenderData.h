@@ -128,8 +128,12 @@ struct GameRenderCommand {
     Color color = { 255, 255, 255, 255 };
 
     // OPTIONAL
+    // The id itself, not a pointer to it. The draw queue is filled at the end
+    // of one frame and drawn at the start of the next, so a pointer into a
+    // component dangles as soon as that entity is destroyed in between. Every
+    // other field here is already a copy.
     bool useTexture = false;
-    unsigned int* texture = 0;
+    unsigned int texture = 0;
 
     // OPTIONAL
     bool relativeToCamera = true;
@@ -221,7 +225,7 @@ enum class RenderCommandType {
     Slider
 };
 
-// Our unified render command – each command carries a layer and a variant.
+// Our unified render command ï¿½ each command carries a layer and a variant.
 struct UnifiedRenderCommand {
     int layer = 0;
     int sortingOrder = 0;
