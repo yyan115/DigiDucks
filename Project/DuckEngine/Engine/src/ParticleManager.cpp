@@ -159,7 +159,15 @@ void ParticleManager::UpdateParticles(float dt)
         p.position += p.velocity * dt;
 
         p.lifetime -= dt;
-        float frac = p.lifetime / p.startLifetime;
+        // The lifetime is decremented before the expiry check below, so on the
+        // frame a particle runs out this fraction is negative and casting it
+        // to unsigned char is undefined behaviour. UndefinedBehaviorSanitizer
+        // reported -27.347 here. Unclamped it wraps, so a particle flashes
+        // opaque on the frame it should vanish. Clamping leaves every live
+        // particle identical.
+        float frac = p.startLifetime > 0.0f ? p.lifetime / p.startLifetime : 0.0f;
+        if (frac < 0.0f) frac = 0.0f;
+        if (frac > 1.0f) frac = 1.0f;
         p.color.a = static_cast<unsigned char>(frac * 255);
 
         if (p.lifetime <= 0.0f)

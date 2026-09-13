@@ -68,6 +68,28 @@ void Intro::Start()
 * @brief Updates the scene logic each frame, including processing input and updating game objects.
 * This function is called every frame.
 * ****************************************************************/
+namespace
+{
+	// The phase timer is advanced before the fade values below are computed,
+	// so a frame long enough to overshoot the fade duration makes the ratio
+	// exceed one. Casting the resulting out-of-range float to unsigned char is
+	// undefined behaviour: UndefinedBehaviorSanitizer reported values such as
+	// -770 and 1025 here. Clamping the progress leaves every in-range frame
+	// byte-identical and makes a long frame land on a fully faded value
+	// instead of whatever the cast happened to wrap to.
+	float FadeProgress(float elapsed, float duration)
+	{
+		if (duration <= 0.0f)
+		{
+			return 1.0f;
+		}
+		const float progress = elapsed / duration;
+		if (progress < 0.0f) return 0.0f;
+		if (progress > 1.0f) return 1.0f;
+		return progress;
+	}
+}
+
 void Intro::Update()
 {
 	const bool skipRequested =
@@ -110,8 +132,8 @@ void Intro::Update()
 
 	switch (currentPhase) {
 	case IntroPhase::FADE_IN_LOGO:
-		fadeRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
-		logoRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
+		fadeRenderer->color.a = static_cast<unsigned char>(255 - FadeProgress(phaseTimer, fadeDuration) * 255);
+		logoRenderer->color.a = static_cast<unsigned char>(FadeProgress(phaseTimer, fadeDuration) * 255);
 		if (phaseTimer >= fadeDuration) {
 			phaseTimer = 0.0f;
 			currentPhase = IntroPhase::SHOW_LOGO;
@@ -127,8 +149,8 @@ void Intro::Update()
 		break;
 
 	case IntroPhase::FADE_OUT_LOGO:
-		fadeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
-		logoRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
+		fadeRenderer->color.a = static_cast<unsigned char>(FadeProgress(phaseTimer, fadeDuration) * 255);
+		logoRenderer->color.a = static_cast<unsigned char>(255 - FadeProgress(phaseTimer, fadeDuration) * 255);
 		if (phaseTimer >= fadeDuration) {
 			logoRenderer->isVisible = false;
 			logo2Renderer->isVisible = true;
@@ -141,8 +163,8 @@ void Intro::Update()
 		break;
 
 	case IntroPhase::FADE_IN_LOGO2:
-		fadeRenderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
-		logo2Renderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
+		fadeRenderer->color.a = static_cast<unsigned char>(255 - FadeProgress(phaseTimer, fadeDuration) * 255);
+		logo2Renderer->color.a = static_cast<unsigned char>(FadeProgress(phaseTimer, fadeDuration) * 255);
 		fmodLogoRenderer->color.a = logo2Renderer->color.a;
 		if (phaseTimer >= fadeDuration) {
 			phaseTimer = 0.0f;
@@ -159,8 +181,8 @@ void Intro::Update()
 		break;
 
 	case IntroPhase::FADE_OUT_LOGO2:
-		fadeRenderer->color.a = static_cast<unsigned char>((phaseTimer / fadeDuration) * 255);
-		logo2Renderer->color.a = static_cast<unsigned char>(255 - (phaseTimer / fadeDuration) * 255);
+		fadeRenderer->color.a = static_cast<unsigned char>(FadeProgress(phaseTimer, fadeDuration) * 255);
+		logo2Renderer->color.a = static_cast<unsigned char>(255 - FadeProgress(phaseTimer, fadeDuration) * 255);
 		fmodLogoRenderer->color.a = logo2Renderer->color.a;
 		if (phaseTimer >= fadeDuration) {
 			currentPhase = IntroPhase::COMPLETE;
