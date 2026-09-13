@@ -228,6 +228,12 @@ install(DIRECTORY Resources DESTINATION .
     PATTERN "EditorIcons" EXCLUDE
     PATTERN "save.json" EXCLUDE)
 install(DIRECTORY "${CMAKE_SOURCE_DIR}/Licenses" DESTINATION .)
+# DigiPen's end-user licence governs the game on every platform. The Windows
+# installer placed it beside the game and the Linux packages carried no copy,
+# so a player who downloaded the AppImage never saw the terms they are bound
+# by. Installing it here covers all three packages from one place.
+install(FILES "${CMAKE_SOURCE_DIR}/Installer/INSTALLERFILES/DigiPen_EULA.txt"
+    DESTINATION Licenses)
 
 if(WIN32)
     install(FILES

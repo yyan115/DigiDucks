@@ -105,6 +105,7 @@ def main() -> int:
     required_licenses = (
         "ASSET_PROVENANCE.md",
         "Dear-ImGui.txt",
+        "DigiPen_EULA.txt",
         "FMOD.txt",
         "Fonts.txt",
         "FreeType-FTL.txt",
@@ -116,6 +117,11 @@ def main() -> int:
         "README.md",
         "Sound-Ideas.txt",
         "stb_image.txt",
+        # Bundled by the Linux packages, which redistribute them.
+        "libbsd.txt",
+        "libmd.txt",
+        "libXau.txt",
+        "libXdmcp.txt",
     )
     for name in required_licenses:
         if not (stage / "Licenses" / name).is_file():

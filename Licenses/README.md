@@ -4,6 +4,12 @@ This directory is installed beside the game executable and records the licenses
 and provenance for software, fonts, and externally sourced assets shipped with
 Quack Kitchen.
 
+## End-user license
+
+- `DigiPen_EULA.txt` — DigiPen's terms for its students' games. It governs this
+  game on every platform and is installed beside the executable in all three
+  packages.
+
 ## Software
 
 - `FMOD.txt` — FMOD Engine 2.03.09 notice and governing terms.
