@@ -13,6 +13,12 @@ The release workflow fills these generated paths:
 - `INSTALLER/` — the compiled Inno Setup installer.
 - `Version.iss` — the `GameVersion` define read by `InstallScript.iss`.
 
+`InstallScript.iss` also copies `INSTALLERFILES/DigiPen_EULA.txt` into the
+install directory. That is not the only copy any more: CMake installs the same
+file into `Licenses/` for every package, because the Linux ones carried no EULA
+at all. Removing the CMake line would take it off Linux; removing this one
+would change nothing, since both write the same bytes to the same place.
+
 The installer never stores its own version. `Version.iss` is generated from the
 version declared in `Project/DuckEngine/CMakeLists.txt`, which is also the
 version compiled into the executable, so the two cannot disagree.
