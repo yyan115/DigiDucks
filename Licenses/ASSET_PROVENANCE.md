@@ -20,15 +20,16 @@ history. It documents evidence; it does not create or expand any license.
 ## Fonts
 
 - The Kenney font package is distributed under CC0. Its bundled notice is in
-  `Fonts.txt`. One face, Kenney High Square, is used by the game.
+  `Fonts.txt`. Twelve of its faces ship; one, Kenney High Square, is used by
+  the game. CC0 covers the rest being present.
 - No Inter font is bundled. A stray `Resources/Inter.ttf` was shipped for a
   time without being in the font directory the engine loads from, so it was
   never used; it has been removed.
-- Twelve Mikado faces by HVD Fonts are bundled. Their embedded metadata says
-  "all rights reserved" and no redistribution license accompanies them, so
-  their licensing is unestablished. Two of the twelve are used by the user
-  interface, MikadoBlack and MikadoBold. The other ten are referenced nowhere
-  in the game's scenes, prefabs or source.
+- Two Mikado faces by HVD Fonts are bundled, MikadoBlack and MikadoBold, and
+  both are used by the user interface. Their embedded metadata says "all rights
+  reserved" and no redistribution license accompanies them, so their licensing
+  is unestablished. Ten further Mikado faces were bundled until 2026-09-13 and
+  were referenced by no scene, prefab or source file; they have been removed.
 
 ## Audio
 
