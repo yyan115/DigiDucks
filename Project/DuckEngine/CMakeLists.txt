@@ -17,15 +17,49 @@ find_package(OpenGL REQUIRED)
 find_package(Freetype REQUIRED)
 find_package(GLEW REQUIRED)
 
-find_package(glfw3 CONFIG QUIET)
-if(TARGET glfw)
+# GLFW_CURSOR_CAPTURED, which keeps the cursor inside the window, arrived in
+# GLFW 3.4. Ubuntu 24.04 still ships 3.3.10, so asking for any GLFW at all
+# produces a release build where the cursor is not confined and nothing says
+# so. Ask for 3.4, and build the copy in Engine/lib/glfw when the system has
+# nothing new enough.
+set(QUACK_KITCHEN_GLFW_MINIMUM 3.4)
+option(QUACK_KITCHEN_BUNDLED_GLFW
+    "Build the bundled GLFW instead of looking for a system one" OFF)
+
+if(NOT QUACK_KITCHEN_BUNDLED_GLFW)
+    find_package(glfw3 ${QUACK_KITCHEN_GLFW_MINIMUM} CONFIG QUIET)
+    if(TARGET glfw)
+        set(QUACK_KITCHEN_GLFW_TARGET glfw)
+    elseif(TARGET glfw3::glfw)
+        set(QUACK_KITCHEN_GLFW_TARGET glfw3::glfw)
+    else()
+        find_package(PkgConfig QUIET)
+        if(PkgConfig_FOUND)
+            pkg_check_modules(GLFW3 QUIET IMPORTED_TARGET
+                "glfw3 >= ${QUACK_KITCHEN_GLFW_MINIMUM}")
+        endif()
+        if(TARGET PkgConfig::GLFW3)
+            set(QUACK_KITCHEN_GLFW_TARGET PkgConfig::GLFW3)
+        endif()
+    endif()
+endif()
+
+if(NOT QUACK_KITCHEN_GLFW_TARGET)
+    message(STATUS
+        "No GLFW ${QUACK_KITCHEN_GLFW_MINIMUM} or newer found; building the bundled copy")
+    set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+    set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+    set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
+    if(UNIX AND NOT APPLE)
+        # X11 only. Wayland needs wayland-scanner and a pile of protocol
+        # headers on the build machine, and every session the game is driven
+        # in is X11 or XWayland.
+        set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
+        set(GLFW_BUILD_X11 ON CACHE BOOL "" FORCE)
+    endif()
+    add_subdirectory(Engine/lib/glfw EXCLUDE_FROM_ALL)
     set(QUACK_KITCHEN_GLFW_TARGET glfw)
-elseif(TARGET glfw3::glfw)
-    set(QUACK_KITCHEN_GLFW_TARGET glfw3::glfw)
-else()
-    find_package(PkgConfig REQUIRED)
-    pkg_check_modules(GLFW3 REQUIRED IMPORTED_TARGET glfw3)
-    set(QUACK_KITCHEN_GLFW_TARGET PkgConfig::GLFW3)
 endif()
 
 set(QUACK_KITCHEN_FMOD_ROOT

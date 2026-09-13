@@ -25,7 +25,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             cmake g++ libfreetype-dev libglew-dev libglfw3-dev \
-            libgl1-mesa-dri ninja-build python3 xauth xvfb
+            libgl1-mesa-dri ninja-build python3 xauth xvfb \
+            libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
 
       - name: Validate serialized assets
         run: python3 tools/validate_assets.py
