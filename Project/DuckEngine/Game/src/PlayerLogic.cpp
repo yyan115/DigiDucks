@@ -571,7 +571,28 @@ void PlayerLogic::InteractPressed()
 						{
 							tab.tabCustomer->OrderCompleted();
 
-							submitLogic->removeObject(holding->moveObject());
+							// submitLogic above belongs to whatever the player interacted
+							// with, and a successful submit happens at a customer's table,
+							// which carries no SubmitLogic. Calling through that null
+							// pointer is undefined behaviour; it only appeared to work
+							// because removeObject never touches its own object, looking
+							// the submit station up for itself. Use the real one, and fall
+							// back to removing the item directly so behaviour is unchanged
+							// when no submit station exists.
+							const std::pair<int, ItemType> submitted = holding->moveObject();
+							Entity* submitStation = DuckEngine::DUCKENGINE_EntityManager
+								.GetEntityByName("Submit_Station").get();
+							auto stationLogic = submitStation
+								? GameLogicManager::GetLogicForEntity<SubmitLogic>(submitStation->entityID)
+								: nullptr;
+							if (stationLogic)
+							{
+								stationLogic->removeObject(submitted);
+							}
+							else
+							{
+								DuckEngine::DUCKENGINE_EntityManager.RemoveEntity(submitted.first);
+							}
 
 							//tab.tabCustomer->WalkState.get()->currentTargetIndex = 0;
 							//tab.tabCustomer->WalkState.get()->currentQueueTarget = tab.tabCustomer->WalkState.get()->seatPoints[tab.tabCustomer->WalkState.get()->currentTargetIndex];
