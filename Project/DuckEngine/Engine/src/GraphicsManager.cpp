@@ -138,8 +138,10 @@ void GraphicsManager::AddToDrawQueue(const UnifiedRenderCommand& cmd) {
 // --- Unified Render Function ---
 void GraphicsManager::Render() {
 
-    // First, sort the unified render queue by layer.
-    std::sort(drawQueue.begin(), drawQueue.end(),
+    // First, sort the unified render queue by layer. Stable, for the same
+    // reason as the sprite render queue: ties must keep insertion order or the
+    // draw order depends on the standard library implementation.
+    std::stable_sort(drawQueue.begin(), drawQueue.end(),
         [](const UnifiedRenderCommand& a, const UnifiedRenderCommand& b) {
             if (a.layer != b.layer)
                 return a.layer < b.layer; // Lower layers first

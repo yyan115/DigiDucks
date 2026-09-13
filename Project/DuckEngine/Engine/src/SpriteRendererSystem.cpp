@@ -148,7 +148,13 @@ void SpriteRendererSystem::Render()
 		}
 	}
 
-	std::sort(renderQueue.begin(), renderQueue.end(),
+	// Stable, because most of a scene shares one layer and one sorting order.
+	// std::sort leaves tied elements in an unspecified order that differs
+	// between standard library implementations, so a full-screen background
+	// tied with the widgets on top of it can be drawn either before or after
+	// them depending on the compiler. Keeping insertion order makes the
+	// draw order the same everywhere.
+	std::stable_sort(renderQueue.begin(), renderQueue.end(),
 		[](const RenderData& a, const RenderData& b) {
 			if (a.layer != b.layer)
 				return a.layer < b.layer;
