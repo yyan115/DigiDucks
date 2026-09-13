@@ -575,7 +575,14 @@ void GameLoopLogic::Update()
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 	{
 		std::cout << "Escape is pressed!\n";
-		if (pauseMenuLogic)
+		// Close the options panel first if it is open. Pausing on top of it
+		// left two panels stacked, and the second press then resumed the game
+		// with the options panel still covering half the kitchen.
+		if (gameSettingsLogic && gameSettingsLogic->isSettingsVisible())
+		{
+			gameSettingsLogic->ShowSettings(false);
+		}
+		else if (pauseMenuLogic)
 		{
 			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
 			pauseMenuLogic->playPauseSound();
