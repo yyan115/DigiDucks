@@ -20,7 +20,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <GLFW/glfw3.h>
 #include <unordered_map>
 #include <iostream>
-#include <algorithm>
 
 #ifndef UNREFERENCED_PARAMETER
 #define UNREFERENCED_PARAMETER(P) (void)(P)
