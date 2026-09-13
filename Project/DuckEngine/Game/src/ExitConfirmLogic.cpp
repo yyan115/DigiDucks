@@ -132,7 +132,7 @@ void ExitConfirmLogic::UpdateMenuSelection()
 			controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
 		}
 
-		float horizontalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_X);
+		float horizontalInput = DuckEngine_Input::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1);
 		bool dpadLeft = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT);
 		bool dpadRight = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT);
 

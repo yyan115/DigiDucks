@@ -235,7 +235,7 @@ void PauseMenuLogic::UpdateMenuSelection()
 			controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
 		}
 
-		float verticalInput = DuckEngine_Input::GetGamepadAxisValue(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_AXIS_LEFT_Y);
+		float verticalInput = DuckEngine_Input::GetMenuAxisVertical(DuckEngine_Input::GAMEPAD_1);
 		bool dpadUp = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_UP);
 		bool dpadDown = DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_DOWN);
 

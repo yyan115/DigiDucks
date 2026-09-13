@@ -144,6 +144,29 @@ public:
     /// <returns>The axis value between -1.0 and 1.0</returns>
     static inline float GetGamepadAxisValue(int gamepadIndex, int axis) { return InputManager::GetGamepadAxisValue(gamepadIndex, axis); }
 
+    /// <summary>
+    /// Horizontal stick input for menu navigation, from whichever stick is
+    /// pushed further from centre. Menus accept either stick; gameplay still
+    /// reads the left stick directly.
+    /// </summary>
+    static inline float GetMenuAxisHorizontal(int gamepadIndex)
+    {
+        return LargerDeflection(
+            GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_LEFT_X),
+            GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_RIGHT_X));
+    }
+
+    /// <summary>
+    /// Vertical stick input for menu navigation, from whichever stick is
+    /// pushed further from centre.
+    /// </summary>
+    static inline float GetMenuAxisVertical(int gamepadIndex)
+    {
+        return LargerDeflection(
+            GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_LEFT_Y),
+            GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_RIGHT_Y));
+    }
+
     // Constants for key codes (A-Z)
     static const int KEY_A;
     static const int KEY_B;
@@ -240,4 +263,15 @@ public:
     static const int GAMEPAD_2;                  // Second gamepad
     static const int GAMEPAD_3;                  // Third gamepad
     static const int GAMEPAD_4;                  // Fourth gamepad
+
+private:
+    /// <summary>
+    /// Whichever of two axis readings is further from centre. Returning the
+    /// larger deflection rather than a sum keeps the result inside -1..1 and
+    /// leaves a single pushed stick reading exactly as it did before.
+    /// </summary>
+    static inline float LargerDeflection(float a, float b)
+    {
+        return (a < 0.f ? -a : a) >= (b < 0.f ? -b : b) ? a : b;
+    }
 };
