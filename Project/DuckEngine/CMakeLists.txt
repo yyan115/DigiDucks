@@ -8,6 +8,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 option(QUACK_KITCHEN_WARNINGS_AS_ERRORS "Treat first-party warnings as errors" OFF)
+# Read-only sampler used to drive the game from outside it. Off by default,
+# so no release package contains it. Even when on it stays inert unless
+# QUACK_KITCHEN_TELEMETRY_PATH names a file.
+option(QUACK_KITCHEN_TELEMETRY "Compile the read-only telemetry sampler" OFF)
 
 find_package(OpenGL REQUIRED)
 find_package(Freetype REQUIRED)
@@ -142,6 +146,9 @@ target_include_directories(QuackKitchen PRIVATE
 target_link_libraries(QuackKitchen PRIVATE DuckEngine)
 target_compile_definitions(QuackKitchen PRIVATE
     QUACK_KITCHEN_VERSION="${PROJECT_VERSION}")
+if(QUACK_KITCHEN_TELEMETRY)
+    target_compile_definitions(QuackKitchen PRIVATE QUACK_KITCHEN_TELEMETRY)
+endif()
 
 if(BUILD_TESTING)
 	add_executable(QuackKitchenCustomerQueueTests

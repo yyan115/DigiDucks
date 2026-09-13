@@ -43,6 +43,7 @@ static void ConfigureSmokeTestEnvironment(bool smokeTest)
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
 #include "ProjectSettings.h"
+#include "Telemetry.h"
 #include "PlatformPaths.h"
 #include "SaveLoadManager.h"
 #include "WindowManager.h"
@@ -181,6 +182,7 @@ int main(int argumentCount, char* arguments[])
 	int smokeTestFrames = 0;
 	int smokeTestMainMenuFrames = 0;
 	int smokeTestExitCode = 0;
+	Telemetry::Initialise();
 	while (gManager.Engine.Running())
 	{
 		double frameStartTime = DuckEngine::GetGLFWTime();
@@ -194,6 +196,7 @@ int main(int argumentCount, char* arguments[])
 
 		gManager.Update();
 		gManager.Engine.Update();
+		Telemetry::Sample();
 #ifdef _DEBUG
 		DuckEngine::SetWindowTitle("Quack Kitchen | FPS: " + std::to_string(DuckEngine::FPS()));
 #else
@@ -281,6 +284,7 @@ int main(int argumentCount, char* arguments[])
 		//THROW_EXCEPTION("Test Error");
 	}
 
+	Telemetry::Shutdown();
 	gManager.Engine.Exit();
 
 	return smokeTestExitCode;
