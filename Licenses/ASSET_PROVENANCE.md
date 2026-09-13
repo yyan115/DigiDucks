@@ -1,6 +1,6 @@
 # Shipped asset provenance
 
-Audit date: 2026-09-12
+Audit date: 2026-09-13
 
 This record is based on the current release tree, embedded metadata, and Git
 history. It documents evidence; it does not create or expand any license.
@@ -15,18 +15,20 @@ history. It documents evidence; it does not create or expand any license.
   institutional logo used for the required startup screen.
 - `Resources/Sprites/Intro/fmod_logo_white.png` is the official FMOD mark used
   for required attribution.
-- The controller notice and controller-specific instruction image were made
-  for this project. Their editable sources are retained under `artwork/`.
 - No Kenney sprite or texture is present in the shipped runtime resources.
 
 ## Fonts
 
-- The Kenney font package is distributed under CC0; its bundled notice is in
-  `Fonts.txt`.
-- Inter is distributed under the SIL Open Font License 1.1; the license is in
-  `Fonts.txt`.
-- The previously bundled Mikado files were removed because their metadata said
-  "all rights reserved" and no redistribution license was present.
+- The Kenney font package is distributed under CC0. Its bundled notice is in
+  `Fonts.txt`. One face, Kenney High Square, is used by the game.
+- No Inter font is bundled. A stray `Resources/Inter.ttf` was shipped for a
+  time without being in the font directory the engine loads from, so it was
+  never used; it has been removed.
+- Twelve Mikado faces by HVD Fonts are bundled. Their embedded metadata says
+  "all rights reserved" and no redistribution license accompanies them, so
+  their licensing is unestablished. Two of the twelve are used by the user
+  interface, MikadoBlack and MikadoBold. The other ten are referenced nowhere
+  in the game's scenes, prefabs or source.
 
 ## Audio
 
