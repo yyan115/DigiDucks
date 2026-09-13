@@ -391,7 +391,6 @@ void EndScene::Update()
 		bgmFadeInTimer = 0.0f;
 	}
 	else if (isBGMSoundFadingIn && BGMSound && currentState == EndSceneState::LOSE) {
-		std::cout << "test " << bgmFadeInTimer << std::endl;
 		bgmFadeInTimer += DuckEngine::DeltaTime();
 		float t = bgmFadeInTimer / 5.f;
 		if (t > 1.0f) t = 1.0f;

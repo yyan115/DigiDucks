@@ -214,7 +214,6 @@ void RestockLogic::FixedUpdate()
 {
 	if (isDelay)
 	{
-		std::cout << delayCounter << std::endl;
 		delayCounter += DuckEngine::FixedDeltaTime();
 		if (delayCounter >= delay)
 		{
