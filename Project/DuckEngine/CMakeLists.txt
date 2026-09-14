@@ -210,16 +210,35 @@ else()
     endif()
 endif()
 
-add_custom_command(TARGET QuackKitchen POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E remove_directory
+# Staging used to hang off POST_BUILD on the executable, which means it only
+# ran when the executable relinked. Editing a scene, a texture or a font and
+# rebuilding staged nothing at all, and the build tree went on running the
+# previous copy: a change could be measured as having no effect when it had
+# simply never been copied. Depend on the resource files themselves, through a
+# stamp, so a resource-only edit restages.
+file(GLOB_RECURSE QUACK_RESOURCE_FILES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/Resources/*")
+set(QUACK_RESOURCE_STAMP "${CMAKE_CURRENT_BINARY_DIR}/staged-resources.stamp")
+
+add_custom_command(
+    OUTPUT "${QUACK_RESOURCE_STAMP}"
+    COMMAND "${CMAKE_COMMAND}" -E rm -rf
             "$<TARGET_FILE_DIR:QuackKitchen>/Resources"
     COMMAND "${CMAKE_COMMAND}" -E copy_directory
             "${CMAKE_CURRENT_SOURCE_DIR}/Resources"
             "$<TARGET_FILE_DIR:QuackKitchen>/Resources"
+    COMMAND "${CMAKE_COMMAND}" -E touch "${QUACK_RESOURCE_STAMP}"
+    DEPENDS ${QUACK_RESOURCE_FILES}
+    COMMENT "Staging Quack Kitchen runtime resources")
+
+add_custom_target(QuackKitchenResources ALL DEPENDS "${QUACK_RESOURCE_STAMP}")
+add_dependencies(QuackKitchenResources QuackKitchen)
+
+add_custom_command(TARGET QuackKitchen POST_BUILD
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
             "$<TARGET_FILE:QuackKitchenFMOD>"
             "$<TARGET_FILE_DIR:QuackKitchen>"
-    COMMENT "Staging Quack Kitchen runtime resources")
+    COMMENT "Staging the audio runtime next to the game")
 
 install(TARGETS DuckEngine QuackKitchen
     RUNTIME DESTINATION .
