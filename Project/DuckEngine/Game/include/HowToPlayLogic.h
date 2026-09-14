@@ -57,9 +57,10 @@ private:
 
     int pageNum = 1;  // Tracks the current journal page
 
-    // Page five is the credits. It is a journal page rather than a screen of
-    // its own because the journal is already reachable from the main menu and
-    // from every level's pause menu, and its pages carry their words in the
-    // image, so the credits need no entity in any scene.
-    static const int kLastJournalPage = 5;
+    // Pages five and six are the credits: the team on one, the game and the
+    // DigiPen and FMOD notices on the other. They are journal pages rather
+    // than a screen of their own because the journal is already reachable from
+    // the main menu and from every level's pause menu, and its pages carry
+    // their words in the image, so the credits need no entity in any scene.
+    static const int kLastJournalPage = 6;
 };
