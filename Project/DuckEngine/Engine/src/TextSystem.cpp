@@ -148,12 +148,14 @@ void TextSystem::Render()
         if (!transform->relativeToCamera) {
             // Use a constant reference height (e.g., 1080) to compute normalized scale.
             float referenceHeight = 1080.f;
-            scale = text->fontSize / referenceHeight;
+            // AtlasScale cancels the glyph atlas resolution, so raising it
+            // sharpens the text without resizing it. See FontManager.h.
+            scale = text->fontSize / referenceHeight * FontManager::AtlasScale;
             renderPosition = transform->GetPosition();
             //DuckEngine::RenderText(text->fontName, text->text, transform->GetPosition(), normalizedScale, text->color, transform->relativeToCamera);
 
             if (text->fontSizeY != -1.f){
-                scaleY = text->fontSizeY / referenceHeight;
+                scaleY = text->fontSizeY / referenceHeight * FontManager::AtlasScale;
             }
             else {
                 scaleY = scale;
@@ -161,7 +163,7 @@ void TextSystem::Render()
         }
         else {
             Vector2D position = transform->GetPosition();
-            scale = static_cast<float>(text->fontSize) * 0.03f;
+            scale = static_cast<float>(text->fontSize) * 0.03f * FontManager::AtlasScale;
             scaleY = scale;
 
             // Calculate text size

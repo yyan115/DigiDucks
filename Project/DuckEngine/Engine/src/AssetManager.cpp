@@ -58,7 +58,7 @@ void AssetManager::LoadAllFonts(const std::string& directoryPath) {
 		if (entry.is_regular_file() && entry.path().extension() == ".ttf") {
 			std::string fontName = entry.path().stem().string();  // Gets the filename without extension
 			std::string fontPath = entry.path().string();
-			FontManager::LoadFont(fontName, fontPath, 48);  // Adjust font size as needed
+			FontManager::LoadFont(fontName, fontPath, FontManager::AtlasPixelSize);
 			fontNames.push_back(fontName);
 			std::cout << "loaded font: " << fontName << ", path: " << fontPath << "\n";
 		}
@@ -395,7 +395,7 @@ void AssetManager::LoadFont(const std::string& fontName, const std::string& file
 		return;
 	}
 
-	FontManager::LoadFont(fontName, filePath, 48);  // Adjust font size as needed
+	FontManager::LoadFont(fontName, filePath, FontManager::AtlasPixelSize);
 	fontNames.push_back(fontName);
 	std::cout << "Loaded font: " << fontName << " from " << filePath << std::endl;
 }

@@ -37,6 +37,27 @@ written consent of DigiPen Institute of Technology is prohibited.
 /// </summary>
 class FontManager {
 public:
+    /// The pixel size every font is rasterised at into its glyph atlas.
+    ///
+    /// Glyphs are drawn by scaling that bitmap, and with GL_LINEAR filtering a
+    /// glyph drawn larger than it was rasterised is visibly soft. At 48 the
+    /// level select numbers, the result screen's score and the quit title were
+    /// all drawn at about 1.6 times their bitmap on a 1920x1080 screen, which
+    /// is the whole of the "the text looks a bit off" complaint. At 96 every
+    /// string in the game is drawn smaller than it was rasterised.
+    static constexpr int AtlasPixelSize = 96;
+
+    /// The atlas size the scene files were laid out against.
+    ///
+    /// A glyph's metrics are in atlas pixels and every fontSize in the scenes
+    /// is a multiplier on them, so raising AtlasPixelSize on its own would
+    /// make every string in the game twice the size. TextSystem multiplies its
+    /// scale by AtlasScale, which cancels that exactly: the text is drawn the
+    /// same size and rasterised at four times the resolution.
+    static constexpr int LayoutPixelSize = 48;
+    static constexpr float AtlasScale =
+        static_cast<float>(LayoutPixelSize) / static_cast<float>(AtlasPixelSize);
+
     /// <summary>
     /// Represents information about a single character glyph, including its texture ID, size, bearing, and advance offset.
     /// </summary>
