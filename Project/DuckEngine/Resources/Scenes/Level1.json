@@ -170,10 +170,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 10.0,
-                            "g": 10.0,
-                            "r": 10.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Black",
@@ -4285,10 +4285,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 10.0,
-                            "g": 10.0,
-                            "r": 10.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Black",
@@ -6041,10 +6041,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 10.0,
-                            "g": 10.0,
-                            "r": 10.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Black",
@@ -7590,10 +7590,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 10.0,
-                            "g": 10.0,
-                            "r": 10.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Black",
@@ -7744,10 +7744,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
@@ -8551,10 +8551,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
@@ -8631,10 +8631,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
@@ -8711,10 +8711,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
@@ -10693,10 +10693,10 @@
                 {
                     "properties": {
                         "color": {
-                            "a": 255.0,
-                            "b": 0.0,
-                            "g": 0.0,
-                            "r": 0.0
+                            "r": 74.0,
+                            "g": 38.0,
+                            "b": 24.0,
+                            "a": 255.0
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
