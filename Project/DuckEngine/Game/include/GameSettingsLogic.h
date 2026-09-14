@@ -70,6 +70,48 @@ private:
     bool isSettingsOpen = false;
     bool settingsVisible = false;
     bool settingsDirty = false;
+
+    // Gamepad navigation. The panel is the one menu a pad cannot reach at all:
+    // `ButtonSystem` fires a button only from IsMouseButtonPressed, and the
+    // gear that opens this is the only way in. The cadence below is the one
+    // every other menu uses, a 0.2 second cooldown between moves.
+    enum class SettingsControl { MASTER, BGM, SFX, FPS, VSYNC, CLOSE, COUNT };
+    SettingsControl selectedControl = SettingsControl::MASTER;
+    bool usingController = false;
+    float controllerNavigationCooldown = 0.0f;
+    const float controllerNavigationDelay = 0.2f;
+
+    // The four sliders are drawn with a colour and no texture, so a colour is
+    // what marks the selected one.
+    // Both halves of each slider, because the fill sits on top of the track:
+    // recolouring only the track is invisible on a full bar, and recolouring
+    // only the fill is invisible on an empty one.
+    SpriteRendererComponent* masterTrackSpt = nullptr;
+    SpriteRendererComponent* bgmTrackSpt = nullptr;
+    SpriteRendererComponent* sfxTrackSpt = nullptr;
+    SpriteRendererComponent* fpsTrackSpt = nullptr;
+    SpriteRendererComponent* masterFillSpt = nullptr;
+    SpriteRendererComponent* bgmFillSpt = nullptr;
+    SpriteRendererComponent* sfxFillSpt = nullptr;
+    SpriteRendererComponent* fpsFillSpt = nullptr;
+
+    // The two buttons are marked the way every other menu marks a selected
+    // button, by growing it 10%. The VSync toggle draws its own texture and
+    // ignores the colour, so a colour cannot mark it, and the close button's
+    // hover art is written by the mouse handler and would be lost the next
+    // time the pointer crossed it.
+    TransformComponent* vsyncToggleTransform = nullptr;
+    TransformComponent* closeSettingsBtnTransform = nullptr;
+    Vec2 vsyncToggleOriginalScale{ 1.f, 1.f };
+    Vec2 closeSettingsBtnOriginalScale{ 1.f, 1.f };
+    const float buttonScaleIncrease = 1.1f;
+
+    void UpdateControllerNavigation();
+    void ShowSelection();
+    void ClearSelection();
+    void NudgeSelectedSlider(float direction);
+    void ActivateSelected();
+    SliderComponent* SelectedSlider() const;
 public:
     GameSettingsLogic() : GameLogic(nullptr) {}
 
@@ -97,8 +139,13 @@ public:
 
     /****************************************************************
 	* @brief Show or hide the settings menu.
+	* @param state     true to show the panel, false to hide it.
+	* @param fromPad   true when a gamepad opened it, which selects the first
+	*                  control straight away. Opening it with the mouse leaves
+	*                  nothing selected until the pad is used, the same as
+	*                  every other menu.
     ****************************************************************/
-    void ShowSettings(bool state);
+    void ShowSettings(bool state, bool fromPad = false);
 
     /****************************************************************
 	* @brief Update slider values in real time.
