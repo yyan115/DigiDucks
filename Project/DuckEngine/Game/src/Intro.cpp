@@ -128,6 +128,19 @@ void Intro::Update()
 	}
 
 	float dt = DuckEngine::DeltaTime();
+
+	// Loading the scene's assets happens between the clock's last tick and the
+	// first Update, so that first delta is the loading time rather than a
+	// frame: measured here at about 2.7 seconds. Added to the phase timer it
+	// finishes the two second fade before anything is drawn, and the logo
+	// appears at full brightness with no fade at all. The Gallery asks for the
+	// fade, so the first delta is dropped.
+	if (firstUpdate)
+	{
+		firstUpdate = false;
+		dt = 0.0f;
+	}
+
 	phaseTimer += dt;
 
 	switch (currentPhase) {

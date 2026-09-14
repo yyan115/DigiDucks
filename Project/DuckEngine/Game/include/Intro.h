@@ -55,6 +55,9 @@ private:
 	enum class IntroPhase { FADE_IN_LOGO, SHOW_LOGO, FADE_OUT_LOGO, FADE_IN_LOGO2, SHOW_LOGO2, FADE_OUT_LOGO2, COMPLETE };
 	IntroPhase currentPhase = IntroPhase::FADE_IN_LOGO;
 	float phaseTimer = 0.0f;
+	// The first Update after the scene loads carries the whole of the loading
+	// time as its delta, which would spend the entire fade in one frame.
+	bool firstUpdate = true;
 	float fadeDuration = 2.0f;
 	float displayDuration = 2.0f;
 	Entity* fadeScreen = nullptr;
