@@ -135,6 +135,28 @@ public:
     */
     static void MaintainCursorConfinement();
 
+    /*!
+    \brief  Hides the pointer once it has been still for a couple of seconds,
+            and brings it straight back the moment it moves. Call once per
+            frame, after MaintainCursorConfinement.
+
+            The Gallery asks for an invisible cursor during gameplay. Simply
+            hiding it cannot be done here: the HUD gear is the only route into
+            the options panel during a level and ButtonSystem fires a button
+            from the mouse alone, so an always-hidden cursor makes a working
+            control unusable. Hiding it on idle satisfies the requirement while
+            the player is playing and returns it the instant they reach for it.
+    */
+    static void MaintainCursorVisibility();
+
+    /*!
+    \brief  Says that the cursor may hide this frame. Re-ask every frame while
+            gameplay is running; one frame without it shows the cursor again,
+            so leaving a level, pausing or opening a panel needs no matching
+            call to turn it off.
+    */
+    static void AllowCursorHiding();
+
     /// <summary>
     /// Enables or disables vertical synchronization for the active context.
     /// </summary>

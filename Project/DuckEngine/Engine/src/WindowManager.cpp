@@ -48,6 +48,35 @@ namespace
 	{
 		cursorConfinementRequests = kCursorConfinementRetries;
 	}
+
+	// A cursor made of one fully transparent pixel. GLFW's cursor modes cannot
+	// express "confined and invisible" at once: GLFW_CURSOR_HIDDEN hides the
+	// pointer but does not confine it, and GLFW_CURSOR_CAPTURED confines it but
+	// draws it. Setting a transparent image while the mode stays CAPTURED gives
+	// both, and leaves the pointer where it is, which GLFW_CURSOR_DISABLED
+	// would not.
+	GLFWcursor* blankCursor = nullptr;
+
+	bool cursorHideAllowed = false;
+	bool cursorHidden = false;
+	double lastPointerMove = 0.0;
+	double lastPointerX = 0.0;
+	double lastPointerY = 0.0;
+
+	// Long enough that it does not flicker while a player nudges the mouse,
+	// short enough that the pointer is gone for the whole of a served order.
+	const double kCursorIdleSeconds = 2.0;
+
+	void CreateBlankCursor()
+	{
+		if (blankCursor) { return; }
+		unsigned char transparent[4] = { 0, 0, 0, 0 };
+		GLFWimage image{};
+		image.width = 1;
+		image.height = 1;
+		image.pixels = transparent;
+		blankCursor = glfwCreateCursor(&image, 0, 0);
+	}
 }
 
 GLFWwindow* WindowManager::ptrWindow = nullptr;
@@ -130,6 +159,7 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
 
     RequestCursorConfinement();
+    CreateBlankCursor();
 
     return true;
 }
@@ -218,6 +248,10 @@ bool WindowManager::CloseWindow() {
 /// Cleans up the window manager by destroying the GLFW window and terminating GLFW.
 /// </summary>
 void WindowManager::Exit() {
+    if (blankCursor) {
+        glfwDestroyCursor(blankCursor);
+        blankCursor = nullptr;
+    }
     glfwDestroyWindow(ptrWindow);
     glfwTerminate();
 }
@@ -326,6 +360,40 @@ void WindowManager::MaintainCursorConfinement() {
     // one. Passing through GLFW_CURSOR_NORMAL makes the request take effect.
     glfwSetInputMode(ptrWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetInputMode(ptrWindow, GLFW_CURSOR, ConfinedCursorMode());
+}
+
+void WindowManager::AllowCursorHiding() {
+    cursorHideAllowed = true;
+}
+
+void WindowManager::MaintainCursorVisibility() {
+    // Read and clear, so the answer is only ever about this frame. Whatever is
+    // playing has to ask again next frame or the cursor comes back, which is
+    // what makes leaving a level or opening a panel need no code of its own.
+    const bool allowed = cursorHideAllowed;
+    cursorHideAllowed = false;
+
+    if (!ptrWindow || DuckEngine::isEditor) {
+        return;
+    }
+
+    double x = 0.0;
+    double y = 0.0;
+    glfwGetCursorPos(ptrWindow, &x, &y);
+    const double now = glfwGetTime();
+    if (x != lastPointerX || y != lastPointerY) {
+        lastPointerX = x;
+        lastPointerY = y;
+        lastPointerMove = now;
+    }
+
+    const bool hide = allowed && blankCursor != nullptr &&
+                      (now - lastPointerMove) >= kCursorIdleSeconds;
+    if (hide == cursorHidden) {
+        return;
+    }
+    cursorHidden = hide;
+    glfwSetCursor(ptrWindow, hide ? blankCursor : nullptr);
 }
 
 void WindowManager::SetWindowTitle(const char* _title) {

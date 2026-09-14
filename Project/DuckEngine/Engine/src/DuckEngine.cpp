@@ -325,6 +325,7 @@ void DuckEngine::Draw()
 
 	InputManager::Update();
 	WindowManager::MaintainCursorConfinement();
+	WindowManager::MaintainCursorVisibility();
 	DuckEngine::DUCKENGINE_SystemManager.RenderAll();
 	DuckEngine::DUCKENGINE_SceneManager.Render();
 	

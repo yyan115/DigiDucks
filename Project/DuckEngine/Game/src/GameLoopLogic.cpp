@@ -21,6 +21,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "GameLoopLogic.h"
 #include "DuckEngine.h"
 #include "DuckEngine_Input.h"
+#include "WindowManager.h"
 #include "ImageLoader.h"
 #include "MessagingSystem.h"
 #include "GameManager.h"
@@ -604,6 +605,18 @@ void GameLoopLogic::Update()
 			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_BACK))
 	{
 		gameSettingsLogic->ShowSettings(!gameSettingsLogic->isSettingsVisible(), true);
+	}
+
+	// Let the cursor hide itself while the player is playing. Asked for every
+	// frame rather than switched on and off: one frame without this call brings
+	// the pointer back, so leaving the level, pausing and opening the options
+	// panel each need nothing of their own. The gear on the HUD is a mouse-only
+	// control, which is why the cursor returns on movement instead of staying
+	// hidden for the whole level.
+	const bool panelOpen = gameSettingsLogic && gameSettingsLogic->isSettingsVisible();
+	if (!paused && !panelOpen)
+	{
+		WindowManager::AllowCursorHiding();
 	}
 }
 void GameLoopLogic::FixedUpdate()
