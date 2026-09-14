@@ -36,6 +36,31 @@ INTENTIONALLY_UNRESOLVED_ASSET_PATHS = {
 INTENTIONALLY_AMBIGUOUS_NAMED_TEXTURES = {"quit"}
 
 
+def game_logic_errors() -> list[str]:
+    """Every logic a scene or prefab names has to be registered.
+
+    A GameLogicComponent names its logic as a string, and GameLogicManager
+    looks that string up at load. A name with no registration is not an error
+    anywhere: the entity simply has no behaviour, which on a kitchen station or
+    a customer looks like a gameplay bug rather than a missing registration.
+    """
+    registered = set(re.findall(
+        r'AddLogic\("([^"]+)"',
+        (PROJECT / "Game" / "src" / "GameManager.cpp").read_text(encoding="utf-8")))
+    errors = []
+    for folder in ("Scenes", "Prefabs"):
+        for path in sorted((RESOURCES / folder).glob("*.json")):
+            text = path.read_text(encoding="utf-8", errors="replace")
+            for block in re.findall(r'"logicNames"\s*:\s*\[([^\]]*)\]', text):
+                for name in re.findall(r'"([^"]+)"', block):
+                    if name not in registered:
+                        errors.append(
+                            f"{repository_relative(path)} asks for a game logic that "
+                            f"GameManager never registers: {name}"
+                        )
+    return errors
+
+
 def journal_page_errors() -> list[str]:
     """Every How To Play page the code can ask for has to exist.
 
@@ -175,6 +200,7 @@ def main() -> int:
                     )
 
     errors.extend(journal_page_errors())
+    errors.extend(game_logic_errors())
 
     if errors:
         print("Asset validation failed:", file=sys.stderr)
@@ -185,7 +211,7 @@ def main() -> int:
     print(
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
         f"asset references, {source_reference_count} source asset references, "
-        f"every How To Play page, "
+        f"every How To Play page, every named game logic, "
         f"and named texture lookups."
     )
     return 0
