@@ -5386,8 +5386,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.05000000074505806
+                            "x": 0.026875000447034836,
+                            "y": 0.05666666850447655
                         }
                     },
                     "type": "TransformComponent"
@@ -5435,8 +5435,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.07999999821186066,
-                            "y": 0.10000000149011612
+                            "x": 0.06164383515715599,
+                            "y": 0.1
                         }
                     },
                     "type": "TransformComponent"
@@ -5539,8 +5539,8 @@
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.03999999910593033,
-                            "y": 0.05000000074505806
+                            "x": 0.026875000447034836,
+                            "y": 0.05666666850447655
                         }
                     },
                     "type": "TransformComponent"

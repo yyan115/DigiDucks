@@ -11,7 +11,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.5,
+                            "x": 1.2647058963775635,
                             "y": 1.5
                         }
                     },
@@ -204,7 +204,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 1.5,
+                            "x": 1.2647058963775635,
                             "y": 1.5
                         }
                     },
