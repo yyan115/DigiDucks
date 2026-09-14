@@ -48,7 +48,15 @@ void SoundComponent::Play(int index) {
 
         // Play a new sound only if the current one has finished
         if (!isPlaying) {
-            channel = SoundSystem::PlaySounds(soundID[index], loop, volume, category, effects);
+            // A cutscene panel with no sound of its own carries an empty entry
+            // here, and four scenes have them. Asking the sound system for one
+            // makes it report "Sound not found:" with nothing after the colon,
+            // which reads like a missing asset and is not. It returned nullptr
+            // for it, so clearing the channel keeps the behaviour identical
+            // and only the line on stderr goes away.
+            channel = soundID[index].empty()
+                ? nullptr
+                : SoundSystem::PlaySounds(soundID[index], loop, volume, category, effects);
         }
     }
     else {

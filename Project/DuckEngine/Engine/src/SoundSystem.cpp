@@ -45,9 +45,8 @@ void SoundSystem::Start() {
             return;
         }
     }
-    else {
-        std::cerr << "FMOD system is already initialized in AssetManager." << std::endl;
-    }                                                                   
+    // An FMOD system that already exists is the normal case for every scene
+    // after the first, so there is nothing to report about it.
 
     static bool initialized = false;
 
