@@ -12,6 +12,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 #include "MainMenu.h"
+#include "WindowManager.h"
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
 #include "DuckEngine_Input.h"
@@ -142,7 +143,19 @@ void MainMenu::Load()
 		{ 
 			if (!isFadingOut)
 			{
-				QuitSound->Play(1); GameManager::Engine.CloseWindow();
+				// Ask first. This used to close the window on the click with
+				// nothing said, which is the one button on this screen a
+				// player cannot take back.
+				QuitSound->Play(1);
+				ResolveQuitConfirmLogic();
+				if (quitConfirmLogic)
+				{
+					quitConfirmLogic->Show(true);
+				}
+				else
+				{
+					GameManager::Engine.CloseWindow();
+				}
 			}
 		};
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay").get();
@@ -328,8 +341,37 @@ void MainMenu ::Update()
 * @brief Performs any operations after the main update logic, such as cleanup or post-processing.
 * This function is called every frame, after the Update() method.
 * ****************************************************************/
+void MainMenu::ResolveQuitConfirmLogic()
+{
+	// Looked up on use rather than in Start: the scene's logic instances are
+	// not in GameLogicManager's map yet when Start runs, so a lookup there
+	// comes back empty and the EXIT button falls through to closing the
+	// window without asking.
+	if (quitConfirmLogic) { return; }
+	if (auto quitCfm = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Cfm_Bg"))
+	{
+		quitConfirmLogic = GameLogicManager::GetLogicForEntity<MenuQuitConfirmLogic>(quitCfm->entityID);
+	}
+}
+
 void MainMenu::PostUpdate()
 {
+	// The window's own close button asks the same question the EXIT button
+	// does. WindowManager holds the request back for a few frames and then
+	// closes anyway, so a scene that does not take it cannot trap the player.
+	if (WindowManager::TakeCloseRequest())
+	{
+		ResolveQuitConfirmLogic();
+		if (quitConfirmLogic)
+		{
+			quitConfirmLogic->Show(true);
+		}
+		else
+		{
+			GameManager::Engine.CloseWindow();
+		}
+	}
+
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
@@ -385,6 +427,15 @@ void MainMenu::UpdateMenuSelection()
 
 	if (HTPScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible) {
 		submenusOpen = true;
+	}
+
+	// The quit confirmation, which has its own navigation and its own B. This
+	// returns rather than falling through to the back-button handling below,
+	// because that handler closes level select and How To Play and would have
+	// nothing to do here while still swallowing the press.
+	ResolveQuitConfirmLogic();
+	if (quitConfirmLogic && quitConfirmLogic->isShowing()) {
+		return;
 	}
 
 	// Check for the back button to return from submenus

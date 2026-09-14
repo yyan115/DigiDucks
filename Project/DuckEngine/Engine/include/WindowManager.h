@@ -157,6 +157,18 @@ public:
     */
     static void AllowCursorHiding();
 
+    /*!
+    \brief  Takes the pending "the player clicked the window's close button"
+            request, if there is one, and clears it. A scene that wants to ask
+            before closing calls this every frame and puts its confirmation up
+            when it returns true.
+
+            If nobody takes the request within a few frames the window closes
+            anyway, so a scene that does not ask can never leave the player
+            unable to shut the game.
+    */
+    static bool TakeCloseRequest();
+
     /// <summary>
     /// Enables or disables vertical synchronization for the active context.
     /// </summary>
@@ -167,6 +179,7 @@ public:
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
     static bool IsWindowFocused() { return isFocused; } 
     static void window_focus_callback(GLFWwindow* window, int focused);
+    static void window_close_callback(GLFWwindow* window);
 
 private:
 

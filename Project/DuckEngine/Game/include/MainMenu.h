@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "Scene.h"
 #include "DuckEngine.h"
 #include "LevelSelectScreenLogic.h"
+#include "MenuQuitConfirmLogic.h"
 
 class MainMenu : public Scene {
 public:
@@ -66,6 +67,11 @@ private:
 	Entity* HtpButton = nullptr;
 	Entity* LevelSelectButton = nullptr;
 	Entity* FadeOutScreen = nullptr;
+
+	// The quit confirmation, which the EXIT button opens instead of closing
+	// the window outright.
+	std::shared_ptr<MenuQuitConfirmLogic> quitConfirmLogic = nullptr;
+	void ResolveQuitConfirmLogic();
 
 
 	SpriteRendererComponent* startButtonSpriteRenderer = nullptr;

@@ -67,6 +67,14 @@ namespace
 	// short enough that the pointer is gone for the whole of a served order.
 	const double kCursorIdleSeconds = 2.0;
 
+	// The window's own close button. GLFW sets the should-close flag and the
+	// main loop would act on it the same frame, so the flag is put back and
+	// the request offered to whatever is on screen instead. It is only held
+	// for a few frames: if nothing takes it, the window closes as it always
+	// did, so no scene can make the game unclosable by not asking.
+	int pendingCloseFrames = -1;
+	const int kCloseGraceFrames = 4;
+
 	void CreateBlankCursor()
 	{
 		if (blankCursor) { return; }
@@ -157,6 +165,7 @@ bool WindowManager::Initialize(GLint _width, GLint _height, const char* _title) 
     // Set callback for FB size change
     glfwSetFramebufferSizeCallback(ptrWindow, fbsize_cb);
     glfwSetWindowFocusCallback(ptrWindow, window_focus_callback);
+    glfwSetWindowCloseCallback(ptrWindow, window_close_callback);
 
     RequestCursorConfinement();
     CreateBlankCursor();
@@ -241,7 +250,28 @@ bool WindowManager::CloseWindow() {
     if (glfwWindowShouldClose(ptrWindow))
         return true;
 
+    // Running() calls this once a frame, so the pending request ages here
+    // rather than needing a call site of its own.
+    if (pendingCloseFrames >= 0 && ++pendingCloseFrames > kCloseGraceFrames)
+    {
+        return true;
+    }
+
     return false;
+}
+
+bool WindowManager::TakeCloseRequest()
+{
+    if (pendingCloseFrames < 0) { return false; }
+    pendingCloseFrames = -1;
+    return true;
+}
+
+void WindowManager::window_close_callback(GLFWwindow* window)
+{
+    if (DuckEngine::isEditor) { return; }
+    glfwSetWindowShouldClose(window, GLFW_FALSE);
+    pendingCloseFrames = 0;
 }
 
 /// <summary>

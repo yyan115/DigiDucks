@@ -52,6 +52,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "PotLogic.h"
 #include "HighlightLogic.h"
 #include "ExitConfirmLogic.h"
+#include "MenuQuitConfirmLogic.h"
 #include "EndCutSceneLogic.h"
 
 #include "CustomerTableLogic.h"
@@ -131,6 +132,7 @@ void GameManager::InitScenes()
 	GameLogicManager::AddLogic("UISliderLogic", std::make_shared<UISliderLogic>());
 	GameLogicManager::AddLogic("HighlightLogic", std::make_shared<HighlightLogic>());
 	GameLogicManager::AddLogic("ExitConfirmLogic", std::make_shared<ExitConfirmLogic>());
+	GameLogicManager::AddLogic("MenuQuitConfirmLogic", std::make_shared<MenuQuitConfirmLogic>());
 	// Main Menu Logic
 	GameLogicManager::AddLogic("HowToPlayLogic", std::make_shared<HowToPlayLogic>());
 	GameLogicManager::AddLogic("GameSettingsLogic", std::make_shared<GameSettingsLogic>());
