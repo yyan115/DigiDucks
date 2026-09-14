@@ -7720,7 +7720,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 100,
+                        "sortingOrder": 9,
                         "text": "0"
                     },
                     "type": "TextComponent"
@@ -8527,7 +8527,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
+                        "sortingOrder": 101,
                         "text": "Score more than 50"
                     },
                     "type": "TextComponent"
@@ -8607,7 +8607,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
+                        "sortingOrder": 101,
                         "text": "Score more than 100"
                     },
                     "type": "TextComponent"
@@ -8687,7 +8687,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 102,
+                        "sortingOrder": 101,
                         "text": "Score more than 150"
                     },
                     "type": "TextComponent"
