@@ -35,8 +35,9 @@ that come with it.
 
 ## Fonts and assets
 
-- `Fonts.txt` — Kenney fonts (CC0) and the two Mikado faces, whose licensing
-  is unestablished. No Inter font is shipped.
+- `Fonts.txt` — Kenney fonts (CC0) and Nunito (SIL OFL 1.1).
+- `OFL-Nunito.txt` — the full Open Font License text for the interface font.
+  No Mikado face and no Inter font is shipped.
 - `Sound-Ideas.txt` — course-library provenance and usage notice.
 - `ASSET_PROVENANCE.md` — audit record for the shipped media.
 

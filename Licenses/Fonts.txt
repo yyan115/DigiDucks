@@ -30,10 +30,20 @@
 
 			------------------------------
 
-	Mikado
+	Nunito
 
-	Created by HVD Fonts (www.hvdfonts.com)
+	Created by Vernon Adams, Cyreal, Jacques Le Bailly and the Nunito
+	Project Authors (https://github.com/googlefonts/nunito)
 
-	The bundled Mikado files carry "all rights reserved" in their embedded
-	metadata and no redistribution license accompanies them. They are used
-	by the game's user interface. Their licensing has not been established.
+			------------------------------
+
+	License: SIL Open Font License, Version 1.1
+	http://scripts.sil.org/OFL
+
+	Copyright 2014 The Nunito Project Authors.
+
+	The full license text is in Licenses/OFL-Nunito.txt. Nunito Black and
+	Nunito Bold are static instances cut from the variable original at
+	weights 900 and 700, which the license permits: modified copies may be
+	redistributed under the same license, and these carry no Reserved Font
+	Name. They are used by the game's user interface.

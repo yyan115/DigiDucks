@@ -25,11 +25,17 @@ history. It documents evidence; it does not create or expand any license.
 - No Inter font is bundled. A stray `Resources/Inter.ttf` was shipped for a
   time without being in the font directory the engine loads from, so it was
   never used; it has been removed.
-- Two Mikado faces by HVD Fonts are bundled, MikadoBlack and MikadoBold, and
-  both are used by the user interface. Their embedded metadata says "all rights
-  reserved" and no redistribution license accompanies them, so their licensing
-  is unestablished. Ten further Mikado faces were bundled until 2026-09-13 and
-  were referenced by no scene, prefab or source file; they have been removed.
+- Nunito Black and Nunito Bold are bundled and are used by the user interface.
+  They are licensed under the SIL Open Font License 1.1, whose full text is in
+  `OFL-Nunito.txt`. Both are static instances cut from the variable original at
+  weights 900 and 700; the license permits redistributing modified copies under
+  the same license, and neither carries a Reserved Font Name.
+- Twelve Mikado faces by HVD Fonts were bundled until 2026-09-14. Their
+  embedded metadata says "all rights reserved" and no redistribution license
+  accompanied them, so their licensing was never established and they could not
+  ship. Ten of them were referenced by no scene, prefab or source file and were
+  removed on 2026-09-13; the remaining two, MikadoBlack and MikadoBold, were
+  used by the interface and were replaced by the Nunito pair.
 
 ## Audio
 
