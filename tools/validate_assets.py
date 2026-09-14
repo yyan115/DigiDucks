@@ -36,6 +36,31 @@ INTENTIONALLY_UNRESOLVED_ASSET_PATHS = {
 INTENTIONALLY_AMBIGUOUS_NAMED_TEXTURES = {"quit"}
 
 
+def journal_page_errors() -> list[str]:
+    """Every How To Play page the code can ask for has to exist.
+
+    HowToPlayLogic builds these paths by joining a prefix, a number and an
+    extension, and the check below skips any literal without a suffix because a
+    concatenated path cannot be resolved from the string alone. That left the
+    journal unchecked: a missing page would have gone out in a package and only
+    shown up as a blank book. The upper bound is read from the header rather
+    than repeated here, so adding a page cannot leave this behind.
+    """
+    header = PROJECT / "Game" / "include" / "HowToPlayLogic.h"
+    match = re.search(r"kLastJournalPage\s*=\s*(\d+)", header.read_text(encoding="utf-8"))
+    if not match:
+        return [f"kLastJournalPage is not declared in {repository_relative(header)}"]
+    errors = []
+    for page in range(1, int(match.group(1)) + 1):
+        path = RESOURCES / "Sprites" / "HowToPlay" / f"journal_{page}.png"
+        if not path.is_file():
+            errors.append(
+                f"HowToPlayLogic can ask for page {page} and it does not exist: "
+                f"{repository_relative(path)}"
+            )
+    return errors
+
+
 def strings_in(value: Any) -> Iterable[str]:
     if isinstance(value, str):
         yield value
@@ -149,6 +174,8 @@ def main() -> int:
                         f"{repository_relative(source_file)}: {resource_path}"
                     )
 
+    errors.extend(journal_page_errors())
+
     if errors:
         print("Asset validation failed:", file=sys.stderr)
         for error in sorted(set(errors)):
@@ -158,6 +185,7 @@ def main() -> int:
     print(
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
         f"asset references, {source_reference_count} source asset references, "
+        f"every How To Play page, "
         f"and named texture lookups."
     )
     return 0
