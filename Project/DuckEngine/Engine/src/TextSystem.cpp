@@ -184,7 +184,19 @@ void TextSystem::Render()
 
         //}
 
-        TextRenderCommand TextDrawCommand (text->fontName, text->text, transform->GetPosition(), scale, text->color, transform->relativeToCamera, scaleY);
+        // The world-space branch above computes a centred origin and the draw
+        // command used to be handed the raw transform instead, so the centring
+        // was calculated every frame and thrown away: world text was drawn from
+        // its left edge. Every level-select number in MainMenu.json carries a
+        // different hand-tuned offset because of it, and the result screen's
+        // score line moved sideways whenever the score gained a digit.
+        //
+        // Honouring it for everything would shift all of that hand-tuned text
+        // by half its width, so it is opt-in. A string that asks to be centred
+        // gets the centred origin; everything that shipped keeps the position
+        // it was laid out against.
+        const Vector2D drawAt = text->centered ? renderPosition : transform->GetPosition();
+        TextRenderCommand TextDrawCommand (text->fontName, text->text, drawAt, scale, text->color, transform->relativeToCamera, scaleY);
 
         GraphicsManager::AddToDrawQueue({ orderInt, text->sortingOrder, RenderCommandType::Text, TextDrawCommand });
     }

@@ -628,7 +628,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -3.5,
+                            "x": 0.0,
                             "y": -3.0
                         },
                         "relativeToCamera": true,
@@ -657,7 +657,8 @@
                             "y": 0.0
                         },
                         "sortingOrder": 0,
-                        "text": "Score: 0"
+                        "text": "Score: 0",
+                        "centered": true
                     },
                     "type": "TextComponent"
                 },

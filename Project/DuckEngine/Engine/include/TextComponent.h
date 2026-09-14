@@ -47,6 +47,12 @@ public:
 
     float fontSizeY = -1.f;
 
+    /// Draw the string centred on the transform rather than from its left
+    /// edge. Off by default, because the scenes that shipped were laid out
+    /// against left-anchored text and every one of those positions is a hand
+    /// tuned offset that centring would move.
+    bool centered = false;
+
     /// <summary>
     /// Constructs a TextComponent with specified font name, text content, position, 
     /// font size, color, and enabled state.
