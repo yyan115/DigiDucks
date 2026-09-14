@@ -31,11 +31,16 @@ void Intro::Load()
 	logo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo").get();
 	logo2 = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo2").get();
 	fmodLogo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("FMODLogo").get();
+	peripheralNotice = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("PeripheralNotice").get();
 
 	fadeRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fadeScreen->entityID);
 	logoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo->entityID);
 	logo2Renderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(logo2->entityID);
 	fmodLogoRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(fmodLogo->entityID);
+	if (peripheralNotice)
+	{
+		peripheralNoticeRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(peripheralNotice->entityID);
+	}
 
 	fadeRenderer->color.a = 255;
 	fadeRenderer->isVisible = true;
@@ -47,6 +52,12 @@ void Intro::Load()
 	logoRenderer->color.a = 0;
 	logo2Renderer->color.a = 0;
 	fmodLogoRenderer->color.a = 0;
+
+	if (peripheralNoticeRenderer)
+	{
+		peripheralNoticeRenderer->isVisible = false;
+		peripheralNoticeRenderer->color.a = 255;
+	}
 
 	phaseTimer = 0.0f;
 	currentPhase = IntroPhase::FADE_IN_LOGO;
@@ -90,6 +101,22 @@ namespace
 	}
 }
 
+void Intro::ShowPeripheralNotice()
+{
+	// The notice is on the UI layer with the fade screen, above it by sorting
+	// order. Layer beats sorting order in SpriteRendererSystem, so a notice on
+	// the Gameplay layer is covered by the fade however high its order is.
+	// Leaving the fade opaque gives the notice the same black backdrop the
+	// logos had, without needing a background of its own.
+	if (logoRenderer) { logoRenderer->isVisible = false; }
+	if (logo2Renderer) { logo2Renderer->isVisible = false; }
+	if (fmodLogoRenderer) { fmodLogoRenderer->isVisible = false; }
+	if (fadeRenderer) { fadeRenderer->color.a = 255; }
+	if (peripheralNoticeRenderer) { peripheralNoticeRenderer->isVisible = true; }
+	phaseTimer = 0.0f;
+	currentPhase = IntroPhase::PERIPHERAL_NOTICE;
+}
+
 void Intro::Update()
 {
 	const bool skipRequested =
@@ -118,6 +145,13 @@ void Intro::Update()
 			fadeRenderer->color.a = 0;
 			phaseTimer = 0.0f;
 			currentPhase = IntroPhase::SHOW_LOGO2;
+		}
+		else if (currentPhase != IntroPhase::PERIPHERAL_NOTICE)
+		{
+			// The logos are done, so the supported-input notice is next
+			// rather than the menu: skipping the logos should not skip the
+			// screen the Gallery asks for before the menu.
+			ShowPeripheralNotice();
 		}
 		else
 		{
@@ -198,6 +232,12 @@ void Intro::Update()
 		logo2Renderer->color.a = static_cast<unsigned char>(255 - FadeProgress(phaseTimer, fadeDuration) * 255);
 		fmodLogoRenderer->color.a = logo2Renderer->color.a;
 		if (phaseTimer >= fadeDuration) {
+			ShowPeripheralNotice();
+		}
+		break;
+
+	case IntroPhase::PERIPHERAL_NOTICE:
+		if (phaseTimer >= noticeDuration) {
 			currentPhase = IntroPhase::COMPLETE;
 			GameManager::SetActiveScene("MainMenu");
 		}

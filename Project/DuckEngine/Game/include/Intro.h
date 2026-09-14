@@ -52,7 +52,7 @@ public:
 	void Unload() override;
 
 private:
-	enum class IntroPhase { FADE_IN_LOGO, SHOW_LOGO, FADE_OUT_LOGO, FADE_IN_LOGO2, SHOW_LOGO2, FADE_OUT_LOGO2, COMPLETE };
+	enum class IntroPhase { FADE_IN_LOGO, SHOW_LOGO, FADE_OUT_LOGO, FADE_IN_LOGO2, SHOW_LOGO2, FADE_OUT_LOGO2, PERIPHERAL_NOTICE, COMPLETE };
 	IntroPhase currentPhase = IntroPhase::FADE_IN_LOGO;
 	float phaseTimer = 0.0f;
 	// The first Update after the scene loads carries the whole of the loading
@@ -60,13 +60,21 @@ private:
 	bool firstUpdate = true;
 	float fadeDuration = 2.0f;
 	float displayDuration = 2.0f;
+	// The supported-input notice the Gallery asks for before the main menu.
+	// Long enough to read two lines, and any of the skip inputs passes it, so
+	// nobody who knows the game has to wait for it.
+	float noticeDuration = 3.0f;
 	Entity* fadeScreen = nullptr;
 	Entity* logo = nullptr;
 	Entity* logo2 = nullptr;
 	Entity* fmodLogo = nullptr;
+	Entity* peripheralNotice = nullptr;
 	SpriteRendererComponent* fadeRenderer = nullptr;
 	SpriteRendererComponent* logoRenderer = nullptr;
 	SpriteRendererComponent* logo2Renderer = nullptr;
 	SpriteRendererComponent* fmodLogoRenderer = nullptr;
+	SpriteRendererComponent* peripheralNoticeRenderer = nullptr;
+
+	void ShowPeripheralNotice();
 
 };
