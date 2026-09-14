@@ -25,13 +25,13 @@ TEXTURE_EXTENSIONS = {".jpeg", ".jpg", ".png"}
 INTENTIONALLY_EMPTY_NAMED_TEXTURES = {"NULL", "confirm_off", "confirm_on"}
 # These unresolved paths and the ambiguous "quit" lookup are part of the
 # original shipped game data. Keep them visible as explicitly accepted legacy
-# debt so the resume/Linux work does not silently redesign the game. They can
-# be fixed later with a visual comparison and owner approval.
+# debt so the resume/Linux work does not silently redesign the game. Both
+# belong to the HowToPlay scene, which is registered but never made active, so
+# neither is ever loaded and neither can be compared against anything on
+# screen.
 INTENTIONALLY_UNRESOLVED_ASSET_PATHS = {
     "Resources/Sounds/gameplay bgm - unmastered.mp3",
-    "Resources/Sprites/Customer/Speech/speech_buncheesepattyplate.png",
     "Resources/Sprites/HowToPlay/background.png",
-    "Resources/Sprites/Settings menu/box.png",
 }
 INTENTIONALLY_AMBIGUOUS_NAMED_TEXTURES = {"quit"}
 
