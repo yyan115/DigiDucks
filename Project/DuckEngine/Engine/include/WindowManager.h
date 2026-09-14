@@ -93,6 +93,18 @@ public:
     static GLint GetWindowHeight();
 
     /// <summary>
+    /// Returns the current width of the game window.
+    /// </summary>
+    /// <returns>The width of the window in pixels.</returns>
+    static GLint GetEntireWindowWidth();
+
+    /// <summary>
+    /// Returns the current height of the game window.
+    /// </summary>
+    /// <returns>The height of the window in pixels.</returns>
+    static GLint GetEntireWindowHeight();
+
+    /// <summary>
     /// Retrieves the current width of the viewport.
     /// </summary>
     /// <returns>The width of the viewport in pixels.</returns>
@@ -115,10 +127,20 @@ public:
     /// </summary>
     static void ToggleFullscreen();
 
+    /*!
+    \brief  Re-asks for the confined cursor for a few frames after the window
+            is created or moved between fullscreen and windowed. Call once per
+            frame; it does nothing once the request has been repeated enough
+            times.
+    */
+    static void MaintainCursorConfinement();
+
     /// <summary>
     /// Enables or disables vertical synchronization for the active context.
     /// </summary>
     static void SetVSync(bool enabled);
+
+    static void MinimizeWindow();
 
     static bool IsWindowMinimized() { return glfwGetWindowAttrib(ptrWindow, GLFW_ICONIFIED) != 0; }
     static bool IsWindowFocused() { return isFocused; } 
