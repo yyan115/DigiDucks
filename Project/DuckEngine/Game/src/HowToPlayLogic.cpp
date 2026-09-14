@@ -60,7 +60,7 @@ void HowToPlayLogic::Start()
         auto next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
         next->onClick = [this, SFX]() {
             SFX->Play();
-            if (pageNum < 4) {
+            if (pageNum < kLastJournalPage) {
                 pageNum++;
                 UpdateJournalPage();
             }
@@ -121,7 +121,7 @@ void HowToPlayLogic::Update()
 		if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT) ||
 			DuckEngine_Input::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1) > 0.5f)
 		{
-			if (pageNum < 4) {
+			if (pageNum < kLastJournalPage) {
 				pageNum++;
 				UpdateJournalPage();
 				controllerNavigationCooldown = controllerNavigationDelay; // Set cooldown after action
