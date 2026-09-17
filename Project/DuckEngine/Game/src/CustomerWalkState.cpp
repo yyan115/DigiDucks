@@ -368,7 +368,15 @@ void CustomerWalkState::FixedUpdate()
 		else if (isWaitingToCollectOrder && !customerAngryLeave) {
 			if (owner->CurrentWaitingTime <= owner->MaxTableWaitingTime)
 			{
-				owner->CurrentWaitingTime += DuckEngine::DeltaTime();
+				// FixedDeltaTime, because this is FixedUpdate. The fixed step
+				// runs (frame time * 60) times a frame, so adding the frame's
+				// own delta each time drained this clock at 60/fps of real
+				// speed: at 30 frames a second a customer gave up in half the
+				// fifty seconds they are given, and at 144 they waited more
+				// than twice as long. Patience was a function of the player's
+				// frame rate. At 60 it was right, which is what everything was
+				// tuned against, and what it is now at any frame rate.
+				owner->CurrentWaitingTime += DuckEngine::FixedDeltaTime();
 				owner->WaitingSlider->currentValue = owner->MaxTableWaitingTime - owner->CurrentWaitingTime;
 
 				// change to red if 1/3
