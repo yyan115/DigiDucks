@@ -27,11 +27,17 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 namespace
 {
-	// Visible but confined to the window. GLFW gained this mode in 3.4, which
-	// is why the build asks for at least that version.
-	int ConfinedCursorMode()
+	// Confined in fullscreen, free in a window. A fullscreen game owns its
+	// monitor, and a pointer that wanders onto a second one clicks whatever is
+	// there, which takes focus and pauses the game. A windowed game is one
+	// window among others, and holding the pointer inside it takes the rest of
+	// the desktop away from the player.
+	//
+	// GLFW_CURSOR_CAPTURED is visible but confined. GLFW gained it in 3.4,
+	// which is why the build asks for at least that version.
+	int CursorModeFor(bool fullscreen)
 	{
-		return GLFW_CURSOR_CAPTURED;
+		return fullscreen ? GLFW_CURSOR_CAPTURED : GLFW_CURSOR_NORMAL;
 	}
 
 	// GLFW confines the cursor by grabbing the pointer, and the X server
@@ -193,7 +199,8 @@ void WindowManager::ToggleFullscreen() {
     isFullscreen = !isFullscreen; // Toggle fullscreen state
 
     // Moving the window between a monitor and the desktop drops the pointer
-    // grab that confines the cursor, so ask for it again.
+    // grab, and the mode it should have has just changed with it: confined on
+    // the way into fullscreen, free on the way back out to a window.
     RequestCursorConfinement();
 }
 
@@ -388,8 +395,9 @@ void WindowManager::MaintainCursorConfinement() {
     // GLFW returns early when the mode it is given is the mode it already
     // holds, and after a lost grab the mode it holds is already the confined
     // one. Passing through GLFW_CURSOR_NORMAL makes the request take effect.
+    // In a window that is also where it stays.
     glfwSetInputMode(ptrWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    glfwSetInputMode(ptrWindow, GLFW_CURSOR, ConfinedCursorMode());
+    glfwSetInputMode(ptrWindow, GLFW_CURSOR, CursorModeFor(isFullscreen));
 }
 
 void WindowManager::AllowCursorHiding() {
@@ -432,15 +440,16 @@ void WindowManager::SetWindowTitle(const char* _title) {
 
 void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
 
-	// Confine the pointer while the game has focus, release it when it does
-	// not, so alt-tabbing away hands the cursor back to the desktop. The
-	// editor is left alone, it needs a free cursor across its panels.
+	// Confine the pointer while a fullscreen game has focus, release it when
+	// it does not, so alt-tabbing away hands the cursor back to the desktop. A
+	// windowed game never holds it. The editor is left alone, it needs a free
+	// cursor across its panels.
 	if (!DuckEngine::isEditor)
 	{
 		glfwSetInputMode(
 			window,
 			GLFW_CURSOR,
-			focused ? ConfinedCursorMode() : GLFW_CURSOR_NORMAL);
+			focused ? CursorModeFor(isFullscreen) : GLFW_CURSOR_NORMAL);
 	}
 
     if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
