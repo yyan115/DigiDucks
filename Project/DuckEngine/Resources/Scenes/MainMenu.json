@@ -5,13 +5,13 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -0.10184288024902344,
-                            "y": 0.11148214340209961
+                            "x": 0.0,
+                            "y": 0.0
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 35.599998474121094,
+                            "x": 36.0,
                             "y": 20.0
                         }
                     },
@@ -196,7 +196,7 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 35.599998474121094,
+                            "x": 36.0,
                             "y": 20.0
                         }
                     },
