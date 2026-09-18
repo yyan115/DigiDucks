@@ -505,14 +505,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -9.299991607666016,
-                            "y": -2.0
+                            "x": -9.3078,
+                            "y": -1.95
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.099999904632568,
-                            "y": 4.0
+                            "x": 4.0956,
+                            "y": 3.9
                         }
                     },
                     "type": "TransformComponent"
@@ -633,14 +633,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": -1.4000015258789062,
-                            "y": -2.0
+                            "x": -1.4022,
+                            "y": -1.95
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.099999904632568,
-                            "y": 4.0
+                            "x": 4.0956,
+                            "y": 3.9
                         }
                     },
                     "type": "TransformComponent"
@@ -847,14 +847,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 6.5999979972839355,
-                            "y": -2.0
+                            "x": 6.5978,
+                            "y": -1.95
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 4.099999904632568,
-                            "y": 4.0
+                            "x": 4.0956,
+                            "y": 3.9
                         }
                     },
                     "type": "TransformComponent"
