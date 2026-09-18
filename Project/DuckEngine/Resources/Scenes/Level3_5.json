@@ -5585,7 +5585,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.5159,
                             "y": -0.675000011920929
                         },
                         "relativeToCamera": false,
@@ -7205,7 +7205,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.5159,
                             "y": -0.8500000238418579
                         },
                         "relativeToCamera": false,
@@ -7290,7 +7290,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.5,
+                            "x": 0.5159,
                             "y": -0.5
                         },
                         "relativeToCamera": false,
@@ -8463,7 +8463,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3499999940395355,
+                            "x": 0.3659,
                             "y": -0.18000000715255737
                         },
                         "relativeToCamera": false,
@@ -8499,7 +8499,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3799999952316284,
+                            "x": 0.3959,
                             "y": 0.800000011920929
                         },
                         "relativeToCamera": false,
@@ -8543,7 +8543,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3499999940395355,
+                            "x": 0.3659,
                             "y": -0.25999999046325684
                         },
                         "relativeToCamera": false,
@@ -8579,7 +8579,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3799999952316284,
+                            "x": 0.3959,
                             "y": 0.7250000834465027
                         },
                         "relativeToCamera": false,
@@ -8623,7 +8623,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3499999940395355,
+                            "x": 0.3659,
                             "y": -0.3400000035762787
                         },
                         "relativeToCamera": false,
@@ -8659,7 +8659,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.3799999952316284,
+                            "x": 0.3959,
                             "y": 0.6450000405311584
                         },
                         "relativeToCamera": false,
