@@ -155,8 +155,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 22.0,
-                            "y": 8.0
+                            "x": 24.559032440185547,
+                            "y": 7.166406154632568
                         }
                     },
                     "type": "TransformComponent"
@@ -191,8 +191,8 @@
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 16.0,
-                            "y": 14.0
+                            "x": 14.815447807312012,
+                            "y": 15.119354248046875
                         }
                     },
                     "type": "TransformComponent"
