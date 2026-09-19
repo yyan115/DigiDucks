@@ -48,6 +48,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "UISliderLogic.h"
 #include "GameSettingsLogic.h"
 #include "GameLoopLogic.h"
+#include "WindowManager.h"
 #include "MiniGameLogic.h"
 #include "PotLogic.h"
 #include "HighlightLogic.h"
@@ -157,6 +158,23 @@ void GameManager::Update()
 		Engine.DUCKENGINE_SceneManager.SetActiveScene(ActiveSceneName);
 		ShouldChangeScene = false;
 	}
+
+	// A level opens its pause menu when the window loses focus or is
+	// minimised. This runs every frame, where the level's own logic does not
+	// while the window is away, so the menu is up for the frames drawn then.
+	static bool wasAway = false;
+	const bool away = WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused();
+	if (away && !wasAway)
+	{
+		if (auto loop = Engine.DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager"))
+		{
+			if (auto logic = GameLogicManager::GetLogicForEntity<GameLoopLogic>(loop->entityID))
+			{
+				logic->PauseForFocusLoss();
+			}
+		}
+	}
+	wasAway = away;
 }
 
 

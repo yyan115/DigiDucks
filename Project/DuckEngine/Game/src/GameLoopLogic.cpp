@@ -646,6 +646,19 @@ bool GameLoopLogic::IsGameStarted()
 	return gameStarted;
 }
 
+void GameLoopLogic::PauseForFocusLoss()
+{
+	// Where Escape would pause, and only there: the countdown over, no
+	// cutscene or dialogue up, the level not fading out at its end, and
+	// nothing else, the quit confirmation or the pause menu itself, holding
+	// the game already. Anywhere else the engine's own freeze is enough.
+	if (!pauseMenuLogic || pauseMenuLogic->isPaused || DuckEngine::isGamePaused) return;
+	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
+	if (!gameStarted || hasStartedFade) return;
+
+	pauseMenuLogic->PauseGame(true);
+}
+
 bool GameLoopLogic::IsSeatOccupied(Entity* seat)
 {
 	for (auto& pairSeat : seatingLocations)
