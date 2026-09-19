@@ -56,6 +56,7 @@ public:
     struct Direct
     {
         static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }
+        static inline bool IsKeyDown(int key) { return InputManager::IsKeyDown(key); }
         static inline bool IsMouseButtonPressed(int button) { return InputManager::IsMouseButtonPressed(button); }
         static inline bool IsGamepadButtonDown(int gamepadIndex, int button)
         {

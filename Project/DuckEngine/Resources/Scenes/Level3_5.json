@@ -11248,8 +11248,8 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.49188,
-                            "y": 0.755
+                            "x": 0.44563,
+                            "y": 0.745
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -11271,7 +11271,7 @@
                         },
                         "enabled": true,
                         "fontName": "Nunito Black",
-                        "fontSize": 1.6,
+                        "fontSize": 2.6,
                         "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,
@@ -11290,7 +11290,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.49188,
+                            "x": 0.44563,
                             "y": 0.6
                         },
                         "relativeToCamera": false,
@@ -11313,7 +11313,7 @@
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
-                        "fontSize": 0.85,
+                        "fontSize": 1.4,
                         "fontSizeY": -1.0,
                         "position": {
                             "x": 0.0,

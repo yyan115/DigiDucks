@@ -187,9 +187,12 @@ int main(int argumentCount, char* arguments[])
 	{
 		double frameStartTime = DuckEngine::GetGLFWTime();
 
-		// if alt + enter is pressed, toggle full screen
-		if (DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
-			|| DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT) && DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
+		// if alt + enter is pressed, toggle full screen. Read directly: a
+		// dialogue that holds the player's input, the quit confirmation, must
+		// not also hold the window's own fullscreen key.
+		using Keys = DuckEngine_Input::Direct;
+		if (Keys::IsKeyDown(DuckEngine_Input::KEY_LEFT_ALT) && Keys::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
+			|| Keys::IsKeyDown(DuckEngine_Input::KEY_RIGHT_ALT) && Keys::IsKeyPressed(DuckEngine_Input::KEY_ENTER)
 			) {
 			DuckEngine::ToggleFullScreen();
 		}
