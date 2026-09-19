@@ -452,7 +452,10 @@ void WindowManager::window_focus_callback(GLFWwindow* window, int focused) {
 			focused ? CursorModeFor(isFullscreen) : GLFW_CURSOR_NORMAL);
 	}
 
-    if (!focused && !isFullscreen && !DuckEngine::isEditor)  glfwIconifyWindow(ptrWindow);  // Minimizes the window
+    // A windowed game is one window among others, so clicking on another one
+    // leaves it where it is rather than minimising it. Losing focus still
+    // pauses the game and its audio, in DuckEngine::Update, which is all the
+    // Gallery asks for.
 
     UNREFERENCED_PARAMETER(window);
     isFocused = focused != 0;
