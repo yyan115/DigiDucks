@@ -318,21 +318,31 @@ void CutSceneLogic::Update()
 
 		if (DialoguefadeProgress >= 6.0f)
 		{
-			if (FadeOutSprite)
-			{
-				FadeOutSprite->color.a = 255;
-				FadeOutSprite->isVisible = false;
-
-			}
 			isCutSceneFading = false;
 			CutSceneSprite->isVisible = false; // Hide cutscene sprite
 			if (lastPlayedSceneName == "Level0")
 			{
+				// The dialogue plays over the kitchen, so the black comes off.
+				if (FadeOutSprite)
+				{
+					FadeOutSprite->color.a = 255;
+					FadeOutSprite->isVisible = false;
+				}
 				isShowingDialogue = true;
 				DialogueSprite->isVisible = true; // Show dialogue box
 			}
 			else
 			{
+				// Hand the level a black screen, which its countdown fades in
+				// from. Taking the black off here left the lit kitchen on
+				// screen for a frame whenever the level's own logic had
+				// already run that frame, and the order the engine walks its
+				// components is not fixed, so it happened only sometimes.
+				if (FadeOutSprite)
+				{
+					FadeOutSprite->color.a = 255;
+					FadeOutSprite->isVisible = true;
+				}
 				CutSceneBGM->Stop();
 				isPlaying = false; // End cutscene
 				GameManager::GameCleared = false;
@@ -411,9 +421,13 @@ void CutSceneLogic::SkipPictures()
 
 void CutSceneLogic::EndDialogue()
 {
+	// Black, for the same reason the cutscene hands the level a black screen:
+	// the countdown fades in from it, and whichever runs first in the frame,
+	// nothing shows the kitchen lit in between.
 	if (FadeOutSprite)
 	{
-		FadeOutSprite->isVisible = false;
+		FadeOutSprite->color.a = 255;
+		FadeOutSprite->isVisible = true;
 	}
 	DialogueSprite->isVisible = false;
 	isShowingDialogue = false;
