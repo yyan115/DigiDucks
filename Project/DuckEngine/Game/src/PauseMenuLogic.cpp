@@ -513,6 +513,26 @@ void PauseMenuLogic::ExitConfirm(bool state)
 }
 
 
+bool PauseMenuLogic::CloseSubmenu()
+{
+	if (gameExitCfmBgSpt && gameExitCfmBgSpt->isVisible)
+	{
+		ExitConfirm(false);
+	}
+	else if (gameJournalSpt && gameJournalSpt->isVisible)
+	{
+		gameJournalSpt->isVisible = false;
+		DisableButtons(false);
+	}
+	else
+	{
+		return false;
+	}
+
+	if (isUsingController) SelectButton(currentSelection);
+	return true;
+}
+
 /****************************************************************
 * @brief Function to Enable/Disable the Buttons
 *

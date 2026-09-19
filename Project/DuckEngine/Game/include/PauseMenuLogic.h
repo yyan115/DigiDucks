@@ -162,6 +162,15 @@ public:
 	void ExitConfirm(bool state);
 
 	/****************************************************************
+	* @brief Close whatever is open on top of the pause menu, the
+	*        journal or the back-to-menu confirmation, and come back to
+	*        the pause menu, still paused.
+	*
+	* @return true if something was open and has closed
+	* ****************************************************************/
+	bool CloseSubmenu();
+
+	/****************************************************************
 	* @brief Function to Enable/Disable the Buttons
 	* 
 	* @param state - true to disable, false to enable

@@ -601,8 +601,13 @@ void GameLoopLogic::Update()
 		}
 		else if (pauseMenuLogic)
 		{
-			pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
-			pauseMenuLogic->playPauseSound();
+			// The same for the journal and the back-to-menu confirmation:
+			// Escape closes the one on top and leaves the game paused under it.
+			if (!(pauseMenuLogic->isPaused && pauseMenuLogic->CloseSubmenu()))
+			{
+				pauseMenuLogic->PauseGame(!pauseMenuLogic->isPaused);
+				pauseMenuLogic->playPauseSound();
+			}
 		}
 	}
 
