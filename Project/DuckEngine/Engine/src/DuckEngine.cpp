@@ -218,8 +218,10 @@ void DuckEngine::Update()
 	// while unfocused otherwise drew UI at the old size against the new one.
 	WindowManager::UpdateViewportDimensions();
 
+	// Minimising pauses; only losing focus does not. A game left in view while
+	// the player clicks another window, or another monitor, keeps running.
 	static bool pausedOrMinimized = false;
-	if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
+	if (IsPaused() || WindowManager::IsWindowMinimized())
 	{
 		if (!pausedOrMinimized)
 		{

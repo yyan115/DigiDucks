@@ -159,11 +159,11 @@ void GameManager::Update()
 		ShouldChangeScene = false;
 	}
 
-	// A level opens its pause menu when the window loses focus or is
-	// minimised. This runs every frame, where the level's own logic does not
-	// while the window is away, so the menu is up for the frames drawn then.
+	// A level opens its pause menu when the window is minimised. Losing focus
+	// alone does not pause. This runs every frame, where the level's own logic
+	// does not while the window is minimised, so the menu is up on return.
 	static bool wasAway = false;
-	const bool away = WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused();
+	const bool away = WindowManager::IsWindowMinimized();
 	if (away && !wasAway)
 	{
 		if (auto loop = Engine.DUCKENGINE_EntityManager.GetEntityByName("GameLoopManager"))

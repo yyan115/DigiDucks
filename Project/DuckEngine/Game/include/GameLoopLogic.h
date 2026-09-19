@@ -35,9 +35,9 @@ public:
 	void FixedUpdate() override;
 	bool IsGameStarted();
 
-	/// Called when the window loses focus or is minimised. In play, it opens
-	/// the pause menu, so the player comes back to a paused game they can
-	/// see is paused, rather than one that resumes on its own.
+	/// Called when the window is minimised. In play, it opens the pause menu,
+	/// so the player comes back to a paused game they can see is paused,
+	/// rather than one that resumes on its own.
 	void PauseForFocusLoss();
 
 private:
