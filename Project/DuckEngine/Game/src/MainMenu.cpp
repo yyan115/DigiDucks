@@ -44,6 +44,13 @@ void MainMenu::Load()
 	SoundSystem::SetCategoryVolume("BGM", SaveLoadManager::musicVolume);
 	SoundSystem::SetCategoryVolume("SFX", SaveLoadManager::sfxVolume);
 
+	// The scene object outlives each visit to the menu, and every load makes
+	// new entities and new logic. Anything looked up on a previous visit
+	// points at what that visit freed, so it is dropped here and found again.
+	quitConfirmLogic = nullptr;
+	optionsLogic = nullptr;
+	optionsWereOpen = false;
+
 	levelSelectScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectScreen").get();
 	mainMenuScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MainMenuScreen").get();
 	HTPScreen = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlayScreen").get();
@@ -52,18 +59,6 @@ void MainMenu::Load()
 	auto start = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(StartButton->entityID);
 	StartSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(StartButton->entityID);
 	
-	//level select button
-	LevelSelectButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("LevelSelectButton").get();
-	auto levelSelect = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(LevelSelectButton->entityID);
-	levelSelect->onClick = [this]()
-		{
-			if (!isFadingOut)
-			{
-				StartSound->Play(1);
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = true;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
-			}
-		};
 
 	menusound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("MenuBGM").get()->entityID);
 	if (menusound)
@@ -82,58 +77,15 @@ void MainMenu::Load()
 	fadeInElapsedTime = 0.0f;
 	isFadingIn = true;
 
+	// START opens the level select screen, where a player picks a level
+	// rather than being put straight into the next one.
 	start->onClick = [this]()
 		{
-			StartSound->Play(1);
-
-			// Disable all buttons when start button is clicked
-			for (const auto& [entityId, component] : DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+			if (!isFadingOut)
 			{
-				ButtonComponent* button = static_cast<ButtonComponent*>(component.get());
-				if (!button) continue;
-
-				button->isEnabled = false;
+				StartSound->Play(1);
+				OpenLevelSelect();
 			}
-
-			std::string sceneToLoad;
-
-			if (LevelSelectScreenLogic::currentStage >= 5)
-			{
-				sceneToLoad = "Level3";
-				std::cout << "Starting Level 3" << std::endl;
-			}
-			else if (LevelSelectScreenLogic::currentStage == 4)
-			{
-				sceneToLoad = "Level3";
-				std::cout << "Starting Level 3" << std::endl;
-			}
-			else if (LevelSelectScreenLogic::currentStage == 3)
-			{
-				sceneToLoad = "Level2_5";
-				std::cout << "Starting Level 2.5" << std::endl;
-			}
-			else if (LevelSelectScreenLogic::currentStage == 2)
-			{
-				sceneToLoad = "Level2";
-				std::cout << "Starting Level 2" << std::endl;
-			}
-			else if (LevelSelectScreenLogic::currentStage == 1)
-			{
-				sceneToLoad = "Level1_5";
-				std::cout << "Starting Level 1.5" << std::endl;
-			}
-			else if (LevelSelectScreenLogic::currentStage == 0)
-			{
-				sceneToLoad = "Level1";
-				std::cout << "Starting Level 1" << std::endl;
-			}
-			else
-			{
-				sceneToLoad = "Level0"; // Default to tutorial if no progress
-				std::cout << "Starting Tutorial Level 0" << std::endl;
-			}
-
-			OnPlayButtonClicked(sceneToLoad);
 		};
 	QuitButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Exit").get();
 	auto exit = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(QuitButton->entityID);
@@ -174,18 +126,28 @@ void MainMenu::Load()
 			}
 		};
 
+	// OPTIONS opens the options panel every level has.
+	OptionsButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Options").get();
+	auto options = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(OptionsButton->entityID);
+	OptionsSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(OptionsButton->entityID);
+	options->onClick = [this]()
+		{
+			if (!isFadingOut)
+			{
+				OptionsSound->Play(1);
+				OpenOptions(false);
+			}
+		};
+
 	startButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(StartButton->entityID);
-	levelSelectButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LevelSelectButton->entityID);
 	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);
 	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
 	creditsButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CreditsButton->entityID);
+	optionsButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(OptionsButton->entityID);
 	
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
 	startHoverTexture = AssetManager::GetTextureByName("start_click");
-
-	levelSelectNormalTexture = AssetManager::GetTextureByName("levelselect");
-	levelSelectHoverTexture = AssetManager::GetTextureByName("levelselect_hover");
 
 	quitNormalTexture = AssetManager::GetTextureByName("quit");
 	quitHoverTexture = AssetManager::GetTextureByName("quit_click");
@@ -195,6 +157,9 @@ void MainMenu::Load()
 
 	creditsNormalTexture = AssetManager::GetTextureByName("credits");
 	creditsHoverTexture = AssetManager::GetTextureByName("credits_hover");
+
+	optionsNormalTexture = AssetManager::GetTextureByName("options");
+	optionsHoverTexture = AssetManager::GetTextureByName("options_hover");
 
 	// Modify the button callback lambda functions in the Load() method
 	// Change each of the button hover callbacks as follows:
@@ -215,19 +180,19 @@ void MainMenu::Load()
 			}
 		};
 
-	// For LevelSelectButton:
-	levelSelect->onHover = [this]()
+	// For OptionsButton:
+	options->onHover = [this]()
 		{
 			if (!isUsingController) {
-				StartSound->Play();
-				levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
+				OptionsSound->Play();
+				optionsButtonSpriteRenderer->texture = optionsHoverTexture;
 			}
 		};
 
-	levelSelect->onFinishHover = [this]()
+	options->onFinishHover = [this]()
 		{
 			if (!isUsingController) {
-				levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
+				optionsButtonSpriteRenderer->texture = optionsNormalTexture;
 			}
 		};
 
@@ -406,6 +371,75 @@ void MainMenu::OpenJournal(int firstPage, int lastPage)
 	}
 }
 
+void MainMenu::OpenLevelSelect()
+{
+	if (!levelSelectScreen || !mainMenuScreen) return;
+	if (auto* levels = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID))
+	{
+		levels->isVisible = true;
+	}
+	if (auto* menu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+	{
+		menu->isVisible = false;
+	}
+}
+
+void MainMenu::ResolveOptionsLogic()
+{
+	if (optionsLogic) return;
+	if (auto panel = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Menu"))
+	{
+		optionsLogic = GameLogicManager::GetLogicForEntity<GameSettingsLogic>(panel->entityID);
+	}
+}
+
+bool MainMenu::OptionsOpen()
+{
+	ResolveOptionsLogic();
+	return optionsLogic && optionsLogic->isSettingsVisible();
+}
+
+void MainMenu::SetMenuButtonsEnabled(bool enabled)
+{
+	for (Entity* item : { StartButton, HtpButton, OptionsButton, CreditsButton, QuitButton })
+	{
+		if (!item) continue;
+		if (auto* button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(item->entityID))
+		{
+			button->isEnabled = enabled;
+			button->isHovered = false;
+		}
+	}
+}
+
+void MainMenu::OpenOptions(bool fromPad)
+{
+	ResolveOptionsLogic();
+	if (!optionsLogic) return;
+	DeselectAllButtons();
+	SetMenuButtonsEnabled(false);
+	// The menu steps aside for the panel, the way it does for How To Play and
+	// the level select, rather than showing its labels round the panel's edge.
+	SetMenuShown(false);
+	optionsWereOpen = true;
+	optionsLogic->ShowSettings(true, fromPad);
+}
+
+void MainMenu::SetMenuShown(bool shown)
+{
+	// The logo and the five items only. The duck art behind them stays, so the
+	// panel sits on the menu's own picture rather than on black.
+	Entity* logo = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Logo").get();
+	for (Entity* item : { logo, StartButton, HtpButton, OptionsButton, CreditsButton, QuitButton })
+	{
+		if (!item) continue;
+		if (auto* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(item->entityID))
+		{
+			sprite->isVisible = shown;
+		}
+	}
+}
+
 void MainMenu::PostUpdate()
 {
 	// The window's own close request is taken by MenuQuitConfirmLogic, which
@@ -466,6 +500,28 @@ void MainMenu::UpdateMenuSelection()
 
 	if (HTPScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible) {
 		submenusOpen = true;
+	}
+
+	// The options panel, which has its own navigation and its own B. Escape
+	// closes it here, as it does in a level. The menu's items come back on
+	// the frame after it closes, so the click or press that closed it cannot
+	// also land on one of them.
+	if (OptionsOpen())
+	{
+		optionsWereOpen = true;
+		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
+		{
+			optionsLogic->ShowSettings(false);
+		}
+		return;
+	}
+	if (optionsWereOpen)
+	{
+		optionsWereOpen = false;
+		SetMenuShown(true);
+		SetMenuButtonsEnabled(true);
+		if (isUsingController) SelectButton(currentSelection);
+		return;
 	}
 
 	// The quit confirmation, which has its own navigation and its own B. This
@@ -593,9 +649,9 @@ void MainMenu::SelectButton(MenuSelection selection)
 		StartSound->Play();
 		break;
 
-	case MenuSelection::LEVEL_SELECT:
-		levelSelectButtonSpriteRenderer->texture = levelSelectHoverTexture;
-		StartSound->Play();
+	case MenuSelection::OPTIONS:
+		optionsButtonSpriteRenderer->texture = optionsHoverTexture;
+		OptionsSound->Play();
 		break;
 
 	case MenuSelection::HOW_TO_PLAY:
@@ -624,7 +680,7 @@ void MainMenu::SelectButton(MenuSelection selection)
 void MainMenu::DeselectAllButtons()
 {
 	startButtonSpriteRenderer->texture = startNormalTexture;
-	levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
+	optionsButtonSpriteRenderer->texture = optionsNormalTexture;
 	htpButtonSpriteRenderer->texture = htpNormalTexture;
 	creditsButtonSpriteRenderer->texture = creditsNormalTexture;
 	quitButtonSpriteRenderer->texture = quitNormalTexture;
@@ -643,47 +699,18 @@ void MainMenu::ActivateSelectedButton()
 	switch (currentSelection)
 	{
 	case MenuSelection::START:
-		// Call the OnPlayButtonClicked function with the appropriate scene name
-		if (!isFadingOut)
-		{
-			std::string sceneToLoad;
-
-			if (LevelSelectScreenLogic::currentStage >= 5)
-				sceneToLoad = "Level3_5";
-			else if (LevelSelectScreenLogic::currentStage == 4)
-				sceneToLoad = "Level3";
-			else if (LevelSelectScreenLogic::currentStage == 3)
-				sceneToLoad = "Level2_5";
-			else if (LevelSelectScreenLogic::currentStage == 2)
-				sceneToLoad = "Level2";
-			else if (LevelSelectScreenLogic::currentStage == 1)
-				sceneToLoad = "Level1_5";
-			else if (LevelSelectScreenLogic::currentStage == 0)
-				sceneToLoad = "Level1";
-			else
-				sceneToLoad = "Level0"; // Default to tutorial if no progress
-
-			OnPlayButtonClicked(sceneToLoad);
-		}
-		break;
-
-	case MenuSelection::LEVEL_SELECT:
 		if (!isFadingOut)
 		{
 			StartSound->Play(1);
-			if (levelSelectScreen && mainMenuScreen)
-			{
-				if (auto* levelRenderer = DuckEngine::DUCKENGINE_ComponentManager
-					.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID))
-				{
-					levelRenderer->isVisible = true;
-				}
-				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
-					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
-				{
-					menuRenderer->isVisible = false;
-				}
-			}
+			OpenLevelSelect();
+		}
+		break;
+
+	case MenuSelection::OPTIONS:
+		if (!isFadingOut)
+		{
+			OptionsSound->Play(1);
+			OpenOptions(true);
 		}
 		break;
 

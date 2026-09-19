@@ -124,11 +124,11 @@ OPTIONS_PANEL = ("Settings_Menu", "CloseSettings_Button",
                  "SFXVolume_Slider", "SFXVolume_SliderFill", "SFXVolume_Value",
                  "FPSTarget_Slider", "FPSTarget_SliderFill", "FPSTarget_Value",
                  "VSync_Toggle")
-OPTIONS_PANEL_SCENES = ("Level0", "Level1", "Level1_5", "Level2", "Level2_5", "Level3", "Level3_5")
+OPTIONS_PANEL_SCENES = ("MainMenu", "Level0", "Level1", "Level1_5", "Level2", "Level2_5", "Level3", "Level3_5")
 
 
 def options_panel_errors() -> list[str]:
-    """Every level lays out its options panel the same way as Level 1.
+    """Every level, and the main menu, lays out its options panel the same way as Level 1.
 
     The labels are painted into the panel's art and the bars, values and the
     VSYNC box are placed over them, so the two only line up at one panel size.
@@ -289,7 +289,7 @@ def main() -> int:
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
         f"asset references, {source_reference_count} source asset references, "
         f"every How To Play page, every named game logic, the quit dialogue in every scene, "
-        f"one options panel layout in every level, and named texture lookups."
+        f"one options panel layout in every level and the main menu, and named texture lookups."
     )
     return 0
 

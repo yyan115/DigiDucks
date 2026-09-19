@@ -16,6 +16,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "LevelSelectScreenLogic.h"
 #include "MenuQuitConfirmLogic.h"
+#include "GameSettingsLogic.h"
 
 class MainMenu : public Scene {
 public:
@@ -66,7 +67,7 @@ private:
 	Entity* QuitButton = nullptr;
 	Entity* HtpButton = nullptr;
 	Entity* CreditsButton = nullptr;
-	Entity* LevelSelectButton = nullptr;
+	Entity* OptionsButton = nullptr;
 	Entity* FadeOutScreen = nullptr;
 
 	// The quit confirmation, which the EXIT button opens instead of closing
@@ -80,19 +81,31 @@ private:
 	// HOW TO PLAY and CREDITS open the same journal on their own pages.
 	void OpenJournal(int firstPage, int lastPage);
 
+	// START opens the level select screen. There is no separate LEVEL SELECT
+	// item: its row went to OPTIONS.
+	void OpenLevelSelect();
+
+	// OPTIONS opens the same options panel every level has. The menu's own
+	// items lie partly under it, so they are switched off while it is open
+	// and back on when it closes.
+	std::shared_ptr<GameSettingsLogic> optionsLogic = nullptr;
+	bool optionsWereOpen = false;
+	void ResolveOptionsLogic();
+	void OpenOptions(bool fromPad);
+	void SetMenuButtonsEnabled(bool enabled);
+	void SetMenuShown(bool shown);
+	bool OptionsOpen();
+
 
 	SpriteRendererComponent* startButtonSpriteRenderer = nullptr;
-	SpriteRendererComponent* levelSelectButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* quitButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* htpButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* creditsButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* optionsButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* FadeOutSpriteRenderer = nullptr;
 
 	Texture startNormalTexture = 0;
 	Texture startHoverTexture = 0;
-
-	Texture levelSelectNormalTexture = 0;
-	Texture levelSelectHoverTexture = 0;
 
 	Texture quitNormalTexture = 0;
 	Texture quitHoverTexture = 0;
@@ -103,10 +116,14 @@ private:
 	Texture creditsNormalTexture = 0;
 	Texture creditsHoverTexture = 0;
 
+	Texture optionsNormalTexture = 0;
+	Texture optionsHoverTexture = 0;
+
 	SoundComponent* StartSound = nullptr;
 	SoundComponent* QuitSound = nullptr;
 	SoundComponent* HtpSound = nullptr;
 	SoundComponent* CreditsSound = nullptr;
+	SoundComponent* OptionsSound = nullptr;
 
 	float fadeOutDuration = 3.0f;
 	float fadeElapsedTime = 0.0f;
@@ -123,8 +140,8 @@ private:
 
 	enum class MenuSelection {
 		START = 0,
-		LEVEL_SELECT = 1,
-		HOW_TO_PLAY = 2,
+		HOW_TO_PLAY = 1,
+		OPTIONS = 2,
 		CREDITS = 3,
 		QUIT = 4,
 		COUNT
