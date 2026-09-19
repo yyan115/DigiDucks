@@ -12,6 +12,7 @@
 #include "ComponentManager.h"
 #include "TransformComponent.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
 
 namespace
 {
@@ -81,6 +82,14 @@ void Telemetry::Sample()
 	}
 
 	stream << "{\"t\":" << now << ",\"scene\":\"" << scene << "\"";
+	// What the engine believes about its window. Focus and the pause decide
+	// whether a frame updates the game, and the window and viewport sizes
+	// must agree for it to be drawn right.
+	stream << ",\"focused\":" << (WindowManager::IsWindowFocused() ? 1 : 0)
+		<< ",\"minimized\":" << (WindowManager::IsWindowMinimized() ? 1 : 0)
+		<< ",\"gamePaused\":" << (DuckEngine::isGamePaused ? 1 : 0)
+		<< ",\"window\":[" << WindowManager::GetWindowWidth() << "," << WindowManager::GetWindowHeight() << "]"
+		<< ",\"viewport\":[" << WindowManager::GetViewportWidth() << "," << WindowManager::GetViewportHeight() << "]";
 	WriteEntity("player", "Player");
 	stream << "}\n";
 	stream.flush();
