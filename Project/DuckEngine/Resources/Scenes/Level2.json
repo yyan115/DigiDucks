@@ -8070,7 +8070,7 @@
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
-                        "fontSize": 0.699999988079071,
+                        "fontSize": 1.0,
                         "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
@@ -8150,7 +8150,7 @@
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
-                        "fontSize": 0.699999988079071,
+                        "fontSize": 1.0,
                         "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,
@@ -8230,7 +8230,7 @@
                         },
                         "enabled": true,
                         "fontName": "Nunito Bold",
-                        "fontSize": 0.699999988079071,
+                        "fontSize": 1.0,
                         "fontSizeY": 1.0,
                         "position": {
                             "x": 0.0,

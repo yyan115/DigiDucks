@@ -160,6 +160,20 @@ void TextSystem::Render()
             else {
                 scaleY = scale;
             }
+
+            // Interface text is placed in a space that runs 0 to 1 across the
+            // viewport's width and 0 to 1 down its height, so one unit across
+            // is wider than one unit down by the viewport's aspect ratio. A
+            // glyph scaled the same both ways therefore came out stretched
+            // sideways by exactly that ratio, 1.78 on a 16:9 screen, which is
+            // why every line of interface text looked wide. Narrowing the
+            // horizontal scale by the aspect ratio draws each glyph in the
+            // shape its font gives it, whatever shape the screen is.
+            const float viewportWidth = DuckEngine::GetViewportWidth();
+            const float viewportHeight = DuckEngine::GetViewportHeight();
+            if (viewportWidth > 0.f && viewportHeight > 0.f) {
+                scale *= viewportHeight / viewportWidth;
+            }
         }
         else {
             Vector2D position = transform->GetPosition();
