@@ -133,7 +133,10 @@ void UISliderLogic::HandleMouseDrag() {
 	// Update slider position while dragging
 	if (slider->isDragging) {
 		float leftEdge = slider->sliderStartPos.x - (MainsliderTrfm->scale.x * 0.5f);
-		float newValue = (mousePos.x - leftEdge) / slider->sliderWidth;
+		// Measured against the bar as drawn. The stored sliderWidth is 0.30
+		// while every bar is drawn 0.25 wide, so the fill used to stop short
+		// of the cursor and only reached the end a fifth of a bar past it.
+		float newValue = (mousePos.x - leftEdge) / MainsliderTrfm->scale.x;
 
 		// Clamp within 0.0f - 1.0f
 		if (newValue < 0.0f) {

@@ -115,6 +115,44 @@ def quit_dialogue_errors() -> list[str]:
     return errors
 
 
+OPTIONS_PANEL = ("Settings_Menu", "CloseSettings_Button",
+                 "MasterVolume_Slider", "MasterVolume_SliderFill", "MasterVolume_Value",
+                 "BGMVolume_Slider", "BGMVolume_SliderFill", "BGMVolume_Value",
+                 "SFXVolume_Slider", "SFXVolume_SliderFill", "SFXVolume_Value",
+                 "FPSTarget_Slider", "FPSTarget_SliderFill", "FPSTarget_Value",
+                 "VSync_Toggle")
+OPTIONS_PANEL_SCENES = ("Level0", "Level1", "Level1_5", "Level2", "Level2_5", "Level3", "Level3_5")
+
+
+def options_panel_errors() -> list[str]:
+    """Every level lays out its options panel the same way as Level 1.
+
+    The labels are painted into the panel's art and the bars, values and the
+    VSYNC box are placed over them, so the two only line up at one panel size.
+    Six levels once drew the panel taller than Level 1 while keeping Level 1's
+    controls, and every row sat off its label in those six.
+    """
+    scenes = RESOURCES / "Scenes"
+
+    def layout(objects: dict, part: str) -> Any:
+        for component in objects[part].get("components", []):
+            if component.get("type") == "TransformComponent":
+                properties = component.get("properties", {})
+                return properties.get("position"), properties.get("scale")
+        return None
+
+    reference = json.loads((scenes / "Level1.json").read_text(encoding="utf-8"))["gameObjects"]
+    errors = []
+    for name in OPTIONS_PANEL_SCENES:
+        objects = json.loads((scenes / f"{name}.json").read_text(encoding="utf-8"))["gameObjects"]
+        for part in OPTIONS_PANEL:
+            if part not in objects:
+                errors.append(f"{name}.json has no {part} in its options panel")
+            elif layout(objects, part) != layout(reference, part):
+                errors.append(f"{name}.json's {part} is placed differently from Level1.json's; the options panel must match in every level")
+    return errors
+
+
 def strings_in(value: Any) -> Iterable[str]:
     if isinstance(value, str):
         yield value
@@ -231,6 +269,7 @@ def main() -> int:
     errors.extend(journal_page_errors())
     errors.extend(game_logic_errors())
     errors.extend(quit_dialogue_errors())
+    errors.extend(options_panel_errors())
 
     if errors:
         print("Asset validation failed:", file=sys.stderr)
@@ -242,7 +281,7 @@ def main() -> int:
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
         f"asset references, {source_reference_count} source asset references, "
         f"every How To Play page, every named game logic, the quit dialogue in every scene, "
-        f"and named texture lookups."
+        f"one options panel layout in every level, and named texture lookups."
     )
     return 0
 

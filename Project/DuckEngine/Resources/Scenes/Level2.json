@@ -60,7 +60,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.3410000205039978
+                            "y": -0.33989
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -120,7 +120,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.3410000205039978
+                            "y": -0.33989
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -156,7 +156,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.6430000066757202
+                            "y": 0.64467
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3687,7 +3687,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.5499999523162842
+                            "y": -0.54278
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3747,7 +3747,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.5499999523162842
+                            "y": -0.54278
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -3783,7 +3783,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.43400001525878906
+                            "y": 0.44122
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5443,7 +5443,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.27300000190734863
+                            "y": -0.27189
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5503,7 +5503,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.27300000190734863
+                            "y": -0.27189
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -5539,7 +5539,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.7110000848770142
+                            "y": 0.71267
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -6992,7 +6992,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.4099999964237213
+                            "y": -0.40778
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7052,7 +7052,7 @@
                     "properties": {
                         "position": {
                             "x": 0.5199999213218689,
-                            "y": -0.4099999964237213
+                            "y": -0.40778
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7088,7 +7088,7 @@
                     "properties": {
                         "position": {
                             "x": 0.6649999022483826,
-                            "y": 0.5740000009536743
+                            "y": 0.57678
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
@@ -7660,7 +7660,7 @@
                         "rotation": 0.0,
                         "scale": {
                             "x": 0.6000000238418579,
-                            "y": 0.949999988079071
+                            "y": 0.8999999761581421
                         }
                     },
                     "type": "TransformComponent"
@@ -10358,7 +10358,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.6999999284744263,
+                            "x": 0.68781,
                             "y": -0.6799999475479126
                         },
                         "relativeToCamera": false,
