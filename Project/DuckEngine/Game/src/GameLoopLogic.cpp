@@ -78,6 +78,10 @@ SpriteRendererComponent* uiSprite = nullptr;
 Entity* score = nullptr;
 TextComponent* scoreText = nullptr;
 
+// The middle of the timer's white field, between the stopwatch's right edge
+// and the inside of the teal border: x 1410 to 1573 on a 1600 px wide screen.
+static const float kTimerFieldCentreX = 1491.5f / 1600.f;
+
 // Pause Menu
 std::shared_ptr<PauseMenuLogic> pauseMenuLogic = nullptr;
 
@@ -509,6 +513,18 @@ void GameLoopLogic::Update()
 
 		else {
 			timerText->text = "END!";
+			// END! is wider than the time it replaces, and drawn from the
+			// same left edge it ran into the timer's right border. It is
+			// centred in the timer's field instead, between the stopwatch and
+			// the border; the running time keeps the place the team gave it.
+			if (!timerText->centered && timer)
+			{
+				timerText->centered = true;
+				if (auto* place = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<TransformComponent>(timer->entityID))
+				{
+					place->SetPosition(Vec2(kTimerFieldCentreX, place->GetPosition().y));
+				}
+			}
 
 			if (!hasStartedFade && TimeLeftSound != nullptr) {
 				SoundSystem::StopSounds(TimeLeftSound->soundID[0]);

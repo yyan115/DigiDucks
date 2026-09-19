@@ -1528,7 +1528,8 @@
                             "y": 0.0
                         },
                         "sortingOrder": 11,
-                        "text": "Go!"
+                        "text": "Go!",
+                        "stretchWithScreen": true
                     },
                     "type": "TextComponent"
                 }
@@ -6208,7 +6209,8 @@
                             "y": 0.0
                         },
                         "sortingOrder": 9,
-                        "text": "0"
+                        "text": "0",
+                        "stretchWithScreen": true
                     },
                     "type": "TextComponent"
                 }
@@ -9125,7 +9127,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.9075,
+                            "x": 0.8899999856948853,
                             "y": 0.13599997758865356
                         },
                         "relativeToCamera": false,
@@ -9154,7 +9156,8 @@
                             "y": 0.0
                         },
                         "sortingOrder": 9,
-                        "text": "0:00"
+                        "text": "0:00",
+                        "stretchWithScreen": true
                     },
                     "type": "TextComponent"
                 }

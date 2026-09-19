@@ -265,6 +265,7 @@ void ComponentFactory::SaveComponentsToJson(int entityID, json& componentsArray)
 		textData["properties"]["fontSize"] = textComponent->fontSize;
 		textData["properties"]["fontSizeY"] = textComponent->fontSizeY;
 		textData["properties"]["centered"] = textComponent->centered;
+		textData["properties"]["stretchWithScreen"] = textComponent->stretchWithScreen;
 		textData["properties"]["color"] =
 		{
 			{"r", textComponent->color.r},
@@ -488,6 +489,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		// Absent means left-anchored, which is how every shipped scene was laid
 		// out. Only a string that asks for it is centred on its transform.
 		bool centered = componentJson["properties"].value("centered", false);
+		bool stretchWithScreen = componentJson["properties"].value("stretchWithScreen", false);
 
 		Color color{ 255, 255, 255, 255 };
 		if (componentJson["properties"].contains("color"))
@@ -503,6 +505,7 @@ std::shared_ptr<Component> ComponentFactory::CreateComponentFromJson(const nlohm
 		textComponent->isEnabled = enabled;
 		textComponent.get()->fontSizeY = fontSizeY;
 		textComponent.get()->centered = centered;
+		textComponent.get()->stretchWithScreen = stretchWithScreen;
 		return textComponent;
 	}
 	else if (type == "ButtonComponent")

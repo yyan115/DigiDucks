@@ -169,9 +169,12 @@ void TextSystem::Render()
             // why every line of interface text looked wide. Narrowing the
             // horizontal scale by the aspect ratio draws each glyph in the
             // shape its font gives it, whatever shape the screen is.
+            //
+            // A text that asks to keep the old shape is left as it was drawn
+            // before: the HUD's timer, coins and countdown.
             const float viewportWidth = DuckEngine::GetViewportWidth();
             const float viewportHeight = DuckEngine::GetViewportHeight();
-            if (viewportWidth > 0.f && viewportHeight > 0.f) {
+            if (!text->stretchWithScreen && viewportWidth > 0.f && viewportHeight > 0.f) {
                 scale *= viewportHeight / viewportWidth;
             }
 

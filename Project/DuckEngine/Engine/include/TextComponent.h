@@ -53,6 +53,12 @@ public:
     /// tuned offset that centring would move.
     bool centered = false;
 
+    /// Draw the text the way all interface text was drawn before its shape
+    /// was corrected: as wide as the screen's proportions make it. Off by
+    /// default. The HUD's timer, coins and start countdown keep it, because
+    /// those were laid out and approved in that shape.
+    bool stretchWithScreen = false;
+
     /// <summary>
     /// Constructs a TextComponent with specified font name, text content, position, 
     /// font size, color, and enabled state.
