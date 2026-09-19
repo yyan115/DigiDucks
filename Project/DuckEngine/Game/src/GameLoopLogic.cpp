@@ -98,6 +98,13 @@ bool hasStartedFade = false;
 float GamefadeElapsedTime = 0.f;
 SpriteRendererComponent* FadeOutSprite = nullptr;
 
+// The level's fade is drawn over everything in the level, the pause menu and
+// options panel included, so pausing during the start fade or the closing
+// fade showed them darkened. While paused the fade steps aside, and comes
+// back as it was on resume.
+bool fadeHeldForPause = false;
+bool fadeShownBeforePause = false;
+
 // state manger for this level
 CustomerStateManager stateManager;
 
@@ -185,6 +192,8 @@ void GameLoopLogic::Start()
 	GamefadeElapsedTime = 0.0f;
 	gameStarted = false;
 	countdownTime = 3.0f;
+	fadeHeldForPause = false;
+	fadeShownBeforePause = false;
 
 	Emitter dust;
 	dust.spawnCountMin = 1;
@@ -353,9 +362,13 @@ void GameLoopLogic::Update()
 			GameManager::SetGlobalVariable("ShowFPS", FPSText->isEnabled ? "true" : "false");
 		}
 	}
+#endif
 
 	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
 
+	// Escape pauses from the countdown on, not only once play has begun.
+	HandlePauseInput();
+	SyncFadeWithPause();
 
 	DuckEngine::SetBackgroundColor(255.f, 255.f, 255.f, 255.f);
 
@@ -396,7 +409,7 @@ void GameLoopLogic::Update()
 		}
 
 		if (FadeOutSprite) {
-			FadeOutSprite->isVisible = true;
+			FadeOutSprite->isVisible = !fadeHeldForPause;
 			float fadeValue = (countdownTime / 3.0f) * 255.0f;
 			FadeOutSprite->color.a = (fadeValue >= 0.0f) ? fadeValue : 0;
 		}
@@ -600,6 +613,31 @@ void GameLoopLogic::Update()
 	}
 #endif
 
+	const bool paused = pauseMenuLogic && pauseMenuLogic->isPaused;
+
+	// Let the cursor hide itself while the player is playing. Asked for every
+	// frame rather than switched on and off: one frame without this call brings
+	// the pointer back, so leaving the level, pausing and opening the options
+	// panel each need nothing of their own. The gear on the HUD is a mouse-only
+	// control, which is why the cursor returns on movement instead of staying
+	// hidden for the whole level.
+	const bool panelOpen = gameSettingsLogic && gameSettingsLogic->isSettingsVisible();
+	if (!paused && !panelOpen)
+	{
+		WindowManager::AllowCursorHiding();
+	}
+}
+void GameLoopLogic::FixedUpdate()
+{
+}
+
+bool GameLoopLogic::IsGameStarted()
+{
+	return gameStarted;
+}
+
+void GameLoopLogic::HandlePauseInput()
+{
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 	{
 		std::cout << "Escape is pressed!\n";
@@ -627,8 +665,7 @@ void GameLoopLogic::Update()
 	// ButtonSystem fires a button only from a mouse click.
 	//
 	// Not while the game is paused: the pause menu is already up.
-	const bool paused = pauseMenuLogic && pauseMenuLogic->isPaused;
-	if (!paused && pauseMenuLogic &&
+	if (!(pauseMenuLogic && pauseMenuLogic->isPaused) && pauseMenuLogic &&
 		DuckEngine_Input::IsGamepadButtonPressed(
 			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_BACK))
 	{
@@ -636,38 +673,37 @@ void GameLoopLogic::Update()
 		pauseMenuLogic->playPauseSound();
 	}
 
-	// Let the cursor hide itself while the player is playing. Asked for every
-	// frame rather than switched on and off: one frame without this call brings
-	// the pointer back, so leaving the level, pausing and opening the options
-	// panel each need nothing of their own. The gear on the HUD is a mouse-only
-	// control, which is why the cursor returns on movement instead of staying
-	// hidden for the whole level.
-	const bool panelOpen = gameSettingsLogic && gameSettingsLogic->isSettingsVisible();
-	if (!paused && !panelOpen)
-	{
-		WindowManager::AllowCursorHiding();
-	}
-}
-void GameLoopLogic::FixedUpdate()
-{
+	SyncFadeWithPause();
 }
 
-bool GameLoopLogic::IsGameStarted()
+void GameLoopLogic::SyncFadeWithPause()
 {
-	return gameStarted;
+	if (!FadeOutSprite) return;
+	const bool paused = pauseMenuLogic && pauseMenuLogic->isPaused;
+	if (paused && !fadeHeldForPause)
+	{
+		fadeHeldForPause = true;
+		fadeShownBeforePause = FadeOutSprite->isVisible;
+		FadeOutSprite->isVisible = false;
+	}
+	else if (!paused && fadeHeldForPause)
+	{
+		fadeHeldForPause = false;
+		FadeOutSprite->isVisible = fadeShownBeforePause;
+	}
 }
 
 void GameLoopLogic::PauseForFocusLoss()
 {
-	// Where Escape would pause, and only there: the countdown over, no
-	// cutscene or dialogue up, the level not fading out at its end, and
+	// Where Escape would pause, and only there: from the countdown to the end
+	// of the level's closing fade, with no cutscene or dialogue up and
 	// nothing else, the quit confirmation or the pause menu itself, holding
 	// the game already. Anywhere else the engine's own freeze is enough.
 	if (!pauseMenuLogic || pauseMenuLogic->isPaused || DuckEngine::isGamePaused) return;
 	if (CutScene && CutSceneManager && CutSceneManager->CutscenePlay()) return;
-	if (!gameStarted || hasStartedFade) return;
 
 	pauseMenuLogic->PauseGame(true);
+	SyncFadeWithPause();
 }
 
 bool GameLoopLogic::IsSeatOccupied(Entity* seat)

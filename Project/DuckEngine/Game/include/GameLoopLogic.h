@@ -40,6 +40,15 @@ public:
 	/// see is paused, rather than one that resumes on its own.
 	void PauseForFocusLoss();
 
+private:
+	/// Escape, the pad's Start and Back: close what is open on top, or pause
+	/// and resume.
+	void HandlePauseInput();
+	/// Hide the level's fade while paused and give it back on resume.
+	void SyncFadeWithPause();
+
+public:
+
 	std::shared_ptr<GameLogic> Clone() const override
 	{
 		auto clone = std::make_shared<GameLoopLogic>(*this);
