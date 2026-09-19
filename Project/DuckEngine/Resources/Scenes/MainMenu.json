@@ -1806,7 +1806,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.32,
+                            "x": 0.35264,
                             "y": -0.6
                         },
                         "relativeToCamera": false,
@@ -1870,7 +1870,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.55,
+                            "x": 0.53861,
                             "y": -0.6
                         },
                         "relativeToCamera": false,
@@ -1934,7 +1934,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.224,
+                            "x": 0.49188,
                             "y": 0.755
                         },
                         "relativeToCamera": false,
@@ -1948,6 +1948,7 @@
                 },
                 {
                     "properties": {
+                        "centered": true,
                         "color": {
                             "a": 255.0,
                             "b": 24.0,
@@ -1975,7 +1976,7 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 0.24,
+                            "x": 0.49188,
                             "y": 0.6
                         },
                         "relativeToCamera": false,
@@ -1989,6 +1990,7 @@
                 },
                 {
                     "properties": {
+                        "centered": true,
                         "color": {
                             "a": 255.0,
                             "b": 68.0,

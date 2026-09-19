@@ -174,6 +174,15 @@ void TextSystem::Render()
             if (viewportWidth > 0.f && viewportHeight > 0.f) {
                 scale *= viewportHeight / viewportWidth;
             }
+
+            // A line of interface text that asks to be centred is centred
+            // across on its x. Its y stays the baseline, since that is what a
+            // line of interface text is laid out against. Without this a
+            // centred line had to be placed by hand from its left edge, and
+            // moved again whenever its wording or size changed.
+            if (text->centered) {
+                renderPosition.x -= CalculateTextWidth(text->fontName, text->text, scale) * 0.5f;
+            }
         }
         else {
             Vector2D position = transform->GetPosition();
