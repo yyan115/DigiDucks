@@ -41,14 +41,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.1139,
-                            "y": -7.9011
+                            "x": 10.1259,
+                            "y": -8.1756
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 8.0049,
-                            "y": 1.8535
+                            "x": 9.1975,
+                            "y": 2.1296
                         }
                     },
                     "type": "TransformComponent"
@@ -387,14 +387,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0164,
-                            "y": -5.7088
+                            "x": 10.0179,
+                            "y": -4.1312
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 12.0355,
-                            "y": 2.3426
+                            "x": 10.9414,
+                            "y": 2.1296
                         }
                     },
                     "type": "TransformComponent"
@@ -1322,14 +1322,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0505,
-                            "y": -3.2005
+                            "x": 10.049,
+                            "y": -1.9934
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 11.7574,
-                            "y": 1.9624
+                            "x": 10.6886,
+                            "y": 1.784
                         }
                     },
                     "type": "TransformComponent"
@@ -1599,6 +1599,7 @@
                 "MenuBGM",
                 "Logo",
                 "HowToPlay",
+                "Credits",
                 "Exit",
                 "LevelSelectButton"
             ],
@@ -1692,14 +1693,14 @@
                 {
                     "properties": {
                         "position": {
-                            "x": 10.0109,
-                            "y": -0.7992
+                            "x": 10.0129,
+                            "y": 0.0292
                         },
                         "relativeToCamera": true,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 5.7299,
-                            "y": 1.7156
+                            "x": 5.209,
+                            "y": 1.5596
                         }
                     },
                     "type": "TransformComponent"
@@ -2012,6 +2013,70 @@
                 }
             ],
             "layer": "UI"
+        },
+        "Credits": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 10.0409,
+                            "y": -6.0298
+                        },
+                        "relativeToCamera": true,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 6.7275,
+                            "y": 1.7808
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 0,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/MainMenu/credits.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/hover 1.wav",
+                            "Resources/Sounds/clicks/click 1.wav"
+                        ],
+                        "volume": 0.5
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "Gameplay"
         }
     },
     "layers": {

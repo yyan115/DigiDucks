@@ -42,7 +42,7 @@ void HowToPlayLogic::Start()
     }
 
     // Set initial page
-    pageNum = 1;
+    pageNum = firstPage;
     UpdateJournalPage();
 
     // Button interactions
@@ -60,7 +60,7 @@ void HowToPlayLogic::Start()
         auto next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(NextButton->entityID);
         next->onClick = [this, SFX]() {
             SFX->Play();
-            if (pageNum < kLastJournalPage) {
+            if (pageNum < lastPage) {
                 pageNum++;
                 UpdateJournalPage();
             }
@@ -71,7 +71,7 @@ void HowToPlayLogic::Start()
         auto backBtn = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(BackButton->entityID);
         backBtn->onClick = [this, SFX]() {
             SFX->Play();
-            if (pageNum > 1) {
+            if (pageNum > firstPage) {
                 pageNum--;
                 UpdateJournalPage();
             }
@@ -83,8 +83,17 @@ void HowToPlayLogic::Start()
 		pauseMenuLogic->DisableButtons(true);
 	}
 
-	pageNum = 1;
+	pageNum = firstPage;
 	UpdateJournalPage();
+}
+
+void HowToPlayLogic::Open(int first, int last)
+{
+    firstPage = first;
+    lastPage = last;
+    pageNum = first;
+    UpdateJournalPage();
+    if (howToPlayScreenSpriteRenderer) howToPlayScreenSpriteRenderer->isVisible = true;
 }
 
 void HowToPlayLogic::UpdateJournalPage()
@@ -92,6 +101,18 @@ void HowToPlayLogic::UpdateJournalPage()
     if (JournalSprite) {
         std::string textureName = "Resources/Sprites/HowToPlay/journal_" + std::to_string(pageNum) + ".png";
         JournalSprite->texture = *AssetManager::GetTexture(textureName).get();
+    }
+
+    // An arrow shows only when there is a page that way. Page four's arrow
+    // used to lead on into the credits; with the two books apart it would
+    // point at nothing, and a hidden button takes no clicks either.
+    if (NextButton) {
+        if (auto* next = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(NextButton->entityID))
+            next->isVisible = pageNum < lastPage;
+    }
+    if (BackButton) {
+        if (auto* back = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(BackButton->entityID))
+            back->isVisible = pageNum > firstPage;
     }
 }
 
@@ -121,7 +142,7 @@ void HowToPlayLogic::Update()
 		if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT) ||
 			DuckEngine_Input::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1) > 0.5f)
 		{
-			if (pageNum < kLastJournalPage) {
+			if (pageNum < lastPage) {
 				pageNum++;
 				UpdateJournalPage();
 				controllerNavigationCooldown = controllerNavigationDelay; // Set cooldown after action
@@ -131,7 +152,7 @@ void HowToPlayLogic::Update()
 		else if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT) ||
 			DuckEngine_Input::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1) < -0.5f)
 		{
-			if (pageNum > 1) {
+			if (pageNum > firstPage) {
 				pageNum--;
 				UpdateJournalPage();
 				controllerNavigationCooldown = controllerNavigationDelay; // Set cooldown after action

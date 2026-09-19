@@ -146,15 +146,7 @@ void MainMenu::Load()
 				// nothing said, which is the one button on this screen a
 				// player cannot take back.
 				QuitSound->Play(1);
-				ResolveQuitConfirmLogic();
-				if (quitConfirmLogic)
-				{
-					quitConfirmLogic->Show(true);
-				}
-				else
-				{
-					GameManager::Engine.CloseWindow();
-				}
+				AskToQuit();
 			}
 		};
 	HtpButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("HowToPlay").get();
@@ -165,8 +157,20 @@ void MainMenu::Load()
 			if (!isFadingOut)
 			{
 				HtpSound->Play(1); 
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = true;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = false;
+				OpenJournal(HowToPlayLogic::kFirstInstructionsPage, HowToPlayLogic::kLastInstructionsPage);
+			}
+		};
+
+	// CREDITS opens the same journal as HOW TO PLAY, on the two credits pages.
+	CreditsButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Credits").get();
+	auto credits = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(CreditsButton->entityID);
+	CreditsSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CreditsButton->entityID);
+	credits->onClick = [this]()
+		{
+			if (!isFadingOut)
+			{
+				CreditsSound->Play(1);
+				OpenJournal(HowToPlayLogic::kFirstCreditsPage, HowToPlayLogic::kLastCreditsPage);
 			}
 		};
 
@@ -174,6 +178,7 @@ void MainMenu::Load()
 	levelSelectButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(LevelSelectButton->entityID);
 	quitButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(QuitButton->entityID);
 	htpButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HtpButton->entityID);
+	creditsButtonSpriteRenderer = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CreditsButton->entityID);
 	
 
 	startNormalTexture = AssetManager::GetTextureByName("start");
@@ -187,6 +192,9 @@ void MainMenu::Load()
 
 	htpNormalTexture = AssetManager::GetTextureByName("mainmenu_howtoplay");
 	htpHoverTexture = AssetManager::GetTextureByName("mainmenu_howtoplay_hover");
+
+	creditsNormalTexture = AssetManager::GetTextureByName("credits");
+	creditsHoverTexture = AssetManager::GetTextureByName("credits_hover");
 
 	// Modify the button callback lambda functions in the Load() method
 	// Change each of the button hover callbacks as follows:
@@ -252,6 +260,21 @@ void MainMenu::Load()
 		{
 			if (!isUsingController) {
 				htpButtonSpriteRenderer->texture = htpNormalTexture;
+			}
+		};
+
+	credits->onHover = [this]()
+		{
+			if (!isUsingController) {
+				CreditsSound->Play();
+				creditsButtonSpriteRenderer->texture = creditsHoverTexture;
+			}
+		};
+
+	credits->onFinishHover = [this]()
+		{
+			if (!isUsingController) {
+				creditsButtonSpriteRenderer->texture = creditsNormalTexture;
 			}
 		};
 
@@ -350,6 +373,36 @@ void MainMenu::ResolveQuitConfirmLogic()
 	if (auto quitCfm = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Quit_Cfm_Bg"))
 	{
 		quitConfirmLogic = GameLogicManager::GetLogicForEntity<MenuQuitConfirmLogic>(quitCfm->entityID);
+	}
+}
+
+void MainMenu::AskToQuit()
+{
+	ResolveQuitConfirmLogic();
+	if (quitConfirmLogic)
+	{
+		quitConfirmLogic->Show(true);
+	}
+	else
+	{
+		GameManager::Engine.CloseWindow();
+	}
+}
+
+void MainMenu::OpenJournal(int firstPage, int lastPage)
+{
+	if (!HTPScreen || !mainMenuScreen) return;
+	if (auto howToPlay = GameLogicManager::GetLogicForEntity<HowToPlayLogic>(HTPScreen->entityID))
+	{
+		howToPlay->Open(firstPage, lastPage);
+	}
+	else if (auto* journal = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID))
+	{
+		journal->isVisible = true;
+	}
+	if (auto* menu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+	{
+		menu->isVisible = false;
 	}
 }
 
@@ -550,6 +603,11 @@ void MainMenu::SelectButton(MenuSelection selection)
 		HtpSound->Play();
 		break;
 
+	case MenuSelection::CREDITS:
+		creditsButtonSpriteRenderer->texture = creditsHoverTexture;
+		CreditsSound->Play();
+		break;
+
 	case MenuSelection::QUIT:
 		quitButtonSpriteRenderer->texture = quitHoverTexture;
 		QuitSound->Play();
@@ -568,6 +626,7 @@ void MainMenu::DeselectAllButtons()
 	startButtonSpriteRenderer->texture = startNormalTexture;
 	levelSelectButtonSpriteRenderer->texture = levelSelectNormalTexture;
 	htpButtonSpriteRenderer->texture = htpNormalTexture;
+	creditsButtonSpriteRenderer->texture = creditsNormalTexture;
 	quitButtonSpriteRenderer->texture = quitNormalTexture;
 }
 
@@ -632,27 +691,25 @@ void MainMenu::ActivateSelectedButton()
 		if (!isFadingOut)
 		{
 			HtpSound->Play(1);
-			if (HTPScreen && mainMenuScreen)
-			{
-				if (auto* howToPlayRenderer = DuckEngine::DUCKENGINE_ComponentManager
-					.GetComponent<SpriteRendererComponent>(HTPScreen->entityID))
-				{
-					howToPlayRenderer->isVisible = true;
-				}
-				if (auto* menuRenderer = DuckEngine::DUCKENGINE_ComponentManager
-					.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
-				{
-					menuRenderer->isVisible = false;
-				}
-			}
+			OpenJournal(HowToPlayLogic::kFirstInstructionsPage, HowToPlayLogic::kLastInstructionsPage);
+		}
+		break;
+
+	case MenuSelection::CREDITS:
+		if (!isFadingOut)
+		{
+			CreditsSound->Play(1);
+			OpenJournal(HowToPlayLogic::kFirstCreditsPage, HowToPlayLogic::kLastCreditsPage);
 		}
 		break;
 
 	case MenuSelection::QUIT:
+		// The same question the mouse gets. This closed the window on the
+		// spot, so a player on a pad could quit without being asked.
 		if (!isFadingOut)
 		{
 			QuitSound->Play(1);
-			GameManager::Engine.CloseWindow();
+			AskToQuit();
 		}
 		break;
 

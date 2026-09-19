@@ -72,11 +72,14 @@ def journal_page_errors() -> list[str]:
     than repeated here, so adding a page cannot leave this behind.
     """
     header = PROJECT / "Game" / "include" / "HowToPlayLogic.h"
-    match = re.search(r"kLastJournalPage\s*=\s*(\d+)", header.read_text(encoding="utf-8"))
-    if not match:
-        return [f"kLastJournalPage is not declared in {repository_relative(header)}"]
+    source = header.read_text(encoding="utf-8")
+    # The journal is opened on one of two runs of pages, how to play and the
+    # credits, and the last page of the later run is the highest it can ask for.
+    pages = [int(n) for n in re.findall(r"kLast\w+Page\s*=\s*(\d+)", source)]
+    if not pages:
+        return [f"no kLast...Page bound is declared in {repository_relative(header)}"]
     errors = []
-    for page in range(1, int(match.group(1)) + 1):
+    for page in range(1, max(pages) + 1):
         path = RESOURCES / "Sprites" / "HowToPlay" / f"journal_{page}.png"
         if not path.is_file():
             errors.append(

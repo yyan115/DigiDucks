@@ -93,6 +93,11 @@ private:
 	void DeselectAllButtons();
 	void ActivateSelectedButton();
 
+	// Opens the journal on its how-to-play pages only. The credits are the
+	// main menu's own item, and in the middle of a level they are not what
+	// HOW TO PLAY was pressed for.
+	void OpenHowToPlay();
+
 
 public:
 	// HTP Page

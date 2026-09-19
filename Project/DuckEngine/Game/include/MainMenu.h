@@ -65,6 +65,7 @@ private:
 	Entity* StartButton = nullptr;
 	Entity* QuitButton = nullptr;
 	Entity* HtpButton = nullptr;
+	Entity* CreditsButton = nullptr;
 	Entity* LevelSelectButton = nullptr;
 	Entity* FadeOutScreen = nullptr;
 
@@ -73,11 +74,18 @@ private:
 	std::shared_ptr<MenuQuitConfirmLogic> quitConfirmLogic = nullptr;
 	void ResolveQuitConfirmLogic();
 
+	// QUIT GAME, from the mouse or the pad: puts the confirmation up.
+	void AskToQuit();
+
+	// HOW TO PLAY and CREDITS open the same journal on their own pages.
+	void OpenJournal(int firstPage, int lastPage);
+
 
 	SpriteRendererComponent* startButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* levelSelectButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* quitButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* htpButtonSpriteRenderer = nullptr;
+	SpriteRendererComponent* creditsButtonSpriteRenderer = nullptr;
 	SpriteRendererComponent* FadeOutSpriteRenderer = nullptr;
 
 	Texture startNormalTexture = 0;
@@ -92,9 +100,13 @@ private:
 	Texture htpNormalTexture = 0;
 	Texture htpHoverTexture = 0;
 
+	Texture creditsNormalTexture = 0;
+	Texture creditsHoverTexture = 0;
+
 	SoundComponent* StartSound = nullptr;
 	SoundComponent* QuitSound = nullptr;
 	SoundComponent* HtpSound = nullptr;
+	SoundComponent* CreditsSound = nullptr;
 
 	float fadeOutDuration = 3.0f;
 	float fadeElapsedTime = 0.0f;
@@ -113,7 +125,8 @@ private:
 		START = 0,
 		LEVEL_SELECT = 1,
 		HOW_TO_PLAY = 2,
-		QUIT = 3,
+		CREDITS = 3,
+		QUIT = 4,
 		COUNT
 	};
 

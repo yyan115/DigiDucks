@@ -13,6 +13,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "PauseMenuLogic.h"
+#include "HowToPlayLogic.h"
 #include "GameManager.h"
 #include "ProjectSettings.h"
 
@@ -100,7 +101,7 @@ void PauseMenuLogic::Start()
 					if (gameJournal) {
 						gameHTPBtnSound->Resume();
 						gameHTPBtnSound->Play();
-						gameJournalSpt->isVisible = true;
+						OpenHowToPlay();
 
 						// Disable Pause Menu Buttons
 						DisableButtons(true);
@@ -352,7 +353,7 @@ void PauseMenuLogic::ActivateSelectedButton()
 		if (gameJournal) {
 			gameHTPBtnSound->Resume();
 			gameHTPBtnSound->Play();
-			gameJournalSpt->isVisible = true;
+			OpenHowToPlay();
 			DisableButtons(true);
 		}
 		break;
@@ -432,6 +433,19 @@ void PauseMenuLogic::ExitConfirm(bool state)
 *
 * @param state - true to disable, false to enable
 * ****************************************************************/
+void PauseMenuLogic::OpenHowToPlay()
+{
+	if (!gameJournal) return;
+	if (auto howToPlay = GameLogicManager::GetLogicForEntity<HowToPlayLogic>(gameJournal->entityID))
+	{
+		howToPlay->Open(HowToPlayLogic::kFirstInstructionsPage, HowToPlayLogic::kLastInstructionsPage);
+	}
+	else if (gameJournalSpt)
+	{
+		gameJournalSpt->isVisible = true;
+	}
+}
+
 void PauseMenuLogic::DisableButtons(bool state)
 {
 	if (gameResumeButton)

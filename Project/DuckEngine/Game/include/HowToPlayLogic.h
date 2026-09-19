@@ -35,6 +35,21 @@ public:
 
     //void Show();  // Call this to show the HowToPlay screen
 
+    // The journal's pages are two books in one: how to play on pages one to
+    // four, and the credits on five and six. Each is opened on its own first
+    // page, and its arrows and the pad turn pages only within it, so How To
+    // Play never runs on into the credits.
+    static const int kFirstInstructionsPage = 1;
+    static const int kLastInstructionsPage = 4;
+    static const int kFirstCreditsPage = 5;
+    static const int kLastCreditsPage = 6;
+
+    /*!
+    \brief  Show the journal open at firstPage, turning no further than
+            lastPage either way.
+    */
+    void Open(int first, int last);
+
 private:
     void UpdateJournalPage();  // Updates the journal page texture
 
@@ -58,9 +73,10 @@ private:
     int pageNum = 1;  // Tracks the current journal page
 
     // Pages five and six are the credits: the team on one, the game and the
-    // DigiPen and FMOD notices on the other. They are journal pages rather
-    // than a screen of their own because the journal is already reachable from
-    // the main menu and from every level's pause menu, and its pages carry
-    // their words in the image, so the credits need no entity in any scene.
-    static const int kLastJournalPage = 6;
+    // DigiPen and FMOD notices on the other. They are journal pages because
+    // the journal's pages carry their words in the image, so the credits need
+    // no entity in any scene; the main menu's CREDITS opens the journal on
+    // them, and How To Play stops before them.
+    int firstPage = kFirstInstructionsPage;
+    int lastPage = kLastInstructionsPage;
 };
