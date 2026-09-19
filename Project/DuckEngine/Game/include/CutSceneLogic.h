@@ -39,14 +39,17 @@ private:
 	bool isShowingDialogue = false;
 	std::string lastPlayedSceneName = "";
 
-	// The options panel can be opened over the cutscene and its dialogue, and
-	// the dialogue moves on for any click. Input meant for the panel, or for
-	// the gear that opens it, must not also skip a line of dialogue or the
-	// whole cutscene underneath it.
+	// The gear opens the pause menu, and the pause menu or the options panel
+	// can be up over the dialogue, which moves on for any click. Input meant
+	// for them, or for the gear, must not also skip a line of dialogue or the
+	// whole cutscene underneath. The gear is hidden while the cutscene's
+	// pictures are up: they draw over the pause menu, and the game has never
+	// paused there.
 	SpriteRendererComponent* SettingsPanelSprite = nullptr;
 	ButtonComponent* SettingsGearButton = nullptr;
-	bool settingsWasOpen = false;
-	bool SettingsHasInput() const;
+	SpriteRendererComponent* SettingsGearSprite = nullptr;
+	bool menuWasUp = false;
+	bool MenuHasInput() const;
 public:
 
 	CutSceneLogic() :

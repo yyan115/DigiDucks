@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 
 #include "PauseMenuLogic.h"
 #include "HowToPlayLogic.h"
+#include "GameSettingsLogic.h"
 #include "GameManager.h"
 #include "ProjectSettings.h"
 
@@ -113,6 +114,32 @@ void PauseMenuLogic::Start()
 				gameHTPButton->onFinishHover = [this]() { gameHTPBtnSpt->texture = gameHTPBtn_Normal; };
 			}
 		}
+
+		auto gameOptionsBtn = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Options_Btn").get();
+		if (gameOptionsBtn)
+		{
+			gameOptionsBtnSpt = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(gameOptionsBtn->entityID);
+			gameOptionsBtn_Normal = AssetManager::GetTextureByName("pause_options");
+			gameOptionsBtn_Hover = AssetManager::GetTextureByName("pause_options_hover");
+			gameOptionsButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(gameOptionsBtn->entityID);
+			gameOptionsBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameOptionsBtn->entityID);
+
+			if (gameOptionsButton)
+			{
+				gameOptionsBtnSpt->texture = gameOptionsBtn_Normal;
+				gameOptionsButton->onClick = [this]() {
+					if (isPaused) {
+						gameOptionsBtnSound->Resume();
+						gameOptionsBtnSound->Play();
+						OpenOptions(false);
+					} };
+				gameOptionsButton->onHover = [this]() {
+					gameOptionsBtnSound->Resume();
+					gameOptionsBtnSound->Play(1);
+					gameOptionsBtnSpt->texture = gameOptionsBtn_Hover; };
+				gameOptionsButton->onFinishHover = [this]() { gameOptionsBtnSpt->texture = gameOptionsBtn_Normal; };
+			}
+		}
 	}
 
 	// H.T.P Menu
@@ -201,8 +228,44 @@ void PauseMenuLogic::Update()
 	}
 }
 
+namespace
+{
+	// The options panel's logic is on the HUD's gear entity in every level.
+	std::shared_ptr<GameSettingsLogic> FindOptions()
+	{
+		if (auto gear = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn"))
+		{
+			return GameLogicManager::GetLogicForEntity<GameSettingsLogic>(gear->entityID);
+		}
+		return nullptr;
+	}
+}
+
 void PauseMenuLogic::UpdateMenuSelection()
 {
+	// The options panel has its own navigation and its own B, and Escape
+	// closes it in GameLoopLogic. When it has closed, the pause menu comes
+	// back as it was.
+	if (optionsOpen)
+	{
+		auto options = FindOptions();
+		if (!options || !options->isSettingsVisible())
+		{
+			optionsOpen = false;
+			ShowPausePanel(true);
+			DisableButtons(false);
+			if (isUsingController) SelectButton(currentSelection);
+			// A on the panel's CLOSE shuts it on the press. This menu acts on
+			// A's release, which would reopen the panel from OPTIONS, so that
+			// release is let go, the way ExitConfirmLogic does for its NO.
+			if (DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+			{
+				gamepadDown = true;
+			}
+		}
+		return;
+	}
+
 	// First, check if any submenus are open - don't allow pause menu navigation if they are
 	bool submenusOpen = false;
 
@@ -315,6 +378,11 @@ void PauseMenuLogic::SelectButton(MenuSelection selection)
 		gameHTPBtnSound->Play();
 		break;
 
+	case MenuSelection::OPTIONS:
+		if (gameOptionsBtnSpt) gameOptionsBtnSpt->texture = gameOptionsBtn_Hover;
+		if (gameOptionsBtnSound) gameOptionsBtnSound->Play();
+		break;
+
 	case MenuSelection::MAIN_MENU:
 		gameExitBtnSpt->texture = gameExitBtn_Hover;
 		gameExitBtnSound->Play();
@@ -329,6 +397,7 @@ void PauseMenuLogic::DeselectAllButtons()
 {
 	gameResumeBtnSpt->texture = gameResumeBtn_Normal;
 	gameHTPBtnSpt->texture = gameHTPBtn_Normal;
+	if (gameOptionsBtnSpt) gameOptionsBtnSpt->texture = gameOptionsBtn_Normal;
 	gameExitBtnSpt->texture = gameExitBtn_Normal;
 }
 
@@ -356,6 +425,11 @@ void PauseMenuLogic::ActivateSelectedButton()
 			OpenHowToPlay();
 			DisableButtons(true);
 		}
+		break;
+
+	case MenuSelection::OPTIONS:
+		if (gameOptionsBtnSound) { gameOptionsBtnSound->Resume(); gameOptionsBtnSound->Play(); }
+		OpenOptions(true);
 		break;
 
 	case MenuSelection::MAIN_MENU:
@@ -403,6 +477,17 @@ void PauseMenuLogic::PauseGame(bool state)
 	{
 		gamePauseBgSpt->isVisible = state;
 	}
+
+	// Every pause starts the pad's selection afresh, the way the first one
+	// does: its first press picks RESUME GAME. It used to keep whatever was
+	// selected when the last pause ended, so the same presses reached a
+	// different button each time.
+	if (state)
+	{
+		isUsingController = false;
+		currentSelection = MenuSelection::RESUME;
+		if (gameResumeBtnSpt && gameHTPBtnSpt && gameExitBtnSpt) DeselectAllButtons();
+	}
 	gameJournalSpt->isVisible = false;
 	ExitConfirm(false);
 }
@@ -446,6 +531,28 @@ void PauseMenuLogic::OpenHowToPlay()
 	}
 }
 
+void PauseMenuLogic::OpenOptions(bool fromPad)
+{
+	auto options = FindOptions();
+	if (!options) return;
+	optionsOpen = true;
+	DeselectAllButtons();
+	DisableButtons(true);
+	ShowPausePanel(false);
+	options->ShowSettings(true, fromPad);
+}
+
+void PauseMenuLogic::ShowPausePanel(bool shown)
+{
+	// The panel and its buttons. The dim behind them is Pause_Menu's own
+	// sprite and stays, so the options panel sits on the dimmed level.
+	if (gamePauseBgSpt2) gamePauseBgSpt2->isVisible = shown;
+	for (SpriteRendererComponent* sprite : { gameResumeBtnSpt, gameHTPBtnSpt, gameOptionsBtnSpt, gameExitBtnSpt })
+	{
+		if (sprite) sprite->isVisible = shown;
+	}
+}
+
 void PauseMenuLogic::DisableButtons(bool state)
 {
 	if (gameResumeButton)
@@ -460,6 +567,10 @@ void PauseMenuLogic::DisableButtons(bool state)
 	if (gameHTPButton)
 	{
 		gameHTPButton->isEnabled = !state;
+	}
+	if (gameOptionsButton)
+	{
+		gameOptionsButton->isEnabled = !state;
 	}
 
 	if (star1Spt)

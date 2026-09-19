@@ -590,21 +590,18 @@ void GameLoopLogic::Update()
 		}
 	}
 
-	// Back opens the options panel. Without this a player on a gamepad cannot
-	// reach it at all: the gear on the HUD is the only way in, and
-	// ButtonSystem fires a button only from IsMouseButtonPressed. Sixteen pad
-	// inputs were driven against the panel and none of them produced it.
+	// Back does what the gear on the HUD does: it opens the pause menu, which
+	// has OPTIONS on it. The pad has no other way to the gear, since
+	// ButtonSystem fires a button only from a mouse click.
 	//
-	// Not while the game is paused. This logic keeps updating through a pause,
-	// so without the guard Back opened the panel underneath the pause screen
-	// where nothing of it is visible, and the next Escape was then spent
-	// closing that instead of resuming.
+	// Not while the game is paused: the pause menu is already up.
 	const bool paused = pauseMenuLogic && pauseMenuLogic->isPaused;
-	if (!paused && gameSettingsLogic &&
+	if (!paused && pauseMenuLogic &&
 		DuckEngine_Input::IsGamepadButtonPressed(
 			DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_BACK))
 	{
-		gameSettingsLogic->ShowSettings(!gameSettingsLogic->isSettingsVisible(), true);
+		pauseMenuLogic->PauseGame(true);
+		pauseMenuLogic->playPauseSound();
 	}
 
 	// Let the cursor hide itself while the player is playing. Asked for every

@@ -18,6 +18,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 
 #include "GameSettingsLogic.h"
+#include "PauseMenuLogic.h"
 #include "SoundSystem.h"
 #include "SaveLoadManager.h"
 #include "WindowManager.h"
@@ -37,8 +38,23 @@ void GameSettingsLogic::Start() {
 		gameSettingsBtnSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(gameSettingsBtn->entityID);
         if (gameSettingsButton) {
             gameSettingsButton->onClick = [this]() {
-                settingsVisible = !settingsVisible;
 				gameSettingsBtnSound->Play();
+                // The gear opens the pause menu, which has OPTIONS on it, so
+                // there is one settings menu rather than two. Where there is
+                // no pause menu it still opens the panel itself.
+                if (auto pauseMenu = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Pause_Menu"))
+                {
+                    if (auto pause = GameLogicManager::GetLogicForEntity<PauseMenuLogic>(pauseMenu->entityID))
+                    {
+                        if (!pause->isPaused)
+                        {
+                            pause->PauseGame(true);
+                            pause->playPauseSound();
+                        }
+                        return;
+                    }
+                }
+                settingsVisible = !settingsVisible;
                 ShowSettings(settingsVisible);
                 };
             gameSettingsButton->onHover = [this]() { 

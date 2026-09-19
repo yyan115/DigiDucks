@@ -521,6 +521,12 @@ void MainMenu::UpdateMenuSelection()
 		SetMenuShown(true);
 		SetMenuButtonsEnabled(true);
 		if (isUsingController) SelectButton(currentSelection);
+		// A on the panel's CLOSE shuts it on the press; the menu acts on A's
+		// release, which would open the panel again, so that release is let go.
+		if (DuckEngine_Input::IsGamepadButtonDown(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A))
+		{
+			GameManager::GamepadDown = true;
+		}
 		return;
 	}
 

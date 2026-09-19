@@ -66,8 +66,9 @@ void CutSceneLogic::Start()
 	if (auto settingsGear = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn"))
 	{
 		SettingsGearButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(settingsGear->entityID);
+		SettingsGearSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(settingsGear->entityID);
 	}
-	settingsWasOpen = false;
+	menuWasUp = false;
 
 	CutSceneButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneSkip").get();
 
@@ -79,7 +80,7 @@ void CutSceneLogic::Start()
 		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
 			{
 				// The options panel covers this button's corner when it is open.
-				if (SettingsHasInput()) return;
+				if (MenuHasInput()) return;
 
 				CutSceneSkipSound->Play();
 
@@ -103,27 +104,35 @@ void CutSceneLogic::Start()
 		DialogueSkip->onClick = [this]()
 			{
 				// The options panel covers this button's corner when it is open.
-				if (SettingsHasInput()) return;
+				if (MenuHasInput()) return;
 
 				currentDialogueIndex = 12;
 			};
 	}
 }
 
-bool CutSceneLogic::SettingsHasInput() const
+bool CutSceneLogic::MenuHasInput() const
 {
-	const bool open = SettingsPanelSprite && SettingsPanelSprite->isVisible;
+	const bool up = (SettingsPanelSprite && SettingsPanelSprite->isVisible) || DuckEngine::isGamePaused;
 	const bool onGear = SettingsGearButton && SettingsGearButton->isEnabled && SettingsGearButton->isHovered;
-	// Open last frame counts as well. Buttons are handled before this logic
-	// runs, so on the frame of a click on CLOSE, or of the Escape that shuts
-	// the panel, it already reads closed by the time that press arrives here.
-	return open || settingsWasOpen || onGear;
+	// Up last frame counts as well. Buttons are handled before this logic
+	// runs, so on the frame of a click on CLOSE or RESUME, or of the Escape
+	// that shuts a menu, it already reads closed by the time that press
+	// arrives here.
+	return up || menuWasUp || onGear;
 }
 
 void CutSceneLogic::Update()
 {
-	const bool settingsHasInput = SettingsHasInput();
-	settingsWasOpen = SettingsPanelSprite && SettingsPanelSprite->isVisible;
+	const bool settingsHasInput = MenuHasInput();
+	menuWasUp = (SettingsPanelSprite && SettingsPanelSprite->isVisible) || DuckEngine::isGamePaused;
+
+	// No gear while the cutscene's pictures are up, and back when they go.
+	if (SettingsGearSprite)
+	{
+		const bool pictures = isPlaying && !isShowingDialogue && CutSceneSprite && CutSceneSprite->isVisible;
+		SettingsGearSprite->isVisible = !pictures;
+	}
 
 	if (!isPlaying && !isShowingDialogue) return;
 
@@ -359,7 +368,8 @@ void CutSceneLogic::Update()
 	// Handle dialogues
 	if (isShowingDialogue && lastPlayedSceneName == "Level0")
 	{
-		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
+		// SKIP is drawn above the pause menu, so it steps aside while paused.
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = !DuckEngine::isGamePaused;
 		// Check for user input to progress dialogue
 		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14 &&
 			!settingsHasInput)

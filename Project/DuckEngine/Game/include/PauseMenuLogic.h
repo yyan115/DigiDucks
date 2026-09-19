@@ -46,6 +46,13 @@ private:
 	Texture gameHTPBtn_Hover{};
 	SoundComponent* gameHTPBtnSound = nullptr;
 
+	// Options Button
+	ButtonComponent* gameOptionsButton = nullptr;
+	SpriteRendererComponent* gameOptionsBtnSpt = nullptr;
+	Texture gameOptionsBtn_Normal{};
+	Texture gameOptionsBtn_Hover{};
+	SoundComponent* gameOptionsBtnSound = nullptr;
+
 	// Main Menu Button
 	ButtonComponent* gameMainMenuButton = nullptr;
 	SpriteRendererComponent* gameMainMenuBtnSpt = nullptr;
@@ -79,7 +86,8 @@ private:
 	{
 		RESUME = 0,
 		HOW_TO_PLAY = 1,
-		MAIN_MENU = 2,
+		OPTIONS = 2,
+		MAIN_MENU = 3,
 		COUNT
 	};
 
@@ -97,6 +105,13 @@ private:
 	// main menu's own item, and in the middle of a level they are not what
 	// HOW TO PLAY was pressed for.
 	void OpenHowToPlay();
+
+	// OPTIONS opens the options panel over the dimmed level, with the pause
+	// panel stepping aside, and closing it comes back to the pause menu, still
+	// paused. The panel's own logic lives on the HUD's gear entity.
+	bool optionsOpen = false;
+	void OpenOptions(bool fromPad);
+	void ShowPausePanel(bool shown);
 
 
 public:

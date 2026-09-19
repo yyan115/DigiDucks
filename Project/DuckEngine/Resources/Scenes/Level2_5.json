@@ -4061,13 +4061,13 @@
                     "properties": {
                         "position": {
                             "x": 0.5159,
-                            "y": -0.675000011920929
+                            "y": -0.61
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.20924998819828033,
-                            "y": 0.12999999523162842
+                            "x": 0.19311,
+                            "y": 0.12
                         }
                     },
                     "type": "TransformComponent"
@@ -5086,6 +5086,7 @@
                 "Pause_Bg",
                 "Quit_Btn",
                 "HTP_Btn",
+                "Options_Btn",
                 "Resume_Btn",
                 "Exit_Cfm_Bg"
             ],
@@ -5681,13 +5682,13 @@
                     "properties": {
                         "position": {
                             "x": 0.5159,
-                            "y": -0.8500000238418579
+                            "y": -0.9
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.20924998819828033,
-                            "y": 0.12999999523162842
+                            "x": 0.19311,
+                            "y": 0.12
                         }
                     },
                     "type": "TransformComponent"
@@ -5766,13 +5767,13 @@
                     "properties": {
                         "position": {
                             "x": 0.5159,
-                            "y": -0.5
+                            "y": -0.465
                         },
                         "relativeToCamera": false,
                         "rotation": 0.0,
                         "scale": {
-                            "x": 0.20924998819828033,
-                            "y": 0.12999999523162842
+                            "x": 0.19311,
+                            "y": 0.12
                         }
                     },
                     "type": "TransformComponent"
@@ -6492,9 +6493,6 @@
             "layer": "Gameplay"
         },
         "Settings_Btn": {
-            "childNames": [
-                "Settings_Menu"
-            ],
             "components": [
                 {
                     "properties": {
@@ -9833,6 +9831,70 @@
                         "text": "Close Quack Kitchen?"
                     },
                     "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Options_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5159,
+                            "y": -0.755
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.19311,
+                            "y": 0.12
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 101,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/pause_options.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
                 }
             ],
             "layer": "UI"
