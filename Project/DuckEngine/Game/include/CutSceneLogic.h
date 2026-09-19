@@ -38,6 +38,15 @@ private:
 	bool isCutSceneFading = false;
 	bool isShowingDialogue = false;
 	std::string lastPlayedSceneName = "";
+
+	// The options panel can be opened over the cutscene and its dialogue, and
+	// the dialogue moves on for any click. Input meant for the panel, or for
+	// the gear that opens it, must not also skip a line of dialogue or the
+	// whole cutscene underneath it.
+	SpriteRendererComponent* SettingsPanelSprite = nullptr;
+	ButtonComponent* SettingsGearButton = nullptr;
+	bool settingsWasOpen = false;
+	bool SettingsHasInput() const;
 public:
 
 	CutSceneLogic() :

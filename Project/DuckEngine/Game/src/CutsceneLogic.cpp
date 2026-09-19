@@ -59,6 +59,16 @@ void CutSceneLogic::Start()
 	isPlaying = true;
 	isShowingDialogue = false;
 
+	if (auto settingsPanel = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Menu"))
+	{
+		SettingsPanelSprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(settingsPanel->entityID);
+	}
+	if (auto settingsGear = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Btn"))
+	{
+		SettingsGearButton = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(settingsGear->entityID);
+	}
+	settingsWasOpen = false;
+
 	CutSceneButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneSkip").get();
 
 	if (CutSceneButton)
@@ -68,6 +78,9 @@ void CutSceneLogic::Start()
 		auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
 		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
 			{
+				// The options panel covers this button's corner when it is open.
+				if (SettingsHasInput()) return;
+
 				CutSceneSkipSound->Play();
 
 				if (lastPlayedSceneName == "Level0")
@@ -89,17 +102,33 @@ void CutSceneLogic::Start()
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
 		DialogueSkip->onClick = [this]()
 			{
+				// The options panel covers this button's corner when it is open.
+				if (SettingsHasInput()) return;
+
 				currentDialogueIndex = 12;
 			};
 	}
 }
 
+bool CutSceneLogic::SettingsHasInput() const
+{
+	const bool open = SettingsPanelSprite && SettingsPanelSprite->isVisible;
+	const bool onGear = SettingsGearButton && SettingsGearButton->isEnabled && SettingsGearButton->isHovered;
+	// Open last frame counts as well. Buttons are handled before this logic
+	// runs, so on the frame of a click on CLOSE, or of the Escape that shuts
+	// the panel, it already reads closed by the time that press arrives here.
+	return open || settingsWasOpen || onGear;
+}
+
 void CutSceneLogic::Update()
 {
+	const bool settingsHasInput = SettingsHasInput();
+	settingsWasOpen = SettingsPanelSprite && SettingsPanelSprite->isVisible;
+
 	if (!isPlaying && !isShowingDialogue) return;
 
 	// Check for gamepad input to skip cutscene or advance dialogue
-	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1))
+	if (DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) && !settingsHasInput)
 	{
 		// Skip cutscene with Start or A button when the skip button is visible
 		if (isPlaying && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible)
@@ -332,7 +361,8 @@ void CutSceneLogic::Update()
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = true;
 		// Check for user input to progress dialogue
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14)
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14 &&
+			!settingsHasInput)
 		{
 			currentDialogueIndex++;
 

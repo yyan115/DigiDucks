@@ -80,7 +80,7 @@
                             "r": 100.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 106,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -140,7 +140,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 107,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -183,7 +183,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 10,
+                        "sortingOrder": 108,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -1456,7 +1456,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 107,
                         "sprite": true,
                         "texture": "Resources/Sprites/Settings menu/options_close.png",
                         "useColor": true
@@ -2644,7 +2644,7 @@
                             "r": 100.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 106,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2704,7 +2704,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 107,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -2747,7 +2747,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 10,
+                        "sortingOrder": 108,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -4400,7 +4400,7 @@
                             "r": 100.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 106,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4460,7 +4460,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 107,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -4503,7 +4503,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 10,
+                        "sortingOrder": 108,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -5949,7 +5949,7 @@
                             "r": 100.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 106,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6009,7 +6009,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 4,
+                        "sortingOrder": 107,
                         "sprite": true,
                         "texture": "",
                         "useColor": true
@@ -6052,7 +6052,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 10,
+                        "sortingOrder": 108,
                         "text": "100"
                     },
                     "type": "TextComponent"
@@ -6611,7 +6611,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 2,
+                        "sortingOrder": 105,
                         "sprite": true,
                         "texture": "Resources/Sprites/Settings menu/settings bg.png",
                         "useColor": true
@@ -9388,7 +9388,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 3,
+                        "sortingOrder": 106,
                         "sprite": true,
                         "texture": "Resources/Sprites/Settings menu/vsyncbox.png",
                         "useColor": true

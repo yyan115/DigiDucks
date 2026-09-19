@@ -130,16 +130,21 @@ def options_panel_errors() -> list[str]:
     The labels are painted into the panel's art and the bars, values and the
     VSYNC box are placed over them, so the two only line up at one panel size.
     Six levels once drew the panel taller than Level 1 while keeping Level 1's
-    controls, and every row sat off its label in those six.
+    controls, and every row sat off its label in those six. The drawing order
+    is compared too: the panel has to be drawn over the dialogue in every
+    level, not only in the one that was checked.
     """
     scenes = RESOURCES / "Scenes"
 
     def layout(objects: dict, part: str) -> Any:
+        placed = drawn = None
         for component in objects[part].get("components", []):
+            properties = component.get("properties", {})
             if component.get("type") == "TransformComponent":
-                properties = component.get("properties", {})
-                return properties.get("position"), properties.get("scale")
-        return None
+                placed = properties.get("position"), properties.get("scale")
+            elif "sortingOrder" in properties:
+                drawn = properties["sortingOrder"]
+        return placed, drawn
 
     reference = json.loads((scenes / "Level1.json").read_text(encoding="utf-8"))["gameObjects"]
     errors = []
@@ -149,7 +154,7 @@ def options_panel_errors() -> list[str]:
             if part not in objects:
                 errors.append(f"{name}.json has no {part} in its options panel")
             elif layout(objects, part) != layout(reference, part):
-                errors.append(f"{name}.json's {part} is placed differently from Level1.json's; the options panel must match in every level")
+                errors.append(f"{name}.json's {part} is placed or layered differently from Level1.json's; the options panel must match in every level")
     return errors
 
 
