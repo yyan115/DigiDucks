@@ -52,6 +52,13 @@ void SceneManager::SetActiveScene(const std::string& name)
     // on. A new scene always starts with input free.
     DuckEngine_Input::CaptureInput(false);
 
+    // And unpaused. Leaving a level from its pause menu kept the game marked
+    // paused into the main menu and on into the next level. Time frozen there
+    // by a minimise was then never restarted on return, because the game
+    // still read as paused, and the menu's fade into a level never moved.
+    DuckEngine::isGamePaused = false;
+    TimeManager::FreezeTime(false);
+
 	if (activeSceneName == name)
 	{
 		std::cout << "Scene '" << name << "' is already active. Reloading from JSON..." << std::endl;
