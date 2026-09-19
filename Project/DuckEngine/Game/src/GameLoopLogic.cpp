@@ -555,39 +555,47 @@ void GameLoopLogic::Update()
 
 
 
+#ifdef QUACK_KITCHEN_CHEATS
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_M) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		std::cout << "H is pressed!\n";
 		GameManager::SetActiveScene("EndScene");
 	}
+#endif
 
 	Entity* submit = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Submit_Station").get();
 	if (submit)
 	{
 		auto submitLogic = GameLogicManager::GetLogicForEntity<SubmitLogic>(submit->entityID);
 
+#ifdef QUACK_KITCHEN_CHEATS
 		if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_N) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 		{
 			submitLogic->increaseScore(10);
 		}
+#endif
 		ScoreLogic::scoreValue = submitLogic->getScore();
 	}
 
+#ifdef QUACK_KITCHEN_CHEATS
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_O) && DuckEngine_Input::IsKeyDown(DuckEngine_Input::KEY_LEFT_SHIFT))
 	{
 		timeLeft = 11.f;
 	}
+#endif
 
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{
 		std::cout << "Left mouse button pressed!\n";
 	}
 
+#ifdef QUACK_KITCHEN_CHEATS
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_P))
 	{
 		std::cout << "P is pressed!\n";
 		DuckEngine::ToggleShowDebugColliders();
 	}
+#endif
 
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) || DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 	{

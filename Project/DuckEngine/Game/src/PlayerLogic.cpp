@@ -183,7 +183,7 @@ void PlayerLogic::Update()
 	// Update previous joystick state for next frame
 	wasMovingWithJoystick = isMovingWithJoystick;
 
-	// Cheats
+#ifdef QUACK_KITCHEN_CHEATS
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_V))
 	{
 		if (!isHolding) {
@@ -202,6 +202,7 @@ void PlayerLogic::Update()
 			isHolding = true;
 		}
 	}
+#endif
 }
 
 /****************************************************************
