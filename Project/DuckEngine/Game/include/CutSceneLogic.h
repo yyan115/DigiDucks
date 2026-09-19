@@ -30,7 +30,11 @@ private:
 	int currentCutsceneIndex = 0;
 	float cutsceneTimer = 0.0f;
 	float fadeProgress = 0.0f;
-	int currentDialogueIndex = 0;
+	// The dialogue is fourteen pictures, Dialogues/intro/1.png to 14.png, and
+	// opens on the first. The index is the picture on screen.
+	static constexpr int kFirstDialogueLine = 1;
+	static constexpr int kLastDialogueLine = 14;
+	int currentDialogueIndex = kFirstDialogueLine;
 	float DialoguefadeProgress = 0.0f;
 	
 	bool isPlaying = true;

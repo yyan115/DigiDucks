@@ -50,7 +50,11 @@ void CutSceneLogic::Start()
 	}
 
 	currentCutsceneIndex = 0;
-	currentDialogueIndex = 0;
+	// The scene opens the dialogue on its first picture, so the index starts
+	// there. It started at 0, and the first click moved it to 1, the same
+	// picture, so the first click showed nothing; and the dialogue ended on
+	// reaching 14, so the last line was never shown.
+	currentDialogueIndex = kFirstDialogueLine;
 	cutsceneTimer = 0.0f;
 	fadeProgress = 0.0f;
 	DialoguefadeProgress = 0.0f;
@@ -161,11 +165,11 @@ void CutSceneLogic::Update()
 			}
 			// Advance dialogue with A button
 			else if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) &&
-				currentDialogueIndex < 14)
+				currentDialogueIndex <= kLastDialogueLine)
 			{
 				currentDialogueIndex++;
 
-				if (currentDialogueIndex == 14)
+				if (currentDialogueIndex > kLastDialogueLine)
 				{
 					EndDialogue();
 					return;
@@ -353,12 +357,12 @@ void CutSceneLogic::Update()
 		// SKIP is drawn above the pause menu, so it steps aside while paused.
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = !DuckEngine::isGamePaused;
 		// Check for user input to progress dialogue
-		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex < 14 &&
+		if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT) && currentDialogueIndex <= kLastDialogueLine &&
 			!settingsHasInput)
 		{
 			currentDialogueIndex++;
 
-			if (currentDialogueIndex == 14)
+			if (currentDialogueIndex > kLastDialogueLine)
 			{
 				EndDialogue();
 				return;
