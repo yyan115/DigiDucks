@@ -15,6 +15,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "DuckEngine.h"
 #include "SceneManager.h"
 #include "DuckEngine_Input.h"
+#include "TimeManager.h"
 
 /**************************************************************************
 @brief Initializes the SceneManager. Placeholder for setup logic.
@@ -67,6 +68,7 @@ void SceneManager::SetActiveScene(const std::string& name)
 			activeScene->Load();
 			activeScene->Start();
 		}
+		TimeManager::ResetPrevTime();
 		return;
 	}
 
@@ -89,6 +91,10 @@ void SceneManager::SetActiveScene(const std::string& name)
 
 	activeScene->Load();
 	activeScene->Start();
+
+	// Loading takes a while, and the new scene's first frame would count all
+	// of it: a fade in would be most of the way done before it was drawn.
+	TimeManager::ResetPrevTime();
 }
 
 

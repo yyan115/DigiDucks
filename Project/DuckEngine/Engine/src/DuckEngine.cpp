@@ -213,6 +213,11 @@ void DuckEngine::Update()
 	//std::cout << "Height: " << CameraManager::GetHeight() << " Position x: " << CameraManager::GetPosition().x << ", y: " << CameraManager::GetPosition().y << std::endl;
 
 
+	// Every frame is drawn from the viewport's size, paused or not, so it has
+	// to follow the window even while nothing else runs. A fullscreen switch
+	// while unfocused otherwise drew UI at the old size against the new one.
+	WindowManager::UpdateViewportDimensions();
+
 	static bool pausedOrMinimized = false;
 	if (IsPaused() || WindowManager::IsWindowMinimized() || !WindowManager::IsWindowFocused())
 	{
@@ -225,11 +230,21 @@ void DuckEngine::Update()
 		}
 		return;
 	}
-	else if (pausedOrMinimized && !isGamePaused)
+	else if (pausedOrMinimized)
 	{
-		SoundSystem::ResumeAllSounds();
 		pausedOrMinimized = false;
-		DuckEngine::PauseGame(false);
+		if (!isGamePaused)
+		{
+			SoundSystem::ResumeAllSounds();
+			DuckEngine::PauseGame(false);
+		}
+		else
+		{
+			// Back to a game the player paused, which stays paused. The time
+			// spent away still must not arrive as one frame: the pause menu
+			// runs on the unfrozen clock.
+			TimeManager::ResetPrevTime();
+		}
 	}
 
 	static float timer = 0;
@@ -562,6 +577,9 @@ float DuckEngine::GetViewportHeight()
 
 void DuckEngine::ToggleFullScreen() {
 	WindowManager::ToggleFullscreen();
+	// Switching can hold the loop for a moment. That is not game time, and
+	// counted as one frame it jumped every timer and fade in progress.
+	TimeManager::ResetPrevTime();
 }
 
 void DuckEngine::MinimizeWindow() {
