@@ -2,9 +2,9 @@
 Team Name: DigiDucks
 Team Members: 
 RTIS
-HO Yong Heng Ernest                 ( Programmer | Gameplay Champion )
-YAN Yu                                ( Programmer | Graphic Champion )
 YEE Lucas Junjie                        ( Technical Lead | Programmer | Engine Champion )
+YAN Yu                                ( Programmer | Graphics Champion )
+HO Yong Heng Ernest                 ( Programmer | Gameplay Champion )
 
 
 IMGD
