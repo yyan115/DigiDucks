@@ -86,6 +86,35 @@ def journal_page_errors() -> list[str]:
     return errors
 
 
+QUIT_DIALOGUE = ("Quit_Cfm_Bg", "Quit_Yes_Btn", "Quit_No_Btn", "Quit_Title", "Quit_Question")
+# Every scene a player can reach, because the window's own close request can
+# arrive on any of them. HowToPlay is registered and never made active.
+QUIT_DIALOGUE_SCENES = ("Intro", "MainMenu", "Level0", "Level1", "Level1_5", "Level2",
+                        "Level2_5", "Level3", "Level3_5", "EndScene")
+
+
+def quit_dialogue_errors() -> list[str]:
+    """Every reachable scene carries the quit confirmation, identical to the menu's.
+
+    Alt+F4 has to ask the same question wherever it lands, and this engine
+    keeps a scene's interface in the scene file, so the dialogue is copied into
+    each one. A copy that drifts from the others would ask the question in a
+    different place or a different way on one screen; one that is missing
+    would let the window close without asking.
+    """
+    scenes = RESOURCES / "Scenes"
+    reference = json.loads((scenes / "MainMenu.json").read_text(encoding="utf-8"))["gameObjects"]
+    errors = []
+    for name in QUIT_DIALOGUE_SCENES:
+        objects = json.loads((scenes / f"{name}.json").read_text(encoding="utf-8"))["gameObjects"]
+        for part in QUIT_DIALOGUE:
+            if part not in objects:
+                errors.append(f"{name}.json has no {part}, so the close request would not ask first")
+            elif objects[part] != reference.get(part):
+                errors.append(f"{name}.json's {part} differs from MainMenu.json's; the quit dialogue must match everywhere")
+    return errors
+
+
 def strings_in(value: Any) -> Iterable[str]:
     if isinstance(value, str):
         yield value
@@ -201,6 +230,7 @@ def main() -> int:
 
     errors.extend(journal_page_errors())
     errors.extend(game_logic_errors())
+    errors.extend(quit_dialogue_errors())
 
     if errors:
         print("Asset validation failed:", file=sys.stderr)
@@ -211,7 +241,7 @@ def main() -> int:
     print(
         f"Validated {len(json_files)} JSON files, {reference_count} serialized "
         f"asset references, {source_reference_count} source asset references, "
-        f"every How To Play page, every named game logic, "
+        f"every How To Play page, every named game logic, the quit dialogue in every scene, "
         f"and named texture lookups."
     )
     return 0

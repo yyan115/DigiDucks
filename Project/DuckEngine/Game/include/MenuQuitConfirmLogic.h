@@ -17,6 +17,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 /******************************************************************************/
 #pragma once
 #include "DuckEngine.h"
+#include <utility>
+#include <vector>
 #include "DuckEngine_Input.h"
 
 class MenuQuitConfirmLogic : public GameLogic
@@ -53,6 +55,17 @@ private:
     bool isUsingController = false;
     float controllerNavigationCooldown = 0.0f;
     const float controllerNavigationDelay = 0.2f;
+
+    // While the dialogue is open it has the player's full attention: it holds
+    // the input, every other button is switched off, and the game is paused.
+    // What it found is kept so closing hands each thing back exactly as it
+    // was, a paused level staying paused and a disabled button staying off.
+    bool holdingInput = false;
+    bool pausedTheGame = false;
+    bool releaseInputNextFrame = false;
+    std::vector<std::pair<int, bool>> otherButtons;
+    void TakeOver();
+    void HandBack();
 
     void UpdateMenuSelection();
     void SelectButton(MenuSelection selection);

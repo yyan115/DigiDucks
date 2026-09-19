@@ -13,6 +13,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include "MenuQuitConfirmLogic.h"
 #include "GameManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
 
 void MenuQuitConfirmLogic::Start()
 {
@@ -104,9 +105,65 @@ void MenuQuitConfirmLogic::SetPartsVisible(bool state)
     if (questionText) { questionText->isEnabled = state; }
 }
 
+void MenuQuitConfirmLogic::TakeOver()
+{
+    if (holdingInput) { return; }
+
+    otherButtons.clear();
+    for (const auto& [entityId, component] :
+        DuckEngine::DUCKENGINE_ComponentManager.GetComponents<ButtonComponent>())
+    {
+        auto* button = static_cast<ButtonComponent*>(component.get());
+        if (!button || button == yesButton || button == noButton) { continue; }
+        otherButtons.emplace_back(entityId, button->isEnabled);
+        button->isEnabled = false;
+    }
+
+    // Paused only if nothing had paused it already, so answering NO over the
+    // pause menu goes back to the pause menu rather than into the level.
+    pausedTheGame = !DuckEngine::isGamePaused;
+    if (pausedTheGame)
+    {
+        DuckEngine::PauseGame(true);
+        DuckEngine::isGamePaused = true;
+    }
+
+    DuckEngine_Input::CaptureInput(true);
+    holdingInput = true;
+}
+
+void MenuQuitConfirmLogic::HandBack()
+{
+    if (!holdingInput) { return; }
+
+    for (const auto& [entityId, wasEnabled] : otherButtons)
+    {
+        if (auto* button = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<ButtonComponent>(entityId))
+        {
+            button->isEnabled = wasEnabled;
+        }
+    }
+    otherButtons.clear();
+
+    if (pausedTheGame)
+    {
+        DuckEngine::isGamePaused = false;
+        DuckEngine::PauseGame(false);
+        pausedTheGame = false;
+    }
+
+    // The input stays held until the next frame. The key or click that
+    // answered NO is still a fresh press for the rest of this frame, and
+    // releasing it now let the pause menu, which updates later in the same
+    // frame, read that Escape as its own and open over the level.
+    releaseInputNextFrame = true;
+    holdingInput = false;
+}
+
 void MenuQuitConfirmLogic::Show(bool state)
 {
     SetPartsVisible(state);
+    if (state) { TakeOver(); } else { HandBack(); }
     if (state)
     {
         // NO every time it opens, so a player who mashes A does not quit.
@@ -124,11 +181,35 @@ bool MenuQuitConfirmLogic::isShowing() const
 
 void MenuQuitConfirmLogic::Update()
 {
+    if (releaseInputNextFrame)
+    {
+        DuckEngine_Input::CaptureInput(false);
+        releaseInputNextFrame = false;
+    }
+
+    // The window's own close request, Alt+F4 or its close button, opens this
+    // dialogue on every screen that has one. Asking again while it is already
+    // open is the player insisting, so the second one closes the game.
+    // WindowManager holds the request for a few frames and then closes
+    // anyway, so a screen without this dialogue can never trap the player.
+    if (WindowManager::TakeCloseRequest())
+    {
+        if (isShowing())
+        {
+            GameManager::Engine.CloseWindow();
+        }
+        else
+        {
+            Show(true);
+        }
+        return;
+    }
+
     if (!isShowing()) { return; }
 
     // Escape answers NO, the same as the button, so the dialogue is never a
     // dead end for a player who reached it by accident.
-    if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
+    if (DuckEngine_Input::Direct::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE))
     {
         if (noBtnSound) { noBtnSound->Play(); }
         Show(false);
@@ -155,14 +236,14 @@ void MenuQuitConfirmLogic::UpdateMenuSelection()
         controllerNavigationCooldown -= DuckEngine::PauseDeltaTime();
     }
 
-    const float horizontal = DuckEngine_Input::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1);
-    const bool left = DuckEngine_Input::IsGamepadButtonDown(
+    const float horizontal = DuckEngine_Input::Direct::GetMenuAxisHorizontal(DuckEngine_Input::GAMEPAD_1);
+    const bool left = DuckEngine_Input::Direct::IsGamepadButtonDown(
         DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_LEFT) || horizontal < -0.3f;
-    const bool right = DuckEngine_Input::IsGamepadButtonDown(
+    const bool right = DuckEngine_Input::Direct::IsGamepadButtonDown(
         DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_DPAD_RIGHT) || horizontal > 0.3f;
-    const bool accept = DuckEngine_Input::IsGamepadButtonPressed(
+    const bool accept = DuckEngine_Input::Direct::IsGamepadButtonPressed(
         DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A);
-    const bool cancel = DuckEngine_Input::IsGamepadButtonPressed(
+    const bool cancel = DuckEngine_Input::Direct::IsGamepadButtonPressed(
         DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B);
 
     // B answers NO whether or not the pad has been used yet, so cancelling is

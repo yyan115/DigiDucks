@@ -32,46 +32,89 @@ written consent of DigiPen Institute of Technology is prohibited.
 class DUCKENGINE_API DuckEngine_Input {
 public:
     /// <summary>
+    /// Hands the player's input to one dialogue that needs all of it, such as
+    /// the quit confirmation. While captured, every query below reports
+    /// nothing pressed, nothing held and every stick centred, so no handler
+    /// underneath the dialogue can act on a key or click meant for it: the
+    /// intro skipping a logo on the click that answered NO, or Escape both
+    /// closing the dialogue and opening the pause menu.
+    ///
+    /// The dialogue reads the real input through Direct, and so does
+    /// ButtonSystem, which only reaches the buttons the dialogue left enabled.
+    /// Whether a gamepad is connected and where the mouse is are never hidden:
+    /// they are facts rather than input, and hovering the dialogue's own
+    /// buttons needs the mouse position. Loading a scene always releases the
+    /// capture, so no dialogue can leave the game deaf by going away.
+    /// </summary>
+    static void CaptureInput(bool captured);
+    static bool IsInputCaptured();
+
+    /// <summary>
+    /// The real input, unaffected by CaptureInput, for the dialogue that has
+    /// captured it and for ButtonSystem.
+    /// </summary>
+    struct Direct
+    {
+        static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }
+        static inline bool IsMouseButtonPressed(int button) { return InputManager::IsMouseButtonPressed(button); }
+        static inline bool IsGamepadButtonDown(int gamepadIndex, int button)
+        {
+            return InputManager::IsGamepadConnected(gamepadIndex) &&
+                InputManager::IsGamepadButtonDown(gamepadIndex, button);
+        }
+        static inline bool IsGamepadButtonPressed(int gamepadIndex, int button)
+        {
+            return InputManager::IsGamepadButtonPressed(gamepadIndex, button);
+        }
+        static inline float GetMenuAxisHorizontal(int gamepadIndex)
+        {
+            return LargerDeflection(
+                InputManager::GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_LEFT_X),
+                InputManager::GetGamepadAxisValue(gamepadIndex, GAMEPAD_AXIS_RIGHT_X));
+        }
+    };
+
+    /// <summary>
     /// Checks if the specified key is currently held down.
     /// </summary>
     /// <param name="key">The key code to check.</param>
     /// <returns>Returns true if the key is held down.</returns>
-    static inline bool IsKeyDown(int key) { return InputManager::IsKeyDown(key); }
+    static inline bool IsKeyDown(int key) { return !inputCaptured && InputManager::IsKeyDown(key); }
 
     /// <summary>
     /// Checks if the specified key was pressed during the current frame.
     /// </summary>
     /// <param name="key">The key code to check.</param>
     /// <returns>Returns true if the key was pressed this frame.</returns>
-    static inline bool IsKeyPressed(int key) { return InputManager::IsKeyPressed(key); }
+    static inline bool IsKeyPressed(int key) { return !inputCaptured && InputManager::IsKeyPressed(key); }
 
     /// <summary>
     /// Checks if the specified key was released during the current frame.
     /// </summary>
     /// <param name="key">The key code to check.</param>
     /// <returns>Returns true if the key was released this frame.</returns>
-    static inline bool IsKeyReleased(int key) { return InputManager::IsKeyReleased(key); }
+    static inline bool IsKeyReleased(int key) { return !inputCaptured && InputManager::IsKeyReleased(key); }
 
     /// <summary>
     /// Checks if the specified mouse button is currently held down.
     /// </summary>
     /// <param name="button">The mouse button to check.</param>
     /// <returns>Returns true if the mouse button is held down.</returns>
-    static inline bool IsMouseButtonDown(int button) { return InputManager::IsMouseButtonDown(button); }
+    static inline bool IsMouseButtonDown(int button) { return !inputCaptured && InputManager::IsMouseButtonDown(button); }
 
     /// <summary>
     /// Checks if the specified mouse button was pressed during the current frame.
     /// </summary>
     /// <param name="button">The mouse button to check.</param>
     /// <returns>Returns true if the mouse button was pressed this frame.</returns>
-    static inline bool IsMouseButtonPressed(int button) { return InputManager::IsMouseButtonPressed(button); }
+    static inline bool IsMouseButtonPressed(int button) { return !inputCaptured && InputManager::IsMouseButtonPressed(button); }
 
     /// <summary>
     /// Checks if the specified mouse button was released during the current frame.
     /// </summary>
     /// <param name="button">The mouse button to check.</param>
     /// <returns>Returns true if the mouse button was released this frame.</returns>
-    static inline bool IsMouseButtonReleased(int button) { return InputManager::IsMouseButtonReleased(button); }
+    static inline bool IsMouseButtonReleased(int button) { return !inputCaptured && InputManager::IsMouseButtonReleased(button); }
 
     /// <summary>
     /// Returns the current x-coordinate of the mouse in window space.
@@ -89,13 +132,13 @@ public:
     /// Returns the horizontal scroll offset of the mouse wheel.
     /// </summary>
     /// <returns>The horizontal scroll offset.</returns>
-    static inline double GetScrollOffsetX() { return InputManager::GetScrollOffsetX(); }
+    static inline double GetScrollOffsetX() { return inputCaptured ? 0.0 : InputManager::GetScrollOffsetX(); }
 
     /// <summary>
     /// Returns the vertical scroll offset of the mouse wheel.
     /// </summary>
     /// <returns>The vertical scroll offset.</returns>
-    static inline double GetScrollOffsetY() { return InputManager::GetScrollOffsetY(); }
+    static inline double GetScrollOffsetY() { return inputCaptured ? 0.0 : InputManager::GetScrollOffsetY(); }
 
     /// <summary>
     /// Checks if a gamepad is currently connected at the specified index.
@@ -113,7 +156,7 @@ public:
     static inline bool IsGamepadButtonDown(int gamepadIndex, int button) 
     {
         bool gamepadConnected = DuckEngine_Input::IsGamepadConnected(gamepadIndex);
-        if (gamepadConnected)
+        if (gamepadConnected && !inputCaptured)
         {
 			return InputManager::IsGamepadButtonDown(gamepadIndex, button);
         }
@@ -126,7 +169,7 @@ public:
     /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
     /// <param name="button">The gamepad button to check.</param>
     /// <returns>Returns true if the button was pressed this frame.</returns>
-    static inline bool IsGamepadButtonPressed(int gamepadIndex, int button) { return InputManager::IsGamepadButtonPressed(gamepadIndex, button); }
+    static inline bool IsGamepadButtonPressed(int gamepadIndex, int button) { return !inputCaptured && InputManager::IsGamepadButtonPressed(gamepadIndex, button); }
 
     /// <summary>
     /// Checks if the specified gamepad button was released during the current frame.
@@ -134,7 +177,7 @@ public:
     /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
     /// <param name="button">The gamepad button to check.</param>
     /// <returns>Returns true if the button was released this frame.</returns>
-    static inline bool IsGamepadButtonReleased(int gamepadIndex, int button) { return InputManager::IsGamepadButtonReleased(gamepadIndex, button); }
+    static inline bool IsGamepadButtonReleased(int gamepadIndex, int button) { return !inputCaptured && InputManager::IsGamepadButtonReleased(gamepadIndex, button); }
 
     /// <summary>
     /// Gets the current value of the specified gamepad axis.
@@ -142,7 +185,7 @@ public:
     /// <param name="gamepadIndex">The index of the gamepad (0-15)</param>
     /// <param name="axis">The axis to query</param>
     /// <returns>The axis value between -1.0 and 1.0</returns>
-    static inline float GetGamepadAxisValue(int gamepadIndex, int axis) { return InputManager::GetGamepadAxisValue(gamepadIndex, axis); }
+    static inline float GetGamepadAxisValue(int gamepadIndex, int axis) { return inputCaptured ? 0.f : InputManager::GetGamepadAxisValue(gamepadIndex, axis); }
 
     /// <summary>
     /// Horizontal stick input for menu navigation, from whichever stick is
@@ -265,6 +308,11 @@ public:
     static const int GAMEPAD_4;                  // Fourth gamepad
 
 private:
+    /// <summary>
+    /// Set by CaptureInput.
+    /// </summary>
+    static bool inputCaptured;
+
     /// <summary>
     /// Whichever of two axis readings is further from centre. Returning the
     /// larger deflection rather than a sum keeps the result inside -1..1 and

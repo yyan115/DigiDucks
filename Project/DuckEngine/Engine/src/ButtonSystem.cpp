@@ -178,7 +178,11 @@ void ButtonSystem::Render()
         }
 
         // Check click
-        if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
+        // Direct, not the ordinary query: while a dialogue has captured input
+        // the ordinary query reports no clicks, and the dialogue's own buttons
+        // still have to work. Every other button is disabled while it is open,
+        // so this reaches nothing else.
+        if (DuckEngine_Input::Direct::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
         {
             if (IsPointInside(finalMousePos, position, scale))
             {

@@ -112,3 +112,15 @@ const int DuckEngine_Input::GAMEPAD_1 = GLFW_JOYSTICK_1;
 const int DuckEngine_Input::GAMEPAD_2 = GLFW_JOYSTICK_2;
 const int DuckEngine_Input::GAMEPAD_3 = GLFW_JOYSTICK_3;
 const int DuckEngine_Input::GAMEPAD_4 = GLFW_JOYSTICK_4;
+// See CaptureInput in DuckEngine_Input.h.
+bool DuckEngine_Input::inputCaptured = false;
+
+void DuckEngine_Input::CaptureInput(bool captured)
+{
+    inputCaptured = captured;
+}
+
+bool DuckEngine_Input::IsInputCaptured()
+{
+    return inputCaptured;
+}

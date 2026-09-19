@@ -14,6 +14,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 #include <iostream>
 #include "DuckEngine.h"
 #include "SceneManager.h"
+#include "DuckEngine_Input.h"
 
 /**************************************************************************
 @brief Initializes the SceneManager. Placeholder for setup logic.
@@ -45,6 +46,11 @@ void SceneManager::ReloadScene()
 **************************************************************************/
 void SceneManager::SetActiveScene(const std::string& name)
 {
+    // A dialogue that captured input goes with its scene, and nothing would
+    // be left to release it: every key and click would be ignored from then
+    // on. A new scene always starts with input free.
+    DuckEngine_Input::CaptureInput(false);
+
 	if (activeSceneName == name)
 	{
 		std::cout << "Scene '" << name << "' is already active. Reloading from JSON..." << std::endl;

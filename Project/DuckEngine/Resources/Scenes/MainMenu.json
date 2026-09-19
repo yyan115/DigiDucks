@@ -1783,7 +1783,7 @@
                             "r": 255.0
                         },
                         "isVisible": false,
-                        "sortingOrder": 103,
+                        "sortingOrder": 200,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/confirm_panel.png",
                         "useColor": true
@@ -1827,7 +1827,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 104,
+                        "sortingOrder": 201,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/exit_yes.png",
                         "useColor": true
@@ -1891,7 +1891,7 @@
                             "r": 255.0
                         },
                         "isVisible": true,
-                        "sortingOrder": 104,
+                        "sortingOrder": 201,
                         "sprite": true,
                         "texture": "Resources/Sprites/Pause/Confirm Exit/exit_no.png",
                         "useColor": true
@@ -1963,7 +1963,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 105,
+                        "sortingOrder": 202,
                         "text": "QUIT GAME"
                     },
                     "type": "TextComponent"
@@ -2005,7 +2005,7 @@
                             "x": 0.0,
                             "y": 0.0
                         },
-                        "sortingOrder": 105,
+                        "sortingOrder": 202,
                         "text": "Close Quack Kitchen?"
                     },
                     "type": "TextComponent"

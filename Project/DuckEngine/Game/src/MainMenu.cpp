@@ -12,7 +12,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 */
 /******************************************************************************/
 #include "MainMenu.h"
-#include "WindowManager.h"
 #include "ButtonSystem.h"
 #include "ButtonComponent.h"
 #include "DuckEngine_Input.h"
@@ -356,21 +355,8 @@ void MainMenu::ResolveQuitConfirmLogic()
 
 void MainMenu::PostUpdate()
 {
-	// The window's own close button asks the same question the EXIT button
-	// does. WindowManager holds the request back for a few frames and then
-	// closes anyway, so a scene that does not take it cannot trap the player.
-	if (WindowManager::TakeCloseRequest())
-	{
-		ResolveQuitConfirmLogic();
-		if (quitConfirmLogic)
-		{
-			quitConfirmLogic->Show(true);
-		}
-		else
-		{
-			GameManager::Engine.CloseWindow();
-		}
-	}
+	// The window's own close request is taken by MenuQuitConfirmLogic, which
+	// every scene carries, so it asks the same question on every screen.
 
 	if (DuckEngine_Input::IsMouseButtonPressed(DuckEngine_Input::MOUSE_BUTTON_LEFT))
 	{

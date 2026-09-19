@@ -9621,6 +9621,268 @@
                 }
             ],
             "layer": "Gameplay"
+        },
+        "Quit_Cfm_Bg": {
+            "childNames": [
+                "Quit_Yes_Btn",
+                "Quit_No_Btn",
+                "Quit_Title",
+                "Quit_Question"
+            ],
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.5,
+                            "y": -0.5
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 1.0,
+                            "y": 1.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": false,
+                        "sortingOrder": 200,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/confirm_panel.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "logicNames": [
+                            "MenuQuitConfirmLogic"
+                        ]
+                    },
+                    "type": "GameLogicComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Quit_Yes_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.35264,
+                            "y": -0.6
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.16096153855323792,
+                            "y": 0.1
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 201,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/exit_yes.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 1.wav",
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Quit_No_Btn": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.53861,
+                            "y": -0.6
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 0.16096153855323792,
+                            "y": 0.1
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "color": {
+                            "a": 255.0,
+                            "b": 255.0,
+                            "g": 0.0,
+                            "r": 255.0
+                        },
+                        "isVisible": true,
+                        "sortingOrder": 201,
+                        "sprite": true,
+                        "texture": "Resources/Sprites/Pause/Confirm Exit/exit_no.png",
+                        "useColor": true
+                    },
+                    "type": "SpriteRendererComponent"
+                },
+                {
+                    "properties": {
+                        "category": "UI",
+                        "effectValue": 0.0,
+                        "effects": "Default",
+                        "loop": false,
+                        "playOnStart": false,
+                        "soundID": [
+                            "Resources/Sounds/clicks/click 2.wav",
+                            "Resources/Sounds/clicks/hover 1.wav"
+                        ],
+                        "volume": 1.0
+                    },
+                    "type": "SoundComponent"
+                },
+                {
+                    "properties": {
+                        "maxPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "minPos": {
+                            "x": 0.0,
+                            "y": 0.0
+                        }
+                    },
+                    "type": "ButtonComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Quit_Title": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.49188,
+                            "y": 0.755
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "centered": true,
+                        "color": {
+                            "a": 255.0,
+                            "b": 24.0,
+                            "g": 38.0,
+                            "r": 74.0
+                        },
+                        "enabled": true,
+                        "fontName": "Nunito Black",
+                        "fontSize": 1.6,
+                        "fontSizeY": -1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 202,
+                        "text": "QUIT GAME"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
+        },
+        "Quit_Question": {
+            "components": [
+                {
+                    "properties": {
+                        "position": {
+                            "x": 0.49188,
+                            "y": 0.6
+                        },
+                        "relativeToCamera": false,
+                        "rotation": 0.0,
+                        "scale": {
+                            "x": 5.0,
+                            "y": 5.0
+                        }
+                    },
+                    "type": "TransformComponent"
+                },
+                {
+                    "properties": {
+                        "centered": true,
+                        "color": {
+                            "a": 255.0,
+                            "b": 68.0,
+                            "g": 95.0,
+                            "r": 164.0
+                        },
+                        "enabled": true,
+                        "fontName": "Nunito Bold",
+                        "fontSize": 0.85,
+                        "fontSizeY": -1.0,
+                        "position": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "sortingOrder": 202,
+                        "text": "Close Quack Kitchen?"
+                    },
+                    "type": "TextComponent"
+                }
+            ],
+            "layer": "UI"
         }
     },
     "layers": {
