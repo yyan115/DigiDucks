@@ -39,7 +39,18 @@ void SoundSystem::Start() {
             AssetManager::GetFMODSystem()->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
         }
 
-        result = AssetManager::GetFMODSystem()->init(512, FMOD_INIT_NORMAL, 0);  // Initialize FMOD
+        // On Linux, FMOD's PulseAudio output takes the name the desktop's
+        // volume mixer shows for the game through this argument. Left empty,
+        // FMOD fills in its own, and KDE lists the game as "FMOD Audio". On
+        // Windows the argument means something else entirely, and the mixer
+        // already reads the name from the executable's version resource.
+#if defined(__linux__)
+        static char mixerName[] = "Quack Kitchen";
+        void* extraDriverData = mixerName;
+#else
+        void* extraDriverData = nullptr;
+#endif
+        result = AssetManager::GetFMODSystem()->init(512, FMOD_INIT_NORMAL, extraDriverData);  // Initialize FMOD
         if (result != FMOD_OK) {
             std::cerr << "FMOD system initialization failed with error code: " << result << std::endl;
             return;
