@@ -342,6 +342,9 @@ void GameLoopLogic::Start()
 void GameLoopLogic::Update()
 {
 	if (FPSText) FPSText->text = "FPS: " + std::to_string(static_cast<int>(DuckEngine::FPS()));
+#ifdef QUACK_KITCHEN_CHEATS
+	// The FPS readout is debug information, so it is a developer shortcut
+	// like the others and is not in a release build.
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U))
 	{
 		if (FPSText)

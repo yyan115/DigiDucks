@@ -450,12 +450,15 @@ void MainMenu::PostUpdate()
 		std::cout << "Left mouse button pressed!\n";
 	}
 
+#ifdef QUACK_KITCHEN_CHEATS
+	// The FPS readout is a developer shortcut, not in a release build.
 	if (DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_U)) {
 		if (FPSText) {
 			FPSText->isEnabled = !FPSText->isEnabled;
 			GameManager::SetGlobalVariable("ShowFPS", FPSText->isEnabled ? "true" : "false");
 		}
 	}
+#endif
 }
 
 /****************************************************************
