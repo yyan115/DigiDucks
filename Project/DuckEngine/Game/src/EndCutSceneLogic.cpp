@@ -49,6 +49,7 @@ void EndCutSceneLogic::Start()
 	isFading = true; // Start with a fade-in effect
 	isCutSceneFading = false;
 	isPlaying = true;
+	skipped = false;
 
 	CutSceneButton = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("CutSceneSkip").get();
 
@@ -60,8 +61,7 @@ void EndCutSceneLogic::Start()
 		CutSceneSkip->onClick = [this, CutSceneSkipSound]()
 			{
 				CutSceneSkipSound->Play();
-
-				if (lastPlayedSceneName == "Level3") currentCutsceneIndex = 7;
+				SkipPictures();
 			};
 	}
 }
@@ -84,9 +84,7 @@ void EndCutSceneLogic::Update()
 				auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
 				if (CutSceneSkipSound) CutSceneSkipSound->Play();
 
-				// Skip to end of cutscene
-				currentCutsceneIndex = 7;
-				std::cout << "End cutscene skipped with gamepad!" << std::endl;
+				SkipPictures();
 			}
 		}
 	}
@@ -137,7 +135,7 @@ void EndCutSceneLogic::Update()
 	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
-		DialoguefadeProgress += DuckEngine::DeltaTime();
+		DialoguefadeProgress += DuckEngine::DeltaTime() * (skipped ? 4.0f : 1.0f);
 
 		if (DialoguefadeProgress >= 6.0f)
 		{
@@ -163,6 +161,23 @@ void EndCutSceneLogic::Update()
 			}
 		}
 
+	}
+}
+
+void EndCutSceneLogic::SkipPictures()
+{
+	if (!isPlaying || isCutSceneFading || lastPlayedSceneName != "Level3") return;
+
+	currentCutsceneIndex = 8;
+	cutsceneTimer = 0.0f;
+	isCutSceneFading = true;
+	skipped = true;
+	// Where the closing fade starts to darken, as in CutSceneLogic.
+	DialoguefadeProgress = 2.0f;
+	if (FadeOutSprite) FadeOutSprite->color.a = 0;
+	if (CutSceneButton)
+	{
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
 	}
 }
 

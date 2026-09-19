@@ -35,6 +35,11 @@ private:
 	bool isFading = true;
 	bool isCutSceneFading = false;
 	std::string lastPlayedSceneName = "";
+
+	// SKIP starts the closing fade on the press and runs it four times as
+	// fast, as it does in the level cutscenes.
+	bool skipped = false;
+	void SkipPictures();
 public:
 
 	EndCutSceneLogic() :

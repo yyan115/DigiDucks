@@ -58,6 +58,7 @@ void CutSceneLogic::Start()
 	isCutSceneFading = false;
 	isPlaying = true;
 	isShowingDialogue = false;
+	skipped = false;
 
 	if (auto settingsPanel = DuckEngine::DUCKENGINE_EntityManager.GetEntityByName("Settings_Menu"))
 	{
@@ -83,14 +84,7 @@ void CutSceneLogic::Start()
 				if (MenuHasInput()) return;
 
 				CutSceneSkipSound->Play();
-
-				if (lastPlayedSceneName == "Level0")
-				{
-					currentCutsceneIndex = 12;
-					std::cout << "Cutscene skipped! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
-				}
-				else if (lastPlayedSceneName == "Level1_5") currentCutsceneIndex = 2;
-				else if (lastPlayedSceneName == "Level2_5") currentCutsceneIndex = 3;
+				SkipPictures();
 			};
 	}
 
@@ -106,7 +100,7 @@ void CutSceneLogic::Start()
 				// The options panel covers this button's corner when it is open.
 				if (MenuHasInput()) return;
 
-				currentDialogueIndex = 12;
+				if (isShowingDialogue) EndDialogue();
 			};
 	}
 }
@@ -114,7 +108,10 @@ void CutSceneLogic::Start()
 bool CutSceneLogic::MenuHasInput() const
 {
 	const bool up = (SettingsPanelSprite && SettingsPanelSprite->isVisible) || DuckEngine::isGamePaused;
-	const bool onGear = SettingsGearButton && SettingsGearButton->isEnabled && SettingsGearButton->isHovered;
+	// A hidden button keeps the hover it had when it was hidden, since
+	// ButtonSystem stops looking at it, so the gear only counts while shown.
+	const bool onGear = SettingsGearButton && SettingsGearButton->isEnabled && SettingsGearButton->isHovered &&
+		SettingsGearSprite && SettingsGearSprite->isVisible;
 	// Up last frame counts as well. Buttons are handled before this logic
 	// runs, so on the frame of a click on CLOSE or RESUME, or of the Escape
 	// that shuts a menu, it already reads closed by the time that press
@@ -148,15 +145,7 @@ void CutSceneLogic::Update()
 				// Get the sound component for skip sound
 				auto CutSceneSkipSound = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SoundComponent>(CutSceneButton->entityID);
 				if (CutSceneSkipSound) CutSceneSkipSound->Play();
-
-				// Skip to appropriate frame based on level
-				if (lastPlayedSceneName == "Level0")
-				{
-					currentCutsceneIndex = 12;
-					std::cout << "Cutscene skipped with gamepad! " << lastPlayedSceneName << " " << currentCutsceneIndex << std::endl;
-				}
-				else if (lastPlayedSceneName == "Level1_5") currentCutsceneIndex = 2;
-				else if (lastPlayedSceneName == "Level2_5") currentCutsceneIndex = 3;
+				SkipPictures();
 			}
 		}
 
@@ -167,8 +156,8 @@ void CutSceneLogic::Update()
 			// Skip all dialogue with Start button
 			if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_START))
 			{
-				currentDialogueIndex = 12;
-				std::cout << "Dialogue skipped with gamepad Start button!" << std::endl;
+				EndDialogue();
+				return;
 			}
 			// Advance dialogue with A button
 			else if (DuckEngine_Input::IsGamepadButtonPressed(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_A) &&
@@ -178,14 +167,7 @@ void CutSceneLogic::Update()
 
 				if (currentDialogueIndex == 14)
 				{
-					FadeOutSprite->isVisible = false;
-					DialogueSprite->isVisible = false;
-					isShowingDialogue = false;
-					isPlaying = false;
-					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
-					DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID)->isVisible = false;
-					CutSceneBGM->Stop();
-
+					EndDialogue();
 					return;
 				}
 
@@ -328,7 +310,7 @@ void CutSceneLogic::Update()
 	else if (isCutSceneFading) // Handle fade before dialogue starts
 	{
 		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
-		DialoguefadeProgress += DuckEngine::DeltaTime();
+		DialoguefadeProgress += DuckEngine::DeltaTime() * (skipped ? 4.0f : 1.0f);
 
 		if (DialoguefadeProgress >= 6.0f)
 		{
@@ -378,17 +360,7 @@ void CutSceneLogic::Update()
 
 			if (currentDialogueIndex == 14)
 			{
-				if (FadeOutSprite)
-				{
-					FadeOutSprite->isVisible = false;
-				}
-				DialogueSprite->isVisible = false;
-				isShowingDialogue = false;
-				isPlaying = false;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID)->isVisible = false;
-				CutSceneBGM->Stop();
-
+				EndDialogue();
 				return;
 			}
 
@@ -405,6 +377,46 @@ void CutSceneLogic::Update()
 
 		}
 	}
+}
+
+void CutSceneLogic::SkipPictures()
+{
+	// Once the fade has begun there is nothing left to skip, and SKIP has
+	// gone with it.
+	if (!isPlaying || isCutSceneFading || isShowingDialogue) return;
+
+	int lastPicture = -1;
+	if (lastPlayedSceneName == "Level0") lastPicture = 13;
+	else if (lastPlayedSceneName == "Level1_5") lastPicture = 3;
+	else if (lastPlayedSceneName == "Level2_5") lastPicture = 4;
+	if (lastPicture < 0) return;
+
+	currentCutsceneIndex = lastPicture;
+	cutsceneTimer = 0.0f;
+	isCutSceneFading = true;
+	skipped = true;
+	// The closing fade holds for its first two seconds and darkens over the
+	// next four. A skip starts it where the darkening starts.
+	DialoguefadeProgress = 2.0f;
+	if (FadeOutSprite) FadeOutSprite->color.a = 0;
+	if (CutSceneButton)
+	{
+		DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneButton->entityID)->isVisible = false;
+	}
+}
+
+void CutSceneLogic::EndDialogue()
+{
+	if (FadeOutSprite)
+	{
+		FadeOutSprite->isVisible = false;
+	}
+	DialogueSprite->isVisible = false;
+	isShowingDialogue = false;
+	isPlaying = false;
+	DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(DialogueButton->entityID)->isVisible = false;
+	DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(CutSceneEntity->entityID)->isVisible = false;
+	CutSceneBGM->Stop();
 }
 
 bool CutSceneLogic::CutscenePlay()

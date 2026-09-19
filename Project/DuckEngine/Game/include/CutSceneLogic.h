@@ -50,6 +50,15 @@ private:
 	SpriteRendererComponent* SettingsGearSprite = nullptr;
 	bool menuWasUp = false;
 	bool MenuHasInput() const;
+
+	// SKIP starts the closing fade on the press, from the picture on screen,
+	// and runs it four times as fast. It used to set the picture one short of
+	// the last and leave the rest to the timer, so nothing changed for up to
+	// a second and a half and the press looked missed.
+	bool skipped = false;
+	void SkipPictures();
+	// Ends the dialogue and hands the level over, as the last line does.
+	void EndDialogue();
 public:
 
 	CutSceneLogic() :
