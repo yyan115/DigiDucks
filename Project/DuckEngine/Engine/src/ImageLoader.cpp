@@ -52,6 +52,17 @@ GLuint ImageLoader::LoadTexture(const std::string& filePath)
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
 
+    // Clamp at the edges. Left unset, OpenGL repeats the texture, and a
+    // filtered sample at a quad's last row of pixels blends in the opposite
+    // edge of the art: a sprite whose drawing touches its top edge grows a
+    // faint one-pixel copy of that edge along its bottom. Whether it shows
+    // depends on the exact size the sprite is drawn at, so it comes and goes
+    // with the screen resolution. Every sprite is drawn with coordinates from
+    // 0 to 1 and nothing tiles a texture, so there is nothing to repeat.
+    // The sprite-sheet path below has always clamped.
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
     // Determine format based on number of channels
     GLenum format;
     if (nrChannels == 1)
