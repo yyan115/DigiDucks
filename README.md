@@ -2,13 +2,11 @@
 
 ![Quack Kitchen](Project/DuckEngine/Resources/Sprites/MainMenu/LOGO_1.png)
 
-Mum and dad are on holiday, so the restaurant is yours for five days. Take the
-orders, chop, cook, plate up and serve before anyone runs out of patience.
-
 A single-player 2D cooking game by the DigiDucks team at Singapore Institute of
 Technology and DigiPen Institute of Technology, on our own C++ engine.
 
-**[Play it here](https://yyan115.github.io/DigiDucks/)**
+Mum and dad are on holiday, so the restaurant is yours for five days. Take the
+orders, chop, cook, plate up and serve before anyone runs out of patience.
 
 ## Download
 
@@ -57,12 +55,6 @@ docs/                          The website
 Installer/ packaging/          Windows and Linux packaging
 tools/                         Build and release checks
 ```
-
-## Credits
-
-**RTIS** YEE Lucas Junjie, YAN Yu, HO Yong Heng Ernest
-**IMGD** BIN ZAKARIA Muhammad Zikry, CHUA Sheng Kai Jovan, TAN Yan Kai
-**UXGD** LEE Ying Jie, CHUA Qi Yun Daphnne
 
 ## License
 
