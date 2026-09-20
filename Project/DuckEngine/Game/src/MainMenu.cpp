@@ -371,6 +371,27 @@ void MainMenu::OpenJournal(int firstPage, int lastPage)
 	}
 }
 
+void MainMenu::CloseSubmenus()
+{
+	if (!mainMenuScreen) return;
+	bool closed = false;
+	for (Entity* screen : { levelSelectScreen, HTPScreen })
+	{
+		if (!screen) continue;
+		auto* sprite = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(screen->entityID);
+		if (sprite && sprite->isVisible)
+		{
+			sprite->isVisible = false;
+			closed = true;
+		}
+	}
+	if (!closed) return;
+	if (auto* menu = DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID))
+	{
+		menu->isVisible = true;
+	}
+}
+
 void MainMenu::OpenLevelSelect()
 {
 	if (!levelSelectScreen || !mainMenuScreen) return;
@@ -542,20 +563,16 @@ void MainMenu::UpdateMenuSelection()
 		return;
 	}
 
-	// Check for the back button to return from submenus
-	if (submenusOpen && DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1)) {
-		if (DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B)) {
-			// Close level select if it's open
-			if (levelSelectScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible) {
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(levelSelectScreen->entityID)->isVisible = false;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = true;
-			}
-
-			// Close how to play if it's open
-			if (HTPScreen && DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible) {
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(HTPScreen->entityID)->isVisible = false;
-				DuckEngine::DUCKENGINE_ComponentManager.GetComponent<SpriteRendererComponent>(mainMenuScreen->entityID)->isVisible = true;
-			}
+	// Escape and the pad's B close what is open over the menu: the level
+	// select, and the journal, whether How To Play or the credits opened it.
+	// The options panel and the quit question answer Escape themselves, above.
+	if (submenusOpen) {
+		const bool back =
+			DuckEngine_Input::IsKeyPressed(DuckEngine_Input::KEY_ESCAPE) ||
+			(DuckEngine_Input::IsGamepadConnected(DuckEngine_Input::GAMEPAD_1) &&
+			 DuckEngine_Input::IsGamepadButtonReleased(DuckEngine_Input::GAMEPAD_1, DuckEngine_Input::GAMEPAD_BUTTON_B));
+		if (back) {
+			CloseSubmenus();
 		}
 
 		// Don't process main menu navigation when submenus are open

@@ -84,6 +84,9 @@ private:
 	// START opens the level select screen. There is no separate LEVEL SELECT
 	// item: its row went to OPTIONS.
 	void OpenLevelSelect();
+	/// Close the level select or the journal and bring the menu back. Escape
+	/// and the pad's B both do it.
+	void CloseSubmenus();
 
 	// OPTIONS opens the same options panel every level has. The menu's own
 	// items lie partly under it, so they are switched off while it is open
