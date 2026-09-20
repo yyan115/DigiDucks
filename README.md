@@ -2,170 +2,70 @@
 
 ![Quack Kitchen](Project/DuckEngine/Resources/Sprites/MainMenu/LOGO_1.png)
 
-Quack Kitchen is a single-player 2D cooking game built by the DigiDucks team
-at DigiPen Institute of Technology Singapore. Take orders, prepare each dish,
-and keep a growing line of customers happy before the day ends.
+Mum and dad are on holiday, so the restaurant is yours for five days. Take the
+orders, chop, cook, plate up and serve before anyone runs out of patience.
 
-The game and its custom C++ engine use OpenGL, GLFW, GLEW, FreeType, and FMOD.
-Windows and Linux are the supported platforms.
+A single-player 2D cooking game by the DigiDucks team at Singapore Institute of
+Technology and DigiPen Institute of Technology, on our own C++ engine.
 
-**[Play it](https://yyan115.github.io/DigiDucks/)** — the site has the
-downloads for both platforms.
-
-## Play
-
-- Move with `WASD`, the left analog stick, or the directional pad.
-- Pick up or place an item with `J` / gamepad `X`.
-- Use a station with `K` / gamepad `A`.
-- Pause with `Esc` / gamepad `Start`.
-- `Esc` also closes whatever is open on top: the journal, the options panel,
-  or a confirmation, one layer at a time. Gamepad `B` does the same.
-- Toggle fullscreen with `Alt+Enter`.
-
-The How to Play pages show the keyboard controls. Both inputs work everywhere,
-including the menus, and a gamepad can be connected while the game is running.
+**[Play it here](https://yyan115.github.io/DigiDucks/)**
 
 ## Download
 
-The release workflow produces three installable packages, each named after the
-release version:
+Windows and Linux builds are on the
+[releases page](https://github.com/yyan115/DigiDucks/releases):
 
-- `Quack_Kitchen_<version>_Setup.exe` — Windows 10/11 installer.
-- `Quack_Kitchen-<version>-x86_64.AppImage` — portable Linux application.
-- `Quack_Kitchen-<version>-x86_64.flatpak` — Linux Flatpak bundle.
-
-Every published build is on the
-[releases page](https://github.com/yyan115/DigiDucks/releases), and the
-[website](https://yyan115.github.io/DigiDucks/) links the latest one.
+- `Quack_Kitchen_<version>_Setup.exe` for Windows 10 and 11
+- `Quack_Kitchen-<version>-x86_64.AppImage` for Linux
+- `Quack_Kitchen-<version>-x86_64.flatpak` for Linux
 
 ## Build from source
 
-Clone the repository normally. CMake 3.21 or newer and a C++17 compiler are
-required.
+CMake 3.21 or newer and a C++17 compiler.
 
 ### Linux
 
-On Ubuntu, install the native build dependencies:
-
 ```sh
 sudo apt-get install cmake g++ libfreetype-dev libglew-dev libglfw3-dev ninja-build
-```
-
-Then configure, build, and test the Release preset:
-
-```sh
 cmake --preset linux-release
 cmake --build --preset linux-release --parallel
-ctest --test-dir Build/linux-release --output-on-failure
-```
-
-Run the staged build directly:
-
-```sh
 "Build/linux-release/Project/DuckEngine/Quack Kitchen"
 ```
 
-#### Fedora KDE and VS Code
-
-Install the native build and debugging dependencies:
-
-```sh
-sudo dnf install cmake ninja-build gcc-c++ gdb freetype-devel glew-devel glfw-devel libglvnd-devel
-```
-
-Open the repository root in VS Code and install the recommended Microsoft
-**CMake Tools** and **C/C++** extensions. Press `F5` to configure, build, and
-debug the game, or press `Ctrl+F5` to run it without stopping in the debugger.
-The default `Ctrl+Shift+B` build task uses the same `linux-debug` CMake preset.
-
-The VS Code setup is only an interface over the Linux CMake build. It does not
-modify or replace the existing Visual Studio solution or project files.
-
-To create an AppImage, install ImageMagick and provide a `linuxdeploy`
-executable:
-
-```sh
-LINUXDEPLOY=/path/to/linuxdeploy-x86_64.AppImage tools/package_linux.sh
-```
+On Fedora the dependencies are
+`cmake ninja-build gcc-c++ freetype-devel glew-devel glfw-devel libglvnd-devel`.
 
 ### Windows
 
-Install Visual Studio 2022 with the Desktop development with C++ workload,
-CMake, Ninja, and vcpkg. Bootstrap vcpkg and expose its directory as
-`VCPKG_ROOT`, then run these commands from a Developer PowerShell:
+Visual Studio 2022 with the Desktop development with C++ workload, plus vcpkg
+with `VCPKG_ROOT` set. From a Developer PowerShell:
 
 ```powershell
 cmake --preset windows-release
 cmake --build --preset windows-release --parallel
-ctest --test-dir Build/windows-release --output-on-failure
 ```
 
-The executable is generated at
-`Build\windows-release\Project\DuckEngine\Quack Kitchen.exe`.
+The game is built to `Build\windows-release\Project\DuckEngine\Quack Kitchen.exe`.
 
-The original Visual Studio solution remains at
-`Project/DuckEngine/DuckEngine.sln` for legacy development. CMake is the
-supported path for reproducible release builds.
-
-## Packaging and verification
-
-- `tools/validate_assets.py` checks serialized and source-code asset paths,
-  including case-sensitive Linux paths.
-- `GAME_GALLERY_READINESS.md` says which DigiPen Game Gallery requirements
-  the repository can settle and which are left to testing on an installed
-  Windows build. `tools/validate_gallery.py` is a checklist kept from an
-  earlier approach to that work: several of its entries look for an
-  implementation this game solved differently, so it is not run by CI and its
-  output is not a regression report.
-- `tools/verify_release.py` checks staged Windows/Linux runtime contents,
-  licensing files, development-file exclusions, and the 500 MiB installed-size
-  limit.
-- `Installer/InstallScript.iss` defines the DigiPen-style Inno Setup package.
-- `packaging/linux/` contains the AppImage launch files and Flatpak manifest.
-- `.github/workflows/ci.yml` builds, tests, stages, verifies, and smoke-tests
-  both supported operating systems.
-- `.github/workflows/release.yml` builds all three release packages on every
-  `main` push. A manual run can also publish them under a requested version
-  tag after the package jobs pass.
-
-## Versioning and releases
-
-The release version is declared in exactly one place, the `project` command in
-`Project/DuckEngine/CMakeLists.txt`. The Windows executable resource, the Inno
-Setup installer, the AppImage filename, and the AppStream metadata are all
-generated from it, so no second copy can drift out of date.
-`tools/project_version.py` prints the declared version for scripts that need it.
-
-To cut a release:
-
-1. Change the version in `Project/DuckEngine/CMakeLists.txt` and commit it.
-2. Tag the commit as `v<version>` and push the tag.
-
-Pushing the tag runs the release workflow, which refuses to continue if the tag
-and the declared version disagree, then builds, verifies, and publishes all
-three packages. Pushes to `main` build and verify the same packages without
-publishing them.
-
-## Repository layout
+## Layout
 
 ```text
-docs/            The game's website, served by GitHub Pages
-Project/DuckEngine/
-├── Engine/       Custom engine source and bundled SDK files
-├── Game/         Quack Kitchen gameplay source
-└── Resources/    Runtime scenes, sprites, audio, fonts, and shaders
-Installer/        Windows installer definition
-packaging/        Linux and Windows packaging metadata
-tools/            Asset, release, and packaging checks
-Licenses/         Third-party notices and shipped-asset provenance
+Project/DuckEngine/Engine/     Engine source
+Project/DuckEngine/Game/       Gameplay source
+Project/DuckEngine/Resources/  Scenes, sprites, audio, fonts, shaders
+docs/                          The website
+Installer/ packaging/          Windows and Linux packaging
+tools/                         Build and release checks
 ```
 
-The editor is intentionally outside the current release scope and is retained
-as a possible future project.
+## Credits
 
-## Licenses and attribution
+**RTIS** YEE Lucas Junjie, YAN Yu, HO Yong Heng Ernest
+**IMGD** BIN ZAKARIA Muhammad Zikry, CHUA Sheng Kai Jovan, TAN Yan Kai
+**UXGD** LEE Ying Jie, CHUA Qi Yun Daphnne
 
-Quack Kitchen is a DigiPen student project. Third-party software, font, and
-asset notices are documented in [`Licenses/`](Licenses/README.md), with the
-runtime media audit in
-[`Licenses/ASSET_PROVENANCE.md`](Licenses/ASSET_PROVENANCE.md).
+## License
+
+A DigiPen student project. All content &copy; 2025 DigiPen Institute of
+Technology Singapore. Third-party notices are in [`Licenses/`](Licenses/README.md).
+Made using FMOD Studio by Firelight Technologies Pty Ltd.

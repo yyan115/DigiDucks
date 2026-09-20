@@ -23,6 +23,8 @@
     --night: #23150f;
     --night-soft: #2f1d14;
     --teal: #7bd3e0;
+    --red: #d8433a;
+    --red-deep: #a82c25;
     --radius: 18px;
     --shadow: 0 18px 40px rgba(20, 10, 5, .45);
   }
@@ -60,11 +62,12 @@
   }
   .btn:hover { transform: translateY(2px); box-shadow: 0 6px 0 var(--orange-deep); }
   .btn:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--orange-deep); }
-  .btn.ghost {
-    background: rgba(35, 21, 15, .35); color: var(--cream);
-    border: 2px solid rgba(254, 242, 226, .5); box-shadow: 0 8px 0 rgba(254, 242, 226, .16);
+  .btn.red {
+    background: var(--red); color: var(--cream);
+    border-color: rgba(74, 38, 24, .25); box-shadow: 0 8px 0 var(--red-deep);
   }
-  .btn.ghost:hover { border-color: var(--orange); color: var(--orange); }
+  .btn.red:hover { box-shadow: 0 6px 0 var(--red-deep); }
+  .btn.red:active { box-shadow: 0 2px 0 var(--red-deep); }
   .btn.small { font-size: 1rem; padding: .7rem 1.3rem; min-width: 0; }
 
   /* hero */
@@ -80,7 +83,10 @@
       linear-gradient(to top, var(--night) 4%, rgba(35, 21, 15, 0) 42%);
   }
   .hero .wrap { padding: 86px 0; }
-  .hero .logo { width: min(560px, 82vw); height: auto; display: block; filter: drop-shadow(0 12px 22px rgba(20, 10, 5, .6)); }
+  /* The artwork's own left margin is about 5.8% of its width, which left the
+     logo indented against the line below it. */
+  .hero .logo { width: min(560px, 82vw); height: auto; display: block; transform: translateX(-5.8%);
+    filter: drop-shadow(0 12px 22px rgba(20, 10, 5, .6)); }
   .tagline { font-size: clamp(1.4rem, 3.4vw, 2rem); font-weight: 900; margin: 18px 0 0; }
   .hero .cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
   .meta { color: var(--cream-dim); font-size: 1rem; margin-top: 18px; }
@@ -113,7 +119,7 @@
     transition: transform .15s ease;
   }
   .tile:hover img, .tile:hover video { transform: translateY(-3px); }
-  .tile figcaption { color: var(--cream-dim); font-size: .92rem; margin-top: .55rem; }
+  .tile figcaption { color: var(--cream-dim); font-size: .92rem; margin-top: .55rem; text-align: center; }
 
   /* lightbox */
   dialog.viewer {
@@ -128,22 +134,27 @@
   dialog.viewer iframe { width: min(88vw, 1120px); aspect-ratio: 16 / 9; height: auto; border: 0; }
   dialog.viewer .caption { text-align: center; margin: .7rem 0 0; color: var(--cream-dim); }
   dialog.viewer .close {
-    position: absolute; top: -20px; right: -14px; width: 46px; height: 46px; min-width: 0;
-    border-radius: 999px; font-size: 1.4rem; padding: 0;
+    position: absolute; top: -16px; right: -16px;
+    width: 42px; height: 42px; min-width: 0; padding: 0;
+    display: grid; place-items: center;
+    background: rgba(254, 242, 226, .12); color: var(--cream);
+    border: 1px solid rgba(254, 242, 226, .35); border-radius: 999px;
+    box-shadow: none; font-size: 1.5rem; font-weight: 700; line-height: 1;
+    cursor: pointer;
   }
+  dialog.viewer .close:hover { background: rgba(254, 242, 226, .22); transform: none; }
+  dialog.viewer .close:active { transform: none; box-shadow: none; }
 
   /* credits */
+  .credits-top { display: grid; gap: 40px; grid-template-columns: 1fr 1fr; align-items: center; }
+  @media (max-width: 860px) { .credits-top { grid-template-columns: 1fr; } }
+  .credits-art { width: 100%; border-radius: var(--radius); display: block; box-shadow: var(--shadow); }
   .credits-card {
-    margin: 30px auto 0; max-width: 900px; border-radius: var(--radius); overflow: hidden;
+    margin: 34px auto 0; max-width: 900px; border-radius: var(--radius);
     background: var(--night); border: 1px solid rgba(254, 242, 226, .12); box-shadow: var(--shadow);
   }
-  .credits-art { position: relative; }
-  .credits-art img { width: 100%; display: block; }
-  .credits-art::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(to bottom, rgba(35, 21, 15, 0) 62%, var(--night) 100%);
-  }
-  .teams { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); padding: 24px 28px 28px; }
+  .teams { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); padding: 26px 28px 28px; text-align: center; }
+  .team ul { display: inline-block; text-align: left; }
   .team h3 { color: var(--teal); letter-spacing: .1em; text-transform: uppercase; font-size: .85rem; }
   .team ul { list-style: none; margin: 0; padding: 0; }
   .team li { padding: 8px 0; border-bottom: 1px solid rgba(254, 242, 226, .1); }
@@ -159,16 +170,16 @@
 <body>
 
 <div class="hero">
-  <video autoplay muted loop playsinline poster="media/hero-poster.webp" aria-hidden="true">
-    <source src="media/hero.webm" type="video/webm">
-    <source src="media/hero.mp4" type="video/mp4">
+  <video autoplay muted loop playsinline poster="media/hero-gameplay-poster.webp" aria-hidden="true">
+    <source src="media/hero-gameplay.webm" type="video/webm">
+    <source src="media/hero-gameplay.mp4" type="video/mp4">
   </video>
   <div class="wrap">
     <img class="logo" src="media/logo.webp" alt="Quack Kitchen" width="792" height="431">
     <p class="tagline">Chop, cook, serve!</p>
     <div class="cta">
       <a class="btn" href="#play">Play now</a>
-      <button class="btn ghost" type="button" data-video="media/trailer.mp4" data-poster="media/trailer-poster.webp" data-caption="The trailer">Trailer</button>
+      <button class="btn red" type="button" data-video="media/trailer.mp4" data-poster="media/trailer-poster.webp" data-link="https://youtu.be/8cVgSGhxl8s">Watch the trailer</button>
     </div>
     <p class="meta">Available on Windows and Linux</p>
   </div>
@@ -182,20 +193,20 @@
       <div class="card">
         <span class="os">Windows 10 / 11</span>
         <h3>Installer</h3>
-        <span class="size">70 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen_0.1.2_Setup.exe">Download</a>
+        <span class="size">Quack_Kitchen_1.0.0_Setup.exe &middot; 70 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v1.0.0/Quack_Kitchen_1.0.0_Setup.exe">Download for Windows</a>
       </div>
       <div class="card">
         <span class="os">Linux</span>
         <h3>AppImage</h3>
-        <span class="size">49 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.AppImage">Download</a>
+        <span class="size">Quack_Kitchen-1.0.0-x86_64.AppImage &middot; 49 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v1.0.0/Quack_Kitchen-1.0.0-x86_64.AppImage">Download AppImage</a>
       </div>
       <div class="card">
         <span class="os">Linux</span>
         <h3>Flatpak</h3>
-        <span class="size">45 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.flatpak">Download</a>
+        <span class="size">Quack_Kitchen-1.0.0-x86_64.flatpak &middot; 45 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v1.0.0/Quack_Kitchen-1.0.0-x86_64.flatpak">Download Flatpak</a>
       </div>
     </div>
   </div>
@@ -206,9 +217,9 @@
     <div class="split">
       <div>
         <p class="eyebrow">The story</p>
-        <h2>Mum and dad are on holiday</h2>
-        <p class="lead">Waddles has never run the shop before. It is only five days, and his sister says he will be fine.</p>
-        <p class="lead">Take the order, chop it, cook it, plate it, get it to the table. The customers are patient, right up until they are not.</p>
+        <h2>Take over the kitchen!</h2>
+        <p class="lead">Mum and dad are on holiday, and Waddles has never run the shop before?! It is for five days, but his sister says he will be fine?</p>
+        <p class="lead">Serve the customers before they run out of patience!</p>
       </div>
       <figure style="margin:0">
         <img class="shot" src="media/shot-story.webp" alt="Waddles and his sister talking in the restaurant" loading="lazy">
@@ -220,27 +231,27 @@
 <section id="gallery">
   <div class="wrap">
     <p class="eyebrow">Gallery</p>
-    <h2>Have a look</h2>
+    <h2>A look at the kitchen</h2>
     <div class="gallery">
-      <figure class="tile" tabindex="0" role="button" data-full="media/shot-kitchen.webp" data-caption="Day three, four orders up">
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-kitchen.webp" data-caption="Four orders, one duck!">
         <img src="media/shot-kitchen.webp" alt="A busy kitchen with four orders on the board" loading="lazy">
-        <figcaption>Day three, four orders up</figcaption>
+        <figcaption>Four orders, one duck!</figcaption>
       </figure>
-      <figure class="tile" tabindex="0" role="button" data-video="media/clip-cooking.mp4" data-loop data-caption="Cooking">
+      <figure class="tile" tabindex="0" role="button" data-video="media/clip-cooking.mp4" data-loop data-caption="Chop, cook, plate up!">
         <video src="media/clip-cooking.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
-        <figcaption>Cooking</figcaption>
+        <figcaption>Chop, cook, plate up!</figcaption>
       </figure>
-      <figure class="tile" tabindex="0" role="button" data-full="media/shot-levels.webp" data-caption="Picking a day">
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-levels.webp" data-caption="Five days to get through!">
         <img src="media/shot-levels.webp" alt="The level select screen" loading="lazy">
-        <figcaption>Picking a day</figcaption>
+        <figcaption>Five days to get through!</figcaption>
       </figure>
-      <figure class="tile" tabindex="0" role="button" data-full="media/shot-stars.webp" data-caption="End of the day">
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-stars.webp" data-caption="Three stars, if you are quick!">
         <img src="media/shot-stars.webp" alt="The results screen with stars and a score" loading="lazy">
-        <figcaption>End of the day</figcaption>
+        <figcaption>Three stars, if you are quick!</figcaption>
       </figure>
-      <figure class="tile" tabindex="0" role="button" data-full="media/shot-controls.webp" data-caption="The journal, with the controls">
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-controls.webp" data-caption="The recipe book has everything!">
         <img src="media/shot-controls.webp" alt="The in-game journal showing the controls" loading="lazy">
-        <figcaption>The journal, with the controls</figcaption>
+        <figcaption>The recipe book has everything!</figcaption>
       </figure>
     </div>
   </div>
@@ -248,13 +259,15 @@
 
 <section id="credits" style="background: var(--night-soft);">
   <div class="wrap">
-    <p class="eyebrow">DigiDucks</p>
-    <h2>Credits</h2>
-    <p class="lead">Created by students at Singapore Institute of Technology and DigiPen Institute of Technology, on a custom 2D engine built from scratch, all open source.</p>
-    <div class="credits-card">
-      <div class="credits-art">
-        <img src="media/shot-ending.webp" alt="The ending screen: thank you for cooking" loading="lazy">
+    <div class="credits-top">
+      <div>
+        <p class="eyebrow">DigiDucks</p>
+        <h2>Credits</h2>
+        <p class="lead">Created by students at Singapore Institute of Technology and DigiPen Institute of Technology, on a custom 2D engine built from scratch, all open source.</p>
       </div>
+      <img class="credits-art" src="media/shot-ending.webp" alt="The ending screen: thank you for cooking" loading="lazy">
+    </div>
+    <div class="credits-card">
       <div class="teams">
         <div class="team">
           <h3>RTIS</h3>
@@ -293,7 +306,7 @@
 </footer>
 
 <dialog class="viewer" id="viewer" aria-label="Expanded view">
-  <button class="btn close" type="button" id="viewer-close" aria-label="Close">&times;</button>
+  <button class="close" type="button" id="viewer-close" aria-label="Close">&times;</button>
   <div id="viewer-body"></div>
   <p class="caption" id="viewer-caption"></p>
 </dialog>
@@ -304,14 +317,26 @@
     var body = document.getElementById('viewer-body');
     var caption = document.getElementById('viewer-caption');
 
-    function open(node, text) {
+    function open(node, text, link) {
       body.replaceChildren(node);
-      caption.textContent = text || '';
+      caption.replaceChildren();
+      if (link) {
+        caption.append('Watch on YouTube: ');
+        var a = document.createElement('a');
+        a.href = link;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = link;
+        caption.append(a);
+      } else if (text) {
+        caption.textContent = text;
+      }
       viewer.showModal();
     }
 
     function show(el) {
       var text = el.getAttribute('data-caption');
+      var link = el.getAttribute('data-link');
       var still = el.getAttribute('data-full');
       var clip = el.getAttribute('data-video');
       if (still) {
@@ -340,7 +365,7 @@
         // start a video with sound on its own and its first frame is black.
         var still = el.getAttribute('data-poster');
         if (still) { video.poster = still; }
-        open(video, text);
+        open(video, text, link);
       }
     }
 
