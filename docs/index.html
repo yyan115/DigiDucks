@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quack Kitchen — a duck runs the family restaurant</title>
-<meta name="description" content="Quack Kitchen is a free 2D cooking game for Windows and Linux. Take the orders, chop, cook and serve before the day runs out. Built by the DigiDucks team at DigiPen Institute of Technology Singapore.">
+<title>Quack Kitchen</title>
+<meta name="description" content="Quack Kitchen is a free 2D cooking game for Windows and Linux, made by students at Singapore Institute of Technology and DigiPen Institute of Technology.">
 <link rel="icon" href="media/icon.png">
 <meta property="og:title" content="Quack Kitchen">
-<meta property="og:description" content="A free 2D cooking game for Windows and Linux. Take the orders, chop, cook and serve before the day runs out.">
+<meta property="og:description" content="Chop, cook, serve. A free 2D cooking game for Windows and Linux.">
 <meta property="og:image" content="media/shot-menu.webp">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,11 +20,9 @@
     --orange: #f5a03c;
     --orange-deep: #e07b2a;
     --brown: #4a2618;
-    --brown-soft: #6b3a24;
     --night: #23150f;
     --night-soft: #2f1d14;
     --teal: #7bd3e0;
-    --green: #67c04a;
     --radius: 18px;
     --shadow: 0 18px 40px rgba(20, 10, 5, .45);
   }
@@ -38,144 +36,127 @@
     font-size: 18px;
     line-height: 1.6;
   }
-  h1, h2, h3 { font-weight: 900; line-height: 1.1; margin: 0 0 .5em; }
+  h2, h3 { font-weight: 900; line-height: 1.1; margin: 0 0 .5em; }
   h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
   h3 { font-size: 1.15rem; }
   a { color: var(--teal); }
-  section { padding: 84px 0; }
+  section { padding: 80px 0; }
   .wrap { width: min(1120px, 92vw); margin: 0 auto; }
   .eyebrow {
     text-transform: uppercase; letter-spacing: .16em; font-weight: 700;
     font-size: .8rem; color: var(--orange); margin-bottom: .6rem;
   }
-  .lead { font-size: 1.15rem; color: var(--cream-dim); max-width: 60ch; }
-
-  /* header */
-  header {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(35, 21, 15, .82);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(254, 242, 226, .1);
-  }
-  .bar { display: flex; align-items: center; gap: 18px; padding: 12px 0; }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .01em; }
-  .brand img { width: 40px; height: auto; display: block; }
-  nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
-  nav a { color: var(--cream); text-decoration: none; font-weight: 700; }
-  nav a:hover { color: var(--orange); }
-  @media (max-width: 720px) { nav .hide-small { display: none; } }
+  .lead { font-size: 1.15rem; color: var(--cream-dim); max-width: 56ch; }
 
   .btn {
-    display: inline-flex; align-items: center; gap: .5rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
     background: var(--orange); color: var(--brown);
     font-weight: 900; text-decoration: none;
-    padding: .7rem 1.4rem; border-radius: 999px;
-    border: 2px solid rgba(74, 38, 24, .18);
+    font-size: 1.2rem; padding: .9rem 2rem; min-width: 210px;
+    border-radius: 999px; border: 2px solid rgba(74, 38, 24, .18);
     box-shadow: 0 8px 0 var(--orange-deep);
     transition: transform .12s ease, box-shadow .12s ease;
+    cursor: pointer;
   }
   .btn:hover { transform: translateY(2px); box-shadow: 0 6px 0 var(--orange-deep); }
   .btn:active { transform: translateY(6px); box-shadow: 0 2px 0 var(--orange-deep); }
-  .btn.big { font-size: 1.25rem; padding: .95rem 2.1rem; }
   .btn.ghost {
-    background: transparent; color: var(--cream);
-    border: 2px solid rgba(254, 242, 226, .35); box-shadow: none;
+    background: rgba(35, 21, 15, .35); color: var(--cream);
+    border: 2px solid rgba(254, 242, 226, .5); box-shadow: 0 8px 0 rgba(254, 242, 226, .16);
   }
-  .btn.ghost:hover { border-color: var(--orange); color: var(--orange); transform: none; }
+  .btn.ghost:hover { border-color: var(--orange); color: var(--orange); }
+  .btn.small { font-size: 1rem; padding: .7rem 1.3rem; min-width: 0; }
 
   /* hero */
-  .hero { position: relative; min-height: min(86vh, 760px); display: grid; align-items: center; overflow: hidden; }
-  .hero video, .hero .poster {
+  .hero { position: relative; min-height: min(92vh, 820px); display: grid; align-items: center; overflow: hidden; }
+  .hero video {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; z-index: -2;
   }
   .hero::after {
     content: ""; position: absolute; inset: 0; z-index: -1;
     background:
-      linear-gradient(to right, rgba(35, 21, 15, .92) 0%, rgba(35, 21, 15, .72) 45%, rgba(35, 21, 15, .35) 100%),
-      linear-gradient(to top, var(--night) 2%, rgba(35, 21, 15, 0) 40%);
+      linear-gradient(to right, rgba(35, 21, 15, .9) 0%, rgba(35, 21, 15, .62) 48%, rgba(35, 21, 15, .28) 100%),
+      linear-gradient(to top, var(--night) 4%, rgba(35, 21, 15, 0) 42%);
   }
-  .hero .wrap { padding: 90px 0; }
-  .hero h1 {
-    font-size: clamp(2.6rem, 7vw, 4.6rem);
-    text-shadow: 0 6px 0 rgba(74, 38, 24, .55);
-  }
-  .hero p { font-size: clamp(1.05rem, 2.2vw, 1.35rem); max-width: 34ch; color: var(--cream); }
-  .hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; align-items: center; }
-  .meta { color: var(--cream-dim); font-size: .95rem; margin-top: 16px; }
-  .meta strong { color: var(--cream); }
+  .hero .wrap { padding: 86px 0; }
+  .hero .logo { width: min(560px, 82vw); height: auto; display: block; filter: drop-shadow(0 12px 22px rgba(20, 10, 5, .6)); }
+  .tagline { font-size: clamp(1.4rem, 3.4vw, 2rem); font-weight: 900; margin: 18px 0 0; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
+  .meta { color: var(--cream-dim); font-size: 1rem; margin-top: 18px; }
 
-  /* download cards */
-  .cards { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 34px; }
+  /* downloads */
+  .cards { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 30px; }
   .card {
     background: var(--night-soft); border: 1px solid rgba(254, 242, 226, .12);
     border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 10px;
   }
   .card .os { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); font-weight: 700; }
   .card .size { color: var(--cream-dim); font-size: .92rem; }
-  .card .btn { margin-top: auto; justify-content: center; }
-  .note { color: var(--cream-dim); font-size: .95rem; margin-top: 22px; }
+  .card .btn { margin-top: auto; width: 100%; }
 
-  /* split sections */
-  .split { display: grid; gap: 42px; grid-template-columns: 1fr 1fr; align-items: center; }
-  .split.flip > div:first-child { order: 2; }
-  @media (max-width: 860px) { .split, .split.flip > div:first-child { grid-template-columns: 1fr; order: 0; } }
+  /* story */
+  .split { display: grid; gap: 44px; grid-template-columns: 1fr 1fr; align-items: center; }
+  @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
   .shot { width: 100%; border-radius: var(--radius); display: block; box-shadow: var(--shadow); }
-  figure { margin: 0; }
-  figcaption { color: var(--cream-dim); font-size: .9rem; margin-top: .6rem; }
-
-  .features { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 36px; }
-  .feature { background: var(--night-soft); border-radius: var(--radius); padding: 22px; border: 1px solid rgba(254, 242, 226, .1); }
-  .feature h3 { color: var(--orange); }
-  .feature p { margin: 0; color: var(--cream-dim); }
-
-  /* controls */
-  .keys { display: grid; gap: 28px; grid-template-columns: 1fr 1fr; margin-top: 30px; }
-  @media (max-width: 720px) { .keys { grid-template-columns: 1fr; } }
-  table { width: 100%; border-collapse: collapse; }
-  td { padding: 10px 0; border-bottom: 1px solid rgba(254, 242, 226, .12); vertical-align: middle; }
-  td:last-child { text-align: right; color: var(--cream-dim); }
-  kbd {
-    display: inline-block; background: var(--cream); color: var(--brown);
-    border-radius: 7px; padding: 2px 10px; font-family: inherit; font-weight: 900;
-    box-shadow: 0 3px 0 rgba(74, 38, 24, .45); font-size: .95rem;
-  }
 
   /* gallery */
-  .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 32px; }
-  .gallery img, .gallery video { width: 100%; border-radius: var(--radius); display: block; box-shadow: var(--shadow); }
+  .gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 32px; }
+  .tile {
+    width: calc(33.333% - 14px); min-width: 280px; margin: 0; cursor: zoom-in;
+    background: none; border: 0; padding: 0; color: inherit; font: inherit; text-align: left;
+  }
+  @media (max-width: 900px) { .tile { width: calc(50% - 10px); } }
+  @media (max-width: 620px) { .tile { width: 100%; } }
+  .tile img, .tile video {
+    width: 100%; border-radius: var(--radius); display: block; box-shadow: var(--shadow);
+    transition: transform .15s ease;
+  }
+  .tile:hover img, .tile:hover video { transform: translateY(-3px); }
+  .tile figcaption { color: var(--cream-dim); font-size: .92rem; margin-top: .55rem; }
+
+  /* lightbox */
+  dialog.viewer {
+    border: 0; padding: 0; background: transparent; color: var(--cream);
+    max-width: 96vw; max-height: 96vh; overflow: visible;
+  }
+  dialog.viewer::backdrop { background: rgba(12, 6, 3, .88); }
+  dialog.viewer img, dialog.viewer video, dialog.viewer iframe {
+    display: block; max-width: 92vw; max-height: 84vh; width: auto; height: auto;
+    border-radius: var(--radius); box-shadow: var(--shadow); background: #000;
+  }
+  dialog.viewer iframe { width: min(88vw, 1120px); aspect-ratio: 16 / 9; height: auto; border: 0; }
+  dialog.viewer .caption { text-align: center; margin: .7rem 0 0; color: var(--cream-dim); }
+  dialog.viewer .close {
+    position: absolute; top: -20px; right: -14px; width: 46px; height: 46px; min-width: 0;
+    border-radius: 999px; font-size: 1.4rem; padding: 0;
+  }
 
   /* credits */
-  .teams { display: grid; gap: 26px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 30px; }
+  .credits-card {
+    margin: 30px auto 0; max-width: 900px; border-radius: var(--radius); overflow: hidden;
+    background: var(--night); border: 1px solid rgba(254, 242, 226, .12); box-shadow: var(--shadow);
+  }
+  .credits-art { position: relative; }
+  .credits-art img { width: 100%; display: block; }
+  .credits-art::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(35, 21, 15, 0) 62%, var(--night) 100%);
+  }
+  .teams { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); padding: 24px 28px 28px; }
   .team h3 { color: var(--teal); letter-spacing: .1em; text-transform: uppercase; font-size: .85rem; }
   .team ul { list-style: none; margin: 0; padding: 0; }
   .team li { padding: 8px 0; border-bottom: 1px solid rgba(254, 242, 226, .1); }
   .team .role { display: block; color: var(--cream-dim); font-size: .88rem; }
 
-  footer { background: #1b0f0a; padding: 44px 0; color: var(--cream-dim); font-size: .92rem; }
+  footer { background: #1b0f0a; padding: 40px 0; color: var(--cream-dim); font-size: .92rem; }
   footer a { color: var(--cream-dim); }
   footer p { margin: .4rem 0; }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .btn { transition: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn { transition: none; } }
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap bar">
-    <span class="brand"><img src="media/icon.png" alt="" width="40" height="40">Quack Kitchen</span>
-    <nav>
-      <a class="hide-small" href="#game">The game</a>
-      <a class="hide-small" href="#controls">Controls</a>
-      <a class="hide-small" href="#gallery">Screens</a>
-      <a class="hide-small" href="#credits">Credits</a>
-      <a class="btn" href="#play">Play now</a>
-    </nav>
-  </div>
-</header>
 
 <div class="hero">
   <video autoplay muted loop playsinline poster="media/hero-poster.webp" aria-hidden="true">
@@ -183,14 +164,13 @@
     <source src="media/hero.mp4" type="video/mp4">
   </video>
   <div class="wrap">
-    <p class="eyebrow">DigiPen Institute of Technology Singapore</p>
-    <h1>Quack Kitchen</h1>
-    <p>Your parents left you the family restaurant for the week. Take the orders, chop, cook, serve, and try not to lose the lunch rush.</p>
+    <img class="logo" src="media/logo.webp" alt="Quack Kitchen" width="792" height="431">
+    <p class="tagline">Chop, cook, serve!</p>
     <div class="cta">
-      <a class="btn big" href="#play">Play now</a>
-      <a class="btn ghost" href="#game">See the game</a>
+      <a class="btn" href="#play">Play now</a>
+      <button class="btn ghost" type="button" data-video="media/trailer.mp4" data-poster="media/trailer-poster.webp" data-caption="The trailer">Trailer</button>
     </div>
-    <p class="meta"><strong>Free</strong> · Windows and Linux · version 0.1.2</p>
+    <p class="meta">Available on Windows and Linux</p>
   </div>
 </div>
 
@@ -198,192 +178,187 @@
   <div class="wrap">
     <p class="eyebrow">Download</p>
     <h2>Play now</h2>
-    <p class="lead">Pick your platform. The Windows installer sets up the shortcuts and the runtime it needs. The Linux builds run as they are.</p>
     <div class="cards">
       <div class="card">
         <span class="os">Windows 10 / 11</span>
         <h3>Installer</h3>
-        <span class="size">Quack_Kitchen_0.1.2_Setup.exe · 70 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen_0.1.2_Setup.exe">Download for Windows</a>
+        <span class="size">70 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen_0.1.2_Setup.exe">Download</a>
       </div>
       <div class="card">
         <span class="os">Linux</span>
         <h3>AppImage</h3>
-        <span class="size">Quack_Kitchen-0.1.2-x86_64.AppImage · 49 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.AppImage">Download AppImage</a>
+        <span class="size">49 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.AppImage">Download</a>
       </div>
       <div class="card">
         <span class="os">Linux</span>
         <h3>Flatpak</h3>
-        <span class="size">Quack_Kitchen-0.1.2-x86_64.flatpak · 45 MB</span>
-        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.flatpak">Download Flatpak</a>
+        <span class="size">45 MB</span>
+        <a class="btn" href="https://github.com/yyan115/DigiDucks/releases/download/v0.1.2/Quack_Kitchen-0.1.2-x86_64.flatpak">Download</a>
       </div>
     </div>
-    <p class="note">Older builds and release notes are on the <a href="https://github.com/yyan115/DigiDucks/releases">releases page</a>. An AppImage needs to be made executable before it runs: <code>chmod +x Quack_Kitchen-0.1.2-x86_64.AppImage</code>.</p>
   </div>
 </section>
 
-<section id="game" style="background: var(--night-soft);">
+<section id="story" style="background: var(--night-soft);">
   <div class="wrap">
     <div class="split">
       <div>
         <p class="eyebrow">The story</p>
-        <h2>One duck, one restaurant, five days</h2>
-        <p class="lead">You have never run the place before. Your parents have gone on holiday anyway. Orders come in from the counter, ingredients need chopping and cooking, and every customer has a temper that runs on a timer.</p>
-        <p class="lead">Six kitchens teach you the job and then stop being polite about it. Three stars per day, if you can keep up.</p>
+        <h2>Mum and dad are on holiday</h2>
+        <p class="lead">Waddles has never run the shop before. It is only five days, and his sister says he will be fine.</p>
+        <p class="lead">Take the order, chop it, cook it, plate it, get it to the table. The customers are patient, right up until they are not.</p>
       </div>
-      <figure>
-        <img class="shot" src="media/shot-story.webp" alt="The duck talks to their sister in the restaurant at the start of the tutorial" loading="lazy">
-        <figcaption>The tutorial opens with the handover you did not ask for.</figcaption>
-      </figure>
-    </div>
-
-    <div class="features">
-      <div class="feature">
-        <h3>Cook the whole dish</h3>
-        <p>Fetch, chop, fry and plate. Every order is built from its parts, and a wrong plate goes in the bin.</p>
-      </div>
-      <div class="feature">
-        <h3>Customers who wait, then leave</h3>
-        <p>Take the order at the counter, seat them, serve them. Take too long and they walk, and it costs you.</p>
-      </div>
-      <div class="feature">
-        <h3>Six kitchens</h3>
-        <p>Five days and the tutorials between them, each with a longer menu and a busier floor.</p>
-      </div>
-      <div class="feature">
-        <h3>Three stars a day</h3>
-        <p>Every day scores you against three marks, so a day you cleared is still a day you can beat.</p>
-      </div>
-      <div class="feature">
-        <h3>Keyboard or gamepad</h3>
-        <p>Play with WASD and two keys, or on a controller. Menus take either, and a pad can be plugged in mid-game.</p>
-      </div>
-      <div class="feature">
-        <h3>Its own engine</h3>
-        <p>Written in C++ on the team's DuckEngine, with OpenGL, GLFW, FreeType and FMOD.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="controls">
-  <div class="wrap">
-    <div class="split flip">
-      <div>
-        <p class="eyebrow">How it plays</p>
-        <h2>Two keys and a direction</h2>
-        <p class="lead">Walk up to a station, pick things up, and hold to chop. The in-game journal has the same pages, whenever you need them.</p>
-        <div class="keys">
-          <div>
-            <h3>Keyboard</h3>
-            <table>
-              <tr><td><kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd></td><td>Walk</td></tr>
-              <tr><td><kbd>J</kbd></td><td>Pick up, put down, serve</td></tr>
-              <tr><td>Hold <kbd>K</kbd></td><td>Chop, cook, use a station</td></tr>
-              <tr><td><kbd>Esc</kbd></td><td>Pause</td></tr>
-              <tr><td><kbd>Alt</kbd> + <kbd>Enter</kbd></td><td>Fullscreen</td></tr>
-            </table>
-          </div>
-          <div>
-            <h3>Gamepad</h3>
-            <table>
-              <tr><td>Stick or d-pad</td><td>Walk</td></tr>
-              <tr><td><kbd>X</kbd></td><td>Pick up, put down, serve</td></tr>
-              <tr><td>Hold <kbd>A</kbd></td><td>Chop, cook, use a station</td></tr>
-              <tr><td><kbd>Start</kbd></td><td>Pause</td></tr>
-              <tr><td><kbd>B</kbd></td><td>Back, close a menu</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <figure>
-        <img class="shot" src="media/shot-controls.webp" alt="The in-game journal showing the walk, interact and chop controls" loading="lazy">
-        <figcaption>The journal, from the main menu or the pause menu.</figcaption>
+      <figure style="margin:0">
+        <img class="shot" src="media/shot-story.webp" alt="Waddles and his sister talking in the restaurant" loading="lazy">
       </figure>
     </div>
   </div>
 </section>
 
-<section id="gallery" style="background: var(--night-soft);">
+<section id="gallery">
   <div class="wrap">
-    <p class="eyebrow">Screens</p>
-    <h2>A look at the kitchen</h2>
+    <p class="eyebrow">Gallery</p>
+    <h2>Have a look</h2>
     <div class="gallery">
-      <figure>
-        <img src="media/shot-kitchen.webp" alt="A busy kitchen with orders on the board and customers at the tables" loading="lazy">
-        <figcaption>Day three, four orders up.</figcaption>
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-kitchen.webp" data-caption="Day three, four orders up">
+        <img src="media/shot-kitchen.webp" alt="A busy kitchen with four orders on the board" loading="lazy">
+        <figcaption>Day three, four orders up</figcaption>
       </figure>
-      <figure>
-        <video autoplay muted loop playsinline aria-hidden="true"><source src="media/hero.mp4" type="video/mp4"></video>
-        <figcaption>Chopping, plating and carrying, in real time.</figcaption>
+      <figure class="tile" tabindex="0" role="button" data-video="media/clip-cooking.mp4" data-loop data-caption="Cooking">
+        <video src="media/clip-cooking.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+        <figcaption>Cooking</figcaption>
       </figure>
-      <figure>
-        <img src="media/shot-levels.webp" alt="The level select screen with six days" loading="lazy">
-        <figcaption>Five days, and the tutorials between them.</figcaption>
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-levels.webp" data-caption="Picking a day">
+        <img src="media/shot-levels.webp" alt="The level select screen" loading="lazy">
+        <figcaption>Picking a day</figcaption>
       </figure>
-      <figure>
-        <img src="media/shot-stars.webp" alt="The results screen, two of three stars filled, with the day's score" loading="lazy">
-        <figcaption>Every day is scored against three marks.</figcaption>
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-stars.webp" data-caption="End of the day">
+        <img src="media/shot-stars.webp" alt="The results screen with stars and a score" loading="lazy">
+        <figcaption>End of the day</figcaption>
+      </figure>
+      <figure class="tile" tabindex="0" role="button" data-full="media/shot-controls.webp" data-caption="The journal, with the controls">
+        <img src="media/shot-controls.webp" alt="The in-game journal showing the controls" loading="lazy">
+        <figcaption>The journal, with the controls</figcaption>
       </figure>
     </div>
   </div>
 </section>
 
-<section id="credits">
+<section id="credits" style="background: var(--night-soft);">
   <div class="wrap">
-    <div class="split">
-      <div>
-        <p class="eyebrow">DigiDucks</p>
-        <h2>Made by eight students</h2>
-        <p class="lead">Quack Kitchen was built at DigiPen Institute of Technology Singapore, on an engine the team wrote themselves.</p>
-        <div class="teams">
-          <div class="team">
-            <h3>RTIS</h3>
-            <ul>
-              <li>YEE Lucas Junjie<span class="role">Technical Lead · Programmer · Engine</span></li>
-              <li>YAN Yu<span class="role">Programmer · Graphics</span></li>
-              <li>HO Yong Heng Ernest<span class="role">Programmer · Gameplay</span></li>
-            </ul>
-          </div>
-          <div class="team">
-            <h3>IMGD</h3>
-            <ul>
-              <li>BIN ZAKARIA Muhammad Zikry<span class="role">Programmer · Audio Lead · Level Editor</span></li>
-              <li>CHUA Sheng Kai Jovan<span class="role">Programmer · Designer · Gameplay and AI</span></li>
-              <li>TAN Yan Kai<span class="role">Programmer · Designer · Serialization</span></li>
-            </ul>
-          </div>
-          <div class="team">
-            <h3>UXGD</h3>
-            <ul>
-              <li>LEE Ying Jie<span class="role">Design Lead · Level Design and Mechanics</span></li>
-              <li>CHUA Qi Yun Daphnne<span class="role">Product Manager · Art Lead · Art and Story</span></li>
-            </ul>
-          </div>
+    <p class="eyebrow">DigiDucks</p>
+    <h2>Credits</h2>
+    <p class="lead">Created by students at Singapore Institute of Technology and DigiPen Institute of Technology, on a custom 2D engine built from scratch, all open source.</p>
+    <div class="credits-card">
+      <div class="credits-art">
+        <img src="media/shot-ending.webp" alt="The ending screen: thank you for cooking" loading="lazy">
+      </div>
+      <div class="teams">
+        <div class="team">
+          <h3>RTIS</h3>
+          <ul>
+            <li>YEE Lucas Junjie<span class="role">Technical Lead &middot; Programmer &middot; Engine</span></li>
+            <li>YAN Yu<span class="role">Programmer &middot; Graphics</span></li>
+            <li>HO Yong Heng Ernest<span class="role">Programmer &middot; Gameplay</span></li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3>IMGD</h3>
+          <ul>
+            <li>BIN ZAKARIA Muhammad Zikry<span class="role">Programmer &middot; Audio Lead &middot; Level Editor</span></li>
+            <li>CHUA Sheng Kai Jovan<span class="role">Programmer &middot; Designer &middot; Gameplay and AI</span></li>
+            <li>TAN Yan Kai<span class="role">Programmer &middot; Designer &middot; Serialization</span></li>
+          </ul>
+        </div>
+        <div class="team">
+          <h3>UXGD</h3>
+          <ul>
+            <li>LEE Ying Jie<span class="role">Design Lead &middot; Level Design and Mechanics</span></li>
+            <li>CHUA Qi Yun Daphnne<span class="role">Product Manager &middot; Art Lead &middot; Art and Story</span></li>
+          </ul>
         </div>
       </div>
-      <figure>
-        <img class="shot" src="media/shot-ending.webp" alt="The ending screen, the family together, reading thank you for cooking" loading="lazy">
-        <figcaption>Clear day five and the family comes home.</figcaption>
-      </figure>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p><a class="btn" href="#play">Play now</a></p>
     <p>All content &copy; 2025 DigiPen Institute of Technology Singapore. All Rights Reserved.</p>
     <p>Made using FMOD Studio by Firelight Technologies Pty Ltd.</p>
-    <p><a href="https://github.com/yyan115/DigiDucks">Source on GitHub</a> · <a href="https://github.com/yyan115/DigiDucks/releases">All releases</a></p>
+    <p><a href="https://github.com/yyan115/DigiDucks">Source on GitHub</a></p>
   </div>
 </footer>
 
+<dialog class="viewer" id="viewer" aria-label="Expanded view">
+  <button class="btn close" type="button" id="viewer-close" aria-label="Close">&times;</button>
+  <div id="viewer-body"></div>
+  <p class="caption" id="viewer-caption"></p>
+</dialog>
+
 <script>
-  // A visitor who asked for less motion gets the still frame instead.
+  (function () {
+    var viewer = document.getElementById('viewer');
+    var body = document.getElementById('viewer-body');
+    var caption = document.getElementById('viewer-caption');
+
+    function open(node, text) {
+      body.replaceChildren(node);
+      caption.textContent = text || '';
+      viewer.showModal();
+    }
+
+    function show(el) {
+      var text = el.getAttribute('data-caption');
+      var still = el.getAttribute('data-full');
+      var clip = el.getAttribute('data-video');
+      if (still) {
+        var img = document.createElement('img');
+        img.src = still;
+        img.alt = text || '';
+        open(img, text);
+      } else if (clip && clip.indexOf('http') === 0) {
+        var frame = document.createElement('iframe');
+        frame.src = clip;
+        frame.title = text || 'Video';
+        frame.allow = 'autoplay; fullscreen';
+        frame.allowFullscreen = true;
+        open(frame, text);
+      } else if (clip) {
+        var video = document.createElement('video');
+        video.src = clip;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        // A short gallery clip loops and stays silent; the trailer has sound
+        // and plays once.
+        video.loop = el.hasAttribute('data-loop');
+        video.muted = el.hasAttribute('data-loop');
+        // The trailer opens on a still of its own, since a browser will not
+        // start a video with sound on its own and its first frame is black.
+        var still = el.getAttribute('data-poster');
+        if (still) { video.poster = still; }
+        open(video, text);
+      }
+    }
+
+    document.querySelectorAll('[data-full], [data-video]').forEach(function (el) {
+      el.addEventListener('click', function () { show(el); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(el); }
+      });
+    });
+
+    document.getElementById('viewer-close').addEventListener('click', function () { viewer.close(); });
+    // A click on the backdrop lands on the dialog itself.
+    viewer.addEventListener('click', function (e) { if (e.target === viewer) { viewer.close(); } });
+    viewer.addEventListener('close', function () { body.replaceChildren(); });
+  })();
+
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('video').forEach(function (v) {
+    document.querySelectorAll('video[autoplay]').forEach(function (v) {
       v.removeAttribute('autoplay');
       v.pause();
     });
