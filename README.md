@@ -9,16 +9,21 @@ and keep a growing line of customers happy before the day ends.
 The game and its custom C++ engine use OpenGL, GLFW, GLEW, FreeType, and FMOD.
 Windows and Linux are the supported platforms.
 
+**[Play it](https://yyan115.github.io/DigiDucks/)** — the site has the
+downloads for both platforms.
+
 ## Play
 
 - Move with `WASD`, the left analog stick, or the directional pad.
 - Pick up or place an item with `J` / gamepad `X`.
 - Use a station with `K` / gamepad `A`.
 - Pause with `Esc` / gamepad `Start`.
+- `Esc` also closes whatever is open on top: the journal, the options panel,
+  or a confirmation, one layer at a time. Gamepad `B` does the same.
 - Toggle fullscreen with `Alt+Enter`.
 
-The in-game How to Play pages and tutorial automatically switch between
-keyboard and gamepad instructions when a controller is connected.
+The How to Play pages show the keyboard controls. Both inputs work everywhere,
+including the menus, and a gamepad can be connected while the game is running.
 
 ## Download
 
@@ -29,7 +34,9 @@ release version:
 - `Quack_Kitchen-<version>-x86_64.AppImage` — portable Linux application.
 - `Quack_Kitchen-<version>-x86_64.flatpak` — Linux Flatpak bundle.
 
-Published builds will be available from the repository's GitHub Releases page.
+Every published build is on the
+[releases page](https://github.com/yyan115/DigiDucks/releases), and the
+[website](https://yyan115.github.io/DigiDucks/) links the latest one.
 
 ## Build from source
 
@@ -104,9 +111,9 @@ supported path for reproducible release builds.
 
 - `tools/validate_assets.py` checks serialized and source-code asset paths,
   including case-sensitive Linux paths.
-- DigiPen Game Gallery work is deliberately deferred until after the
-  resume/Linux/release foundation is accepted; it is not currently enforced
-  by CI.
+- `tools/validate_gallery.py` checks the parts of the DigiPen Game Gallery
+  requirements that can be read off the repository, such as the licence files
+  the packages must carry.
 - `tools/verify_release.py` checks staged Windows/Linux runtime contents,
   licensing files, development-file exclusions, and the 500 MiB installed-size
   limit.
@@ -139,6 +146,7 @@ publishing them.
 ## Repository layout
 
 ```text
+docs/            The game's website, served by GitHub Pages
 Project/DuckEngine/
 ├── Engine/       Custom engine source and bundled SDK files
 ├── Game/         Quack Kitchen gameplay source
