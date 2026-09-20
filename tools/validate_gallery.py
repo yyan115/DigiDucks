@@ -3,7 +3,7 @@
 
 This check covers requirements that can be established from source, data, and
 packaging definitions. Subjective playability and final installed-Windows
-behavior remain acceptance-test items documented in docs/GAME_GALLERY_READINESS.md.
+behavior remain acceptance-test items documented in GAME_GALLERY_READINESS.md.
 """
 
 from __future__ import annotations
@@ -36,7 +36,9 @@ def require_text(relative: str, values: tuple[str, ...], reason: str) -> None:
 
 def require_guarded(relative: str, values: tuple[str, ...]) -> None:
     content = read(relative)
-    guard = "#ifdef QUACK_KITCHEN_ENABLE_DEVELOPER_SHORTCUTS"
+    # The developer shortcuts are compiled only with QUACK_KITCHEN_CHEATS,
+    # which every release build leaves off. The older name is still accepted.
+    guard = "#ifdef QUACK_KITCHEN_CHEATS"
     for value in values:
         start = 0
         found = False
@@ -347,7 +349,7 @@ def validate_licenses_and_ci() -> None:
         "Licenses/Dear-ImGui.txt",
         "Licenses/Nlohmann-JSON.txt",
         "Licenses/stb_image.txt",
-        "docs/GAME_GALLERY_READINESS.md",
+        "GAME_GALLERY_READINESS.md",
     ):
         read(relative)
 
