@@ -42,7 +42,7 @@ public:
     static const int kFirstInstructionsPage = 1;
     static const int kLastInstructionsPage = 4;
     static const int kFirstCreditsPage = 5;
-    static const int kLastCreditsPage = 6;
+    static const int kLastCreditsPage = 7;
 
     /*!
     \brief  Show the journal open at firstPage, turning no further than
